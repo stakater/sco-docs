@@ -2,6 +2,8 @@
   {
     "version": "ct",
     "title": "ct",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   }
 ]

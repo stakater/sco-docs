@@ -17,6 +17,6 @@ extra:
     default: latest
 
 nav:
-  - index.md
+  - Welcome: index.md
   - changelog.md
   - eula.md

@@ -1,8 +1,7 @@
 site_name: Stakater Cloud Orchestrator
 docs_dir: content
 site_url: https://docs.stakater.com/cloud-orchestrator/
-# repo_url: https://github.com/stakater/sco-docs
-# edit_uri: blob/main/content/
+edit_uri: ''
 theme:
   favicon: assets/images/favicon.svg
 

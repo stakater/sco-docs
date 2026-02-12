@@ -41,7 +41,7 @@ Create or obtain your SCO configuration claim files:
 
 **kubestack-config-claim.yaml** - Platform configuration:
 
-```yaml
+```YAML
 apiVersion: pkg.kubestack.com/v1
 kind: KubeStackConfig
 metadata:
@@ -62,7 +62,7 @@ spec:
 
 **kubestack-plus-claim.yaml** - SCO platform:
 
-```yaml
+```YAML
 apiVersion: pkg.kubestack.com/v1
 kind: KubeStackPlus
 metadata:
@@ -74,6 +74,7 @@ spec:
     marketplace:
       enabled: true
       solutions:
+
         - virtualmachine
         - openshift-cluster
     kcp:
@@ -117,16 +118,16 @@ ksp up --dev-mode
 The installation process will:
 
 1. Check cluster capabilities
-2. Install Crossplane and required providers
-3. Install Crossplane functions (kcl, auto-ready, extra-resources)
-4. Create the `ksp-system` namespace
-5. Apply the kubestack-config-package claim
-6. Apply the kubestack-plus-package claim
-7. Wait for all components to be healthy
+1. Install Crossplane and required providers
+1. Install Crossplane functions (`kcl`, `auto-ready`, `extra-resources`)
+1. Create the `ksp-system` namespace
+1. Apply the kubestack-config-package claim
+1. Apply the kubestack-plus-package claim
+1. Wait for all components to be healthy
 
 **Expected Output:**
 
-```
+```text
 ✓ Checking cluster capabilities...
 ✓ Installing Crossplane...
 ✓ Installing provider-kubernetes...
@@ -165,7 +166,7 @@ kubectl get pods -n keycloak
 
 Expected XRDs:
 
-```
+```text
 NAME                                                   ESTABLISHED   OFFERED
 virtualmachines.compute.cloud.stakater.com            True          True
 xopenshiftclusters.infrastructure.stakater.com        True          True
@@ -188,10 +189,12 @@ The command will install everything from scratch.
 For clusters with some components already installed:
 
 **Valid Brownfield** - All capabilities present:
+
 - The command continues from where it left off
 - Determines next action based on existing state
 
 **Partial Brownfield** - Some capabilities missing:
+
 - Command reports the partial state
 - Recommends cleanup or manual intervention
 
@@ -263,13 +266,13 @@ oc logs -n crossplane-system -l app.kubernetes.io/component=crossplane
 After successful installation:
 
 1. [Configure SCO](configuration.md) - Set up DNS, certificates, and admin access
-2. [Verify Components](#verify-installation) - Ensure all services are healthy
-3. [Create First Organization](../service-provider-guide/organizations/creating-organizations.md) - Set up cloud users
-4. [Access Console](../console/overview.md) - Log in to the web interface
+1. [Verify Components](#verify-installation) - Ensure all services are healthy
+1. [Create First Organization](../service-provider-guide/organizations/creating-organizations.md) - Set up cloud users
+1. [Access Console](../console/overview.md) - Log in to the web interface
 
-## Uninstallation
+## Removing SCO
 
-To remove SCO (use with caution):
+To remove SCO from your cluster (use with caution):
 
 ```bash
 # Delete the claims

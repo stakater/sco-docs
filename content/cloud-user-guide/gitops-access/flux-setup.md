@@ -8,7 +8,7 @@ Flux setup guide will be added covering:
 
 - Installing Flux
 - Configuring cluster access
-- Creating sources and kustomizations
+- Creating sources and `kustomizations`
 - Syncing resources
 - Best practices for GitOps with SCO
 

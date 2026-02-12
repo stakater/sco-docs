@@ -81,7 +81,7 @@ oc get xrds
 
 Expected output shows the built-in solutions:
 
-```
+```text
 NAME                                                   ESTABLISHED   OFFERED   AGE
 virtualmachines.compute.cloud.stakater.com            True          True      10d
 openshiftclusters.kubernetes.cloud.stakater.com        True          True      10d
@@ -127,9 +127,9 @@ kubectl get organizations
 Once the organization is created:
 
 1. Cloud users can log in to their organization
-2. They can create projects within the organization
-3. The VirtualMachine and OpenShiftCluster solutions appear in their marketplace
-4. They can provision VMs and OpenShift clusters in their projects
+1. They can create projects within the organization
+1. The VirtualMachine and OpenShiftCluster solutions appear in their marketplace
+1. They can provision VMs and OpenShift clusters in their projects
 
 Verify the solutions are available:
 

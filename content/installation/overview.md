@@ -11,10 +11,10 @@ SCO is installed using the **`ksp up`** command from the KubeStack+ CLI. This co
 The `ksp up` command:
 
 1. **Validates Prerequisites**: Checks for required cluster capabilities
-2. **Installs Core Components**: Deploys composition framework and required operators
-3. **Applies Configuration**: Installs the `kubestack-config-package` claim
-4. **Deploys SCO Platform**: Installs the `kubestack-plus-package` claim
-5. **Verifies Installation**: Ensures all components are healthy and ready
+1. **Installs Core Components**: Deploys composition framework and required operators
+1. **Applies Configuration**: Installs the `kubestack-config-package` claim
+1. **Deploys SCO Platform**: Installs the `kubestack-plus-package` claim
+1. **Verifies Installation**: Ensures all components are healthy and ready
 
 The two package claims handle the automated rollout of all SCO components including:
 
@@ -22,7 +22,7 @@ The two package claims handle the automated rollout of all SCO components includ
 - Multi-Tenant Operator for network isolation
 - Keycloak for authentication
 - VM management (KubeVirt on supported platforms)
-- Hosted control plane support (HyperShift on OpenShift)
+- Hosted control plane support (hypershift on OpenShift)
 - Marketplace and console components
 
 ## Supported Platforms
@@ -40,8 +40,9 @@ The two package claims handle the automated rollout of all SCO components includ
 - Storage provisioner configured
 
 **Optional Enhancements** (on OpenShift):
+
 - OpenShift Virtualization for VM workloads
-- HyperShift for hosted cluster provisioning
+- hypershift for hosted cluster provisioning
 
 ## Cluster Classification
 

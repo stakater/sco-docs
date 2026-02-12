@@ -45,7 +45,7 @@ Cloud users can interact with SCO using their preferred tools:
 - **kubectl**: Standard Kubernetes CLI with kubeconfig
 - **Terraform**: Using the Kubernetes provider
 - **GitOps**: ArgoCD, Flux, or other GitOps tools
-- **Console UI**: Web interface for clickops
+- **Console UI**: Web interface for `clickops`
 
 ### Complete Isolation
 
@@ -87,12 +87,12 @@ Key Tasks:
 ## How It Works
 
 1. **SCO is installed** on your Kubernetes cluster using the `ksp up` CLI command (tested on OpenShift 4.14+)
-2. **Service providers** create solutions (e.g., VirtualMachine-as-a-Service, OpenShift-as-a-Service) using composition tools
-3. Solutions are published to the **marketplace** as Kubernetes custom resources
-4. **Organizations** are created with dedicated Keycloak realms for authentication isolation
-5. Cloud users create **projects** (isolated workspaces with dedicated tenants) within their organization
-6. Users provision **solution instances** from the marketplace into their projects using standard Kubernetes APIs
-7. All services run in isolated environments with network and resource separation
+1. **Service providers** create solutions (e.g., VirtualMachine-as-a-Service, OpenShift-as-a-Service) using composition tools
+1. Solutions are published to the **marketplace** as Kubernetes custom resources
+1. **Organizations** are created with dedicated Keycloak realms for authentication isolation
+1. Cloud users create **projects** (isolated workspaces with dedicated tenants) within their organization
+1. Users provision **solution instances** from the marketplace into their projects using standard Kubernetes APIs
+1. All services run in isolated environments with network and resource separation
 
 ## Core Technologies
 
@@ -101,7 +101,7 @@ SCO leverages proven, cloud-native technologies:
 - **Kubernetes**: Foundation for all orchestration (tested on OpenShift 4.14+)
 - **Kubernetes CRDs**: Native extension mechanism for solutions and services
 - **Virtual Machine Management**: KubeVirt-based (OpenShift Virtualization on OpenShift)
-- **Hosted Control Planes**: HyperShift for OpenShift-on-OpenShift
+- **Hosted Control Planes**: hypershift for OpenShift-on-OpenShift
 - **[Multi-Tenant Operator (MTO)](https://docs.stakater.com/mto/)**: Network and resource isolation
 - **[Keycloak](https://www.keycloak.org/)**: Authentication and authorization with realm isolation
 - **External Secrets Operator**: Centralized secrets management
@@ -135,8 +135,8 @@ SCO leverages proven, cloud-native technologies:
 
 Need help or want to contribute?
 
-- **GitHub**: [github.com/stakater/sco-docs](https://github.com/stakater/sco-docs)
-- **Website**: [stakater.com](https://stakater.com)
+- **GitHub**: [GitHub.com/Stakater/sco-docs](https://github.com/stakater/sco-docs)
+- **Website**: [Stakater.com](https://stakater.com)
 - **Slack**: Join our community (link coming soon)
 
 ## What's Next?

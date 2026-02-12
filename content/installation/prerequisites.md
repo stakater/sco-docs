@@ -16,6 +16,7 @@ Requirements and prerequisites for installing Stakater Cloud Orchestrator.
 ### Virtual Machine Support (Optional)
 
 For VM workloads (requires KubeVirt or equivalent):
+
 - **On OpenShift**: OpenShift Virtualization operator
 - **On vanilla Kubernetes**: KubeVirt installed
 - Bare metal nodes with virtualization support (Intel VT-x or AMD-V)
@@ -24,8 +25,9 @@ For VM workloads (requires KubeVirt or equivalent):
 ### Hosted Cluster Support (Optional)
 
 For Kubernetes-on-Kubernetes clusters:
-- **On OpenShift**: HyperShift operator
-- **On vanilla Kubernetes**: Alternative cluster-api providers
+
+- **On OpenShift**: hypershift operator
+- **On vanilla Kubernetes**: Alternative cluster-API providers
 
 ### Compute Resources
 
@@ -82,7 +84,7 @@ oc version
 
 SCO requires access to container registries:
 
-- **Public Registries**: docker.io, quay.io, ghcr.io for open-source components
+- **Public Registries**: docker.io, Quay.io, ghcr.io for open-source components
 - **Stakater Registry**: For SCO proprietary components
 - **Platform-Specific**: Red Hat registry if using OpenShift features
 - **Private Registry**: Optional for custom images

@@ -1,10 +1,10 @@
-# Kubeconfig Generation
+# kubeconfig Generation
 
 Generate and manage kubeconfig files for your projects.
 
 ## Coming Soon
 
-Kubeconfig documentation will be added covering:
+kubeconfig documentation will be added covering:
 
 - Generating kubeconfig files
 - Understanding kubeconfig structure

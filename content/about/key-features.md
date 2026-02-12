@@ -11,7 +11,7 @@ Built on enterprise-grade Kubernetes with production-ready testing on OpenShift.
 - Kubernetes-agnostic architecture (runs on any distribution)
 - Primary platform: Red Hat OpenShift 4.14+ on bare metal
 - VM management using KubeVirt (OpenShift Virtualization)
-- Hosted control planes using HyperShift
+- Hosted control planes using hypershift
 - Standard Kubernetes APIs throughout
 
 ### Multi-Tenant API Layer
@@ -29,7 +29,7 @@ SCO provides a virtual Kubernetes API layer with true API-level multi-tenancy th
 Built-in marketplace with flagship infrastructure and platform offerings.
 
 - **Virtual Machines** - Full Linux and Windows VMs using OpenShift Virtualization
-- **OpenShift Clusters** - Hosted control planes using HyperShift
+- **OpenShift Clusters** - Hosted control planes using hypershift
 - Self-service provisioning
 - Extensible with custom solutions (databases, message queues, etc.)
 - Solution discovery and documentation
@@ -46,7 +46,7 @@ Kubernetes-native CRD-based solution framework with flexible composition.
 
 ## Multi-Access Capabilities
 
-### Kubectl Access
+### kubectl Access
 
 Native Kubernetes command-line access through virtual API layer.
 

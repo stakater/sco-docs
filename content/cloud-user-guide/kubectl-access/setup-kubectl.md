@@ -15,5 +15,5 @@ kubectl setup guide will be added with:
 
 ## What's Next?
 
-- [Kubeconfig Generation](kubeconfig-generation.md) - Generate and manage kubeconfigs
+- [kubeconfig Generation](kubeconfig-generation.md) - Generate and manage `kubeconfigs`
 - [Getting Started](../getting-started.md) - Quick start guide

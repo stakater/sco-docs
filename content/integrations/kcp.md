@@ -8,8 +8,8 @@ KCP integration documentation will be added covering:
 
 - Architecture and integration points
 - Workspace management
-- APIExport publishing
-- APIBinding configuration
+- `APIExport` publishing
+- `APIBinding` configuration
 - Multi-cluster scenarios
 - Virtual control planes
 

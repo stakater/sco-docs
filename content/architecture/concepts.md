@@ -61,6 +61,7 @@ A **Solution** is a service offering that can be provisioned by cloud users, rep
 SCO includes two flagship solutions out of the box:
 
 **VirtualMachine** (`compute.cloud.stakater.com/v1`):
+
 - Provisions Linux VMs using OpenShift Virtualization (KubeVirt)
 - Supports multiple instance types (cx1, m1, n1, o1, rt1, u1 series)
 - Cloud-init for VM bootstrapping
@@ -68,6 +69,7 @@ SCO includes two flagship solutions out of the box:
 - SSH key-based authentication
 
 **OpenShiftCluster** (`infrastructure.stakater.com/v1`):
+
 - Provisions full OpenShift clusters using HyperShift
 - Hosted control plane architecture
 - Configurable node pools and sizing
@@ -166,6 +168,7 @@ SCO provides VM-as-a-Service using **KubeVirt** technology for virtual machine o
 - Integrates with Kubernetes networking and storage
 
 **Platform Support**:
+
 - **On OpenShift**: Uses OpenShift Virtualization (enterprise KubeVirt)
 - **On vanilla Kubernetes**: Uses community KubeVirt
 
@@ -182,6 +185,7 @@ SCO provides Kubernetes-as-a-Service using **hosted control plane** architecture
 - Simplified control plane upgrades
 
 **Platform Support**:
+
 - **On OpenShift**: Uses HyperShift for hosted OpenShift clusters
 - **On vanilla Kubernetes**: Uses cluster-api or alternative providers
 

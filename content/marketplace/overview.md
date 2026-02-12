@@ -20,9 +20,9 @@ Service providers (platform engineers) create solutions using Crossplane, KRO, o
 **Publishing Flow**:
 
 1. Create a solution (XRD + Composition)
-2. Define solution metadata and documentation
-3. Publish to KCP as an APIExport
-4. Solution appears in the marketplace
+1. Define solution metadata and documentation
+1. Publish to KCP as an APIExport
+1. Solution appears in the marketplace
 
 ### For Cloud Users
 
@@ -31,10 +31,10 @@ Cloud users browse the marketplace, discover solutions they need, and provision 
 **Consumption Flow**:
 
 1. Browse the marketplace
-2. Select a solution (e.g., PostgreSQL)
-3. Configure the solution instance
-4. Provision into a project
-5. Manage the solution lifecycle
+1. Select a solution (e.g., PostgreSQL)
+1. Configure the solution instance
+1. Provision into a project
+1. Manage the solution lifecycle
 
 ## Solution Types
 
@@ -43,16 +43,15 @@ SCO provides flagship solutions out of the box and supports custom solutions:
 ### Flagship Solutions (Built-in)
 
 - **Virtual Machines**: Full Linux VMs using OpenShift Virtualization
-  - Multiple instance types (compute-optimized, memory-optimized, general purpose)
-  - Cloud-init support for bootstrapping
-  - Public and private networking options
-  - SSH access
-
-- **OpenShift Hosted Clusters**: Full OpenShift clusters using HyperShift
-  - Complete Kubernetes/OpenShift cluster provisioning
-  - Managed control plane and worker nodes
-  - Configurable node pools and scaling
-  - ETCD backup and disaster recovery
+    - Multiple instance types (compute-optimized, memory-optimized, general purpose)
+    - Cloud-init support for bootstrapping
+    - Public and private networking options
+    - SSH access
+- **OpenShift Hosted Clusters**: Full OpenShift clusters using hypershift
+    - Complete Kubernetes/OpenShift cluster provisioning
+    - Managed control plane and worker nodes
+    - Configurable node pools and scaling
+    - etcd backup and disaster recovery
 
 ### Custom Solutions (Optional)
 
@@ -107,10 +106,10 @@ The marketplace is accessible through multiple interfaces:
 Once provisioned from the marketplace, solution instances follow a lifecycle:
 
 1. **Requested**: User creates a solution instance CR
-2. **Provisioning**: Backend resources are being created
-3. **Ready**: Solution is ready to use
-4. **Updating**: Configuration changes are being applied
-5. **Deleting**: Solution is being removed
+1. **Provisioning**: Backend resources are being created
+1. **Ready**: Solution is ready to use
+1. **Updating**: Configuration changes are being applied
+1. **Deleting**: Solution is being removed
 
 ## What's Next?
 

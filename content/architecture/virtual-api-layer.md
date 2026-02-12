@@ -8,7 +8,7 @@ Content will be added covering:
 
 - KCP architecture and concepts
 - How workspaces provide virtual APIs
-- APIExport and APIBinding mechanisms
+- `APIExport` and `APIBinding` mechanisms
 - Workspace hierarchy
 - Multi-cluster API aggregation
 

@@ -1,10 +1,10 @@
 # Overview
 
-Stakater Cloud Orchestrator (SCO) is a Kubernetes-native platform that enables MSPs, Enterprises, and Cloud Providers to deliver "anything-as-a-service" to their customers.
+Stakater Cloud Orchestrator (SCO) is a Kubernetes-native platform that enables `MSPs`, Enterprises, and Cloud Providers to deliver "anything-as-a-service" to their customers.
 
 ## What is SCO?
 
-SCO provides a comprehensive Kubernetes-native orchestration layer built on industry-standard cloud-native technologies. While primarily tested and optimized for **Red Hat OpenShift on bare metal**, SCO's architecture is designed to run on any Kubernetes distribution. It leverages **Kubernetes CRDs**, **multi-tenant isolation**, and **virtual workspaces** to deliver complete infrastructure (VMs) and platform (hosted clusters) services. SCO abstracts away complexity while maintaining the powerful Kubernetes declarative model, allowing service providers to offer managed services and cloud users to consume them through familiar Kubernetes APIs.
+SCO provides a comprehensive Kubernetes-native orchestration layer built on industry-standard cloud-native technologies. While primarily tested and optimized for **Red Hat OpenShift on bare metal**, SCO architecture is designed to run on any Kubernetes distribution. It leverages **Kubernetes CRDs**, **multi-tenant isolation**, and **virtual workspaces** to deliver complete infrastructure (VMs) and platform (hosted clusters) services. SCO abstracts away complexity while maintaining the powerful Kubernetes declarative model, allowing service providers to offer managed services and cloud users to consume them through familiar Kubernetes APIs.
 
 ## Core Value Proposition
 
@@ -17,7 +17,7 @@ SCO transforms infrastructure and platform teams into service providers by:
 
 ## Target Audience
 
-**Managed Service Providers (MSPs)**: Deliver cloud services to customers with complete isolation and self-service capabilities.
+**Managed Service Providers (`MSPs`)**: Deliver cloud services to customers with complete isolation and self-service capabilities.
 
 **Enterprises**: Create internal service catalogs and standardize service delivery across teams and business units.
 
@@ -31,7 +31,7 @@ SCO combines several key capabilities on a Kubernetes foundation:
 - **Virtual API Layer**: Multi-tenant Kubernetes API with workspace isolation
 - **CRD-Based Solutions**: Standard Kubernetes custom resources for service definitions
 - **VM Management**: KubeVirt-based virtual machine orchestration
-- **Hosted Control Planes**: HyperShift for Kubernetes-on-Kubernetes clusters
+- **Hosted Control Planes**: hypershift for Kubernetes-on-Kubernetes clusters
 - **Multi-Tenant Operator (MTO)**: Network and resource isolation per project
 - **Keycloak Integration**: Authentication with dedicated realms per organization
 - **Composition Framework**: Support for multiple composition tools (Crossplane, KRO, custom operators)
@@ -40,7 +40,7 @@ Service providers create solutions (Kubernetes CRDs representing services) using
 
 ## What's Next?
 
-- [Key Features](key-features.md) - Explore SCO's core capabilities
+- [Key Features](key-features.md) - Explore SCO core capabilities
 - [Use Cases](use-cases.md) - See how organizations use SCO
 - [Architecture](../architecture/architecture.md) - Understand the technical architecture
 - [Getting Started for Service Providers](../service-provider-guide/getting-started.md)

@@ -28,12 +28,12 @@ Projects are isolated environments where you deploy your applications and provis
 ### Using the Console
 
 1. Navigate to "Projects" in the sidebar
-2. Click "Create Project"
-3. Enter project details:
+1. Click "Create Project"
+1. Enter project details:
     - **Name**: `my-app-dev`
     - **Display Name**: "My Application - Development"
     - **Description**: "Development environment for my application"
-4. Click "Create"
+1. Click "Create"
 
 ### Using kubectl
 
@@ -61,7 +61,7 @@ kubectl get projects
 
 Expected output:
 
-```
+```text
 NAME          DISPLAY NAME                   STATUS   AGE
 my-app-dev    My Application - Development   Ready    30s
 ```
@@ -73,8 +73,8 @@ Explore available services in the marketplace.
 ### Using the Console
 
 1. Navigate to "Marketplace" in the sidebar
-2. Browse available solutions
-3. View solution details, documentation, and configuration options
+1. Browse available solutions
+1. View solution details, documentation, and configuration options
 
 ### Using kubectl
 
@@ -97,14 +97,14 @@ Let's provision a virtual machine for Emma's development environment.
 ### Using the Console
 
 1. In the marketplace, click on "Virtual Machine"
-2. Click "Provision"
-3. Select your project: `my-app-dev`
-4. Configure the VM:
+1. Click "Provision"
+1. Select your project: `my-app-dev`
+1. Configure the VM:
     - **Name**: `my-dev-vm`
     - **Instance Type**: `o1.medium` (2 vCPU, 4GB RAM)
     - **Connection**: `private`
     - **SSH Public Key**: Paste your SSH public key
-5. Click "Create"
+1. Click "Create"
 
 ### Using kubectl
 
@@ -144,7 +144,7 @@ kubectl describe virtualmachine my-dev-vm -n my-app-dev
 
 Wait for the VM to be ready:
 
-```
+```text
 NAME        INSTANCE-TYPE   STATUS   AGE
 my-dev-vm   o1.medium       Ready    3m
 ```
@@ -167,17 +167,17 @@ ssh user@<vm-ip-address>
 
 Get your project's kubeconfig to work with kubectl locally.
 
-### Download Kubeconfig
+### Download kubeconfig
 
 From the console:
 
 1. Navigate to your project
-2. Click "Settings" or "Access"
-3. Click "Download Kubeconfig"
+1. Click "Settings" or "Access"
+1. Click "Download kubeconfig"
 
 Save the file as `~/.kube/my-app-dev-config`
 
-### Use the Kubeconfig
+### Use the kubeconfig
 
 ```bash
 export KUBECONFIG=~/.kube/my-app-dev-config

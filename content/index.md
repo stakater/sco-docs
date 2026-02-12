@@ -135,7 +135,7 @@ SCO leverages proven, cloud-native technologies:
 
 Need help or want to contribute?
 
-- **GitHub**: [GitHub.com/Stakater/sco-docs](https://github.com/stakater/sco-docs)
+- **Documentation**: [docs.stakater.com/stakater-cloud-orchestrator](https://docs.stakater.com/stakater-cloud-orchestrator)
 - **Website**: [Stakater.com](https://stakater.com)
 - **Slack**: Join our community (link coming soon)
 

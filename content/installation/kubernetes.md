@@ -266,7 +266,7 @@ oc logs -n crossplane-system -l app.kubernetes.io/component=crossplane
 After successful installation:
 
 1. [Configure SCO](configuration.md) - Set up DNS, certificates, and admin access
-1. [Verify Components](#verify-installation) - Ensure all services are healthy
+1. [Verify Components](#step-6-verify-installation) - Ensure all services are healthy
 1. [Create First Organization](../service-provider-guide/organizations/creating-organizations.md) - Set up cloud users
 1. [Access Console](../console/overview.md) - Log in to the web interface
 

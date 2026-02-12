@@ -117,7 +117,7 @@ Fine-grained access control at all levels.
 
 Virtual API layer powered by KCP.
 
-- APIExport publishing
+- `APIExport` publishing
 - Workspace management
 - Multi-cluster API aggregation
 - Virtual control planes
@@ -137,7 +137,7 @@ Solution composition using Crossplane.
 
 - Composite Resource Definitions (XRDs)
 - Compositions for service templates
-- Provider support (AWS, Azure, GCP, OpenStack, VMWare etc.)
+- Provider support (AWS, Azure, GCP, OpenStack, VMware, etc.)
 - Custom resource management
 
 ### Keycloak Integration

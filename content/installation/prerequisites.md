@@ -109,7 +109,7 @@ EOF
 Prepare your SCO configuration claim files:
 
 1. **kubestack-config-package claim** - Platform configuration (networking, DNS, certificates)
-2. **kubestack-plus-package claim** - SCO platform components (marketplace, solutions, console)
+1. **kubestack-plus-package claim** - SCO platform components (marketplace, solutions, console)
 
 These files define your SCO deployment configuration and are required by `ksp up`. Example files are provided with the CLI.
 

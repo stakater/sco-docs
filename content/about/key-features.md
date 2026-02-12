@@ -51,7 +51,7 @@ Kubernetes-native CRD-based solution framework with flexible composition.
 Native Kubernetes command-line access through virtual API layer.
 
 - Standard kubectl commands
-- Kubeconfig generation
+- kubeconfig generation
 - Full RBAC support
 - Familiar Kubernetes experience
 
@@ -79,7 +79,7 @@ Build custom user interfaces on top of the Kubernetes API.
 
 - Web console support
 - Custom dashboards
-- Clickops capabilities
+- Click-based operation capabilities
 - Branded experiences
 
 ## Isolation & Security

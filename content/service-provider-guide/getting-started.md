@@ -48,7 +48,7 @@ spec:
 
 ### OpenShift Hosted Cluster Solution
 
-The **OpenShiftCluster** solution uses HyperShift to provide OpenShift-on-OpenShift.
+The **OpenShiftCluster** solution uses hypershift to provide OpenShift-on-OpenShift.
 
 **API Group**: `infrastructure.stakater.com`
 **Kind**: `OpenShiftCluster`

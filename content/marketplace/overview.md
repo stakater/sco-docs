@@ -21,7 +21,7 @@ Service providers (platform engineers) create solutions using Crossplane, KRO, o
 
 1. Create a solution (XRD + Composition)
 1. Define solution metadata and documentation
-1. Publish to KCP as an APIExport
+1. Publish to KCP as an `APIExport`
 1. Solution appears in the marketplace
 
 ### For Cloud Users

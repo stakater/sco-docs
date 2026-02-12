@@ -1,6 +1,6 @@
 # KCP Overview
 
-Understanding KCP's role in the SCO API layer.
+Understanding KCP role in the SCO API layer.
 
 ## Coming Soon
 
@@ -8,7 +8,7 @@ KCP overview for service providers will be added covering:
 
 - KCP architecture and concepts
 - Workspace management
-- APIExport and APIBinding
+- `APIExport` and `APIBinding`
 - Multi-cluster scenarios
 
 ## What's Next?

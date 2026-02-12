@@ -39,7 +39,7 @@ oc login https://api.your-cluster.example.com:6443
 
 Create or obtain your SCO configuration claim files:
 
-**kubestack-config-claim.yaml** - Platform configuration:
+`kubestack-config-claim.yaml` - Platform configuration:
 
 ```YAML
 apiVersion: pkg.kubestack.com/v1
@@ -60,7 +60,7 @@ spec:
         secretRef: keycloak-admin
 ```
 
-**kubestack-plus-claim.yaml** - SCO platform:
+`kubestack-plus-claim.yaml` - SCO platform:
 
 ```YAML
 apiVersion: pkg.kubestack.com/v1

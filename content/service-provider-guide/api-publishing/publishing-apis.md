@@ -6,7 +6,7 @@ Publish solution APIs through the KCP virtual API layer.
 
 API publishing guide will be added with:
 
-- APIExport creation
+- `APIExport` creation
 - Binding configuration
 - API versioning
 - Examples and best practices

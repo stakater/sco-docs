@@ -70,10 +70,10 @@ SCO includes two flagship solutions out of the box:
 
 **OpenShiftCluster** (`infrastructure.stakater.com/v1`):
 
-- Provisions full OpenShift clusters using HyperShift
+- Provisions full OpenShift clusters using hypershift
 - Hosted control plane architecture
 - Configurable node pools and sizing
-- ETCD backup and disaster recovery
+- etcd backup and disaster recovery
 - DNS and TLS certificate automation
 
 ### Solution Components
@@ -172,7 +172,7 @@ SCO provides VM-as-a-Service using **KubeVirt** technology for virtual machine o
 - **On OpenShift**: Uses OpenShift Virtualization (enterprise KubeVirt)
 - **On vanilla Kubernetes**: Uses community KubeVirt
 
-**How It Works**: When a user creates a VirtualMachine CR, SCO's composition logic provisions the underlying VM infrastructure using the cluster's virtualization capabilities.
+**How It Works**: When a user creates a VirtualMachine CR, SCO composition logic provisions the underlying VM infrastructure using the cluster's virtualization capabilities.
 
 ## Hosted Control Planes
 
@@ -186,8 +186,8 @@ SCO provides Kubernetes-as-a-Service using **hosted control plane** architecture
 
 **Platform Support**:
 
-- **On OpenShift**: Uses HyperShift for hosted OpenShift clusters
-- **On vanilla Kubernetes**: Uses cluster-api or alternative providers
+- **On OpenShift**: Uses hypershift for hosted OpenShift clusters
+- **On vanilla Kubernetes**: Uses cluster-API or alternative providers
 
 **How It Works**: Users can provision complete Kubernetes/OpenShift clusters through a simple CRD. The control plane runs in the SCO management cluster while worker nodes are provisioned on the underlying infrastructure.
 

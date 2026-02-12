@@ -2,6 +2,8 @@
   {
     "version": "feat-add-content",
     "title": "feat-add-content",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   }
 ]

@@ -2482,6 +2482,28 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
+  <a href="#user-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User Management
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#group-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Group Management
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#api-publishing" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -5925,6 +5947,28 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
+  <a href="#user-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User Management
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#group-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Group Management
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#api-publishing" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -5994,19 +6038,25 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <li>Contains one or more projects</li>
 <li>Has its own set of users and permissions</li>
 <li>Provides complete isolation from other organizations</li>
-<li>Managed by service providers</li>
+<li>Created through the <strong>organization onboarding</strong> workflow (not self-service)</li>
 </ul>
-<p><strong>Example</strong>: A managed service provider might create an organization for each of their customers, or an enterprise might create organizations for different business units.</p>
+<p><strong>Creation Methods</strong>:</p>
+<ul>
+<li><strong>Automated</strong>: Triggered by customer signup flow</li>
+<li><strong>Manual</strong>: Created by hosting company to onboard new customers</li>
+</ul>
+<p><strong>Example</strong>: A managed service provider creates an organization for each customer through the onboarding process, which provisions a dedicated Keycloak realm and sets up initial admin users.</p>
 <h2 id="project">Project<a class="headerlink" href="#project" title="Permanent link">#</a></h2>
 <p>A <strong>Project</strong> is an isolated environment where cloud users deploy and manage their solutions.</p>
 <ul>
 <li>Combines a KCP workspace (virtual API) with an MTO tenant (actual resources)</li>
 <li>Provides network and resource isolation</li>
 <li>Users interact with the project through the virtual API layer</li>
-<li>Self-service creation by cloud users within their organization</li>
+<li>Created by <strong>organization admins</strong> by applying a manifest</li>
+<li>Projects can be assigned to individual users with specific roles or groups with assigned permissions</li>
 <li>No direct access to the host Kubernetes cluster</li>
 </ul>
-<p><strong>Example</strong>: A development team might create a "dev" project and a "prod" project within their organization, each providing isolated environments.</p>
+<p><strong>Example</strong>: An organization admin creates "dev" and "prod" projects for their development team. The dev project is assigned to the developers group with full access, while the prod project is assigned to specific users with restricted permissions.</p>
 <h3 id="kcp-workspace-component">KCP Workspace Component<a class="headerlink" href="#kcp-workspace-component" title="Permanent link">#</a></h3>
 <p>Each project includes a KCP workspace that:</p>
 <ul>
@@ -6035,22 +6085,31 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <p><strong>Example</strong>: The "VirtualMachine" solution allows users to provision VMs by creating a <code>VirtualMachine</code> custom resource with configuration like instance type, SSH key, and cloud-init data.</p>
 <h3 id="flagship-solutions">Flagship Solutions<a class="headerlink" href="#flagship-solutions" title="Permanent link">#</a></h3>
 <p>SCO includes two flagship solutions out of the box:</p>
-<p><strong>VirtualMachine</strong> (<code>compute.cloud.stakater.com/v1</code>):</p>
+<p><strong>VirtualMachine</strong> (<code>vm.cloud.stakater.com/v1</code>):</p>
 <ul>
+<li>User-facing marketplace API for provisioning VMs</li>
 <li>Provisions Linux VMs using OpenShift Virtualization (KubeVirt)</li>
 <li>Supports multiple instance types (cx1, m1, n1, o1, rt1, u1 series)</li>
 <li>Cloud-init for VM bootstrapping</li>
 <li>Public (LoadBalancer) or private networking</li>
 <li>SSH key-based authentication</li>
 </ul>
-<p><strong>OpenShiftCluster</strong> (<code>infrastructure.stakater.com/v1</code>):</p>
+<p><strong>OpenShiftCluster</strong> (<code>openshiftcluster.cloud.stakater.com/v1</code>):</p>
 <ul>
+<li>User-facing marketplace API for provisioning OpenShift clusters</li>
 <li>Provisions full OpenShift clusters using hypershift</li>
 <li>Hosted control plane architecture</li>
 <li>Configurable node pools and sizing</li>
 <li>etcd backup and disaster recovery</li>
-<li>DNS and TLS certificate automation</li>
+<li>Automated DNS and TLS configuration</li>
 </ul>
+<div class="admonition note">
+<p class="admonition-title">API Groups</p>
+<ul>
+<li><strong><code>*.cloud.stakater.com</code></strong>: User-facing APIs published to the marketplace</li>
+<li><strong><code>*.infrastructure.stakater.com</code></strong>: Backend APIs for internal orchestration (not published to KCP)</li>
+</ul>
+</div>
 <h3 id="solution-components">Solution Components<a class="headerlink" href="#solution-components" title="Permanent link">#</a></h3>
 <p>Solutions are composed of:</p>
 <ul>
@@ -6068,7 +6127,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <li>Has a lifecycle (create, update, delete)</li>
 <li>Isolated from other solution instances</li>
 </ul>
-<p><strong>Example</strong>: A user creates a PostgreSQL solution instance named "my-app-db" in their "prod" project, which provisions an actual PostgreSQL database.</p>
+<p><strong>Example</strong>: A user creates a VirtualMachine solution instance named "my-app-vm" in their "prod" project, which provisions an actual virtual machine with the specified configuration.</p>
 <h2 id="marketplace">Marketplace<a class="headerlink" href="#marketplace" title="Permanent link">#</a></h2>
 <p>The <strong>Marketplace</strong> is a catalog of available solutions that cloud users can browse and provision.</p>
 <ul>
@@ -6110,6 +6169,26 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <li>No access to host cluster or other organizations</li>
 </ul>
 <p><strong>Example</strong>: Emma, a developer, logs in to her organization, creates a project, and provisions a virtual machine for her application.</p>
+<h2 id="user-management">User Management<a class="headerlink" href="#user-management" title="Permanent link">#</a></h2>
+<p><strong>Users</strong> are individual accounts within an organization that authenticate via Keycloak.</p>
+<ul>
+<li>Created using the <strong>iam-user-package</strong> in the organization's Keycloak realm</li>
+<li>Each user belongs to a single organization</li>
+<li>Can be assigned to one or more groups</li>
+<li>Have specific roles and permissions for projects</li>
+<li>Authenticate using organization-specific credentials</li>
+</ul>
+<p><strong>Example</strong>: An organization admin creates user accounts for new team members. Each user is added to the organization's Keycloak realm and assigned to appropriate groups like "developers" or "operators".</p>
+<h2 id="group-management">Group Management<a class="headerlink" href="#group-management" title="Permanent link">#</a></h2>
+<p><strong>Groups</strong> provide a way to organize users and assign permissions collectively within an organization.</p>
+<ul>
+<li>Created using the <strong>iam-group-package</strong> in the organization's Keycloak realm</li>
+<li>Can contain multiple users from the same organization</li>
+<li>Simplify permission management by assigning access at the group level</li>
+<li>Projects can be assigned to groups rather than individual users</li>
+<li>Enable role-based access control (RBAC) patterns</li>
+</ul>
+<p><strong>Example</strong>: An organization admin creates a "frontend-team" group and assigns it full access to the "dev-frontend" project. All users added to this group automatically inherit the project permissions.</p>
 <h2 id="api-publishing">API Publishing<a class="headerlink" href="#api-publishing" title="Permanent link">#</a></h2>
 <p>Solutions are published to make their APIs available across isolated workspaces.</p>
 <ul>
@@ -6118,7 +6197,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <li>Enables API sharing across isolation boundaries</li>
 <li>Standard Kubernetes API semantics</li>
 </ul>
-<p><strong>Example</strong>: The VirtualMachine solution publishes its <code>compute.cloud.stakater.com</code> API, which projects can access to create VirtualMachine resources.</p>
+<p><strong>Example</strong>: The VirtualMachine solution publishes its <code>vm.cloud.stakater.com</code> API, which projects can access to create VirtualMachine resources.</p>
 <h2 id="virtual-machine-management">Virtual Machine Management<a class="headerlink" href="#virtual-machine-management" title="Permanent link">#</a></h2>
 <p>SCO provides VM-as-a-Service using <strong>KubeVirt</strong> technology for virtual machine orchestration.</p>
 <ul>

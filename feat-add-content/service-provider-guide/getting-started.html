@@ -3242,10 +3242,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-3-create-an-organization" class="md-nav__link">
+  <a href="#step-3-onboard-an-organization" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 3: Create an Organization
+        Step 3: Onboard an Organization
       
     </span>
   </a>
@@ -5803,10 +5803,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-3-create-an-organization" class="md-nav__link">
+  <a href="#step-3-onboard-an-organization" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 3: Create an Organization
+        Step 3: Onboard an Organization
       
     </span>
   </a>
@@ -5902,10 +5902,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <p>SCO comes with flagship solutions out of the box:</p>
 <h3 id="virtual-machine-solution">Virtual Machine Solution<a class="headerlink" href="#virtual-machine-solution" title="Permanent link">#</a></h3>
 <p>The <strong>VirtualMachine</strong> solution leverages OpenShift Virtualization to provide VM-as-a-Service.</p>
-<p><strong>API Group</strong>: <code>compute.cloud.stakater.com</code>
+<p><strong>API Group</strong>: <code>vm.cloud.stakater.com</code>
 <strong>Kind</strong>: <code>VirtualMachine</code></p>
 <p>Users can provision VMs by creating a custom resource:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">compute.cloud.stakater.com/v1</span>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vm.cloud.stakater.com/v1</span>
 <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VirtualMachine</span>
 <span class="nt">metadata</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-dev-vm</span>
@@ -5923,10 +5923,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </code></pre></div>
 <h3 id="openshift-hosted-cluster-solution">OpenShift Hosted Cluster Solution<a class="headerlink" href="#openshift-hosted-cluster-solution" title="Permanent link">#</a></h3>
 <p>The <strong>OpenShiftCluster</strong> solution uses hypershift to provide OpenShift-on-OpenShift.</p>
-<p><strong>API Group</strong>: <code>infrastructure.stakater.com</code>
+<p><strong>API Group</strong>: <code>openshiftcluster.cloud.stakater.com</code>
 <strong>Kind</strong>: <code>OpenShiftCluster</code></p>
 <p>Users can provision full OpenShift clusters:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">infrastructure.stakater.com/v1</span>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openshiftcluster.cloud.stakater.com/v1</span>
 <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">OpenShiftCluster</span>
 <span class="nt">metadata</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dev-cluster</span>
@@ -5946,8 +5946,8 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </code></pre></div>
 <p>Expected output shows the built-in solutions:</p>
 <div class="highlight"><pre><span></span><code>NAME                                                   ESTABLISHED   OFFERED   AGE
-virtualmachines.compute.cloud.stakater.com            True          True      10d
-openshiftclusters.kubernetes.cloud.stakater.com        True          True      10d
+virtualmachines.vm.cloud.stakater.com                  True          True      10d
+openshiftclusters.openshiftcluster.cloud.stakater.com  True          True      10d
 </code></pre></div>
 <h2 id="step-2-publish-to-the-marketplace">Step 2: Publish to the Marketplace<a class="headerlink" href="#step-2-publish-to-the-marketplace" title="Permanent link">#</a></h2>
 <p>After creating the solution, publish it to make it available to cloud users.</p>
@@ -5955,21 +5955,44 @@ openshiftclusters.kubernetes.cloud.stakater.com        True          True      1
 <p class="admonition-title">Note</p>
 <p>Detailed marketplace publishing workflows will be added in future updates.</p>
 </div>
-<h2 id="step-3-create-an-organization">Step 3: Create an Organization<a class="headerlink" href="#step-3-create-an-organization" title="Permanent link">#</a></h2>
+<h2 id="step-3-onboard-an-organization">Step 3: Onboard an Organization<a class="headerlink" href="#step-3-onboard-an-organization" title="Permanent link">#</a></h2>
 <p>Organizations provide isolation for different customers or business units. Each organization gets its own Keycloak realm.</p>
-<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tenancy.stakater.com/v1alpha1</span>
-<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Organization</span>
+<p>Organizations are created through the <strong>organization onboarding</strong> workflow, which provisions:</p>
+<ul>
+<li>A dedicated Keycloak realm for authentication</li>
+<li>Initial admin users and permissions</li>
+<li>Organization metadata and configuration</li>
+</ul>
+<p><strong>Onboarding Methods</strong>:</p>
+<ol>
+<li><strong>Automated</strong>: Triggered by customer signup flow</li>
+<li><strong>Manual</strong>: Created by platform administrators for new customers</li>
+</ol>
+<p>To manually onboard a new organization, apply the organization onboarding claim:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">infrastructure.stakater.com/v1alpha1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">XOrgOnboarding</span>
 <span class="nt">metadata</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">acme-corp</span>
+<span class="w">    </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kcp-config</span>
 <span class="nt">spec</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">displayName</span><span class="p">:</span><span class="w"> </span><span class="s">"ACME</span><span class="nv"> </span><span class="s">Corporation"</span>
-<span class="w">    </span><span class="nt">keycloak</span><span class="p">:</span>
-<span class="w">        </span><span class="nt">realm</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">acme-corp</span>
-<span class="w">        </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">providerConfigRef</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kubernetes-provider</span>
+<span class="w">    </span><span class="nt">kcpRootProviderConfigRef</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kcp-root-provider</span>
+<span class="w">    </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">organizationName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">acme-corp</span>
+<span class="w">        </span><span class="nt">adminEmail</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">admin@acmecorp.example.com</span>
 </code></pre></div>
-<p>Apply the organization:</p>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>organization.yaml
+<p>Apply the onboarding manifest:</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>org-onboarding.yaml
 </code></pre></div>
+<p>This will create:</p>
+<ul>
+<li>A dedicated Keycloak realm for the organization</li>
+<li>A KCP workspace at <code>root:cloud:acme-corp</code></li>
+<li>Organization namespace and resources</li>
+<li>Initial admin credentials</li>
+</ul>
 <p>Sarah can verify the organization was created:</p>
 <div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>organizations
 </code></pre></div>

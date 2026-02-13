@@ -23,13 +23,13 @@ SCO comes with flagship solutions out of the box:
 
 The **VirtualMachine** solution leverages OpenShift Virtualization to provide VM-as-a-Service.
 
-**API Group**: `compute.cloud.stakater.com`
+**API Group**: `vm.cloud.stakater.com`
 **Kind**: `VirtualMachine`
 
 Users can provision VMs by creating a custom resource:
 
 ```yaml
-apiVersion: compute.cloud.stakater.com/v1
+apiVersion: vm.cloud.stakater.com/v1
 kind: VirtualMachine
 metadata:
     name: my-dev-vm
@@ -50,13 +50,13 @@ spec:
 
 The **OpenShiftCluster** solution uses hypershift to provide OpenShift-on-OpenShift.
 
-**API Group**: `infrastructure.stakater.com`
+**API Group**: `openshiftcluster.cloud.stakater.com`
 **Kind**: `OpenShiftCluster`
 
 Users can provision full OpenShift clusters:
 
 ```yaml
-apiVersion: infrastructure.stakater.com/v1
+apiVersion: openshiftcluster.cloud.stakater.com/v1
 kind: OpenShiftCluster
 metadata:
     name: dev-cluster
@@ -83,8 +83,8 @@ Expected output shows the built-in solutions:
 
 ```text
 NAME                                                   ESTABLISHED   OFFERED   AGE
-virtualmachines.compute.cloud.stakater.com            True          True      10d
-openshiftclusters.kubernetes.cloud.stakater.com        True          True      10d
+virtualmachines.vm.cloud.stakater.com                  True          True      10d
+openshiftclusters.openshiftcluster.cloud.stakater.com  True          True      10d
 ```
 
 ## Step 2: Publish to the Marketplace
@@ -94,27 +94,51 @@ After creating the solution, publish it to make it available to cloud users.
 !!! note
     Detailed marketplace publishing workflows will be added in future updates.
 
-## Step 3: Create an Organization
+## Step 3: Onboard an Organization
 
 Organizations provide isolation for different customers or business units. Each organization gets its own Keycloak realm.
 
+Organizations are created through the **organization onboarding** workflow, which provisions:
+
+- A dedicated Keycloak realm for authentication
+- Initial admin users and permissions
+- Organization metadata and configuration
+
+**Onboarding Methods**:
+
+1. **Automated**: Triggered by customer signup flow
+1. **Manual**: Created by platform administrators for new customers
+
+To manually onboard a new organization, apply the organization onboarding claim:
+
 ```yaml
-apiVersion: tenancy.stakater.com/v1alpha1
-kind: Organization
+apiVersion: infrastructure.stakater.com/v1alpha1
+kind: XOrgOnboarding
 metadata:
     name: acme-corp
+    namespace: kcp-config
 spec:
-    displayName: "ACME Corporation"
-    keycloak:
-        realm: acme-corp
-        enabled: true
+    providerConfigRef:
+        name: kubernetes-provider
+    kcpRootProviderConfigRef:
+        name: kcp-root-provider
+    parameters:
+        organizationName: acme-corp
+        adminEmail: admin@acmecorp.example.com
 ```
 
-Apply the organization:
+Apply the onboarding manifest:
 
 ```bash
-kubectl apply -f organization.yaml
+kubectl apply -f org-onboarding.yaml
 ```
+
+This will create:
+
+- A dedicated Keycloak realm for the organization
+- A KCP workspace at `root:cloud:acme-corp`
+- Organization namespace and resources
+- Initial admin credentials
 
 Sarah can verify the organization was created:
 

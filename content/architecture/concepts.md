@@ -10,9 +10,14 @@ An **Organization** is a logical grouping of users and projects that represents 
 - Contains one or more projects
 - Has its own set of users and permissions
 - Provides complete isolation from other organizations
-- Managed by service providers
+- Created through the **organization onboarding** workflow (not self-service)
 
-**Example**: A managed service provider might create an organization for each of their customers, or an enterprise might create organizations for different business units.
+**Creation Methods**:
+
+- **Automated**: Triggered by customer signup flow
+- **Manual**: Created by hosting company to onboard new customers
+
+**Example**: A managed service provider creates an organization for each customer through the onboarding process, which provisions a dedicated Keycloak realm and sets up initial admin users.
 
 ## Project
 
@@ -21,10 +26,11 @@ A **Project** is an isolated environment where cloud users deploy and manage the
 - Combines a KCP workspace (virtual API) with an MTO tenant (actual resources)
 - Provides network and resource isolation
 - Users interact with the project through the virtual API layer
-- Self-service creation by cloud users within their organization
+- Created by **organization admins** by applying a manifest
+- Projects can be assigned to individual users with specific roles or groups with assigned permissions
 - No direct access to the host Kubernetes cluster
 
-**Example**: A development team might create a "dev" project and a "prod" project within their organization, each providing isolated environments.
+**Example**: An organization admin creates "dev" and "prod" projects for their development team. The dev project is assigned to the developers group with full access, while the prod project is assigned to specific users with restricted permissions.
 
 ### KCP Workspace Component
 
@@ -60,21 +66,27 @@ A **Solution** is a service offering that can be provisioned by cloud users, rep
 
 SCO includes two flagship solutions out of the box:
 
-**VirtualMachine** (`compute.cloud.stakater.com/v1`):
+**VirtualMachine** (`vm.cloud.stakater.com/v1`):
 
+- User-facing marketplace API for provisioning VMs
 - Provisions Linux VMs using OpenShift Virtualization (KubeVirt)
 - Supports multiple instance types (cx1, m1, n1, o1, rt1, u1 series)
 - Cloud-init for VM bootstrapping
 - Public (LoadBalancer) or private networking
 - SSH key-based authentication
 
-**OpenShiftCluster** (`infrastructure.stakater.com/v1`):
+**OpenShiftCluster** (`openshiftcluster.cloud.stakater.com/v1`):
 
+- User-facing marketplace API for provisioning OpenShift clusters
 - Provisions full OpenShift clusters using hypershift
 - Hosted control plane architecture
 - Configurable node pools and sizing
 - etcd backup and disaster recovery
-- DNS and TLS certificate automation
+- Automated DNS and TLS configuration
+
+!!! note "API Groups"
+    - **`*.cloud.stakater.com`**: User-facing APIs published to the marketplace
+    - **`*.infrastructure.stakater.com`**: Backend APIs for internal orchestration (not published to KCP)
 
 ### Solution Components
 
@@ -95,7 +107,7 @@ A **Solution Instance** is a running instance of a solution provisioned within a
 - Has a lifecycle (create, update, delete)
 - Isolated from other solution instances
 
-**Example**: A user creates a PostgreSQL solution instance named "my-app-db" in their "prod" project, which provisions an actual PostgreSQL database.
+**Example**: A user creates a VirtualMachine solution instance named "my-app-vm" in their "prod" project, which provisions an actual virtual machine with the specified configuration.
 
 ## Marketplace
 
@@ -146,6 +158,30 @@ A **Cloud User** is an end user who consumes services from the marketplace.
 
 **Example**: Emma, a developer, logs in to her organization, creates a project, and provisions a virtual machine for her application.
 
+## User Management
+
+**Users** are individual accounts within an organization that authenticate via Keycloak.
+
+- Created using the **iam-user-package** in the organization's Keycloak realm
+- Each user belongs to a single organization
+- Can be assigned to one or more groups
+- Have specific roles and permissions for projects
+- Authenticate using organization-specific credentials
+
+**Example**: An organization admin creates user accounts for new team members. Each user is added to the organization's Keycloak realm and assigned to appropriate groups like "developers" or "operators".
+
+## Group Management
+
+**Groups** provide a way to organize users and assign permissions collectively within an organization.
+
+- Created using the **iam-group-package** in the organization's Keycloak realm
+- Can contain multiple users from the same organization
+- Simplify permission management by assigning access at the group level
+- Projects can be assigned to groups rather than individual users
+- Enable role-based access control (RBAC) patterns
+
+**Example**: An organization admin creates a "frontend-team" group and assigns it full access to the "dev-frontend" project. All users added to this group automatically inherit the project permissions.
+
 ## API Publishing
 
 Solutions are published to make their APIs available across isolated workspaces.
@@ -155,7 +191,7 @@ Solutions are published to make their APIs available across isolated workspaces.
 - Enables API sharing across isolation boundaries
 - Standard Kubernetes API semantics
 
-**Example**: The VirtualMachine solution publishes its `compute.cloud.stakater.com` API, which projects can access to create VirtualMachine resources.
+**Example**: The VirtualMachine solution publishes its `vm.cloud.stakater.com` API, which projects can access to create VirtualMachine resources.
 
 ## Virtual Machine Management
 

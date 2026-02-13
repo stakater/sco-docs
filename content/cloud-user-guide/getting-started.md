@@ -21,39 +21,45 @@ Log in using your credentials. Each organization has its own isolated authentica
 !!! note
     Your administrator will provide the console URL and initial login credentials. You may be able to use SSO if configured.
 
-## Step 2: Create Your First Project
+## Step 2: Request a Project
 
-Projects are isolated environments where you deploy your applications and provision services.
+Projects are isolated environments where you deploy your applications and provision services. Projects are created by **organization administrators** who can assign them to individual users or groups.
 
-### Using the Console
+### Request a Project from Your Admin
 
-1. Navigate to "Projects" in the sidebar
-1. Click "Create Project"
-1. Enter project details:
-    - **Name**: `my-app-dev`
-    - **Display Name**: "My Application - Development"
-    - **Description**: "Development environment for my application"
-1. Click "Create"
+Contact your organization administrator to request a project. Provide:
 
-### Using kubectl
+- **Project Name**: `my-app-dev`
+- **Purpose**: Development environment for your application
+- **Access Requirements**: Individual access or shared with a team
 
-Alternatively, create a project using kubectl:
+### Admin Creates the Project
+
+Your administrator will create the project using the project package:
 
 ```yaml
-apiVersion: tenancy.stakater.com/v1alpha1
+apiVersion: cloud.stakater.com/v1
 kind: Project
 metadata:
     name: my-app-dev
+    namespace: ws-acme-corp-xxxxx
 spec:
-    displayName: "My Application - Development"
-    description: "Development environment for my application"
+    parameters:
+        name: my-app-dev
+        network:
+            name: app-network
+            cidr: 10.100.0.0/16
+        tenantQuota: small
+        access:
+          - role: admin
+            users:
+              - emma@acmecorp.example.com
+          - role: view
+            groups:
+              - developers
 ```
 
-```bash
-kubectl apply -f project.yaml
-```
-
-Emma can verify her project was created:
+Once created, verify your project access:
 
 ```bash
 kubectl get projects
@@ -87,7 +93,7 @@ kubectl get solutions
 View details about a specific solution:
 
 ```bash
-kubectl describe solution postgresql
+kubectl describe solution virtualmachine
 ```
 
 ## Step 4: Provision a Virtual Machine
@@ -111,7 +117,7 @@ Let's provision a virtual machine for Emma's development environment.
 Create a VirtualMachine with a YAML manifest:
 
 ```yaml
-apiVersion: compute.cloud.stakater.com/v1
+apiVersion: vm.cloud.stakater.com/v1
 kind: VirtualMachine
 metadata:
     name: my-dev-vm
@@ -182,7 +188,7 @@ Save the file as `~/.kube/my-app-dev-config`
 ```bash
 export KUBECONFIG=~/.kube/my-app-dev-config
 
-kubectl get postgresql
+kubectl get virtualmachine
 ```
 
 Emma can now interact with her project using kubectl!

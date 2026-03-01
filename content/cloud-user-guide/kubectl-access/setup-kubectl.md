@@ -47,14 +47,14 @@ Save the file, for example as `~/.kube/my-project.yaml`.
 
 ## Step 3: Use the kubeconfig
 
-#### Option A: Environment variable
+### Option A: Environment variable
 
 ```bash
 export KUBECONFIG=~/.kube/my-project.yaml
 kubectl get virtualmachines
 ```
 
-#### Option B: Merge into existing config
+### Option B: Merge into existing config
 
 ```bash
 KUBECONFIG=~/.kube/config:~/.kube/my-project.yaml kubectl config view --flatten > ~/.kube/merged.yaml
@@ -62,7 +62,7 @@ mv ~/.kube/merged.yaml ~/.kube/config
 kubectl config use-context my-project
 ```
 
-#### Option C: Per-command flag
+### Option C: Per-command flag
 
 ```bash
 kubectl --kubeconfig ~/.kube/my-project.yaml get virtualmachines

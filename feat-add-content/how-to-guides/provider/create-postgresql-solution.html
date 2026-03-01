@@ -3188,7 +3188,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Keycloak Realms
+    Organisation Identity
   
 
     
@@ -5781,14 +5781,9 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <span class="w">        </span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">krm.kcl.dev/v1alpha1</span>
 <span class="w">        </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">KCLInput</span>
 <span class="w">        </span><span class="nt">spec</span><span class="p">:</span>
-<span class="w">          </span><span class="nt">dependencies</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
-<span class="w">            </span><span class="no">stakaterCommon = { oci = "oci://ghcr.io/stakater/compositions/kcl/stakater-common", tag = "0.0.2" }</span>
 <span class="w">          </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
-<span class="w">            </span><span class="no">import stakaterCommon as sc</span>
-
 <span class="w">            </span><span class="no">oxr = option("params").oxr</span>
 <span class="w">            </span><span class="no">ocds = option("params").ocds</span>
-<span class="w">            </span><span class="no">a = sc.generateItemMethods(ocds)</span>
 
 <span class="w">            </span><span class="no">spec = oxr.spec</span>
 <span class="w">            </span><span class="no">parameters = spec.parameters</span>
@@ -5800,12 +5795,16 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <span class="w">            </span><span class="no">pgVersion = parameters?.version or "16"</span>
 <span class="w">            </span><span class="no">targetNamespace = spec.claimRef.namespace</span>
 
-<span class="w">            </span><span class="no">_cluster = a.createItem({</span>
-<span class="w">                </span><span class="no">resourceName: "postgresql-cluster"</span>
-<span class="w">                </span><span class="no">content: {</span>
+<span class="w">            </span><span class="no">items = [</span>
+<span class="w">                </span><span class="no">{</span>
 <span class="w">                    </span><span class="no">apiVersion: "kubernetes.crossplane.io/v1alpha2"</span>
 <span class="w">                    </span><span class="no">kind: "Object"</span>
-<span class="w">                    </span><span class="no">metadata: {name: dbName}</span>
+<span class="w">                    </span><span class="no">metadata: {</span>
+<span class="w">                        </span><span class="no">name: dbName</span>
+<span class="w">                        </span><span class="no">annotations: {</span>
+<span class="w">                            </span><span class="no">"krm.kcl.dev/composition-resource-name": "postgresql-cluster"</span>
+<span class="w">                        </span><span class="no">}</span>
+<span class="w">                    </span><span class="no">}</span>
 <span class="w">                    </span><span class="no">spec: {</span>
 <span class="w">                        </span><span class="no">providerConfigRef: {name: kubernetesProvider}</span>
 <span class="w">                        </span><span class="no">forProvider: {</span>
@@ -5838,19 +5837,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <span class="w">                        </span><span class="no">}</span>
 <span class="w">                    </span><span class="no">}</span>
 <span class="w">                </span><span class="no">}</span>
-<span class="w">                </span><span class="no">statusDetails: {</span>
-<span class="w">                    </span><span class="no">statusFunction: lambda item: sc.savedItem -&gt; {str:any} {</span>
-<span class="w">                        </span><span class="no">{</span>
-<span class="w">                            </span><span class="no">endpoint: item.status?.atProvider?.manifest?.status?.writeService</span>
-<span class="w">                            </span><span class="no">port: 5432</span>
-<span class="w">                            </span><span class="no">secretName: "{}-app".format(dbName)</span>
-<span class="w">                        </span><span class="no">}</span>
-<span class="w">                    </span><span class="no">}</span>
-<span class="w">                </span><span class="no">}</span>
-<span class="w">                </span><span class="no">conditionPropagation: a.defaultPropagation()</span>
-<span class="w">            </span><span class="no">})</span>
-
-<span class="w">            </span><span class="no">items = a.renderItems({})</span>
+<span class="w">            </span><span class="no">]</span>
 
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">step</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">automatically-detect-ready-composed-resources</span>
 <span class="w">      </span><span class="nt">functionRef</span><span class="p">:</span>
@@ -5881,7 +5868,7 @@ kubectl<span class="w"> </span>get<span class="w"> </span>postgresqldatabase<spa
 <hr>
 <h2 id="step-4-publish-the-api">Step 4: Publish the API<a class="headerlink" href="#step-4-publish-the-api" title="Permanent link">#</a></h2>
 <div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">infrastructure.stakater.com/v1alpha1</span>
-<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ApiExport</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PublishedOffering</span>
 <span class="nt">metadata</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">databases-service</span>
 <span class="nt">spec</span><span class="p">:</span>
@@ -5903,8 +5890,8 @@ kubectl<span class="w"> </span>get<span class="w"> </span>postgresqldatabase<spa
 <span class="w">              </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
 <span class="w">            </span><span class="nt">namespaceSuffix</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">postgresql</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>api-export.yaml
-kubectl<span class="w"> </span>get<span class="w"> </span>apiexport<span class="w"> </span>databases-service
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>published-offering.yaml
+kubectl<span class="w"> </span>get<span class="w"> </span>publishedoffering<span class="w"> </span>databases-service
 </code></pre></div>
 <hr>
 <h2 id="step-5-verify-consumer-access">Step 5: Verify Consumer Access<a class="headerlink" href="#step-5-verify-consumer-access" title="Permanent link">#</a></h2>

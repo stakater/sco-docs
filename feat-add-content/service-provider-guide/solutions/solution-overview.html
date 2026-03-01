@@ -3335,7 +3335,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Keycloak Realms
+    Organisation Identity
   
 
     
@@ -5801,7 +5801,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <td>Implements the claim: what resources to create, using which providers</td>
 </tr>
 <tr>
-<td><code>ApiExport</code> claim</td>
+<td><code>PublishedOffering</code> claim</td>
 <td>Publishes the API to consumer project workspaces</td>
 </tr>
 <tr>
@@ -5810,12 +5810,12 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </tr>
 </tbody>
 </table>
-<p>The XRD and Composition live on the management cluster. The <code>ApiExport</code> claim triggers the <code>api-syncagent</code> to bridge the API into KCP workspaces. Marketplace metadata controls how the solution appears to consumers.</p>
+<p>The XRD and Composition live on the management cluster. The <code>PublishedOffering</code> claim triggers the <code>api-syncagent</code> to bridge the API into KCP workspaces. Marketplace metadata controls how the solution appears to consumers.</p>
 <hr>
 <h2 id="solution-lifecycle">Solution Lifecycle<a class="headerlink" href="#solution-lifecycle" title="Permanent link">#</a></h2>
 <div class="highlight"><pre><span></span><code>Provider defines XRD + Composition
           ↓
-Provider applies ApiExport claim
+Provider applies PublishedOffering claim
           ↓
 Solution appears in consumer project workspaces
           ↓

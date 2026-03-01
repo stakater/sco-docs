@@ -22,7 +22,7 @@
     
     
       
-        <title>Keycloak Realms - Stakater Cloud Orchestrator</title>
+        <title>Organisation Identity - Stakater Cloud Orchestrator</title>
       
     
     
@@ -95,7 +95,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#keycloak-realms" class="md-skip">
+        <a href="#organisation-identity" class="md-skip">
           Skip to content
         </a>
       
@@ -3201,7 +3201,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Keycloak Realms
+    Organisation Identity
   
 
     
@@ -3219,7 +3219,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Keycloak Realms
+    Organisation Identity
   
 
     
@@ -3247,10 +3247,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#realm-lifecycle" class="md-nav__link">
+  <a href="#what-gets-provisioned-automatically" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Realm Lifecycle
+        What Gets Provisioned Automatically
       
     </span>
   </a>
@@ -3258,49 +3258,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
-  <a href="#configuring-corporate-sso-federation" class="md-nav__link">
+  <a href="#managing-users-and-groups" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Configuring Corporate SSO Federation
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Configuring Corporate SSO Federation">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#ldap-active-directory" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        LDAP / Active Directory
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#oidc-provider-azure-ad-google-okta" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        OIDC Provider (Azure AD, Google, Okta)
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#configuring-authentication-flows" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Configuring Authentication Flows
+        Managing Users and Groups
       
     </span>
   </a>
@@ -3308,10 +3269,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
-  <a href="#managing-users-and-groups-via-the-sco-api" class="md-nav__link">
+  <a href="#corporate-sso-federation" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Managing Users and Groups via the SCO API
+        Corporate SSO Federation
       
     </span>
   </a>
@@ -3319,10 +3280,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
-  <a href="#platform-operator-access" class="md-nav__link">
+  <a href="#authentication-policy" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Platform Operator Access
+        Authentication Policy
       
     </span>
   </a>
@@ -5607,10 +5568,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#realm-lifecycle" class="md-nav__link">
+  <a href="#what-gets-provisioned-automatically" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Realm Lifecycle
+        What Gets Provisioned Automatically
       
     </span>
   </a>
@@ -5618,49 +5579,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
-  <a href="#configuring-corporate-sso-federation" class="md-nav__link">
+  <a href="#managing-users-and-groups" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Configuring Corporate SSO Federation
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Configuring Corporate SSO Federation">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#ldap-active-directory" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        LDAP / Active Directory
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#oidc-provider-azure-ad-google-okta" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        OIDC Provider (Azure AD, Google, Okta)
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#configuring-authentication-flows" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Configuring Authentication Flows
+        Managing Users and Groups
       
     </span>
   </a>
@@ -5668,10 +5590,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
-  <a href="#managing-users-and-groups-via-the-sco-api" class="md-nav__link">
+  <a href="#corporate-sso-federation" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Managing Users and Groups via the SCO API
+        Corporate SSO Federation
       
     </span>
   </a>
@@ -5679,10 +5601,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
-  <a href="#platform-operator-access" class="md-nav__link">
+  <a href="#authentication-policy" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Platform Operator Access
+        Authentication Policy
       
     </span>
   </a>
@@ -5717,94 +5639,22 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 
 
 
-<h1 id="keycloak-realms">Keycloak Realms<a class="headerlink" href="#keycloak-realms" title="Permanent link">#</a></h1>
-<p>Each SCO organisation is backed by a dedicated Keycloak realm — a fully isolated identity namespace with its own users, groups, clients, and authentication flows. This page covers the realm configuration options relevant to platform providers.</p>
-<p>For a conceptual overview of Keycloak's role in SCO, see <a href="../../integrations/keycloak.html">Keycloak Integration</a>.</p>
+<h1 id="organisation-identity">Organisation Identity<a class="headerlink" href="#organisation-identity" title="Permanent link">#</a></h1>
+<p>Each SCO organisation has a fully isolated identity space — its own users, groups, authentication flows, and SSO configuration. This isolation is enforced at the platform level: users in one organisation cannot see or access resources in another.</p>
+<p>Identity infrastructure is provisioned automatically when an organisation is created and removed when the organisation is deleted. Platform providers do not manage identity components directly — all configuration is applied through the SCO platform.</p>
 <hr>
-<h2 id="realm-lifecycle">Realm Lifecycle<a class="headerlink" href="#realm-lifecycle" title="Permanent link">#</a></h2>
-<p>Realms are provisioned automatically when an organisation is onboarded and removed when an organisation is deleted. Platform operators do not need to create or delete realms manually.</p>
-<p>After an organisation is created, the realm is immediately available. The organisation administrator can then customise it through the Keycloak admin console or through the SCO IAM API.</p>
-<hr>
-<h2 id="configuring-corporate-sso-federation">Configuring Corporate SSO Federation<a class="headerlink" href="#configuring-corporate-sso-federation" title="Permanent link">#</a></h2>
-<p>Organisations with an existing corporate directory can federate their identity provider into their realm. Users then authenticate with their existing corporate credentials.</p>
-<h3 id="ldap-active-directory">LDAP / Active Directory<a class="headerlink" href="#ldap-active-directory" title="Permanent link">#</a></h3>
-<p>In the Keycloak admin console for the organisation's realm, navigate to <strong>User Federation → Add Provider → LDAP</strong>:</p>
-<table>
-<thead>
-<tr>
-<th>Field</th>
-<th>Example</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Vendor</td>
-<td>Active Directory</td>
-</tr>
-<tr>
-<td>Connection URL</td>
-<td><code>ldap://ad.example.com:389</code></td>
-</tr>
-<tr>
-<td>Bind DN</td>
-<td><code>cn=svc-keycloak,ou=services,dc=example,dc=com</code></td>
-</tr>
-<tr>
-<td>Users DN</td>
-<td><code>ou=users,dc=example,dc=com</code></td>
-</tr>
-<tr>
-<td>uuid LDAP attribute</td>
-<td><code>objectGUID</code></td>
-</tr>
-</tbody>
-</table>
-<p>After saving, trigger <strong>Sync all users</strong> to import the directory.</p>
-<h3 id="oidc-provider-azure-ad-google-okta">OIDC Provider (Azure AD, Google, <code>Okta</code>)<a class="headerlink" href="#oidc-provider-azure-ad-google-okta" title="Permanent link">#</a></h3>
-<p>Navigate to <strong>Identity Providers → Add Provider → OpenID Connect v1.0</strong>:</p>
-<table>
-<thead>
-<tr>
-<th>Field</th>
-<th>Example (Azure AD)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Authorization URL</td>
-<td><code>https://login.microsoftonline.com/&lt;tenant&gt;/oauth2/v2.0/authorize</code></td>
-</tr>
-<tr>
-<td>Token URL</td>
-<td><code>https://login.microsoftonline.com/&lt;tenant&gt;/oauth2/v2.0/token</code></td>
-</tr>
-<tr>
-<td>Client ID</td>
-<td><code>&lt;azure-app-id&gt;</code></td>
-</tr>
-<tr>
-<td>Client Secret</td>
-<td><code>&lt;azure-client-secret&gt;</code></td>
-</tr>
-<tr>
-<td>Default Scopes</td>
-<td><code>openid email profile</code></td>
-</tr>
-</tbody>
-</table>
-<p>Configure the <strong>First Login Flow</strong> to control how new federated users are handled on first sign-in.</p>
-<hr>
-<h2 id="configuring-authentication-flows">Configuring Authentication Flows<a class="headerlink" href="#configuring-authentication-flows" title="Permanent link">#</a></h2>
-<p>Each realm can have its own authentication policy. Navigate to <strong>Authentication</strong> in the realm console to configure:</p>
+<h2 id="what-gets-provisioned-automatically">What Gets Provisioned Automatically<a class="headerlink" href="#what-gets-provisioned-automatically" title="Permanent link">#</a></h2>
+<p>When an <code>OrgOnboarding</code> claim is created, the platform provisions:</p>
 <ul>
-<li><strong>Password policy</strong> — minimum length, complexity requirements, rotation</li>
-<li><strong>Multi-factor authentication</strong> — OTP requirement by group, conditional MFA</li>
-<li><strong>Brute force protection</strong> — lockout thresholds and wait times</li>
-<li><strong>Session limits</strong> — idle and maximum session lifetimes</li>
+<li>An isolated identity realm for the organisation</li>
+<li>An initial administrator account with credentials sent to the specified <code>adminEmail</code></li>
+<li>A KCP workspace authentication configuration scoped to the organisation's realm</li>
+<li>Default authentication flows and session policies</li>
 </ul>
+<p>Organisation administrators can then manage users and groups using the SCO IAM API.</p>
 <hr>
-<h2 id="managing-users-and-groups-via-the-sco-api">Managing Users and Groups via the SCO API<a class="headerlink" href="#managing-users-and-groups-via-the-sco-api" title="Permanent link">#</a></h2>
-<p>Routine user and group management does not require Keycloak console access. Organisation administrators use the SCO IAM API:</p>
+<h2 id="managing-users-and-groups">Managing Users and Groups<a class="headerlink" href="#managing-users-and-groups" title="Permanent link">#</a></h2>
+<p>Routine user and group management uses the SCO IAM API — no direct access to the identity infrastructure is needed.</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Create a user</span>
 kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>-<span class="w"> </span><span class="s">&lt;&lt;EOF</span>
 <span class="s">apiVersion: iam.cloud.stakater.com/v1</span>
@@ -5834,15 +5684,58 @@ kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> <
 </code></pre></div>
 <p>See <a href="../../how-to-guides/user/create-iam-user.html">Create IAM User</a> and <a href="../../how-to-guides/user/create-iam-group.html">Create IAM Group</a> for full guides.</p>
 <hr>
-<h2 id="platform-operator-access">Platform Operator Access<a class="headerlink" href="#platform-operator-access" title="Permanent link">#</a></h2>
-<p>Platform operators can access any organisation's realm through the Keycloak administration console. Organisation administrators access only their own realm through a delegated admin configuration — they cannot view or modify other organisations' realms.</p>
+<h2 id="corporate-sso-federation">Corporate SSO Federation<a class="headerlink" href="#corporate-sso-federation" title="Permanent link">#</a></h2>
+<p>Organisations with an existing corporate directory can authenticate using their existing credentials. The platform supports federation with:</p>
+<ul>
+<li><strong>Azure Active Directory</strong> — OIDC-based federation using an Azure app registration</li>
+<li><strong>OIDC providers</strong> — Any standards-compliant OIDC identity provider</li>
+<li><strong>SAML providers</strong> — SAML 2.0 federation for providers that do not support OIDC</li>
+</ul>
+<p>SSO federation is configured at the platform level. To enable federation for an organisation, provide the following to the platform team:</p>
+<table>
+<thead>
+<tr>
+<th>Provider</th>
+<th>Required information</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Azure AD</td>
+<td>Tenant ID, Application (client) ID, client secret</td>
+</tr>
+<tr>
+<td>OIDC</td>
+<td>Authorization URL, token URL, client ID, client secret</td>
+</tr>
+<tr>
+<td>SAML</td>
+<td>Metadata URL or XML, entity ID</td>
+</tr>
+</tbody>
+</table>
+<p>The platform applies the configuration and federated users can authenticate using their corporate credentials from that point on. No manual user creation is needed — accounts are provisioned on first login from the corporate directory.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>User and group records created through the SCO IAM API remain available regardless of whether SSO is configured. SSO federation and local accounts can coexist within the same organisation.</p>
+</div>
+<hr>
+<h2 id="authentication-policy">Authentication Policy<a class="headerlink" href="#authentication-policy" title="Permanent link">#</a></h2>
+<p>Default authentication policies applied to every organisation include:</p>
+<ul>
+<li>Password complexity and minimum length requirements</li>
+<li>Brute force protection with configurable lockout thresholds</li>
+<li>Configurable session idle and maximum lifetime</li>
+<li>Multi-factor authentication (can be required per group or globally)</li>
+</ul>
+<p>Authentication policy customisation is handled at the platform level. Contact the platform team to adjust policies for a specific organisation.</p>
 <hr>
 <h2 id="whats-next">What's Next?<a class="headerlink" href="#whats-next" title="Permanent link">#</a></h2>
 <ul>
-<li><a href="../../integrations/keycloak.html">Keycloak Integration</a> — Architecture and multi-tenancy model reference</li>
+<li><a href="creating-organizations.html">Creating Organisations</a> — Provision a new organisation</li>
 <li><a href="../../how-to-guides/user/create-iam-user.html">Create IAM User</a> — User management how-to</li>
 <li><a href="../../how-to-guides/user/create-iam-group.html">Create IAM Group</a> — Group management how-to</li>
-<li><a href="../../cloud-user-guide/authentication/managing-users.html">Managing Users</a> — Consumer-facing user management guide</li>
+<li><a href="../../integrations/keycloak.html">Keycloak Integration</a> — Architecture reference for platform operators</li>
 </ul>
 
 

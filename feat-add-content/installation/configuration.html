@@ -3333,7 +3333,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Keycloak Realms
+    Organisation Identity
   
 
     
@@ -5720,7 +5720,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <hr>
 <h2 id="how-configuration-works">How Configuration Works<a class="headerlink" href="#how-configuration-works" title="Permanent link">#</a></h2>
 <p>When <code>ksp up</code> bootstraps the platform, it generates an initial set of <code>EnvironmentConfig</code> resources — one per platform component. These EnvironmentConfigs encode the default values for every configurable aspect of each component: resource limits, feature flags, version pins, networking settings, storage configuration, and integration parameters.</p>
-<p>Each platform component is backed by an OCI-packaged Helm chart. Crossplane watches the EnvironmentConfigs for that component and, when values change, re-renders the Helm release with the updated configuration. The component reconciles toward the new desired state automatically.</p>
+<p>Each platform component is packaged as an OCI artifact (Helm chart plus Crossplane configurations). Crossplane watches the <code>EnvironmentConfig</code> resources and, when values change, re-renders the ArgoCD <code>Application</code> for that component — injecting the updated values from the <code>EnvironmentConfig</code> as Helm values. ArgoCD then reconciles the component toward the new desired state automatically.</p>
 <div class="highlight"><pre><span></span><code>ksp up (initial install)
     ↓
 KubeStackConfig + KubeStackPlus claims applied
@@ -5729,14 +5729,16 @@ Crossplane generates EnvironmentConfigs (one per component)
     ↓
 EnvironmentConfigs hold default values from ksp up inputs
     ↓
-Crossplane renders each component from its OCI Helm chart + EnvironmentConfig
+Crossplane renders ArgoCD Applications sourcing values from EnvironmentConfigs
+    ↓
+ArgoCD deploys each component from its OCI artifact
     ↓
 Platform running with defaults
 </code></pre></div>
 <hr>
 <h2 id="customising-platform-configuration">Customising Platform Configuration<a class="headerlink" href="#customising-platform-configuration" title="Permanent link">#</a></h2>
 <p>To change any default — for example, increasing the replica count for the KCP workspace service, or adjusting default resource quotas for new projects — platform operators create <strong>override EnvironmentConfigs</strong> in their GitOps repository.</p>
-<p>An override EnvironmentConfig targets a specific component and declares only the values that differ from the defaults. When the GitOps engine syncs this resource to the cluster, Crossplane merges it with the component's default EnvironmentConfig and re-renders the component.</p>
+<p>An override EnvironmentConfig targets a specific component and declares only the values that differ from the defaults. When applied to the cluster, Crossplane merges it with the component's default EnvironmentConfig and re-renders the ArgoCD <code>Application</code> with the updated Helm values. ArgoCD then reconciles the component.</p>
 <h3 id="example-adjusting-default-project-quota">Example: Adjusting default project quota<a class="headerlink" href="#example-adjusting-default-project-quota" title="Permanent link">#</a></h3>
 <div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">apiextensions.crossplane.io/v1beta1</span>
 <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">EnvironmentConfig</span>

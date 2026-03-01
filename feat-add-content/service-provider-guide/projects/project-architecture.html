@@ -3190,7 +3190,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Keycloak Realms
+    Organisation Identity
   
 
     
@@ -5718,7 +5718,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 
 
 <h1 id="project-architecture">Project Architecture<a class="headerlink" href="#project-architecture" title="Permanent link">#</a></h1>
-<p>A project in SCO is a composed environment — it combines a virtual API endpoint (provided by KCP) with physical tenancy enforcement (provided by MTO) into a single isolated workspace for a team or workload.</p>
+<p>A project in SCO is a composed environment — it combines a virtual API endpoint with physical tenancy enforcement into a single isolated workspace for a team or workload.</p>
 <hr>
 <h2 id="two-layer-model">Two-Layer Model<a class="headerlink" href="#two-layer-model" title="Permanent link">#</a></h2>
 <p>Every project has two distinct layers that work together:</p>
@@ -5746,7 +5746,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <h3 id="physical-tenancy-layer">Physical Tenancy Layer<a class="headerlink" href="#physical-tenancy-layer" title="Permanent link">#</a></h3>
 <p>The MTO tenant enforces tenancy in the actual cluster. For each project, MTO creates and continuously reconciles:</p>
 <ul>
-<li><strong>Namespaces</strong> — one namespace per service category (e.g., <code>ws-proj-frontend-vms</code>). The <code>namespaceSuffix</code> defined in the service's <code>ApiExport</code> determines the suffix.</li>
+<li><strong>Namespaces</strong> — one namespace per service category (e.g., <code>ws-proj-frontend-vms</code>). The <code>namespaceSuffix</code> defined in the service's <code>PublishedOffering</code> determines the suffix.</li>
 <li><strong>ResourceQuota</strong> — compute, memory, and storage limits declared in the project claim, applied per namespace</li>
 <li><strong>NetworkPolicy</strong> — default-deny ingress from other project namespaces; allow intra-project traffic and egress to platform services</li>
 <li><strong>RoleBindings</strong> — user and group access from the project's <code>access</code> configuration, propagated from the organisation's identity provider</li>

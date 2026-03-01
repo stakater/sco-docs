@@ -11,14 +11,14 @@
         <link rel="prev" href="overview.html">
       
       
-        <link rel="next" href="aws-eks/preparation.html">
+        <link rel="next" href="openshift.html">
       
       
         
       
       
       <link rel="icon" href="../assets/images/favicon.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.3">
     
     
       
@@ -2504,55 +2504,33 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#infrastructure-requirements" class="md-nav__link">
+  <a href="#cluster-requirements" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Infrastructure Requirements
+        Cluster Requirements
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Infrastructure Requirements">
+    <nav class="md-nav" aria-label="Cluster Requirements">
       <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#kubernetes-cluster" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Kubernetes Cluster
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#virtual-machine-support-optional" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Virtual Machine Support (Optional)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#hosted-cluster-support-optional" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Hosted Cluster Support (Optional)
-      
-    </span>
-  </a>
-  
-</li>
         
           <li class="md-nav__item">
   <a href="#compute-resources" class="md-nav__link">
     <span class="md-ellipsis">
       
         Compute Resources
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optional-openshift-capabilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optional OpenShift Capabilities
       
     </span>
   </a>
@@ -2577,10 +2555,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#kubestack-cli" class="md-nav__link">
+  <a href="#kubestack-cli-ksp" class="md-nav__link">
     <span class="md-ellipsis">
       
-        KubeStack+ CLI
+        KubeStack+ CLI (ksp)
       
     </span>
   </a>
@@ -2588,21 +2566,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
         
           <li class="md-nav__item">
-  <a href="#kubectl" class="md-nav__link">
+  <a href="#oc-kubectl" class="md-nav__link">
     <span class="md-ellipsis">
       
-        kubectl
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#oc-openshift-users" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        oc (OpenShift users)
+        oc / kubectl
       
     </span>
   </a>
@@ -2637,21 +2604,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
-  <a href="#configuration-files" class="md-nav__link">
+  <a href="#configuration-claim-files" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Configuration Files
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#access-permissions" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Access Permissions
+        Configuration Claim Files
       
     </span>
   </a>
@@ -2695,293 +2651,15 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
   
-    
-    
-    
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3">
-        
-          
-          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
-            
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    On AWS EKS
-  
-
-    
-  </span>
-  
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_3">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    On AWS EKS
-  
-
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
     <li class="md-nav__item">
-      <a href="aws-eks/preparation.html" class="md-nav__link">
+      <a href="openshift.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Preparation
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="aws-eks/installation.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Installation
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="aws-eks/validation.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Validation
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    
-    
-    
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4">
-        
-          
-          <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
-            
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    On Azure AKS
-  
-
-    
-  </span>
-  
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_4">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    On Azure AKS
-  
-
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="azure-aks/preparation.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Preparation
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="azure-aks/installation.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Installation
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="azure-aks/validation.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Validation
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="kubernetes.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Kubernetes Installation
+    OpenShift Installation
   
 
     
@@ -4920,7 +4598,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    API Reference Overview
+    API Reference
   
 
     
@@ -4959,7 +4637,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Kubernetes Resources
+    Public APIs
   
 
     
@@ -4975,7 +4653,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
             <span class="md-nav__icon md-icon"></span>
             
   
-    Kubernetes Resources
+    Public APIs
   
 
           </label>
@@ -4988,14 +4666,14 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../api-reference/kubernetes-resources/organization.html" class="md-nav__link">
+      <a href="../api-reference/public-apis/project.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Organization API
+    Project
   
 
     
@@ -5016,14 +4694,14 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../api-reference/kubernetes-resources/project.html" class="md-nav__link">
+      <a href="../api-reference/public-apis/iam-user.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Project API
+    IAM User
   
 
     
@@ -5044,14 +4722,14 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../api-reference/kubernetes-resources/solution.html" class="md-nav__link">
+      <a href="../api-reference/public-apis/iam-group.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Solution API
+    IAM Group
   
 
     
@@ -5072,14 +4750,42 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../api-reference/kubernetes-resources/solution-instance.html" class="md-nav__link">
+      <a href="../api-reference/public-apis/openshift-cluster.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Solution Instance API
+    OpenShift Cluster
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api-reference/public-apis/virtual-machine.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Virtual Machine
   
 
     
@@ -5126,7 +4832,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    KCP APIs
+    Private APIs
   
 
     
@@ -5142,7 +4848,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
             <span class="md-nav__icon md-icon"></span>
             
   
-    KCP APIs
+    Private APIs
   
 
           </label>
@@ -5155,14 +4861,42 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../api-reference/kcp-apis/workspace-api.html" class="md-nav__link">
+      <a href="../api-reference/private-apis/hypershift-hosted-cluster.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Workspace API
+    HyperShift Hosted Cluster
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api-reference/private-apis/virtual-machine-infrastructure.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Virtual Machine (Infrastructure)
   
 
     
@@ -5562,6 +5296,146 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../how-to-guides/user/create-project.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Create a Project
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../how-to-guides/user/create-iam-user.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Create an IAM User
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../how-to-guides/user/create-iam-group.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Create an IAM Group
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../how-to-guides/user/provision-openshift-cluster.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Provision an OpenShift Cluster
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../how-to-guides/user/provision-virtual-machine.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Provision a Virtual Machine
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -5770,55 +5644,33 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#infrastructure-requirements" class="md-nav__link">
+  <a href="#cluster-requirements" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Infrastructure Requirements
+        Cluster Requirements
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Infrastructure Requirements">
+    <nav class="md-nav" aria-label="Cluster Requirements">
       <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#kubernetes-cluster" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Kubernetes Cluster
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#virtual-machine-support-optional" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Virtual Machine Support (Optional)
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#hosted-cluster-support-optional" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Hosted Cluster Support (Optional)
-      
-    </span>
-  </a>
-  
-</li>
         
           <li class="md-nav__item">
   <a href="#compute-resources" class="md-nav__link">
     <span class="md-ellipsis">
       
         Compute Resources
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optional-openshift-capabilities" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optional OpenShift Capabilities
       
     </span>
   </a>
@@ -5843,10 +5695,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#kubestack-cli" class="md-nav__link">
+  <a href="#kubestack-cli-ksp" class="md-nav__link">
     <span class="md-ellipsis">
       
-        KubeStack+ CLI
+        KubeStack+ CLI (ksp)
       
     </span>
   </a>
@@ -5854,21 +5706,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
         
           <li class="md-nav__item">
-  <a href="#kubectl" class="md-nav__link">
+  <a href="#oc-kubectl" class="md-nav__link">
     <span class="md-ellipsis">
       
-        kubectl
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#oc-openshift-users" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        oc (OpenShift users)
+        oc / kubectl
       
     </span>
   </a>
@@ -5903,21 +5744,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
-  <a href="#configuration-files" class="md-nav__link">
+  <a href="#configuration-claim-files" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Configuration Files
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#access-permissions" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Access Permissions
+        Configuration Claim Files
       
     </span>
   </a>
@@ -5964,121 +5794,115 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 
 
 <h1 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">#</a></h1>
-<p>Requirements and prerequisites for installing Stakater Cloud Orchestrator.</p>
-<h2 id="infrastructure-requirements">Infrastructure Requirements<a class="headerlink" href="#infrastructure-requirements" title="Permanent link">#</a></h2>
-<h3 id="kubernetes-cluster">Kubernetes Cluster<a class="headerlink" href="#kubernetes-cluster" title="Permanent link">#</a></h3>
+<p>Requirements for installing Stakater Cloud Orchestrator on OpenShift.</p>
+<h2 id="cluster-requirements">Cluster Requirements<a class="headerlink" href="#cluster-requirements" title="Permanent link">#</a></h2>
 <ul>
-<li><strong>Version</strong>: Kubernetes 1.27+ (OpenShift 4.14+ recommended for production)</li>
-<li><strong>Deployment</strong>: Any Kubernetes distribution (tested on OpenShift bare metal)</li>
+<li><strong>Platform</strong>: Red Hat OpenShift 4.14+</li>
+<li><strong>Deployment</strong>: Bare metal (production-supported)</li>
 <li><strong>Access</strong>: Cluster administrator privileges</li>
 <li><strong>Nodes</strong>: Minimum 6 worker nodes recommended for production</li>
 <li><strong>Storage</strong>: Persistent storage provisioner configured (any CSI driver)</li>
-<li><strong>Network</strong>: Network plugin with ingress support (e.g., Calico, Cilium, OVN-Kubernetes)</li>
-</ul>
-<h3 id="virtual-machine-support-optional">Virtual Machine Support (Optional)<a class="headerlink" href="#virtual-machine-support-optional" title="Permanent link">#</a></h3>
-<p>For VM workloads (requires KubeVirt or equivalent):</p>
-<ul>
-<li><strong>On OpenShift</strong>: OpenShift Virtualization operator</li>
-<li><strong>On vanilla Kubernetes</strong>: KubeVirt installed</li>
-<li>Bare metal nodes with virtualization support (Intel VT-x or AMD-V)</li>
-<li>Sufficient CPU, memory, and storage for VM workloads</li>
-</ul>
-<h3 id="hosted-cluster-support-optional">Hosted Cluster Support (Optional)<a class="headerlink" href="#hosted-cluster-support-optional" title="Permanent link">#</a></h3>
-<p>For Kubernetes-on-Kubernetes clusters:</p>
-<ul>
-<li><strong>On OpenShift</strong>: hypershift operator</li>
-<li><strong>On vanilla Kubernetes</strong>: Alternative cluster-API providers</li>
 </ul>
 <h3 id="compute-resources">Compute Resources<a class="headerlink" href="#compute-resources" title="Permanent link">#</a></h3>
-<p>Recommended minimum capacity for SCO platform:</p>
-<ul>
-<li><strong>Control Plane</strong>: 3 nodes, 4 vCPU, 16GB RAM each</li>
-<li><strong>Worker Nodes</strong>: 6+ nodes, 16 vCPU, 64GB RAM each</li>
-<li><strong>Storage</strong>: 500GB+ available across workers</li>
-</ul>
+<p>Recommended minimum capacity for the SCO platform:</p>
+<table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Count</th>
+<th>vCPU</th>
+<th>RAM</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Control plane nodes</td>
+<td>3</td>
+<td>4</td>
+<td>16 GB</td>
+</tr>
+<tr>
+<td>Worker nodes</td>
+<td>6+</td>
+<td>16</td>
+<td>64 GB</td>
+</tr>
+</tbody>
+</table>
+<p>Storage: 500 GB+ available across workers.</p>
+<h3 id="optional-openshift-capabilities">Optional OpenShift Capabilities<a class="headerlink" href="#optional-openshift-capabilities" title="Permanent link">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>Capability</th>
+<th>Required for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OpenShift Virtualization</td>
+<td>VM workloads</td>
+</tr>
+<tr>
+<td>HyperShift operator</td>
+<td>Hosted OpenShift cluster provisioning</td>
+</tr>
+</tbody>
+</table>
 <h2 id="tool-requirements">Tool Requirements<a class="headerlink" href="#tool-requirements" title="Permanent link">#</a></h2>
-<h3 id="kubestack-cli">KubeStack+ CLI<a class="headerlink" href="#kubestack-cli" title="Permanent link">#</a></h3>
-<p>Install the <code>ksp</code> CLI tool:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># Download from GitHub releases</span>
-wget<span class="w"> </span>https://github.com/stakater-ab/kubestackplus-cli/releases/latest/download/ksp-linux-amd64
+<h3 id="kubestack-cli-ksp">KubeStack+ CLI (<code>ksp</code>)<a class="headerlink" href="#kubestack-cli-ksp" title="Permanent link">#</a></h3>
+<p>Download the latest release from GitHub:</p>
+<div class="highlight"><pre><span></span><code>wget<span class="w"> </span>https://github.com/stakater-ab/kubestackplus-cli/releases/latest/download/ksp-linux-amd64
 chmod<span class="w"> </span>+x<span class="w"> </span>ksp-linux-amd64
 sudo<span class="w"> </span>mv<span class="w"> </span>ksp-linux-amd64<span class="w"> </span>/usr/local/bin/ksp
 
-<span class="c1"># Verify installation</span>
 ksp<span class="w"> </span>version
 </code></pre></div>
-<h3 id="kubectl">kubectl<a class="headerlink" href="#kubectl" title="Permanent link">#</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># Install kubectl for your OS</span>
-<span class="c1"># https://kubernetes.io/docs/tasks/tools/</span>
-
-<span class="c1"># Verify</span>
-kubectl<span class="w"> </span>version
+<p>On macOS, remove the quarantine attribute after downloading:</p>
+<div class="highlight"><pre><span></span><code>xattr<span class="w"> </span>-d<span class="w"> </span>com.apple.quarantine<span class="w"> </span>~/Downloads/ksp
 </code></pre></div>
-<h3 id="oc-openshift-users">oc (OpenShift users)<a class="headerlink" href="#oc-openshift-users" title="Permanent link">#</a></h3>
-<div class="highlight"><pre><span></span><code><span class="c1"># Download oc CLI (OpenShift only)</span>
-<span class="c1"># https://docs.openshift.com/container-platform/latest/cli_reference/openshift_cli/getting-started-cli.html</span>
-
-<span class="c1"># Verify</span>
+<h3 id="oc-kubectl">oc / kubectl<a class="headerlink" href="#oc-kubectl" title="Permanent link">#</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Verify oc is installed and authenticated</span>
 oc<span class="w"> </span>version
+oc<span class="w"> </span>whoami
 </code></pre></div>
 <h2 id="network-requirements">Network Requirements<a class="headerlink" href="#network-requirements" title="Permanent link">#</a></h2>
 <ul>
-<li><strong>DNS</strong>: Wildcard DNS configured for cluster ingress</li>
-<li><strong>Certificates</strong>: TLS certificates for ingress routes</li>
-<li><strong>Firewall</strong>: Ports accessible for cluster communication</li>
-<li><strong>Load Balancer</strong>: If using external load balancing</li>
+<li><strong>DNS</strong>: Wildcard DNS configured for cluster ingress (e.g., <code>*.apps.cluster.example.com</code>)</li>
+<li><strong>TLS</strong>: Wildcard TLS certificate for ingress routes</li>
+<li><strong>Connectivity</strong>: Outbound access to container registries (docker.io, quay.io, ghcr.io)</li>
 </ul>
 <h2 id="registry-access">Registry Access<a class="headerlink" href="#registry-access" title="Permanent link">#</a></h2>
-<p>SCO requires access to container registries:</p>
+<p>SCO components are pulled from:</p>
 <ul>
-<li><strong>Public Registries</strong>: docker.io, Quay.io, ghcr.io for open-source components</li>
-<li><strong>Stakater Registry</strong>: For SCO proprietary components</li>
-<li><strong>Platform-Specific</strong>: Red Hat registry if using OpenShift features</li>
-<li><strong>Private Registry</strong>: Optional for custom images</li>
+<li><strong>Public registries</strong>: docker.io, quay.io, ghcr.io</li>
+<li><strong>Red Hat registry</strong>: For OpenShift platform components</li>
+<li><strong>Stakater registry</strong>: For SCO proprietary components (credentials provided by Stakater)</li>
 </ul>
-<p>Prepare registry credentials if using private registries:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># Create registry secret file</span>
-cat<span class="w"> </span>&gt;<span class="w"> </span>registry-secret.yaml<span class="w"> </span><span class="s">&lt;&lt;EOF</span>
-<span class="s">apiVersion: v1</span>
-<span class="s">kind: Secret</span>
-<span class="s">metadata:</span>
-<span class="s">  name: regcred</span>
-<span class="s">type: kubernetes.io/dockerconfigjson</span>
-<span class="s">data:</span>
-<span class="s">  .dockerconfigjson: &lt;base64-encoded-docker-config&gt;</span>
-<span class="s">EOF</span>
-</code></pre></div>
-<h2 id="configuration-files">Configuration Files<a class="headerlink" href="#configuration-files" title="Permanent link">#</a></h2>
-<p>Prepare your SCO configuration claim files:</p>
+<p>If using a private registry mirror, prepare a registry secret file for the <code>--registry-secret</code> flag (see <a href="openshift.html">Installation</a>).</p>
+<h2 id="configuration-claim-files">Configuration Claim Files<a class="headerlink" href="#configuration-claim-files" title="Permanent link">#</a></h2>
+<p>Before running <code>ksp up</code> you need two claim files prepared:</p>
 <ol>
-<li><strong>kubestack-config-package claim</strong> - Platform configuration (networking, DNS, certificates)</li>
-<li><strong>kubestack-plus-package claim</strong> - SCO platform components (marketplace, solutions, console)</li>
+<li><strong><code>KubeStackConfig</code></strong> — Platform configuration (name, location, domain)</li>
+<li><strong><code>KubeStackPlus</code></strong> — SCO platform deployment (variant, platform)</li>
 </ol>
-<p>These files define your SCO deployment configuration and are required by <code>ksp up</code>. Example files are provided with the CLI.</p>
-<h2 id="access-permissions">Access Permissions<a class="headerlink" href="#access-permissions" title="Permanent link">#</a></h2>
-<p>Ensure you have:</p>
-<ul>
-<li>Cluster administrator access to OpenShift</li>
-<li>Ability to create namespaces and CRDs</li>
-<li>Permissions to install operators</li>
-<li>Access to create routes and ingresses</li>
-</ul>
+<p>See <a href="openshift.html">OpenShift Installation</a> for example claim files.</p>
 <h2 id="pre-installation-checklist">Pre-Installation Checklist<a class="headerlink" href="#pre-installation-checklist" title="Permanent link">#</a></h2>
 <ul>
-<li>[ ] Kubernetes 1.27+ cluster (OpenShift 4.14+ recommended)</li>
-<li>[ ] VM support installed if using VM workloads (OpenShift Virtualization/KubeVirt)</li>
-<li>[ ] <code>ksp</code> CLI tool installed</li>
-<li>[ ] <code>kubectl</code> (or <code>oc</code>) configured and authenticated</li>
-<li>[ ] DNS wildcard configured</li>
-<li>[ ] TLS certificates ready</li>
-<li>[ ] Registry access configured</li>
-<li>[ ] Configuration claim files prepared</li>
-<li>[ ] Sufficient compute and storage capacity</li>
+<li>[ ] OpenShift 4.14+ cluster on bare metal</li>
+<li>[ ] Cluster administrator access</li>
+<li>[ ] <code>ksp</code> CLI installed and on PATH</li>
+<li>[ ] <code>oc</code> authenticated to the cluster</li>
+<li>[ ] Wildcard DNS configured</li>
+<li>[ ] Wildcard TLS certificate ready</li>
+<li>[ ] Registry credentials available (if using private registry)</li>
+<li>[ ] <code>KubeStackConfig</code> claim file prepared</li>
+<li>[ ] <code>KubeStackPlus</code> claim file prepared</li>
+<li>[ ] Minimum compute and storage capacity available</li>
 </ul>
 <h2 id="whats-next">What's Next?<a class="headerlink" href="#whats-next" title="Permanent link">#</a></h2>
 <ul>
-<li><a href="kubernetes.html">OpenShift Installation</a> - Install SCO using <code>ksp up</code></li>
-<li><a href="configuration.html">Configuration</a> - Post-installation setup</li>
+<li><a href="openshift.html">OpenShift Installation</a> - Run <code>ksp up</code> to install SCO</li>
 </ul>
 
 

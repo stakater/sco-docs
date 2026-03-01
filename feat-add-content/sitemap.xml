@@ -2,286 +2,290 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/index.html</loc>
-         <lastmod>2026-02-13</lastmod>
+         <lastmod>2026-03-01</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/changelog.html</loc>
-         <lastmod>2026-02-13</lastmod>
+         <lastmod>2026-03-01</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/eula.html</loc>
-         <lastmod>2026-02-13</lastmod>
+         <lastmod>2026-03-01</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/about/benefits.html</loc>
-         <lastmod>2026-02-13</lastmod>
+         <lastmod>2026-03-01</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/about/key-features.html</loc>
-         <lastmod>2026-02-13</lastmod>
+         <lastmod>2026-03-01</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/about/overview.html</loc>
-         <lastmod>2026-02-13</lastmod>
+         <lastmod>2026-03-01</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/about/use-cases.html</loc>
-         <lastmod>2026-02-13</lastmod>
+         <lastmod>2026-03-01</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/api-reference/overview.html</loc>
-         <lastmod>2026-02-13</lastmod>
+         <lastmod>2026-03-01</lastmod>
     </url>
     <url>
-         <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/api-reference/kcp-apis/workspace-api.html</loc>
-         <lastmod>2026-02-13</lastmod>
+         <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/api-reference/private-apis/hypershift-hosted-cluster.html</loc>
+         <lastmod>2026-03-01</lastmod>
     </url>
     <url>
-         <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/api-reference/kubernetes-resources/organization.html</loc>
-         <lastmod>2026-02-13</lastmod>
+         <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/api-reference/private-apis/virtual-machine-infrastructure.html</loc>
+         <lastmod>2026-03-01</lastmod>
     </url>
     <url>
-         <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/api-reference/kubernetes-resources/project.html</loc>
-         <lastmod>2026-02-13</lastmod>
+         <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/api-reference/public-apis/iam-group.html</loc>
+         <lastmod>2026-03-01</lastmod>
     </url>
     <url>
-         <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/api-reference/kubernetes-resources/solution-instance.html</loc>
-         <lastmod>2026-02-13</lastmod>
+         <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/api-reference/public-apis/iam-user.html</loc>
+         <lastmod>2026-03-01</lastmod>
     </url>
     <url>
-         <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/api-reference/kubernetes-resources/solution.html</loc>
-         <lastmod>2026-02-13</lastmod>
+         <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/api-reference/public-apis/openshift-cluster.html</loc>
+         <lastmod>2026-03-01</lastmod>
+    </url>
+    <url>
+         <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/api-reference/public-apis/project.html</loc>
+         <lastmod>2026-03-01</lastmod>
+    </url>
+    <url>
+         <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/api-reference/public-apis/virtual-machine.html</loc>
+         <lastmod>2026-03-01</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/architecture/architecture.html</loc>
-         <lastmod>2026-02-13</lastmod>
+         <lastmod>2026-03-01</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/architecture/components.html</loc>
-         <lastmod>2026-02-13</lastmod>
+         <lastmod>2026-03-01</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/architecture/concepts.html</loc>
-         <lastmod>2026-02-13</lastmod>
+         <lastmod>2026-03-01</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/architecture/virtual-api-layer.html</loc>
-         <lastmod>2026-02-13</lastmod>
+         <lastmod>2026-03-01</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/cloud-user-guide/getting-started.html</loc>
-         <lastmod>2026-02-13</lastmod>
+         <lastmod>2026-03-01</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/cloud-user-guide/overview.html</loc>
-         <lastmod>2026-02-13</lastmod>
+         <lastmod>2026-03-01</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/cloud-user-guide/authentication/logging-in.html</loc>
-         <lastmod>2026-02-13</lastmod>
+         <lastmod>2026-03-01</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/cloud-user-guide/authentication/managing-users.html</loc>
-         <lastmod>2026-02-13</lastmod>
+         <lastmod>2026-03-01</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/cloud-user-guide/gitops-access/argocd-setup.html</loc>
-         <lastmod>2026-02-13</lastmod>
+         <lastmod>2026-03-01</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/cloud-user-guide/gitops-access/flux-setup.html</loc>
-         <lastmod>2026-02-13</lastmod>
+         <lastmod>2026-03-01</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/cloud-user-guide/kubectl-access/kubeconfig-generation.html</loc>
-         <lastmod>2026-02-13</lastmod>
+         <lastmod>2026-03-01</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/cloud-user-guide/kubectl-access/setup-kubectl.html</loc>
-         <lastmod>2026-02-13</lastmod>
+         <lastmod>2026-03-01</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/cloud-user-guide/projects/creating-projects.html</loc>
-         <lastmod>2026-02-13</lastmod>
+         <lastmod>2026-03-01</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/cloud-user-guide/projects/project-structure.html</loc>
-         <lastmod>2026-02-13</lastmod>
+         <lastmod>2026-03-01</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/cloud-user-guide/solutions/browsing-marketplace.html</loc>
-         <lastmod>2026-02-13</lastmod>
+         <lastmod>2026-03-01</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/cloud-user-guide/solutions/provisioning-solutions.html</loc>
-         <lastmod>2026-02-13</lastmod>
+         <lastmod>2026-03-01</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/cloud-user-guide/terraform-access/kubernetes-provider.html</loc>
-         <lastmod>2026-02-13</lastmod>
+         <lastmod>2026-03-01</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/cloud-user-guide/terraform-access/setup-terraform.html</loc>
-         <lastmod>2026-02-13</lastmod>
+         <lastmod>2026-03-01</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/console/dashboard.html</loc>
-         <lastmod>2026-02-13</lastmod>
+         <lastmod>2026-03-01</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/console/marketplace.html</loc>
-         <lastmod>2026-02-13</lastmod>
+         <lastmod>2026-03-01</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/console/organizations.html</loc>
-         <lastmod>2026-02-13</lastmod>
+         <lastmod>2026-03-01</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/console/overview.html</loc>
-         <lastmod>2026-02-13</lastmod>
+         <lastmod>2026-03-01</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/console/projects.html</loc>
-         <lastmod>2026-02-13</lastmod>
+         <lastmod>2026-03-01</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/console/solutions.html</loc>
-         <lastmod>2026-02-13</lastmod>
+         <lastmod>2026-03-01</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/how-to-guides/provider/create-postgresql-solution.html</loc>
-         <lastmod>2026-02-13</lastmod>
+         <lastmod>2026-03-01</lastmod>
+    </url>
+    <url>
+         <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/how-to-guides/user/create-iam-group.html</loc>
+         <lastmod>2026-03-01</lastmod>
+    </url>
+    <url>
+         <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/how-to-guides/user/create-iam-user.html</loc>
+         <lastmod>2026-03-01</lastmod>
+    </url>
+    <url>
+         <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/how-to-guides/user/create-project.html</loc>
+         <lastmod>2026-03-01</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/how-to-guides/user/deploy-first-app.html</loc>
-         <lastmod>2026-02-13</lastmod>
+         <lastmod>2026-03-01</lastmod>
+    </url>
+    <url>
+         <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/how-to-guides/user/provision-openshift-cluster.html</loc>
+         <lastmod>2026-03-01</lastmod>
+    </url>
+    <url>
+         <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/how-to-guides/user/provision-virtual-machine.html</loc>
+         <lastmod>2026-03-01</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/installation/configuration.html</loc>
-         <lastmod>2026-02-13</lastmod>
+         <lastmod>2026-03-01</lastmod>
     </url>
     <url>
-         <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/installation/kubernetes.html</loc>
-         <lastmod>2026-02-13</lastmod>
+         <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/installation/openshift.html</loc>
+         <lastmod>2026-03-01</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/installation/overview.html</loc>
-         <lastmod>2026-02-13</lastmod>
+         <lastmod>2026-03-01</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/installation/prerequisites.html</loc>
-         <lastmod>2026-02-13</lastmod>
-    </url>
-    <url>
-         <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/installation/aws-eks/installation.html</loc>
-         <lastmod>2026-02-13</lastmod>
-    </url>
-    <url>
-         <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/installation/aws-eks/preparation.html</loc>
-         <lastmod>2026-02-13</lastmod>
-    </url>
-    <url>
-         <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/installation/aws-eks/validation.html</loc>
-         <lastmod>2026-02-13</lastmod>
-    </url>
-    <url>
-         <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/installation/azure-aks/installation.html</loc>
-         <lastmod>2026-02-13</lastmod>
-    </url>
-    <url>
-         <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/installation/azure-aks/preparation.html</loc>
-         <lastmod>2026-02-13</lastmod>
-    </url>
-    <url>
-         <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/installation/azure-aks/validation.html</loc>
-         <lastmod>2026-02-13</lastmod>
+         <lastmod>2026-03-01</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/integrations/crossplane.html</loc>
-         <lastmod>2026-02-13</lastmod>
+         <lastmod>2026-03-01</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/integrations/kcp.html</loc>
-         <lastmod>2026-02-13</lastmod>
+         <lastmod>2026-03-01</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/integrations/keycloak.html</loc>
-         <lastmod>2026-02-13</lastmod>
+         <lastmod>2026-03-01</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/integrations/mto.html</loc>
-         <lastmod>2026-02-13</lastmod>
+         <lastmod>2026-03-01</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/marketplace/browsing.html</loc>
-         <lastmod>2026-02-13</lastmod>
+         <lastmod>2026-03-01</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/marketplace/overview.html</loc>
-         <lastmod>2026-02-13</lastmod>
+         <lastmod>2026-03-01</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/marketplace/solution-catalog.html</loc>
-         <lastmod>2026-02-13</lastmod>
+         <lastmod>2026-03-01</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/service-provider-guide/getting-started.html</loc>
-         <lastmod>2026-02-13</lastmod>
+         <lastmod>2026-03-01</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/service-provider-guide/overview.html</loc>
-         <lastmod>2026-02-13</lastmod>
+         <lastmod>2026-03-01</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/service-provider-guide/api-publishing/kcp-overview.html</loc>
-         <lastmod>2026-02-13</lastmod>
+         <lastmod>2026-03-01</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/service-provider-guide/api-publishing/publishing-apis.html</loc>
-         <lastmod>2026-02-13</lastmod>
+         <lastmod>2026-03-01</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/service-provider-guide/marketplace/marketplace-configuration.html</loc>
-         <lastmod>2026-02-13</lastmod>
+         <lastmod>2026-03-01</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/service-provider-guide/marketplace/publishing-solutions.html</loc>
-         <lastmod>2026-02-13</lastmod>
+         <lastmod>2026-03-01</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/service-provider-guide/organizations/creating-organizations.html</loc>
-         <lastmod>2026-02-13</lastmod>
+         <lastmod>2026-03-01</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/service-provider-guide/organizations/keycloak-realms.html</loc>
-         <lastmod>2026-02-13</lastmod>
+         <lastmod>2026-03-01</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/service-provider-guide/projects/project-architecture.html</loc>
-         <lastmod>2026-02-13</lastmod>
+         <lastmod>2026-03-01</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/service-provider-guide/projects/workspace-mapping.html</loc>
-         <lastmod>2026-02-13</lastmod>
+         <lastmod>2026-03-01</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/service-provider-guide/solutions/creating-solutions.html</loc>
-         <lastmod>2026-02-13</lastmod>
+         <lastmod>2026-03-01</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/service-provider-guide/solutions/crossplane-compositions.html</loc>
-         <lastmod>2026-02-13</lastmod>
+         <lastmod>2026-03-01</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/service-provider-guide/solutions/solution-overview.html</loc>
-         <lastmod>2026-02-13</lastmod>
+         <lastmod>2026-03-01</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/troubleshooting/common-issues.html</loc>
-         <lastmod>2026-02-13</lastmod>
+         <lastmod>2026-03-01</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/feat-add-content/troubleshooting/overview.html</loc>
-         <lastmod>2026-02-13</lastmod>
+         <lastmod>2026-03-01</lastmod>
     </url>
 </urlset>

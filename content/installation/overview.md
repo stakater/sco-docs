@@ -1,59 +1,46 @@
 # Installation Overview
 
-Learn how to install Stakater Cloud Orchestrator on your Kubernetes cluster.
+Learn how to install Stakater Cloud Orchestrator on your OpenShift cluster.
 
 ## Installation Method
 
-SCO is installed using the **`ksp up`** command from the KubeStack+ CLI. This command bootstraps your Kubernetes cluster with all required components and dependencies.
+SCO is installed using the **`ksp up`** command from the KubeStack+ CLI. Running `ksp up` locally with your kubeconfig configured bootstraps your OpenShift cluster with all required components.
+
+The command takes two claim files:
+
+- **`-c`** — the `KubeStackConfig` claim, applied first to generate environment configuration
+- **`-f`** — the `KubeStackPlus` claim, applied second to deploy the SCO platform
+
+```bash
+ksp up -f kubestack-plus-claim.yaml -c kubestack-config-claim.yaml
+```
 
 ## Installation Flow
 
 The `ksp up` command:
 
-1. **Validates Prerequisites**: Checks for required cluster capabilities
-1. **Installs Core Components**: Deploys composition framework and required operators
-1. **Applies Configuration**: Installs the `kubestack-config-package` claim
-1. **Deploys SCO Platform**: Installs the `kubestack-plus-package` claim
-1. **Verifies Installation**: Ensures all components are healthy and ready
-
-The two package claims handle the automated rollout of all SCO components including:
-
-- Virtual API layer with multi-tenancy
-- Multi-Tenant Operator for network isolation
-- Keycloak for authentication
-- VM management (KubeVirt on supported platforms)
-- Hosted control plane support (hypershift on OpenShift)
-- Marketplace and console components
-
-## Supported Platforms
-
-**Production-Ready**: Red Hat OpenShift 4.14+ on bare metal (tested and supported)
-
-**Architecture**: Kubernetes-agnostic design, compatible with standard Kubernetes distributions
-
-**Minimum Requirements**:
-
-- Kubernetes 1.27+ (OpenShift 4.14+ recommended)
-- Sufficient cluster capacity (see prerequisites)
-- Administrative access to the cluster
-- Network connectivity for external services
-- Storage provisioner configured
-
-**Optional Enhancements** (on OpenShift):
-
-- OpenShift Virtualization for VM workloads
-- hypershift for hosted cluster provisioning
+1. **Validates Prerequisites** — Checks for required cluster capabilities (Crossplane, providers, functions, Argo CD)
+2. **Installs Core Components** — Deploys the composition framework and required operators
+3. **Applies Config Claim** — Installs the `KubeStackConfig` claim to configure the environment
+4. **Deploys SCO Platform** — Installs the `KubeStackPlus` claim to bring up the SCO platform
+5. **Verifies Installation** — Ensures all components are healthy and ready
 
 ## Cluster Classification
 
-When you run `ksp up`, the command automatically classifies your cluster:
+When you run `ksp up`, the command classifies your cluster and determines the appropriate action:
 
-- **Greenfield**: No SCO components present → Full installation
-- **Valid Brownfield**: All components present → Continuation logic
-- **Partial Brownfield**: Some components present → Error with report
+| Classification | Description | Behaviour |
+|----------------|-------------|-----------|
+| **Greenfield** | No SCO components present | Full installation from scratch |
+| **Valid Brownfield** | All components present | Continues from the current state |
+| **Partial Brownfield** | Some components present | Blocked — reports what is missing |
+
+## Supported Platform
+
+SCO is installed and supported on **Red Hat OpenShift 4.14+** on bare metal.
 
 ## What's Next?
 
-- [Prerequisites](prerequisites.md) - Check installation prerequisites
-- [OpenShift Installation](kubernetes.md) - Install SCO on OpenShift
+- [Prerequisites](prerequisites.md) - Check installation requirements
+- [OpenShift Installation](openshift.md) - Step-by-step installation guide
 - [Configuration](configuration.md) - Post-installation configuration

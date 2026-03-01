@@ -30,15 +30,7 @@ nav:
   - Installation:
       - installation/overview.md
       - installation/prerequisites.md
-      - On AWS EKS:
-          - Preparation: "installation/aws-eks/preparation.md"
-          - Installation: "installation/aws-eks/installation.md"
-          - Validation: "installation/aws-eks/validation.md"
-      - On Azure AKS:
-          - Preparation: "installation/azure-aks/preparation.md"
-          - Installation: "installation/azure-aks/installation.md"
-          - Validation: "installation/azure-aks/validation.md"
-      - installation/kubernetes.md
+      - installation/openshift.md
       - installation/configuration.md
   - Navigating Console:
       - console/overview.md
@@ -93,13 +85,15 @@ nav:
       - marketplace/solution-catalog.md
   - API Reference:
       - api-reference/overview.md
-      - Kubernetes Resources:
-          - api-reference/kubernetes-resources/organization.md
-          - api-reference/kubernetes-resources/project.md
-          - api-reference/kubernetes-resources/solution.md
-          - api-reference/kubernetes-resources/solution-instance.md
-      - KCP APIs:
-          - api-reference/kcp-apis/workspace-api.md
+      - Public APIs:
+          - api-reference/public-apis/project.md
+          - api-reference/public-apis/iam-user.md
+          - api-reference/public-apis/iam-group.md
+          - api-reference/public-apis/openshift-cluster.md
+          - api-reference/public-apis/virtual-machine.md
+      - Private APIs:
+          - api-reference/private-apis/hypershift-hosted-cluster.md
+          - api-reference/private-apis/virtual-machine-infrastructure.md
   - Integrations:
       - integrations/keycloak.md
       - integrations/kcp.md
@@ -110,6 +104,11 @@ nav:
           - how-to-guides/provider/create-postgresql-solution.md
       - User Guides:
           - how-to-guides/user/deploy-first-app.md
+          - how-to-guides/user/create-project.md
+          - how-to-guides/user/create-iam-user.md
+          - how-to-guides/user/create-iam-group.md
+          - how-to-guides/user/provision-openshift-cluster.md
+          - how-to-guides/user/provision-virtual-machine.md
   - Troubleshooting:
       - troubleshooting/overview.md
       - troubleshooting/common-issues.md

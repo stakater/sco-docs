@@ -1,140 +1,99 @@
 # Prerequisites
 
-Requirements and prerequisites for installing Stakater Cloud Orchestrator.
+Requirements for installing Stakater Cloud Orchestrator on OpenShift.
 
-## Infrastructure Requirements
+## Cluster Requirements
 
-### Kubernetes Cluster
-
-- **Version**: Kubernetes 1.27+ (OpenShift 4.14+ recommended for production)
-- **Deployment**: Any Kubernetes distribution (tested on OpenShift bare metal)
+- **Platform**: Red Hat OpenShift 4.14+
+- **Deployment**: Bare metal (production-supported)
 - **Access**: Cluster administrator privileges
 - **Nodes**: Minimum 6 worker nodes recommended for production
 - **Storage**: Persistent storage provisioner configured (any CSI driver)
-- **Network**: Network plugin with ingress support (e.g., Calico, Cilium, OVN-Kubernetes)
-
-### Virtual Machine Support (Optional)
-
-For VM workloads (requires KubeVirt or equivalent):
-
-- **On OpenShift**: OpenShift Virtualization operator
-- **On vanilla Kubernetes**: KubeVirt installed
-- Bare metal nodes with virtualization support (Intel VT-x or AMD-V)
-- Sufficient CPU, memory, and storage for VM workloads
-
-### Hosted Cluster Support (Optional)
-
-For Kubernetes-on-Kubernetes clusters:
-
-- **On OpenShift**: hypershift operator
-- **On vanilla Kubernetes**: Alternative cluster-API providers
 
 ### Compute Resources
 
-Recommended minimum capacity for SCO platform:
+Recommended minimum capacity for the SCO platform:
 
-- **Control Plane**: 3 nodes, 4 vCPU, 16GB RAM each
-- **Worker Nodes**: 6+ nodes, 16 vCPU, 64GB RAM each
-- **Storage**: 500GB+ available across workers
+| Role | Count | vCPU | RAM |
+|------|-------|------|-----|
+| Control plane nodes | 3 | 4 | 16 GB |
+| Worker nodes | 6+ | 16 | 64 GB |
+
+Storage: 500 GB+ available across workers.
+
+### Optional OpenShift Capabilities
+
+| Capability | Required for |
+|------------|-------------|
+| OpenShift Virtualization | VM workloads |
+| HyperShift operator | Hosted OpenShift cluster provisioning |
 
 ## Tool Requirements
 
-### KubeStack+ CLI
+### KubeStack+ CLI (`ksp`)
 
-Install the `ksp` CLI tool:
+Download the latest release from GitHub:
 
 ```bash
-# Download from GitHub releases
 wget https://github.com/stakater-ab/kubestackplus-cli/releases/latest/download/ksp-linux-amd64
 chmod +x ksp-linux-amd64
 sudo mv ksp-linux-amd64 /usr/local/bin/ksp
 
-# Verify installation
 ksp version
 ```
 
-### kubectl
+On macOS, remove the quarantine attribute after downloading:
 
 ```bash
-# Install kubectl for your OS
-# https://kubernetes.io/docs/tasks/tools/
-
-# Verify
-kubectl version
+xattr -d com.apple.quarantine ~/Downloads/ksp
 ```
 
-### oc (OpenShift users)
+### oc / kubectl
 
 ```bash
-# Download oc CLI (OpenShift only)
-# https://docs.openshift.com/container-platform/latest/cli_reference/openshift_cli/getting-started-cli.html
-
-# Verify
+# Verify oc is installed and authenticated
 oc version
+oc whoami
 ```
 
 ## Network Requirements
 
-- **DNS**: Wildcard DNS configured for cluster ingress
-- **Certificates**: TLS certificates for ingress routes
-- **Firewall**: Ports accessible for cluster communication
-- **Load Balancer**: If using external load balancing
+- **DNS**: Wildcard DNS configured for cluster ingress (e.g., `*.apps.cluster.example.com`)
+- **TLS**: Wildcard TLS certificate for ingress routes
+- **Connectivity**: Outbound access to container registries (docker.io, quay.io, ghcr.io)
 
 ## Registry Access
 
-SCO requires access to container registries:
+SCO components are pulled from:
 
-- **Public Registries**: docker.io, Quay.io, ghcr.io for open-source components
-- **Stakater Registry**: For SCO proprietary components
-- **Platform-Specific**: Red Hat registry if using OpenShift features
-- **Private Registry**: Optional for custom images
+- **Public registries**: docker.io, quay.io, ghcr.io
+- **Red Hat registry**: For OpenShift platform components
+- **Stakater registry**: For SCO proprietary components (credentials provided by Stakater)
 
-Prepare registry credentials if using private registries:
+If using a private registry mirror, prepare a registry secret file for the `--registry-secret` flag (see [Installation](openshift.md)).
 
-```bash
-# Create registry secret file
-cat > registry-secret.yaml <<EOF
-apiVersion: v1
-kind: Secret
-metadata:
-  name: regcred
-type: kubernetes.io/dockerconfigjson
-data:
-  .dockerconfigjson: <base64-encoded-docker-config>
-EOF
-```
+## Configuration Claim Files
 
-## Configuration Files
+Before running `ksp up` you need two claim files prepared:
 
-Prepare your SCO configuration claim files:
+1. **`KubeStackConfig`** — Platform configuration (name, location, domain)
+2. **`KubeStackPlus`** — SCO platform deployment (variant, platform)
 
-1. **kubestack-config-package claim** - Platform configuration (networking, DNS, certificates)
-1. **kubestack-plus-package claim** - SCO platform components (marketplace, solutions, console)
-
-These files define your SCO deployment configuration and are required by `ksp up`. Example files are provided with the CLI.
-
-## Access Permissions
-
-Ensure you have:
-
-- Cluster administrator access to OpenShift
-- Ability to create namespaces and CRDs
-- Permissions to install operators
-- Access to create routes and ingresses
+See [OpenShift Installation](openshift.md) for example claim files.
 
 ## Pre-Installation Checklist
 
-- [ ] Kubernetes 1.27+ cluster (OpenShift 4.14+ recommended)
-- [ ] VM support installed if using VM workloads (OpenShift Virtualization/KubeVirt)
-- [ ] `ksp` CLI tool installed
-- [ ] `kubectl` (or `oc`) configured and authenticated
-- [ ] DNS wildcard configured
-- [ ] TLS certificates ready
-- [ ] Registry access configured
-- [ ] Configuration claim files prepared
-- [ ] Sufficient compute and storage capacity
+- [ ] OpenShift 4.14+ cluster on bare metal
+- [ ] Cluster administrator access
+- [ ] `ksp` CLI installed and on PATH
+- [ ] `oc` authenticated to the cluster
+- [ ] Wildcard DNS configured
+- [ ] Wildcard TLS certificate ready
+- [ ] Registry credentials available (if using private registry)
+- [ ] `KubeStackConfig` claim file prepared
+- [ ] `KubeStackPlus` claim file prepared
+- [ ] Minimum compute and storage capacity available
 
 ## What's Next?
 
-- [OpenShift Installation](kubernetes.md) - Install SCO using `ksp up`
-- [Configuration](configuration.md) - Post-installation setup
+- [OpenShift Installation](openshift.md) - Run `ksp up` to install SCO

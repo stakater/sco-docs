@@ -22,13 +22,13 @@
   {
     "version": "renovate-main-dotenv-17.x-lockfile",
     "title": "renovate-main-dotenv-17.x-lockfile",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "feat-add-content",
     "title": "feat-add-content",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   }
 ]

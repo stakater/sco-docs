@@ -17,13 +17,13 @@
   {
     "version": "renovate-main-node-24.x-lockfile",
     "title": "renovate-main-node-24.x-lockfile",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "feat-add-content",
     "title": "feat-add-content",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   }
 ]

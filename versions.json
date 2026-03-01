@@ -20,6 +20,11 @@
     "aliases": []
   },
   {
+    "version": "renovate-main-dotenv-17.x-lockfile",
+    "title": "renovate-main-dotenv-17.x-lockfile",
+    "aliases": []
+  },
+  {
     "version": "feat-add-content",
     "title": "feat-add-content",
     "aliases": [

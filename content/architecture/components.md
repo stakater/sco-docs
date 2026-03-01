@@ -25,16 +25,15 @@ OpenShift also provides cluster networking (OVN-Kubernetes), persistent storage 
 
 ### OpenShift GitOps (ArgoCD)
 
-ArgoCD is the GitOps engine that installs and continuously reconciles every platform component. The platform's entire desired state — operators, CRDs, Crossplane compositions, platform configuration — is declared in a Git repository and applied by ArgoCD.
+ArgoCD is the GitOps engine that installs and continuously reconciles every platform component. The `KubeStackPlus` composition creates a set of ArgoCD `Application` resources — one per component bundle — which ArgoCD then deploys and reconciles. No separate Git repository is required; the platform uses gitless GitOps, with each component bundle packaged as an OCI image (Helm chart plus Crossplane configurations) hosted in a container registry.
 
 **Role in SCO:**
 
-- Installs all operators via `Subscription` and `OperatorGroup` resources
-- Deploys Crossplane and its providers
-- Applies platform-level compositions (KCP, Keycloak, MTO, OpenBao)
-- Maintains configuration drift correction — any manual change to a platform resource is reverted
+- Deploys each platform component bundle by reconciling an ArgoCD `Application` pointing at an OCI-hosted Helm chart
+- Continuously reconciles deployed components — any drift from the declared state is corrected automatically
+- Manages component upgrades by updating the OCI image tag referenced by each `Application`
 
-**Integration points:** ArgoCD operates at the cluster-admin level and is the first component installed during platform bootstrap. All subsequent components are managed through ArgoCD application resources.
+**Integration points:** ArgoCD operates at the cluster-admin level and is bootstrapped during initial platform installation. All platform components are managed as ArgoCD `Application` resources created by the `KubeStackPlus` composition.
 
 ---
 
@@ -56,7 +55,7 @@ Platform providers define services as Crossplane XRDs and compositions. Each com
 
 - `provider-kubernetes` — manages Kubernetes resources on the service cluster (Crossplane's workhorse for almost everything)
 - `provider-helm` — deploys Helm releases from compositions (used for `api-syncagent` deployments)
-- `provider-kcp` — manages KCP workspace resources (`APIExports`, `APIBindings`, workspace hierarchy)
+- `provider-kubernetes` also manages KCP workspace resources (`APIExports`, `APIBindings`, workspace hierarchy) — KCP exposes a standard Kubernetes API, so no separate KCP provider is needed
 - `provider-keycloak` — manages Keycloak realms, users, groups, and clients
 - `provider-aws` / `provider-azure` / `provider-gcp` — cloud infrastructure for compositions that require it
 - `provider-vault` (OpenBao-compatible) — manages secrets and dynamic credentials

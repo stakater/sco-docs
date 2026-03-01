@@ -28,11 +28,11 @@ In the Keycloak admin console for the organisation's realm, navigate to **User F
 | Connection URL | `ldap://ad.example.com:389` |
 | Bind DN | `cn=svc-keycloak,ou=services,dc=example,dc=com` |
 | Users DN | `ou=users,dc=example,dc=com` |
-| UUID LDAP attribute | `objectGUID` |
+| uuid LDAP attribute | `objectGUID` |
 
 After saving, trigger **Sync all users** to import the directory.
 
-### OIDC Provider (Azure AD, Google, Okta)
+### OIDC Provider (Azure AD, Google, `Okta`)
 
 Navigate to **Identity Providers → Add Provider → OpenID Connect v1.0**:
 
@@ -98,7 +98,7 @@ See [Create IAM User](../../how-to-guides/user/create-iam-user.md) and [Create I
 
 ## Platform Operator Access
 
-Platform operators can access any organisation's realm through the Keycloak master admin console. Organisation administrators access only their own realm through a delegated admin configuration — they cannot view or modify other organisations' realms.
+Platform operators can access any organisation's realm through the Keycloak administration console. Organisation administrators access only their own realm through a delegated admin configuration — they cannot view or modify other organisations' realms.
 
 ---
 

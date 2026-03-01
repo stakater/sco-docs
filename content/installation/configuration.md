@@ -92,9 +92,9 @@ Each platform component has a corresponding EnvironmentConfig namespace. The lab
 | `kcp/component: keycloak` | Keycloak identity platform |
 | `kcp/component: openbao` | OpenBao secrets engine |
 | `kcp/component: crossplane` | Crossplane and providers |
-| `kcp/component: hypershift` | HyperShift operator |
+| `kcp/component: hypershift` | Hypershift operator |
 | `kcp/component: openshift-virt` | OpenShift Virtualization |
-| `kcp/component: platform-services` | api-syncagent and API publishing |
+| `kcp/component: platform-services` | `api-syncagent` and API publishing |
 
 ---
 

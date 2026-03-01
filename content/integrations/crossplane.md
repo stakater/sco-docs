@@ -1,6 +1,6 @@
 # Crossplane
 
-Crossplane is the composition engine that powers SCO's service catalogue. Platform providers use it to define services — virtual machines, clusters, databases, or any infrastructure primitive — as Kubernetes custom resources that consumers can provision via standard claims.
+Crossplane is the composition engine that powers the SCO service catalogue. Platform providers use it to define services — virtual machines, clusters, databases, or any infrastructure primitive — as Kubernetes custom resources that consumers can provision via standard claims.
 
 SCO ships with Crossplane pre-installed and pre-configured. This page covers how to extend the platform by adding new providers and authoring your own compositions.
 
@@ -136,7 +136,7 @@ Crossplane exposes services through a three-layer model:
 | `Composition` | Implements the schema — what gets created |
 | Claim | Consumer-facing resource that triggers the composition |
 
-SCO's public service APIs (e.g., `compute.cloud.stakater.com/v1 VirtualMachine`) are XRDs whose compositions are bundled with the platform. You can add your own XRDs alongside them.
+The SCO public service APIs (e.g., `compute.cloud.stakater.com/v1 VirtualMachine`) are XRDs whose compositions are bundled with the platform. You can add your own XRDs alongside them.
 
 ---
 

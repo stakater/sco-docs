@@ -6,7 +6,7 @@ This guide walks through building a complete solution — from defining the API 
 
 ## Prerequisites
 
-- `infrastructure.stakater.com` api available
+- `infrastructure.stakater.com` API available
 - Crossplane installed with `kubernetes-provider`, `kcp-provider`, and `helm-provider` configured
 - Target operator installed on the management cluster (e.g., CloudNativePG for a PostgreSQL solution)
 

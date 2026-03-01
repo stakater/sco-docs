@@ -47,7 +47,7 @@ Examples of custom solutions providers typically add:
 | Solution type | Backing operator | API group |
 |---------------|-----------------|-----------|
 | PostgreSQL database | CloudNativePG | `databases.cloud.stakater.com` |
-| Kafka cluster | Strimzi | `messaging.cloud.stakater.com` |
+| Kafka cluster | `Strimzi` | `messaging.cloud.stakater.com` |
 | Redis instance | Redis Operator | `caching.cloud.stakater.com` |
 | AI/ML workspace | OpenShift AI | `ai.cloud.stakater.com` |
 | S3-compatible storage | Rook/Ceph or cloud provider | `storage.cloud.stakater.com` |
@@ -67,7 +67,7 @@ Every solution consists of:
 | `ApiExport` claim | Publishes the API to consumer project workspaces |
 | Marketplace metadata | Display name, description, documentation — shown in the catalogue |
 
-The XRD and Composition live on the management cluster. The `ApiExport` claim triggers the api-syncagent to bridge the API into KCP workspaces. Marketplace metadata controls how the solution appears to consumers.
+The XRD and Composition live on the management cluster. The `ApiExport` claim triggers the `api-syncagent` to bridge the API into KCP workspaces. Marketplace metadata controls how the solution appears to consumers.
 
 ---
 

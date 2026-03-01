@@ -6,7 +6,7 @@ Organisations are the top-level tenancy unit in SCO. Each organisation gets a fu
 
 ## Prerequisites
 
-- `infrastructure.stakater.com` api available
+- `infrastructure.stakater.com` API available
 - `kubectl` configured with platform administrator access
 - An admin email address for the initial organisation administrator
 

@@ -24,7 +24,7 @@ A KCP workspace is a virtual Kubernetes environment. It has:
 - **Its own RBAC** — access grants are scoped within the workspace, not shared across workspaces
 - **Its own OIDC issuer** — token validation is workspace-scoped, backed by the organisation's Keycloak realm
 
-KCP stores all workspace state in a shared etcd, but each workspace is logically isolated. The KCP process serves each workspace's API from a single binary — there is no per-workspace API server pod or separate control plane process.
+KCP stores all workspace state in a shared etcd, but each workspace is logically isolated. The KCP process serves each workspace API from a single binary — there is no per-workspace API server pod or separate control plane process.
 
 This makes workspaces extremely lightweight. Provisioning a new project workspace is a matter of seconds and requires no additional compute resources proportional to the number of projects.
 
@@ -61,18 +61,18 @@ root (platform workspace)
 
 ---
 
-## APIExport and APIBinding
+## `APIExport` and `APIBinding`
 
-### APIExport
+### `APIExport`
 
 An `APIExport` lives in the platform root workspace and declares that a set of Kubernetes resource types is available for other workspaces to consume.
 
 When a platform provider publishes a new service (e.g., `databases.cloud.stakater.com/v1 PostgreSQLDatabase`), an `APIExport` is created for that API group. The export includes:
 
 - The set of resource types included (kinds, versions)
-- Permission claims — the access the export's controller (the api-syncagent) requires in consumer workspaces to manage the objects placed there
+- Permission claims — the access the export's controller (the `api-syncagent`) requires in consumer workspaces to manage the objects placed there
 
-### APIBinding
+### `APIBinding`
 
 An `APIBinding` lives in a project workspace and declares that this workspace should have access to a particular `APIExport`. When a binding is created, KCP makes the exported resource types available as native API types in the workspace.
 
@@ -85,17 +85,17 @@ When a consumer runs `kubectl api-resources` against their project kubeconfig, t
 When a consumer applies a resource to their project workspace:
 
 1. KCP validates the request against the API schema declared in the `APIExport`
-1. KCP stores the object in the workspace's etcd partition
+1. KCP stores the object in the workspace etcd partition
 1. KCP notifies the `APIExport`'s virtual workspace endpoint that a new object is present
-1. The api-syncagent (watching that virtual workspace) picks up the new object
+1. The `api-syncagent` (watching that virtual workspace) picks up the new object
 
-The object in the consumer workspace is the source of truth for the consumer. Its status, conditions, and connection details are written back to it by the api-syncagent. The consumer never needs to know that the object is being reconciled on a different cluster.
+The object in the consumer workspace is the source of truth for the consumer. Its status, conditions, and connection details are written back to it by the `api-syncagent`. The consumer never needs to know that the object is being reconciled on a different cluster.
 
 ---
 
 ## The API Sync Agent
 
-The api-syncagent is the bridge between KCP workspaces and the Crossplane service cluster. For each published API group, a dedicated sync agent process watches the virtual workspace endpoint associated with the `APIExport`.
+The `api-syncagent` is the bridge between KCP workspaces and the Crossplane service cluster. For each published API group, a dedicated sync agent process watches the virtual workspace endpoint associated with the `APIExport`.
 
 **Sync flow:**
 
@@ -125,9 +125,9 @@ api-syncagent syncs status back
 Consumer workspace: VirtualMachine shows Ready
 ```
 
-**Namespace mapping:** For each consumer workspace, the sync agent creates a dedicated namespace on the service cluster (named after the workspace, with a suffix from the published resource's `namespaceSuffix` parameter). This keeps objects for different consumers physically isolated at the namespace level, even though they arrive through the same api-syncagent process.
+**Namespace mapping:** For each consumer workspace, the sync agent creates a dedicated namespace on the service cluster (named after the workspace, with a suffix from the published resource's `namespaceSuffix` parameter). This keeps objects for different consumers physically isolated at the namespace level, even though they arrive through the same `api-syncagent` process.
 
-**Deletion:** When a consumer deletes their claim, the api-syncagent removes the object from the service cluster namespace. Crossplane's composition engine handles the deletion of all composed resources (VMs, volumes, networking) in the correct dependency order.
+**Deletion:** When a consumer deletes their claim, the `api-syncagent` removes the object from the service cluster namespace. Crossplane's composition engine handles the deletion of all composed resources (VMs, volumes, networking) in the correct dependency order.
 
 ---
 
@@ -147,11 +147,11 @@ The workspace is ready in seconds. The consumer receives a kubeconfig and can im
 
 ### Authentication
 
-Each KCP workspace validates tokens against the organisation's Keycloak realm. A consumer authenticates to Keycloak (via OIDC), receives a token scoped to their organisation, and uses that token against their project workspace's API server. KCP validates the token signature against the organisation's realm public key.
+Each KCP workspace validates tokens against the organisation's Keycloak realm. A consumer authenticates to Keycloak (via OIDC), receives a token scoped to their organisation, and uses that token against their project workspace API server. KCP validates the token signature against the organisation's realm public key.
 
 RBAC within the workspace controls which resource types a user can interact with and at what permission level.
 
-### Kubeconfig Structure
+### kubeconfig Structure
 
 A project workspace kubeconfig looks like a standard Kubernetes kubeconfig:
 
@@ -185,7 +185,7 @@ Standard tools — `kubectl`, ArgoCD, Flux, Terraform — work against this kube
 When a project is deleted:
 
 1. SCO removes `APIBinding` resources from the workspace (preventing new claims)
-1. The api-syncagent completes deletion of all synced objects on the service cluster
+1. The `api-syncagent` completes deletion of all synced objects on the service cluster
 1. Crossplane compositions delete all composed resources
 1. MTO removes the tenant's namespaces and contained objects
 1. KCP deletes the workspace and its etcd partition
@@ -196,11 +196,11 @@ Deletion is ordered and safe — infrastructure resources are not deleted until 
 
 ## Scaling Characteristics
 
-KCP's workspace model is designed for high workspace counts. A single KCP instance can serve tens of thousands of workspaces with low per-workspace overhead.
+The KCP workspace model is designed for high workspace counts. A single KCP instance can serve tens of thousands of workspaces with low per-workspace overhead.
 
 The limiting factors in SCO are:
 
-- **api-syncagent instances:** one per published API group; each scales horizontally
+- **`api-syncagent` instances:** one per published API group; each scales horizontally
 - **Crossplane composition throughput:** scaled by adding provider replicas
 - **MTO namespace count:** one namespace set per project; Kubernetes supports tens of thousands of namespaces per cluster
 

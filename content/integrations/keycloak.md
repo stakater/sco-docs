@@ -1,6 +1,6 @@
 # Keycloak
 
-Keycloak is the identity platform embedded in SCO. It provides each organisation with a fully isolated, production-grade identity provider (IDP) — supporting SSO, OIDC, SAML, LDAP federation, and fine-grained role management — without any shared identity pool between tenants.
+Keycloak is the identity platform embedded in SCO. It provides each organisation with a fully isolated, production-grade identity provider (IdP) — supporting SSO, OIDC, SAML, LDAP federation, and fine-grained role management — without any shared identity pool between tenants.
 
 ---
 
@@ -10,17 +10,17 @@ Every organisation on the platform gets its own Keycloak **realm**. A realm is a
 
 ```text
 Keycloak instance (platform-managed)
-├── realm: org-acme        ← Organisation A's isolated IDP
+├── realm: org-acme        ← Organisation A's isolated IdP
 │   ├── Users (Alice, Bob, Carol)
 │   ├── Groups (developers, admins)
 │   ├── Clients (SCO console, kubectl OIDC)
 │   └── Identity providers (corporate LDAP, Google SSO)
-└── realm: org-globex      ← Organisation B's isolated IDP
+└── realm: org-globex      ← Organisation B's isolated IdP
     ├── Users (different set)
     └── ...
 ```
 
-From a consumer's perspective, their organisation simply has an IDP they authenticate against. Keycloak is the engine behind it, but consumers interact only with the standard OIDC/SAML flows they already know.
+From a consumer's perspective, their organisation simply has an IdP they authenticate against. Keycloak is the engine behind it, but consumers interact only with the standard OIDC/SAML flows they already know.
 
 ---
 
@@ -53,7 +53,7 @@ Platform operators do not need to manually create or configure realms in most ca
 
 ## Organisation Identity Provider Federation
 
-Organisations with an existing corporate directory (LDAP, Active Directory, Google Workspace, Azure AD, Okta) can federate that identity provider into their Keycloak realm. Users then log in with their existing corporate credentials; Keycloak handles the federation transparently.
+Organisations with an existing corporate directory (LDAP, Active Directory, Google Workspace, Azure AD, `Okta`) can federate that identity provider into their Keycloak realm. Users then log in with their existing corporate credentials; Keycloak handles the federation transparently.
 
 ### Configuring LDAP federation
 
@@ -66,7 +66,7 @@ In the Keycloak admin console for the organisation's realm, navigate to **User F
 | Bind DN | `cn=svc-keycloak,ou=service,dc=example,dc=com` |
 | Bind Credential | Service account password |
 | Users DN | `ou=users,dc=example,dc=com` |
-| UUID LDAP Attribute | `objectGUID` (AD) or `entryUUID` |
+| uuid LDAP Attribute | `objectGUID` (AD) or `entryUUID` |
 | User Object Classes | `person, organizationalPerson, user` |
 
 After saving, trigger a **Sync all users** to import the directory. Users can then log in with their LDAP credentials.
@@ -143,11 +143,11 @@ Platform operators access the Keycloak admin console through the management inte
 
 - Inspecting and troubleshooting any realm
 - Configuring instance-level settings (email, brute force protection, event logging)
-- Managing the master realm and administrative service accounts
+- Managing the Keycloak administration realm and administrative service accounts
 - Reviewing audit events across all realms
 
 !!! note
-    Organisation-level administrators have access only to their own realm through a delegated admin configuration. They cannot see other organisations' realms or the master realm.
+    Organisation-level administrators have access only to their own realm through a delegated admin configuration. They cannot see other organisations' realms or the Keycloak administration realm.
 
 ---
 

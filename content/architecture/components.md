@@ -55,8 +55,8 @@ Platform providers define services as Crossplane XRDs and compositions. Each com
 **Providers installed on SCO:**
 
 - `provider-kubernetes` — manages Kubernetes resources on the service cluster (Crossplane's workhorse for almost everything)
-- `provider-helm` — deploys Helm releases from compositions (used for api-syncagent deployments)
-- `provider-kcp` — manages KCP workspace resources (APIExports, APIBindings, workspace hierarchy)
+- `provider-helm` — deploys Helm releases from compositions (used for `api-syncagent` deployments)
+- `provider-kcp` — manages KCP workspace resources (`APIExports`, `APIBindings`, workspace hierarchy)
 - `provider-keycloak` — manages Keycloak realms, users, groups, and clients
 - `provider-aws` / `provider-azure` / `provider-gcp` — cloud infrastructure for compositions that require it
 - `provider-vault` (OpenBao-compatible) — manages secrets and dynamic credentials
@@ -80,7 +80,7 @@ KCP provides the multi-tenant virtual API layer. It runs as a service within the
 - Provides each organisation with an organisation workspace
 - Provides each project with a project workspace — its own Kubernetes API endpoint
 - Hosts `APIExport` resources that declare which APIs are available to consumer workspaces
-- Routes API requests from consumers to the api-syncagent for fulfillment
+- Routes API requests from consumers to the `api-syncagent` for fulfillment
 - Enforces API-level isolation: resources in one workspace are invisible to all other workspaces
 
 **Workspace hierarchy:**
@@ -94,13 +94,13 @@ root (platform)
     └── proj-apps
 ```
 
-**Integration points:** KCP integrates with the api-syncagent (which bridges workspace API calls to the service cluster), Keycloak (for OIDC token validation per workspace), and MTO (which provisions the physical namespace layer backing each project).
+**Integration points:** KCP integrates with the `api-syncagent` (which bridges workspace API calls to the service cluster), Keycloak (for OIDC token validation per workspace), and MTO (which provisions the physical namespace layer backing each project).
 
 See [Virtual API Layer](virtual-api-layer.md) and [KCP Integration](../integrations/kcp.md) for details.
 
 ### API Sync Agent
 
-The api-syncagent is a per-API-group process that bridges KCP workspaces and the Crossplane service cluster.
+The `api-syncagent` is a per-API-group process that bridges KCP workspaces and the Crossplane service cluster.
 
 **Role in SCO:**
 
@@ -128,7 +128,7 @@ MTO enforces physical tenancy in the management cluster. While KCP provides API-
 - Creates `RoleBinding` resources from Keycloak group membership to Kubernetes RBAC roles
 - Applies namespace templates — standard tooling, default policies, monitoring configuration — to every project namespace
 
-**Integration points:** MTO watches `Tenant` resources created by SCO's project controller. It integrates with Keycloak group membership for RBAC propagation and with KCP's workspace identity for namespace labelling.
+**Integration points:** MTO watches `Tenant` resources created by the SCO project controller. It integrates with Keycloak group membership for RBAC propagation and with the KCP workspace identity for namespace labelling.
 
 See [MTO Integration](../integrations/mto.md).
 
@@ -179,10 +179,10 @@ OpenShift Virtualization extends OpenShift with the ability to run virtual machi
 
 **Role in SCO:**
 
-- Powers the `VirtualMachine` service — SCO's built-in VM-as-a-service offering
+- Powers the `VirtualMachine` service — the SCO built-in VM-as-a-service offering
 - VMs are Kubernetes objects (`VirtualMachine`, `VirtualMachineInstance`, `DataVolume`) managed like any other workload
 - Provides live migration, snapshots, and cloning capabilities
-- Integrates with Kubernetes networking (Multus, OVN) and storage (CDI, ODF)
+- Integrates with Kubernetes networking (`Multus`, OVN) and storage (CDI, ODF)
 
 **Service delivered to consumers:** A consumer applies a `compute.cloud.stakater.com/v1 VirtualMachine` claim. The composition provisions a KubeVirt `VirtualMachine` with the chosen OS image, instance type, SSH key, and network configuration. The consumer receives an IP address or hostname to connect to their VM.
 
@@ -203,7 +203,7 @@ Hypershift is Red Hat's hosted control plane technology. It runs OpenShift clust
 
 **Role in SCO:**
 
-- Powers the `OpenShiftCluster` service — SCO's Kubernetes-as-a-service offering
+- Powers the `OpenShiftCluster` service — the SCO Kubernetes-as-a-service offering
 - Control planes for hosted clusters run in the management cluster's `hypershift` namespace set
 - Worker node pools are provisioned on available infrastructure (bare metal, cloud VMs)
 - Dramatically reduces resource overhead vs. standalone clusters — no dedicated control plane nodes required per tenant cluster
@@ -215,11 +215,11 @@ Hypershift is Red Hat's hosted control plane technology. It runs OpenShift clust
 
 ## Operator Ecosystem: Services to Publish
 
-SCO's composition engine can wrap any Kubernetes operator. The following are well-tested, Red Hat-supported operators that platform providers can publish as self-service catalogue entries on top of SCO:
+The SCO composition engine can wrap any Kubernetes operator. The following are well-tested, Red Hat-supported operators that platform providers can publish as self-service catalogue entries on top of SCO:
 
-### Strimzi (Apache Kafka)
+### `Strimzi` (Apache Kafka)
 
-Strimzi manages Apache Kafka clusters, topics, users, and connectors as Kubernetes CRDs. On SCO, a provider can expose a `KafkaCluster` claim backed by a Strimzi composition — the consumer declares a managed Kafka cluster and Strimzi reconciles the underlying brokers, ZooKeeper (or KRaft) nodes, and storage.
+`Strimzi` manages Apache Kafka clusters, topics, users, and connectors as Kubernetes CRDs. On SCO, a provider can expose a `KafkaCluster` claim backed by a `Strimzi` composition — the consumer declares a managed Kafka cluster and `Strimzi` reconciles the underlying brokers, ZooKeeper (or KRaft) nodes, and storage.
 
 **Use cases:** Event streaming pipelines, microservice decoupling, real-time data processing.
 

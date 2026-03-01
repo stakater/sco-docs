@@ -18,7 +18,7 @@ SCO uses this to deliver per-project API endpoints without the cost of per-proje
 
 ### Workspaces
 
-A workspace is KCP's fundamental unit of isolation. It is a virtual Kubernetes environment with:
+A workspace is the fundamental KCP unit of isolation. It is a virtual Kubernetes environment with:
 
 - Its own API server endpoint (a unique kubeconfig URL)
 - Its own resource set — objects in one workspace cannot be seen from another
@@ -35,7 +35,7 @@ SCO maps workspaces to its own model:
 
 Consumers receive a kubeconfig for their project workspace and interact with it as they would any cluster. They are not aware of the workspace abstraction — it simply behaves like a Kubernetes cluster.
 
-### APIExport
+### `APIExport`
 
 An `APIExport` is how a provider declares that an API group (a set of Kubernetes resource types) is available for use across workspaces.
 
@@ -43,7 +43,7 @@ When the platform defines a new service — for example, a `VirtualMachine` reso
 
 An `APIExport` lives in a platform workspace and is referenced by name. It carries the API schema, and optionally a set of permission claims that grant the export's controller access to objects in consumer workspaces.
 
-### APIBinding
+### `APIBinding`
 
 An `APIBinding` is the consumer-side counterpart. It lives in a project workspace and declares that this workspace should have access to a particular `APIExport`.
 
@@ -55,7 +55,7 @@ SCO creates `APIBinding` resources automatically when a project is provisioned. 
 
 The `APIExport` declares an API group in KCP. But KCP needs to know how to actually handle objects of that type — where to create them, how to name them, how to map them to backing infrastructure.
 
-The **api-syncagent** is the component that bridges this gap. It:
+The **`api-syncagent`** is the component that bridges this gap. It:
 
 1. Watches for new objects of the exported type in consumer workspaces
 1. Creates corresponding objects on the service cluster (where Crossplane compositions run)
@@ -131,13 +131,13 @@ Organisation workspaces hold IAM configuration. Project workspaces are where con
 
 ## What Providers Need to Know
 
-As a platform provider, you do not interact with KCP directly for routine operations. SCO's automation handles workspace creation, binding setup, and sync agent configuration.
+As a platform provider, you do not interact with KCP directly for routine operations. the SCO automation handles workspace creation, binding setup, and sync agent configuration.
 
 You interact with KCP indirectly through:
 
 - **`ApiExport` claims** — to expose a new API group to consumer projects (see [Publishing APIs](publishing-apis.md))
 - **`Organization` and `Project` resources** — to provision and manage the workspace hierarchy
-- **Kubeconfig management** — if you need direct workspace access for debugging
+- **kubeconfig management** — if you need direct workspace access for debugging
 
 Understanding the KCP model is useful for reasoning about how APIs propagate to consumers, how objects flow between workspaces and the service cluster, and how isolation is enforced at the API layer.
 

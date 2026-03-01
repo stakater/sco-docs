@@ -73,7 +73,7 @@ Crossplane plays two distinct roles in SCO.
 
 ### Infrastructure Services
 
-These are the purpose-built operators and systems that back SCO's built-in services:
+These are the purpose-built operators and systems that back the SCO built-in services:
 
 - **OpenShift Virtualization (KubeVirt):** Enables VMs to run as Kubernetes objects on bare-metal nodes. Powers the `VirtualMachine` service. Provides live migration, snapshots, and hardware pass-through.
 - **Hypershift:** Hosted control plane technology that runs OpenShift cluster control planes as pods. Powers the `OpenShiftCluster` service. Dramatically reduces the resource cost of multi-cluster deployments.
@@ -118,7 +118,7 @@ A consumer provisioning a virtual machine follows this path:
 9. Consumer sees Ready status on their VirtualMachine claim
 ```
 
-The consumer never knows the path through KCP, the api-syncagent, or KubeVirt. They see a Kubernetes resource that went from `Pending` to `Ready`.
+The consumer never knows the path through KCP, the `api-syncagent`, or KubeVirt. They see a Kubernetes resource that went from `Pending` to `Ready`.
 
 ---
 

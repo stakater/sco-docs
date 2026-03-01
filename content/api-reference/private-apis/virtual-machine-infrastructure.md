@@ -70,7 +70,7 @@ All parameters are nested under `spec.parameters`.
 | `type` | `string` | — | Network type (`pod`, `multus`, etc.) |
 | `interfaceModel` | `string` | `virtio` | Network interface model |
 | `bindingName` | `string` | `l2bridge` | Network binding name |
-| `multus.networkName` | `string` | — | Name of the NetworkAttachmentDefinition (Multus only) |
+| `multus.networkName` | `string` | — | Name of the NetworkAttachmentDefinition (`Multus` only) |
 
 ### Cloud-Init
 

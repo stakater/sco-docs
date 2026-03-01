@@ -88,7 +88,7 @@ Provider guide: [Create a PostgreSQL Solution](../how-to-guides/provider/create-
 
 **Example API:** `messaging.cloud.stakater.com/v1 KafkaCluster`
 
-Apache Kafka clusters backed by Strimzi with configurable broker count, storage, and topic retention.
+Apache Kafka clusters backed by `Strimzi` with configurable broker count, storage, and topic retention.
 
 ---
 

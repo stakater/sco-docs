@@ -60,7 +60,7 @@ For a project named `proj-frontend` with a VirtualMachine service (`namespaceSuf
 ws-proj-frontend-vms
 ```
 
-When the api-syncagent syncs a `VirtualMachine` claim from the project workspace, it creates the corresponding object in `ws-proj-frontend-vms` on the service cluster. This keeps objects from different projects physically isolated at the namespace level even when served by the same sync agent process.
+When the `api-syncagent` syncs a `VirtualMachine` claim from the project workspace, it creates the corresponding object in `ws-proj-frontend-vms` on the service cluster. This keeps objects from different projects physically isolated at the namespace level even when served by the same sync agent process.
 
 ---
 
@@ -98,7 +98,7 @@ Access to the project workspace is controlled by the `access` field in the `Proj
 | `edit` | Create and manage resources, cannot modify RBAC |
 | `view` | Read-only access to all resources in the project |
 
-Group membership from the organisation's identity provider is automatically propagated into Kubernetes role bindings. Adding a user to a group in the IDP grants them the corresponding project access with no manual Kubernetes RBAC update required.
+Group membership from the organisation's identity provider is automatically propagated into Kubernetes role bindings. Adding a user to a group in the IdP grants them the corresponding project access with no manual Kubernetes RBAC update required.
 
 ---
 

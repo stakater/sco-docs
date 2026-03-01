@@ -2,7 +2,7 @@
 
 When you define a new service — a Crossplane XRD and composition — that service lives on the management cluster. Making it available in consumer project workspaces requires publishing it through the KCP virtual API layer.
 
-SCO handles this through the **api-syncagent**: a declarative composition that automates the entire publication pipeline from a single claim.
+SCO handles this through the **`api-syncagent`**: a declarative composition that automates the entire publication pipeline from a single claim.
 
 ---
 
@@ -18,14 +18,14 @@ Without this, Crossplane XRDs exist only on the management cluster and are invis
 
 ---
 
-## The api-syncagent
+## The `api-syncagent`
 
-The api-syncagent is the bridge between the service cluster (where Crossplane runs) and consumer workspaces (where consumers interact with their project APIs).
+The `api-syncagent` is the bridge between the service cluster (where Crossplane runs) and consumer workspaces (where consumers interact with their project APIs).
 
-For each published API group, the api-syncagent:
+For each published API group, the `api-syncagent`:
 
 1. **Watches** consumer workspaces for new claims of the exported type
-1. **Creates** corresponding objects on the service cluster, namespaced per workspace
+1. **Creates** corresponding objects on the service cluster in a workspace-specific namespace
 1. **Synchronises** status and connection details back to the consumer's workspace in real time
 
 This is declarative and continuous — the sync agent reconciles state on both sides throughout the object's lifecycle, from creation through to deletion.
@@ -36,10 +36,10 @@ When you publish an API group, SCO automatically creates:
 
 | Resource | Where | Purpose |
 |----------|-------|---------|
-| `PublishedResource` (one per resource kind) | Service cluster | Maps the KCP resource type to service cluster namespacing and naming rules |
+| `PublishedResource` (one per resource kind) | Service cluster | Maps the KCP resource type to service cluster namespace placement and naming rules |
 | `APIExport` (one per API group) | KCP workspace | Declares the API group as available for workspace binding |
 | `ClusterRole` + `ClusterRoleBinding` | Service cluster | Grants the sync agent permission to manage the exported resource types |
-| api-syncagent `Deployment` (via Helm) | Management cluster | The running sync process that watches and bridges workspaces |
+| `api-syncagent` `Deployment` (via Helm) | Management cluster | The running sync process that watches and bridges workspaces |
 | `EnvironmentConfig` | Management cluster | Registers the published services for platform-level integration |
 
 All of this is driven by a single `ApiExport` claim.
@@ -51,7 +51,7 @@ All of this is driven by a single `ApiExport` claim.
 Before publishing an API, ensure the following are in place:
 
 - The Crossplane XRD and composition for your service are installed and working
-- `infrastructure.stakater.com` api available (api-syncagent-package installed)
+- `infrastructure.stakater.com` API available (`api-syncagent-package` installed)
 - The `kcp-api-syncagent` Helm chart installed on the service cluster (provides the `PublishedResource` CRD and OpenShift security constraints)
 - Provider configs available: `kubernetes-provider`, a KCP provider config, and a Helm provider config
 

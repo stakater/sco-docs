@@ -26,7 +26,7 @@ Storage: 500 GB+ available across workers.
 | Capability | Required for |
 |------------|-------------|
 | OpenShift Virtualization | VM workloads |
-| HyperShift operator | Hosted OpenShift cluster provisioning |
+| Hypershift operator | Hosted OpenShift cluster provisioning |
 
 ## Tool Requirements
 
@@ -60,13 +60,13 @@ oc whoami
 
 - **DNS**: Wildcard DNS configured for cluster ingress (e.g., `*.apps.cluster.example.com`)
 - **TLS**: Wildcard TLS certificate for ingress routes
-- **Connectivity**: Outbound access to container registries (docker.io, quay.io, ghcr.io)
+- **Connectivity**: Outbound access to container registries (docker.io, Quay.io, ghcr.io)
 
 ## Registry Access
 
 SCO components are pulled from:
 
-- **Public registries**: docker.io, quay.io, ghcr.io
+- **Public registries**: docker.io, Quay.io, ghcr.io
 - **Red Hat registry**: For OpenShift platform components
 - **Stakater registry**: For SCO proprietary components (credentials provided by Stakater)
 

@@ -107,7 +107,7 @@ A **Solution Instance** is a running instance of a solution provisioned within a
 - Has a lifecycle (create, update, delete)
 - Isolated from other solution instances
 
-**Example**: A user creates a VirtualMachine solution instance named "my-app-vm" in their "prod" project, which provisions an actual virtual machine with the specified configuration.
+**Example**: A user creates a VirtualMachine solution instance named `my-app-vm` in their `prod` project, which provisions an actual virtual machine with the specified configuration.
 
 ## Marketplace
 

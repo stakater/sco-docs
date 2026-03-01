@@ -26,7 +26,7 @@ Enter the username and password provided by your administrator or set during acc
 
 ### Single Sign-On (SSO)
 
-If your organisation has configured SSO (Azure AD, Google, Okta, LDAP, or another corporate provider), a **Sign in with [Provider]** button will appear. Click it and complete authentication with your corporate credentials.
+If your organisation has configured SSO (Azure AD, Google, `Okta`, LDAP, or another corporate provider), a **Sign in with [Provider]** button will appear. Click it and complete authentication with your corporate credentials.
 
 !!! note
     If SSO is configured, your organisation administrator may require you to use SSO exclusively. Contact your administrator if you are unsure which login method to use.

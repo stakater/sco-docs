@@ -55,9 +55,9 @@ root workspace (platform)
 
 ## Virtual API Layer: How KCP Serves APIs to Projects
 
-KCP's key capability is the ability to publish APIs from one workspace and have them appear as native Kubernetes APIs in another workspace. SCO uses this to deliver the service catalogue to consumers.
+The key KCP capability is the ability to publish APIs from one workspace and have them appear as native Kubernetes APIs in another workspace. SCO uses this to deliver the service catalogue to consumers.
 
-### APIExport and APIBinding
+### `APIExport` and `APIBinding`
 
 When the platform team defines a service — say, a `VirtualMachine` claim — SCO publishes that API through an `APIExport` in the platform's root workspace. The exported API becomes available for any project to bind.
 
@@ -113,7 +113,7 @@ kubectl get apibindings
 
 ## How SCO Automates KCP
 
-Platform operators do not manage KCP workspaces or bindings directly in normal operation. SCO's controllers handle the full lifecycle:
+Platform operators do not manage KCP workspaces or bindings directly in normal operation. the SCO controllers handle the full lifecycle:
 
 - When a **Organisation** is created, SCO creates the corresponding KCP workspace hierarchy and configures IAM.
 - When a **Project** is created, SCO creates the project workspace, applies the appropriate `APIBinding` resources, and sets up network isolation and quota.

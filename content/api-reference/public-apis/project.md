@@ -9,7 +9,7 @@ Creates an isolated project environment with network isolation, resource quota, 
 | **API Group** | `tenant.cloud.stakater.com` |
 | **Version** | `v1` |
 | **Kind** | `Project` |
-| **Scope** | Namespaced |
+| **Scope** | Namespace-scoped |
 
 ## Spec Parameters
 

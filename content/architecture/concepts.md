@@ -14,7 +14,7 @@ An **Organization** is a logical grouping of users and projects that represents 
 
 **Creation Methods**:
 
-- **Automated**: Triggered by customer signup flow
+- **Automated**: Triggered by customer sign-up flow
 - **Manual**: Created by hosting company to onboard new customers
 
 **Example**: A managed service provider creates an organization for each customer through the onboarding process, which provisions a dedicated Keycloak realm and sets up initial admin users.
@@ -66,7 +66,7 @@ A **Solution** is a service offering that can be provisioned by cloud users, rep
 
 SCO includes two flagship solutions out of the box:
 
-**VirtualMachine** (`vm.cloud.stakater.com/v1`):
+**VirtualMachine** (`compute.cloud.stakater.com/v1`):
 
 - User-facing marketplace API for provisioning VMs
 - Provisions Linux VMs using OpenShift Virtualization (KubeVirt)
@@ -78,7 +78,7 @@ SCO includes two flagship solutions out of the box:
 **OpenShiftCluster** (`openshiftcluster.cloud.stakater.com/v1`):
 
 - User-facing marketplace API for provisioning OpenShift clusters
-- Provisions full OpenShift clusters using hypershift
+- Provisions full OpenShift clusters using Hypershift
 - Hosted control plane architecture
 - Configurable node pools and sizing
 - etcd backup and disaster recovery

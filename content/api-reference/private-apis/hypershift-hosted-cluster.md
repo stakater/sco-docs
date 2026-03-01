@@ -1,6 +1,6 @@
-# HyperShift Hosted Cluster
+# Hypershift Hosted Cluster
 
-Low-level infrastructure API for provisioning a HyperShift hosted OpenShift cluster with full control over etcd backup, provider configuration, ingress, DNS, and certificates.
+Low-level infrastructure API for provisioning a Hypershift hosted OpenShift cluster with full control over etcd backup, provider configuration, ingress, DNS, and certificates.
 
 !!! note
     This is a private infrastructure API intended for platform engineers. Cloud users should use the [OpenShift Cluster](../public-apis/openshift-cluster.md) public API instead.

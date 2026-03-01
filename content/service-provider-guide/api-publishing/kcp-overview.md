@@ -58,8 +58,8 @@ The `APIExport` declares an API group in KCP. But KCP needs to know how to actua
 The **api-syncagent** is the component that bridges this gap. It:
 
 1. Watches for new objects of the exported type in consumer workspaces
-2. Creates corresponding objects on the service cluster (where Crossplane compositions run)
-3. Synchronises status and events back to the consumer workspace
+1. Creates corresponding objects on the service cluster (where Crossplane compositions run)
+1. Synchronises status and events back to the consumer workspace
 
 This synchronisation is defined through `PublishedResource` objects, which describe the mapping: what kind of object to watch for in KCP workspaces, what namespace to create it in on the service cluster, and any field transformations needed.
 
@@ -71,7 +71,7 @@ Platform providers configure this through the `ApiExport` claim described in [Pu
 
 The full stack for a provider-defined service:
 
-```
+```text
 Platform team defines:
   Crossplane XRD (schema) + Composition (implementation)
                 │
@@ -106,7 +106,7 @@ Platform team defines:
 
 ## Workspace Hierarchy in Practice
 
-```
+```text
 root workspace (platform team)
 ├── Platform services workspace
 │   ├── APIExport: compute.cloud.stakater.com

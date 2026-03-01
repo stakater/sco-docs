@@ -7,7 +7,7 @@ Emma, a developer at ACME Corp, needs a Linux virtual machine for her developmen
 ## Prerequisites
 
 - A [Project](create-project.md) already created
-- The `virtualmachine.compute.cloud.stakater.com` api available
+- The `virtualmachine.compute.cloud.stakater.com` API available
 - `kubectl` configured with your project kubeconfig
 - An SSH public key for VM access
 

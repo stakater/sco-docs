@@ -80,13 +80,13 @@ Contact your platform provider if none of the standard profiles fit your workloa
 
 ---
 
-## Getting the Project Kubeconfig
+## Getting the Project kubeconfig
 
 Once your project is ready, download the kubeconfig to access it from the command line:
 
 1. Navigate to your project in the console
-2. Click **Settings** or **Access**
-3. Click **Download kubeconfig**
+1. Click **Settings** or **Access**
+1. Click **Download kubeconfig**
 
 Or request it from your platform administrator. Save it to `~/.kube/<project-name>.yaml` and set:
 

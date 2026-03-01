@@ -77,7 +77,7 @@ If using a private registry mirror, prepare a registry secret file for the `--re
 Before running `ksp up` you need two claim files prepared:
 
 1. **`KubeStackConfig`** — Platform configuration (name, location, domain)
-2. **`KubeStackPlus`** — SCO platform deployment (variant, platform)
+1. **`KubeStackPlus`** — SCO platform deployment (variant, platform)
 
 See [OpenShift Installation](openshift.md) for example claim files.
 

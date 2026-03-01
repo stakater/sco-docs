@@ -10,7 +10,7 @@ SCO ships with Crossplane pre-installed and pre-configured. This page covers how
 
 When a consumer applies a claim — for example, an `OpenShiftCluster` — Crossplane intercepts it and runs a pipeline of functions to determine what infrastructure to create. Those functions reach out to providers (Kubernetes, cloud APIs, internal systems) to reconcile the desired state.
 
-```
+```text
 Consumer claim (OpenShiftCluster)
     ↓
 Crossplane composition pipeline
@@ -65,7 +65,7 @@ Once healthy, the provider's CRDs are available on the cluster (e.g., `buckets.s
 
 Most providers need credentials to communicate with external systems. Create a Kubernetes secret containing the credentials, then create a `ProviderConfig` that references it.
 
-**Example: AWS credentials**
+#### Example: AWS credentials
 
 ```bash
 kubectl create secret generic aws-credentials \
@@ -89,7 +89,7 @@ spec:
       key: creds
 ```
 
-**Example: Kubernetes provider (in-cluster identity)**
+#### Example: Kubernetes provider (in-cluster identity)
 
 When targeting the management cluster itself, the Kubernetes provider can use its injected service account identity — no credentials secret needed:
 
@@ -103,7 +103,7 @@ spec:
     source: InjectedIdentity
 ```
 
-**Example: Vault provider**
+#### Example: Vault provider
 
 ```yaml
 apiVersion: vault.upbound.io/v1alpha1

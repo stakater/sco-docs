@@ -7,7 +7,7 @@ Maria, an organisation administrator at ACME Corp, needs to provision a new team
 ## Prerequisites
 
 - Access to your organisation's project
-- The `user.iam.cloud.stakater.com` api available
+- The `user.iam.cloud.stakater.com` API available
 - `kubectl` configured with your organisation project kubeconfig
 - Sufficient permissions to create `User` resources in your project
 
@@ -15,7 +15,7 @@ Maria, an organisation administrator at ACME Corp, needs to provision a new team
 
 When you create a User claim, the platform provisions:
 
-- An **organisation user** in your organisation's IDP with the specified username and email
+- An **organisation user** in your organisation's IdP with the specified username and email
 - An **auto-generated initial password** (base64 encoded, available in the resource status)
 
 ## Step 1: Define Your User Claim
@@ -46,7 +46,7 @@ spec:
 |-----------|---------|-------------|
 | `parameters.firstName` | — | User's first name |
 | `parameters.lastName` | — | User's last name |
-| `parameters.emailVerified` | `false` | Whether the email is pre-verified in your organisation's IDP |
+| `parameters.emailVerified` | `false` | Whether the email is pre-verified in your organisation's IdP |
 | `parameters.enabled` | `true` | Whether the user can log in immediately |
 
 ## Step 2: Add Full Profile (Optional)

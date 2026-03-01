@@ -8,7 +8,7 @@ Access to SCO is scoped per organisation. Each organisation has its own authenti
 
 Your platform administrator will provide your organisation's console URL. It typically looks like:
 
-```
+```text
 https://console.example.com/org/acme-corp
 ```
 

@@ -12,7 +12,7 @@ Low-level infrastructure API for provisioning a virtual machine with explicit co
 | **API Group** | `infrastructure.stakater.com` |
 | **Version** | `v1` |
 | **Kind** | `VirtualMachine` |
-| **Scope** | Namespaced |
+| **Scope** | Namespace-scoped |
 
 ## Spec Parameters
 
@@ -79,7 +79,7 @@ All parameters are nested under `spec.parameters`.
 | `cloudInit.user` | `string` | `cloud-user` | Default user for cloud-init |
 | `cloudInit.password` | `string` | — | Password for the default user |
 | `cloudInit.passwordExpire` | `boolean` | `false` | Whether the password should expire |
-| `cloudInit.userData` | `string` | — | Custom cloud-init userData (overrides `user`/`password`) |
+| `cloudInit.userData` | `string` | — | Custom cloud-init `userData` (overrides `user`/`password`) |
 
 ### SSH Public Key
 

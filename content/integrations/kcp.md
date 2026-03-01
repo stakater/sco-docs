@@ -37,7 +37,7 @@ KCP has its own terminology. SCO maps these concepts to the platform vocabulary 
 
 SCO organises workspaces in a tree:
 
-```
+```text
 root workspace (platform)
 ├── org-acme            ← Organisation workspace (Org A)
 │   ├── proj-frontend   ← Project workspace (Team A)
@@ -63,7 +63,7 @@ When the platform team defines a service — say, a `VirtualMachine` claim — S
 
 When a project is created, SCO automatically creates `APIBinding` resources inside that project's workspace. These bindings import the exported APIs into the project, making them available as first-class Kubernetes resource types. A consumer in that project can then `kubectl apply` a `VirtualMachine` claim with no additional configuration.
 
-```
+```text
 Platform root workspace
   └── APIExport: compute.cloud.stakater.com/v1 VirtualMachine
 

@@ -8,7 +8,7 @@ Keycloak is the identity platform embedded in SCO. It provides each organisation
 
 Every organisation on the platform gets its own Keycloak **realm**. A realm is a completely isolated identity namespace: users, groups, clients, roles, and authentication flows within one realm have no visibility into any other realm. An organisation's administrators manage their realm independently; platform operators manage the Keycloak instance itself.
 
-```
+```text
 Keycloak instance (platform-managed)
 ├── realm: org-acme        ← Organisation A's isolated IDP
 │   ├── Users (Alice, Bob, Carol)
@@ -41,9 +41,9 @@ Keycloak's realm-per-organisation model gives SCO strong multi-tenancy guarantee
 Realms are provisioned and managed automatically by SCO. When a platform operator creates an `Organization`, SCO:
 
 1. Creates a new Keycloak realm with the organisation's name
-2. Configures default client scopes and role mappings
-3. Sets up the OIDC client for the web console
-4. Optionally configures an identity provider federation if the organisation has a corporate SSO
+1. Configures default client scopes and role mappings
+1. Sets up the OIDC client for the web console
+1. Optionally configures an identity provider federation if the organisation has a corporate SSO
 
 When an organisation is deleted, its realm and all associated users, groups, and clients are removed.
 
@@ -75,7 +75,7 @@ After saving, trigger a **Sync all users** to import the directory. Users can th
 
 In the realm, navigate to **Identity Providers** and add an OIDC provider:
 
-```
+```text
 Authorization URL: https://login.microsoftonline.com/<tenant-id>/oauth2/v2.0/authorize
 Token URL:         https://login.microsoftonline.com/<tenant-id>/oauth2/v2.0/token
 Client ID:         <application-id-from-azure>
@@ -130,6 +130,7 @@ See [Create IAM User](../how-to-guides/user/create-iam-user.md) and [Create IAM 
 When a consumer authenticates to their project's Kubernetes API endpoint, the request is validated against their organisation's Keycloak realm. The project workspace trusts the realm's OIDC token and maps Keycloak groups to Kubernetes RBAC roles within the project.
 
 This means:
+
 - Adding a user to the `developers` group in Keycloak automatically grants them developer-level access to all projects that have bound that group
 - Removing a user from a group or disabling their account in Keycloak immediately revokes access — no separate Kubernetes RBAC update required
 - Group membership from an LDAP federation is honoured: a user in an AD group gets the corresponding project access without any manual mapping

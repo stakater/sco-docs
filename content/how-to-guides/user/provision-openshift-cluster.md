@@ -7,7 +7,7 @@ Sam, a senior platform engineer at ACME Corp, needs to provide a dedicated OpenS
 ## Prerequisites
 
 - Access to your organisation's project
-- The `openshiftcluster.kubernetes.cloud.stakater.com` api available
+- The `openshiftcluster.kubernetes.cloud.stakater.com` API available
 - `kubectl` configured with your organisation project kubeconfig
 - Sufficient permissions to create `OpenShiftCluster` resources
 

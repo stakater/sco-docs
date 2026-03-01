@@ -39,7 +39,7 @@ They never touch the underlying infrastructure. They never need cluster administ
 
 The power of SCO lies in its **multi-layer abstraction**:
 
-```
+```text
 Consumer Experience          Provider-Defined Services         Your Infrastructure
 ─────────────────────        ─────────────────────────         ──────────────────
 kubectl / GitOps / tf   →    Virtual Machine                →  OpenShift + KubeVirt

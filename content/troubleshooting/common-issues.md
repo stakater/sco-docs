@@ -54,6 +54,7 @@ kubectl describe <kind> <name>
 ```
 
 Common causes:
+
 - **Quota exceeded** — see below
 - **Invalid parameter** — the error message identifies which field
 - **Infrastructure capacity** — contact your platform administrator

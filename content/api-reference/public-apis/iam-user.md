@@ -9,7 +9,7 @@ Creates a user identity in your organisation's identity provider.
 | **API Group** | `iam.cloud.stakater.com` |
 | **Version** | `v1` |
 | **Kind** | `User` |
-| **Scope** | Namespaced |
+| **Scope** | Namespace-scoped |
 
 ## Spec Parameters
 
@@ -28,14 +28,14 @@ All parameters are nested under `spec.parameters`.
 |-------|------|---------|-------------|
 | `firstName` | `string` | — | User's first name |
 | `lastName` | `string` | — | User's last name |
-| `emailVerified` | `boolean` | `false` | Whether the email is pre-verified in the organisation's IDP |
+| `emailVerified` | `boolean` | `false` | Whether the email is pre-verified in the organisation's IdP |
 | `enabled` | `boolean` | `true` | Whether the user can log in immediately |
 
 ## Status Fields
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `status.user.id` | `string` | User ID (UUID) assigned by the IDP |
+| `status.user.id` | `string` | User ID (uuid) assigned by the IdP |
 | `status.user.username` | `string` | Confirmed username |
 | `status.user.email` | `string` | Confirmed email address |
 | `status.user.created` | `boolean` | Whether the user was successfully created |

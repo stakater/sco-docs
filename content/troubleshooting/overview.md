@@ -8,7 +8,7 @@ SCO is built on Kubernetes — debugging follows familiar Kubernetes patterns at
 
 Problems in SCO typically occur at one of four layers:
 
-```
+```text
 1. Virtual API layer     Consumer claims, kubeconfig, authentication
 2. Composition layer     Claim → composed resources → managed resources
 3. Infrastructure layer  VMs, clusters, databases — the actual services
@@ -36,6 +36,7 @@ kubectl describe virtualmachine my-vm
 ```
 
 Common causes:
+
 - Expired kubeconfig token → re-authenticate via the console
 - Wrong context → `kubectl config current-context`
 - API type not available → contact your administrator (the API may not be published)

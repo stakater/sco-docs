@@ -73,7 +73,7 @@ The XRD and Composition live on the management cluster. The `ApiExport` claim tr
 
 ## Solution Lifecycle
 
-```
+```text
 Provider defines XRD + Composition
           ↓
 Provider applies ApiExport claim

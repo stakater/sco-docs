@@ -34,7 +34,7 @@ This makes workspaces extremely lightweight. Provisioning a new project workspac
 
 SCO organises workspaces in a three-level tree:
 
-```
+```text
 root (platform workspace)
 │  Holds: APIExports, platform-level configuration
 │
@@ -85,9 +85,9 @@ When a consumer runs `kubectl api-resources` against their project kubeconfig, t
 When a consumer applies a resource to their project workspace:
 
 1. KCP validates the request against the API schema declared in the `APIExport`
-2. KCP stores the object in the workspace's etcd partition
-3. KCP notifies the `APIExport`'s virtual workspace endpoint that a new object is present
-4. The api-syncagent (watching that virtual workspace) picks up the new object
+1. KCP stores the object in the workspace's etcd partition
+1. KCP notifies the `APIExport`'s virtual workspace endpoint that a new object is present
+1. The api-syncagent (watching that virtual workspace) picks up the new object
 
 The object in the consumer workspace is the source of truth for the consumer. Its status, conditions, and connection details are written back to it by the api-syncagent. The consumer never needs to know that the object is being reconciled on a different cluster.
 
@@ -99,7 +99,7 @@ The api-syncagent is the bridge between KCP workspaces and the Crossplane servic
 
 **Sync flow:**
 
-```
+```text
 Consumer workspace (project-frontend)
     VirtualMachine claim applied
            │
@@ -138,10 +138,10 @@ Consumer workspace: VirtualMachine shows Ready
 When a consumer creates a `Project` claim, SCO:
 
 1. Creates the KCP project workspace (child of the organisation workspace)
-2. Generates a kubeconfig for the project workspace and makes it available
-3. Creates `APIBinding` resources in the project workspace for all published API groups
-4. Creates a `Tenant` resource in MTO, triggering namespace, quota, and network policy provisioning
-5. Configures RBAC in the workspace based on the project's `access` configuration
+1. Generates a kubeconfig for the project workspace and makes it available
+1. Creates `APIBinding` resources in the project workspace for all published API groups
+1. Creates a `Tenant` resource in MTO, triggering namespace, quota, and network policy provisioning
+1. Configures RBAC in the workspace based on the project's `access` configuration
 
 The workspace is ready in seconds. The consumer receives a kubeconfig and can immediately begin applying resources.
 
@@ -185,10 +185,10 @@ Standard tools — `kubectl`, ArgoCD, Flux, Terraform — work against this kube
 When a project is deleted:
 
 1. SCO removes `APIBinding` resources from the workspace (preventing new claims)
-2. The api-syncagent completes deletion of all synced objects on the service cluster
-3. Crossplane compositions delete all composed resources
-4. MTO removes the tenant's namespaces and contained objects
-5. KCP deletes the workspace and its etcd partition
+1. The api-syncagent completes deletion of all synced objects on the service cluster
+1. Crossplane compositions delete all composed resources
+1. MTO removes the tenant's namespaces and contained objects
+1. KCP deletes the workspace and its etcd partition
 
 Deletion is ordered and safe — infrastructure resources are not deleted until Crossplane confirms their removal.
 
@@ -199,6 +199,7 @@ Deletion is ordered and safe — infrastructure resources are not deleted until 
 KCP's workspace model is designed for high workspace counts. A single KCP instance can serve tens of thousands of workspaces with low per-workspace overhead.
 
 The limiting factors in SCO are:
+
 - **api-syncagent instances:** one per published API group; each scales horizontally
 - **Crossplane composition throughput:** scaled by adding provider replicas
 - **MTO namespace count:** one namespace set per project; Kubernetes supports tens of thousands of namespaces per cluster

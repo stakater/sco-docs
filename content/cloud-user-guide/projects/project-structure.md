@@ -20,7 +20,7 @@ A project is a fully isolated Kubernetes environment. From your perspective as a
 
 Every project has its own Kubernetes API endpoint. This is the URL in your project's kubeconfig:
 
-```
+```text
 https://kcp.example.com/clusters/org-acme:frontend-dev
 ```
 

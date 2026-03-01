@@ -8,7 +8,7 @@ A project in SCO is a composed environment — it combines a virtual API endpoin
 
 Every project has two distinct layers that work together:
 
-```
+```text
 Project: proj-frontend
 │
 ├── Virtual API Layer (KCP workspace)
@@ -28,6 +28,7 @@ Project: proj-frontend
 The KCP workspace gives the project its Kubernetes API endpoint. This is what consumers interact with: they point `kubectl`, ArgoCD, or Terraform at this endpoint and apply claims.
 
 The workspace contains:
+
 - `APIBinding` resources for each published service — making service resource types (e.g., `VirtualMachine`) available as native Kubernetes APIs in the workspace
 - Consumer-applied resources (claims): `VirtualMachine`, `OpenShiftCluster`, `PostgreSQLDatabase`, etc.
 - Project-scoped RBAC that controls what each user or group can do within the workspace
@@ -49,13 +50,13 @@ These resources are continuously reconciled. If a namespace is manually deleted,
 
 Namespaces for a project follow a deterministic naming pattern:
 
-```
+```text
 ws-<project-name>-<namespaceSuffix>
 ```
 
 For a project named `proj-frontend` with a VirtualMachine service (`namespaceSuffix: vms`):
 
-```
+```text
 ws-proj-frontend-vms
 ```
 

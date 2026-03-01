@@ -9,7 +9,7 @@ Provisions a virtual machine using predefined OS flavours and instance types.
 | **API Group** | `compute.cloud.stakater.com` |
 | **Version** | `v1` |
 | **Kind** | `VirtualMachine` |
-| **Scope** | Namespaced |
+| **Scope** | Namespace-scoped |
 
 ## Spec Parameters
 
@@ -60,50 +60,50 @@ All parameters are nested under `spec.parameters`.
 
 | Instance Type | Profile |
 |---------------|---------|
-| `o1.nano` | General purpose — nano |
-| `o1.micro` | General purpose — micro |
-| `o1.small` | General purpose — small |
-| `o1.medium` | General purpose — medium |
-| `o1.large` | General purpose — large |
-| `o1.xlarge` | General purpose — xlarge |
-| `o1.2xlarge` | General purpose — 2xlarge |
-| `o1.4xlarge` | General purpose — 4xlarge |
-| `o1.8xlarge` | General purpose — 8xlarge |
-| `cx1.medium` | Compute optimised — medium |
-| `cx1.large` | Compute optimised — large |
-| `cx1.xlarge` | Compute optimised — xlarge |
-| `cx1.2xlarge` | Compute optimised — 2xlarge |
-| `cx1.4xlarge` | Compute optimised — 4xlarge |
-| `cx1.8xlarge` | Compute optimised — 8xlarge |
-| `m1.large` | Memory optimised — large |
-| `m1.xlarge` | Memory optimised — xlarge |
-| `m1.2xlarge` | Memory optimised — 2xlarge |
-| `m1.4xlarge` | Memory optimised — 4xlarge |
-| `m1.8xlarge` | Memory optimised — 8xlarge |
-| `n1.medium` | Network optimised — medium |
-| `n1.large` | Network optimised — large |
-| `n1.xlarge` | Network optimised — xlarge |
-| `n1.2xlarge` | Network optimised — 2xlarge |
-| `n1.4xlarge` | Network optimised — 4xlarge |
-| `n1.8xlarge` | Network optimised — 8xlarge |
-| `rt1.micro` | Real-time — micro |
-| `rt1.small` | Real-time — small |
-| `rt1.medium` | Real-time — medium |
-| `rt1.large` | Real-time — large |
-| `rt1.xlarge` | Real-time — xlarge |
-| `rt1.2xlarge` | Real-time — 2xlarge |
-| `rt1.4xlarge` | Real-time — 4xlarge |
-| `rt1.8xlarge` | Real-time — 8xlarge |
-| `u1.nano` | Ultra — nano |
-| `u1.micro` | Ultra — micro |
-| `u1.small` | Ultra — small |
-| `u1.medium` | Ultra — medium |
-| `u1.2xmedium` | Ultra — 2xmedium |
-| `u1.large` | Ultra — large |
-| `u1.xlarge` | Ultra — xlarge |
-| `u1.2xlarge` | Ultra — 2xlarge |
-| `u1.4xlarge` | Ultra — 4xlarge |
-| `u1.8xlarge` | Ultra — 8xlarge |
+| `o1.nano` | General purpose — `nano` |
+| `o1.micro` | General purpose — `micro` |
+| `o1.small` | General purpose — `small` |
+| `o1.medium` | General purpose — `medium` |
+| `o1.large` | General purpose — `large` |
+| `o1.xlarge` | General purpose — `xlarge` |
+| `o1.2xlarge` | General purpose — `2xlarge` |
+| `o1.4xlarge` | General purpose — `4xlarge` |
+| `o1.8xlarge` | General purpose — `8xlarge` |
+| `cx1.medium` | Compute optimised — `medium` |
+| `cx1.large` | Compute optimised — `large` |
+| `cx1.xlarge` | Compute optimised — `xlarge` |
+| `cx1.2xlarge` | Compute optimised — `2xlarge` |
+| `cx1.4xlarge` | Compute optimised — `4xlarge` |
+| `cx1.8xlarge` | Compute optimised — `8xlarge` |
+| `m1.large` | Memory optimised — `large` |
+| `m1.xlarge` | Memory optimised — `xlarge` |
+| `m1.2xlarge` | Memory optimised — `2xlarge` |
+| `m1.4xlarge` | Memory optimised — `4xlarge` |
+| `m1.8xlarge` | Memory optimised — `8xlarge` |
+| `n1.medium` | Network optimised — `medium` |
+| `n1.large` | Network optimised — `large` |
+| `n1.xlarge` | Network optimised — `xlarge` |
+| `n1.2xlarge` | Network optimised — `2xlarge` |
+| `n1.4xlarge` | Network optimised — `4xlarge` |
+| `n1.8xlarge` | Network optimised — `8xlarge` |
+| `rt1.micro` | Real-time — `micro` |
+| `rt1.small` | Real-time — `small` |
+| `rt1.medium` | Real-time — `medium` |
+| `rt1.large` | Real-time — `large` |
+| `rt1.xlarge` | Real-time — `xlarge` |
+| `rt1.2xlarge` | Real-time — `2xlarge` |
+| `rt1.4xlarge` | Real-time — `4xlarge` |
+| `rt1.8xlarge` | Real-time — `8xlarge` |
+| `u1.nano` | Ultra — `nano` |
+| `u1.micro` | Ultra — `micro` |
+| `u1.small` | Ultra — `small` |
+| `u1.medium` | Ultra — `medium` |
+| `u1.2xmedium` | Ultra — `2xmedium` |
+| `u1.large` | Ultra — `large` |
+| `u1.xlarge` | Ultra — `xlarge` |
+| `u1.2xlarge` | Ultra — `2xlarge` |
+| `u1.4xlarge` | Ultra — `4xlarge` |
+| `u1.8xlarge` | Ultra — `8xlarge` |
 
 ## Examples
 

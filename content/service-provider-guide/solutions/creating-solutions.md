@@ -17,9 +17,9 @@ This guide walks through building a complete solution — from defining the API 
 Creating a solution involves four steps:
 
 1. **Define the XRD** — the API schema consumers interact with
-2. **Write the Composition** — the implementation that fulfils claims
-3. **Test locally** — validate with a test claim before publishing
-4. **Publish** — expose the API to consumer project workspaces
+1. **Write the Composition** — the implementation that fulfils claims
+1. **Test locally** — validate with a test claim before publishing
+1. **Publish** — expose the API to consumer project workspaces
 
 ---
 

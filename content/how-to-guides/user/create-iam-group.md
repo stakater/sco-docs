@@ -7,7 +7,7 @@ Maria, an organisation administrator at ACME Corp, wants to create a group for h
 ## Prerequisites
 
 - Access to your organisation's project
-- The `group.iam.cloud.stakater.com` api available
+- The `group.iam.cloud.stakater.com` API available
 - `kubectl` configured with your organisation project kubeconfig
 - Sufficient permissions to create `Group` resources in your project
 
@@ -15,7 +15,7 @@ Maria, an organisation administrator at ACME Corp, wants to create a group for h
 
 When you create a Group claim, the platform provisions:
 
-- An **organisation group** in your organisation's IDP at the specified path
+- An **organisation group** in your organisation's IdP at the specified path
 - **Group memberships** if `members` are provided (adds existing organisation users to the group)
 
 ## Step 1: Define Your Group Claim

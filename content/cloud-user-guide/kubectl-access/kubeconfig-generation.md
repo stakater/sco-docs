@@ -45,9 +45,9 @@ The `server` URL is unique per project — every project in every organisation h
 Your kubeconfig uses OIDC for authentication:
 
 1. `kubectl` calls the `oidc-login` exec plugin
-2. `oidc-login` checks for a cached, valid token
-3. If none, it opens a browser to your organisation's login page
-4. You authenticate; the token is cached and reused until expiry
+1. `oidc-login` checks for a cached, valid token
+1. If none, it opens a browser to your organisation's login page
+1. You authenticate; the token is cached and reused until expiry
 
 Token lifetime is configured by your organisation's authentication policy.
 
@@ -55,7 +55,7 @@ Token lifetime is configured by your organisation's authentication policy.
 
 ## Multiple Projects
 
-Merge multiple project kubeconfigs into one:
+Merge multiple project kubeconfig files into one:
 
 ```bash
 KUBECONFIG=~/.kube/proj-frontend.yaml:~/.kube/proj-backend.yaml \
@@ -73,14 +73,14 @@ kubectl config use-context proj-backend
 
 ## Requesting a New kubeconfig
 
-Kubeconfigs are available from the SCO console under your project's **Settings → Access → Download kubeconfig**. If your kubeconfig has been revoked, contact your administrator to generate a new one.
+kubeconfig files are available from the SCO console under your project's **Settings → Access → Download kubeconfig**. If your kubeconfig has been revoked, contact your administrator to generate a new one.
 
 ---
 
 ## Security
 
 - Store kubeconfig files securely — they grant API access to your project
-- Do not commit kubeconfigs to version control
+- Do not commit kubeconfig files to version control
 - If a kubeconfig is compromised, contact your administrator immediately to revoke access
 
 ---

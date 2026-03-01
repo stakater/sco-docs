@@ -8,7 +8,7 @@ This page describes the precise relationship between a consumer-facing project, 
 
 Every SCO project maps to exactly one KCP workspace and one MTO Tenant. These three are created together and deleted together:
 
-```
+```text
 Project claim (tenant.cloud.stakater.com/v1 Project)
         │
         ├──► KCP Workspace
@@ -28,7 +28,7 @@ The `Project` claim is the single source of truth. Changes to the claim — upda
 
 The KCP workspace for a project is a child of its organisation workspace:
 
-```
+```text
 Organisation workspace:  org-acme
 Project workspace:        org-acme:proj-frontend
 Endpoint URL:             https://kcp.example.com/clusters/org-acme:proj-frontend
@@ -44,7 +44,7 @@ When a new service is published to the platform, its `APIBinding` is added to al
 
 The MTO Tenant for a project defines the physical namespace structure. For a project named `proj-frontend` in organisation `org-acme`, with published services for VMs (`vms`) and PostgreSQL (`postgresql`):
 
-```
+```text
 Namespace: ws-proj-frontend-vms
   Labels:
     stakater.com/tenant: proj-frontend
@@ -69,10 +69,10 @@ New namespaces are added automatically when new service types are published to t
 When a consumer applies a `VirtualMachine` claim to their project workspace:
 
 1. KCP stores the claim in the project workspace's etcd partition
-2. The api-syncagent (watching the virtual workspace for the `compute.cloud.stakater.com` API export) detects the new object
-3. The api-syncagent creates a mirrored object in `ws-proj-frontend-vms` on the service cluster
-4. Crossplane's composition pipeline runs, creating KubeVirt resources in `ws-proj-frontend-vms`
-5. The api-syncagent copies status back to the original claim in the KCP workspace
+1. The api-syncagent (watching the virtual workspace for the `compute.cloud.stakater.com` API export) detects the new object
+1. The api-syncagent creates a mirrored object in `ws-proj-frontend-vms` on the service cluster
+1. Crossplane's composition pipeline runs, creating KubeVirt resources in `ws-proj-frontend-vms`
+1. The api-syncagent copies status back to the original claim in the KCP workspace
 
 The consumer sees their claim move from `Provisioning` to `Ready`. The physical resources live in `ws-proj-frontend-vms`. The consumer has no access to that namespace — they interact only through the project workspace endpoint.
 
@@ -83,10 +83,10 @@ The consumer sees their claim move from `Provisioning` to `Ready`. The physical 
 When a project is deleted, SCO ensures a safe teardown:
 
 1. `APIBinding` resources removed from workspace — prevents new claims
-2. api-syncagent propagates deletions to service cluster namespaces
-3. Crossplane composition pipelines delete composed resources in correct dependency order
-4. MTO Tenant deleted — namespaces and contained objects removed
-5. KCP workspace deleted — etcd partition purged
+1. api-syncagent propagates deletions to service cluster namespaces
+1. Crossplane composition pipelines delete composed resources in correct dependency order
+1. MTO Tenant deleted — namespaces and contained objects removed
+1. KCP workspace deleted — etcd partition purged
 
 Monitor deletion progress:
 

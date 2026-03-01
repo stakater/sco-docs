@@ -24,7 +24,7 @@ Low-level infrastructure APIs used internally by the SCO platform. These are doc
 
 | API | Group | Kind | Description |
 |-----|-------|------|-------------|
-| [HyperShift Hosted Cluster](private-apis/hypershift-hosted-cluster.md) | `infrastructure.stakater.com/v1` | `HyperShiftHostedCluster` | HyperShift hosted cluster with full etcd backup and provider config |
+| [Hypershift Hosted Cluster](private-apis/hypershift-hosted-cluster.md) | `infrastructure.stakater.com/v1` | `HyperShiftHostedCluster` | Hypershift hosted cluster with full etcd backup and provider config |
 | [Virtual Machine (Infrastructure)](private-apis/virtual-machine-infrastructure.md) | `infrastructure.stakater.com/v1` | `VirtualMachine` | Full-control VM with explicit CPU, memory, storage, and network config |
 
 ## Reading the API Docs

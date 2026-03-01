@@ -10,7 +10,7 @@ When `ksp up` bootstraps the platform, it generates an initial set of `Environme
 
 Each platform component is backed by an OCI-packaged Helm chart. Crossplane watches the EnvironmentConfigs for that component and, when values change, re-renders the Helm release with the updated configuration. The component reconciles toward the new desired state automatically.
 
-```
+```text
 ksp up (initial install)
     ↓
 KubeStackConfig + KubeStackPlus claims applied
@@ -120,10 +120,10 @@ kubectl get environmentconfigs -l platform/override=true
 The recommended workflow for platform configuration changes:
 
 1. **Identify the setting** — inspect the default EnvironmentConfig for the target component to find the correct key
-2. **Create an override** — write a new EnvironmentConfig in your GitOps repository targeting only the keys you need to change
-3. **Raise a pull request** — review and approve the change through your standard code review process
-4. **Merge and sync** — ArgoCD syncs the override to the cluster; Crossplane reconciles the component
-5. **Verify** — check the component's status and confirm the new configuration is in effect
+1. **Create an override** — write a new EnvironmentConfig in your GitOps repository targeting only the keys you need to change
+1. **Raise a pull request** — review and approve the change through your standard code review process
+1. **Merge and sync** — ArgoCD syncs the override to the cluster; Crossplane reconciles the component
+1. **Verify** — check the component's status and confirm the new configuration is in effect
 
 This workflow ensures all configuration changes are auditable, reversible (via Git revert), and applied through the same review process as application changes.
 

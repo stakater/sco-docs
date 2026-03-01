@@ -7,7 +7,7 @@ Alex, a platform user at ACME Corp, needs a dedicated environment to deploy appl
 ## Prerequisites
 
 - Access to your organisation's SCO platform
-- The `project.tenant.cloud.stakater.com` api available
+- The `project.tenant.cloud.stakater.com` API available
 - `kubectl` configured with your organisation project kubeconfig
 
 ## What Gets Created
@@ -17,7 +17,7 @@ When you create a Project claim, the platform provisions:
 - An isolated **project environment** scoped to your team
 - Configurable resource **quota** for the project
 - **Network isolation** with your chosen CIDR block
-- **Identity groups** for readonly and admin access
+- **Identity groups** for read-only and admin access
 - **Role-based access control** within the project
 
 ## Step 1: Define Your Project Claim

@@ -9,7 +9,7 @@ Provisions a managed OpenShift hosted cluster with configurable compute and node
 | **API Group** | `kubernetes.cloud.stakater.com` |
 | **Version** | `v1` |
 | **Kind** | `OpenShiftCluster` |
-| **Scope** | Namespaced |
+| **Scope** | Namespace-scoped |
 
 ## Spec Parameters
 

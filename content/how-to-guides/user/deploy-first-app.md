@@ -9,8 +9,8 @@ Emma, a developer at ACME Corp, needs to deploy her application with a virtual m
 Deploying an application on SCO involves three main steps:
 
 1. **Set up identity** — Create the users and groups who will access the application environment
-2. **Create a project** — Provision an isolated project with network and quota configuration
-3. **Provision compute** — Deploy the virtual machines or clusters your application needs
+1. **Create a project** — Provision an isolated project with network and quota configuration
+1. **Provision compute** — Deploy the virtual machines or clusters your application needs
 
 ## Step 1: Create Users and Groups
 

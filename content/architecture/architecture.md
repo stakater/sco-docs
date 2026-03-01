@@ -22,7 +22,7 @@ Stakater Cloud Orchestrator is built as a composition of open-source, Kubernetes
 
 ## Platform Layers
 
-```
+```text
 ┌─────────────────────────────────────────────────────────────────────┐
 │                        Consumer Experience                          │
 │         kubectl / GitOps / Terraform / Console                      │
@@ -37,7 +37,7 @@ Stakater Cloud Orchestrator is built as a composition of open-source, Kubernetes
 │   Service definitions · Infrastructure orchestration · Secrets      │
 ├───────────────────────────┬─────────────────────────────────────────┤
 │   Infrastructure Services │   Platform Services                     │
-│   OpenShift Virt · HyperShift · OpenBao · Operators                │
+│   OpenShift Virt · Hypershift · OpenBao · Operators                │
 ├─────────────────────────────────────────────────────────────────────┤
 │                     Foundation (Red Hat OpenShift)                  │
 │   Cluster · Networking · Storage · Registry · GitOps (ArgoCD)      │
@@ -55,6 +55,7 @@ OpenShift is not just a runtime substrate — it also provides a richer CRD ecos
 ArgoCD (deployed via OpenShift GitOps) is the engine that installs and maintains every platform component. The platform's desired state — which operators are installed, what version, with which configuration — is declared in Git and continuously reconciled by ArgoCD against the cluster.
 
 This means:
+
 - Platform upgrades are Git commits, reviewed and merged like any code change
 - The cluster's state is always auditable from the repository history
 - Drift between declared and actual state is detected and corrected automatically
@@ -66,7 +67,7 @@ ArgoCD manages not just application deployments but the operators, CRDs, `Operat
 
 Crossplane plays two distinct roles in SCO.
 
-**Platform orchestration:** SCO itself is installed and configured through Crossplane compositions. When the `ksp up` CLI runs, it applies `KubeStackPlus` and `KubeStackConfig` claims that Crossplane reconciles — installing KCP, Keycloak, MTO, OpenBao, HyperShift, and all other platform components in the correct order. The platform is not set up by a Helm chart or an Ansible playbook; it is a running Crossplane composition that continuously maintains the platform's desired state.
+**Platform orchestration:** SCO itself is installed and configured through Crossplane compositions. When the `ksp up` CLI runs, it applies `KubeStackPlus` and `KubeStackConfig` claims that Crossplane reconciles — installing KCP, Keycloak, MTO, OpenBao, Hypershift, and all other platform components in the correct order. The platform is not set up by a Helm chart or an Ansible playbook; it is a running Crossplane composition that continuously maintains the platform's desired state.
 
 **Service composition engine:** Platform providers use Crossplane to define services — as XRDs and compositions — that consumers can provision via Kubernetes claims. The composition engine handles the gap between what a consumer declares and what needs to be created in the underlying infrastructure. Providers write KCL functions to express business logic; Crossplane runs them.
 
@@ -74,8 +75,8 @@ Crossplane plays two distinct roles in SCO.
 
 These are the purpose-built operators and systems that back SCO's built-in services:
 
-- **OpenShift Virtualization (KubeVirt):** Enables VMs to run as Kubernetes objects on bare-metal nodes. Powers the `VirtualMachine` service. Provides live migration, snapshots, and hardware passthrough.
-- **HyperShift:** Hosted control plane technology that runs OpenShift cluster control planes as pods. Powers the `OpenShiftCluster` service. Dramatically reduces the resource cost of multi-cluster deployments.
+- **OpenShift Virtualization (KubeVirt):** Enables VMs to run as Kubernetes objects on bare-metal nodes. Powers the `VirtualMachine` service. Provides live migration, snapshots, and hardware pass-through.
+- **Hypershift:** Hosted control plane technology that runs OpenShift cluster control planes as pods. Powers the `OpenShiftCluster` service. Dramatically reduces the resource cost of multi-cluster deployments.
 - **OpenBao:** The open-source secrets management platform (community fork of HashiCorp Vault). Provides dynamic secrets, PKI, and key-value storage for both platform components and consumer workloads. Crossplane compositions use the OpenBao provider to issue and rotate credentials automatically.
 
 ### Tenancy and Identity Layer
@@ -85,7 +86,7 @@ These are the purpose-built operators and systems that back SCO's built-in servi
 
 ### Virtual API Layer: KCP
 
-KCP (Kubernetes Control Plane) provides each project with its own fully isolated Kubernetes API endpoint — a workspace — without running a separate physical cluster. Consumers use standard tools (`kubectl`, ArgoCD, Terraform, Flux) against their workspace URL. Requests are routed through KCP to the api-syncagent, which creates corresponding objects on the service cluster for Crossplane to reconcile.
+KCP (Kubernetes Control Plane) provides each project with its own fully isolated Kubernetes API endpoint — a workspace — without running a separate physical cluster. Consumers use standard tools (`kubectl`, ArgoCD, Terraform, Flux) against their workspace URL. Requests are routed through KCP to the `api-syncagent`, which creates corresponding objects on the service cluster for Crossplane to reconcile.
 
 ---
 
@@ -93,7 +94,7 @@ KCP (Kubernetes Control Plane) provides each project with its own fully isolated
 
 A consumer provisioning a virtual machine follows this path:
 
-```
+```text
 1. Consumer applies VirtualMachine claim to their project kubeconfig
         ↓
 2. KCP workspace receives the API request
@@ -125,7 +126,7 @@ The consumer never knows the path through KCP, the api-syncagent, or KubeVirt. T
 
 All SCO components run within the single management OpenShift cluster:
 
-```
+```text
 Management OpenShift Cluster
 ├── openshift-gitops          ArgoCD — platform GitOps engine
 ├── stakater-crossplane       Crossplane + providers + compositions
@@ -134,14 +135,14 @@ Management OpenShift Cluster
 ├── stakater-mto              Multi-Tenant Operator
 ├── stakater-openbao          OpenBao secrets engine
 ├── openshift-cnv             OpenShift Virtualization (KubeVirt)
-├── hypershift                HyperShift operator
+├── hypershift                Hypershift operator
 ├── consumer-namespaces/      One namespace set per project (MTO-managed)
 │   ├── ws-org-acme-frontend-*
 │   └── ws-org-acme-backend-*
 └── [operator namespaces]     Strimzi, CNPG, RHOAI, cert-manager, etc.
 ```
 
-Hosted OpenShift cluster control planes (provisioned via HyperShift) also run as pods within the management cluster, in namespaces scoped per hosted cluster.
+Hosted OpenShift cluster control planes (provisioned via Hypershift) also run as pods within the management cluster, in namespaces scoped per hosted cluster.
 
 ---
 

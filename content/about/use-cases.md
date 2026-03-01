@@ -10,12 +10,12 @@ A managed service provider hosts infrastructure for multiple enterprise customer
 
 With SCO, they run a single OpenShift cluster on their bare-metal data centre and deliver isolated environments to each customer organisation. Each customer gets:
 
-- Their own virtual API endpoint — using familiar kubernetes api structure
+- Their own virtual API endpoint — using familiar Kubernetes API structure
 - Fully isolated identity management with their own corporate SSO integration
 - A self-service catalogue of infrastructure services (VMs, hosted clusters, storage)
 - Network isolation that prevents any cross-customer traffic
 
-The platform team publishes new services once; all customers see them in their catalogue. Capacity and quota are managed centrally. Customers provision and manage their own resources through standard Kubernetes tooling without any involvement from the MSP's operations team.
+The platform team publishes new services once; all customers see them in their catalogue. Capacity and quota are managed centrally. Customers provision and manage their own resources through standard Kubernetes tooling without any involvement from the MSP operations team.
 
 **Result**: The provider operates a multi-tenant cloud platform for dozens of customers with a small platform team — no ticket queues, no per-customer infrastructure silos, and full compliance with data residency requirements.
 

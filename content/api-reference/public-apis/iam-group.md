@@ -9,7 +9,7 @@ Creates a group in your organisation's identity provider and manages its members
 | **API Group** | `iam.cloud.stakater.com` |
 | **Version** | `v1` |
 | **Kind** | `Group` |
-| **Scope** | Namespaced |
+| **Scope** | Namespace-scoped |
 
 ## Spec Parameters
 
@@ -33,7 +33,7 @@ All parameters are nested under `spec.parameters`.
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `status.group.id` | `string` | Group ID (UUID) assigned by the IDP |
+| `status.group.id` | `string` | Group ID (uuid) assigned by the IdP |
 | `status.group.name` | `string` | Confirmed group name |
 | `status.group.path` | `string` | Confirmed group path |
 | `status.group.created` | `boolean` | Whether the group was successfully created |

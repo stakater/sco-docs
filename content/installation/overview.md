@@ -20,10 +20,10 @@ ksp up -f kubestack-plus-claim.yaml -c kubestack-config-claim.yaml
 The `ksp up` command:
 
 1. **Validates Prerequisites** — Checks for required cluster capabilities (Crossplane, providers, functions, Argo CD)
-2. **Installs Core Components** — Deploys the composition framework and required operators
-3. **Applies Config Claim** — Installs the `KubeStackConfig` claim to configure the environment
-4. **Deploys SCO Platform** — Installs the `KubeStackPlus` claim to bring up the SCO platform
-5. **Verifies Installation** — Ensures all components are healthy and ready
+1. **Installs Core Components** — Deploys the composition framework and required operators
+1. **Applies Config Claim** — Installs the `KubeStackConfig` claim to configure the environment
+1. **Deploys SCO Platform** — Installs the `KubeStackPlus` claim to bring up the SCO platform
+1. **Verifies Installation** — Ensures all components are healthy and ready
 
 ## Cluster Classification
 

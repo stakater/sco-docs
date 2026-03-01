@@ -25,8 +25,8 @@ The api-syncagent is the bridge between the service cluster (where Crossplane ru
 For each published API group, the api-syncagent:
 
 1. **Watches** consumer workspaces for new claims of the exported type
-2. **Creates** corresponding objects on the service cluster, namespaced per workspace
-3. **Synchronises** status and connection details back to the consumer's workspace in real time
+1. **Creates** corresponding objects on the service cluster, namespaced per workspace
+1. **Synchronises** status and connection details back to the consumer's workspace in real time
 
 This is declarative and continuous — the sync agent reconciles state on both sides throughout the object's lifecycle, from creation through to deletion.
 

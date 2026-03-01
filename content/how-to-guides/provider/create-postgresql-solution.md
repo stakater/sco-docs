@@ -6,7 +6,7 @@ This guide walks through creating and publishing a PostgreSQL-as-a-service offer
 
 ## Prerequisites
 
-- `infrastructure.stakater.com` api available
+- `infrastructure.stakater.com` API available
 - CloudNativePG operator installed on the management cluster
 - `kubernetes-provider`, `kcp-provider`, and `helm-provider` configured
 - `kcp-api-syncagent` Helm chart installed (see [Publishing APIs](../../service-provider-guide/api-publishing/publishing-apis.md))

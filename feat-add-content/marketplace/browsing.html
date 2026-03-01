@@ -2087,7 +2087,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Overview
+    What is Stakater Cloud Orchestrator?
   
 
     
@@ -2503,7 +2503,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Configuration
+    Platform Configuration
   
 
     
@@ -2910,7 +2910,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Solution Overview
+    Solutions
   
 
     
@@ -3160,7 +3160,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Creating Organizations
+    Creating Organisations
   
 
     
@@ -3382,7 +3382,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    KCP Overview
+    KCP: The Virtual API Layer
   
 
     
@@ -4361,10 +4361,60 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#coming-soon" class="md-nav__link">
+  <a href="#discovering-available-services" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Coming Soon
+        Discovering Available Services
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Discovering Available Services">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#list-all-available-services" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        List all available services
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inspect-a-services-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inspect a service's parameters
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-built-in-catalogue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Built-in Catalogue
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#checking-what-you-have-provisioned" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checking What You Have Provisioned
       
     </span>
   </a>
@@ -4875,7 +4925,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Keycloak Integration
+    Keycloak
   
 
     
@@ -4903,7 +4953,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    KCP Integration
+    KCP
   
 
     
@@ -4931,7 +4981,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Multi-Tenant Operator (MTO) Integration
+    Multi-Tenant Operator (MTO)
   
 
     
@@ -4959,7 +5009,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Crossplane Integration
+    Crossplane
   
 
     
@@ -5533,10 +5583,60 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#coming-soon" class="md-nav__link">
+  <a href="#discovering-available-services" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Coming Soon
+        Discovering Available Services
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Discovering Available Services">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#list-all-available-services" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        List all available services
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inspect-a-services-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inspect a service's parameters
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-built-in-catalogue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Built-in Catalogue
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#checking-what-you-have-provisioned" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checking What You Have Provisioned
       
     </span>
   </a>
@@ -5572,19 +5672,90 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 
 
 <h1 id="browsing-the-marketplace">Browsing the Marketplace<a class="headerlink" href="#browsing-the-marketplace" title="Permanent link">#</a></h1>
-<p>Learn how to browse and discover solutions in the SCO marketplace.</p>
-<h2 id="coming-soon">Coming Soon<a class="headerlink" href="#coming-soon" title="Permanent link">#</a></h2>
-<p>Detailed marketplace browsing guide will be added with:</p>
+<p>The marketplace catalogue is accessed through your project's Kubernetes API endpoint. Every service available in the marketplace appears as a native Kubernetes resource type — no separate marketplace API or portal is required.</p>
+<hr>
+<h2 id="discovering-available-services">Discovering Available Services<a class="headerlink" href="#discovering-available-services" title="Permanent link">#</a></h2>
+<h3 id="list-all-available-services">List all available services<a class="headerlink" href="#list-all-available-services" title="Permanent link">#</a></h3>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>api-resources<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>cloud.stakater.com
+</code></pre></div>
+<p>This shows every service type your platform team has published. Example output:</p>
+<div class="highlight"><pre><span></span><code>NAME                  APIVERSION                          NAMESPACED   KIND
+virtualmachines       compute.cloud.stakater.com/v1       true         VirtualMachine
+openshiftclusters     kubernetes.cloud.stakater.com/v1    true         OpenShiftCluster
+projects              tenant.cloud.stakater.com/v1        true         Project
+users                 iam.cloud.stakater.com/v1           true         User
+groups                iam.cloud.stakater.com/v1           true         Group
+postgresqldatabases   databases.cloud.stakater.com/v1     true         PostgreSQLDatabase
+</code></pre></div>
+<h3 id="inspect-a-services-parameters">Inspect a service's parameters<a class="headerlink" href="#inspect-a-services-parameters" title="Permanent link">#</a></h3>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>explain<span class="w"> </span>virtualmachine.spec.parameters
+kubectl<span class="w"> </span>explain<span class="w"> </span>virtualmachine.spec.parameters.instanceType
+</code></pre></div>
+<p>Full API documentation for built-in services:</p>
 <ul>
-<li>Navigation instructions</li>
-<li>Search and filtering</li>
-<li>Solution comparison</li>
-<li>Screenshots and examples</li>
+<li><a href="../api-reference/public-apis/virtual-machine.html">Virtual Machine</a></li>
+<li><a href="../api-reference/public-apis/openshift-cluster.html">OpenShift Cluster</a></li>
+<li><a href="../api-reference/public-apis/project.html">Project</a></li>
+<li><a href="../api-reference/public-apis/iam-user.html">IAM User</a></li>
+<li><a href="../api-reference/public-apis/iam-group.html">IAM Group</a></li>
 </ul>
+<hr>
+<h2 id="the-built-in-catalogue">The Built-in Catalogue<a class="headerlink" href="#the-built-in-catalogue" title="Permanent link">#</a></h2>
+<p>SCO ships with the following services out of the box:</p>
+<table>
+<thead>
+<tr>
+<th>Service</th>
+<th>API</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Virtual Machine</td>
+<td><code>compute.cloud.stakater.com/v1 VirtualMachine</code></td>
+<td>Linux VMs with configurable OS, instance type, storage, and networking</td>
+</tr>
+<tr>
+<td>OpenShift Cluster</td>
+<td><code>kubernetes.cloud.stakater.com/v1 OpenShiftCluster</code></td>
+<td>Hosted OpenShift clusters with configurable compute and node pools</td>
+</tr>
+<tr>
+<td>Project</td>
+<td><code>tenant.cloud.stakater.com/v1 Project</code></td>
+<td>Isolated project environments</td>
+</tr>
+<tr>
+<td>IAM User</td>
+<td><code>iam.cloud.stakater.com/v1 User</code></td>
+<td>Organisation user accounts</td>
+</tr>
+<tr>
+<td>IAM Group</td>
+<td><code>iam.cloud.stakater.com/v1 Group</code></td>
+<td>Organisation groups for access management</td>
+</tr>
+</tbody>
+</table>
+<p>Platform teams can extend this catalogue with any additional services — databases, message queues, AI/ML platforms, and more. Custom services appear alongside the built-in offerings in the same <code>kubectl api-resources</code> output.</p>
+<hr>
+<h2 id="checking-what-you-have-provisioned">Checking What You Have Provisioned<a class="headerlink" href="#checking-what-you-have-provisioned" title="Permanent link">#</a></h2>
+<div class="highlight"><pre><span></span><code><span class="c1"># All virtual machines</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>virtualmachines
+
+<span class="c1"># All OpenShift clusters</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>openshiftclusters
+
+<span class="c1"># Everything in your project</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>all
+</code></pre></div>
+<hr>
 <h2 id="whats-next">What's Next?<a class="headerlink" href="#whats-next" title="Permanent link">#</a></h2>
 <ul>
-<li><a href="solution-catalog.html">Solution Catalog</a> - Browse solution examples</li>
-<li><a href="../cloud-user-guide/solutions/provisioning-solutions.html">Provisioning Solutions</a> - Deploy solutions</li>
+<li><a href="solution-catalog.html">Solution Catalog</a> — Detailed catalogue of available service types</li>
+<li><a href="../cloud-user-guide/solutions/provisioning-solutions.html">Provisioning Solutions</a> — Apply a claim to provision a service</li>
+<li><a href="../api-reference/overview.html">API Reference</a> — Full technical parameter reference</li>
 </ul>
 
 

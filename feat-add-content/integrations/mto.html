@@ -22,7 +22,7 @@
     
     
       
-        <title>Multi-Tenant Operator (MTO) Integration - Stakater Cloud Orchestrator</title>
+        <title>Multi-Tenant Operator (MTO) - Stakater Cloud Orchestrator</title>
       
     
     
@@ -95,7 +95,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#multi-tenant-operator-mto-integration" class="md-skip">
+        <a href="#multi-tenant-operator-mto" class="md-skip">
           Skip to content
         </a>
       
@@ -2087,7 +2087,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Overview
+    What is Stakater Cloud Orchestrator?
   
 
     
@@ -2503,7 +2503,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Configuration
+    Platform Configuration
   
 
     
@@ -2910,7 +2910,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Solution Overview
+    Solutions
   
 
     
@@ -3160,7 +3160,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Creating Organizations
+    Creating Organisations
   
 
     
@@ -3382,7 +3382,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    KCP Overview
+    KCP: The Virtual API Layer
   
 
     
@@ -4804,7 +4804,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Keycloak Integration
+    Keycloak
   
 
     
@@ -4832,7 +4832,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    KCP Integration
+    KCP
   
 
     
@@ -4869,7 +4869,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Multi-Tenant Operator (MTO) Integration
+    Multi-Tenant Operator (MTO)
   
 
     
@@ -4887,7 +4887,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Multi-Tenant Operator (MTO) Integration
+    Multi-Tenant Operator (MTO)
   
 
     
@@ -4915,13 +4915,213 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#coming-soon" class="md-nav__link">
+  <a href="#role-in-sco" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Coming Soon
+        Role in SCO
       
     </span>
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#core-concepts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Core Concepts
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Core Concepts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tenant" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tenant
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#namespace-templates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Namespace Templates
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#integrationconfig" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IntegrationConfig
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#project-isolation-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Project Isolation Model
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Project Isolation Model">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#namespace-isolation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Namespace isolation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resource-quotas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resource quotas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rbac-scoping" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RBAC scoping
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tenant-lifecycle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tenant Lifecycle
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Tenant Lifecycle">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Creation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#updates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Updates
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deletion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deletion
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#distributed-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Distributed Mode
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#platform-operator-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Platform Operator Configuration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Platform Operator Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#integrationconfig_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IntegrationConfig
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#namespace-template-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Namespace Template example
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -4959,7 +5159,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Crossplane Integration
+    Crossplane
   
 
     
@@ -5533,13 +5733,213 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#coming-soon" class="md-nav__link">
+  <a href="#role-in-sco" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Coming Soon
+        Role in SCO
       
     </span>
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#core-concepts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Core Concepts
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Core Concepts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tenant" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tenant
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#namespace-templates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Namespace Templates
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#integrationconfig" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IntegrationConfig
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#project-isolation-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Project Isolation Model
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Project Isolation Model">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#namespace-isolation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Namespace isolation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#resource-quotas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resource quotas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rbac-scoping" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RBAC scoping
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tenant-lifecycle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tenant Lifecycle
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Tenant Lifecycle">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Creation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#updates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Updates
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deletion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deletion
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#distributed-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Distributed Mode
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#platform-operator-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Platform Operator Configuration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Platform Operator Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#integrationconfig_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IntegrationConfig
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#namespace-template-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Namespace Template example
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -5571,22 +5971,176 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 
 
 
-<h1 id="multi-tenant-operator-mto-integration">Multi-Tenant Operator (MTO) Integration<a class="headerlink" href="#multi-tenant-operator-mto-integration" title="Permanent link">#</a></h1>
-<p>How SCO integrates with MTO for multi-tenancy and isolation.</p>
-<h2 id="coming-soon">Coming Soon<a class="headerlink" href="#coming-soon" title="Permanent link">#</a></h2>
-<p>MTO integration documentation will be added covering:</p>
+<h1 id="multi-tenant-operator-mto">Multi-Tenant Operator (MTO)<a class="headerlink" href="#multi-tenant-operator-mto" title="Permanent link">#</a></h1>
+<p>Multi-Tenant Operator (MTO) is the orchestration engine that enforces tenancy within SCO. It manages the full lifecycle of projects — creating namespaces, applying quotas, configuring network isolation, and binding RBAC — from a single <code>Tenant</code> custom resource.</p>
+<hr>
+<h2 id="role-in-sco">Role in SCO<a class="headerlink" href="#role-in-sco" title="Permanent link">#</a></h2>
+<p>Every project in SCO maps to a <code>Tenant</code> in MTO. When a consumer creates a project, SCO creates a <code>Tenant</code> resource on the management cluster. MTO takes that <code>Tenant</code> and drives all the downstream provisioning:</p>
+<div class="highlight"><pre><span></span><code>Project claim (tenant.cloud.stakater.com/v1 Project)
+    ↓
+SCO controller creates Tenant (tenantoperator.stakater.com/v1alpha1)
+    ↓
+MTO reconciles:
+    ├── Namespaces (with standard labels and annotations)
+    ├── ResourceQuotas and LimitRanges
+    ├── NetworkPolicies (inter-namespace isolation)
+    ├── RBAC (RoleBindings scoped to the tenant)
+    └── TemplateGroupInstances (standard tooling deployed into namespaces)
+</code></pre></div>
+<p>Platform operators configure MTO's behaviour through <code>IntegrationConfig</code> and namespace <code>Templates</code>. Consumers interact only with projects and claims; MTO is entirely internal to the platform.</p>
+<hr>
+<h2 id="core-concepts">Core Concepts<a class="headerlink" href="#core-concepts" title="Permanent link">#</a></h2>
+<h3 id="tenant">Tenant<a class="headerlink" href="#tenant" title="Permanent link">#</a></h3>
+<p>A <code>Tenant</code> resource represents a single isolated unit of tenancy — an SCO project. It declares:</p>
 <ul>
-<li>Architecture and integration points</li>
-<li>Tenant provisioning</li>
-<li>Network isolation</li>
-<li>Resource quotas</li>
-<li>Namespace management</li>
-<li>Distributed mode</li>
+<li>Which namespaces belong to this tenant</li>
+<li>What resource quotas apply</li>
+<li>Which users and groups have access, and at what privilege level</li>
+<li>Which namespace templates to apply</li>
 </ul>
+<p>MTO watches <code>Tenant</code> resources and reconciles the full set of downstream Kubernetes objects continuously. If a namespace is deleted out of band, MTO recreates it. If a quota is manually edited, MTO reverts it to the declared value.</p>
+<h3 id="namespace-templates">Namespace Templates<a class="headerlink" href="#namespace-templates" title="Permanent link">#</a></h3>
+<p><code>Template</code> resources define reusable sets of objects to inject into every namespace belonging to a tenant. Platform operators use templates to standardise tooling across all projects:</p>
+<ul>
+<li>Network policies (default deny, allow within tenant)</li>
+<li>LimitRanges (per-container defaults)</li>
+<li>Standard RBAC roles</li>
+<li>Monitoring configuration</li>
+<li>Pre-provisioned secrets (image pull credentials, operator configuration)</li>
+</ul>
+<p>Templates are versioned and can be selectively applied to specific tenant types.</p>
+<h3 id="integrationconfig">IntegrationConfig<a class="headerlink" href="#integrationconfig" title="Permanent link">#</a></h3>
+<p><code>IntegrationConfig</code> is the global configuration resource for MTO. It controls platform-wide behaviour:</p>
+<ul>
+<li>Which namespace prefixes are reserved</li>
+<li>Default quota profiles</li>
+<li>Which cluster-scoped resources tenants can access</li>
+<li>Webhook enforcement settings</li>
+<li>Privileged namespaces (excluded from tenant management)</li>
+</ul>
+<hr>
+<h2 id="project-isolation-model">Project Isolation Model<a class="headerlink" href="#project-isolation-model" title="Permanent link">#</a></h2>
+<p>MTO enforces isolation at multiple levels simultaneously.</p>
+<h3 id="namespace-isolation">Namespace isolation<a class="headerlink" href="#namespace-isolation" title="Permanent link">#</a></h3>
+<p>Each project namespace carries MTO-managed labels that identify its owning tenant. Network policies generated by MTO allow traffic within the tenant's namespaces and deny traffic from other tenants by default.</p>
+<div class="highlight"><pre><span></span><code>Tenant: proj-frontend
+  Namespaces: [proj-frontend-dev, proj-frontend-staging, proj-frontend-prod]
+  ↓
+NetworkPolicy in each namespace:
+  - Allow: ingress from same tenant namespaces
+  - Deny:  ingress from all other tenant namespaces
+  - Allow: egress to platform services (DNS, monitoring)
+</code></pre></div>
+<h3 id="resource-quotas">Resource quotas<a class="headerlink" href="#resource-quotas" title="Permanent link">#</a></h3>
+<p>Every tenant has quota applied at the namespace level. Quota is declared in the <code>Tenant</code> spec and propagated by MTO to <code>ResourceQuota</code> objects in each namespace:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">quota</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">hard</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">requests.cpu</span><span class="p">:</span><span class="w"> </span><span class="s">"8"</span>
+<span class="w">    </span><span class="nt">requests.memory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">16Gi</span>
+<span class="w">    </span><span class="nt">limits.cpu</span><span class="p">:</span><span class="w"> </span><span class="s">"16"</span>
+<span class="w">    </span><span class="nt">limits.memory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">32Gi</span>
+<span class="w">    </span><span class="nt">persistentvolumeclaims</span><span class="p">:</span><span class="w"> </span><span class="s">"10"</span>
+<span class="w">    </span><span class="nt">pods</span><span class="p">:</span><span class="w"> </span><span class="s">"50"</span>
+</code></pre></div>
+<p>Consumers cannot exceed these limits regardless of what they apply to their project's API endpoint.</p>
+<h3 id="rbac-scoping">RBAC scoping<a class="headerlink" href="#rbac-scoping" title="Permanent link">#</a></h3>
+<p>MTO creates <code>RoleBinding</code> resources in tenant namespaces based on the user and group membership declared in the <code>Tenant</code>. Users are granted access only within their tenant's namespaces. No cross-tenant access is possible because the bindings are namespace-scoped and MTO prevents tenants from escalating their own privileges.</p>
+<hr>
+<h2 id="tenant-lifecycle">Tenant Lifecycle<a class="headerlink" href="#tenant-lifecycle" title="Permanent link">#</a></h2>
+<h3 id="creation">Creation<a class="headerlink" href="#creation" title="Permanent link">#</a></h3>
+<p>When a project claim is applied, SCO generates a <code>Tenant</code> resource. MTO responds by:</p>
+<ol>
+<li>Creating all declared namespaces with standard labels</li>
+<li>Applying <code>ResourceQuota</code> and <code>LimitRange</code> to each namespace</li>
+<li>Applying <code>NetworkPolicy</code> resources for intra-tenant and external-egress rules</li>
+<li>Creating <code>RoleBinding</code> resources for declared users and groups</li>
+<li>Applying all referenced namespace templates (deploying standard tooling)</li>
+</ol>
+<p>The project is ready when all MTO-managed resources reach a healthy state.</p>
+<h3 id="updates">Updates<a class="headerlink" href="#updates" title="Permanent link">#</a></h3>
+<p><code>Tenant</code> resources are continuously reconciled. Platform operators can update quotas, add namespaces, or modify RBAC by updating the <code>Tenant</code> spec. MTO applies changes and corrects any drift between the declared state and the cluster state.</p>
+<p>Consumers trigger updates by modifying their project claim. SCO translates changes to the <code>Tenant</code> spec and MTO propagates them.</p>
+<h3 id="deletion">Deletion<a class="headerlink" href="#deletion" title="Permanent link">#</a></h3>
+<p>When a project is deleted, MTO removes all associated namespaces and their contained resources in the correct order. Quota, network policies, and RBAC are cleaned up automatically. No manual cleanup is required.</p>
+<hr>
+<h2 id="distributed-mode">Distributed Mode<a class="headerlink" href="#distributed-mode" title="Permanent link">#</a></h2>
+<p>MTO supports a distributed mode where a management cluster controls tenancy on spoke clusters. In this configuration:</p>
+<ul>
+<li><code>Tenant</code> resources are declared on the management cluster</li>
+<li>MTO synchronises namespaces, quotas, network policies, and RBAC to the target spoke cluster</li>
+<li>Platform operators manage all tenancy from a single control plane</li>
+</ul>
+<p>SCO uses this capability when provisioning hosted OpenShift clusters as a service. The hosted cluster is registered as an MTO spoke, and project-level tenancy on that cluster is managed centrally.</p>
+<hr>
+<h2 id="platform-operator-configuration">Platform Operator Configuration<a class="headerlink" href="#platform-operator-configuration" title="Permanent link">#</a></h2>
+<h3 id="integrationconfig_1">IntegrationConfig<a class="headerlink" href="#integrationconfig_1" title="Permanent link">#</a></h3>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tenantoperator.stakater.com/v1alpha1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">IntegrationConfig</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tenant-operator-config</span>
+<span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stakater-tenant-operator</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">tenantRoles</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">default</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">owner</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">clusterRoles</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">admin</span>
+<span class="w">      </span><span class="nt">editor</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">clusterRoles</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edit</span>
+<span class="w">      </span><span class="nt">viewer</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">clusterRoles</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">view</span>
+<span class="w">  </span><span class="nt">quota</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">validRange</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">startRange</span><span class="p">:</span><span class="w"> </span><span class="s">"0"</span>
+<span class="w">      </span><span class="nt">endRange</span><span class="p">:</span><span class="w"> </span><span class="s">"100Gi"</span>
+<span class="w">  </span><span class="nt">namespaceAccessPolicy</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">deny</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">privilegedNamespaces</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">groups</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">system:masters</span>
+<span class="w">        </span><span class="nt">namespaces</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">^default$</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">^kube-.*</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">^openshift.*</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">^stakater-.*</span>
+</code></pre></div>
+<h3 id="namespace-template-example">Namespace Template example<a class="headerlink" href="#namespace-template-example" title="Permanent link">#</a></h3>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tenantoperator.stakater.com/v1alpha1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Template</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">project-defaults</span>
+<span class="nt">resources</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">manifests</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">networking.k8s.io/v1</span>
+<span class="w">      </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NetworkPolicy</span>
+<span class="w">      </span><span class="nt">metadata</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default-deny-ingress</span>
+<span class="w">      </span><span class="nt">spec</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">podSelector</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span>
+<span class="w">        </span><span class="nt">policyTypes</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Ingress</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
+<span class="w">      </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">LimitRange</span>
+<span class="w">      </span><span class="nt">metadata</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">container-limits</span>
+<span class="w">      </span><span class="nt">spec</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">limits</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Container</span>
+<span class="w">            </span><span class="nt">default</span><span class="p">:</span>
+<span class="w">              </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">500m</span>
+<span class="w">              </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">512Mi</span>
+<span class="w">            </span><span class="nt">defaultRequest</span><span class="p">:</span>
+<span class="w">              </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100m</span>
+<span class="w">              </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">128Mi</span>
+</code></pre></div>
+<hr>
 <h2 id="whats-next">What's Next?<a class="headerlink" href="#whats-next" title="Permanent link">#</a></h2>
 <ul>
-<li><a href="../service-provider-guide/projects/project-architecture.html">Project Architecture</a> - Project details</li>
-<li><a href="../architecture/architecture.html">Architecture</a> - Overall architecture</li>
+<li><a href="../service-provider-guide/projects/project-architecture.html">Project Architecture</a> — How projects map to tenants</li>
+<li><a href="../how-to-guides/user/create-project.html">Creating Projects</a> — Consumer guide to creating projects</li>
+<li><a href="../architecture/architecture.html">Architecture</a> — Overall platform architecture</li>
 </ul>
 
 

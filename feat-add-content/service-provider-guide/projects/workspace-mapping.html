@@ -2087,7 +2087,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Overview
+    What is Stakater Cloud Orchestrator?
   
 
     
@@ -2503,7 +2503,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Configuration
+    Platform Configuration
   
 
     
@@ -2912,7 +2912,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Solution Overview
+    Solutions
   
 
     
@@ -3162,7 +3162,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Creating Organizations
+    Creating Organisations
   
 
     
@@ -3358,10 +3358,54 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#coming-soon" class="md-nav__link">
+  <a href="#the-mapping" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Coming Soon
+        The Mapping
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kcp-workspace-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        KCP Workspace Details
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mto-tenant-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MTO Tenant Details
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-claims-flow-through-the-stack" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How Claims Flow Through the Stack
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deletion-ordering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deletion Ordering
       
     </span>
   </a>
@@ -3457,7 +3501,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    KCP Overview
+    KCP: The Virtual API Layer
   
 
     
@@ -4877,7 +4921,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Keycloak Integration
+    Keycloak
   
 
     
@@ -4905,7 +4949,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    KCP Integration
+    KCP
   
 
     
@@ -4933,7 +4977,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Multi-Tenant Operator (MTO) Integration
+    Multi-Tenant Operator (MTO)
   
 
     
@@ -4961,7 +5005,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Crossplane Integration
+    Crossplane
   
 
     
@@ -5535,10 +5579,54 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#coming-soon" class="md-nav__link">
+  <a href="#the-mapping" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Coming Soon
+        The Mapping
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kcp-workspace-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        KCP Workspace Details
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mto-tenant-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MTO Tenant Details
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-claims-flow-through-the-stack" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How Claims Flow Through the Stack
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deletion-ordering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deletion Ordering
       
     </span>
   </a>
@@ -5574,14 +5662,78 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 
 
 <h1 id="workspace-mapping">Workspace Mapping<a class="headerlink" href="#workspace-mapping" title="Permanent link">#</a></h1>
-<p>How projects map to KCP workspaces and MTO tenants.</p>
-<h2 id="coming-soon">Coming Soon<a class="headerlink" href="#coming-soon" title="Permanent link">#</a></h2>
-<p>Workspace mapping documentation will be added with details on the relationship between projects, workspaces, and tenants.</p>
+<p>This page describes the precise relationship between a consumer-facing project, the underlying KCP workspace, and the physical Kubernetes namespaces managed by MTO.</p>
+<hr>
+<h2 id="the-mapping">The Mapping<a class="headerlink" href="#the-mapping" title="Permanent link">#</a></h2>
+<p>Every SCO project maps to exactly one KCP workspace and one MTO Tenant. These three are created together and deleted together:</p>
+<div class="highlight"><pre><span></span><code>Project claim (tenant.cloud.stakater.com/v1 Project)
+        │
+        ├──► KCP Workspace
+        │    └── Virtual Kubernetes API endpoint
+        │        Project consumers interact here
+        │
+        └──► MTO Tenant
+             └── Physical namespaces (one per service type)
+                 Actual resources live here
+</code></pre></div>
+<p>The <code>Project</code> claim is the single source of truth. Changes to the claim — updated quota, changed access, new network configuration — flow through to both the KCP workspace and the MTO Tenant.</p>
+<hr>
+<h2 id="kcp-workspace-details">KCP Workspace Details<a class="headerlink" href="#kcp-workspace-details" title="Permanent link">#</a></h2>
+<p>The KCP workspace for a project is a child of its organisation workspace:</p>
+<div class="highlight"><pre><span></span><code>Organisation workspace:  org-acme
+Project workspace:        org-acme:proj-frontend
+Endpoint URL:             https://kcp.example.com/clusters/org-acme:proj-frontend
+</code></pre></div>
+<p>Within the workspace, SCO automatically creates <code>APIBinding</code> resources for all published service APIs. The available resource types in every project workspace are determined by the platform's published <code>APIExport</code> set — project administrators do not configure bindings manually.</p>
+<p>When a new service is published to the platform, its <code>APIBinding</code> is added to all existing project workspaces as part of the platform's reconciliation loop.</p>
+<hr>
+<h2 id="mto-tenant-details">MTO Tenant Details<a class="headerlink" href="#mto-tenant-details" title="Permanent link">#</a></h2>
+<p>The MTO Tenant for a project defines the physical namespace structure. For a project named <code>proj-frontend</code> in organisation <code>org-acme</code>, with published services for VMs (<code>vms</code>) and PostgreSQL (<code>postgresql</code>):</p>
+<div class="highlight"><pre><span></span><code>Namespace: ws-proj-frontend-vms
+  Labels:
+    stakater.com/tenant: proj-frontend
+    stakater.com/org: org-acme
+  ResourceQuota: (from project quota profile)
+  NetworkPolicy: (MTO-managed, intra-tenant allow / cross-tenant deny)
+
+Namespace: ws-proj-frontend-postgresql
+  Labels:
+    stakater.com/tenant: proj-frontend
+    stakater.com/org: org-acme
+  ResourceQuota: (from project quota profile)
+  NetworkPolicy: (MTO-managed)
+</code></pre></div>
+<p>New namespaces are added automatically when new service types are published to the platform — MTO's Tenant reconciliation loop picks them up.</p>
+<hr>
+<h2 id="how-claims-flow-through-the-stack">How Claims Flow Through the Stack<a class="headerlink" href="#how-claims-flow-through-the-stack" title="Permanent link">#</a></h2>
+<p>When a consumer applies a <code>VirtualMachine</code> claim to their project workspace:</p>
+<ol>
+<li>KCP stores the claim in the project workspace's etcd partition</li>
+<li>The api-syncagent (watching the virtual workspace for the <code>compute.cloud.stakater.com</code> API export) detects the new object</li>
+<li>The api-syncagent creates a mirrored object in <code>ws-proj-frontend-vms</code> on the service cluster</li>
+<li>Crossplane's composition pipeline runs, creating KubeVirt resources in <code>ws-proj-frontend-vms</code></li>
+<li>The api-syncagent copies status back to the original claim in the KCP workspace</li>
+</ol>
+<p>The consumer sees their claim move from <code>Provisioning</code> to <code>Ready</code>. The physical resources live in <code>ws-proj-frontend-vms</code>. The consumer has no access to that namespace — they interact only through the project workspace endpoint.</p>
+<hr>
+<h2 id="deletion-ordering">Deletion Ordering<a class="headerlink" href="#deletion-ordering" title="Permanent link">#</a></h2>
+<p>When a project is deleted, SCO ensures a safe teardown:</p>
+<ol>
+<li><code>APIBinding</code> resources removed from workspace — prevents new claims</li>
+<li>api-syncagent propagates deletions to service cluster namespaces</li>
+<li>Crossplane composition pipelines delete composed resources in correct dependency order</li>
+<li>MTO Tenant deleted — namespaces and contained objects removed</li>
+<li>KCP workspace deleted — etcd partition purged</li>
+</ol>
+<p>Monitor deletion progress:</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>project<span class="w"> </span>proj-frontend<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.status.conditions}'</span>
+</code></pre></div>
+<hr>
 <h2 id="whats-next">What's Next?<a class="headerlink" href="#whats-next" title="Permanent link">#</a></h2>
 <ul>
-<li><a href="project-architecture.html">Project Architecture</a> - Overall project architecture</li>
-<li><a href="../../integrations/kcp.html">KCP Integration</a> - KCP details</li>
-<li><a href="../../integrations/mto.html">MTO Integration</a> - MTO details</li>
+<li><a href="project-architecture.html">Project Architecture</a> — Two-layer isolation model</li>
+<li><a href="../../architecture/virtual-api-layer.html">Virtual API Layer</a> — KCP workspace internals</li>
+<li><a href="../../integrations/mto.html">MTO Integration</a> — Tenant lifecycle and namespace management</li>
 </ul>
 
 

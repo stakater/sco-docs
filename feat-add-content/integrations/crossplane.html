@@ -22,7 +22,7 @@
     
     
       
-        <title>Crossplane Integration - Stakater Cloud Orchestrator</title>
+        <title>Crossplane - Stakater Cloud Orchestrator</title>
       
     
     
@@ -95,7 +95,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#crossplane-integration" class="md-skip">
+        <a href="#crossplane" class="md-skip">
           Skip to content
         </a>
       
@@ -2087,7 +2087,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Overview
+    What is Stakater Cloud Orchestrator?
   
 
     
@@ -2503,7 +2503,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Configuration
+    Platform Configuration
   
 
     
@@ -2910,7 +2910,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Solution Overview
+    Solutions
   
 
     
@@ -3160,7 +3160,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Creating Organizations
+    Creating Organisations
   
 
     
@@ -3382,7 +3382,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    KCP Overview
+    KCP: The Virtual API Layer
   
 
     
@@ -4804,7 +4804,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Keycloak Integration
+    Keycloak
   
 
     
@@ -4832,7 +4832,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    KCP Integration
+    KCP
   
 
     
@@ -4860,7 +4860,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Multi-Tenant Operator (MTO) Integration
+    Multi-Tenant Operator (MTO)
   
 
     
@@ -4897,7 +4897,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Crossplane Integration
+    Crossplane
   
 
     
@@ -4915,7 +4915,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Crossplane Integration
+    Crossplane
   
 
     
@@ -4943,13 +4943,113 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#coming-soon" class="md-nav__link">
+  <a href="#how-crossplane-fits-in-sco" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Coming Soon
+        How Crossplane Fits in SCO
       
     </span>
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installing-a-new-provider" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installing a New Provider
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Installing a New Provider">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-create-the-provider-resource" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Create the Provider resource
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-configure-provider-credentials" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Configure provider credentials
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#composites-claims-and-xrds" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Composites, Claims, and XRDs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#writing-your-first-composition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Writing Your First Composition
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Writing Your First Composition">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-define-the-xrd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Define the XRD
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-write-the-composition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Write the Composition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-understanding-kcl-composition-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Understanding KCL composition structure
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -5533,13 +5633,113 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#coming-soon" class="md-nav__link">
+  <a href="#how-crossplane-fits-in-sco" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Coming Soon
+        How Crossplane Fits in SCO
       
     </span>
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installing-a-new-provider" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installing a New Provider
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Installing a New Provider">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-create-the-provider-resource" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Create the Provider resource
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-configure-provider-credentials" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Configure provider credentials
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#composites-claims-and-xrds" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Composites, Claims, and XRDs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#writing-your-first-composition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Writing Your First Composition
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Writing Your First Composition">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-define-the-xrd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Define the XRD
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-write-the-composition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Write the Composition
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-understanding-kcl-composition-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Understanding KCL composition structure
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -5571,22 +5771,325 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 
 
 
-<h1 id="crossplane-integration">Crossplane Integration<a class="headerlink" href="#crossplane-integration" title="Permanent link">#</a></h1>
-<p>How SCO integrates with Crossplane for solution composition.</p>
-<h2 id="coming-soon">Coming Soon<a class="headerlink" href="#coming-soon" title="Permanent link">#</a></h2>
-<p>Crossplane integration documentation will be added covering:</p>
+<h1 id="crossplane">Crossplane<a class="headerlink" href="#crossplane" title="Permanent link">#</a></h1>
+<p>Crossplane is the composition engine that powers SCO's service catalogue. Platform providers use it to define services — virtual machines, clusters, databases, or any infrastructure primitive — as Kubernetes custom resources that consumers can provision via standard claims.</p>
+<p>SCO ships with Crossplane pre-installed and pre-configured. This page covers how to extend the platform by adding new providers and authoring your own compositions.</p>
+<hr>
+<h2 id="how-crossplane-fits-in-sco">How Crossplane Fits in SCO<a class="headerlink" href="#how-crossplane-fits-in-sco" title="Permanent link">#</a></h2>
+<p>When a consumer applies a claim — for example, an <code>OpenShiftCluster</code> — Crossplane intercepts it and runs a pipeline of functions to determine what infrastructure to create. Those functions reach out to providers (Kubernetes, cloud APIs, internal systems) to reconcile the desired state.</p>
+<div class="highlight"><pre><span></span><code>Consumer claim (OpenShiftCluster)
+    ↓
+Crossplane composition pipeline
+    ↓
+Function: function-kcl   ← business logic (KCL scripts)
+Function: function-auto-ready
+    ↓
+Composed resources
+    ├── Kubernetes objects
+    ├── Cloud provider resources
+    └── Operator CRs
+</code></pre></div>
+<p>The composition author decides what gets created, how parameters are validated, what defaults apply, and what status is returned to the consumer. Consumers declare intent; Crossplane handles fulfillment.</p>
+<hr>
+<h2 id="installing-a-new-provider">Installing a New Provider<a class="headerlink" href="#installing-a-new-provider" title="Permanent link">#</a></h2>
+<p>Crossplane providers extend what resources you can manage. SCO supports any provider published to the Crossplane marketplace.</p>
+<h3 id="1-create-the-provider-resource">1. Create the Provider resource<a class="headerlink" href="#1-create-the-provider-resource" title="Permanent link">#</a></h3>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pkg.crossplane.io/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Provider</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">provider-aws-s3</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">package</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">xpkg.upbound.io/upbound/provider-aws-s3:v1.14.0</span>
+<span class="w">  </span><span class="nt">packagePullPolicy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">IfNotPresent</span>
+<span class="w">  </span><span class="nt">installationPolicy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Automatic</span>
+</code></pre></div>
+<p>Apply it to the management cluster:</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>provider-aws-s3.yaml
+</code></pre></div>
+<p>Wait for the provider to become healthy:</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>provider<span class="w"> </span>provider-aws-s3
+<span class="c1"># NAME               INSTALLED   HEALTHY   PACKAGE                                         AGE</span>
+<span class="c1"># provider-aws-s3    True        True      xpkg.upbound.io/upbound/provider-aws-s3:...     2m</span>
+</code></pre></div>
+<p>Once healthy, the provider's CRDs are available on the cluster (e.g., <code>buckets.s3.aws.upbound.io</code>).</p>
+<h3 id="2-configure-provider-credentials">2. Configure provider credentials<a class="headerlink" href="#2-configure-provider-credentials" title="Permanent link">#</a></h3>
+<p>Most providers need credentials to communicate with external systems. Create a Kubernetes secret containing the credentials, then create a <code>ProviderConfig</code> that references it.</p>
+<p><strong>Example: AWS credentials</strong></p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>create<span class="w"> </span>secret<span class="w"> </span>generic<span class="w"> </span>aws-credentials<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--from-literal<span class="o">=</span><span class="nv">creds</span><span class="o">=</span><span class="s1">'[default]</span>
+<span class="s1">aws_access_key_id = AKIAIOSFODNN7EXAMPLE</span>
+<span class="s1">aws_secret_access_key = wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-n<span class="w"> </span>stakater-crossplane
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">aws.upbound.io/v1beta1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ProviderConfig</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stakater-aws</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">credentials</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Secret</span>
+<span class="w">    </span><span class="nt">secretRef</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stakater-crossplane</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">aws-credentials</span>
+<span class="w">      </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">creds</span>
+</code></pre></div>
+<p><strong>Example: Kubernetes provider (in-cluster identity)</strong></p>
+<p>When targeting the management cluster itself, the Kubernetes provider can use its injected service account identity — no credentials secret needed:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kubernetes.crossplane.io/v1alpha1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ProviderConfig</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kubernetes-provider</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">credentials</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">InjectedIdentity</span>
+</code></pre></div>
+<p><strong>Example: Vault provider</strong></p>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vault.upbound.io/v1alpha1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ProviderConfig</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">provider-vault</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">server</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://vault.example.com:8200</span>
+<span class="w">  </span><span class="nt">auth</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">method</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kubernetes</span>
+<span class="w">    </span><span class="nt">kubernetes</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">crossplane</span>
+<span class="w">      </span><span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/auth/kubernetes</span>
+<span class="w">      </span><span class="nt">serviceAccountToken</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Filesystem</span>
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Credential management</p>
+<p>For production deployments, store provider credentials using External Secrets Operator or SealedSecrets rather than creating plain secrets directly. The <code>ProviderConfig</code> reference remains the same — only the secret creation method changes.</p>
+</div>
+<hr>
+<h2 id="composites-claims-and-xrds">Composites, Claims, and XRDs<a class="headerlink" href="#composites-claims-and-xrds" title="Permanent link">#</a></h2>
+<p>Crossplane exposes services through a three-layer model:</p>
+<table>
+<thead>
+<tr>
+<th>Resource</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>CompositeResourceDefinition</code> (XRD)</td>
+<td>Defines the schema — what fields consumers configure</td>
+</tr>
+<tr>
+<td><code>Composition</code></td>
+<td>Implements the schema — what gets created</td>
+</tr>
+<tr>
+<td>Claim</td>
+<td>Consumer-facing resource that triggers the composition</td>
+</tr>
+</tbody>
+</table>
+<p>SCO's public service APIs (e.g., <code>compute.cloud.stakater.com/v1 VirtualMachine</code>) are XRDs whose compositions are bundled with the platform. You can add your own XRDs alongside them.</p>
+<hr>
+<h2 id="writing-your-first-composition">Writing Your First Composition<a class="headerlink" href="#writing-your-first-composition" title="Permanent link">#</a></h2>
+<p>SCO compositions use <strong>function-kcl</strong>, a pipeline function that runs KCL (KCL Configuration Language) scripts to produce composed resources. KCL gives you the full expressiveness of a programming language — conditionals, iteration, string formatting — without leaving the Kubernetes ecosystem.</p>
+<h3 id="step-1-define-the-xrd">Step 1: Define the XRD<a class="headerlink" href="#step-1-define-the-xrd" title="Permanent link">#</a></h3>
+<p>The XRD declares the API your consumers will use. Create a <code>CompositeResourceDefinition</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">apiextensions.crossplane.io/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CompositeResourceDefinition</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">xpostgresqldatabases.infrastructure.stakater.com</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">scope</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">LegacyCluster</span>
+<span class="w">  </span><span class="nt">group</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">infrastructure.stakater.com</span>
+<span class="w">  </span><span class="nt">names</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">XPostgreSQLDatabase</span>
+<span class="w">    </span><span class="nt">plural</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">xpostgresqldatabases</span>
+<span class="w">  </span><span class="nt">claimNames</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PostgreSQLDatabase</span>
+<span class="w">    </span><span class="nt">plural</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">postgresqldatabases</span>
+<span class="w">  </span><span class="nt">versions</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
+<span class="w">      </span><span class="nt">served</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">referenceable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">schema</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">openAPIV3Schema</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">object</span>
+<span class="w">          </span><span class="nt">properties</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">spec</span><span class="p">:</span>
+<span class="w">              </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">object</span>
+<span class="w">              </span><span class="nt">properties</span><span class="p">:</span>
+<span class="w">                </span><span class="nt">providerConfigsRef</span><span class="p">:</span>
+<span class="w">                  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">object</span>
+<span class="w">                  </span><span class="nt">properties</span><span class="p">:</span>
+<span class="w">                    </span><span class="nt">kubernetes</span><span class="p">:</span>
+<span class="w">                      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="w">                      </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Name of the Kubernetes ProviderConfig</span>
+<span class="w">                    </span><span class="nt">aws</span><span class="p">:</span>
+<span class="w">                      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="w">                      </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Name of the AWS ProviderConfig</span>
+<span class="w">                  </span><span class="nt">required</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">kubernetes</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">aws</span><span class="p p-Indicator">]</span>
+<span class="w">                </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">                  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">object</span>
+<span class="w">                  </span><span class="nt">required</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">dbName</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="nv">dbUsername</span><span class="p p-Indicator">]</span>
+<span class="w">                  </span><span class="nt">properties</span><span class="p">:</span>
+<span class="w">                    </span><span class="nt">dbName</span><span class="p">:</span>
+<span class="w">                      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="w">                      </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Name of the database</span>
+<span class="w">                    </span><span class="nt">dbUsername</span><span class="p">:</span>
+<span class="w">                      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="w">                      </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Database username</span>
+<span class="w">                    </span><span class="nt">storageGb</span><span class="p">:</span>
+<span class="w">                      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">integer</span>
+<span class="w">                      </span><span class="nt">default</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">20</span>
+<span class="w">                      </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Storage size in GB</span>
+<span class="w">                    </span><span class="nt">engineVersion</span><span class="p">:</span>
+<span class="w">                      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="w">                      </span><span class="nt">default</span><span class="p">:</span><span class="w"> </span><span class="s">"15"</span>
+<span class="w">                      </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PostgreSQL version</span>
+<span class="w">            </span><span class="nt">status</span><span class="p">:</span>
+<span class="w">              </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">object</span>
+<span class="w">              </span><span class="nt">properties</span><span class="p">:</span>
+<span class="w">                </span><span class="nt">endpoint</span><span class="p">:</span>
+<span class="w">                  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="w">                </span><span class="nt">port</span><span class="p">:</span>
+<span class="w">                  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">integer</span>
+</code></pre></div>
+<h3 id="step-2-write-the-composition">Step 2: Write the Composition<a class="headerlink" href="#step-2-write-the-composition" title="Permanent link">#</a></h3>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">apiextensions.crossplane.io/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Composition</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">labels</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">crossplane.io/xrd</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">xpostgresqldatabases.infrastructure.stakater.com</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">postgresql-database</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">compositeTypeRef</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">infrastructure.stakater.com/v1</span>
+<span class="w">    </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">XPostgreSQLDatabase</span>
+<span class="w">  </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Pipeline</span>
+<span class="w">  </span><span class="nt">pipeline</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">step</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kcl</span>
+<span class="w">      </span><span class="nt">functionRef</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">function-kcl</span>
+<span class="w">      </span><span class="nt">input</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">krm.kcl.dev/v1alpha1</span>
+<span class="w">        </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">KCLInput</span>
+<span class="w">        </span><span class="nt">spec</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">dependencies</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">            </span><span class="no">stakaterCommon = { oci = "oci://ghcr.io/stakater/compositions/kcl/stakater-common", tag = "0.0.2" }</span>
+<span class="w">          </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">            </span><span class="no">import stakaterCommon as sc</span>
+
+<span class="w">            </span><span class="no">oxr = option("params").oxr</span>
+<span class="w">            </span><span class="no">ocds = option("params").ocds</span>
+
+<span class="w">            </span><span class="no">a = sc.generateItemMethods(ocds)</span>
+
+<span class="w">            </span><span class="no">spec = oxr.spec</span>
+<span class="w">            </span><span class="no">parameters = spec.parameters</span>
+
+<span class="w">            </span><span class="no">kubernetesProvider = spec?.providerConfigsRef?.kubernetes or "kubernetes-provider"</span>
+<span class="w">            </span><span class="no">awsProvider = spec?.providerConfigsRef?.aws or "stakater-aws"</span>
+
+<span class="w">            </span><span class="no">dbName = parameters.dbName</span>
+<span class="w">            </span><span class="no">storageGb = parameters?.storageGb or 20</span>
+<span class="w">            </span><span class="no">engineVersion = parameters?.engineVersion or "15"</span>
+
+<span class="w">            </span><span class="no"># RDS instance</span>
+<span class="w">            </span><span class="no">_rds = a.createItem({</span>
+<span class="w">                </span><span class="no">resourceName: "rds-instance"</span>
+<span class="w">                </span><span class="no">content: {</span>
+<span class="w">                    </span><span class="no">apiVersion: "rds.aws.upbound.io/v1beta1"</span>
+<span class="w">                    </span><span class="no">kind: "Instance"</span>
+<span class="w">                    </span><span class="no">metadata: {name: dbName}</span>
+<span class="w">                    </span><span class="no">spec: {</span>
+<span class="w">                        </span><span class="no">providerConfigRef: {name: awsProvider}</span>
+<span class="w">                        </span><span class="no">forProvider: {</span>
+<span class="w">                            </span><span class="no">region: "eu-west-1"</span>
+<span class="w">                            </span><span class="no">engine: "postgres"</span>
+<span class="w">                            </span><span class="no">engineVersion: engineVersion</span>
+<span class="w">                            </span><span class="no">instanceClass: "db.t3.micro"</span>
+<span class="w">                            </span><span class="no">allocatedStorage: storageGb</span>
+<span class="w">                            </span><span class="no">dbName: dbName</span>
+<span class="w">                            </span><span class="no">username: parameters.dbUsername</span>
+<span class="w">                            </span><span class="no">skipFinalSnapshot: True</span>
+<span class="w">                            </span><span class="no">autoGeneratePassword: True</span>
+<span class="w">                            </span><span class="no">passwordSecretRef: {</span>
+<span class="w">                                </span><span class="no">namespace: "stakater-crossplane"</span>
+<span class="w">                                </span><span class="no">name: "{}-password".format(dbName)</span>
+<span class="w">                                </span><span class="no">key: "password"</span>
+<span class="w">                            </span><span class="no">}</span>
+<span class="w">                        </span><span class="no">}</span>
+<span class="w">                    </span><span class="no">}</span>
+<span class="w">                </span><span class="no">}</span>
+<span class="w">                </span><span class="no">statusDetails: {</span>
+<span class="w">                    </span><span class="no">statusFunction: lambda item: sc.savedItem -&gt; {str:any} {</span>
+<span class="w">                        </span><span class="no">{</span>
+<span class="w">                            </span><span class="no">endpoint: item.status?.atProvider?.endpoint</span>
+<span class="w">                            </span><span class="no">port: item.status?.atProvider?.port</span>
+<span class="w">                        </span><span class="no">}</span>
+<span class="w">                    </span><span class="no">}</span>
+<span class="w">                </span><span class="no">}</span>
+<span class="w">                </span><span class="no">conditionPropagation: a.defaultPropagation()</span>
+<span class="w">            </span><span class="no">})</span>
+
+<span class="w">            </span><span class="no">items = a.renderItems({})</span>
+
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">step</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">automatically-detect-ready-composed-resources</span>
+<span class="w">      </span><span class="nt">functionRef</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">function-auto-ready</span>
+</code></pre></div>
+<h3 id="step-3-understanding-kcl-composition-structure">Step 3: Understanding KCL composition structure<a class="headerlink" href="#step-3-understanding-kcl-composition-structure" title="Permanent link">#</a></h3>
+<p>Every KCL composition follows the same skeleton:</p>
+<div class="highlight"><pre><span></span><code>import stakaterCommon as sc
+
+# 1. Extract context
+oxr = option("params").oxr   # The composite/claim being reconciled
+ocds = option("params").ocds # Currently observed composed resources
+a = sc.generateItemMethods(ocds)
+
+# 2. Pull parameters from the claim spec
+spec = oxr.spec
+parameters = spec.parameters
+kubernetesProvider = spec?.providerConfigsRef?.kubernetes or "kubernetes-provider"
+
+# 3. Define resources using a.createItem()
+_myResource = a.createItem({
+    resourceName: "unique-name"            # Stable identifier for this resource
+    content: {                             # Full Kubernetes resource manifest
+        apiVersion: "..."
+        kind: "..."
+        metadata: {name: "..."}
+        spec: {...}
+    }
+    dependsOn: []                          # Wait for these items before creating
+    conditionPropagation: a.defaultPropagation()
+    statusDetails: {                       # Propagate fields back to composite status
+        statusFunction: lambda item: sc.savedItem -&gt; {str:any} {
+            {fieldName: item.status?.atProvider?.value}
+        }
+    }
+    connectionDetails: {                   # Expose connection data to consumer
+        rawDataFunction: lambda item: sc.savedItem -&gt; {str:str} {
+            {"key": item.status?.atProvider?.value or ""}
+        }
+    }
+})
+
+# 4. Render — must be last
+items = a.renderItems({})
+</code></pre></div>
+<p>Key patterns:</p>
 <ul>
-<li>Architecture and integration points</li>
-<li>Provider configuration</li>
-<li>XRD and Composition usage</li>
-<li>Resource management</li>
-<li>Cloud provider integration</li>
-<li>Custom compositions</li>
+<li><strong><code>dependsOn</code></strong> — Resources listed here must be ready before this resource is created. The framework automatically generates Crossplane <code>Usage</code> resources to enforce deletion order.</li>
+<li><strong><code>statusDetails.statusFunction</code></strong> — Return a dict of fields to merge into the composite's <code>.status</code>. These appear as readable status fields on the consumer's claim.</li>
+<li><strong><code>connectionDetails</code></strong> — Expose secrets or connection strings to the consumer's connection secret.</li>
+<li><strong>Conditional creation</strong> — Use the <code>condition</code> field on <code>createItem</code> to skip a resource based on parameter values.</li>
 </ul>
+<hr>
 <h2 id="whats-next">What's Next?<a class="headerlink" href="#whats-next" title="Permanent link">#</a></h2>
 <ul>
-<li><a href="../service-provider-guide/solutions/crossplane-compositions.html">Crossplane Compositions</a> - Creating solutions</li>
-<li><a href="../service-provider-guide/solutions/creating-solutions.html">Creating Solutions</a> - Solution guide</li>
+<li><a href="../service-provider-guide/solutions/creating-solutions.html">Creating Solutions</a> — End-to-end guide to publishing a solution to the catalogue</li>
+<li><a href="../service-provider-guide/solutions/crossplane-compositions.html">Crossplane Compositions</a> — Advanced composition patterns</li>
+<li><a href="kcp.html">KCP Integration</a> — How the virtual API layer publishes your compositions to consumers</li>
 </ul>
 
 

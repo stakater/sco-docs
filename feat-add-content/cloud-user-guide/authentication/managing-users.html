@@ -2087,7 +2087,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Overview
+    What is Stakater Cloud Orchestrator?
   
 
     
@@ -2503,7 +2503,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Configuration
+    Platform Configuration
   
 
     
@@ -2910,7 +2910,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Solution Overview
+    Solutions
   
 
     
@@ -3160,7 +3160,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Creating Organizations
+    Creating Organisations
   
 
     
@@ -3382,7 +3382,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    KCP Overview
+    KCP: The Virtual API Layer
   
 
     
@@ -3690,10 +3690,54 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#coming-soon" class="md-nav__link">
+  <a href="#creating-users" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Coming Soon
+        Creating Users
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating-groups" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Creating Groups
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#granting-project-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Granting Project Access
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#disabling-or-removing-a-user" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Disabling or Removing a User
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#removing-a-user-from-a-group" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Removing a User from a Group
       
     </span>
   </a>
@@ -4877,7 +4921,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Keycloak Integration
+    Keycloak
   
 
     
@@ -4905,7 +4949,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    KCP Integration
+    KCP
   
 
     
@@ -4933,7 +4977,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Multi-Tenant Operator (MTO) Integration
+    Multi-Tenant Operator (MTO)
   
 
     
@@ -4961,7 +5005,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Crossplane Integration
+    Crossplane
   
 
     
@@ -5535,10 +5579,54 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#coming-soon" class="md-nav__link">
+  <a href="#creating-users" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Coming Soon
+        Creating Users
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating-groups" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Creating Groups
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#granting-project-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Granting Project Access
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#disabling-or-removing-a-user" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Disabling or Removing a User
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#removing-a-user-from-a-group" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Removing a User from a Group
       
     </span>
   </a>
@@ -5574,20 +5662,101 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 
 
 <h1 id="managing-users">Managing Users<a class="headerlink" href="#managing-users" title="Permanent link">#</a></h1>
-<p>Manage users and team members in your organization.</p>
-<h2 id="coming-soon">Coming Soon<a class="headerlink" href="#coming-soon" title="Permanent link">#</a></h2>
-<p>User management documentation will be added covering:</p>
-<ul>
-<li>Inviting users</li>
-<li>Role assignment</li>
-<li>User permissions</li>
-<li>Removing users</li>
-<li>Group management</li>
-</ul>
+<p>Organisation administrators can manage users and groups through the SCO IAM API. This controls who can log in to the organisation and what projects they can access.</p>
+<hr>
+<h2 id="creating-users">Creating Users<a class="headerlink" href="#creating-users" title="Permanent link">#</a></h2>
+<p>Create a user in your organisation with a <code>iam.cloud.stakater.com/v1 User</code> claim. The user is provisioned in your organisation's identity realm and receives a welcome email with login credentials.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">iam.cloud.stakater.com/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">User</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">alice</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">alice</span>
+<span class="w">    </span><span class="nt">email</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">alice@acmecorp.example.com</span>
+<span class="w">    </span><span class="nt">firstName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Alice</span>
+<span class="w">    </span><span class="nt">lastName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Smith</span>
+<span class="w">    </span><span class="nt">emailVerified</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>alice.yaml
+</code></pre></div>
+<p>See the <a href="../../how-to-guides/user/create-iam-user.html">Create IAM User</a> how-to guide for the full parameter reference.</p>
+<hr>
+<h2 id="creating-groups">Creating Groups<a class="headerlink" href="#creating-groups" title="Permanent link">#</a></h2>
+<p>Groups let you manage access for multiple users at once. A project can grant access to a group — adding someone to the group automatically grants them the project access configured for that group.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">iam.cloud.stakater.com/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Group</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">developers</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">developers</span>
+<span class="w">    </span><span class="nt">members</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">alice</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bob</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>developers-group.yaml
+</code></pre></div>
+<p>See <a href="../../how-to-guides/user/create-iam-group.html">Create IAM Group</a> for the full guide.</p>
+<hr>
+<h2 id="granting-project-access">Granting Project Access<a class="headerlink" href="#granting-project-access" title="Permanent link">#</a></h2>
+<p>Project access is configured in the <code>Project</code> claim's <code>access</code> field:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">access</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">admin</span>
+<span class="w">        </span><span class="nt">users</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">alice</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edit</span>
+<span class="w">        </span><span class="nt">groups</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">developers</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">view</span>
+<span class="w">        </span><span class="nt">groups</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stakeholders</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Permissions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>admin</code></td>
+<td>Full control — create, update, delete any resource in the project</td>
+</tr>
+<tr>
+<td><code>edit</code></td>
+<td>Create and manage resources, cannot modify access configuration</td>
+</tr>
+<tr>
+<td><code>view</code></td>
+<td>Read-only access to all resources in the project</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="disabling-or-removing-a-user">Disabling or Removing a User<a class="headerlink" href="#disabling-or-removing-a-user" title="Permanent link">#</a></h2>
+<p>To disable a user without deleting them:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+</code></pre></div>
+<p>To permanently remove a user:</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>delete<span class="w"> </span>user<span class="w"> </span>alice
+</code></pre></div>
+<p>This removes the user from your organisation's identity realm. They can no longer log in. Past audit log entries are retained.</p>
+<hr>
+<h2 id="removing-a-user-from-a-group">Removing a User from a Group<a class="headerlink" href="#removing-a-user-from-a-group" title="Permanent link">#</a></h2>
+<p>Update the <code>members</code> list in the group claim and reapply it. Removing a user from a group immediately revokes any project access granted via that group.</p>
+<hr>
 <h2 id="whats-next">What's Next?<a class="headerlink" href="#whats-next" title="Permanent link">#</a></h2>
 <ul>
-<li><a href="logging-in.html">Logging In</a> - Authentication details</li>
-<li><a href="../projects/creating-projects.html">Creating Projects</a> - Set up projects for your team</li>
+<li><a href="../../how-to-guides/user/create-iam-user.html">Create IAM User</a> — Full user creation guide</li>
+<li><a href="../../how-to-guides/user/create-iam-group.html">Create IAM Group</a> — Full group management guide</li>
+<li><a href="../projects/creating-projects.html">Creating Projects</a> — Create projects and configure access</li>
 </ul>
 
 

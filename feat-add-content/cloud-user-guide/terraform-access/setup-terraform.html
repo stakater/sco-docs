@@ -2087,7 +2087,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Overview
+    What is Stakater Cloud Orchestrator?
   
 
     
@@ -2503,7 +2503,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Configuration
+    Platform Configuration
   
 
     
@@ -2910,7 +2910,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Solution Overview
+    Solutions
   
 
     
@@ -3160,7 +3160,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Creating Organizations
+    Creating Organisations
   
 
     
@@ -3382,7 +3382,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    KCP Overview
+    KCP: The Virtual API Layer
   
 
     
@@ -4106,10 +4106,43 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#coming-soon" class="md-nav__link">
+  <a href="#prerequisites" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Coming Soon
+        Prerequisites
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-1-configure-the-provider" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Configure the Provider
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-2-provision-a-service" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Provision a Service
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-3-read-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Read Status
       
     </span>
   </a>
@@ -4877,7 +4910,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Keycloak Integration
+    Keycloak
   
 
     
@@ -4905,7 +4938,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    KCP Integration
+    KCP
   
 
     
@@ -4933,7 +4966,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Multi-Tenant Operator (MTO) Integration
+    Multi-Tenant Operator (MTO)
   
 
     
@@ -4961,7 +4994,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Crossplane Integration
+    Crossplane
   
 
     
@@ -5535,10 +5568,43 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#coming-soon" class="md-nav__link">
+  <a href="#prerequisites" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Coming Soon
+        Prerequisites
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-1-configure-the-provider" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Configure the Provider
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-2-provision-a-service" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Provision a Service
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-3-read-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Read Status
       
     </span>
   </a>
@@ -5574,20 +5640,85 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 
 
 <h1 id="setup-terraform">Setup Terraform<a class="headerlink" href="#setup-terraform" title="Permanent link">#</a></h1>
-<p>Use Terraform with the Kubernetes provider to manage SCO resources.</p>
-<h2 id="coming-soon">Coming Soon<a class="headerlink" href="#coming-soon" title="Permanent link">#</a></h2>
-<p>Terraform setup guide will be added covering:</p>
+<p>Terraform can manage resources in your SCO project using the Kubernetes provider. The same project kubeconfig used by <code>kubectl</code> provides Terraform with access.</p>
+<hr>
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">#</a></h2>
 <ul>
-<li>Installing Terraform</li>
-<li>Configuring the Kubernetes provider</li>
-<li>Authentication</li>
-<li>Example configurations</li>
-<li>Best practices</li>
+<li>Terraform installed (<a href="https://developer.hashicorp.com/terraform/install">official install guide</a>)</li>
+<li>Your project kubeconfig (see <a href="../kubectl-access/setup-kubectl.html">Setup kubectl</a>)</li>
 </ul>
+<hr>
+<h2 id="step-1-configure-the-provider">Step 1: Configure the Provider<a class="headerlink" href="#step-1-configure-the-provider" title="Permanent link">#</a></h2>
+<div class="highlight"><pre><span></span><code><span class="nb">terraform</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nb">required_providers</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nb">kubernetes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="na">source</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s2">"hashicorp/kubernetes"</span>
+<span class="w">      </span><span class="na">version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"~&gt; 2.0"</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kr">provider</span><span class="w"> </span><span class="nv">"kubernetes"</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="na">config_path</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="nf">pathexpand</span><span class="p">(</span><span class="s2">"~/.kube/my-project.yaml"</span><span class="p">)</span>
+<span class="w">  </span><span class="na">config_context</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"my-project"</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Or use the <code>KUBECONFIG</code> environment variable:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">KUBECONFIG</span><span class="o">=</span>~/.kube/my-project.yaml
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="kr">provider</span><span class="w"> </span><span class="nv">"kubernetes"</span><span class="w"> </span><span class="p">{}</span>
+</code></pre></div>
+<hr>
+<h2 id="step-2-provision-a-service">Step 2: Provision a Service<a class="headerlink" href="#step-2-provision-a-service" title="Permanent link">#</a></h2>
+<p>Use <code>kubernetes_manifest</code> to apply SCO claims:</p>
+<div class="highlight"><pre><span></span><code><span class="kr">resource</span><span class="w"> </span><span class="nc">"kubernetes_manifest"</span><span class="w"> </span><span class="nv">"dev_vm"</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nb">manifest</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="na">apiVersion</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"compute.cloud.stakater.com/v1"</span>
+<span class="w">    </span><span class="na">kind</span><span class="w">       </span><span class="o">=</span><span class="w"> </span><span class="s2">"VirtualMachine"</span>
+<span class="w">    </span><span class="nb">metadata</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="na">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"dev-vm"</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="nb">spec</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nb">parameters</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="na">flavour</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="s2">"rhel9"</span>
+<span class="w">        </span><span class="na">instanceType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"o1.medium"</span>
+<span class="w">        </span><span class="na">connection</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="s2">"private"</span>
+<span class="w">        </span><span class="na">sshPublicKey</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">var.ssh_public_key</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="nb">timeouts</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="na">create</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"10m"</span>
+<span class="w">    </span><span class="na">delete</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"10m"</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Apply:</p>
+<div class="highlight"><pre><span></span><code>terraform<span class="w"> </span>init
+terraform<span class="w"> </span>plan
+terraform<span class="w"> </span>apply
+</code></pre></div>
+<hr>
+<h2 id="step-3-read-status">Step 3: Read Status<a class="headerlink" href="#step-3-read-status" title="Permanent link">#</a></h2>
+<div class="highlight"><pre><span></span><code><span class="kr">data</span><span class="w"> </span><span class="nc">"kubernetes_resource"</span><span class="w"> </span><span class="nv">"dev_vm"</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="na">api_version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"compute.cloud.stakater.com/v1"</span>
+<span class="w">  </span><span class="na">kind</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="s2">"VirtualMachine"</span>
+<span class="w">  </span><span class="nb">metadata</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="na">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"dev-vm"</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kr">output</span><span class="w"> </span><span class="nv">"vm_status"</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="na">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">data.kubernetes_resource.dev_vm.object.status</span>
+<span class="p">}</span>
+</code></pre></div>
+<hr>
 <h2 id="whats-next">What's Next?<a class="headerlink" href="#whats-next" title="Permanent link">#</a></h2>
 <ul>
-<li><a href="kubernetes-provider.html">Kubernetes Provider</a> - Configure the provider</li>
-<li><a href="../getting-started.html">Getting Started</a> - SCO quick start</li>
+<li><a href="kubernetes-provider.html">Kubernetes Provider</a> — Advanced patterns and multiple project configuration</li>
+<li><a href="../solutions/provisioning-solutions.html">Provisioning Solutions</a> — SCO claim structure reference</li>
+<li><a href="../../api-reference/overview.html">API Reference</a> — Full parameter reference for all services</li>
 </ul>
 
 

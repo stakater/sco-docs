@@ -2087,7 +2087,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Overview
+    What is Stakater Cloud Orchestrator?
   
 
     
@@ -2503,7 +2503,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Configuration
+    Platform Configuration
   
 
     
@@ -2910,7 +2910,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Solution Overview
+    Solutions
   
 
     
@@ -3160,7 +3160,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Creating Organizations
+    Creating Organisations
   
 
     
@@ -3382,7 +3382,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    KCP Overview
+    KCP: The Virtual API Layer
   
 
     
@@ -4802,7 +4802,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Keycloak Integration
+    Keycloak
   
 
     
@@ -4830,7 +4830,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    KCP Integration
+    KCP
   
 
     
@@ -4858,7 +4858,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Multi-Tenant Operator (MTO) Integration
+    Multi-Tenant Operator (MTO)
   
 
     
@@ -4886,7 +4886,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Crossplane Integration
+    Crossplane
   
 
     
@@ -5413,13 +5413,219 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#coming-soon" class="md-nav__link">
+  <a href="#authentication-and-access" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Coming Soon
+        Authentication and Access
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Authentication and Access">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#unable-to-connect-to-the-server-or-kubeconfig-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        "Unable to connect to the server" or kubeconfig errors
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#forbidden-when-applying-a-claim" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        "Forbidden" when applying a claim
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cannot-log-in-to-the-console" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cannot log in to the console
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#provisioning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Provisioning
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Provisioning">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#claim-stays-in-provisioning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Claim stays in Provisioning
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exceeded-quota-error" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        "Exceeded quota" error
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#claim-stuck-deleting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Claim stuck deleting
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#virtual-machines" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Virtual Machines
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Virtual Machines">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vm-ready-but-ssh-connection-refused" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        VM Ready but SSH connection refused
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cloud-init-script-didnt-run" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cloud-init script didn't run
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#openshift-clusters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OpenShift Clusters
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OpenShift Clusters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cluster-provisioning-taking-more-than-20-minutes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cluster provisioning taking more than 20 minutes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cluster-kubeconfig-shows-empty-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cluster kubeconfig shows empty status
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#iam-and-users" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IAM and Users
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="IAM and Users">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#user-created-but-cannot-log-in" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User created but cannot log in
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user-removed-from-group-but-still-has-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User removed from group but still has access
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -5533,13 +5739,219 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#coming-soon" class="md-nav__link">
+  <a href="#authentication-and-access" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Coming Soon
+        Authentication and Access
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Authentication and Access">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#unable-to-connect-to-the-server-or-kubeconfig-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        "Unable to connect to the server" or kubeconfig errors
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#forbidden-when-applying-a-claim" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        "Forbidden" when applying a claim
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cannot-log-in-to-the-console" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cannot log in to the console
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#provisioning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Provisioning
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Provisioning">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#claim-stays-in-provisioning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Claim stays in Provisioning
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exceeded-quota-error" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        "Exceeded quota" error
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#claim-stuck-deleting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Claim stuck deleting
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#virtual-machines" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Virtual Machines
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Virtual Machines">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vm-ready-but-ssh-connection-refused" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        VM Ready but SSH connection refused
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cloud-init-script-didnt-run" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cloud-init script didn't run
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#openshift-clusters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OpenShift Clusters
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OpenShift Clusters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cluster-provisioning-taking-more-than-20-minutes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cluster provisioning taking more than 20 minutes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cluster-kubeconfig-shows-empty-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cluster kubeconfig shows empty status
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#iam-and-users" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IAM and Users
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="IAM and Users">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#user-created-but-cannot-log-in" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User created but cannot log in
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#user-removed-from-group-but-still-has-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        User removed from group but still has access
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -5572,20 +5984,92 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 
 
 <h1 id="common-issues">Common Issues<a class="headerlink" href="#common-issues" title="Permanent link">#</a></h1>
-<p>Common issues and their solutions when working with SCO.</p>
-<h2 id="coming-soon">Coming Soon<a class="headerlink" href="#coming-soon" title="Permanent link">#</a></h2>
-<p>Common issues documentation will be added covering:</p>
-<ul>
-<li>Authentication problems</li>
-<li>Project creation failures</li>
-<li>Solution provisioning errors</li>
-<li>Access and permission issues</li>
-<li>Network connectivity problems</li>
-<li>Integration issues</li>
-</ul>
+<p>Solutions to the most frequently encountered problems in SCO.</p>
+<hr>
+<h2 id="authentication-and-access">Authentication and Access<a class="headerlink" href="#authentication-and-access" title="Permanent link">#</a></h2>
+<h3 id="unable-to-connect-to-the-server-or-kubeconfig-errors">"Unable to connect to the server" or kubeconfig errors<a class="headerlink" href="#unable-to-connect-to-the-server-or-kubeconfig-errors" title="Permanent link">#</a></h3>
+<p><strong>Cause:</strong> Expired token, wrong context, or incorrect server URL.</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>config<span class="w"> </span>current-context
+
+<span class="c1"># Re-download kubeconfig from the console and set it</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">KUBECONFIG</span><span class="o">=</span>~/.kube/my-project-new.yaml
+kubectl<span class="w"> </span>cluster-info
+</code></pre></div>
+<p>Clear a cached OIDC token if using <code>oidc-login</code>:</p>
+<div class="highlight"><pre><span></span><code>rm<span class="w"> </span>-rf<span class="w"> </span>~/.kube/cache/oidc-login/
+</code></pre></div>
+<hr>
+<h3 id="forbidden-when-applying-a-claim">"Forbidden" when applying a claim<a class="headerlink" href="#forbidden-when-applying-a-claim" title="Permanent link">#</a></h3>
+<p><strong>Cause:</strong> Your role in this project doesn't permit creating resources.</p>
+<p><strong>Fix:</strong> Contact your organisation administrator — you need <code>edit</code> or <code>admin</code> role to create resources.</p>
+<hr>
+<h3 id="cannot-log-in-to-the-console">Cannot log in to the console<a class="headerlink" href="#cannot-log-in-to-the-console" title="Permanent link">#</a></h3>
+<p><strong>Cause:</strong> Wrong organisation URL, locked account, or SSO misconfiguration.</p>
+<p><strong>Fix:</strong> Ensure you're using the console URL for your specific organisation. If your account is locked after failed attempts, an administrator can unlock it.</p>
+<hr>
+<h2 id="provisioning">Provisioning<a class="headerlink" href="#provisioning" title="Permanent link">#</a></h2>
+<h3 id="claim-stays-in-provisioning">Claim stays in <code>Provisioning</code><a class="headerlink" href="#claim-stays-in-provisioning" title="Permanent link">#</a></h3>
+<p><strong>Cause:</strong> A composed resource is failing to reconcile.</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>describe<span class="w"> </span>&lt;kind&gt;<span class="w"> </span>&lt;name&gt;
+<span class="c1"># Check Conditions and Events sections</span>
+</code></pre></div>
+<p>Common causes:
+- <strong>Quota exceeded</strong> — see below
+- <strong>Invalid parameter</strong> — the error message identifies which field
+- <strong>Infrastructure capacity</strong> — contact your platform administrator</p>
+<hr>
+<h3 id="exceeded-quota-error">"Exceeded quota" error<a class="headerlink" href="#exceeded-quota-error" title="Permanent link">#</a></h3>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>describe<span class="w"> </span>resourcequota
+</code></pre></div>
+<p>Request a quota increase from your organisation administrator.</p>
+<hr>
+<h3 id="claim-stuck-deleting">Claim stuck deleting<a class="headerlink" href="#claim-stuck-deleting" title="Permanent link">#</a></h3>
+<p><strong>Cause:</strong> Deletion is ordered — all composed resources must be removed before the claim disappears. This is expected behaviour.</p>
+<p>VMs typically delete in under a minute. OpenShift clusters may take 5–10 minutes.</p>
+<p>If stuck for more than 15 minutes, contact your platform administrator.</p>
+<hr>
+<h2 id="virtual-machines">Virtual Machines<a class="headerlink" href="#virtual-machines" title="Permanent link">#</a></h2>
+<h3 id="vm-ready-but-ssh-connection-refused">VM Ready but SSH connection refused<a class="headerlink" href="#vm-ready-but-ssh-connection-refused" title="Permanent link">#</a></h3>
+<p><strong>Cause:</strong> Cloud-init still running, wrong IP, or firewall issue.</p>
+<p><strong>Fix:</strong> Wait 2–3 minutes after <code>Ready</code> for cloud-init to complete, then retry.</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>virtualmachine<span class="w"> </span>my-vm<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.status}'</span>
+ssh<span class="w"> </span>-i<span class="w"> </span>~/.ssh/my-key<span class="w"> </span>user@&lt;vm-ip&gt;
+</code></pre></div>
+<p>If using <code>connection: private</code>, the VM IP is only reachable from within the cluster. Use <code>connection: public</code> for external access.</p>
+<hr>
+<h3 id="cloud-init-script-didnt-run">Cloud-init script didn't run<a class="headerlink" href="#cloud-init-script-didnt-run" title="Permanent link">#</a></h3>
+<p><strong>Cause:</strong> Syntax error in <code>cloudInit.userData</code>.</p>
+<p><strong>Fix:</strong> The file must start with <code>#cloud-config</code>. Validate your cloud-init YAML before applying.</p>
+<hr>
+<h2 id="openshift-clusters">OpenShift Clusters<a class="headerlink" href="#openshift-clusters" title="Permanent link">#</a></h2>
+<h3 id="cluster-provisioning-taking-more-than-20-minutes">Cluster provisioning taking more than 20 minutes<a class="headerlink" href="#cluster-provisioning-taking-more-than-20-minutes" title="Permanent link">#</a></h3>
+<p>Hosted cluster provisioning takes 10–25 minutes for first-time setup. Monitor progress:</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>openshiftcluster<span class="w"> </span>my-cluster<span class="w"> </span>-w
+kubectl<span class="w"> </span>describe<span class="w"> </span>openshiftcluster<span class="w"> </span>my-cluster
+</code></pre></div>
+<p>If no progress after 30 minutes, contact your platform administrator.</p>
+<hr>
+<h3 id="cluster-kubeconfig-shows-empty-status">Cluster kubeconfig shows empty status<a class="headerlink" href="#cluster-kubeconfig-shows-empty-status" title="Permanent link">#</a></h3>
+<p><strong>Cause:</strong> Cluster hasn't finished provisioning yet.</p>
+<p><strong>Fix:</strong> Wait for <code>Ready: True</code>, then check status for connection details:</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>openshiftcluster<span class="w"> </span>my-cluster<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.status}'</span>
+</code></pre></div>
+<hr>
+<h2 id="iam-and-users">IAM and Users<a class="headerlink" href="#iam-and-users" title="Permanent link">#</a></h2>
+<h3 id="user-created-but-cannot-log-in">User created but cannot log in<a class="headerlink" href="#user-created-but-cannot-log-in" title="Permanent link">#</a></h3>
+<p><strong>Cause:</strong> <code>enabled</code> or <code>emailVerified</code> not set to <code>true</code>.</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>user<span class="w"> </span>alice<span class="w"> </span>-o<span class="w"> </span>yaml
+</code></pre></div>
+<p>Ensure both fields are <code>true</code>. Update the claim and reapply.</p>
+<hr>
+<h3 id="user-removed-from-group-but-still-has-access">User removed from group but still has access<a class="headerlink" href="#user-removed-from-group-but-still-has-access" title="Permanent link">#</a></h3>
+<p><strong>Cause:</strong> Token caching — the existing session still carries old group membership.</p>
+<p><strong>Fix:</strong> The user must log out and back in to get a refreshed token. This resolves automatically at next login.</p>
+<hr>
 <h2 id="whats-next">What's Next?<a class="headerlink" href="#whats-next" title="Permanent link">#</a></h2>
 <ul>
-<li><a href="overview.html">Troubleshooting Overview</a> - General troubleshooting approach</li>
+<li><a href="overview.html">Troubleshooting Overview</a> — Layer-by-layer diagnostic approach</li>
+<li><a href="../cloud-user-guide/solutions/provisioning-solutions.html">Provisioning Solutions</a> — Provisioning guide</li>
 </ul>
 
 

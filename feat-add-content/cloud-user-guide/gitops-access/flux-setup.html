@@ -2087,7 +2087,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Overview
+    What is Stakater Cloud Orchestrator?
   
 
     
@@ -2503,7 +2503,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Configuration
+    Platform Configuration
   
 
     
@@ -2910,7 +2910,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Solution Overview
+    Solutions
   
 
     
@@ -3160,7 +3160,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Creating Organizations
+    Creating Organisations
   
 
     
@@ -3382,7 +3382,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    KCP Overview
+    KCP: The Virtual API Layer
   
 
     
@@ -4245,10 +4245,65 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#coming-soon" class="md-nav__link">
+  <a href="#prerequisites" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Coming Soon
+        Prerequisites
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-1-bootstrap-flux" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Bootstrap Flux
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-2-add-sco-claims-to-git" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Add SCO Claims to Git
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-3-monitor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Monitor
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#targeting-your-project-from-an-external-flux-instance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Targeting Your Project from an External Flux Instance
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#automation-identity-coming-soon" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Automation Identity (Coming Soon)
       
     </span>
   </a>
@@ -4877,7 +4932,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Keycloak Integration
+    Keycloak
   
 
     
@@ -4905,7 +4960,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    KCP Integration
+    KCP
   
 
     
@@ -4933,7 +4988,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Multi-Tenant Operator (MTO) Integration
+    Multi-Tenant Operator (MTO)
   
 
     
@@ -4961,7 +5016,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Crossplane Integration
+    Crossplane
   
 
     
@@ -5535,10 +5590,65 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#coming-soon" class="md-nav__link">
+  <a href="#prerequisites" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Coming Soon
+        Prerequisites
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-1-bootstrap-flux" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Bootstrap Flux
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-2-add-sco-claims-to-git" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Add SCO Claims to Git
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-3-monitor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Monitor
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#targeting-your-project-from-an-external-flux-instance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Targeting Your Project from an External Flux Instance
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#automation-identity-coming-soon" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Automation Identity (Coming Soon)
       
     </span>
   </a>
@@ -5574,20 +5684,87 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 
 
 <h1 id="flux-setup">Flux Setup<a class="headerlink" href="#flux-setup" title="Permanent link">#</a></h1>
-<p>Configure Flux to deploy applications to SCO projects.</p>
-<h2 id="coming-soon">Coming Soon<a class="headerlink" href="#coming-soon" title="Permanent link">#</a></h2>
-<p>Flux setup guide will be added covering:</p>
+<p>Flux can continuously reconcile your SCO project workspace with a Git repository. Since your project exposes a standard Kubernetes API endpoint, Flux works against it without modification.</p>
+<hr>
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">#</a></h2>
 <ul>
-<li>Installing Flux</li>
-<li>Configuring cluster access</li>
-<li>Creating sources and <code>kustomizations</code></li>
-<li>Syncing resources</li>
-<li>Best practices for GitOps with SCO</li>
+<li><code>flux</code> CLI installed (<a href="https://fluxcd.io/flux/installation/">official install guide</a>)</li>
+<li>Your project kubeconfig (see <a href="../kubectl-access/setup-kubectl.html">Setup kubectl</a>)</li>
+<li>A Git repository containing your manifests</li>
 </ul>
+<hr>
+<h2 id="step-1-bootstrap-flux">Step 1: Bootstrap Flux<a class="headerlink" href="#step-1-bootstrap-flux" title="Permanent link">#</a></h2>
+<p>Bootstrap Flux into your project workspace:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">KUBECONFIG</span><span class="o">=</span>~/.kube/my-project.yaml
+
+flux<span class="w"> </span>bootstrap<span class="w"> </span>github<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--owner<span class="o">=</span>your-org<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--repository<span class="o">=</span>your-repo<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--branch<span class="o">=</span>main<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--path<span class="o">=</span>clusters/proj-frontend<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--personal
+</code></pre></div>
+<p>Flux creates the <code>flux-system</code> namespace in your project workspace and installs its controllers.</p>
+<hr>
+<h2 id="step-2-add-sco-claims-to-git">Step 2: Add SCO Claims to Git<a class="headerlink" href="#step-2-add-sco-claims-to-git" title="Permanent link">#</a></h2>
+<p>In the Git path Flux is watching, add SCO claim manifests:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># clusters/proj-frontend/virtual-machine.yaml</span>
+<span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">compute.cloud.stakater.com/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VirtualMachine</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">app-vm</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">flavour</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rhel9</span>
+<span class="w">    </span><span class="nt">instanceType</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">o1.large</span>
+<span class="w">    </span><span class="nt">connection</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">private</span>
+<span class="w">    </span><span class="nt">sshPublicKey</span><span class="p">:</span><span class="w"> </span><span class="s">"ssh-rsa</span><span class="nv"> </span><span class="s">AAAAB3..."</span>
+</code></pre></div>
+<p>Commit and push. Flux applies the manifest to your project workspace within the configured sync interval.</p>
+<hr>
+<h2 id="step-3-monitor">Step 3: Monitor<a class="headerlink" href="#step-3-monitor" title="Permanent link">#</a></h2>
+<div class="highlight"><pre><span></span><code>flux<span class="w"> </span>get<span class="w"> </span>all
+kubectl<span class="w"> </span>get<span class="w"> </span>virtualmachines
+flux<span class="w"> </span>logs
+</code></pre></div>
+<hr>
+<h2 id="targeting-your-project-from-an-external-flux-instance">Targeting Your Project from an External Flux Instance<a class="headerlink" href="#targeting-your-project-from-an-external-flux-instance" title="Permanent link">#</a></h2>
+<p>If Flux is already running elsewhere and you want it to deploy into your SCO project, create a <code>Secret</code> with your kubeconfig and reference it in a <code>Kustomization</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Secret</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sco-project-kubeconfig</span>
+<span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">flux-system</span>
+<span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Opaque</span>
+<span class="nt">stringData</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">    </span><span class="no"># paste project kubeconfig contents here</span>
+<span class="nn">---</span>
+<span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kustomize.toolkit.fluxcd.io/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Kustomization</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sco-proj-frontend</span>
+<span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">flux-system</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5m</span>
+<span class="w">  </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./environments/proj-frontend</span>
+<span class="w">  </span><span class="nt">prune</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">sourceRef</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">GitRepository</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">your-repo</span>
+<span class="w">  </span><span class="nt">kubeConfig</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">secretRef</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">sco-project-kubeconfig</span>
+</code></pre></div>
+<hr>
+<h2 id="automation-identity-coming-soon">Automation Identity (Coming Soon)<a class="headerlink" href="#automation-identity-coming-soon" title="Permanent link">#</a></h2>
+<p>Currently, Flux uses the credentials in your project kubeconfig. A dedicated <strong>automation identity</strong> claim type is planned — allowing you to create a long-lived, scoped service account for CI/CD tools without relying on a personal kubeconfig.</p>
+<hr>
 <h2 id="whats-next">What's Next?<a class="headerlink" href="#whats-next" title="Permanent link">#</a></h2>
 <ul>
-<li><a href="argocd-setup.html">ArgoCD Setup</a> - Alternative GitOps tool</li>
-<li><a href="../projects/creating-projects.html">Creating Projects</a> - Set up projects</li>
+<li><a href="argocd-setup.html">ArgoCD Setup</a> — Alternative GitOps with ArgoCD</li>
+<li><a href="../kubectl-access/setup-kubectl.html">Setup kubectl</a> — kubectl access to your project</li>
+<li><a href="../solutions/provisioning-solutions.html">Provisioning Solutions</a> — SCO claim structure</li>
 </ul>
 
 

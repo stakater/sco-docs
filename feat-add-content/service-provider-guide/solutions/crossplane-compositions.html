@@ -2087,7 +2087,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Overview
+    What is Stakater Cloud Orchestrator?
   
 
     
@@ -2503,7 +2503,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Configuration
+    Platform Configuration
   
 
     
@@ -2914,7 +2914,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Solution Overview
+    Solutions
   
 
     
@@ -3025,10 +3025,143 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#coming-soon" class="md-nav__link">
+  <a href="#composition-patterns-in-sco" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Coming Soon
+        Composition Patterns in SCO
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Composition Patterns in SCO">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pipeline-mode-with-function-kcl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pipeline mode with function-kcl
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kcl-script-skeleton" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        KCL script skeleton
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-composition-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Composition Features
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Key Composition Features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#resource-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resource dependencies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#propagating-status-to-the-consumer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Propagating status to the consumer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exposing-connection-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exposing connection details
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conditional-resource-creation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conditional resource creation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iterating-to-create-multiple-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Iterating to create multiple resources
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-the-kubernetes-provider" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using the Kubernetes Provider
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#environmentconfigs-in-compositions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        EnvironmentConfigs in Compositions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing-compositions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Testing Compositions
       
     </span>
   </a>
@@ -3235,7 +3368,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Creating Organizations
+    Creating Organisations
   
 
     
@@ -3457,7 +3590,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    KCP Overview
+    KCP: The Virtual API Layer
   
 
     
@@ -4877,7 +5010,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Keycloak Integration
+    Keycloak
   
 
     
@@ -4905,7 +5038,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    KCP Integration
+    KCP
   
 
     
@@ -4933,7 +5066,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Multi-Tenant Operator (MTO) Integration
+    Multi-Tenant Operator (MTO)
   
 
     
@@ -4961,7 +5094,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Crossplane Integration
+    Crossplane
   
 
     
@@ -5535,10 +5668,143 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#coming-soon" class="md-nav__link">
+  <a href="#composition-patterns-in-sco" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Coming Soon
+        Composition Patterns in SCO
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Composition Patterns in SCO">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pipeline-mode-with-function-kcl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pipeline mode with function-kcl
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kcl-script-skeleton" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        KCL script skeleton
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-composition-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Composition Features
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Key Composition Features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#resource-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resource dependencies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#propagating-status-to-the-consumer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Propagating status to the consumer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exposing-connection-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exposing connection details
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conditional-resource-creation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conditional resource creation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iterating-to-create-multiple-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Iterating to create multiple resources
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-the-kubernetes-provider" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using the Kubernetes Provider
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#environmentconfigs-in-compositions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        EnvironmentConfigs in Compositions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing-compositions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Testing Compositions
       
     </span>
   </a>
@@ -5574,20 +5840,191 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 
 
 <h1 id="crossplane-compositions">Crossplane Compositions<a class="headerlink" href="#crossplane-compositions" title="Permanent link">#</a></h1>
-<p>Using Crossplane to create solutions in SCO.</p>
-<h2 id="coming-soon">Coming Soon<a class="headerlink" href="#coming-soon" title="Permanent link">#</a></h2>
-<p>Comprehensive Crossplane composition guide will be added covering:</p>
-<ul>
-<li>XRDs and Compositions</li>
-<li>Patching and transformations</li>
-<li>Provider configuration</li>
-<li>Advanced patterns</li>
-<li>Examples for common services</li>
-</ul>
+<p>Crossplane compositions are the implementation layer for SCO solutions. This page covers composition authoring patterns specific to the SCO platform context.</p>
+<p>For the full reference on Crossplane, providers, and the KCL function, see the <a href="../../integrations/crossplane.html">Crossplane Integration</a> guide.</p>
+<hr>
+<h2 id="composition-patterns-in-sco">Composition Patterns in SCO<a class="headerlink" href="#composition-patterns-in-sco" title="Permanent link">#</a></h2>
+<p>SCO compositions follow consistent patterns across all built-in and custom solutions:</p>
+<h3 id="pipeline-mode-with-function-kcl">Pipeline mode with function-kcl<a class="headerlink" href="#pipeline-mode-with-function-kcl" title="Permanent link">#</a></h3>
+<p>All SCO compositions use pipeline mode with <code>function-kcl</code> as the primary logic step and <code>function-auto-ready</code> for readiness detection:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Pipeline</span>
+<span class="w">  </span><span class="nt">pipeline</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">step</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kcl</span>
+<span class="w">      </span><span class="nt">functionRef</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">function-kcl</span>
+<span class="w">      </span><span class="nt">input</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">krm.kcl.dev/v1alpha1</span>
+<span class="w">        </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">KCLInput</span>
+<span class="w">        </span><span class="nt">spec</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">dependencies</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">            </span><span class="no">stakaterCommon = { oci = "oci://ghcr.io/stakater/compositions/kcl/stakater-common", tag = "0.0.2" }</span>
+<span class="w">          </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">            </span><span class="no"># KCL script here</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">step</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">automatically-detect-ready-composed-resources</span>
+<span class="w">      </span><span class="nt">functionRef</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">function-auto-ready</span>
+</code></pre></div>
+<h3 id="kcl-script-skeleton">KCL script skeleton<a class="headerlink" href="#kcl-script-skeleton" title="Permanent link">#</a></h3>
+<p>Every KCL composition follows the same skeleton:</p>
+<div class="highlight"><pre><span></span><code>import stakaterCommon as sc
+
+# 1. Extract context
+oxr = option("params").oxr    # The composite resource being reconciled
+ocds = option("params").ocds  # Currently observed composed resources
+a = sc.generateItemMethods(ocds)
+
+# 2. Pull parameters
+spec = oxr.spec
+parameters = spec.parameters
+kubernetesProvider = spec?.providerConfigsRef?.kubernetes or "kubernetes-provider"
+
+# 3. Define resources
+_myResource = a.createItem({
+    resourceName: "unique-stable-name"
+    content: {
+        apiVersion: "..."
+        kind: "..."
+        metadata: {name: "..."}
+        spec: {...}
+    }
+    conditionPropagation: a.defaultPropagation()
+})
+
+# 4. Render — must be last statement
+items = a.renderItems({})
+</code></pre></div>
+<hr>
+<h2 id="key-composition-features">Key Composition Features<a class="headerlink" href="#key-composition-features" title="Permanent link">#</a></h2>
+<h3 id="resource-dependencies">Resource dependencies<a class="headerlink" href="#resource-dependencies" title="Permanent link">#</a></h3>
+<p>Use <code>dependsOn</code> to enforce creation order. The framework also generates Crossplane <code>Usage</code> resources to enforce safe deletion ordering:</p>
+<div class="highlight"><pre><span></span><code>_namespace = a.createItem({
+    resourceName: "namespace"
+    content: {...}
+})
+
+_deployment = a.createItem({
+    resourceName: "deployment"
+    dependsOn: [_namespace]  # Created only after namespace is ready
+    content: {...}
+})
+</code></pre></div>
+<h3 id="propagating-status-to-the-consumer">Propagating status to the consumer<a class="headerlink" href="#propagating-status-to-the-consumer" title="Permanent link">#</a></h3>
+<p>Use <code>statusDetails.statusFunction</code> to return fields from composed resource status back to the composite's <code>.status</code>:</p>
+<div class="highlight"><pre><span></span><code>_db = a.createItem({
+    resourceName: "database"
+    content: {...}
+    statusDetails: {
+        statusFunction: lambda item: sc.savedItem -&gt; {str:any} {
+            {
+                endpoint: item.status?.atProvider?.endpoint
+                port: item.status?.atProvider?.port
+            }
+        }
+    }
+})
+</code></pre></div>
+<p>These fields appear on the consumer's claim status, making connection information discoverable without accessing the service cluster directly.</p>
+<h3 id="exposing-connection-details">Exposing connection details<a class="headerlink" href="#exposing-connection-details" title="Permanent link">#</a></h3>
+<p>Use <code>connectionDetails</code> to write secrets to the consumer's connection secret:</p>
+<div class="highlight"><pre><span></span><code>_secret = a.createItem({
+    resourceName: "connection-secret"
+    content: {...}
+    connectionDetails: {
+        rawDataFunction: lambda item: sc.savedItem -&gt; {str:str} {
+            {
+                "db-endpoint": item.status?.atProvider?.endpoint or ""
+                "db-password": item.status?.atProvider?.password or ""
+            }
+        }
+    }
+})
+</code></pre></div>
+<h3 id="conditional-resource-creation">Conditional resource creation<a class="headerlink" href="#conditional-resource-creation" title="Permanent link">#</a></h3>
+<p>Skip resources based on parameter values:</p>
+<div class="highlight"><pre><span></span><code>_backup = a.createItem({
+    resourceName: "backup-config"
+    condition: lambda _items: {str:sc.savedItem} -&gt; bool {
+        enableBackup == True
+    }
+    content: {...}
+})
+</code></pre></div>
+<h3 id="iterating-to-create-multiple-resources">Iterating to create multiple resources<a class="headerlink" href="#iterating-to-create-multiple-resources" title="Permanent link">#</a></h3>
+<div class="highlight"><pre><span></span><code>_configMaps = [a.createItem({
+    resourceName: "config-{}".format(i)
+    content: {
+        apiVersion: "v1"
+        kind: "ConfigMap"
+        metadata: {name: "{}-{}".format(baseName, i)}
+        data: {key: item.value}
+    }
+}) for i, item in configItems]
+</code></pre></div>
+<hr>
+<h2 id="using-the-kubernetes-provider">Using the Kubernetes Provider<a class="headerlink" href="#using-the-kubernetes-provider" title="Permanent link">#</a></h2>
+<p>The <code>kubernetes-provider</code> is the workhorse for most compositions — it manages Kubernetes resources on the service cluster through Crossplane <code>Object</code> resources:</p>
+<div class="highlight"><pre><span></span><code>_configMap = a.createItem({
+    resourceName: "app-config"
+    content: {
+        apiVersion: "kubernetes.crossplane.io/v1alpha2"
+        kind: "Object"
+        metadata: {name: "app-config"}
+        spec: {
+            providerConfigRef: {name: kubernetesProvider}
+            forProvider: {
+                manifest: {
+                    apiVersion: "v1"
+                    kind: "ConfigMap"
+                    metadata: {
+                        name: "app-config"
+                        namespace: targetNamespace
+                    }
+                    data: {key: "value"}
+                }
+            }
+        }
+    }
+})
+</code></pre></div>
+<p>Use <code>managementPolicies: ["Observe"]</code> to read an existing resource without managing it:</p>
+<div class="highlight"><pre><span></span><code>spec: {
+    managementPolicies: ["Observe"]
+    ...
+}
+</code></pre></div>
+<hr>
+<h2 id="environmentconfigs-in-compositions">EnvironmentConfigs in Compositions<a class="headerlink" href="#environmentconfigs-in-compositions" title="Permanent link">#</a></h2>
+<p>Compositions can consume platform-level <code>EnvironmentConfig</code> resources through the <code>function-environment-configs</code> step, injecting platform defaults or configuration into the composition context:</p>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">step</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">environmentConfigs</span>
+<span class="w">  </span><span class="nt">functionRef</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">function-environment-configs</span>
+<span class="w">  </span><span class="nt">input</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">environmentconfigs.fn.crossplane.io/v1beta1</span>
+<span class="w">    </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Input</span>
+<span class="w">    </span><span class="nt">spec</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">environmentConfigs</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Reference</span>
+<span class="w">          </span><span class="nt">ref</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">platform-defaults</span>
+</code></pre></div>
+<p>In the KCL script, access injected values:</p>
+<div class="highlight"><pre><span></span><code>env = option("params")?.ctx?.["apiextensions.crossplane.io/environment-configs"] or {}
+platformDefaults = env?.platformDefaults or {}
+</code></pre></div>
+<hr>
+<h2 id="testing-compositions">Testing Compositions<a class="headerlink" href="#testing-compositions" title="Permanent link">#</a></h2>
+<p>Use <code>crossplane render</code> to test a composition locally without applying it to the cluster:</p>
+<div class="highlight"><pre><span></span><code>crossplane<span class="w"> </span>render<span class="w"> </span>claim.yaml<span class="w"> </span>composition.yaml<span class="w"> </span>functions.yaml
+</code></pre></div>
+<p>This renders the expected composed resources to stdout, making it easy to validate composition logic before deployment.</p>
+<p>See the <a href="../../integrations/crossplane.html">Crossplane Integration</a> guide for a full worked example of a composition with provider setup.</p>
+<hr>
 <h2 id="whats-next">What's Next?<a class="headerlink" href="#whats-next" title="Permanent link">#</a></h2>
 <ul>
-<li><a href="../marketplace/publishing-solutions.html">Publishing Solutions</a> - Publish your compositions</li>
-<li><a href="../../integrations/crossplane.html">Crossplane Integration</a> - Learn about Crossplane integration</li>
+<li><a href="../../integrations/crossplane.html">Crossplane Integration</a> — Full provider setup and composition reference</li>
+<li><a href="../api-publishing/publishing-apis.html">Publishing APIs</a> — Expose your composition to consumer projects</li>
+<li><a href="../../how-to-guides/provider/create-postgresql-solution.html">Create PostgreSQL Solution</a> — Full end-to-end worked example</li>
 </ul>
 
 

@@ -2087,7 +2087,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Overview
+    What is Stakater Cloud Orchestrator?
   
 
     
@@ -2503,7 +2503,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Configuration
+    Platform Configuration
   
 
     
@@ -2910,7 +2910,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Solution Overview
+    Solutions
   
 
     
@@ -3160,7 +3160,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Creating Organizations
+    Creating Organisations
   
 
     
@@ -3382,7 +3382,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    KCP Overview
+    KCP: The Virtual API Layer
   
 
     
@@ -3773,10 +3773,54 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#coming-soon" class="md-nav__link">
+  <a href="#who-creates-projects" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Coming Soon
+        Who Creates Projects
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating-a-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Creating a Project
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#project-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Project Parameters
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quota-profiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quota Profiles
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getting-the-project-kubeconfig" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Getting the Project Kubeconfig
       
     </span>
   </a>
@@ -4877,7 +4921,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Keycloak Integration
+    Keycloak
   
 
     
@@ -4905,7 +4949,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    KCP Integration
+    KCP
   
 
     
@@ -4933,7 +4977,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Multi-Tenant Operator (MTO) Integration
+    Multi-Tenant Operator (MTO)
   
 
     
@@ -4961,7 +5005,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Crossplane Integration
+    Crossplane
   
 
     
@@ -5535,10 +5579,54 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#coming-soon" class="md-nav__link">
+  <a href="#who-creates-projects" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Coming Soon
+        Who Creates Projects
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating-a-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Creating a Project
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#project-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Project Parameters
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quota-profiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quota Profiles
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getting-the-project-kubeconfig" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Getting the Project Kubeconfig
       
     </span>
   </a>
@@ -5574,19 +5662,136 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 
 
 <h1 id="creating-projects">Creating Projects<a class="headerlink" href="#creating-projects" title="Permanent link">#</a></h1>
-<p>Learn how to create and configure projects in SCO.</p>
-<h2 id="coming-soon">Coming Soon<a class="headerlink" href="#coming-soon" title="Permanent link">#</a></h2>
-<p>Project creation guide will be added with:</p>
-<ul>
-<li>Step-by-step instructions</li>
-<li>Configuration options</li>
-<li>Best practices</li>
-<li>Examples for different scenarios</li>
-</ul>
+<p>Projects are isolated environments where you provision and manage services. Each project has its own Kubernetes API endpoint, its own network isolation, and its own resource quota. Projects are created by organisation administrators.</p>
+<p>For the full parameter reference, see the <a href="../../how-to-guides/user/create-project.html">Create Project</a> how-to guide.</p>
+<hr>
+<h2 id="who-creates-projects">Who Creates Projects<a class="headerlink" href="#who-creates-projects" title="Permanent link">#</a></h2>
+<p>Projects are created by <strong>organisation administrators</strong> — users with the <code>admin</code> role at the organisation level. Once created, a project is assigned to specific users or groups who can then provision services within it.</p>
+<p>If you need a project and do not have admin access, contact your organisation administrator.</p>
+<hr>
+<h2 id="creating-a-project">Creating a Project<a class="headerlink" href="#creating-a-project" title="Permanent link">#</a></h2>
+<p>Apply a <code>tenant.cloud.stakater.com/v1 Project</code> claim against your organisation's API endpoint:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tenant.cloud.stakater.com/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Project</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">frontend-dev</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">frontend-dev</span>
+<span class="w">    </span><span class="nt">network</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">frontend-network</span>
+<span class="w">      </span><span class="nt">cidr</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.200.0.0/16</span>
+<span class="w">    </span><span class="nt">tenantQuota</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">small</span>
+<span class="w">    </span><span class="nt">access</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">admin</span>
+<span class="w">        </span><span class="nt">users</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">alice@acmecorp.example.com</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edit</span>
+<span class="w">        </span><span class="nt">groups</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">frontend-team</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>frontend-dev-project.yaml
+</code></pre></div>
+<p>Check that the project is ready:</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>project<span class="w"> </span>frontend-dev
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>NAME           STATUS   AGE
+frontend-dev   Ready    45s
+</code></pre></div>
+<hr>
+<h2 id="project-parameters">Project Parameters<a class="headerlink" href="#project-parameters" title="Permanent link">#</a></h2>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td>Yes</td>
+<td>Project display name</td>
+</tr>
+<tr>
+<td><code>network.name</code></td>
+<td>Yes</td>
+<td>Network identifier for the project</td>
+</tr>
+<tr>
+<td><code>network.cidr</code></td>
+<td>Yes</td>
+<td>IP range for the project network</td>
+</tr>
+<tr>
+<td><code>tenantQuota</code></td>
+<td>No</td>
+<td>Quota profile: <code>small</code>, <code>medium</code>, or <code>large</code> (default: <code>small</code>)</td>
+</tr>
+<tr>
+<td><code>access</code></td>
+<td>No</td>
+<td>Users and groups with access, and their roles</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="quota-profiles">Quota Profiles<a class="headerlink" href="#quota-profiles" title="Permanent link">#</a></h2>
+<table>
+<thead>
+<tr>
+<th>Profile</th>
+<th>CPU request</th>
+<th>Memory</th>
+<th>CPU limit</th>
+<th>Storage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>small</code></td>
+<td>4 cores</td>
+<td>8 Gi</td>
+<td>8 cores</td>
+<td>Limited</td>
+</tr>
+<tr>
+<td><code>medium</code></td>
+<td>8 cores</td>
+<td>16 Gi</td>
+<td>16 cores</td>
+<td>Moderate</td>
+</tr>
+<tr>
+<td><code>large</code></td>
+<td>16 cores</td>
+<td>32 Gi</td>
+<td>32 cores</td>
+<td>Large</td>
+</tr>
+</tbody>
+</table>
+<p>Contact your platform provider if none of the standard profiles fit your workload requirements.</p>
+<hr>
+<h2 id="getting-the-project-kubeconfig">Getting the Project Kubeconfig<a class="headerlink" href="#getting-the-project-kubeconfig" title="Permanent link">#</a></h2>
+<p>Once your project is ready, download the kubeconfig to access it from the command line:</p>
+<ol>
+<li>Navigate to your project in the console</li>
+<li>Click <strong>Settings</strong> or <strong>Access</strong></li>
+<li>Click <strong>Download kubeconfig</strong></li>
+</ol>
+<p>Or request it from your platform administrator. Save it to <code>~/.kube/&lt;project-name&gt;.yaml</code> and set:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">KUBECONFIG</span><span class="o">=</span>~/.kube/frontend-dev.yaml
+kubectl<span class="w"> </span>get<span class="w"> </span>virtualmachines
+</code></pre></div>
+<hr>
 <h2 id="whats-next">What's Next?<a class="headerlink" href="#whats-next" title="Permanent link">#</a></h2>
 <ul>
-<li><a href="project-structure.html">Project Structure</a> - Understand project architecture</li>
-<li><a href="../solutions/provisioning-solutions.html">Provisioning Solutions</a> - Deploy services in your project</li>
+<li><a href="project-structure.html">Project Structure</a> — What's inside a project</li>
+<li><a href="../kubectl-access/setup-kubectl.html">Setup kubectl</a> — Configure CLI access to your project</li>
+<li><a href="../solutions/browsing-marketplace.html">Browsing Marketplace</a> — Find services to provision</li>
+<li><a href="../../how-to-guides/user/create-project.html">Create Project How-To</a> — Full parameter reference</li>
 </ul>
 
 

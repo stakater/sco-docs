@@ -2087,7 +2087,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Overview
+    What is Stakater Cloud Orchestrator?
   
 
     
@@ -2503,7 +2503,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Configuration
+    Platform Configuration
   
 
     
@@ -2910,7 +2910,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Solution Overview
+    Solutions
   
 
     
@@ -3160,7 +3160,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Creating Organizations
+    Creating Organisations
   
 
     
@@ -3382,7 +3382,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    KCP Overview
+    KCP: The Virtual API Layer
   
 
     
@@ -3995,10 +3995,76 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#coming-soon" class="md-nav__link">
+  <a href="#prerequisites" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Coming Soon
+        Prerequisites
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-1-install-kubectl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Install kubectl
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-2-download-your-project-kubeconfig" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Download Your Project Kubeconfig
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-3-use-the-kubeconfig" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Use the Kubeconfig
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-4-verify-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: Verify Access
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#working-with-multiple-projects" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Working with Multiple Projects
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Authentication
       
     </span>
   </a>
@@ -4877,7 +4943,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Keycloak Integration
+    Keycloak
   
 
     
@@ -4905,7 +4971,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    KCP Integration
+    KCP
   
 
     
@@ -4933,7 +4999,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Multi-Tenant Operator (MTO) Integration
+    Multi-Tenant Operator (MTO)
   
 
     
@@ -4961,7 +5027,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Crossplane Integration
+    Crossplane
   
 
     
@@ -5535,10 +5601,76 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#coming-soon" class="md-nav__link">
+  <a href="#prerequisites" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Coming Soon
+        Prerequisites
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-1-install-kubectl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Install kubectl
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-2-download-your-project-kubeconfig" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Download Your Project Kubeconfig
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-3-use-the-kubeconfig" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Use the Kubeconfig
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-4-verify-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: Verify Access
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#working-with-multiple-projects" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Working with Multiple Projects
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Authentication
       
     </span>
   </a>
@@ -5574,21 +5706,75 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 
 
 <h1 id="setup-kubectl">Setup kubectl<a class="headerlink" href="#setup-kubectl" title="Permanent link">#</a></h1>
-<p>Configure kubectl to access your SCO projects.</p>
-<h2 id="coming-soon">Coming Soon<a class="headerlink" href="#coming-soon" title="Permanent link">#</a></h2>
-<p>kubectl setup guide will be added with:</p>
+<p><code>kubectl</code> works against your project's virtual API endpoint exactly as it would against any Kubernetes cluster. You need a kubeconfig file and a working <code>kubectl</code> installation.</p>
+<hr>
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">#</a></h2>
 <ul>
-<li>Installing kubectl</li>
-<li>Downloading kubeconfig</li>
-<li>Configuring kubectl context</li>
-<li>Verifying access</li>
-<li>Common kubectl commands</li>
-<li>Troubleshooting</li>
+<li><code>kubectl</code> installed (<a href="https://kubernetes.io/docs/tasks/tools/">official install guide</a>)</li>
+<li>Access to a project (granted by your organisation administrator)</li>
+<li>Your project kubeconfig (downloaded from the console or provided by your administrator)</li>
 </ul>
+<hr>
+<h2 id="step-1-install-kubectl">Step 1: Install kubectl<a class="headerlink" href="#step-1-install-kubectl" title="Permanent link">#</a></h2>
+<div class="highlight"><pre><span></span><code><span class="c1"># macOS</span>
+brew<span class="w"> </span>install<span class="w"> </span>kubectl
+
+<span class="c1"># Linux</span>
+curl<span class="w"> </span>-LO<span class="w"> </span><span class="s2">"https://dl.k8s.io/release/</span><span class="k">$(</span>curl<span class="w"> </span>-sL<span class="w"> </span>https://dl.k8s.io/release/stable.txt<span class="k">)</span><span class="s2">/bin/linux/amd64/kubectl"</span>
+chmod<span class="w"> </span>+x<span class="w"> </span>kubectl<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sudo<span class="w"> </span>mv<span class="w"> </span>kubectl<span class="w"> </span>/usr/local/bin/
+
+<span class="c1"># Windows</span>
+choco<span class="w"> </span>install<span class="w"> </span>kubernetes-cli
+</code></pre></div>
+<p>Verify:</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>version<span class="w"> </span>--client
+</code></pre></div>
+<hr>
+<h2 id="step-2-download-your-project-kubeconfig">Step 2: Download Your Project Kubeconfig<a class="headerlink" href="#step-2-download-your-project-kubeconfig" title="Permanent link">#</a></h2>
+<ol>
+<li>Log in to the SCO console</li>
+<li>Navigate to your project</li>
+<li>Click <strong>Settings</strong> or <strong>Access</strong></li>
+<li>Click <strong>Download kubeconfig</strong></li>
+</ol>
+<p>Save the file, for example as <code>~/.kube/my-project.yaml</code>.</p>
+<hr>
+<h2 id="step-3-use-the-kubeconfig">Step 3: Use the Kubeconfig<a class="headerlink" href="#step-3-use-the-kubeconfig" title="Permanent link">#</a></h2>
+<p><strong>Option A: Environment variable</strong></p>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">KUBECONFIG</span><span class="o">=</span>~/.kube/my-project.yaml
+kubectl<span class="w"> </span>get<span class="w"> </span>virtualmachines
+</code></pre></div>
+<p><strong>Option B: Merge into existing config</strong></p>
+<div class="highlight"><pre><span></span><code><span class="nv">KUBECONFIG</span><span class="o">=</span>~/.kube/config:~/.kube/my-project.yaml<span class="w"> </span>kubectl<span class="w"> </span>config<span class="w"> </span>view<span class="w"> </span>--flatten<span class="w"> </span>&gt;<span class="w"> </span>~/.kube/merged.yaml
+mv<span class="w"> </span>~/.kube/merged.yaml<span class="w"> </span>~/.kube/config
+kubectl<span class="w"> </span>config<span class="w"> </span>use-context<span class="w"> </span>my-project
+</code></pre></div>
+<p><strong>Option C: Per-command flag</strong></p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>--kubeconfig<span class="w"> </span>~/.kube/my-project.yaml<span class="w"> </span>get<span class="w"> </span>virtualmachines
+</code></pre></div>
+<hr>
+<h2 id="step-4-verify-access">Step 4: Verify Access<a class="headerlink" href="#step-4-verify-access" title="Permanent link">#</a></h2>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>cluster-info
+kubectl<span class="w"> </span>api-resources<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>cloud.stakater.com
+kubectl<span class="w"> </span>get<span class="w"> </span>virtualmachines
+</code></pre></div>
+<hr>
+<h2 id="working-with-multiple-projects">Working with Multiple Projects<a class="headerlink" href="#working-with-multiple-projects" title="Permanent link">#</a></h2>
+<p>Keep separate kubeconfig files per project and switch with the <code>KUBECONFIG</code> environment variable, or merge them and use context switching:</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>config<span class="w"> </span>get-contexts
+kubectl<span class="w"> </span>config<span class="w"> </span>use-context<span class="w"> </span>proj-backend
+</code></pre></div>
+<hr>
+<h2 id="authentication">Authentication<a class="headerlink" href="#authentication" title="Permanent link">#</a></h2>
+<p>Your project kubeconfig uses OIDC authentication. When the token expires, <code>kubectl</code> prompts you to re-authenticate via your organisation's login page. Install the <code>oidc-login</code> plugin to handle this automatically:</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>krew<span class="w"> </span>install<span class="w"> </span>oidc-login
+</code></pre></div>
+<hr>
 <h2 id="whats-next">What's Next?<a class="headerlink" href="#whats-next" title="Permanent link">#</a></h2>
 <ul>
-<li><a href="kubeconfig-generation.html">kubeconfig Generation</a> - Generate and manage <code>kubeconfigs</code></li>
-<li><a href="../getting-started.html">Getting Started</a> - Quick start guide</li>
+<li><a href="kubeconfig-generation.html">kubeconfig Generation</a> — Understanding your kubeconfig structure</li>
+<li><a href="../solutions/browsing-marketplace.html">Browsing Marketplace</a> — Discover available services</li>
+<li><a href="../solutions/provisioning-solutions.html">Provisioning Solutions</a> — Apply claims with kubectl</li>
 </ul>
 
 

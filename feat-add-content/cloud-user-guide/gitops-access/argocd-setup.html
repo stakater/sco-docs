@@ -2087,7 +2087,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Overview
+    What is Stakater Cloud Orchestrator?
   
 
     
@@ -2503,7 +2503,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Configuration
+    Platform Configuration
   
 
     
@@ -2910,7 +2910,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Solution Overview
+    Solutions
   
 
     
@@ -3160,7 +3160,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Creating Organizations
+    Creating Organisations
   
 
     
@@ -3382,7 +3382,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    KCP Overview
+    KCP: The Virtual API Layer
   
 
     
@@ -4217,10 +4217,65 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#coming-soon" class="md-nav__link">
+  <a href="#how-it-works" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Coming Soon
+        How it Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prerequisites
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-1-register-your-project-as-a-cluster" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Register Your Project as a Cluster
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-2-create-an-argocd-application" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Create an ArgoCD Application
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-3-add-sco-claims-to-your-git-repository" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Add SCO Claims to Your Git Repository
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#automation-identity-coming-soon" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Automation Identity (Coming Soon)
       
     </span>
   </a>
@@ -4877,7 +4932,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Keycloak Integration
+    Keycloak
   
 
     
@@ -4905,7 +4960,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    KCP Integration
+    KCP
   
 
     
@@ -4933,7 +4988,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Multi-Tenant Operator (MTO) Integration
+    Multi-Tenant Operator (MTO)
   
 
     
@@ -4961,7 +5016,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Crossplane Integration
+    Crossplane
   
 
     
@@ -5535,10 +5590,65 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#coming-soon" class="md-nav__link">
+  <a href="#how-it-works" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Coming Soon
+        How it Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prerequisites
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-1-register-your-project-as-a-cluster" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Register Your Project as a Cluster
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-2-create-an-argocd-application" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Create an ArgoCD Application
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-3-add-sco-claims-to-your-git-repository" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Add SCO Claims to Your Git Repository
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#automation-identity-coming-soon" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Automation Identity (Coming Soon)
       
     </span>
   </a>
@@ -5574,20 +5684,82 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 
 
 <h1 id="argocd-setup">ArgoCD Setup<a class="headerlink" href="#argocd-setup" title="Permanent link">#</a></h1>
-<p>Configure ArgoCD to deploy applications to SCO projects.</p>
-<h2 id="coming-soon">Coming Soon<a class="headerlink" href="#coming-soon" title="Permanent link">#</a></h2>
-<p>ArgoCD setup guide will be added covering:</p>
+<p>You can use ArgoCD to continuously deploy and manage resources in your SCO project workspace. ArgoCD treats your project's virtual API endpoint as a standard Kubernetes cluster.</p>
+<hr>
+<h2 id="how-it-works">How it Works<a class="headerlink" href="#how-it-works" title="Permanent link">#</a></h2>
+<p>Your project exposes a standard Kubernetes API endpoint (via a kubeconfig). ArgoCD registers this endpoint as a target cluster and syncs your Git repository's manifests — including SCO claims — into the project workspace.</p>
+<p>SCO claim manifests in your Git repository look the same as any other Kubernetes YAML. ArgoCD does not need special configuration to handle them.</p>
+<hr>
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">#</a></h2>
 <ul>
-<li>Installing ArgoCD</li>
-<li>Configuring cluster access</li>
-<li>Creating applications</li>
-<li>Syncing resources</li>
-<li>Best practices for GitOps with SCO</li>
+<li>ArgoCD deployed (within your project workspace or externally)</li>
+<li>Your project kubeconfig (see <a href="../kubectl-access/setup-kubectl.html">Setup kubectl</a>)</li>
+<li>A Git repository containing your manifests</li>
 </ul>
+<hr>
+<h2 id="step-1-register-your-project-as-a-cluster">Step 1: Register Your Project as a Cluster<a class="headerlink" href="#step-1-register-your-project-as-a-cluster" title="Permanent link">#</a></h2>
+<p>From the ArgoCD CLI, add your project's API endpoint as a target cluster using your kubeconfig:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Set the project kubeconfig as active</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">KUBECONFIG</span><span class="o">=</span>~/.kube/my-project.yaml
+
+<span class="c1"># Add the cluster to ArgoCD</span>
+argocd<span class="w"> </span>cluster<span class="w"> </span>add<span class="w"> </span>my-project<span class="w"> </span>--name<span class="w"> </span>sco-proj-frontend
+</code></pre></div>
+<p>ArgoCD will create a service account in your project workspace and use it for ongoing API access.</p>
+<p>Verify the cluster was added:</p>
+<div class="highlight"><pre><span></span><code>argocd<span class="w"> </span>cluster<span class="w"> </span>list
+</code></pre></div>
+<hr>
+<h2 id="step-2-create-an-argocd-application">Step 2: Create an ArgoCD Application<a class="headerlink" href="#step-2-create-an-argocd-application" title="Permanent link">#</a></h2>
+<p>Define an ArgoCD <code>Application</code> that points at your Git repository and targets your SCO project:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">argoproj.io/v1alpha1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Application</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">frontend-infra</span>
+<span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">argocd</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">project</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default</span>
+<span class="w">  </span><span class="nt">source</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">repoURL</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://github.com/your-org/your-repo.git</span>
+<span class="w">    </span><span class="nt">targetRevision</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">main</span>
+<span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">environments/frontend</span>
+<span class="w">  </span><span class="nt">destination</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">server</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://kcp.example.com/clusters/org-acme:proj-frontend</span>
+<span class="w">    </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default</span>
+<span class="w">  </span><span class="nt">syncPolicy</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">automated</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">prune</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">selfHeal</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</code></pre></div>
+<p>The <code>destination.server</code> is your project's API endpoint URL from the kubeconfig.</p>
+<p>Apply this Application to your ArgoCD instance:</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>application.yaml<span class="w"> </span>-n<span class="w"> </span>argocd
+</code></pre></div>
+<hr>
+<h2 id="step-3-add-sco-claims-to-your-git-repository">Step 3: Add SCO Claims to Your Git Repository<a class="headerlink" href="#step-3-add-sco-claims-to-your-git-repository" title="Permanent link">#</a></h2>
+<p>In the Git path ArgoCD is watching, add your SCO claim manifests:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># environments/frontend/virtual-machine.yaml</span>
+<span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">compute.cloud.stakater.com/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VirtualMachine</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">app-vm</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">flavour</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rhel9</span>
+<span class="w">    </span><span class="nt">instanceType</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">o1.large</span>
+<span class="w">    </span><span class="nt">connection</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">private</span>
+<span class="w">    </span><span class="nt">sshPublicKey</span><span class="p">:</span><span class="w"> </span><span class="s">"ssh-rsa</span><span class="nv"> </span><span class="s">AAAAB3..."</span>
+</code></pre></div>
+<p>When you push this to the repository, ArgoCD syncs it to your project workspace and the platform provisions the VM automatically.</p>
+<hr>
+<h2 id="automation-identity-coming-soon">Automation Identity (Coming Soon)<a class="headerlink" href="#automation-identity-coming-soon" title="Permanent link">#</a></h2>
+<p>Currently, ArgoCD cluster registration uses the credentials embedded in your project kubeconfig. A dedicated <strong>automation identity</strong> capability is planned that will allow you to create a long-lived service account claim scoped to your organisation, specifically for use by automation tools like ArgoCD, Flux, and Terraform — without relying on a personal user kubeconfig.</p>
+<hr>
 <h2 id="whats-next">What's Next?<a class="headerlink" href="#whats-next" title="Permanent link">#</a></h2>
 <ul>
-<li><a href="flux-setup.html">Flux Setup</a> - Alternative GitOps tool</li>
-<li><a href="../projects/creating-projects.html">Creating Projects</a> - Set up projects</li>
+<li><a href="flux-setup.html">Flux Setup</a> — Alternative GitOps with Flux</li>
+<li><a href="../kubectl-access/setup-kubectl.html">Setup kubectl</a> — kubectl access to your project</li>
+<li><a href="../solutions/provisioning-solutions.html">Provisioning Solutions</a> — Understanding SCO claim structure</li>
 </ul>
 
 

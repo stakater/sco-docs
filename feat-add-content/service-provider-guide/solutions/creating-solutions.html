@@ -2087,7 +2087,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Overview
+    What is Stakater Cloud Orchestrator?
   
 
     
@@ -2503,7 +2503,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Configuration
+    Platform Configuration
   
 
     
@@ -2914,7 +2914,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Solution Overview
+    Solutions
   
 
     
@@ -2997,10 +2997,65 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#coming-soon" class="md-nav__link">
+  <a href="#prerequisites" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Coming Soon
+        Prerequisites
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-1-define-the-xrd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Define the XRD
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-2-write-the-composition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Write the Composition
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-3-test-locally" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Test Locally
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-4-publish-to-consumer-projects" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: Publish to Consumer Projects
       
     </span>
   </a>
@@ -3235,7 +3290,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Creating Organizations
+    Creating Organisations
   
 
     
@@ -3457,7 +3512,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    KCP Overview
+    KCP: The Virtual API Layer
   
 
     
@@ -4877,7 +4932,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Keycloak Integration
+    Keycloak
   
 
     
@@ -4905,7 +4960,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    KCP Integration
+    KCP
   
 
     
@@ -4933,7 +4988,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Multi-Tenant Operator (MTO) Integration
+    Multi-Tenant Operator (MTO)
   
 
     
@@ -4961,7 +5016,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Crossplane Integration
+    Crossplane
   
 
     
@@ -5535,10 +5590,65 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#coming-soon" class="md-nav__link">
+  <a href="#prerequisites" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Coming Soon
+        Prerequisites
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-1-define-the-xrd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Define the XRD
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-2-write-the-composition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Write the Composition
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-3-test-locally" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Test Locally
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-4-publish-to-consumer-projects" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: Publish to Consumer Projects
       
     </span>
   </a>
@@ -5574,19 +5684,222 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 
 
 <h1 id="creating-solutions">Creating Solutions<a class="headerlink" href="#creating-solutions" title="Permanent link">#</a></h1>
-<p>Learn how to create solutions for the SCO marketplace.</p>
-<h2 id="coming-soon">Coming Soon<a class="headerlink" href="#coming-soon" title="Permanent link">#</a></h2>
-<p>Detailed guide for creating solutions will be added with:</p>
+<p>This guide walks through building a complete solution — from defining the API schema to making it available in consumer project workspaces.</p>
+<hr>
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">#</a></h2>
 <ul>
-<li>Step-by-step instructions</li>
-<li>Multiple composition examples</li>
-<li>Best practices</li>
-<li>Testing and validation</li>
+<li><code>infrastructure.stakater.com</code> api available</li>
+<li>Crossplane installed with <code>kubernetes-provider</code>, <code>kcp-provider</code>, and <code>helm-provider</code> configured</li>
+<li>Target operator installed on the management cluster (e.g., CloudNativePG for a PostgreSQL solution)</li>
 </ul>
+<hr>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">#</a></h2>
+<p>Creating a solution involves four steps:</p>
+<ol>
+<li><strong>Define the XRD</strong> — the API schema consumers interact with</li>
+<li><strong>Write the Composition</strong> — the implementation that fulfils claims</li>
+<li><strong>Test locally</strong> — validate with a test claim before publishing</li>
+<li><strong>Publish</strong> — expose the API to consumer project workspaces</li>
+</ol>
+<hr>
+<h2 id="step-1-define-the-xrd">Step 1: Define the XRD<a class="headerlink" href="#step-1-define-the-xrd" title="Permanent link">#</a></h2>
+<p>The <code>CompositeResourceDefinition</code> declares the API your solution exposes. It defines what fields consumers configure, what validation rules apply, and what defaults are set.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">apiextensions.crossplane.io/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CompositeResourceDefinition</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">xpostgresqldatabases.databases.cloud.stakater.com</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">scope</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">LegacyCluster</span>
+<span class="w">  </span><span class="nt">group</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">databases.cloud.stakater.com</span>
+<span class="w">  </span><span class="nt">names</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">XPostgreSQLDatabase</span>
+<span class="w">    </span><span class="nt">plural</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">xpostgresqldatabases</span>
+<span class="w">  </span><span class="nt">claimNames</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PostgreSQLDatabase</span>
+<span class="w">    </span><span class="nt">plural</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">postgresqldatabases</span>
+<span class="w">  </span><span class="nt">versions</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
+<span class="w">      </span><span class="nt">served</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">referenceable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">schema</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">openAPIV3Schema</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">object</span>
+<span class="w">          </span><span class="nt">properties</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">spec</span><span class="p">:</span>
+<span class="w">              </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">object</span>
+<span class="w">              </span><span class="nt">properties</span><span class="p">:</span>
+<span class="w">                </span><span class="nt">providerConfigsRef</span><span class="p">:</span>
+<span class="w">                  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">object</span>
+<span class="w">                  </span><span class="nt">properties</span><span class="p">:</span>
+<span class="w">                    </span><span class="nt">kubernetes</span><span class="p">:</span>
+<span class="w">                      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="w">                      </span><span class="nt">default</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kubernetes-provider</span>
+<span class="w">                </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">                  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">object</span>
+<span class="w">                  </span><span class="nt">required</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">dbName</span><span class="p p-Indicator">]</span>
+<span class="w">                  </span><span class="nt">properties</span><span class="p">:</span>
+<span class="w">                    </span><span class="nt">dbName</span><span class="p">:</span>
+<span class="w">                      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="w">                      </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Name of the database instance</span>
+<span class="w">                    </span><span class="nt">version</span><span class="p">:</span>
+<span class="w">                      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="w">                      </span><span class="nt">default</span><span class="p">:</span><span class="w"> </span><span class="s">"16"</span>
+<span class="w">                      </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PostgreSQL major version</span>
+<span class="w">                      </span><span class="nt">enum</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">"14"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"15"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"16"</span><span class="p p-Indicator">]</span>
+<span class="w">                    </span><span class="nt">storageGb</span><span class="p">:</span>
+<span class="w">                      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">integer</span>
+<span class="w">                      </span><span class="nt">default</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">20</span>
+<span class="w">                      </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Storage size in GiB</span>
+<span class="w">                    </span><span class="nt">instances</span><span class="p">:</span>
+<span class="w">                      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">integer</span>
+<span class="w">                      </span><span class="nt">default</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">                      </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Number of PostgreSQL instances (1 = standalone, 3 = HA)</span>
+<span class="w">            </span><span class="nt">status</span><span class="p">:</span>
+<span class="w">              </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">object</span>
+<span class="w">              </span><span class="nt">properties</span><span class="p">:</span>
+<span class="w">                </span><span class="nt">endpoint</span><span class="p">:</span>
+<span class="w">                  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="w">                  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Connection endpoint for the database</span>
+<span class="w">                </span><span class="nt">port</span><span class="p">:</span>
+<span class="w">                  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">integer</span>
+</code></pre></div>
+<p>Apply the XRD to the management cluster:</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>xrd.yaml
+</code></pre></div>
+<p>Crossplane validates the XRD and makes the claim type available.</p>
+<hr>
+<h2 id="step-2-write-the-composition">Step 2: Write the Composition<a class="headerlink" href="#step-2-write-the-composition" title="Permanent link">#</a></h2>
+<p>The Composition implements the XRD — it defines what infrastructure to create when a consumer applies a <code>PostgreSQLDatabase</code> claim.</p>
+<p>SCO compositions use <code>function-kcl</code> for the business logic. See <a href="crossplane-compositions.html">Crossplane Compositions</a> for the full authoring guide. A minimal working example:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">apiextensions.crossplane.io/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Composition</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">labels</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">crossplane.io/xrd</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">xpostgresqldatabases.databases.cloud.stakater.com</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">postgresql-database</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">compositeTypeRef</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">databases.cloud.stakater.com/v1</span>
+<span class="w">    </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">XPostgreSQLDatabase</span>
+<span class="w">  </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Pipeline</span>
+<span class="w">  </span><span class="nt">pipeline</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">step</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kcl</span>
+<span class="w">      </span><span class="nt">functionRef</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">function-kcl</span>
+<span class="w">      </span><span class="nt">input</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">krm.kcl.dev/v1alpha1</span>
+<span class="w">        </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">KCLInput</span>
+<span class="w">        </span><span class="nt">spec</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">dependencies</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">            </span><span class="no">stakaterCommon = { oci = "oci://ghcr.io/stakater/compositions/kcl/stakater-common", tag = "0.0.2" }</span>
+<span class="w">          </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">            </span><span class="no">import stakaterCommon as sc</span>
+
+<span class="w">            </span><span class="no">oxr = option("params").oxr</span>
+<span class="w">            </span><span class="no">ocds = option("params").ocds</span>
+<span class="w">            </span><span class="no">a = sc.generateItemMethods(ocds)</span>
+
+<span class="w">            </span><span class="no">spec = oxr.spec</span>
+<span class="w">            </span><span class="no">parameters = spec.parameters</span>
+<span class="w">            </span><span class="no">kubernetesProvider = spec?.providerConfigsRef?.kubernetes or "kubernetes-provider"</span>
+
+<span class="w">            </span><span class="no">dbName = parameters.dbName</span>
+<span class="w">            </span><span class="no">instances = parameters?.instances or 1</span>
+<span class="w">            </span><span class="no">storageGb = parameters?.storageGb or 20</span>
+<span class="w">            </span><span class="no">version = parameters?.version or "16"</span>
+
+<span class="w">            </span><span class="no">_cluster = a.createItem({</span>
+<span class="w">                </span><span class="no">resourceName: "postgresql-cluster"</span>
+<span class="w">                </span><span class="no">content: {</span>
+<span class="w">                    </span><span class="no">apiVersion: "postgresql.cnpg.io/v1"</span>
+<span class="w">                    </span><span class="no">kind: "Cluster"</span>
+<span class="w">                    </span><span class="no">metadata: {name: dbName}</span>
+<span class="w">                    </span><span class="no">spec: {</span>
+<span class="w">                        </span><span class="no">instances: instances</span>
+<span class="w">                        </span><span class="no">postgresql: {parameters: {max_connections: "200"}}</span>
+<span class="w">                        </span><span class="no">bootstrap: {initdb: {database: dbName, owner: dbName}}</span>
+<span class="w">                        </span><span class="no">storage: {size: "{}Gi".format(storageGb)}</span>
+<span class="w">                    </span><span class="no">}</span>
+<span class="w">                </span><span class="no">}</span>
+<span class="w">                </span><span class="no">statusDetails: {</span>
+<span class="w">                    </span><span class="no">statusFunction: lambda item: sc.savedItem -&gt; {str:any} {</span>
+<span class="w">                        </span><span class="no">{</span>
+<span class="w">                            </span><span class="no">endpoint: item.status?.writeService</span>
+<span class="w">                            </span><span class="no">port: 5432</span>
+<span class="w">                        </span><span class="no">}</span>
+<span class="w">                    </span><span class="no">}</span>
+<span class="w">                </span><span class="no">}</span>
+<span class="w">                </span><span class="no">conditionPropagation: a.defaultPropagation()</span>
+<span class="w">            </span><span class="no">})</span>
+
+<span class="w">            </span><span class="no">items = a.renderItems({})</span>
+
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">step</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">automatically-detect-ready-composed-resources</span>
+<span class="w">      </span><span class="nt">functionRef</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">function-auto-ready</span>
+</code></pre></div>
+<p>Apply the Composition:</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>composition.yaml
+</code></pre></div>
+<hr>
+<h2 id="step-3-test-locally">Step 3: Test Locally<a class="headerlink" href="#step-3-test-locally" title="Permanent link">#</a></h2>
+<p>Before publishing, validate the solution with a test claim on the management cluster:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">databases.cloud.stakater.com/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PostgreSQLDatabase</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">test-db</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">dbName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">myapp</span>
+<span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s">"16"</span>
+<span class="w">    </span><span class="nt">storageGb</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10</span>
+<span class="w">    </span><span class="nt">instances</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>test-claim.yaml
+kubectl<span class="w"> </span>get<span class="w"> </span>postgresqldatabase<span class="w"> </span>test-db
+kubectl<span class="w"> </span>describe<span class="w"> </span>postgresqldatabase<span class="w"> </span>test-db
+</code></pre></div>
+<p>Watch for <code>Ready: True</code> in the status conditions. If the claim gets stuck, inspect the composed resources:</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>managed<span class="w"> </span>-l<span class="w"> </span>crossplane.io/claim-name<span class="o">=</span>test-db
+</code></pre></div>
+<p>Remove the test claim before publishing:</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>delete<span class="w"> </span>postgresqldatabase<span class="w"> </span>test-db
+</code></pre></div>
+<hr>
+<h2 id="step-4-publish-to-consumer-projects">Step 4: Publish to Consumer Projects<a class="headerlink" href="#step-4-publish-to-consumer-projects" title="Permanent link">#</a></h2>
+<p>Once the XRD and Composition are verified, publish the API to consumer project workspaces using an <code>ApiExport</code> claim:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">infrastructure.stakater.com/v1alpha1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ApiExport</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">databases-service</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">providerConfigRef</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kubernetes-provider</span>
+<span class="w">  </span><span class="nt">kcpProviderConfigRef</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kcp-provider</span>
+<span class="w">  </span><span class="nt">helmProviderConfigRef</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">helm-provider</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">apiSyncagent</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kcp-system</span>
+<span class="w">    </span><span class="nt">exports</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">apiGroup</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">databases.cloud.stakater.com</span>
+<span class="w">        </span><span class="nt">resources</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">resource</span><span class="p">:</span>
+<span class="w">              </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PostgreSQLDatabase</span>
+<span class="w">              </span><span class="nt">plural</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">postgresqldatabases</span>
+<span class="w">              </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
+<span class="w">            </span><span class="nt">namespaceSuffix</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">postgresql</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>api-export.yaml
+</code></pre></div>
+<p>The <code>PostgreSQLDatabase</code> claim type is now available in all consumer project workspaces. See <a href="../api-publishing/publishing-apis.html">Publishing APIs</a> for the full publishing guide.</p>
+<hr>
 <h2 id="whats-next">What's Next?<a class="headerlink" href="#whats-next" title="Permanent link">#</a></h2>
 <ul>
-<li><a href="crossplane-compositions.html">Crossplane Compositions</a> - Detailed Crossplane guide</li>
-<li><a href="../marketplace/publishing-solutions.html">Publishing Solutions</a> - Publish to marketplace</li>
+<li><a href="crossplane-compositions.html">Crossplane Compositions</a> — Advanced composition patterns and KCL functions</li>
+<li><a href="../api-publishing/publishing-apis.html">Publishing APIs</a> — Detailed API publishing guide</li>
+<li><a href="../../how-to-guides/provider/create-postgresql-solution.html">Create PostgreSQL Solution</a> — Full worked example</li>
 </ul>
 
 

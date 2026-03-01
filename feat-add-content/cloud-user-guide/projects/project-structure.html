@@ -2087,7 +2087,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Overview
+    What is Stakater Cloud Orchestrator?
   
 
     
@@ -2503,7 +2503,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Configuration
+    Platform Configuration
   
 
     
@@ -2910,7 +2910,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Solution Overview
+    Solutions
   
 
     
@@ -3160,7 +3160,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Creating Organizations
+    Creating Organisations
   
 
     
@@ -3382,7 +3382,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    KCP Overview
+    KCP: The Virtual API Layer
   
 
     
@@ -3801,10 +3801,65 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#coming-soon" class="md-nav__link">
+  <a href="#what-a-project-gives-you" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Coming Soon
+        What a Project Gives You
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-api-endpoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The API Endpoint
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#available-resource-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Available Resource Types
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#network-isolation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Network Isolation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resource-quota" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resource Quota
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#project-isolation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Project Isolation
       
     </span>
   </a>
@@ -4877,7 +4932,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Keycloak Integration
+    Keycloak
   
 
     
@@ -4905,7 +4960,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    KCP Integration
+    KCP
   
 
     
@@ -4933,7 +4988,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Multi-Tenant Operator (MTO) Integration
+    Multi-Tenant Operator (MTO)
   
 
     
@@ -4961,7 +5016,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Crossplane Integration
+    Crossplane
   
 
     
@@ -5535,10 +5590,65 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#coming-soon" class="md-nav__link">
+  <a href="#what-a-project-gives-you" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Coming Soon
+        What a Project Gives You
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-api-endpoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The API Endpoint
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#available-resource-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Available Resource Types
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#network-isolation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Network Isolation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resource-quota" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resource Quota
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#project-isolation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Project Isolation
       
     </span>
   </a>
@@ -5574,20 +5684,83 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 
 
 <h1 id="project-structure">Project Structure<a class="headerlink" href="#project-structure" title="Permanent link">#</a></h1>
-<p>Understanding the structure and isolation of SCO projects.</p>
-<h2 id="coming-soon">Coming Soon<a class="headerlink" href="#coming-soon" title="Permanent link">#</a></h2>
-<p>Project structure documentation will be added covering:</p>
+<p>A project is a fully isolated Kubernetes environment. From your perspective as a consumer, a project behaves like a dedicated cluster — with its own API endpoint, its own resources, and its own access controls.</p>
+<hr>
+<h2 id="what-a-project-gives-you">What a Project Gives You<a class="headerlink" href="#what-a-project-gives-you" title="Permanent link">#</a></h2>
+<table>
+<thead>
+<tr>
+<th>Capability</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Kubernetes API endpoint</strong></td>
+<td>A unique kubeconfig URL to use with <code>kubectl</code>, Terraform, ArgoCD, or Flux</td>
+</tr>
+<tr>
+<td><strong>Service catalogue</strong></td>
+<td>All services published by your platform team, available as native Kubernetes resource types</td>
+</tr>
+<tr>
+<td><strong>Network isolation</strong></td>
+<td>Your project's network traffic is isolated from all other projects</td>
+</tr>
+<tr>
+<td><strong>Resource quota</strong></td>
+<td>CPU, memory, and storage limits set by your organisation administrator</td>
+</tr>
+<tr>
+<td><strong>RBAC</strong></td>
+<td>Users and groups you've been granted access to; no cross-project visibility</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="the-api-endpoint">The API Endpoint<a class="headerlink" href="#the-api-endpoint" title="Permanent link">#</a></h2>
+<p>Every project has its own Kubernetes API endpoint. This is the URL in your project's kubeconfig:</p>
+<div class="highlight"><pre><span></span><code>https://kcp.example.com/clusters/org-acme:frontend-dev
+</code></pre></div>
+<p>All standard Kubernetes tools work against this endpoint. There is nothing special to configure — use the kubeconfig your administrator provides.</p>
+<hr>
+<h2 id="available-resource-types">Available Resource Types<a class="headerlink" href="#available-resource-types" title="Permanent link">#</a></h2>
+<p>Within your project, you can list the resource types available to you:</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>api-resources
+</code></pre></div>
+<p>This shows all service types your platform team has published — for example:</p>
+<div class="highlight"><pre><span></span><code>NAME                   SHORTNAMES   APIVERSION                          KIND
+virtualmachines                     compute.cloud.stakater.com/v1       VirtualMachine
+openshiftclusters                   kubernetes.cloud.stakater.com/v1    OpenShiftCluster
+postgresqldatabases                 databases.cloud.stakater.com/v1     PostgreSQLDatabase
+users                               iam.cloud.stakater.com/v1           User
+groups                              iam.cloud.stakater.com/v1           Group
+</code></pre></div>
+<p>The exact list depends on what your platform team has published.</p>
+<hr>
+<h2 id="network-isolation">Network Isolation<a class="headerlink" href="#network-isolation" title="Permanent link">#</a></h2>
+<p>Your project's network is isolated from all other projects by default. Services running in your project cannot be reached from other projects, and vice versa. This isolation is enforced at the infrastructure level, not just by policy.</p>
+<p>Your project can reach external networks and the internet depending on your platform's egress configuration — contact your administrator if you need specific network access.</p>
+<hr>
+<h2 id="resource-quota">Resource Quota<a class="headerlink" href="#resource-quota" title="Permanent link">#</a></h2>
+<p>Every project has compute and storage limits set by your administrator. If you exceed your quota, resource creation will fail with a quota error. Check your current usage and limits:</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>describe<span class="w"> </span>resourcequota
+</code></pre></div>
+<p>Contact your organisation administrator to request a quota increase.</p>
+<hr>
+<h2 id="project-isolation">Project Isolation<a class="headerlink" href="#project-isolation" title="Permanent link">#</a></h2>
+<p>Everything you create in your project stays in your project:</p>
 <ul>
-<li>Project components</li>
-<li>Isolation mechanisms</li>
-<li>Resource organization</li>
-<li>Namespaces and workspaces</li>
-<li>Networking within projects</li>
+<li>Other teams cannot see your <code>VirtualMachine</code>, <code>OpenShiftCluster</code>, or other resources</li>
+<li>You cannot see resources in other teams' projects</li>
+<li>Your credentials (kubeconfig, tokens) cannot be used to access any other project</li>
 </ul>
+<hr>
 <h2 id="whats-next">What's Next?<a class="headerlink" href="#whats-next" title="Permanent link">#</a></h2>
 <ul>
-<li><a href="creating-projects.html">Creating Projects</a> - Create new projects</li>
-<li><a href="../../service-provider-guide/projects/project-architecture.html">Project Architecture</a> - Technical details</li>
+<li><a href="../solutions/browsing-marketplace.html">Browsing Marketplace</a> — Find services to provision in your project</li>
+<li><a href="../kubectl-access/setup-kubectl.html">Setup kubectl</a> — Configure kubectl with your project kubeconfig</li>
+<li><a href="../../service-provider-guide/projects/project-architecture.html">Project Architecture</a> — Technical deep dive on project internals</li>
 </ul>
 
 

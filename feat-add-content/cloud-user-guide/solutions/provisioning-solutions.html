@@ -2087,7 +2087,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Overview
+    What is Stakater Cloud Orchestrator?
   
 
     
@@ -2503,7 +2503,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Configuration
+    Platform Configuration
   
 
     
@@ -2910,7 +2910,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Solution Overview
+    Solutions
   
 
     
@@ -3160,7 +3160,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Creating Organizations
+    Creating Organisations
   
 
     
@@ -3382,7 +3382,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    KCP Overview
+    KCP: The Virtual API Layer
   
 
     
@@ -3912,10 +3912,54 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#coming-soon" class="md-nav__link">
+  <a href="#applying-a-claim" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Coming Soon
+        Applying a Claim
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#monitoring-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Monitoring Status
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#updating-a-service" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Updating a Service
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deleting-a-service" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deleting a Service
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting-stuck-provisioning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting Stuck Provisioning
       
     </span>
   </a>
@@ -4877,7 +4921,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Keycloak Integration
+    Keycloak
   
 
     
@@ -4905,7 +4949,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    KCP Integration
+    KCP
   
 
     
@@ -4933,7 +4977,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Multi-Tenant Operator (MTO) Integration
+    Multi-Tenant Operator (MTO)
   
 
     
@@ -4961,7 +5005,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Crossplane Integration
+    Crossplane
   
 
     
@@ -5535,10 +5579,54 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#coming-soon" class="md-nav__link">
+  <a href="#applying-a-claim" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Coming Soon
+        Applying a Claim
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#monitoring-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Monitoring Status
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#updating-a-service" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Updating a Service
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deleting-a-service" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deleting a Service
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting-stuck-provisioning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting Stuck Provisioning
       
     </span>
   </a>
@@ -5574,21 +5662,91 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 
 
 <h1 id="provisioning-solutions">Provisioning Solutions<a class="headerlink" href="#provisioning-solutions" title="Permanent link">#</a></h1>
-<p>Learn how to provision and manage solution instances.</p>
-<h2 id="coming-soon">Coming Soon<a class="headerlink" href="#coming-soon" title="Permanent link">#</a></h2>
-<p>Solution provisioning guide will be added covering:</p>
+<p>Provisioning a service in SCO is the same as applying any Kubernetes resource — write a YAML claim and apply it. The platform handles the rest.</p>
+<hr>
+<h2 id="applying-a-claim">Applying a Claim<a class="headerlink" href="#applying-a-claim" title="Permanent link">#</a></h2>
+<p>Every service has its own resource kind and API group. Apply a claim with <code>kubectl</code>:</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>my-claim.yaml
+</code></pre></div>
+<p>For example, to provision a virtual machine:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">compute.cloud.stakater.com/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VirtualMachine</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-dev-vm</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">flavour</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rhel9</span>
+<span class="w">    </span><span class="nt">instanceType</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">o1.medium</span>
+<span class="w">    </span><span class="nt">connection</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">private</span>
+<span class="w">    </span><span class="nt">sshPublicKey</span><span class="p">:</span><span class="w"> </span><span class="s">"ssh-rsa</span><span class="nv"> </span><span class="s">AAAAB3NzaC1yc2EAAAA..."</span>
+</code></pre></div>
+<hr>
+<h2 id="monitoring-status">Monitoring Status<a class="headerlink" href="#monitoring-status" title="Permanent link">#</a></h2>
+<div class="highlight"><pre><span></span><code><span class="c1"># Check status</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>virtualmachine<span class="w"> </span>my-dev-vm
+
+<span class="c1"># Watch for changes</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>virtualmachine<span class="w"> </span>my-dev-vm<span class="w"> </span>-w
+
+<span class="c1"># Full details and events</span>
+kubectl<span class="w"> </span>describe<span class="w"> </span>virtualmachine<span class="w"> </span>my-dev-vm
+</code></pre></div>
+<p>Typical provisioning times:</p>
+<table>
+<thead>
+<tr>
+<th>Service</th>
+<th>Typical time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Virtual Machine</td>
+<td>2–5 minutes</td>
+</tr>
+<tr>
+<td>OpenShift Cluster</td>
+<td>10–20 minutes</td>
+</tr>
+<tr>
+<td>Database</td>
+<td>2–5 minutes</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="updating-a-service">Updating a Service<a class="headerlink" href="#updating-a-service" title="Permanent link">#</a></h2>
+<p>Edit the claim and reapply:</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>my-updated-claim.yaml
+</code></pre></div>
+<p>Crossplane reconciles the change. Not all fields are mutable after creation — check the <a href="../../api-reference/overview.html">API reference</a> for details.</p>
+<hr>
+<h2 id="deleting-a-service">Deleting a Service<a class="headerlink" href="#deleting-a-service" title="Permanent link">#</a></h2>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>delete<span class="w"> </span>virtualmachine<span class="w"> </span>my-dev-vm
+</code></pre></div>
+<p>This triggers a full teardown of all resources backing the service. Deletion may take a few minutes.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Deletion is irreversible. Any data stored in the service (VM disks, database contents) will be permanently removed. Back up any data you need before deleting.</p>
+</div>
+<hr>
+<h2 id="troubleshooting-stuck-provisioning">Troubleshooting Stuck Provisioning<a class="headerlink" href="#troubleshooting-stuck-provisioning" title="Permanent link">#</a></h2>
+<p>If a service stays in <code>Provisioning</code> state longer than expected, check for errors:</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>describe<span class="w"> </span>virtualmachine<span class="w"> </span>my-dev-vm
+</code></pre></div>
+<p>Look at the <strong>Conditions</strong> and <strong>Events</strong> sections. Common causes:</p>
 <ul>
-<li>Provisioning via console</li>
-<li>Provisioning via kubectl</li>
-<li>Configuration options</li>
-<li>Monitoring provisioning status</li>
-<li>Updating solution instances</li>
-<li>Deleting solution instances</li>
+<li><strong>Quota exceeded</strong> — request a quota increase from your administrator</li>
+<li><strong>Invalid parameter</strong> — a value was rejected; the error message will indicate which field</li>
+<li><strong>Infrastructure issue</strong> — contact your platform administrator</li>
 </ul>
+<p>See <a href="../../troubleshooting/common-issues.html">Common Issues</a> for more.</p>
+<hr>
 <h2 id="whats-next">What's Next?<a class="headerlink" href="#whats-next" title="Permanent link">#</a></h2>
 <ul>
-<li><a href="browsing-marketplace.html">Browsing Marketplace</a> - Find solutions to provision</li>
-<li><a href="../kubectl-access/setup-kubectl.html">Setup kubectl</a> - Use kubectl to manage solutions</li>
+<li><a href="../../how-to-guides/user/provision-virtual-machine.html">Provision a Virtual Machine</a> — Full VM guide</li>
+<li><a href="../../how-to-guides/user/provision-openshift-cluster.html">Provision an OpenShift Cluster</a> — Full cluster guide</li>
+<li><a href="../kubectl-access/setup-kubectl.html">Setup kubectl</a> — Configure kubectl access</li>
 </ul>
 
 

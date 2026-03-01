@@ -22,7 +22,7 @@
     
     
       
-        <title>Keycloak Integration - Stakater Cloud Orchestrator</title>
+        <title>Keycloak - Stakater Cloud Orchestrator</title>
       
     
     
@@ -95,7 +95,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#keycloak-integration" class="md-skip">
+        <a href="#keycloak" class="md-skip">
           Skip to content
         </a>
       
@@ -2087,7 +2087,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Overview
+    What is Stakater Cloud Orchestrator?
   
 
     
@@ -2503,7 +2503,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Configuration
+    Platform Configuration
   
 
     
@@ -2910,7 +2910,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Solution Overview
+    Solutions
   
 
     
@@ -3160,7 +3160,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Creating Organizations
+    Creating Organisations
   
 
     
@@ -3382,7 +3382,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    KCP Overview
+    KCP: The Virtual API Layer
   
 
     
@@ -4813,7 +4813,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Keycloak Integration
+    Keycloak
   
 
     
@@ -4831,7 +4831,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Keycloak Integration
+    Keycloak
   
 
     
@@ -4859,10 +4859,104 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#coming-soon" class="md-nav__link">
+  <a href="#role-in-sco" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Coming Soon
+        Role in SCO
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multi-tenancy-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multi-Tenancy Model
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#realm-lifecycle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Realm Lifecycle
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#organisation-identity-provider-federation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Organisation Identity Provider Federation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Organisation Identity Provider Federation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configuring-ldap-federation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuring LDAP federation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuring-an-oidc-identity-provider-eg-azure-ad-google" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuring an OIDC identity provider (e.g., Azure AD, Google)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#managing-users-and-groups-via-sco-apis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Managing Users and Groups via SCO APIs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#oidc-integration-with-project-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OIDC Integration with Project Access
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#platform-operator-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Platform Operator Access
       
     </span>
   </a>
@@ -4903,7 +4997,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    KCP Integration
+    KCP
   
 
     
@@ -4931,7 +5025,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Multi-Tenant Operator (MTO) Integration
+    Multi-Tenant Operator (MTO)
   
 
     
@@ -4959,7 +5053,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Crossplane Integration
+    Crossplane
   
 
     
@@ -5533,10 +5627,104 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#coming-soon" class="md-nav__link">
+  <a href="#role-in-sco" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Coming Soon
+        Role in SCO
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multi-tenancy-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multi-Tenancy Model
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#realm-lifecycle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Realm Lifecycle
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#organisation-identity-provider-federation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Organisation Identity Provider Federation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Organisation Identity Provider Federation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configuring-ldap-federation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuring LDAP federation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuring-an-oidc-identity-provider-eg-azure-ad-google" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuring an OIDC identity provider (e.g., Azure AD, Google)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#managing-users-and-groups-via-sco-apis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Managing Users and Groups via SCO APIs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#oidc-integration-with-project-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OIDC Integration with Project Access
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#platform-operator-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Platform Operator Access
       
     </span>
   </a>
@@ -5571,22 +5759,152 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 
 
 
-<h1 id="keycloak-integration">Keycloak Integration<a class="headerlink" href="#keycloak-integration" title="Permanent link">#</a></h1>
-<p>How SCO integrates with Keycloak for authentication and authorization.</p>
-<h2 id="coming-soon">Coming Soon<a class="headerlink" href="#coming-soon" title="Permanent link">#</a></h2>
-<p>Keycloak integration documentation will be added covering:</p>
+<h1 id="keycloak">Keycloak<a class="headerlink" href="#keycloak" title="Permanent link">#</a></h1>
+<p>Keycloak is the identity platform embedded in SCO. It provides each organisation with a fully isolated, production-grade identity provider (IDP) — supporting SSO, OIDC, SAML, LDAP federation, and fine-grained role management — without any shared identity pool between tenants.</p>
+<hr>
+<h2 id="role-in-sco">Role in SCO<a class="headerlink" href="#role-in-sco" title="Permanent link">#</a></h2>
+<p>Every organisation on the platform gets its own Keycloak <strong>realm</strong>. A realm is a completely isolated identity namespace: users, groups, clients, roles, and authentication flows within one realm have no visibility into any other realm. An organisation's administrators manage their realm independently; platform operators manage the Keycloak instance itself.</p>
+<div class="highlight"><pre><span></span><code>Keycloak instance (platform-managed)
+├── realm: org-acme        ← Organisation A's isolated IDP
+│   ├── Users (Alice, Bob, Carol)
+│   ├── Groups (developers, admins)
+│   ├── Clients (SCO console, kubectl OIDC)
+│   └── Identity providers (corporate LDAP, Google SSO)
+└── realm: org-globex      ← Organisation B's isolated IDP
+    ├── Users (different set)
+    └── ...
+</code></pre></div>
+<p>From a consumer's perspective, their organisation simply has an IDP they authenticate against. Keycloak is the engine behind it, but consumers interact only with the standard OIDC/SAML flows they already know.</p>
+<hr>
+<h2 id="multi-tenancy-model">Multi-Tenancy Model<a class="headerlink" href="#multi-tenancy-model" title="Permanent link">#</a></h2>
+<p>Keycloak's realm-per-organisation model gives SCO strong multi-tenancy guarantees at the identity layer:</p>
 <ul>
-<li>Architecture and integration points</li>
-<li>Realm management</li>
-<li>SSO configuration</li>
-<li>User federation</li>
-<li>OIDC flows</li>
-<li>Custom authentication</li>
+<li><strong>No shared user database</strong> — each realm maintains its own users and credentials</li>
+<li><strong>No cross-realm token validity</strong> — a token issued in one realm cannot authenticate against another</li>
+<li><strong>Independent authentication flows</strong> — each organisation can configure its own MFA, password policy, and session settings</li>
+<li><strong>Isolated client registrations</strong> — OIDC clients (e.g., the web console, ArgoCD integrations) are registered per realm, scoped to that organisation</li>
+<li><strong>Independent federation</strong> — each organisation can connect its own LDAP directory or enterprise SSO without affecting others</li>
 </ul>
+<hr>
+<h2 id="realm-lifecycle">Realm Lifecycle<a class="headerlink" href="#realm-lifecycle" title="Permanent link">#</a></h2>
+<p>Realms are provisioned and managed automatically by SCO. When a platform operator creates an <code>Organization</code>, SCO:</p>
+<ol>
+<li>Creates a new Keycloak realm with the organisation's name</li>
+<li>Configures default client scopes and role mappings</li>
+<li>Sets up the OIDC client for the web console</li>
+<li>Optionally configures an identity provider federation if the organisation has a corporate SSO</li>
+</ol>
+<p>When an organisation is deleted, its realm and all associated users, groups, and clients are removed.</p>
+<p>Platform operators do not need to manually create or configure realms in most cases. The automation handles the full lifecycle.</p>
+<hr>
+<h2 id="organisation-identity-provider-federation">Organisation Identity Provider Federation<a class="headerlink" href="#organisation-identity-provider-federation" title="Permanent link">#</a></h2>
+<p>Organisations with an existing corporate directory (LDAP, Active Directory, Google Workspace, Azure AD, Okta) can federate that identity provider into their Keycloak realm. Users then log in with their existing corporate credentials; Keycloak handles the federation transparently.</p>
+<h3 id="configuring-ldap-federation">Configuring LDAP federation<a class="headerlink" href="#configuring-ldap-federation" title="Permanent link">#</a></h3>
+<p>In the Keycloak admin console for the organisation's realm, navigate to <strong>User Federation</strong> and add an LDAP provider:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Vendor</td>
+<td>Active Directory / Other</td>
+</tr>
+<tr>
+<td>Connection URL</td>
+<td><code>ldap://ldap.example.com:389</code></td>
+</tr>
+<tr>
+<td>Bind DN</td>
+<td><code>cn=svc-keycloak,ou=service,dc=example,dc=com</code></td>
+</tr>
+<tr>
+<td>Bind Credential</td>
+<td>Service account password</td>
+</tr>
+<tr>
+<td>Users DN</td>
+<td><code>ou=users,dc=example,dc=com</code></td>
+</tr>
+<tr>
+<td>UUID LDAP Attribute</td>
+<td><code>objectGUID</code> (AD) or <code>entryUUID</code></td>
+</tr>
+<tr>
+<td>User Object Classes</td>
+<td><code>person, organizationalPerson, user</code></td>
+</tr>
+</tbody>
+</table>
+<p>After saving, trigger a <strong>Sync all users</strong> to import the directory. Users can then log in with their LDAP credentials.</p>
+<h3 id="configuring-an-oidc-identity-provider-eg-azure-ad-google">Configuring an OIDC identity provider (e.g., Azure AD, Google)<a class="headerlink" href="#configuring-an-oidc-identity-provider-eg-azure-ad-google" title="Permanent link">#</a></h3>
+<p>In the realm, navigate to <strong>Identity Providers</strong> and add an OIDC provider:</p>
+<div class="highlight"><pre><span></span><code>Authorization URL: https://login.microsoftonline.com/&lt;tenant-id&gt;/oauth2/v2.0/authorize
+Token URL:         https://login.microsoftonline.com/&lt;tenant-id&gt;/oauth2/v2.0/token
+Client ID:         &lt;application-id-from-azure&gt;
+Client Secret:     &lt;client-secret-from-azure&gt;
+Default Scopes:    openid email profile
+</code></pre></div>
+<p>Configure <strong>First Broker Login</strong> flow to control how new users are handled on first login (auto-create, require email verification, link to existing account, etc.).</p>
+<hr>
+<h2 id="managing-users-and-groups-via-sco-apis">Managing Users and Groups via SCO APIs<a class="headerlink" href="#managing-users-and-groups-via-sco-apis" title="Permanent link">#</a></h2>
+<p>Platform operators and organisation administrators can manage users and groups through the SCO public APIs, without accessing Keycloak directly:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Create a user (provisions a Keycloak user in the organisation's realm)</span>
+<span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">iam.cloud.stakater.com/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">User</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">alice</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">alice</span>
+<span class="w">    </span><span class="nt">email</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">alice@example.com</span>
+<span class="w">    </span><span class="nt">firstName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Alice</span>
+<span class="w">    </span><span class="nt">lastName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Smith</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1"># Create a group and assign members</span>
+<span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">iam.cloud.stakater.com/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Group</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">platform-admins</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">platform-admins</span>
+<span class="w">    </span><span class="nt">members</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">alice</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bob</span>
+</code></pre></div>
+<p>These claims trigger Crossplane compositions that reconcile the corresponding Keycloak realm users and groups. Direct Keycloak API access is not required for routine IAM management.</p>
+<p>See <a href="../how-to-guides/user/create-iam-user.html">Create IAM User</a> and <a href="../how-to-guides/user/create-iam-group.html">Create IAM Group</a> for full guides.</p>
+<hr>
+<h2 id="oidc-integration-with-project-access">OIDC Integration with Project Access<a class="headerlink" href="#oidc-integration-with-project-access" title="Permanent link">#</a></h2>
+<p>When a consumer authenticates to their project's Kubernetes API endpoint, the request is validated against their organisation's Keycloak realm. The project workspace trusts the realm's OIDC token and maps Keycloak groups to Kubernetes RBAC roles within the project.</p>
+<p>This means:
+- Adding a user to the <code>developers</code> group in Keycloak automatically grants them developer-level access to all projects that have bound that group
+- Removing a user from a group or disabling their account in Keycloak immediately revokes access — no separate Kubernetes RBAC update required
+- Group membership from an LDAP federation is honoured: a user in an AD group gets the corresponding project access without any manual mapping</p>
+<hr>
+<h2 id="platform-operator-access">Platform Operator Access<a class="headerlink" href="#platform-operator-access" title="Permanent link">#</a></h2>
+<p>Platform operators access the Keycloak admin console through the management interface. The admin console allows:</p>
+<ul>
+<li>Inspecting and troubleshooting any realm</li>
+<li>Configuring instance-level settings (email, brute force protection, event logging)</li>
+<li>Managing the master realm and administrative service accounts</li>
+<li>Reviewing audit events across all realms</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Organisation-level administrators have access only to their own realm through a delegated admin configuration. They cannot see other organisations' realms or the master realm.</p>
+</div>
+<hr>
 <h2 id="whats-next">What's Next?<a class="headerlink" href="#whats-next" title="Permanent link">#</a></h2>
 <ul>
-<li><a href="../service-provider-guide/organizations/keycloak-realms.html">Keycloak Realms</a> - Configure realms</li>
-<li><a href="../cloud-user-guide/authentication/managing-users.html">Managing Users</a> - User management</li>
+<li><a href="../service-provider-guide/organizations/keycloak-realms.html">Keycloak Realms</a> — Detailed realm configuration for providers</li>
+<li><a href="../cloud-user-guide/authentication/managing-users.html">Managing Users</a> — User management guide</li>
+<li><a href="../how-to-guides/user/create-iam-user.html">Create IAM User</a> — How-to guide</li>
+<li><a href="../how-to-guides/user/create-iam-group.html">Create IAM Group</a> — How-to guide</li>
 </ul>
 
 

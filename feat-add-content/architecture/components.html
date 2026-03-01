@@ -6324,15 +6324,14 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <hr>
 <h2 id="platform-orchestration">Platform Orchestration<a class="headerlink" href="#platform-orchestration" title="Permanent link">#</a></h2>
 <h3 id="openshift-gitops-argocd">OpenShift GitOps (ArgoCD)<a class="headerlink" href="#openshift-gitops-argocd" title="Permanent link">#</a></h3>
-<p>ArgoCD is the GitOps engine that installs and continuously reconciles every platform component. The platform's entire desired state — operators, CRDs, Crossplane compositions, platform configuration — is declared in a Git repository and applied by ArgoCD.</p>
+<p>ArgoCD is the GitOps engine that installs and continuously reconciles every platform component. The <code>KubeStackPlus</code> composition creates a set of ArgoCD <code>Application</code> resources — one per component bundle — which ArgoCD then deploys and reconciles. No separate Git repository is required; the platform uses gitless GitOps, with each component bundle packaged as an OCI image (Helm chart plus Crossplane configurations) hosted in a container registry.</p>
 <p><strong>Role in SCO:</strong></p>
 <ul>
-<li>Installs all operators via <code>Subscription</code> and <code>OperatorGroup</code> resources</li>
-<li>Deploys Crossplane and its providers</li>
-<li>Applies platform-level compositions (KCP, Keycloak, MTO, OpenBao)</li>
-<li>Maintains configuration drift correction — any manual change to a platform resource is reverted</li>
+<li>Deploys each platform component bundle by reconciling an ArgoCD <code>Application</code> pointing at an OCI-hosted Helm chart</li>
+<li>Continuously reconciles deployed components — any drift from the declared state is corrected automatically</li>
+<li>Manages component upgrades by updating the OCI image tag referenced by each <code>Application</code></li>
 </ul>
-<p><strong>Integration points:</strong> ArgoCD operates at the cluster-admin level and is the first component installed during platform bootstrap. All subsequent components are managed through ArgoCD application resources.</p>
+<p><strong>Integration points:</strong> ArgoCD operates at the cluster-admin level and is bootstrapped during initial platform installation. All platform components are managed as ArgoCD <code>Application</code> resources created by the <code>KubeStackPlus</code> composition.</p>
 <hr>
 <h2 id="composition-engine">Composition Engine<a class="headerlink" href="#composition-engine" title="Permanent link">#</a></h2>
 <h3 id="crossplane">Crossplane<a class="headerlink" href="#crossplane" title="Permanent link">#</a></h3>
@@ -6345,7 +6344,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <ul>
 <li><code>provider-kubernetes</code> — manages Kubernetes resources on the service cluster (Crossplane's workhorse for almost everything)</li>
 <li><code>provider-helm</code> — deploys Helm releases from compositions (used for <code>api-syncagent</code> deployments)</li>
-<li><code>provider-kcp</code> — manages KCP workspace resources (<code>APIExports</code>, <code>APIBindings</code>, workspace hierarchy)</li>
+<li><code>provider-kubernetes</code> also manages KCP workspace resources (<code>APIExports</code>, <code>APIBindings</code>, workspace hierarchy) — KCP exposes a standard Kubernetes API, so no separate KCP provider is needed</li>
 <li><code>provider-keycloak</code> — manages Keycloak realms, users, groups, and clients</li>
 <li><code>provider-aws</code> / <code>provider-azure</code> / <code>provider-gcp</code> — cloud infrastructure for compositions that require it</li>
 <li><code>provider-vault</code> (OpenBao-compatible) — manages secrets and dynamic credentials</li>

@@ -6324,7 +6324,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <hr>
 <h2 id="platform-orchestration">Platform Orchestration<a class="headerlink" href="#platform-orchestration" title="Permanent link">#</a></h2>
 <h3 id="openshift-gitops-argocd">OpenShift GitOps (ArgoCD)<a class="headerlink" href="#openshift-gitops-argocd" title="Permanent link">#</a></h3>
-<p>ArgoCD is the GitOps engine that installs and continuously reconciles every platform component. The <code>KubeStackPlus</code> composition creates a set of ArgoCD <code>Application</code> resources — one per component bundle — which ArgoCD then deploys and reconciles. No separate Git repository is required; the platform uses gitless GitOps, with each component bundle packaged as an OCI image (Helm chart plus Crossplane configurations) hosted in a container registry.</p>
+<p>ArgoCD is the GitOps engine that installs and continuously reconciles every platform component. The <code>KubeStackPlus</code> composition creates a set of ArgoCD <code>Application</code> resources — one per component bundle — which ArgoCD then deploys and reconciles. No separate Git repository is required; the platform uses Gitless GitOps, with each component bundle packaged as an OCI image (Helm chart plus Crossplane configurations) hosted in a container registry.</p>
 <p><strong>Role in SCO:</strong></p>
 <ul>
 <li>Deploys each platform component bundle by reconciling an ArgoCD <code>Application</code> pointing at an OCI-hosted Helm chart</li>

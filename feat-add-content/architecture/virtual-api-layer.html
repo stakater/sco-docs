@@ -4912,7 +4912,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    HyperShift Hosted Cluster
+    Hypershift Hosted Cluster
   
 
     
@@ -6027,10 +6027,12 @@ Consumer workspace: VirtualMachine shows Ready
 <hr>
 <h2 id="scaling-characteristics">Scaling Characteristics<a class="headerlink" href="#scaling-characteristics" title="Permanent link">#</a></h2>
 <p>KCP's workspace model is designed for high workspace counts. A single KCP instance can serve tens of thousands of workspaces with low per-workspace overhead.</p>
-<p>The limiting factors in SCO are:
-- <strong>api-syncagent instances:</strong> one per published API group; each scales horizontally
-- <strong>Crossplane composition throughput:</strong> scaled by adding provider replicas
-- <strong>MTO namespace count:</strong> one namespace set per project; Kubernetes supports tens of thousands of namespaces per cluster</p>
+<p>The limiting factors in SCO are:</p>
+<ul>
+<li><strong>api-syncagent instances:</strong> one per published API group; each scales horizontally</li>
+<li><strong>Crossplane composition throughput:</strong> scaled by adding provider replicas</li>
+<li><strong>MTO namespace count:</strong> one namespace set per project; Kubernetes supports tens of thousands of namespaces per cluster</li>
+</ul>
 <p>For large deployments, the platform can run multiple KCP instances with workspace routing distributed across them.</p>
 <hr>
 <h2 id="whats-next">What's Next?<a class="headerlink" href="#whats-next" title="Permanent link">#</a></h2>

@@ -4684,7 +4684,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    HyperShift Hosted Cluster
+    Hypershift Hosted Cluster
   
 
     
@@ -5881,10 +5881,12 @@ Default Scopes:    openid email profile
 <hr>
 <h2 id="oidc-integration-with-project-access">OIDC Integration with Project Access<a class="headerlink" href="#oidc-integration-with-project-access" title="Permanent link">#</a></h2>
 <p>When a consumer authenticates to their project's Kubernetes API endpoint, the request is validated against their organisation's Keycloak realm. The project workspace trusts the realm's OIDC token and maps Keycloak groups to Kubernetes RBAC roles within the project.</p>
-<p>This means:
-- Adding a user to the <code>developers</code> group in Keycloak automatically grants them developer-level access to all projects that have bound that group
-- Removing a user from a group or disabling their account in Keycloak immediately revokes access — no separate Kubernetes RBAC update required
-- Group membership from an LDAP federation is honoured: a user in an AD group gets the corresponding project access without any manual mapping</p>
+<p>This means:</p>
+<ul>
+<li>Adding a user to the <code>developers</code> group in Keycloak automatically grants them developer-level access to all projects that have bound that group</li>
+<li>Removing a user from a group or disabling their account in Keycloak immediately revokes access — no separate Kubernetes RBAC update required</li>
+<li>Group membership from an LDAP federation is honoured: a user in an AD group gets the corresponding project access without any manual mapping</li>
+</ul>
 <hr>
 <h2 id="platform-operator-access">Platform Operator Access<a class="headerlink" href="#platform-operator-access" title="Permanent link">#</a></h2>
 <p>Platform operators access the Keycloak admin console through the management interface. The admin console allows:</p>

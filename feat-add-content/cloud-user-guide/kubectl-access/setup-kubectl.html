@@ -4020,7 +4020,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <a href="#step-2-download-your-project-kubeconfig" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 2: Download Your Project Kubeconfig
+        Step 2: Download Your Project kubeconfig
       
     </span>
   </a>
@@ -4031,10 +4031,49 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <a href="#step-3-use-the-kubeconfig" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 3: Use the Kubeconfig
+        Step 3: Use the kubeconfig
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Step 3: Use the kubeconfig">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#option-a-environment-variable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option A: Environment variable
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#option-b-merge-into-existing-config" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option B: Merge into existing config
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#option-c-per-command-flag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option C: Per-command flag
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -4825,7 +4864,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    HyperShift Hosted Cluster
+    Hypershift Hosted Cluster
   
 
     
@@ -5626,7 +5665,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <a href="#step-2-download-your-project-kubeconfig" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 2: Download Your Project Kubeconfig
+        Step 2: Download Your Project kubeconfig
       
     </span>
   </a>
@@ -5637,10 +5676,49 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <a href="#step-3-use-the-kubeconfig" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 3: Use the Kubeconfig
+        Step 3: Use the kubeconfig
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Step 3: Use the kubeconfig">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#option-a-environment-variable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option A: Environment variable
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#option-b-merge-into-existing-config" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option B: Merge into existing config
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#option-c-per-command-flag" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option C: Per-command flag
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -5730,7 +5808,7 @@ choco<span class="w"> </span>install<span class="w"> </span>kubernetes-cli
 <div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>version<span class="w"> </span>--client
 </code></pre></div>
 <hr>
-<h2 id="step-2-download-your-project-kubeconfig">Step 2: Download Your Project Kubeconfig<a class="headerlink" href="#step-2-download-your-project-kubeconfig" title="Permanent link">#</a></h2>
+<h2 id="step-2-download-your-project-kubeconfig">Step 2: Download Your Project kubeconfig<a class="headerlink" href="#step-2-download-your-project-kubeconfig" title="Permanent link">#</a></h2>
 <ol>
 <li>Log in to the SCO console</li>
 <li>Navigate to your project</li>
@@ -5739,17 +5817,17 @@ choco<span class="w"> </span>install<span class="w"> </span>kubernetes-cli
 </ol>
 <p>Save the file, for example as <code>~/.kube/my-project.yaml</code>.</p>
 <hr>
-<h2 id="step-3-use-the-kubeconfig">Step 3: Use the Kubeconfig<a class="headerlink" href="#step-3-use-the-kubeconfig" title="Permanent link">#</a></h2>
-<p><strong>Option A: Environment variable</strong></p>
+<h2 id="step-3-use-the-kubeconfig">Step 3: Use the kubeconfig<a class="headerlink" href="#step-3-use-the-kubeconfig" title="Permanent link">#</a></h2>
+<h4 id="option-a-environment-variable">Option A: Environment variable<a class="headerlink" href="#option-a-environment-variable" title="Permanent link">#</a></h4>
 <div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">KUBECONFIG</span><span class="o">=</span>~/.kube/my-project.yaml
 kubectl<span class="w"> </span>get<span class="w"> </span>virtualmachines
 </code></pre></div>
-<p><strong>Option B: Merge into existing config</strong></p>
+<h4 id="option-b-merge-into-existing-config">Option B: Merge into existing config<a class="headerlink" href="#option-b-merge-into-existing-config" title="Permanent link">#</a></h4>
 <div class="highlight"><pre><span></span><code><span class="nv">KUBECONFIG</span><span class="o">=</span>~/.kube/config:~/.kube/my-project.yaml<span class="w"> </span>kubectl<span class="w"> </span>config<span class="w"> </span>view<span class="w"> </span>--flatten<span class="w"> </span>&gt;<span class="w"> </span>~/.kube/merged.yaml
 mv<span class="w"> </span>~/.kube/merged.yaml<span class="w"> </span>~/.kube/config
 kubectl<span class="w"> </span>config<span class="w"> </span>use-context<span class="w"> </span>my-project
 </code></pre></div>
-<p><strong>Option C: Per-command flag</strong></p>
+<h4 id="option-c-per-command-flag">Option C: Per-command flag<a class="headerlink" href="#option-c-per-command-flag" title="Permanent link">#</a></h4>
 <div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>--kubeconfig<span class="w"> </span>~/.kube/my-project.yaml<span class="w"> </span>get<span class="w"> </span>virtualmachines
 </code></pre></div>
 <hr>

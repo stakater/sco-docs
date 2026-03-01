@@ -4684,7 +4684,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    HyperShift Hosted Cluster
+    Hypershift Hosted Cluster
   
 
     
@@ -4984,6 +4984,45 @@ This documentation is for a pull request deployment and is unreleased, it is onl
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="2. Configure provider credentials">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-aws-credentials" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example: AWS credentials
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-kubernetes-provider-in-cluster-identity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example: Kubernetes provider (in-cluster identity)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-vault-provider" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example: Vault provider
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -5675,6 +5714,45 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="2. Configure provider credentials">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-aws-credentials" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example: AWS credentials
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-kubernetes-provider-in-cluster-identity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example: Kubernetes provider (in-cluster identity)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example-vault-provider" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example: Vault provider
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
       </ul>
@@ -5814,7 +5892,7 @@ Composed resources
 <p>Once healthy, the provider's CRDs are available on the cluster (e.g., <code>buckets.s3.aws.upbound.io</code>).</p>
 <h3 id="2-configure-provider-credentials">2. Configure provider credentials<a class="headerlink" href="#2-configure-provider-credentials" title="Permanent link">#</a></h3>
 <p>Most providers need credentials to communicate with external systems. Create a Kubernetes secret containing the credentials, then create a <code>ProviderConfig</code> that references it.</p>
-<p><strong>Example: AWS credentials</strong></p>
+<h4 id="example-aws-credentials">Example: AWS credentials<a class="headerlink" href="#example-aws-credentials" title="Permanent link">#</a></h4>
 <div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>create<span class="w"> </span>secret<span class="w"> </span>generic<span class="w"> </span>aws-credentials<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--from-literal<span class="o">=</span><span class="nv">creds</span><span class="o">=</span><span class="s1">'[default]</span>
 <span class="s1">aws_access_key_id = AKIAIOSFODNN7EXAMPLE</span>
@@ -5833,7 +5911,7 @@ Composed resources
 <span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">aws-credentials</span>
 <span class="w">      </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">creds</span>
 </code></pre></div>
-<p><strong>Example: Kubernetes provider (in-cluster identity)</strong></p>
+<h4 id="example-kubernetes-provider-in-cluster-identity">Example: Kubernetes provider (in-cluster identity)<a class="headerlink" href="#example-kubernetes-provider-in-cluster-identity" title="Permanent link">#</a></h4>
 <p>When targeting the management cluster itself, the Kubernetes provider can use its injected service account identity — no credentials secret needed:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kubernetes.crossplane.io/v1alpha1</span>
 <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ProviderConfig</span>
@@ -5843,7 +5921,7 @@ Composed resources
 <span class="w">  </span><span class="nt">credentials</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">InjectedIdentity</span>
 </code></pre></div>
-<p><strong>Example: Vault provider</strong></p>
+<h4 id="example-vault-provider">Example: Vault provider<a class="headerlink" href="#example-vault-provider" title="Permanent link">#</a></h4>
 <div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">vault.upbound.io/v1alpha1</span>
 <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ProviderConfig</span>
 <span class="nt">metadata</span><span class="p">:</span>

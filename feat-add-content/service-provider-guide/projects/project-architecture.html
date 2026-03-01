@@ -4831,7 +4831,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    HyperShift Hosted Cluster
+    Hypershift Hosted Cluster
   
 
     
@@ -5737,10 +5737,12 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </code></pre></div>
 <h3 id="virtual-api-layer">Virtual API Layer<a class="headerlink" href="#virtual-api-layer" title="Permanent link">#</a></h3>
 <p>The KCP workspace gives the project its Kubernetes API endpoint. This is what consumers interact with: they point <code>kubectl</code>, ArgoCD, or Terraform at this endpoint and apply claims.</p>
-<p>The workspace contains:
-- <code>APIBinding</code> resources for each published service — making service resource types (e.g., <code>VirtualMachine</code>) available as native Kubernetes APIs in the workspace
-- Consumer-applied resources (claims): <code>VirtualMachine</code>, <code>OpenShiftCluster</code>, <code>PostgreSQLDatabase</code>, etc.
-- Project-scoped RBAC that controls what each user or group can do within the workspace</p>
+<p>The workspace contains:</p>
+<ul>
+<li><code>APIBinding</code> resources for each published service — making service resource types (e.g., <code>VirtualMachine</code>) available as native Kubernetes APIs in the workspace</li>
+<li>Consumer-applied resources (claims): <code>VirtualMachine</code>, <code>OpenShiftCluster</code>, <code>PostgreSQLDatabase</code>, etc.</li>
+<li>Project-scoped RBAC that controls what each user or group can do within the workspace</li>
+</ul>
 <h3 id="physical-tenancy-layer">Physical Tenancy Layer<a class="headerlink" href="#physical-tenancy-layer" title="Permanent link">#</a></h3>
 <p>The MTO tenant enforces tenancy in the actual cluster. For each project, MTO creates and continuously reconciles:</p>
 <ul>

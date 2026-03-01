@@ -4684,7 +4684,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    HyperShift Hosted Cluster
+    Hypershift Hosted Cluster
   
 
     
@@ -5705,10 +5705,12 @@ kubectl<span class="w"> </span>api-resources<span class="w"> </span><span class=
 kubectl<span class="w"> </span>get<span class="w"> </span>virtualmachine<span class="w"> </span>my-vm
 kubectl<span class="w"> </span>describe<span class="w"> </span>virtualmachine<span class="w"> </span>my-vm
 </code></pre></div>
-<p>Common causes:
-- Expired kubeconfig token → re-authenticate via the console
-- Wrong context → <code>kubectl config current-context</code>
-- API type not available → contact your administrator (the API may not be published)</p>
+<p>Common causes:</p>
+<ul>
+<li>Expired kubeconfig token → re-authenticate via the console</li>
+<li>Wrong context → <code>kubectl config current-context</code></li>
+<li>API type not available → contact your administrator (the API may not be published)</li>
+</ul>
 <hr>
 <h2 id="layer-2-composition-layer">Layer 2: Composition Layer<a class="headerlink" href="#layer-2-composition-layer" title="Permanent link">#</a></h2>
 <p><strong>Symptoms:</strong> Claims are accepted but stay in <code>Provisioning</code> or move to <code>Failed</code>.</p>

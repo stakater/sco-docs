@@ -4684,7 +4684,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    HyperShift Hosted Cluster
+    Hypershift Hosted Cluster
   
 
     
@@ -5767,14 +5767,14 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">#</a></h2>
 <ul>
 <li>Access to your organisation's project</li>
-<li>The <code>user.iam.cloud.stakater.com</code> api available</li>
+<li>The <code>user.iam.cloud.stakater.com</code> API available</li>
 <li><code>kubectl</code> configured with your organisation project kubeconfig</li>
 <li>Sufficient permissions to create <code>User</code> resources in your project</li>
 </ul>
 <h2 id="what-gets-created">What Gets Created<a class="headerlink" href="#what-gets-created" title="Permanent link">#</a></h2>
 <p>When you create a User claim, the platform provisions:</p>
 <ul>
-<li>An <strong>organisation user</strong> in your organisation's IDP with the specified username and email</li>
+<li>An <strong>organisation user</strong> in your organisation's IdP with the specified username and email</li>
 <li>An <strong>auto-generated initial password</strong> (base64 encoded, available in the resource status)</li>
 </ul>
 <h2 id="step-1-define-your-user-claim">Step 1: Define Your User Claim<a class="headerlink" href="#step-1-define-your-user-claim" title="Permanent link">#</a></h2>
@@ -5830,7 +5830,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <tr>
 <td><code>parameters.emailVerified</code></td>
 <td><code>false</code></td>
-<td>Whether the email is pre-verified in your organisation's IDP</td>
+<td>Whether the email is pre-verified in your organisation's IdP</td>
 </tr>
 <tr>
 <td><code>parameters.enabled</code></td>

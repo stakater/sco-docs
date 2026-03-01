@@ -4862,7 +4862,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    HyperShift Hosted Cluster
+    Hypershift Hosted Cluster
   
 
     
@@ -5807,7 +5807,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 │   Service definitions · Infrastructure orchestration · Secrets      │
 ├───────────────────────────┬─────────────────────────────────────────┤
 │   Infrastructure Services │   Platform Services                     │
-│   OpenShift Virt · HyperShift · OpenBao · Operators                │
+│   OpenShift Virt · Hypershift · OpenBao · Operators                │
 ├─────────────────────────────────────────────────────────────────────┤
 │                     Foundation (Red Hat OpenShift)                  │
 │   Cluster · Networking · Storage · Registry · GitOps (ArgoCD)      │
@@ -5818,21 +5818,23 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <p>OpenShift is not just a runtime substrate — it also provides a richer CRD ecosystem (Routes, BuildConfigs, DeploymentConfigs, operator lifecycle management) and the security model (SCC, RBAC defaults) that SCO builds on.</p>
 <h3 id="platform-orchestration-argocd">Platform Orchestration: ArgoCD<a class="headerlink" href="#platform-orchestration-argocd" title="Permanent link">#</a></h3>
 <p>ArgoCD (deployed via OpenShift GitOps) is the engine that installs and maintains every platform component. The platform's desired state — which operators are installed, what version, with which configuration — is declared in Git and continuously reconciled by ArgoCD against the cluster.</p>
-<p>This means:
-- Platform upgrades are Git commits, reviewed and merged like any code change
-- The cluster's state is always auditable from the repository history
-- Drift between declared and actual state is detected and corrected automatically
-- Rollback is a Git revert</p>
+<p>This means:</p>
+<ul>
+<li>Platform upgrades are Git commits, reviewed and merged like any code change</li>
+<li>The cluster's state is always auditable from the repository history</li>
+<li>Drift between declared and actual state is detected and corrected automatically</li>
+<li>Rollback is a Git revert</li>
+</ul>
 <p>ArgoCD manages not just application deployments but the operators, CRDs, <code>OperatorGroup</code> and <code>Subscription</code> resources, platform Crossplane compositions, and all SCO-specific configuration.</p>
 <h3 id="composition-layer-crossplane">Composition Layer: Crossplane<a class="headerlink" href="#composition-layer-crossplane" title="Permanent link">#</a></h3>
 <p>Crossplane plays two distinct roles in SCO.</p>
-<p><strong>Platform orchestration:</strong> SCO itself is installed and configured through Crossplane compositions. When the <code>ksp up</code> CLI runs, it applies <code>KubeStackPlus</code> and <code>KubeStackConfig</code> claims that Crossplane reconciles — installing KCP, Keycloak, MTO, OpenBao, HyperShift, and all other platform components in the correct order. The platform is not set up by a Helm chart or an Ansible playbook; it is a running Crossplane composition that continuously maintains the platform's desired state.</p>
+<p><strong>Platform orchestration:</strong> SCO itself is installed and configured through Crossplane compositions. When the <code>ksp up</code> CLI runs, it applies <code>KubeStackPlus</code> and <code>KubeStackConfig</code> claims that Crossplane reconciles — installing KCP, Keycloak, MTO, OpenBao, Hypershift, and all other platform components in the correct order. The platform is not set up by a Helm chart or an Ansible playbook; it is a running Crossplane composition that continuously maintains the platform's desired state.</p>
 <p><strong>Service composition engine:</strong> Platform providers use Crossplane to define services — as XRDs and compositions — that consumers can provision via Kubernetes claims. The composition engine handles the gap between what a consumer declares and what needs to be created in the underlying infrastructure. Providers write KCL functions to express business logic; Crossplane runs them.</p>
 <h3 id="infrastructure-services">Infrastructure Services<a class="headerlink" href="#infrastructure-services" title="Permanent link">#</a></h3>
 <p>These are the purpose-built operators and systems that back SCO's built-in services:</p>
 <ul>
-<li><strong>OpenShift Virtualization (KubeVirt):</strong> Enables VMs to run as Kubernetes objects on bare-metal nodes. Powers the <code>VirtualMachine</code> service. Provides live migration, snapshots, and hardware passthrough.</li>
-<li><strong>HyperShift:</strong> Hosted control plane technology that runs OpenShift cluster control planes as pods. Powers the <code>OpenShiftCluster</code> service. Dramatically reduces the resource cost of multi-cluster deployments.</li>
+<li><strong>OpenShift Virtualization (KubeVirt):</strong> Enables VMs to run as Kubernetes objects on bare-metal nodes. Powers the <code>VirtualMachine</code> service. Provides live migration, snapshots, and hardware pass-through.</li>
+<li><strong>Hypershift:</strong> Hosted control plane technology that runs OpenShift cluster control planes as pods. Powers the <code>OpenShiftCluster</code> service. Dramatically reduces the resource cost of multi-cluster deployments.</li>
 <li><strong>OpenBao:</strong> The open-source secrets management platform (community fork of HashiCorp Vault). Provides dynamic secrets, PKI, and key-value storage for both platform components and consumer workloads. Crossplane compositions use the OpenBao provider to issue and rotate credentials automatically.</li>
 </ul>
 <h3 id="tenancy-and-identity-layer">Tenancy and Identity Layer<a class="headerlink" href="#tenancy-and-identity-layer" title="Permanent link">#</a></h3>
@@ -5841,7 +5843,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <li><strong>Keycloak:</strong> Provides one isolated identity realm per organisation. Each organisation's users, groups, SSO configuration, and OIDC clients are scoped to their realm. Group membership in Keycloak is automatically propagated into Kubernetes RBAC within the project.</li>
 </ul>
 <h3 id="virtual-api-layer-kcp">Virtual API Layer: KCP<a class="headerlink" href="#virtual-api-layer-kcp" title="Permanent link">#</a></h3>
-<p>KCP (Kubernetes Control Plane) provides each project with its own fully isolated Kubernetes API endpoint — a workspace — without running a separate physical cluster. Consumers use standard tools (<code>kubectl</code>, ArgoCD, Terraform, Flux) against their workspace URL. Requests are routed through KCP to the api-syncagent, which creates corresponding objects on the service cluster for Crossplane to reconcile.</p>
+<p>KCP (Kubernetes Control Plane) provides each project with its own fully isolated Kubernetes API endpoint — a workspace — without running a separate physical cluster. Consumers use standard tools (<code>kubectl</code>, ArgoCD, Terraform, Flux) against their workspace URL. Requests are routed through KCP to the <code>api-syncagent</code>, which creates corresponding objects on the service cluster for Crossplane to reconcile.</p>
 <hr>
 <h2 id="request-flow">Request Flow<a class="headerlink" href="#request-flow" title="Permanent link">#</a></h2>
 <p>A consumer provisioning a virtual machine follows this path:</p>
@@ -5879,13 +5881,13 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 ├── stakater-mto              Multi-Tenant Operator
 ├── stakater-openbao          OpenBao secrets engine
 ├── openshift-cnv             OpenShift Virtualization (KubeVirt)
-├── hypershift                HyperShift operator
+├── hypershift                Hypershift operator
 ├── consumer-namespaces/      One namespace set per project (MTO-managed)
 │   ├── ws-org-acme-frontend-*
 │   └── ws-org-acme-backend-*
 └── [operator namespaces]     Strimzi, CNPG, RHOAI, cert-manager, etc.
 </code></pre></div>
-<p>Hosted OpenShift cluster control planes (provisioned via HyperShift) also run as pods within the management cluster, in namespaces scoped per hosted cluster.</p>
+<p>Hosted OpenShift cluster control planes (provisioned via Hypershift) also run as pods within the management cluster, in namespaces scoped per hosted cluster.</p>
 <hr>
 <h2 id="whats-next">What's Next?<a class="headerlink" href="#whats-next" title="Permanent link">#</a></h2>
 <ul>

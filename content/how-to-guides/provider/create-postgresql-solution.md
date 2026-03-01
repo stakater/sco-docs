@@ -111,14 +111,9 @@ spec:
         apiVersion: krm.kcl.dev/v1alpha1
         kind: KCLInput
         spec:
-          dependencies: |
-            stakaterCommon = { oci = "oci://ghcr.io/stakater/compositions/kcl/stakater-common", tag = "0.0.2" }
           source: |
-            import stakaterCommon as sc
-
             oxr = option("params").oxr
             ocds = option("params").ocds
-            a = sc.generateItemMethods(ocds)
 
             spec = oxr.spec
             parameters = spec.parameters
@@ -130,12 +125,16 @@ spec:
             pgVersion = parameters?.version or "16"
             targetNamespace = spec.claimRef.namespace
 
-            _cluster = a.createItem({
-                resourceName: "postgresql-cluster"
-                content: {
+            items = [
+                {
                     apiVersion: "kubernetes.crossplane.io/v1alpha2"
                     kind: "Object"
-                    metadata: {name: dbName}
+                    metadata: {
+                        name: dbName
+                        annotations: {
+                            "krm.kcl.dev/composition-resource-name": "postgresql-cluster"
+                        }
+                    }
                     spec: {
                         providerConfigRef: {name: kubernetesProvider}
                         forProvider: {
@@ -168,19 +167,7 @@ spec:
                         }
                     }
                 }
-                statusDetails: {
-                    statusFunction: lambda item: sc.savedItem -> {str:any} {
-                        {
-                            endpoint: item.status?.atProvider?.manifest?.status?.writeService
-                            port: 5432
-                            secretName: "{}-app".format(dbName)
-                        }
-                    }
-                }
-                conditionPropagation: a.defaultPropagation()
-            })
-
-            items = a.renderItems({})
+            ]
 
     - step: automatically-detect-ready-composed-resources
       functionRef:
@@ -226,7 +213,7 @@ kubectl delete postgresqldatabase test-postgres
 
 ```yaml
 apiVersion: infrastructure.stakater.com/v1alpha1
-kind: ApiExport
+kind: PublishedOffering
 metadata:
   name: databases-service
 spec:
@@ -250,8 +237,8 @@ spec:
 ```
 
 ```bash
-kubectl apply -f api-export.yaml
-kubectl get apiexport databases-service
+kubectl apply -f published-offering.yaml
+kubectl get publishedoffering databases-service
 ```
 
 ---

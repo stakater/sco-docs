@@ -8,7 +8,7 @@ SCO uses a GitOps-native configuration model. Rather than a traditional admin co
 
 When `ksp up` bootstraps the platform, it generates an initial set of `EnvironmentConfig` resources — one per platform component. These EnvironmentConfigs encode the default values for every configurable aspect of each component: resource limits, feature flags, version pins, networking settings, storage configuration, and integration parameters.
 
-Each platform component is backed by an OCI-packaged Helm chart. Crossplane watches the EnvironmentConfigs for that component and, when values change, re-renders the Helm release with the updated configuration. The component reconciles toward the new desired state automatically.
+Each platform component is packaged as an OCI artifact (Helm chart plus Crossplane configurations). Crossplane watches the `EnvironmentConfig` resources and, when values change, re-renders the ArgoCD `Application` for that component — injecting the updated values from the `EnvironmentConfig` as Helm values. ArgoCD then reconciles the component toward the new desired state automatically.
 
 ```text
 ksp up (initial install)
@@ -19,7 +19,9 @@ Crossplane generates EnvironmentConfigs (one per component)
     ↓
 EnvironmentConfigs hold default values from ksp up inputs
     ↓
-Crossplane renders each component from its OCI Helm chart + EnvironmentConfig
+Crossplane renders ArgoCD Applications sourcing values from EnvironmentConfigs
+    ↓
+ArgoCD deploys each component from its OCI artifact
     ↓
 Platform running with defaults
 ```
@@ -30,7 +32,7 @@ Platform running with defaults
 
 To change any default — for example, increasing the replica count for the KCP workspace service, or adjusting default resource quotas for new projects — platform operators create **override EnvironmentConfigs** in their GitOps repository.
 
-An override EnvironmentConfig targets a specific component and declares only the values that differ from the defaults. When the GitOps engine syncs this resource to the cluster, Crossplane merges it with the component's default EnvironmentConfig and re-renders the component.
+An override EnvironmentConfig targets a specific component and declares only the values that differ from the defaults. When applied to the cluster, Crossplane merges it with the component's default EnvironmentConfig and re-renders the ArgoCD `Application` with the updated Helm values. ArgoCD then reconciles the component.
 
 ### Example: Adjusting default project quota
 

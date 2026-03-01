@@ -1,67 +1,27 @@
-# Keycloak Realms
+# Organisation Identity
 
-Each SCO organisation is backed by a dedicated Keycloak realm — a fully isolated identity namespace with its own users, groups, clients, and authentication flows. This page covers the realm configuration options relevant to platform providers.
+Each SCO organisation has a fully isolated identity space — its own users, groups, authentication flows, and SSO configuration. This isolation is enforced at the platform level: users in one organisation cannot see or access resources in another.
 
-For a conceptual overview of Keycloak's role in SCO, see [Keycloak Integration](../../integrations/keycloak.md).
-
----
-
-## Realm Lifecycle
-
-Realms are provisioned automatically when an organisation is onboarded and removed when an organisation is deleted. Platform operators do not need to create or delete realms manually.
-
-After an organisation is created, the realm is immediately available. The organisation administrator can then customise it through the Keycloak admin console or through the SCO IAM API.
+Identity infrastructure is provisioned automatically when an organisation is created and removed when the organisation is deleted. Platform providers do not manage identity components directly — all configuration is applied through the SCO platform.
 
 ---
 
-## Configuring Corporate SSO Federation
+## What Gets Provisioned Automatically
 
-Organisations with an existing corporate directory can federate their identity provider into their realm. Users then authenticate with their existing corporate credentials.
+When an `OrgOnboarding` claim is created, the platform provisions:
 
-### LDAP / Active Directory
+- An isolated identity realm for the organisation
+- An initial administrator account with credentials sent to the specified `adminEmail`
+- A KCP workspace authentication configuration scoped to the organisation's realm
+- Default authentication flows and session policies
 
-In the Keycloak admin console for the organisation's realm, navigate to **User Federation → Add Provider → LDAP**:
-
-| Field | Example |
-|-------|---------|
-| Vendor | Active Directory |
-| Connection URL | `ldap://ad.example.com:389` |
-| Bind DN | `cn=svc-keycloak,ou=services,dc=example,dc=com` |
-| Users DN | `ou=users,dc=example,dc=com` |
-| uuid LDAP attribute | `objectGUID` |
-
-After saving, trigger **Sync all users** to import the directory.
-
-### OIDC Provider (Azure AD, Google, `Okta`)
-
-Navigate to **Identity Providers → Add Provider → OpenID Connect v1.0**:
-
-| Field | Example (Azure AD) |
-|-------|--------------------|
-| Authorization URL | `https://login.microsoftonline.com/<tenant>/oauth2/v2.0/authorize` |
-| Token URL | `https://login.microsoftonline.com/<tenant>/oauth2/v2.0/token` |
-| Client ID | `<azure-app-id>` |
-| Client Secret | `<azure-client-secret>` |
-| Default Scopes | `openid email profile` |
-
-Configure the **First Login Flow** to control how new federated users are handled on first sign-in.
+Organisation administrators can then manage users and groups using the SCO IAM API.
 
 ---
 
-## Configuring Authentication Flows
+## Managing Users and Groups
 
-Each realm can have its own authentication policy. Navigate to **Authentication** in the realm console to configure:
-
-- **Password policy** — minimum length, complexity requirements, rotation
-- **Multi-factor authentication** — OTP requirement by group, conditional MFA
-- **Brute force protection** — lockout thresholds and wait times
-- **Session limits** — idle and maximum session lifetimes
-
----
-
-## Managing Users and Groups via the SCO API
-
-Routine user and group management does not require Keycloak console access. Organisation administrators use the SCO IAM API:
+Routine user and group management uses the SCO IAM API — no direct access to the identity infrastructure is needed.
 
 ```bash
 # Create a user
@@ -96,15 +56,45 @@ See [Create IAM User](../../how-to-guides/user/create-iam-user.md) and [Create I
 
 ---
 
-## Platform Operator Access
+## Corporate SSO Federation
 
-Platform operators can access any organisation's realm through the Keycloak administration console. Organisation administrators access only their own realm through a delegated admin configuration — they cannot view or modify other organisations' realms.
+Organisations with an existing corporate directory can authenticate using their existing credentials. The platform supports federation with:
+
+- **Azure Active Directory** — OIDC-based federation using an Azure app registration
+- **OIDC providers** — Any standards-compliant OIDC identity provider
+- **SAML providers** — SAML 2.0 federation for providers that do not support OIDC
+
+SSO federation is configured at the platform level. To enable federation for an organisation, provide the following to the platform team:
+
+| Provider | Required information |
+|----------|---------------------|
+| Azure AD | Tenant ID, Application (client) ID, client secret |
+| OIDC | Authorization URL, token URL, client ID, client secret |
+| SAML | Metadata URL or XML, entity ID |
+
+The platform applies the configuration and federated users can authenticate using their corporate credentials from that point on. No manual user creation is needed — accounts are provisioned on first login from the corporate directory.
+
+!!! note
+    User and group records created through the SCO IAM API remain available regardless of whether SSO is configured. SSO federation and local accounts can coexist within the same organisation.
+
+---
+
+## Authentication Policy
+
+Default authentication policies applied to every organisation include:
+
+- Password complexity and minimum length requirements
+- Brute force protection with configurable lockout thresholds
+- Configurable session idle and maximum lifetime
+- Multi-factor authentication (can be required per group or globally)
+
+Authentication policy customisation is handled at the platform level. Contact the platform team to adjust policies for a specific organisation.
 
 ---
 
 ## What's Next?
 
-- [Keycloak Integration](../../integrations/keycloak.md) — Architecture and multi-tenancy model reference
+- [Creating Organisations](creating-organizations.md) — Provision a new organisation
 - [Create IAM User](../../how-to-guides/user/create-iam-user.md) — User management how-to
 - [Create IAM Group](../../how-to-guides/user/create-iam-group.md) — Group management how-to
-- [Managing Users](../../cloud-user-guide/authentication/managing-users.md) — Consumer-facing user management guide
+- [Keycloak Integration](../../integrations/keycloak.md) — Architecture reference for platform operators

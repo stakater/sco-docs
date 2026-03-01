@@ -107,7 +107,7 @@ The `api-syncagent` is a per-API-group process that bridges KCP workspaces and t
 - Creates corresponding objects on the service cluster in per-workspace namespaces
 - Synchronises status and connection details from the service cluster back to the consumer workspace
 
-One sync agent runs per published API group. It is deployed automatically when a platform provider creates an `ApiExport` claim.
+One sync agent runs per published API group. It is deployed automatically when a platform provider creates a `PublishedOffering` claim.
 
 See [Publishing APIs](../service-provider-guide/api-publishing/publishing-apis.md).
 

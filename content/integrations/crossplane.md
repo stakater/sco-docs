@@ -142,7 +142,7 @@ The SCO public service APIs (e.g., `compute.cloud.stakater.com/v1 VirtualMachine
 
 ## Writing Your First Composition
 
-SCO compositions use **function-kcl**, a pipeline function that runs KCL (KCL Configuration Language) scripts to produce composed resources. KCL gives you the full expressiveness of a programming language — conditionals, iteration, string formatting — without leaving the Kubernetes ecosystem.
+Crossplane compositions use a pipeline of functions to produce composed resources. SCO supports any pipeline function — KCL (`function-kcl`), Go templates (`function-go-templating`), Python (`function-pythonic`), and others. Choose the language that suits your team.
 
 ### Step 1: Define the XRD
 
@@ -212,6 +212,8 @@ spec:
 
 ### Step 2: Write the Composition
 
+The example below uses `function-kcl`. See [Creating Solutions](../service-provider-guide/solutions/creating-solutions.md) for the same composition written in Go templates and Python.
+
 ```yaml
 apiVersion: apiextensions.crossplane.io/v1
 kind: Composition
@@ -232,15 +234,9 @@ spec:
         apiVersion: krm.kcl.dev/v1alpha1
         kind: KCLInput
         spec:
-          dependencies: |
-            stakaterCommon = { oci = "oci://ghcr.io/stakater/compositions/kcl/stakater-common", tag = "0.0.2" }
           source: |
-            import stakaterCommon as sc
-
             oxr = option("params").oxr
             ocds = option("params").ocds
-
-            a = sc.generateItemMethods(ocds)
 
             spec = oxr.spec
             parameters = spec.parameters
@@ -252,13 +248,16 @@ spec:
             storageGb = parameters?.storageGb or 20
             engineVersion = parameters?.engineVersion or "15"
 
-            # RDS instance
-            _rds = a.createItem({
-                resourceName: "rds-instance"
-                content: {
+            items = [
+                {
                     apiVersion: "rds.aws.upbound.io/v1beta1"
                     kind: "Instance"
-                    metadata: {name: dbName}
+                    metadata: {
+                        name: dbName
+                        annotations: {
+                            "krm.kcl.dev/composition-resource-name": "rds-instance"
+                        }
+                    }
                     spec: {
                         providerConfigRef: {name: awsProvider}
                         forProvider: {
@@ -279,18 +278,7 @@ spec:
                         }
                     }
                 }
-                statusDetails: {
-                    statusFunction: lambda item: sc.savedItem -> {str:any} {
-                        {
-                            endpoint: item.status?.atProvider?.endpoint
-                            port: item.status?.atProvider?.port
-                        }
-                    }
-                }
-                conditionPropagation: a.defaultPropagation()
-            })
-
-            items = a.renderItems({})
+            ]
 
     - step: automatically-detect-ready-composed-resources
       functionRef:
@@ -299,54 +287,40 @@ spec:
 
 ### Step 3: Understanding KCL composition structure
 
-Every KCL composition follows the same skeleton:
+Every KCL composition follows the same pattern:
 
 ```kcl
-import stakaterCommon as sc
-
 # 1. Extract context
-oxr = option("params").oxr   # The composite/claim being reconciled
-ocds = option("params").ocds # Currently observed composed resources
-a = sc.generateItemMethods(ocds)
+oxr = option("params").oxr    # The composite/claim being reconciled
+ocds = option("params").ocds  # Currently observed composed resources
 
 # 2. Pull parameters from the claim spec
 spec = oxr.spec
 parameters = spec.parameters
 kubernetesProvider = spec?.providerConfigsRef?.kubernetes or "kubernetes-provider"
 
-# 3. Define resources using a.createItem()
-_myResource = a.createItem({
-    resourceName: "unique-name"            # Stable identifier for this resource
-    content: {                             # Full Kubernetes resource manifest
+# 3. Return a list of composed resource manifests
+# Each item needs a stable "krm.kcl.dev/composition-resource-name" annotation
+items = [
+    {
         apiVersion: "..."
         kind: "..."
-        metadata: {name: "..."}
+        metadata: {
+            name: "..."
+            annotations: {
+                "krm.kcl.dev/composition-resource-name": "unique-stable-name"
+            }
+        }
         spec: {...}
     }
-    dependsOn: []                          # Wait for these items before creating
-    conditionPropagation: a.defaultPropagation()
-    statusDetails: {                       # Propagate fields back to composite status
-        statusFunction: lambda item: sc.savedItem -> {str:any} {
-            {fieldName: item.status?.atProvider?.value}
-        }
-    }
-    connectionDetails: {                   # Expose connection data to consumer
-        rawDataFunction: lambda item: sc.savedItem -> {str:str} {
-            {"key": item.status?.atProvider?.value or ""}
-        }
-    }
-})
-
-# 4. Render — must be last
-items = a.renderItems({})
+]
 ```
 
 Key patterns:
 
-- **`dependsOn`** — Resources listed here must be ready before this resource is created. The framework automatically generates Crossplane `Usage` resources to enforce deletion order.
-- **`statusDetails.statusFunction`** — Return a dict of fields to merge into the composite's `.status`. These appear as readable status fields on the consumer's claim.
-- **`connectionDetails`** — Expose secrets or connection strings to the consumer's connection secret.
-- **Conditional creation** — Use the `condition` field on `createItem` to skip a resource based on parameter values.
+- **Stable resource names** — The `krm.kcl.dev/composition-resource-name` annotation is how Crossplane tracks composed resources across reconciliations. Use a fixed string, not a dynamic value.
+- **Conditional resources** — Use list comprehensions with `if` to include or skip resources based on parameters.
+- **Status propagation** — Include the composite resource itself in `items` with updated `.status` fields to surface connection details on the consumer's claim.
 
 ---
 

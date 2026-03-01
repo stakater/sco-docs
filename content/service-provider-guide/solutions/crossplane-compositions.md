@@ -8,63 +8,129 @@ For the full reference on Crossplane, providers, and the KCL function, see the [
 
 ## Composition Patterns in SCO
 
-SCO compositions follow consistent patterns across all built-in and custom solutions:
+SCO compositions follow consistent patterns across all built-in and custom solutions. Any Crossplane pipeline function is supported — choose the language that suits your team.
 
-### Pipeline mode with function-kcl
+### Pipeline mode
 
-All SCO compositions use pipeline mode with `function-kcl` as the primary logic step and `function-auto-ready` for readiness detection:
+All SCO compositions use pipeline mode with a logic function followed by `function-auto-ready` for readiness detection:
 
 ```yaml
 spec:
   mode: Pipeline
   pipeline:
-    - step: kcl
+    - step: main
       functionRef:
-        name: function-kcl
+        name: function-kcl   # or function-go-templating, function-pythonic, etc.
       input:
-        apiVersion: krm.kcl.dev/v1alpha1
-        kind: KCLInput
-        spec:
-          dependencies: |
-            stakaterCommon = { oci = "oci://ghcr.io/stakater/compositions/kcl/stakater-common", tag = "0.0.2" }
-          source: |
-            # KCL script here
+        # function-specific input here
     - step: automatically-detect-ready-composed-resources
       functionRef:
         name: function-auto-ready
 ```
 
-### KCL script skeleton
-
-Every KCL composition follows the same skeleton:
+### KCL skeleton (`function-kcl`)
 
 ```kcl
-import stakaterCommon as sc
-
 # 1. Extract context
 oxr = option("params").oxr    # The composite resource being reconciled
-ocds = option("params").ocds  # Currently observed composed resources
-a = sc.generateItemMethods(ocds)
 
 # 2. Pull parameters
 spec = oxr.spec
 parameters = spec.parameters
 kubernetesProvider = spec?.providerConfigsRef?.kubernetes or "kubernetes-provider"
 
-# 3. Define resources
-_myResource = a.createItem({
-    resourceName: "unique-stable-name"
-    content: {
-        apiVersion: "..."
-        kind: "..."
-        metadata: {name: "..."}
-        spec: {...}
+# 3. Define resources as a list
+# Each item needs a "krm.kcl.dev/composition-resource-name" annotation
+# for stable identity across reconciliations
+items = [
+    {
+        apiVersion: "kubernetes.crossplane.io/v1alpha2"
+        kind: "Object"
+        metadata: {
+            name: parameters.myParam
+            annotations: {
+                "krm.kcl.dev/composition-resource-name": "my-resource"
+            }
+        }
+        spec: {
+            providerConfigRef: {name: kubernetesProvider}
+            forProvider: {
+                manifest: {
+                    apiVersion: "..."
+                    kind: "..."
+                    metadata: {name: parameters.myParam, namespace: spec.claimRef.namespace}
+                    spec: {...}
+                }
+            }
+        }
     }
-    conditionPropagation: a.defaultPropagation()
-})
+]
+```
 
-# 4. Render — must be last statement
-items = a.renderItems({})
+### Go templates skeleton (`function-go-templating`)
+
+```yaml
+input:
+  apiVersion: gotemplating.fn.crossplane.io/v1beta1
+  kind: GoTemplate
+  source: Inline
+  inline:
+    template: |
+      {{- $params := .observed.composite.resource.spec.parameters }}
+      {{- $spec := .observed.composite.resource.spec }}
+      ---
+      apiVersion: kubernetes.crossplane.io/v1alpha2
+      kind: Object
+      metadata:
+        name: {{ $params.myParam }}
+        annotations:
+          gotemplating.fn.crossplane.io/composition-resource-name: my-resource
+      spec:
+        providerConfigRef:
+          name: {{ default "kubernetes-provider" $spec.providerConfigsRef.kubernetes }}
+        forProvider:
+          manifest:
+            apiVersion: "..."
+            kind: "..."
+            metadata:
+              name: {{ $params.myParam }}
+              namespace: {{ $spec.claimRef.namespace }}
+            spec: {}
+```
+
+### Python skeleton (`function-pythonic`)
+
+```python
+from crossplane.function import resource
+from crossplane.function.proto.v1 import run_function_pb2 as fnv1
+
+def compose(req: fnv1.RunFunctionRequest, rsp: fnv1.RunFunctionResponse):
+    params = req.observed.composite.resource["spec"]["parameters"]
+    spec = req.observed.composite.resource["spec"]
+
+    k8s_provider = spec.get("providerConfigsRef", {}).get(
+        "kubernetes", "kubernetes-provider"
+    )
+
+    resource.update(rsp.desired.resources["my-resource"], {
+        "apiVersion": "kubernetes.crossplane.io/v1alpha2",
+        "kind": "Object",
+        "metadata": {"name": params["myParam"]},
+        "spec": {
+            "providerConfigRef": {"name": k8s_provider},
+            "forProvider": {
+                "manifest": {
+                    "apiVersion": "...",
+                    "kind": "...",
+                    "metadata": {
+                        "name": params["myParam"],
+                        "namespace": spec["claimRef"]["namespace"],
+                    },
+                    "spec": {},
+                }
+            },
+        },
+    })
 ```
 
 ---
@@ -73,87 +139,121 @@ items = a.renderItems({})
 
 ### Resource dependencies
 
-Use `dependsOn` to enforce creation order. The framework also generates Crossplane `Usage` resources to enforce safe deletion ordering:
+Use Crossplane `Usage` resources to enforce creation and deletion ordering. Create the `Usage` alongside the dependent resource so Crossplane will not delete the dependency until all dependents are removed:
 
 ```kcl
-_namespace = a.createItem({
-    resourceName: "namespace"
-    content: {...}
-})
-
-_deployment = a.createItem({
-    resourceName: "deployment"
-    dependsOn: [_namespace]  # Created only after namespace is ready
-    content: {...}
-})
+items = [
+    # 1. The primary resource
+    {
+        apiVersion: "kubernetes.crossplane.io/v1alpha2"
+        kind: "Object"
+        metadata: {
+            name: "my-namespace"
+            annotations: {"krm.kcl.dev/composition-resource-name": "namespace"}
+        }
+        spec: {
+            providerConfigRef: {name: kubernetesProvider}
+            forProvider: {manifest: {apiVersion: "v1", kind: "Namespace", metadata: {name: targetNamespace}}}
+        }
+    }
+    # 2. A dependent resource — its Usage ensures the namespace outlives it
+    {
+        apiVersion: "kubernetes.crossplane.io/v1alpha2"
+        kind: "Object"
+        metadata: {
+            name: "my-deployment"
+            annotations: {"krm.kcl.dev/composition-resource-name": "deployment"}
+        }
+        spec: {
+            providerConfigRef: {name: kubernetesProvider}
+            forProvider: {manifest: {apiVersion: "apps/v1", kind: "Deployment", metadata: {name: "my-app", namespace: targetNamespace}, spec: {}}}
+        }
+    }
+    # 3. Usage — blocks deletion of "namespace" until "deployment" is deleted
+    {
+        apiVersion: "apiextensions.crossplane.io/v1alpha1"
+        kind: "Usage"
+        metadata: {
+            name: "deployment-uses-namespace"
+            annotations: {"krm.kcl.dev/composition-resource-name": "deployment-uses-namespace"}
+        }
+        spec: {
+            of: {apiVersion: "kubernetes.crossplane.io/v1alpha2", kind: "Object", resourceRef: {name: "my-namespace"}}
+            by: {apiVersion: "kubernetes.crossplane.io/v1alpha2", kind: "Object", resourceRef: {name: "my-deployment"}}
+        }
+    }
+]
 ```
 
 ### Propagating status to the consumer
 
-Use `statusDetails.statusFunction` to return fields from composed resource status back to the composite's `.status`:
+To surface connection details on the consumer's claim status, include the composite resource itself in the `items` output with updated status fields:
 
 ```kcl
-_db = a.createItem({
-    resourceName: "database"
-    content: {...}
-    statusDetails: {
-        statusFunction: lambda item: sc.savedItem -> {str:any} {
-            {
-                endpoint: item.status?.atProvider?.endpoint
-                port: item.status?.atProvider?.port
-            }
-        }
+oxr = option("params").oxr
+ocds = option("params").ocds
+
+# Read status from the observed composed resource (if it already exists)
+observed_db = ocds?.["postgresql-cluster"]?.Resource
+endpoint = observed_db?.status?.atProvider?.manifest?.status?.writeService or ""
+
+# Write status back to the composite
+_xr_patch = {
+    apiVersion: oxr.apiVersion
+    kind: oxr.kind
+    metadata: {name: oxr.metadata.name}
+    status: {
+        endpoint: endpoint
+        port: 5432
     }
-})
-```
+}
 
-These fields appear on the consumer's claim status, making connection information discoverable without accessing the service cluster directly.
-
-### Exposing connection details
-
-Use `connectionDetails` to write secrets to the consumer's connection secret:
-
-```kcl
-_secret = a.createItem({
-    resourceName: "connection-secret"
-    content: {...}
-    connectionDetails: {
-        rawDataFunction: lambda item: sc.savedItem -> {str:str} {
-            {
-                "db-endpoint": item.status?.atProvider?.endpoint or ""
-                "db-password": item.status?.atProvider?.password or ""
-            }
-        }
-    }
-})
+items = [_cluster, _xr_patch]
 ```
 
 ### Conditional resource creation
 
-Skip resources based on parameter values:
+Use a conditional list comprehension to include or skip resources:
 
 ```kcl
-_backup = a.createItem({
-    resourceName: "backup-config"
-    condition: lambda _items: {str:sc.savedItem} -> bool {
-        enableBackup == True
+enable_backup = parameters?.enableBackup or False
+
+_backup = [
+    {
+        apiVersion: "v1"
+        kind: "ConfigMap"
+        metadata: {
+            name: "backup-config"
+            annotations: {"krm.kcl.dev/composition-resource-name": "backup-config"}
+        }
+        # ...
     }
-    content: {...}
-})
+] if enable_backup else []
+
+items = [_cluster] + _backup
 ```
 
 ### Iterating to create multiple resources
 
 ```kcl
-_configMaps = [a.createItem({
-    resourceName: "config-{}".format(i)
-    content: {
+config_items = parameters?.configItems or []
+
+_configMaps = [
+    {
         apiVersion: "v1"
         kind: "ConfigMap"
-        metadata: {name: "{}-{}".format(baseName, i)}
+        metadata: {
+            name: "{}-{}".format(base_name, i)
+            annotations: {
+                "krm.kcl.dev/composition-resource-name": "config-{}".format(i)
+            }
+        }
         data: {key: item.value}
     }
-}) for i, item in configItems]
+    for i, item in config_items
+]
+
+items = _configMaps
 ```
 
 ---
@@ -163,36 +263,50 @@ _configMaps = [a.createItem({
 The `kubernetes-provider` is the workhorse for most compositions — it manages Kubernetes resources on the service cluster through Crossplane `Object` resources:
 
 ```kcl
-_configMap = a.createItem({
-    resourceName: "app-config"
-    content: {
+items = [
+    {
         apiVersion: "kubernetes.crossplane.io/v1alpha2"
         kind: "Object"
-        metadata: {name: "app-config"}
+        metadata: {
+            name: "app-config"
+            annotations: {"krm.kcl.dev/composition-resource-name": "app-config"}
+        }
         spec: {
             providerConfigRef: {name: kubernetesProvider}
             forProvider: {
                 manifest: {
                     apiVersion: "v1"
                     kind: "ConfigMap"
-                    metadata: {
-                        name: "app-config"
-                        namespace: targetNamespace
-                    }
+                    metadata: {name: "app-config", namespace: targetNamespace}
                     data: {key: "value"}
                 }
             }
         }
     }
-})
+]
 ```
 
 Use `managementPolicies: ["Observe"]` to read an existing resource without managing it:
 
 ```kcl
-spec: {
-    managementPolicies: ["Observe"]
-    ...
+{
+    apiVersion: "kubernetes.crossplane.io/v1alpha2"
+    kind: "Object"
+    metadata: {
+        name: "existing-secret"
+        annotations: {"krm.kcl.dev/composition-resource-name": "existing-secret"}
+    }
+    spec: {
+        managementPolicies: ["Observe"]
+        providerConfigRef: {name: kubernetesProvider}
+        forProvider: {
+            manifest: {
+                apiVersion: "v1"
+                kind: "Secret"
+                metadata: {name: "my-secret", namespace: targetNamespace}
+            }
+        }
+    }
 }
 ```
 

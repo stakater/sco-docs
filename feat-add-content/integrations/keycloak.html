@@ -5760,21 +5760,21 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 
 
 <h1 id="keycloak">Keycloak<a class="headerlink" href="#keycloak" title="Permanent link">#</a></h1>
-<p>Keycloak is the identity platform embedded in SCO. It provides each organisation with a fully isolated, production-grade identity provider (IDP) — supporting SSO, OIDC, SAML, LDAP federation, and fine-grained role management — without any shared identity pool between tenants.</p>
+<p>Keycloak is the identity platform embedded in SCO. It provides each organisation with a fully isolated, production-grade identity provider (IdP) — supporting SSO, OIDC, SAML, LDAP federation, and fine-grained role management — without any shared identity pool between tenants.</p>
 <hr>
 <h2 id="role-in-sco">Role in SCO<a class="headerlink" href="#role-in-sco" title="Permanent link">#</a></h2>
 <p>Every organisation on the platform gets its own Keycloak <strong>realm</strong>. A realm is a completely isolated identity namespace: users, groups, clients, roles, and authentication flows within one realm have no visibility into any other realm. An organisation's administrators manage their realm independently; platform operators manage the Keycloak instance itself.</p>
 <div class="highlight"><pre><span></span><code>Keycloak instance (platform-managed)
-├── realm: org-acme        ← Organisation A's isolated IDP
+├── realm: org-acme        ← Organisation A's isolated IdP
 │   ├── Users (Alice, Bob, Carol)
 │   ├── Groups (developers, admins)
 │   ├── Clients (SCO console, kubectl OIDC)
 │   └── Identity providers (corporate LDAP, Google SSO)
-└── realm: org-globex      ← Organisation B's isolated IDP
+└── realm: org-globex      ← Organisation B's isolated IdP
     ├── Users (different set)
     └── ...
 </code></pre></div>
-<p>From a consumer's perspective, their organisation simply has an IDP they authenticate against. Keycloak is the engine behind it, but consumers interact only with the standard OIDC/SAML flows they already know.</p>
+<p>From a consumer's perspective, their organisation simply has an IdP they authenticate against. Keycloak is the engine behind it, but consumers interact only with the standard OIDC/SAML flows they already know.</p>
 <hr>
 <h2 id="multi-tenancy-model">Multi-Tenancy Model<a class="headerlink" href="#multi-tenancy-model" title="Permanent link">#</a></h2>
 <p>Keycloak's realm-per-organisation model gives SCO strong multi-tenancy guarantees at the identity layer:</p>
@@ -5798,7 +5798,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <p>Platform operators do not need to manually create or configure realms in most cases. The automation handles the full lifecycle.</p>
 <hr>
 <h2 id="organisation-identity-provider-federation">Organisation Identity Provider Federation<a class="headerlink" href="#organisation-identity-provider-federation" title="Permanent link">#</a></h2>
-<p>Organisations with an existing corporate directory (LDAP, Active Directory, Google Workspace, Azure AD, Okta) can federate that identity provider into their Keycloak realm. Users then log in with their existing corporate credentials; Keycloak handles the federation transparently.</p>
+<p>Organisations with an existing corporate directory (LDAP, Active Directory, Google Workspace, Azure AD, <code>Okta</code>) can federate that identity provider into their Keycloak realm. Users then log in with their existing corporate credentials; Keycloak handles the federation transparently.</p>
 <h3 id="configuring-ldap-federation">Configuring LDAP federation<a class="headerlink" href="#configuring-ldap-federation" title="Permanent link">#</a></h3>
 <p>In the Keycloak admin console for the organisation's realm, navigate to <strong>User Federation</strong> and add an LDAP provider:</p>
 <table>
@@ -5830,7 +5830,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <td><code>ou=users,dc=example,dc=com</code></td>
 </tr>
 <tr>
-<td>UUID LDAP Attribute</td>
+<td>uuid LDAP Attribute</td>
 <td><code>objectGUID</code> (AD) or <code>entryUUID</code></td>
 </tr>
 <tr>
@@ -5893,12 +5893,12 @@ Default Scopes:    openid email profile
 <ul>
 <li>Inspecting and troubleshooting any realm</li>
 <li>Configuring instance-level settings (email, brute force protection, event logging)</li>
-<li>Managing the master realm and administrative service accounts</li>
+<li>Managing the Keycloak administration realm and administrative service accounts</li>
 <li>Reviewing audit events across all realms</li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Organisation-level administrators have access only to their own realm through a delegated admin configuration. They cannot see other organisations' realms or the master realm.</p>
+<p>Organisation-level administrators have access only to their own realm through a delegated admin configuration. They cannot see other organisations' realms or the Keycloak administration realm.</p>
 </div>
 <hr>
 <h2 id="whats-next">What's Next?<a class="headerlink" href="#whats-next" title="Permanent link">#</a></h2>

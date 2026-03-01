@@ -6344,8 +6344,8 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <p><strong>Providers installed on SCO:</strong></p>
 <ul>
 <li><code>provider-kubernetes</code> — manages Kubernetes resources on the service cluster (Crossplane's workhorse for almost everything)</li>
-<li><code>provider-helm</code> — deploys Helm releases from compositions (used for api-syncagent deployments)</li>
-<li><code>provider-kcp</code> — manages KCP workspace resources (APIExports, APIBindings, workspace hierarchy)</li>
+<li><code>provider-helm</code> — deploys Helm releases from compositions (used for <code>api-syncagent</code> deployments)</li>
+<li><code>provider-kcp</code> — manages KCP workspace resources (<code>APIExports</code>, <code>APIBindings</code>, workspace hierarchy)</li>
 <li><code>provider-keycloak</code> — manages Keycloak realms, users, groups, and clients</li>
 <li><code>provider-aws</code> / <code>provider-azure</code> / <code>provider-gcp</code> — cloud infrastructure for compositions that require it</li>
 <li><code>provider-vault</code> (OpenBao-compatible) — manages secrets and dynamic credentials</li>
@@ -6365,7 +6365,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <li>Provides each organisation with an organisation workspace</li>
 <li>Provides each project with a project workspace — its own Kubernetes API endpoint</li>
 <li>Hosts <code>APIExport</code> resources that declare which APIs are available to consumer workspaces</li>
-<li>Routes API requests from consumers to the api-syncagent for fulfillment</li>
+<li>Routes API requests from consumers to the <code>api-syncagent</code> for fulfillment</li>
 <li>Enforces API-level isolation: resources in one workspace are invisible to all other workspaces</li>
 </ul>
 <p><strong>Workspace hierarchy:</strong></p>
@@ -6376,10 +6376,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 └── org-globex
     └── proj-apps
 </code></pre></div>
-<p><strong>Integration points:</strong> KCP integrates with the api-syncagent (which bridges workspace API calls to the service cluster), Keycloak (for OIDC token validation per workspace), and MTO (which provisions the physical namespace layer backing each project).</p>
+<p><strong>Integration points:</strong> KCP integrates with the <code>api-syncagent</code> (which bridges workspace API calls to the service cluster), Keycloak (for OIDC token validation per workspace), and MTO (which provisions the physical namespace layer backing each project).</p>
 <p>See <a href="virtual-api-layer.html">Virtual API Layer</a> and <a href="../integrations/kcp.html">KCP Integration</a> for details.</p>
 <h3 id="api-sync-agent">API Sync Agent<a class="headerlink" href="#api-sync-agent" title="Permanent link">#</a></h3>
-<p>The api-syncagent is a per-API-group process that bridges KCP workspaces and the Crossplane service cluster.</p>
+<p>The <code>api-syncagent</code> is a per-API-group process that bridges KCP workspaces and the Crossplane service cluster.</p>
 <p><strong>Role in SCO:</strong></p>
 <ul>
 <li>Watches consumer project workspaces for new claims of published resource types</li>
@@ -6400,7 +6400,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <li>Creates <code>RoleBinding</code> resources from Keycloak group membership to Kubernetes RBAC roles</li>
 <li>Applies namespace templates — standard tooling, default policies, monitoring configuration — to every project namespace</li>
 </ul>
-<p><strong>Integration points:</strong> MTO watches <code>Tenant</code> resources created by SCO's project controller. It integrates with Keycloak group membership for RBAC propagation and with KCP's workspace identity for namespace labelling.</p>
+<p><strong>Integration points:</strong> MTO watches <code>Tenant</code> resources created by the SCO project controller. It integrates with Keycloak group membership for RBAC propagation and with the KCP workspace identity for namespace labelling.</p>
 <p>See <a href="../integrations/mto.html">MTO Integration</a>.</p>
 <hr>
 <h2 id="identity">Identity<a class="headerlink" href="#identity" title="Permanent link">#</a></h2>
@@ -6434,10 +6434,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <p>OpenShift Virtualization extends OpenShift with the ability to run virtual machines alongside containers on the same cluster, using KVM hardware virtualisation on bare-metal nodes.</p>
 <p><strong>Role in SCO:</strong></p>
 <ul>
-<li>Powers the <code>VirtualMachine</code> service — SCO's built-in VM-as-a-service offering</li>
+<li>Powers the <code>VirtualMachine</code> service — the SCO built-in VM-as-a-service offering</li>
 <li>VMs are Kubernetes objects (<code>VirtualMachine</code>, <code>VirtualMachineInstance</code>, <code>DataVolume</code>) managed like any other workload</li>
 <li>Provides live migration, snapshots, and cloning capabilities</li>
-<li>Integrates with Kubernetes networking (Multus, OVN) and storage (CDI, ODF)</li>
+<li>Integrates with Kubernetes networking (<code>Multus</code>, OVN) and storage (CDI, ODF)</li>
 </ul>
 <p><strong>Service delivered to consumers:</strong> A consumer applies a <code>compute.cloud.stakater.com/v1 VirtualMachine</code> claim. The composition provisions a KubeVirt <code>VirtualMachine</code> with the chosen OS image, instance type, SSH key, and network configuration. The consumer receives an IP address or hostname to connect to their VM.</p>
 <p><strong>Supported instance families:</strong></p>
@@ -6479,7 +6479,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <p>Hypershift is Red Hat's hosted control plane technology. It runs OpenShift cluster control planes as pods on the management cluster, separating the control plane from the data plane (worker nodes).</p>
 <p><strong>Role in SCO:</strong></p>
 <ul>
-<li>Powers the <code>OpenShiftCluster</code> service — SCO's Kubernetes-as-a-service offering</li>
+<li>Powers the <code>OpenShiftCluster</code> service — the SCO Kubernetes-as-a-service offering</li>
 <li>Control planes for hosted clusters run in the management cluster's <code>hypershift</code> namespace set</li>
 <li>Worker node pools are provisioned on available infrastructure (bare metal, cloud VMs)</li>
 <li>Dramatically reduces resource overhead vs. standalone clusters — no dedicated control plane nodes required per tenant cluster</li>
@@ -6488,9 +6488,9 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <p><strong>Service delivered to consumers:</strong> A consumer applies a <code>kubernetes.cloud.stakater.com/v1 OpenShiftCluster</code> claim. Hypershift provisions a complete OpenShift cluster: an etcd instance, API server, controller manager, scheduler, and an ingress and DNS configuration — all running as pods. The consumer receives a kubeconfig for cluster-admin access to their hosted cluster.</p>
 <hr>
 <h2 id="operator-ecosystem-services-to-publish">Operator Ecosystem: Services to Publish<a class="headerlink" href="#operator-ecosystem-services-to-publish" title="Permanent link">#</a></h2>
-<p>SCO's composition engine can wrap any Kubernetes operator. The following are well-tested, Red Hat-supported operators that platform providers can publish as self-service catalogue entries on top of SCO:</p>
-<h3 id="strimzi-apache-kafka">Strimzi (Apache Kafka)<a class="headerlink" href="#strimzi-apache-kafka" title="Permanent link">#</a></h3>
-<p>Strimzi manages Apache Kafka clusters, topics, users, and connectors as Kubernetes CRDs. On SCO, a provider can expose a <code>KafkaCluster</code> claim backed by a Strimzi composition — the consumer declares a managed Kafka cluster and Strimzi reconciles the underlying brokers, ZooKeeper (or KRaft) nodes, and storage.</p>
+<p>The SCO composition engine can wrap any Kubernetes operator. The following are well-tested, Red Hat-supported operators that platform providers can publish as self-service catalogue entries on top of SCO:</p>
+<h3 id="strimzi-apache-kafka"><code>Strimzi</code> (Apache Kafka)<a class="headerlink" href="#strimzi-apache-kafka" title="Permanent link">#</a></h3>
+<p><code>Strimzi</code> manages Apache Kafka clusters, topics, users, and connectors as Kubernetes CRDs. On SCO, a provider can expose a <code>KafkaCluster</code> claim backed by a <code>Strimzi</code> composition — the consumer declares a managed Kafka cluster and <code>Strimzi</code> reconciles the underlying brokers, ZooKeeper (or KRaft) nodes, and storage.</p>
 <p><strong>Use cases:</strong> Event streaming pipelines, microservice decoupling, real-time data processing.</p>
 <h3 id="cloudnativepg-postgresql">CloudNativePG (PostgreSQL)<a class="headerlink" href="#cloudnativepg-postgresql" title="Permanent link">#</a></h3>
 <p>CloudNativePG manages PostgreSQL clusters with high availability, streaming replication, automated failover, and continuous archiving to object storage. A <code>PostgreSQLDatabase</code> service on SCO wraps CNPG to give consumers on-demand, production-grade PostgreSQL with connection pooling (PgBouncer) and backup configured automatically.</p>

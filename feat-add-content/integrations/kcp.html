@@ -5824,8 +5824,8 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </ul>
 <hr>
 <h2 id="virtual-api-layer-how-kcp-serves-apis-to-projects">Virtual API Layer: How KCP Serves APIs to Projects<a class="headerlink" href="#virtual-api-layer-how-kcp-serves-apis-to-projects" title="Permanent link">#</a></h2>
-<p>KCP's key capability is the ability to publish APIs from one workspace and have them appear as native Kubernetes APIs in another workspace. SCO uses this to deliver the service catalogue to consumers.</p>
-<h3 id="apiexport-and-apibinding">APIExport and APIBinding<a class="headerlink" href="#apiexport-and-apibinding" title="Permanent link">#</a></h3>
+<p>The key KCP capability is the ability to publish APIs from one workspace and have them appear as native Kubernetes APIs in another workspace. SCO uses this to deliver the service catalogue to consumers.</p>
+<h3 id="apiexport-and-apibinding"><code>APIExport</code> and <code>APIBinding</code><a class="headerlink" href="#apiexport-and-apibinding" title="Permanent link">#</a></h3>
 <p>When the platform team defines a service — say, a <code>VirtualMachine</code> claim — SCO publishes that API through an <code>APIExport</code> in the platform's root workspace. The exported API becomes available for any project to bind.</p>
 <p>When a project is created, SCO automatically creates <code>APIBinding</code> resources inside that project's workspace. These bindings import the exported APIs into the project, making them available as first-class Kubernetes resource types. A consumer in that project can then <code>kubectl apply</code> a <code>VirtualMachine</code> claim with no additional configuration.</p>
 <div class="highlight"><pre><span></span><code>Platform root workspace
@@ -5856,7 +5856,7 @@ kubectl<span class="w"> </span>get<span class="w"> </span>apibindings
 </code></pre></div>
 <hr>
 <h2 id="how-sco-automates-kcp">How SCO Automates KCP<a class="headerlink" href="#how-sco-automates-kcp" title="Permanent link">#</a></h2>
-<p>Platform operators do not manage KCP workspaces or bindings directly in normal operation. SCO's controllers handle the full lifecycle:</p>
+<p>Platform operators do not manage KCP workspaces or bindings directly in normal operation. the SCO controllers handle the full lifecycle:</p>
 <ul>
 <li>When a <strong>Organisation</strong> is created, SCO creates the corresponding KCP workspace hierarchy and configures IAM.</li>
 <li>When a <strong>Project</strong> is created, SCO creates the project workspace, applies the appropriate <code>APIBinding</code> resources, and sets up network isolation and quota.</li>

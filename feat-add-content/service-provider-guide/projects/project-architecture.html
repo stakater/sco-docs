@@ -5760,7 +5760,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <p>For a project named <code>proj-frontend</code> with a VirtualMachine service (<code>namespaceSuffix: vms</code>):</p>
 <div class="highlight"><pre><span></span><code>ws-proj-frontend-vms
 </code></pre></div>
-<p>When the api-syncagent syncs a <code>VirtualMachine</code> claim from the project workspace, it creates the corresponding object in <code>ws-proj-frontend-vms</code> on the service cluster. This keeps objects from different projects physically isolated at the namespace level even when served by the same sync agent process.</p>
+<p>When the <code>api-syncagent</code> syncs a <code>VirtualMachine</code> claim from the project workspace, it creates the corresponding object in <code>ws-proj-frontend-vms</code> on the service cluster. This keeps objects from different projects physically isolated at the namespace level even when served by the same sync agent process.</p>
 <hr>
 <h2 id="resource-quota-profiles">Resource Quota Profiles<a class="headerlink" href="#resource-quota-profiles" title="Permanent link">#</a></h2>
 <p>Projects are provisioned with a quota profile declared in the <code>Project</code> claim:</p>
@@ -5832,7 +5832,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </tr>
 </tbody>
 </table>
-<p>Group membership from the organisation's identity provider is automatically propagated into Kubernetes role bindings. Adding a user to a group in the IDP grants them the corresponding project access with no manual Kubernetes RBAC update required.</p>
+<p>Group membership from the organisation's identity provider is automatically propagated into Kubernetes role bindings. Adding a user to a group in the IdP grants them the corresponding project access with no manual Kubernetes RBAC update required.</p>
 <hr>
 <h2 id="whats-next">What's Next?<a class="headerlink" href="#whats-next" title="Permanent link">#</a></h2>
 <ul>

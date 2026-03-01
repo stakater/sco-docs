@@ -5850,7 +5850,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 
 
 <h1 id="crossplane">Crossplane<a class="headerlink" href="#crossplane" title="Permanent link">#</a></h1>
-<p>Crossplane is the composition engine that powers SCO's service catalogue. Platform providers use it to define services — virtual machines, clusters, databases, or any infrastructure primitive — as Kubernetes custom resources that consumers can provision via standard claims.</p>
+<p>Crossplane is the composition engine that powers the SCO service catalogue. Platform providers use it to define services — virtual machines, clusters, databases, or any infrastructure primitive — as Kubernetes custom resources that consumers can provision via standard claims.</p>
 <p>SCO ships with Crossplane pre-installed and pre-configured. This page covers how to extend the platform by adding new providers and authoring your own compositions.</p>
 <hr>
 <h2 id="how-crossplane-fits-in-sco">How Crossplane Fits in SCO<a class="headerlink" href="#how-crossplane-fits-in-sco" title="Permanent link">#</a></h2>
@@ -5965,7 +5965,7 @@ Composed resources
 </tr>
 </tbody>
 </table>
-<p>SCO's public service APIs (e.g., <code>compute.cloud.stakater.com/v1 VirtualMachine</code>) are XRDs whose compositions are bundled with the platform. You can add your own XRDs alongside them.</p>
+<p>The SCO public service APIs (e.g., <code>compute.cloud.stakater.com/v1 VirtualMachine</code>) are XRDs whose compositions are bundled with the platform. You can add your own XRDs alongside them.</p>
 <hr>
 <h2 id="writing-your-first-composition">Writing Your First Composition<a class="headerlink" href="#writing-your-first-composition" title="Permanent link">#</a></h2>
 <p>SCO compositions use <strong>function-kcl</strong>, a pipeline function that runs KCL (KCL Configuration Language) scripts to produce composed resources. KCL gives you the full expressiveness of a programming language — conditionals, iteration, string formatting — without leaving the Kubernetes ecosystem.</p>

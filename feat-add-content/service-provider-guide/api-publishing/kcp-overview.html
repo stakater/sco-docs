@@ -5771,7 +5771,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <hr>
 <h2 id="key-concepts">Key Concepts<a class="headerlink" href="#key-concepts" title="Permanent link">#</a></h2>
 <h3 id="workspaces">Workspaces<a class="headerlink" href="#workspaces" title="Permanent link">#</a></h3>
-<p>A workspace is KCP's fundamental unit of isolation. It is a virtual Kubernetes environment with:</p>
+<p>A workspace is the fundamental KCP unit of isolation. It is a virtual Kubernetes environment with:</p>
 <ul>
 <li>Its own API server endpoint (a unique kubeconfig URL)</li>
 <li>Its own resource set — objects in one workspace cannot be seen from another</li>
@@ -5806,17 +5806,17 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </tbody>
 </table>
 <p>Consumers receive a kubeconfig for their project workspace and interact with it as they would any cluster. They are not aware of the workspace abstraction — it simply behaves like a Kubernetes cluster.</p>
-<h3 id="apiexport">APIExport<a class="headerlink" href="#apiexport" title="Permanent link">#</a></h3>
+<h3 id="apiexport"><code>APIExport</code><a class="headerlink" href="#apiexport" title="Permanent link">#</a></h3>
 <p>An <code>APIExport</code> is how a provider declares that an API group (a set of Kubernetes resource types) is available for use across workspaces.</p>
 <p>When the platform defines a new service — for example, a <code>VirtualMachine</code> resource under <code>compute.cloud.stakater.com</code> — that API is backed by a Crossplane composition on the management cluster. The <code>APIExport</code> is the declaration in KCP that says: "this API group exists and can be bound into workspaces".</p>
 <p>An <code>APIExport</code> lives in a platform workspace and is referenced by name. It carries the API schema, and optionally a set of permission claims that grant the export's controller access to objects in consumer workspaces.</p>
-<h3 id="apibinding">APIBinding<a class="headerlink" href="#apibinding" title="Permanent link">#</a></h3>
+<h3 id="apibinding"><code>APIBinding</code><a class="headerlink" href="#apibinding" title="Permanent link">#</a></h3>
 <p>An <code>APIBinding</code> is the consumer-side counterpart. It lives in a project workspace and declares that this workspace should have access to a particular <code>APIExport</code>.</p>
 <p>When a project workspace has an <code>APIBinding</code> to <code>compute.cloud.stakater.com</code>, the <code>VirtualMachine</code> resource type appears natively in that workspace. A consumer can <code>kubectl apply</code> a <code>VirtualMachine</code> claim, and KCP routes it to the composition engine that fulfils it.</p>
 <p>SCO creates <code>APIBinding</code> resources automatically when a project is provisioned. Consumers never configure bindings manually.</p>
 <h3 id="publishedresource-and-the-sync-agent">PublishedResource and the Sync Agent<a class="headerlink" href="#publishedresource-and-the-sync-agent" title="Permanent link">#</a></h3>
 <p>The <code>APIExport</code> declares an API group in KCP. But KCP needs to know how to actually handle objects of that type — where to create them, how to name them, how to map them to backing infrastructure.</p>
-<p>The <strong>api-syncagent</strong> is the component that bridges this gap. It:</p>
+<p>The <strong><code>api-syncagent</code></strong> is the component that bridges this gap. It:</p>
 <ol>
 <li>Watches for new objects of the exported type in consumer workspaces</li>
 <li>Creates corresponding objects on the service cluster (where Crossplane compositions run)</li>
@@ -5878,12 +5878,12 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <p>Organisation workspaces hold IAM configuration. Project workspaces are where consumer workloads live. The platform workspace holds the <code>APIExport</code> declarations that all projects bind.</p>
 <hr>
 <h2 id="what-providers-need-to-know">What Providers Need to Know<a class="headerlink" href="#what-providers-need-to-know" title="Permanent link">#</a></h2>
-<p>As a platform provider, you do not interact with KCP directly for routine operations. SCO's automation handles workspace creation, binding setup, and sync agent configuration.</p>
+<p>As a platform provider, you do not interact with KCP directly for routine operations. the SCO automation handles workspace creation, binding setup, and sync agent configuration.</p>
 <p>You interact with KCP indirectly through:</p>
 <ul>
 <li><strong><code>ApiExport</code> claims</strong> — to expose a new API group to consumer projects (see <a href="publishing-apis.html">Publishing APIs</a>)</li>
 <li><strong><code>Organization</code> and <code>Project</code> resources</strong> — to provision and manage the workspace hierarchy</li>
-<li><strong>Kubeconfig management</strong> — if you need direct workspace access for debugging</li>
+<li><strong>kubeconfig management</strong> — if you need direct workspace access for debugging</li>
 </ul>
 <p>Understanding the KCP model is useful for reasoning about how APIs propagate to consumers, how objects flow between workspaces and the service cluster, and how isolation is enforced at the API layer.</p>
 <hr>

@@ -2525,7 +2525,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <a href="#kubeconfig-structure" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Kubeconfig Structure
+        kubeconfig Structure
       
     </span>
   </a>
@@ -5819,7 +5819,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <a href="#kubeconfig-structure" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Kubeconfig Structure
+        kubeconfig Structure
       
     </span>
   </a>
@@ -5898,7 +5898,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <li><strong>Its own RBAC</strong> — access grants are scoped within the workspace, not shared across workspaces</li>
 <li><strong>Its own OIDC issuer</strong> — token validation is workspace-scoped, backed by the organisation's Keycloak realm</li>
 </ul>
-<p>KCP stores all workspace state in a shared etcd, but each workspace is logically isolated. The KCP process serves each workspace's API from a single binary — there is no per-workspace API server pod or separate control plane process.</p>
+<p>KCP stores all workspace state in a shared etcd, but each workspace is logically isolated. The KCP process serves each workspace API from a single binary — there is no per-workspace API server pod or separate control plane process.</p>
 <p>This makes workspaces extremely lightweight. Provisioning a new project workspace is a matter of seconds and requires no additional compute resources proportional to the number of projects.</p>
 <hr>
 <h2 id="workspace-hierarchy-in-sco">Workspace Hierarchy in SCO<a class="headerlink" href="#workspace-hierarchy-in-sco" title="Permanent link">#</a></h2>
@@ -5924,15 +5924,15 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <p><strong>Organisation workspaces:</strong> One per customer or business unit. Hold IAM resources — user and group definitions that are projected into Keycloak realm configuration. Organisation workspaces are not directly accessed by consumers.</p>
 <p><strong>Project workspaces:</strong> One per team or workload environment. These are the consumer-facing endpoints. Each project workspace contains <code>APIBinding</code> resources (automatically created by SCO) that import the published API groups from the root workspace, making the service catalogue available as native Kubernetes resource types.</p>
 <hr>
-<h2 id="apiexport-and-apibinding">APIExport and APIBinding<a class="headerlink" href="#apiexport-and-apibinding" title="Permanent link">#</a></h2>
-<h3 id="apiexport">APIExport<a class="headerlink" href="#apiexport" title="Permanent link">#</a></h3>
+<h2 id="apiexport-and-apibinding"><code>APIExport</code> and <code>APIBinding</code><a class="headerlink" href="#apiexport-and-apibinding" title="Permanent link">#</a></h2>
+<h3 id="apiexport"><code>APIExport</code><a class="headerlink" href="#apiexport" title="Permanent link">#</a></h3>
 <p>An <code>APIExport</code> lives in the platform root workspace and declares that a set of Kubernetes resource types is available for other workspaces to consume.</p>
 <p>When a platform provider publishes a new service (e.g., <code>databases.cloud.stakater.com/v1 PostgreSQLDatabase</code>), an <code>APIExport</code> is created for that API group. The export includes:</p>
 <ul>
 <li>The set of resource types included (kinds, versions)</li>
-<li>Permission claims — the access the export's controller (the api-syncagent) requires in consumer workspaces to manage the objects placed there</li>
+<li>Permission claims — the access the export's controller (the <code>api-syncagent</code>) requires in consumer workspaces to manage the objects placed there</li>
 </ul>
-<h3 id="apibinding">APIBinding<a class="headerlink" href="#apibinding" title="Permanent link">#</a></h3>
+<h3 id="apibinding"><code>APIBinding</code><a class="headerlink" href="#apibinding" title="Permanent link">#</a></h3>
 <p>An <code>APIBinding</code> lives in a project workspace and declares that this workspace should have access to a particular <code>APIExport</code>. When a binding is created, KCP makes the exported resource types available as native API types in the workspace.</p>
 <p>SCO creates <code>APIBinding</code> resources automatically in every project workspace for all published API groups. Consumers do not configure bindings themselves — the APIs simply appear.</p>
 <p>When a consumer runs <code>kubectl api-resources</code> against their project kubeconfig, they see all bound resource types as if they were built into their cluster.</p>
@@ -5940,14 +5940,14 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <p>When a consumer applies a resource to their project workspace:</p>
 <ol>
 <li>KCP validates the request against the API schema declared in the <code>APIExport</code></li>
-<li>KCP stores the object in the workspace's etcd partition</li>
+<li>KCP stores the object in the workspace etcd partition</li>
 <li>KCP notifies the <code>APIExport</code>'s virtual workspace endpoint that a new object is present</li>
-<li>The api-syncagent (watching that virtual workspace) picks up the new object</li>
+<li>The <code>api-syncagent</code> (watching that virtual workspace) picks up the new object</li>
 </ol>
-<p>The object in the consumer workspace is the source of truth for the consumer. Its status, conditions, and connection details are written back to it by the api-syncagent. The consumer never needs to know that the object is being reconciled on a different cluster.</p>
+<p>The object in the consumer workspace is the source of truth for the consumer. Its status, conditions, and connection details are written back to it by the <code>api-syncagent</code>. The consumer never needs to know that the object is being reconciled on a different cluster.</p>
 <hr>
 <h2 id="the-api-sync-agent">The API Sync Agent<a class="headerlink" href="#the-api-sync-agent" title="Permanent link">#</a></h2>
-<p>The api-syncagent is the bridge between KCP workspaces and the Crossplane service cluster. For each published API group, a dedicated sync agent process watches the virtual workspace endpoint associated with the <code>APIExport</code>.</p>
+<p>The <code>api-syncagent</code> is the bridge between KCP workspaces and the Crossplane service cluster. For each published API group, a dedicated sync agent process watches the virtual workspace endpoint associated with the <code>APIExport</code>.</p>
 <p><strong>Sync flow:</strong></p>
 <div class="highlight"><pre><span></span><code>Consumer workspace (project-frontend)
     VirtualMachine claim applied
@@ -5973,8 +5973,8 @@ api-syncagent syncs status back
            ▼
 Consumer workspace: VirtualMachine shows Ready
 </code></pre></div>
-<p><strong>Namespace mapping:</strong> For each consumer workspace, the sync agent creates a dedicated namespace on the service cluster (named after the workspace, with a suffix from the published resource's <code>namespaceSuffix</code> parameter). This keeps objects for different consumers physically isolated at the namespace level, even though they arrive through the same api-syncagent process.</p>
-<p><strong>Deletion:</strong> When a consumer deletes their claim, the api-syncagent removes the object from the service cluster namespace. Crossplane's composition engine handles the deletion of all composed resources (VMs, volumes, networking) in the correct dependency order.</p>
+<p><strong>Namespace mapping:</strong> For each consumer workspace, the sync agent creates a dedicated namespace on the service cluster (named after the workspace, with a suffix from the published resource's <code>namespaceSuffix</code> parameter). This keeps objects for different consumers physically isolated at the namespace level, even though they arrive through the same <code>api-syncagent</code> process.</p>
+<p><strong>Deletion:</strong> When a consumer deletes their claim, the <code>api-syncagent</code> removes the object from the service cluster namespace. Crossplane's composition engine handles the deletion of all composed resources (VMs, volumes, networking) in the correct dependency order.</p>
 <hr>
 <h2 id="project-workspace-lifecycle">Project Workspace Lifecycle<a class="headerlink" href="#project-workspace-lifecycle" title="Permanent link">#</a></h2>
 <h3 id="provisioning">Provisioning<a class="headerlink" href="#provisioning" title="Permanent link">#</a></h3>
@@ -5988,9 +5988,9 @@ Consumer workspace: VirtualMachine shows Ready
 </ol>
 <p>The workspace is ready in seconds. The consumer receives a kubeconfig and can immediately begin applying resources.</p>
 <h3 id="authentication">Authentication<a class="headerlink" href="#authentication" title="Permanent link">#</a></h3>
-<p>Each KCP workspace validates tokens against the organisation's Keycloak realm. A consumer authenticates to Keycloak (via OIDC), receives a token scoped to their organisation, and uses that token against their project workspace's API server. KCP validates the token signature against the organisation's realm public key.</p>
+<p>Each KCP workspace validates tokens against the organisation's Keycloak realm. A consumer authenticates to Keycloak (via OIDC), receives a token scoped to their organisation, and uses that token against their project workspace API server. KCP validates the token signature against the organisation's realm public key.</p>
 <p>RBAC within the workspace controls which resource types a user can interact with and at what permission level.</p>
-<h3 id="kubeconfig-structure">Kubeconfig Structure<a class="headerlink" href="#kubeconfig-structure" title="Permanent link">#</a></h3>
+<h3 id="kubeconfig-structure">kubeconfig Structure<a class="headerlink" href="#kubeconfig-structure" title="Permanent link">#</a></h3>
 <p>A project workspace kubeconfig looks like a standard Kubernetes kubeconfig:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
 <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Config</span>
@@ -6018,7 +6018,7 @@ Consumer workspace: VirtualMachine shows Ready
 <p>When a project is deleted:</p>
 <ol>
 <li>SCO removes <code>APIBinding</code> resources from the workspace (preventing new claims)</li>
-<li>The api-syncagent completes deletion of all synced objects on the service cluster</li>
+<li>The <code>api-syncagent</code> completes deletion of all synced objects on the service cluster</li>
 <li>Crossplane compositions delete all composed resources</li>
 <li>MTO removes the tenant's namespaces and contained objects</li>
 <li>KCP deletes the workspace and its etcd partition</li>
@@ -6026,10 +6026,10 @@ Consumer workspace: VirtualMachine shows Ready
 <p>Deletion is ordered and safe — infrastructure resources are not deleted until Crossplane confirms their removal.</p>
 <hr>
 <h2 id="scaling-characteristics">Scaling Characteristics<a class="headerlink" href="#scaling-characteristics" title="Permanent link">#</a></h2>
-<p>KCP's workspace model is designed for high workspace counts. A single KCP instance can serve tens of thousands of workspaces with low per-workspace overhead.</p>
+<p>The KCP workspace model is designed for high workspace counts. A single KCP instance can serve tens of thousands of workspaces with low per-workspace overhead.</p>
 <p>The limiting factors in SCO are:</p>
 <ul>
-<li><strong>api-syncagent instances:</strong> one per published API group; each scales horizontally</li>
+<li><strong><code>api-syncagent</code> instances:</strong> one per published API group; each scales horizontally</li>
 <li><strong>Crossplane composition throughput:</strong> scaled by adding provider replicas</li>
 <li><strong>MTO namespace count:</strong> one namespace set per project; Kubernetes supports tens of thousands of namespaces per cluster</li>
 </ul>

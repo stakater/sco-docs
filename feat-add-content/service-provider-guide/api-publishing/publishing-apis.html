@@ -5819,7 +5819,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 
 <h1 id="publishing-apis">Publishing APIs<a class="headerlink" href="#publishing-apis" title="Permanent link">#</a></h1>
 <p>When you define a new service — a Crossplane XRD and composition — that service lives on the management cluster. Making it available in consumer project workspaces requires publishing it through the KCP virtual API layer.</p>
-<p>SCO handles this through the <strong>api-syncagent</strong>: a declarative composition that automates the entire publication pipeline from a single claim.</p>
+<p>SCO handles this through the <strong><code>api-syncagent</code></strong>: a declarative composition that automates the entire publication pipeline from a single claim.</p>
 <hr>
 <h2 id="what-api-publishing-does">What API Publishing Does<a class="headerlink" href="#what-api-publishing-does" title="Permanent link">#</a></h2>
 <p>Publishing an API means making a resource type available as a native Kubernetes resource in consumer project workspaces. After publishing:</p>
@@ -5830,12 +5830,12 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </ul>
 <p>Without this, Crossplane XRDs exist only on the management cluster and are invisible to consumers working against their project API endpoint.</p>
 <hr>
-<h2 id="the-api-syncagent">The api-syncagent<a class="headerlink" href="#the-api-syncagent" title="Permanent link">#</a></h2>
-<p>The api-syncagent is the bridge between the service cluster (where Crossplane runs) and consumer workspaces (where consumers interact with their project APIs).</p>
-<p>For each published API group, the api-syncagent:</p>
+<h2 id="the-api-syncagent">The <code>api-syncagent</code><a class="headerlink" href="#the-api-syncagent" title="Permanent link">#</a></h2>
+<p>The <code>api-syncagent</code> is the bridge between the service cluster (where Crossplane runs) and consumer workspaces (where consumers interact with their project APIs).</p>
+<p>For each published API group, the <code>api-syncagent</code>:</p>
 <ol>
 <li><strong>Watches</strong> consumer workspaces for new claims of the exported type</li>
-<li><strong>Creates</strong> corresponding objects on the service cluster, namespaced per workspace</li>
+<li><strong>Creates</strong> corresponding objects on the service cluster in a workspace-specific namespace</li>
 <li><strong>Synchronises</strong> status and connection details back to the consumer's workspace in real time</li>
 </ol>
 <p>This is declarative and continuous — the sync agent reconciles state on both sides throughout the object's lifecycle, from creation through to deletion.</p>
@@ -5853,7 +5853,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <tr>
 <td><code>PublishedResource</code> (one per resource kind)</td>
 <td>Service cluster</td>
-<td>Maps the KCP resource type to service cluster namespacing and naming rules</td>
+<td>Maps the KCP resource type to service cluster namespace placement and naming rules</td>
 </tr>
 <tr>
 <td><code>APIExport</code> (one per API group)</td>
@@ -5866,7 +5866,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <td>Grants the sync agent permission to manage the exported resource types</td>
 </tr>
 <tr>
-<td>api-syncagent <code>Deployment</code> (via Helm)</td>
+<td><code>api-syncagent</code> <code>Deployment</code> (via Helm)</td>
 <td>Management cluster</td>
 <td>The running sync process that watches and bridges workspaces</td>
 </tr>
@@ -5883,7 +5883,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <p>Before publishing an API, ensure the following are in place:</p>
 <ul>
 <li>The Crossplane XRD and composition for your service are installed and working</li>
-<li><code>infrastructure.stakater.com</code> api available (api-syncagent-package installed)</li>
+<li><code>infrastructure.stakater.com</code> API available (<code>api-syncagent-package</code> installed)</li>
 <li>The <code>kcp-api-syncagent</code> Helm chart installed on the service cluster (provides the <code>PublishedResource</code> CRD and OpenShift security constraints)</li>
 <li>Provider configs available: <code>kubernetes-provider</code>, a KCP provider config, and a Helm provider config</li>
 </ul>

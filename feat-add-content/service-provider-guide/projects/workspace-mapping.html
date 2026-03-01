@@ -5708,11 +5708,11 @@ Namespace: ws-proj-frontend-postgresql
 <h2 id="how-claims-flow-through-the-stack">How Claims Flow Through the Stack<a class="headerlink" href="#how-claims-flow-through-the-stack" title="Permanent link">#</a></h2>
 <p>When a consumer applies a <code>VirtualMachine</code> claim to their project workspace:</p>
 <ol>
-<li>KCP stores the claim in the project workspace's etcd partition</li>
-<li>The api-syncagent (watching the virtual workspace for the <code>compute.cloud.stakater.com</code> API export) detects the new object</li>
-<li>The api-syncagent creates a mirrored object in <code>ws-proj-frontend-vms</code> on the service cluster</li>
+<li>KCP stores the claim in the project workspace etcd partition</li>
+<li>The <code>api-syncagent</code> (watching the virtual workspace for the <code>compute.cloud.stakater.com</code> API export) detects the new object</li>
+<li>The <code>api-syncagent</code> creates a mirrored object in <code>ws-proj-frontend-vms</code> on the service cluster</li>
 <li>Crossplane's composition pipeline runs, creating KubeVirt resources in <code>ws-proj-frontend-vms</code></li>
-<li>The api-syncagent copies status back to the original claim in the KCP workspace</li>
+<li>The <code>api-syncagent</code> copies status back to the original claim in the KCP workspace</li>
 </ol>
 <p>The consumer sees their claim move from <code>Provisioning</code> to <code>Ready</code>. The physical resources live in <code>ws-proj-frontend-vms</code>. The consumer has no access to that namespace — they interact only through the project workspace endpoint.</p>
 <hr>
@@ -5720,7 +5720,7 @@ Namespace: ws-proj-frontend-postgresql
 <p>When a project is deleted, SCO ensures a safe teardown:</p>
 <ol>
 <li><code>APIBinding</code> resources removed from workspace — prevents new claims</li>
-<li>api-syncagent propagates deletions to service cluster namespaces</li>
+<li><code>api-syncagent</code> propagates deletions to service cluster namespaces</li>
 <li>Crossplane composition pipelines delete composed resources in correct dependency order</li>
 <li>MTO Tenant deleted — namespaces and contained objects removed</li>
 <li>KCP workspace deleted — etcd partition purged</li>

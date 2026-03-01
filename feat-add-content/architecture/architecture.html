@@ -5831,7 +5831,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <p><strong>Platform orchestration:</strong> SCO itself is installed and configured through Crossplane compositions. When the <code>ksp up</code> CLI runs, it applies <code>KubeStackPlus</code> and <code>KubeStackConfig</code> claims that Crossplane reconciles — installing KCP, Keycloak, MTO, OpenBao, Hypershift, and all other platform components in the correct order. The platform is not set up by a Helm chart or an Ansible playbook; it is a running Crossplane composition that continuously maintains the platform's desired state.</p>
 <p><strong>Service composition engine:</strong> Platform providers use Crossplane to define services — as XRDs and compositions — that consumers can provision via Kubernetes claims. The composition engine handles the gap between what a consumer declares and what needs to be created in the underlying infrastructure. Providers write KCL functions to express business logic; Crossplane runs them.</p>
 <h3 id="infrastructure-services">Infrastructure Services<a class="headerlink" href="#infrastructure-services" title="Permanent link">#</a></h3>
-<p>These are the purpose-built operators and systems that back SCO's built-in services:</p>
+<p>These are the purpose-built operators and systems that back the SCO built-in services:</p>
 <ul>
 <li><strong>OpenShift Virtualization (KubeVirt):</strong> Enables VMs to run as Kubernetes objects on bare-metal nodes. Powers the <code>VirtualMachine</code> service. Provides live migration, snapshots, and hardware pass-through.</li>
 <li><strong>Hypershift:</strong> Hosted control plane technology that runs OpenShift cluster control planes as pods. Powers the <code>OpenShiftCluster</code> service. Dramatically reduces the resource cost of multi-cluster deployments.</li>
@@ -5869,7 +5869,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
         ↓
 9. Consumer sees Ready status on their VirtualMachine claim
 </code></pre></div>
-<p>The consumer never knows the path through KCP, the api-syncagent, or KubeVirt. They see a Kubernetes resource that went from <code>Pending</code> to <code>Ready</code>.</p>
+<p>The consumer never knows the path through KCP, the <code>api-syncagent</code>, or KubeVirt. They see a Kubernetes resource that went from <code>Pending</code> to <code>Ready</code>.</p>
 <hr>
 <h2 id="deployment-topology">Deployment Topology<a class="headerlink" href="#deployment-topology" title="Permanent link">#</a></h2>
 <p>All SCO components run within the single management OpenShift cluster:</p>

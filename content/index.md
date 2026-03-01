@@ -35,7 +35,7 @@ Built-in marketplace for publishing and consuming service offerings using Kubern
 - **Service Providers** create solutions using standard composition tools (Crossplane, KRO, custom operators)
 - **Cloud Users** browse and provision services through self-service
 - Solutions appear as Kubernetes custom resources
-- Flagship offerings: **Virtual Machines** and **OpenShift-on-OpenShift** (hosted clusters)
+- Flagship offerings: **Virtual Machines** (`compute.cloud.stakater.com`) and **OpenShift Clusters** (`kubernetes.cloud.stakater.com`)
 - Extensible with custom solutions for databases, storage, and more
 
 ### Multi-Access Methods

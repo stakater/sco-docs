@@ -38,25 +38,24 @@ Contact your organization administrator to request a project. Provide:
 Your administrator will create the project using the project package:
 
 ```yaml
-apiVersion: cloud.stakater.com/v1
+apiVersion: tenant.cloud.stakater.com/v1
 kind: Project
 metadata:
-    name: my-app-dev
-    namespace: ws-acme-corp-xxxxx
+  name: my-app-dev
 spec:
-    parameters:
-        name: my-app-dev
-        network:
-            name: app-network
-            cidr: 10.100.0.0/16
-        tenantQuota: small
-        access:
-          - role: admin
-            users:
-              - emma@acmecorp.example.com
-          - role: view
-            groups:
-              - developers
+  parameters:
+    name: my-app-dev
+    network:
+      name: app-network
+      cidr: 10.100.0.0/16
+    tenantQuota: small
+    access:
+      - role: admin
+        users:
+          - emma@acmecorp.example.com
+      - role: view
+        groups:
+          - developers
 ```
 
 Once created, verify your project access:
@@ -117,23 +116,22 @@ Let's provision a virtual machine for Emma's development environment.
 Create a VirtualMachine with a YAML manifest:
 
 ```yaml
-apiVersion: vm.cloud.stakater.com/v1
+apiVersion: compute.cloud.stakater.com/v1
 kind: VirtualMachine
 metadata:
-    name: my-dev-vm
-    namespace: my-app-dev
+  name: my-dev-vm
 spec:
-    parameters:
-        instanceType: o1.medium
-        connection: private
-        sshPublicKey: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC..."
-        cloudInit:
-            userData: |
-                #cloud-config
-                packages:
-                  - git
-                  - curl
-                  - vim
+  parameters:
+    instanceType: o1.medium
+    connection: private
+    sshPublicKey: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC..."
+    cloudInit:
+      userData: |
+        #cloud-config
+        packages:
+          - git
+          - curl
+          - vim
 ```
 
 ```bash
@@ -143,9 +141,9 @@ kubectl apply -f vm.yaml
 Emma can monitor the provisioning:
 
 ```bash
-kubectl get virtualmachine -n my-app-dev
+kubectl get virtualmachine
 
-kubectl describe virtualmachine my-dev-vm -n my-app-dev
+kubectl describe virtualmachine my-dev-vm
 ```
 
 Wait for the VM to be ready:
@@ -160,7 +158,7 @@ my-dev-vm   o1.medium       Ready    3m
 Once ready, get connection details:
 
 ```bash
-kubectl get vm my-dev-vm -n my-app-dev -o jsonpath='{.status.connection}'
+kubectl get vm my-dev-vm -o jsonpath='{.status.connection}'
 ```
 
 SSH into the VM:

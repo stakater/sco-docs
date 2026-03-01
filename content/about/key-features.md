@@ -1,165 +1,95 @@
 # Key Features
 
-This page outlines the key features and capabilities of Stakater Cloud Orchestrator.
+The core capabilities that make SCO a production-grade, self-hosted cloud platform.
 
-## Core Features
+## Virtual API Layer
 
-### Kubernetes Foundation
+Every organisation and project in SCO gets its own **virtual Kubernetes API endpoint**. Consumers interact with this endpoint exactly as they would a real Kubernetes cluster — running `kubectl`, connecting a GitOps pipeline, or pointing a Terraform provider at it.
 
-Built on enterprise-grade Kubernetes with production-ready testing on OpenShift.
+Behind the scenes, this virtual API layer:
 
-- Kubernetes-agnostic architecture (runs on any distribution)
-- Primary platform: Red Hat OpenShift 4.14+ on bare metal
-- VM management using KubeVirt (OpenShift Virtualization)
-- Hosted control planes using hypershift
-- Standard Kubernetes APIs throughout
+- Provides each project with a fully isolated API server surface
+- Enforces tenant boundaries at the API level, not just the namespace level
+- Aggregates APIs published by the platform team into a single endpoint per project
+- Scales to hundreds of concurrent projects on a single management cluster
 
-### Multi-Tenant API Layer
+Consumers experience complete workspace autonomy. Providers retain full visibility and control of the underlying platform.
 
-SCO provides a virtual Kubernetes API layer with true API-level multi-tenancy that abstracts physical infrastructure. Cloud users interact with a unified API surface without needing to know about underlying clusters.
+## Service Composition Engine
 
-- Isolated virtual workspaces per project
-- Standard Kubernetes API compatibility
-- No direct cluster access required
-- Seamless multi-cluster orchestration
-- API-level tenant isolation
+Platform providers define services as **Kubernetes custom resource definitions**. Each service specifies the fields consumers can configure, the defaults that apply, and the infrastructure or platform components that fulfil the request.
 
-### Marketplace
+The composition engine handles the gap between what a consumer declares and what actually needs to be provisioned — creating cloud resources, applying operators, issuing credentials, and wiring components together — all triggered by a single Kubernetes claim.
 
-Built-in marketplace with flagship infrastructure and platform offerings.
+This enables providers to:
 
-- **Virtual Machines** - Full Linux and Windows VMs using OpenShift Virtualization
-- **OpenShift Clusters** - Hosted control planes using hypershift
-- Self-service provisioning
-- Extensible with custom solutions (databases, message queues, etc.)
-- Solution discovery and documentation
+- Expose simple, opinionated APIs for complex infrastructure (e.g., a VM claim that provisions storage, networking, and credentials automatically)
+- Version and evolve service APIs without breaking consumers
+- Compose services from cloud infrastructure, operators, internal APIs, or any combination
+- Offer services across multiple cloud providers or infrastructure backends through a unified API surface
 
-### Solution Orchestration
+## Service Catalogue and Marketplace
 
-Kubernetes-native CRD-based solution framework with flexible composition.
+Providers publish services to a **built-in catalogue**. Consumers browse available services, view documentation, and provision instances — all without involving the platform team after initial publication.
 
-- Define services as Kubernetes custom resources
-- Support for multiple composition tools (Crossplane, KRO, custom operators)
-- Declarative configuration management
-- Multi-resource orchestration
-- Standard Kubernetes workflows
+Out-of-the-box services include:
 
-## Multi-Access Capabilities
+- **Virtual Machines** — Linux VMs with configurable OS, instance size, storage, and network connectivity
+- **OpenShift Clusters** — Hosted Kubernetes clusters on demand with configurable compute and node pool settings
 
-### kubectl Access
+Custom services defined by your platform team appear alongside the built-in offerings in the same catalogue.
 
-Native Kubernetes command-line access through virtual API layer.
+## Project Isolation
 
-- Standard kubectl commands
-- kubeconfig generation
-- Full RBAC support
-- Familiar Kubernetes experience
+Each project is a **fully isolated environment** with:
 
-### Terraform Integration
+- A dedicated virtual API endpoint
+- Scoped network isolation — project traffic is segregated at the network level
+- Resource quotas — configurable limits on CPU, memory, and storage
+- Independent role-based access control — users and groups can be granted access per project without any cross-project visibility
 
-Use Terraform Kubernetes provider against the virtual API.
+Projects are provisioned in seconds and require no manual setup from the platform team. A developer requesting a new environment gets a working, isolated Kubernetes API endpoint immediately.
 
-- Infrastructure as Code
-- Terraform state management
-- Standard Kubernetes provider
-- Declarative resource management
+## Organisation-Level Identity
 
-### GitOps Integration
+Each organisation runs with **fully isolated identity management**. Users, groups, and authentication flows are scoped per organisation — there is no shared identity pool across tenants.
 
-Connect ArgoCD, Flux, or other GitOps tools to SCO.
+This means:
 
-- Continuous deployment
-- Git as source of truth
-- Automated synchronization
-- Standard GitOps workflows
+- An MSP can host multiple customer organisations with zero identity bleed between them
+- Each organisation can integrate its own corporate identity provider (LDAP, SAML, OIDC)
+- Users in one organisation cannot see or access any resources in another
 
-### Custom UI
+## Multi-Access Compatibility
 
-Build custom user interfaces on top of the Kubernetes API.
+The virtual API layer is a standard Kubernetes API — any tool that speaks Kubernetes works with SCO:
 
-- Web console support
-- Custom dashboards
-- Click-based operation capabilities
-- Branded experiences
+| Access Method | Experience |
+|---------------|------------|
+| **kubectl** | Standard commands against the project API endpoint |
+| **GitOps** (ArgoCD, Flux) | Point at the project's kubeconfig; automated sync works as normal |
+| **Terraform** | Kubernetes provider targets the project API endpoint |
+| **Custom UIs** | Build dashboards or portals that talk to the Kubernetes API |
 
-## Isolation & Security
+Consumers use whichever access method suits their workflow. The API is the same regardless.
 
-### Organization Isolation
+## Role-Based Access Control
 
-Each organization gets a dedicated Keycloak realm for complete authentication isolation.
+Access to projects, services, and the organisation itself is managed through Kubernetes-native RBAC. Providers can:
 
-- Separate identity management
-- Custom authentication flows
-- SSO integration per organization
-- User federation support
+- Define organisation-level administrators
+- Grant per-project access to specific users or groups
+- Assign read-only or full-control roles per project
+- Propagate group membership from the organisation identity provider into project role bindings automatically
 
-### Project Isolation
+## Self-Hosted on Your Infrastructure
 
-Projects combine KCP workspaces with MTO tenants for complete isolation.
+SCO runs on **Red Hat OpenShift on bare metal**. It requires no external cloud accounts, no managed control planes, and no public cloud connectivity (unless your services themselves need it).
 
-- Network isolation
-- Resource quotas
-- No host cluster access
-- Separate namespaces per project
-
-### RBAC & Security
-
-Fine-grained access control at all levels.
-
-- Kubernetes-native RBAC
-- Organization-level permissions
-- Project-level permissions
-- Solution-level access control
-
-## Integration Features
-
-### KCP Integration
-
-Virtual API layer powered by KCP.
-
-- `APIExport` publishing
-- Workspace management
-- Multi-cluster API aggregation
-- Virtual control planes
-
-### Multi-Tenant Operator (MTO)
-
-True multi-tenancy with network and resource isolation.
-
-- Network policies
-- Resource quotas
-- Tenant isolation
-- Distributed mode support
-
-### Crossplane Integration
-
-Solution composition using Crossplane.
-
-- Composite Resource Definitions (XRDs)
-- Compositions for service templates
-- Provider support (AWS, Azure, GCP, OpenStack, VMware, etc.)
-- Custom resource management
-
-### Keycloak Integration
-
-Authentication and authorization management.
-
-- Realm per organization
-- OIDC integration
-- User management
-- SSO support
-
-### Vault Integration
-
-Secrets management for solutions.
-
-- External Secrets Operator
-- Dynamic secrets
-- Secrets injection
-- Centralized secret management
+All control plane components, tenant isolation, identity management, and service orchestration run within your own cluster boundaries. You retain full ownership of the platform, the data, and the network.
 
 ## What's Next?
 
-- [Use Cases](use-cases.md) - See how organizations leverage these features
-- [Architecture](../architecture/architecture.md) - Deep dive into the technical architecture
-- [Service Provider Guide](../service-provider-guide/overview.md) - Start building solutions
+- [Use Cases](use-cases.md) - See how organisations apply these features in practice
+- [Benefits](benefits.md) - Understand the business and operational value
+- [Architecture](../architecture/architecture.md) - Explore the technical design

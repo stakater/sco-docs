@@ -23,52 +23,50 @@ SCO comes with flagship solutions out of the box:
 
 The **VirtualMachine** solution leverages OpenShift Virtualization to provide VM-as-a-Service.
 
-**API Group**: `vm.cloud.stakater.com`
+**API Group**: `compute.cloud.stakater.com`
 **Kind**: `VirtualMachine`
 
 Users can provision VMs by creating a custom resource:
 
 ```yaml
-apiVersion: vm.cloud.stakater.com/v1
+apiVersion: compute.cloud.stakater.com/v1
 kind: VirtualMachine
 metadata:
-    name: my-dev-vm
-    namespace: my-project
+  name: my-dev-vm
 spec:
-    parameters:
-        instanceType: o1.medium  # 2 vCPU, 4GB RAM
-        connection: private
-        sshPublicKey: "ssh-rsa AAAAB3Nza..."
-        cloudInit:
-            userData: |
-                #cloud-config
-                packages:
-                  - nginx
+  parameters:
+    instanceType: o1.medium  # 2 vCPU, 4GB RAM
+    connection: private
+    sshPublicKey: "ssh-rsa AAAAB3Nza..."
+    cloudInit:
+      userData: |
+        #cloud-config
+        packages:
+          - nginx
 ```
 
 ### OpenShift Hosted Cluster Solution
 
-The **OpenShiftCluster** solution uses hypershift to provide OpenShift-on-OpenShift.
+The **OpenShiftCluster** solution provides hosted OpenShift clusters on demand.
 
-**API Group**: `openshiftcluster.cloud.stakater.com`
+**API Group**: `kubernetes.cloud.stakater.com`
 **Kind**: `OpenShiftCluster`
 
 Users can provision full OpenShift clusters:
 
 ```yaml
-apiVersion: openshiftcluster.cloud.stakater.com/v1
+apiVersion: kubernetes.cloud.stakater.com/v1
 kind: OpenShiftCluster
 metadata:
-    name: dev-cluster
-    namespace: my-project
+  name: dev-cluster
 spec:
-    parameters:
-        hostedCluster:
-            name: dev-cluster
-            namespace: clusters
-            nodePool:
-                replicas: 3
-                instanceType: m1.large
+  parameters:
+    clusterName: dev-cluster
+    compute:
+      cpu: 8
+      memory: 32Gi
+    nodePool:
+      replicas: 3
 ```
 
 ### Verify Available Solutions
@@ -89,58 +87,44 @@ openshiftclusters.openshiftcluster.cloud.stakater.com  True          True      1
 
 ## Step 2: Publish to the Marketplace
 
-After creating the solution, publish it to make it available to cloud users.
+After installing SCO, the built-in solutions are automatically published to the marketplace. Cloud users can immediately browse and provision VMs and OpenShift clusters from their projects.
 
-!!! note
-    Detailed marketplace publishing workflows will be added in future updates.
+To publish additional custom solutions, see [Publishing APIs](api-publishing/publishing-apis.md) for the full workflow.
 
-## Step 3: Onboard an Organization
+## Step 3: Onboard an Organisation
 
-Organizations provide isolation for different customers or business units. Each organization gets its own Keycloak realm.
+Organisations provide isolation for different customers or business units. Each organisation gets its own isolated identity realm and project namespace.
 
-Organizations are created through the **organization onboarding** workflow, which provisions:
+Organisations are created through the platform onboarding workflow, which provisions the virtual API workspace, identity realm, and all required configuration automatically.
 
-- A dedicated Keycloak realm for authentication
-- Initial admin users and permissions
-- Organization metadata and configuration
-
-**Onboarding Methods**:
-
-1. **Automated**: Triggered by customer signup flow
-1. **Manual**: Created by platform administrators for new customers
-
-To manually onboard a new organization, apply the organization onboarding claim:
+To manually onboard a new organisation, apply the organisation onboarding claim:
 
 ```yaml
 apiVersion: infrastructure.stakater.com/v1alpha1
 kind: XOrgOnboarding
 metadata:
-    name: acme-corp
-    namespace: kcp-config
+  name: acme-corp
 spec:
-    providerConfigRef:
-        name: kubernetes-provider
-    kcpRootProviderConfigRef:
-        name: kcp-root-provider
-    parameters:
-        organizationName: acme-corp
-        adminEmail: admin@acmecorp.example.com
+  providerConfigRef:
+    name: kubernetes-provider
+  kcpRootProviderConfigRef:
+    name: kcp-root-provider
+  parameters:
+    organizationName: acme-corp
+    adminEmail: admin@acmecorp.example.com
 ```
-
-Apply the onboarding manifest:
 
 ```bash
 kubectl apply -f org-onboarding.yaml
 ```
 
-This will create:
+This provisions:
 
-- A dedicated Keycloak realm for the organization
-- A KCP workspace at `root:cloud:acme-corp`
-- Organization namespace and resources
-- Initial admin credentials
+- An isolated identity realm for the organisation
+- A virtual API workspace hierarchy for the organisation and its projects
+- Initial admin credentials sent to the specified email
 
-Sarah can verify the organization was created:
+Verify the organisation was created:
 
 ```bash
 kubectl get organizations
@@ -148,21 +132,25 @@ kubectl get organizations
 
 ## Step 4: Verify Cloud Users Can Access
 
-Once the organization is created:
+Once the organisation is created:
 
-1. Cloud users can log in to their organization
-1. They can create projects within the organization
-1. The VirtualMachine and OpenShiftCluster solutions appear in their marketplace
-1. They can provision VMs and OpenShift clusters in their projects
+1. Cloud users can log in at the organisation's console URL
+1. They can request projects from their organisation administrator
+1. The VirtualMachine and OpenShiftCluster solutions appear in their project marketplace
+1. They can provision services using `kubectl`, the console, Terraform, or GitOps
 
-Verify the solutions are available:
+Verify the built-in solutions are published and available:
 
 ```bash
-# Check that the APIExports are created
-oc get apiexports -n ksp-system
+kubectl get xrds
+```
 
-# Check workspace access
-oc get workspaces
+Expected output:
+
+```text
+NAME                                                          ESTABLISHED   OFFERED   AGE
+virtualmachines.compute.cloud.stakater.com                    True          True      1d
+openshiftclusters.kubernetes.cloud.stakater.com               True          True      1d
 ```
 
 ## What You've Accomplished

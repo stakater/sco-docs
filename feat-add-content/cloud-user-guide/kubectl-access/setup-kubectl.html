@@ -5818,16 +5818,16 @@ choco<span class="w"> </span>install<span class="w"> </span>kubernetes-cli
 <p>Save the file, for example as <code>~/.kube/my-project.yaml</code>.</p>
 <hr>
 <h2 id="step-3-use-the-kubeconfig">Step 3: Use the kubeconfig<a class="headerlink" href="#step-3-use-the-kubeconfig" title="Permanent link">#</a></h2>
-<h4 id="option-a-environment-variable">Option A: Environment variable<a class="headerlink" href="#option-a-environment-variable" title="Permanent link">#</a></h4>
+<h3 id="option-a-environment-variable">Option A: Environment variable<a class="headerlink" href="#option-a-environment-variable" title="Permanent link">#</a></h3>
 <div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">KUBECONFIG</span><span class="o">=</span>~/.kube/my-project.yaml
 kubectl<span class="w"> </span>get<span class="w"> </span>virtualmachines
 </code></pre></div>
-<h4 id="option-b-merge-into-existing-config">Option B: Merge into existing config<a class="headerlink" href="#option-b-merge-into-existing-config" title="Permanent link">#</a></h4>
+<h3 id="option-b-merge-into-existing-config">Option B: Merge into existing config<a class="headerlink" href="#option-b-merge-into-existing-config" title="Permanent link">#</a></h3>
 <div class="highlight"><pre><span></span><code><span class="nv">KUBECONFIG</span><span class="o">=</span>~/.kube/config:~/.kube/my-project.yaml<span class="w"> </span>kubectl<span class="w"> </span>config<span class="w"> </span>view<span class="w"> </span>--flatten<span class="w"> </span>&gt;<span class="w"> </span>~/.kube/merged.yaml
 mv<span class="w"> </span>~/.kube/merged.yaml<span class="w"> </span>~/.kube/config
 kubectl<span class="w"> </span>config<span class="w"> </span>use-context<span class="w"> </span>my-project
 </code></pre></div>
-<h4 id="option-c-per-command-flag">Option C: Per-command flag<a class="headerlink" href="#option-c-per-command-flag" title="Permanent link">#</a></h4>
+<h3 id="option-c-per-command-flag">Option C: Per-command flag<a class="headerlink" href="#option-c-per-command-flag" title="Permanent link">#</a></h3>
 <div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>--kubeconfig<span class="w"> </span>~/.kube/my-project.yaml<span class="w"> </span>get<span class="w"> </span>virtualmachines
 </code></pre></div>
 <hr>

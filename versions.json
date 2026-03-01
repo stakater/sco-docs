@@ -12,13 +12,13 @@
   {
     "version": "renovate-main-playwright-monorepo",
     "title": "renovate-main-playwright-monorepo",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "feat-add-content",
     "title": "feat-add-content",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   }
 ]

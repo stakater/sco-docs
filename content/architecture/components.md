@@ -25,7 +25,7 @@ OpenShift also provides cluster networking (OVN-Kubernetes), persistent storage 
 
 ### OpenShift GitOps (ArgoCD)
 
-ArgoCD is the GitOps engine that installs and continuously reconciles every platform component. The `KubeStackPlus` composition creates a set of ArgoCD `Application` resources — one per component bundle — which ArgoCD then deploys and reconciles. No separate Git repository is required; the platform uses gitless GitOps, with each component bundle packaged as an OCI image (Helm chart plus Crossplane configurations) hosted in a container registry.
+ArgoCD is the GitOps engine that installs and continuously reconciles every platform component. The `KubeStackPlus` composition creates a set of ArgoCD `Application` resources — one per component bundle — which ArgoCD then deploys and reconciles. No separate Git repository is required; the platform uses Gitless GitOps, with each component bundle packaged as an OCI image (Helm chart plus Crossplane configurations) hosted in a container registry.
 
 **Role in SCO:**
 

@@ -100,6 +100,25 @@ Each platform component has a corresponding EnvironmentConfig namespace. The lab
 
 ---
 
+## Discovering Available Configuration Fields
+
+Each addon's EnvironmentConfig stores its Helm values and version under keys following the pattern `{VARIANT}-{PLATFORM}-VALUES` and `{VARIANT}-{PLATFORM}-VERSION` (e.g., `SCOBASIC-OCP-VALUES`). To discover what fields are available for a specific component:
+
+```bash
+# List all addon EnvironmentConfigs
+kubectl get environmentconfigs -l kubestack.stakater.com/config-scope=addon
+
+# Inspect a specific addon's EnvironmentConfig to see its current values
+kubectl get environmentconfig <addon-name> -o yaml
+
+# Example: view the cert-manager configuration
+kubectl get environmentconfig cert-manager -o yaml
+```
+
+The `data` section of the EnvironmentConfig contains the Helm values that are passed to the addon's ArgoCD Application. These values correspond to the Helm chart's `values.yaml` for that addon.
+
+---
+
 ## Viewing Current Configuration
 
 To inspect the current EnvironmentConfig for a component:

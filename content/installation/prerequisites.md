@@ -4,7 +4,7 @@ Requirements for installing Stakater Cloud Orchestrator on OpenShift.
 
 ## Cluster Requirements
 
-- **Platform**: Red Hat OpenShift 4.14+
+- **Platform**: Red Hat OpenShift 4.14+ (`ocp` is the only currently supported platform)
 - **Deployment**: Bare metal (production-supported)
 - **Access**: Cluster administrator privileges
 - **Nodes**: Minimum 6 worker nodes recommended for production

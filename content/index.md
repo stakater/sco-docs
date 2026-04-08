@@ -9,6 +9,11 @@ head:
 
 Welcome to the public documentation for **Stakater Cloud Orchestrator (SCO)**.
 
+This documentation is organised around two external audiences:
+
+- **Cloud consumers** who use the platform to create projects, manage access, and provision services
+- **Platform providers** who host SCO, publish service APIs, and operate the platform for their customer organisations
+
 ## What is SCO?
 
 Stakater Cloud Orchestrator is a Kubernetes-native orchestration platform that enables **Managed Service Providers**, **Enterprises**, and **Cloud Providers** to deliver "anything-as-a-service" to their customers. Built on standard Kubernetes APIs and CRDs, SCO provides complete infrastructure and platform services through a unified self-service portal.
@@ -51,31 +56,31 @@ Cloud users can interact with SCO using their preferred tools:
 
 SCO provides strong isolation at multiple levels:
 
-- **Organizations**: Dedicated Keycloak realm per organization
+- **Organisations**: Dedicated Keycloak realm per organisation
 - **Projects**: Combination of KCP workspace (virtual API) + MTO tenant (actual resources)
 - **Network Isolation**: Complete network separation between projects
 - **No Host Cluster Access**: Users never interact directly with host clusters
 
 ## Who is SCO For?
 
-### Service Providers
+### Platform Providers
 
 Platform engineers and administrators who create and manage service offerings.
 
-**Get Started**: [Service Provider Guide](service-provider-guide/getting-started.md)
+**Get Started**: [Platform Provider Documentation](audience/platform-providers.md)
 
 Key Tasks:
 
 - Create solutions using Crossplane compositions
 - Publish solutions to the marketplace
-- Create organizations for customers
+- Create organisations for customers
 - Manage the platform and infrastructure
 
-### Cloud Users
+### Cloud Consumers
 
 Developers and teams who consume services from the marketplace.
 
-**Get Started**: [Cloud User Guide](cloud-user-guide/getting-started.md)
+**Get Started**: [Cloud Consumer Documentation](audience/cloud-consumers.md)
 
 Key Tasks:
 
@@ -87,10 +92,10 @@ Key Tasks:
 ## How It Works
 
 1. **SCO is installed** on your Kubernetes cluster using the `ksp up` CLI command (tested on OpenShift 4.14+)
-1. **Service providers** create solutions (e.g., VirtualMachine-as-a-Service, OpenShift-as-a-Service) using composition tools
+1. **Platform providers** create solutions (e.g., VirtualMachine-as-a-Service, OpenShift-as-a-Service) using composition tools
 1. Solutions are published to the **marketplace** as Kubernetes custom resources
-1. **Organizations** are created with dedicated Keycloak realms for authentication isolation
-1. Cloud users create **projects** (isolated workspaces with dedicated tenants) within their organization
+1. **Organisations** are created with dedicated Keycloak realms for authentication isolation
+1. Cloud users create **projects** (isolated workspaces with dedicated tenants) within their organisation
 1. Users provision **solution instances** from the marketplace into their projects using standard Kubernetes APIs
 1. All services run in isolated environments with network and resource separation
 
@@ -109,15 +114,17 @@ SCO leverages proven, cloud-native technologies:
 
 ## Quick Links
 
-### For Service Providers
+### For Platform Providers
 
+- [Platform Provider Documentation](audience/platform-providers.md) - Start from the provider landing page
 - [Getting Started](service-provider-guide/getting-started.md) - Create your first solution
 - [Solution Overview](service-provider-guide/solutions/solution-overview.md) - Learn about solutions
-- [Creating Organizations](service-provider-guide/organizations/creating-organizations.md) - Set up organizations
+- [Creating Organisations](service-provider-guide/organizations/creating-organizations.md) - Set up organisations
 - [Publishing Solutions](service-provider-guide/marketplace/publishing-solutions.md) - Publish to marketplace
 
-### For Cloud Users
+### For Cloud Consumers
 
+- [Cloud Consumer Documentation](audience/cloud-consumers.md) - Start from the consumer landing page
 - [Getting Started](cloud-user-guide/getting-started.md) - Provision your first service
 - [Creating Projects](cloud-user-guide/projects/creating-projects.md) - Set up your workspace
 - [Browsing Marketplace](cloud-user-guide/solutions/browsing-marketplace.md) - Find services
@@ -143,8 +150,8 @@ Need help or want to contribute?
 
 Choose your path:
 
-**I want to provide services** → [Service Provider Guide](service-provider-guide/getting-started.md)
+**I want to provide services** → [Platform Provider Documentation](audience/platform-providers.md)
 
-**I want to consume services** → [Cloud User Guide](cloud-user-guide/getting-started.md)
+**I want to consume services** → [Cloud Consumer Documentation](audience/cloud-consumers.md)
 
 **I want to understand SCO** → [Overview](about/overview.md) | [Architecture](architecture/architecture.md)

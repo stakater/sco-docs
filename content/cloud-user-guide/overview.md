@@ -1,8 +1,8 @@
-# Cloud User Guide Overview
+# Cloud Consumer Guide Overview
 
-Welcome to the Cloud User Guide. This section is for developers and teams who consume services from the SCO marketplace.
+Welcome to the cloud consumer path. This section is for developers, team leads, and organisation administrators who consume services from the SCO marketplace.
 
-## Who is This Guide For?
+## Who Is This Guide For?
 
 This guide is designed for:
 
@@ -28,12 +28,9 @@ Throughout this guide, you'll see examples featuring:
 - **Emma** - Developer who builds applications using SCO services
 - **Jordan** - Team Lead who manages projects and coordinates the team
 
-## Coming Soon
-
-Additional overview content will be added.
-
 ## What's Next?
 
 - [Getting Started](getting-started.md) - Quick start guide for cloud users
 - [Creating Projects](projects/creating-projects.md) - Set up your workspace
 - [Browsing Marketplace](solutions/browsing-marketplace.md) - Find services
+- [Cloud Consumer Documentation](../audience/cloud-consumers.md) - Return to the consumer landing page

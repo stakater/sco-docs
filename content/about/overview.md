@@ -4,7 +4,7 @@ Stakater Cloud Orchestrator (SCO) is a Kubernetes-native, self-hosted cloud plat
 
 ## The Problem It Solves
 
-Modern organisations face a recurring tension: infrastructure and platform teams need to maintain control, consistency, and security across shared resources — while developers and product teams need fast, self-service access to the compute, clusters, and tooling they depend on.
+Modern organisations face a recurring tension: infrastructure and platform teams need to maintain control, consistency, and security across shared resources — while developers and product teams need fast, self-service access to computing capacity, clusters, and tooling they depend on.
 
 Traditional solutions force a compromise. Shared clusters create noisy-neighbour problems and blast-radius risks. Dedicated clusters per team are expensive and operationally unsustainable. Ticket-based provisioning slows delivery. Public cloud adds cost, egress fees, and data sovereignty concerns.
 

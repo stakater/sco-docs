@@ -83,18 +83,18 @@ Check that the group claim was accepted:
 kubectl get group engineering-team
 ```
 
-Expected output once ready:
+Expected status once ready:
 
 ```text
-NAME               READY   SYNCED   AGE
-engineering-team   True    True     1m
+READY=True
+SYNCED=True
 ```
 
 Check membership status:
 
 ```bash
 kubectl get group engineering-team \
-  -o jsonpath='{.status.memberships}'
+  -o jsonpath="{.status.memberships}"
 ```
 
 ## Full Examples

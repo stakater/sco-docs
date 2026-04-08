@@ -56,10 +56,10 @@ Wait for the provider to become healthy:
 ```bash
 kubectl get provider provider-aws-s3
 # NAME               INSTALLED   HEALTHY   PACKAGE                                         AGE
-# provider-aws-s3    True        True      xpkg.upbound.io/upbound/provider-aws-s3:...     2m
+# provider-aws-s3    INSTALLED=True   HEALTHY=True   xpkg.upbound.io/upbound/provider-aws-s3:...   2m
 ```
 
-Once healthy, the provider's CRDs are available on the cluster (e.g., `buckets.s3.aws.upbound.io`).
+Once healthy, the provider CRDs are available on the cluster, for example `buckets.s3.aws.upbound.io`.
 
 ### 2. Configure provider credentials
 
@@ -259,7 +259,9 @@ spec:
                         }
                     }
                     spec: {
-                        providerConfigRef: {name: awsProvider}
+                        providerConfigRef: {
+                            name: awsProvider
+                        }
                         forProvider: {
                             region: "eu-west-1"
                             engine: "postgres"
@@ -311,7 +313,9 @@ items = [
                 "krm.kcl.dev/composition-resource-name": "unique-stable-name"
             }
         }
-        spec: {...}
+        spec: {
+            # resource spec
+        }
     }
 ]
 ```

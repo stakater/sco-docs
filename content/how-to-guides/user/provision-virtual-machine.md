@@ -127,18 +127,19 @@ Check the VM status:
 kubectl get virtualmachine my-dev-vm
 ```
 
-Wait for the VM to reach `Running` status:
+Wait for the VM to reach `Running` status with `READY=True` and `SYNCED=True`:
 
 ```text
-NAME         READY   SYNCED   PRINTABLE-STATUS   AGE
-my-dev-vm    True    True     Running            3m
+READY=True
+SYNCED=True
+PRINTABLE-STATUS=Running
 ```
 
 Retrieve the VM's connection details (for `public` VMs):
 
 ```bash
 kubectl get virtualmachine my-dev-vm \
-  -o jsonpath='{.status.vm.serviceHostname}'
+  -o jsonpath="{.status.vm.serviceHostname}"
 ```
 
 SSH into the VM:

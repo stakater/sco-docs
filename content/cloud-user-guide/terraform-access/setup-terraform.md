@@ -6,7 +6,7 @@ Terraform can manage resources in your SCO project using the Kubernetes provider
 
 ## Prerequisites
 
-- Terraform installed ([official install guide](https://developer.hashicorp.com/terraform/install))
+- Terraform installed ([official installation guide](https://developer.hashicorp.com/terraform/install))
 - Your project kubeconfig (see [Setup kubectl](../kubectl-access/setup-kubectl.md))
 
 ---

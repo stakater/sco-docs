@@ -61,7 +61,7 @@ Your project can reach external networks and the internet depending on your plat
 
 ## Resource Quota
 
-Every project has compute and storage limits set by your administrator. If you exceed your quota, resource creation will fail with a quota error. Check your current usage and limits:
+Every project has configured compute and storage limits set by your administrator. If you exceed your quota, resource creation will fail with a quota error. Check your current usage and limits:
 
 ```bash
 kubectl describe resourcequota

@@ -10,7 +10,7 @@ Detailed reference for every component in the Stakater Cloud Orchestrator platfo
 
 OpenShift is the management cluster on which all SCO components run. SCO requires OpenShift (rather than vanilla Kubernetes) for several reasons:
 
-- **OpenShift Virtualization** requires bare-metal nodes with hardware virtualisation support, which OpenShift's node management provisions and configures
+- **OpenShift Virtualization** requires bare-metal nodes with hardware virtualization support, which OpenShift's node management provisions and configures
 - **Hypershift** is officially supported and tested on OpenShift
 - **OpenShift's operator lifecycle management** (OLM) provides a standardised way to install, update, and manage operators from the Red Hat ecosystem
 - **Security Context Constraints** provide a more expressive security model than upstream pod security admission
@@ -174,7 +174,7 @@ OpenBao is the open-source secrets management platform (community fork of HashiC
 
 ### OpenShift Virtualization (KubeVirt)
 
-OpenShift Virtualization extends OpenShift with the ability to run virtual machines alongside containers on the same cluster, using KVM hardware virtualisation on bare-metal nodes.
+OpenShift Virtualization extends OpenShift with the ability to run virtual machines alongside containers on the same cluster, using KVM hardware virtualization on bare-metal nodes.
 
 **Role in SCO:**
 

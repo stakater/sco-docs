@@ -65,8 +65,8 @@ nav:
           - service-provider-guide/marketplace/marketplace-configuration.md
           - how-to-guides/provider/create-postgresql-solution.md
       - Organisations and Projects:
-          - service-provider-guide/organizations/creating-organizations.md
-          - service-provider-guide/organizations/keycloak-realms.md
+          - service-provider-guide/organisations/creating-organizations.md
+          - service-provider-guide/organisations/keycloak-realms.md
           - service-provider-guide/projects/project-architecture.md
           - service-provider-guide/projects/workspace-mapping.md
       - API Publishing:

@@ -136,7 +136,9 @@ spec:
                         }
                     }
                     spec: {
-                        providerConfigRef: {name: kubernetesProvider}
+                        providerConfigRef: {
+                            name: kubernetesProvider
+                        }
                         forProvider: {
                             manifest: {
                                 apiVersion: "postgresql.cnpg.io/v1"
@@ -198,7 +200,7 @@ spec:
 ```bash
 kubectl apply -f test-claim.yaml
 kubectl get postgresqldatabase test-postgres -w
-kubectl get postgresqldatabase test-postgres -o jsonpath='{.status}'
+kubectl get postgresqldatabase test-postgres -o jsonpath="{.status}"
 ```
 
 Remove the test claim before publishing:

@@ -6,7 +6,7 @@ Flux can continuously reconcile your SCO project workspace with a Git repository
 
 ## Prerequisites
 
-- `flux` CLI installed ([official install guide](https://fluxcd.io/flux/installation/))
+- `flux` CLI installed ([official installation guide](https://fluxcd.io/flux/installation/))
 - Your project kubeconfig (see [Setup kubectl](../kubectl-access/setup-kubectl.md))
 - A Git repository containing your manifests
 
@@ -19,15 +19,13 @@ Bootstrap Flux into your project workspace:
 ```bash
 export KUBECONFIG=~/.kube/my-project.yaml
 
-flux bootstrap github \
-  --owner=your-org \
-  --repository=your-repo \
+flux bootstrap git \
+  --url=ssh://git@github.com/your-org/your-repo.git \
   --branch=main \
-  --path=clusters/proj-frontend \
-  --personal
+  --path=clusters/proj-frontend
 ```
 
-Flux creates the `flux-system` namespace in your project workspace and installs its controllers.
+Flux creates the `flux-system` namespace in your project workspace, and installs its controllers.
 
 ---
 

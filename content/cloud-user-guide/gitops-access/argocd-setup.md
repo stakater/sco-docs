@@ -1,20 +1,20 @@
-# ArgoCD Setup
+# Argo CD Setup
 
-You can use ArgoCD to continuously deploy and manage resources in your SCO project workspace. ArgoCD treats your project's virtual API endpoint as a standard Kubernetes cluster.
+You can use Argo CD to continuously deploy and manage resources in your SCO project workspace. Argo CD treats your project's virtual API endpoint as a standard Kubernetes cluster.
 
 ---
 
 ## How it Works
 
-Your project exposes a standard Kubernetes API endpoint (via a kubeconfig). ArgoCD registers this endpoint as a target cluster and syncs your Git repository's manifests — including SCO claims — into the project workspace.
+Your project exposes a standard Kubernetes API endpoint through a kubeconfig. Argo CD registers this endpoint as a target cluster and syncs your Git repository's manifests, including SCO claims, into the project workspace.
 
-SCO claim manifests in your Git repository look the same as any other Kubernetes YAML. ArgoCD does not need special configuration to handle them.
+SCO claim manifests in your Git repository look the same as any other Kubernetes YAML. Argo CD does not need special configuration to handle them.
 
 ---
 
 ## Prerequisites
 
-- ArgoCD deployed (within your project workspace or externally)
+- Argo CD deployed (within your project workspace or externally)
 - Your project kubeconfig (see [Setup kubectl](../kubectl-access/setup-kubectl.md))
 - A Git repository containing your manifests
 
@@ -22,17 +22,17 @@ SCO claim manifests in your Git repository look the same as any other Kubernetes
 
 ## Step 1: Register Your Project as a Cluster
 
-From the ArgoCD CLI, add your project's API endpoint as a target cluster using your kubeconfig:
+From the Argo CD CLI, add your project's API endpoint as a target cluster using your kubeconfig:
 
 ```bash
 # Set the project kubeconfig as active
 export KUBECONFIG=~/.kube/my-project.yaml
 
-# Add the cluster to ArgoCD
+# Add the cluster to Argo CD
 argocd cluster add my-project --name sco-proj-frontend
 ```
 
-ArgoCD will create a service account in your project workspace and use it for ongoing API access.
+Argo CD will create a service account in your project workspace and use it for ongoing API access.
 
 Verify the cluster was added:
 
@@ -42,9 +42,9 @@ argocd cluster list
 
 ---
 
-## Step 2: Create an ArgoCD Application
+## Step 2: Create an Argo CD Application
 
-Define an ArgoCD `Application` that points at your Git repository and targets your SCO project:
+Define an Argo CD `Application` that points at your Git repository and targets your SCO project:
 
 ```yaml
 apiVersion: argoproj.io/v1alpha1
@@ -69,7 +69,7 @@ spec:
 
 The `destination.server` is your project's API endpoint URL from the kubeconfig.
 
-Apply this Application to your ArgoCD instance:
+Apply this Application to your Argo CD instance:
 
 ```bash
 kubectl apply -f application.yaml -n argocd
@@ -79,7 +79,7 @@ kubectl apply -f application.yaml -n argocd
 
 ## Step 3: Add SCO Claims to Your Git Repository
 
-In the Git path ArgoCD is watching, add your SCO claim manifests:
+In the Git path Argo CD is watching, add your SCO claim manifests:
 
 ```yaml
 # environments/frontend/virtual-machine.yaml

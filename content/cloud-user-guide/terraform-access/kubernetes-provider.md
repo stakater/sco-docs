@@ -23,12 +23,16 @@ provider "kubernetes" {
 
 resource "kubernetes_manifest" "frontend_vm" {
   provider = kubernetes.frontend
-  manifest = { ... }
+  manifest = {
+    # frontend claim
+  }
 }
 
 resource "kubernetes_manifest" "backend_db" {
   provider = kubernetes.backend
-  manifest = { ... }
+  manifest = {
+    # backend claim
+  }
 }
 ```
 

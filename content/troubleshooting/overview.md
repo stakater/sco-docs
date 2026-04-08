@@ -67,7 +67,7 @@ kubectl get virtualmachine my-vm -o yaml | grep -A 20 status
 kubectl get openshiftcluster my-cluster -o yaml | grep -A 30 status
 ```
 
-If the claim is Ready but the service is inaccessible, this may be a networking or infrastructure-level failure. Contact your platform administrator with the status output.
+If the claim is Ready, but the service is inaccessible, this may be a networking or infrastructure-level failure. Contact your platform administrator with the status output.
 
 ---
 
@@ -80,7 +80,7 @@ If the claim is Ready but the service is inaccessible, this may be a networking 
 kubectl describe resourcequota
 ```
 
-If you've hit your quota, request an increase from your organisation administrator. Network isolation between projects is enforced by design — cross-project traffic is blocked.
+If you have hit your quota, request an increase from your organisation administrator. Network isolation between projects is enforced by design: cross-project traffic is blocked.
 
 ---
 
@@ -91,7 +91,7 @@ If you've hit your quota, request an increase from your organisation administrat
 kubectl get all
 
 # Recent events (errors shown here first)
-kubectl get events --sort-by='.lastTimestamp'
+kubectl get events --sort-by=".lastTimestamp"
 
 # Full details for any resource
 kubectl describe <kind> <name>

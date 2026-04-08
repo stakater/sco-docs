@@ -6,7 +6,7 @@
 
 ## Prerequisites
 
-- `kubectl` installed ([official install guide](https://kubernetes.io/docs/tasks/tools/))
+- `kubectl` installed ([official installation guide](https://kubernetes.io/docs/tasks/tools/))
 - Access to a project (granted by your organisation administrator)
 - Your project kubeconfig (downloaded from the console or provided by your administrator)
 

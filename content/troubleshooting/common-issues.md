@@ -87,10 +87,10 @@ If stuck for more than 15 minutes, contact your platform administrator.
 
 **Cause:** Cloud-init still running, wrong IP, or firewall issue.
 
-**Fix:** Wait 2–3 minutes after `Ready` for cloud-init to complete, then retry.
+**Fix:** Wait 2 to 3 minutes after the VM reports `Ready`, then retry.
 
 ```bash
-kubectl get virtualmachine my-vm -o jsonpath='{.status}'
+kubectl get virtualmachine my-vm -o jsonpath="{.status}"
 ssh -i ~/.ssh/my-key user@<vm-ip>
 ```
 
@@ -98,7 +98,7 @@ If using `connection: private`, the VM IP is only reachable from within the clus
 
 ---
 
-### Cloud-init script didn't run
+### Cloud-init script did not run
 
 **Cause:** Syntax error in `cloudInit.userData`.
 
@@ -125,10 +125,10 @@ If no progress after 30 minutes, contact your platform administrator.
 
 **Cause:** Cluster hasn't finished provisioning yet.
 
-**Fix:** Wait for `Ready: True`, then check status for connection details:
+**Fix:** Wait for `Ready=True`, then check status for connection details:
 
 ```bash
-kubectl get openshiftcluster my-cluster -o jsonpath='{.status}'
+kubectl get openshiftcluster my-cluster -o jsonpath="{.status}"
 ```
 
 ---

@@ -1,6 +1,6 @@
 # KCP: The Virtual API Layer
 
-KCP (Kubernetes Control Plane) is the subsystem that provides every organisation and project in SCO with its own isolated Kubernetes API endpoint. Understanding its model is essential for platform providers who need to expose services to consumers.
+KCP (Kubernetes Control Plane) is the subsystem that provides every organization and project in SCO with its own isolated Kubernetes API endpoint. Understanding its model is essential for platform providers who need to expose services to consumers.
 
 ---
 
@@ -30,7 +30,7 @@ SCO maps workspaces to its own model:
 | KCP concept | SCO concept | Scope |
 |-------------|-------------|-------|
 | Root workspace | Platform | Owned by the platform team |
-| Organisation workspace | Organisation | One per customer or business unit |
+| Organization workspace | Organization | One per customer or business unit |
 | Project workspace | Project | One per team or workload |
 
 Consumers receive a kubeconfig for their project workspace and interact with it as they would any cluster. They are not aware of the workspace abstraction — it simply behaves like a Kubernetes cluster.
@@ -113,7 +113,7 @@ root workspace (platform team)
 │   ├── APIExport: kubernetes.cloud.stakater.com
 │   └── APIExport: iam.cloud.stakater.com
 │
-├── org-acme (Organisation workspace)
+├── org-acme (Organization workspace)
 │   ├── org-acme-frontend (Project workspace)
 │   │   ├── APIBinding → compute.cloud.stakater.com  ← auto-created
 │   │   ├── APIBinding → kubernetes.cloud.stakater.com
@@ -121,17 +121,17 @@ root workspace (platform team)
 │   └── org-acme-backend (Project workspace)
 │       └── ...
 │
-└── org-globex (Organisation workspace)
+└── org-globex (Organization workspace)
     └── ...
 ```
 
-Organisation workspaces hold IAM configuration. Project workspaces are where consumer workloads live. The platform workspace holds the `APIExport` declarations that all projects bind.
+Organization workspaces hold IAM configuration. Project workspaces are where consumer workloads live. The platform workspace holds the `APIExport` declarations that all projects bind.
 
 ---
 
 ## What Providers Need to Know
 
-As a platform provider, you do not interact with KCP directly for routine operations. the SCO automation handles workspace creation, binding setup, and sync agent configuration.
+As a platform provider, you do not interact with KCP directly for routine operations. The SCO automation handles workspace creation, binding setup, and sync agent configuration.
 
 You interact with KCP indirectly through:
 

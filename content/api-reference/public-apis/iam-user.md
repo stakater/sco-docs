@@ -26,8 +26,8 @@ All parameters are nested under `spec.parameters`.
 
 | Field | Type | Default | Description |
 |-------|------|---------|-------------|
-| `firstName` | `string` | — | User's first name |
-| `lastName` | `string` | — | User's last name |
+| `firstName` | `string` | — | User first name |
+| `lastName` | `string` | — | User last name |
 | `emailVerified` | `boolean` | `false` | Whether the email is pre-verified in the organisation's IdP |
 | `enabled` | `boolean` | `true` | Whether the user can log in immediately |
 

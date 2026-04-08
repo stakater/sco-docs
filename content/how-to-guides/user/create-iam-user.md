@@ -44,8 +44,8 @@ spec:
 
 | Parameter | Default | Description |
 |-----------|---------|-------------|
-| `parameters.firstName` | — | User's first name |
-| `parameters.lastName` | — | User's last name |
+| `parameters.firstName` | — | User first name |
+| `parameters.lastName` | — | User last name |
 | `parameters.emailVerified` | `false` | Whether the email is pre-verified in your organisation's IdP |
 | `parameters.enabled` | `true` | Whether the user can log in immediately |
 
@@ -82,18 +82,18 @@ Check that the user claim was accepted:
 kubectl get user jane-doe
 ```
 
-Expected output once ready:
+Expected status once ready:
 
 ```text
-NAME       READY   SYNCED   AGE
-jane-doe   True    True     1m
+READY=True
+SYNCED=True
 ```
 
 Retrieve the initial password from the status:
 
 ```bash
 kubectl get user jane-doe \
-  -o jsonpath='{.status.user.initialPassword}' | base64 -d
+  -o jsonpath="{.status.user.initialPassword}" | base64 -d
 ```
 
 !!! note

@@ -15,7 +15,7 @@ Use this path if you need to install the platform, create service offerings, pub
 - [Create a PostgreSQL Solution](../how-to-guides/provider/create-postgresql-solution.md) - Build and publish a concrete offering
 - [Create Solutions](../service-provider-guide/solutions/creating-solutions.md) - Design and compose new service APIs
 - [Publish Solutions](../service-provider-guide/marketplace/publishing-solutions.md) - Expose offerings in the marketplace
-- [Create Organisations](../service-provider-guide/organizations/creating-organizations.md) - Onboard a customer organisation
+- [Create Organisations](../service-provider-guide/organisations/creating-organizations.md) - Onboard a customer organisation
 - [Publish APIs](../service-provider-guide/api-publishing/publishing-apis.md) - Make a service API available to consumers
 
 ## Platform Areas

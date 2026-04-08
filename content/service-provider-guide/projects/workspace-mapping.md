@@ -91,7 +91,7 @@ When a project is deleted, SCO ensures a safe teardown:
 Monitor deletion progress:
 
 ```bash
-kubectl get project proj-frontend -o jsonpath='{.status.conditions}'
+kubectl get project proj-frontend -o jsonpath="{.status.conditions}"
 ```
 
 ---

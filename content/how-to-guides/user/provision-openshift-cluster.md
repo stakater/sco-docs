@@ -98,11 +98,11 @@ Check detailed status and conditions:
 kubectl describe openshiftcluster my-cluster
 ```
 
-Once provisioning completes, the cluster status will show `READY: True`:
+Once provisioning completes, the cluster status will show `READY=True` and `SYNCED=True`:
 
 ```text
-NAME         READY   SYNCED   AGE
-my-cluster   True    True     15m
+READY=True
+SYNCED=True
 ```
 
 !!! tip

@@ -33,5 +33,5 @@ Throughout this guide, you'll see examples featuring:
 
 - [Getting Started](getting-started.md) - Quick start guide for service providers
 - [Solutions Overview](solutions/solution-overview.md) - Learn about creating solutions
-- [Creating Organisations](organizations/creating-organizations.md) - Set up organisations
+- [Creating Organisations](organisations/creating-organizations.md) - Set up organisations
 - [Platform Provider Documentation](../audience/platform-providers.md) - Return to the provider landing page

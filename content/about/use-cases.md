@@ -29,7 +29,7 @@ The platform engineering team uses SCO to build an internal developer platform o
 
 - **Virtual machines** for legacy application workloads that aren't containerised
 - **Hosted OpenShift clusters** for teams that need full cluster-admin access to their own environment
-- **Databases and message queues** composed from existing operators and cloud infrastructure
+- **Databases and message queues** composed of existing operators and cloud infrastructure
 - **Developer tooling** pre-configured with CI/CD pipelines and secrets management
 
 Each product team gets a project. They provision services from the catalogue independently. Platform engineering reviews and approves new service types, not individual provisioning requests.

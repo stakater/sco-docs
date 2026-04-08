@@ -9,4 +9,4 @@ Organization management documentation will be added with examples and screenshot
 ## What's Next?
 
 - [Projects](projects.md) - Manage projects within organizations
-- [Creating Organizations](../service-provider-guide/organizations/creating-organizations.md) - Service provider guide
+- [Creating Organizations](../service-provider-guide/organisations/creating-organizations.md) - Service provider guide

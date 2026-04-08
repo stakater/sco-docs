@@ -95,11 +95,11 @@ Check that the project claim was created and is progressing:
 kubectl get project my-project
 ```
 
-Wait for the project to become ready:
+Wait for the project to report ready status:
 
 ```text
-NAME         READY   SYNCED   AGE
-my-project   True    True     2m
+READY=True
+SYNCED=True
 ```
 
 You can also describe the claim to inspect status conditions:

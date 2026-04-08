@@ -119,7 +119,7 @@ SCO leverages proven, cloud-native technologies:
 - [Platform Provider Documentation](audience/platform-providers.md) - Start from the provider landing page
 - [Getting Started](service-provider-guide/getting-started.md) - Create your first solution
 - [Solution Overview](service-provider-guide/solutions/solution-overview.md) - Learn about solutions
-- [Creating Organisations](service-provider-guide/organizations/creating-organizations.md) - Set up organisations
+- [Creating Organisations](service-provider-guide/organisations/creating-organizations.md) - Set up organisations
 - [Publishing Solutions](service-provider-guide/marketplace/publishing-solutions.md) - Publish to marketplace
 
 ### For Cloud Consumers

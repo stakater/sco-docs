@@ -111,7 +111,7 @@ A consumer provisioning a virtual machine follows this path:
    - DataVolume (OS disk)
    - Service (network access)
         ↓
-7. KubeVirt reconciles the VM on a bare-metal hypervisor node
+7. KubeVirt reconciles the VM on a bare-metal node
         ↓
 8. Status propagated back through Crossplane → api-syncagent → KCP workspace
         ↓

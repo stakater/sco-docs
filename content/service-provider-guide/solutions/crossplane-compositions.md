@@ -53,13 +53,20 @@ items = [
             }
         }
         spec: {
-            providerConfigRef: {name: kubernetesProvider}
+            providerConfigRef: {
+                name: kubernetesProvider
+            }
             forProvider: {
                 manifest: {
                     apiVersion: "..."
                     kind: "..."
-                    metadata: {name: parameters.myParam, namespace: spec.claimRef.namespace}
-                    spec: {...}
+                    metadata: {
+                        name: parameters.myParam
+                        namespace: spec.claimRef.namespace
+                    }
+                    spec: {
+                        # resource spec
+                    }
                 }
             }
         }
@@ -149,11 +156,23 @@ items = [
         kind: "Object"
         metadata: {
             name: "my-namespace"
-            annotations: {"krm.kcl.dev/composition-resource-name": "namespace"}
+            annotations: {
+                "krm.kcl.dev/composition-resource-name": "namespace"
+            }
         }
         spec: {
-            providerConfigRef: {name: kubernetesProvider}
-            forProvider: {manifest: {apiVersion: "v1", kind: "Namespace", metadata: {name: targetNamespace}}}
+            providerConfigRef: {
+                name: kubernetesProvider
+            }
+            forProvider: {
+                manifest: {
+                    apiVersion: "v1"
+                    kind: "Namespace"
+                    metadata: {
+                        name: targetNamespace
+                    }
+                }
+            }
         }
     }
     # 2. A dependent resource — its Usage ensures the namespace outlives it
@@ -162,11 +181,25 @@ items = [
         kind: "Object"
         metadata: {
             name: "my-deployment"
-            annotations: {"krm.kcl.dev/composition-resource-name": "deployment"}
+            annotations: {
+                "krm.kcl.dev/composition-resource-name": "deployment"
+            }
         }
         spec: {
-            providerConfigRef: {name: kubernetesProvider}
-            forProvider: {manifest: {apiVersion: "apps/v1", kind: "Deployment", metadata: {name: "my-app", namespace: targetNamespace}, spec: {}}}
+            providerConfigRef: {
+                name: kubernetesProvider
+            }
+            forProvider: {
+                manifest: {
+                    apiVersion: "apps/v1"
+                    kind: "Deployment"
+                    metadata: {
+                        name: "my-app"
+                        namespace: targetNamespace
+                    }
+                    spec: {}
+                }
+            }
         }
     }
     # 3. Usage — blocks deletion of "namespace" until "deployment" is deleted
@@ -175,11 +208,25 @@ items = [
         kind: "Usage"
         metadata: {
             name: "deployment-uses-namespace"
-            annotations: {"krm.kcl.dev/composition-resource-name": "deployment-uses-namespace"}
+            annotations: {
+                "krm.kcl.dev/composition-resource-name": "deployment-uses-namespace"
+            }
         }
         spec: {
-            of: {apiVersion: "kubernetes.crossplane.io/v1alpha2", kind: "Object", resourceRef: {name: "my-namespace"}}
-            by: {apiVersion: "kubernetes.crossplane.io/v1alpha2", kind: "Object", resourceRef: {name: "my-deployment"}}
+            of: {
+                apiVersion: "kubernetes.crossplane.io/v1alpha2"
+                kind: "Object"
+                resourceRef: {
+                    name: "my-namespace"
+                }
+            }
+            by: {
+                apiVersion: "kubernetes.crossplane.io/v1alpha2"
+                kind: "Object"
+                resourceRef: {
+                    name: "my-deployment"
+                }
+            }
         }
     }
 ]
@@ -201,7 +248,9 @@ endpoint = observed_db?.status?.atProvider?.manifest?.status?.writeService or ""
 _xr_patch = {
     apiVersion: oxr.apiVersion
     kind: oxr.kind
-    metadata: {name: oxr.metadata.name}
+    metadata: {
+        name: oxr.metadata.name
+    }
     status: {
         endpoint: endpoint
         port: 5432
@@ -224,7 +273,9 @@ _backup = [
         kind: "ConfigMap"
         metadata: {
             name: "backup-config"
-            annotations: {"krm.kcl.dev/composition-resource-name": "backup-config"}
+            annotations: {
+                "krm.kcl.dev/composition-resource-name": "backup-config"
+            }
         }
         # ...
     }
@@ -248,7 +299,9 @@ _configMaps = [
                 "krm.kcl.dev/composition-resource-name": "config-{}".format(i)
             }
         }
-        data: {key: item.value}
+        data: {
+            key: item.value
+        }
     }
     for i, item in config_items
 ]
@@ -269,16 +322,25 @@ items = [
         kind: "Object"
         metadata: {
             name: "app-config"
-            annotations: {"krm.kcl.dev/composition-resource-name": "app-config"}
+            annotations: {
+                "krm.kcl.dev/composition-resource-name": "app-config"
+            }
         }
         spec: {
-            providerConfigRef: {name: kubernetesProvider}
+            providerConfigRef: {
+                name: kubernetesProvider
+            }
             forProvider: {
                 manifest: {
                     apiVersion: "v1"
                     kind: "ConfigMap"
-                    metadata: {name: "app-config", namespace: targetNamespace}
-                    data: {key: "value"}
+                    metadata: {
+                        name: "app-config"
+                        namespace: targetNamespace
+                    }
+                    data: {
+                        key: "value"
+                    }
                 }
             }
         }
@@ -294,16 +356,23 @@ Use `managementPolicies: ["Observe"]` to read an existing resource without manag
     kind: "Object"
     metadata: {
         name: "existing-secret"
-        annotations: {"krm.kcl.dev/composition-resource-name": "existing-secret"}
+        annotations: {
+            "krm.kcl.dev/composition-resource-name": "existing-secret"
+        }
     }
     spec: {
         managementPolicies: ["Observe"]
-        providerConfigRef: {name: kubernetesProvider}
+        providerConfigRef: {
+            name: kubernetesProvider
+        }
         forProvider: {
             manifest: {
                 apiVersion: "v1"
                 kind: "Secret"
-                metadata: {name: "my-secret", namespace: targetNamespace}
+                metadata: {
+                    name: "my-secret"
+                    namespace: targetNamespace
+                }
             }
         }
     }

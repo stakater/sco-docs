@@ -1,8 +1,8 @@
-# Getting Started for Service Providers
+# Getting Started for Platform Providers
 
 Quick start guide for platform engineers and administrators building solutions on SCO.
 
-Sarah is a platform engineer at CloudCo who needs to offer managed services to her organization's development teams. SCO is deployed on their Kubernetes infrastructure, providing Virtual Machines and Hosted Kubernetes Clusters as flagship services. This guide walks through the essential steps to get started with SCO as a service provider.
+Sarah is a platform engineer at CloudCo who needs to offer managed services to her organization's development teams. SCO is deployed on their Kubernetes infrastructure, providing Virtual Machines and Hosted Kubernetes Clusters as flagship services. This guide walks through the essential steps to get started with SCO as a platform provider.
 
 ## Prerequisites
 
@@ -77,12 +77,11 @@ Sarah can check what solutions are available:
 oc get xrds
 ```
 
-Expected output shows the built-in solutions:
+Expected output shows the built-in solutions are established and offered:
 
 ```text
-NAME                                                   ESTABLISHED   OFFERED   AGE
-virtualmachines.vm.cloud.stakater.com                  True          True      10d
-openshiftclusters.openshiftcluster.cloud.stakater.com  True          True      10d
+virtualmachines.vm.cloud.stakater.com                  ESTABLISHED=True   OFFERED=True
+openshiftclusters.openshiftcluster.cloud.stakater.com  ESTABLISHED=True   OFFERED=True
 ```
 
 ## Step 2: Publish to the Marketplace
@@ -91,13 +90,13 @@ After installing SCO, the built-in solutions are automatically published to the 
 
 To publish additional custom solutions, see [Publishing APIs](api-publishing/publishing-apis.md) for the full workflow.
 
-## Step 3: Onboard an Organisation
+## Step 3: Onboard an Organization
 
-Organisations provide isolation for different customers or business units. Each organisation gets its own isolated identity realm and project namespace.
+Organizations provide isolation for different customers or business units. Each organization gets its own isolated identity realm and project namespace.
 
-Organisations are created through the platform onboarding workflow, which provisions the virtual API workspace, identity realm, and all required configuration automatically.
+Organizations are created through the platform onboarding workflow, which provisions the virtual API workspace, identity realm, and all required configuration automatically.
 
-To manually onboard a new organisation, apply the organisation onboarding claim:
+To manually onboard a new organization, apply the organization onboarding claim:
 
 ```yaml
 apiVersion: infrastructure.stakater.com/v1alpha1
@@ -120,11 +119,11 @@ kubectl apply -f org-onboarding.yaml
 
 This provisions:
 
-- An isolated identity realm for the organisation
-- A virtual API workspace hierarchy for the organisation and its projects
+- An isolated identity realm for the organization
+- A virtual API workspace hierarchy for the organization and its projects
 - Initial admin credentials sent to the specified email
 
-Verify the organisation was created:
+Verify the organization was created:
 
 ```bash
 kubectl get organizations
@@ -132,10 +131,10 @@ kubectl get organizations
 
 ## Step 4: Verify Cloud Users Can Access
 
-Once the organisation is created:
+Once the organization is created:
 
-1. Cloud users can log in at the organisation's console URL
-1. They can request projects from their organisation administrator
+1. Cloud users can log in at the organization's console URL
+1. They can request projects from their organization administrator
 1. The VirtualMachine and OpenShiftCluster solutions appear in their project marketplace
 1. They can provision services using `kubectl`, the console, Terraform, or GitOps
 
@@ -148,9 +147,8 @@ kubectl get xrds
 Expected output:
 
 ```text
-NAME                                                          ESTABLISHED   OFFERED   AGE
-virtualmachines.compute.cloud.stakater.com                    True          True      1d
-openshiftclusters.kubernetes.cloud.stakater.com               True          True      1d
+virtualmachines.compute.cloud.stakater.com                    ESTABLISHED=True   OFFERED=True
+openshiftclusters.kubernetes.cloud.stakater.com               ESTABLISHED=True   OFFERED=True
 ```
 
 ## What You've Accomplished
@@ -168,7 +166,7 @@ Now that you have the basics, explore more advanced topics:
 
 - [Creating Custom Solutions](solutions/creating-solutions.md) - Build additional service offerings
 - [Publishing to Marketplace](marketplace/publishing-solutions.md) - Detailed marketplace configuration
-- [Keycloak Integration](organizations/keycloak-realms.md) - Configure authentication
+- [Keycloak Integration](organisations/keycloak-realms.md) - Configure authentication
 - [Project Architecture](projects/project-architecture.md) - Understand workspace and tenant mapping
 
 ## Common Tasks
@@ -187,4 +185,4 @@ Now that you have the basics, explore more advanced topics:
 
 - [Solution Overview](solutions/solution-overview.md) - Deep dive into solution concepts
 - [Creating Solutions](solutions/creating-solutions.md) - Advanced solution patterns
-- [Creating Organizations](organizations/creating-organizations.md) - Detailed organization setup
+- [Creating Organizations](organisations/creating-organizations.md) - Detailed organization setup

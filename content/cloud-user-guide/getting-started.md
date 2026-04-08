@@ -158,7 +158,7 @@ my-dev-vm   o1.medium       Ready    3m
 Once ready, get connection details:
 
 ```bash
-kubectl get vm my-dev-vm -o jsonpath='{.status.connection}'
+kubectl get vm my-dev-vm -o jsonpath="{.status.connection}"
 ```
 
 SSH into the VM:

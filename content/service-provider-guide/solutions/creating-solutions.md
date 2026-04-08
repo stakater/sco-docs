@@ -149,17 +149,33 @@ spec:
                         }
                     }
                     spec: {
-                        providerConfigRef: {name: kubernetesProvider}
+                        providerConfigRef: {
+                            name: kubernetesProvider
+                        }
                         forProvider: {
                             manifest: {
                                 apiVersion: "postgresql.cnpg.io/v1"
                                 kind: "Cluster"
-                                metadata: {name: dbName, namespace: targetNamespace}
+                                metadata: {
+                                    name: dbName
+                                    namespace: targetNamespace
+                                }
                                 spec: {
                                     instances: instances
-                                    postgresql: {parameters: {max_connections: "200"}}
-                                    bootstrap: {initdb: {database: dbName, owner: dbName}}
-                                    storage: {size: "{}Gi".format(storageGb)}
+                                    postgresql: {
+                                        parameters: {
+                                            max_connections: "200"
+                                        }
+                                    }
+                                    bootstrap: {
+                                        initdb: {
+                                            database: dbName
+                                            owner: dbName
+                                        }
+                                    }
+                                    storage: {
+                                        size: "{}Gi".format(storageGb)
+                                    }
                                 }
                             }
                         }

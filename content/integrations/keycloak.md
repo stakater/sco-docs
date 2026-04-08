@@ -1,38 +1,38 @@
 # Keycloak
 
-Keycloak is the identity platform embedded in SCO. It provides each organisation with a fully isolated, production-grade identity provider (IdP) — supporting SSO, OIDC, SAML, LDAP federation, and fine-grained role management — without any shared identity pool between tenants.
+Keycloak is the identity platform embedded in SCO. It provides each organization with a fully isolated, production-grade identity provider (IdP) — supporting SSO, OIDC, SAML, LDAP federation, and fine-grained role management — without any shared identity pool between tenants.
 
 ---
 
 ## Role in SCO
 
-Every organisation on the platform gets its own Keycloak **realm**. A realm is a completely isolated identity namespace: users, groups, clients, roles, and authentication flows within one realm have no visibility into any other realm. An organisation's administrators manage their realm independently; platform operators manage the Keycloak instance itself.
+Every organization on the platform gets its own Keycloak **realm**. A realm is a completely isolated identity namespace: users, groups, clients, roles, and authentication flows within one realm have no visibility into any other realm. An organization's administrators manage their realm independently; platform operators manage the Keycloak instance itself.
 
 ```text
 Keycloak instance (platform-managed)
-├── realm: org-acme        ← Organisation A's isolated IdP
+├── realm: org-acme        ← Organization A's isolated IdP
 │   ├── Users (Alice, Bob, Carol)
 │   ├── Groups (developers, admins)
 │   ├── Clients (SCO console, kubectl OIDC)
 │   └── Identity providers (corporate LDAP, Google SSO)
-└── realm: org-globex      ← Organisation B's isolated IdP
+└── realm: org-globex      ← Organization B's isolated IdP
     ├── Users (different set)
     └── ...
 ```
 
-From a consumer's perspective, their organisation simply has an IdP they authenticate against. Keycloak is the engine behind it, but consumers interact only with the standard OIDC/SAML flows they already know.
+From a consumer's perspective, their organization simply has an IdP they authenticate against. Keycloak is the engine behind it, but consumers interact only with the standard OIDC/SAML flows they already know.
 
 ---
 
 ## Multi-Tenancy Model
 
-Keycloak's realm-per-organisation model gives SCO strong multi-tenancy guarantees at the identity layer:
+Keycloak's realm-per-organization model gives SCO strong multi-tenancy guarantees at the identity layer:
 
 - **No shared user database** — each realm maintains its own users and credentials
 - **No cross-realm token validity** — a token issued in one realm cannot authenticate against another
-- **Independent authentication flows** — each organisation can configure its own MFA, password policy, and session settings
-- **Isolated client registrations** — OIDC clients (e.g., the web console, ArgoCD integrations) are registered per realm, scoped to that organisation
-- **Independent federation** — each organisation can connect its own LDAP directory or enterprise SSO without affecting others
+- **Independent authentication flows** — each organization can configure its own MFA, password policy, and session settings
+- **Isolated client registrations** — OIDC clients (e.g., the web console, Argo CD integrations) are registered per realm, scoped to that organization
+- **Independent federation** — each organization can connect its own LDAP directory or enterprise SSO without affecting others
 
 ---
 
@@ -40,24 +40,24 @@ Keycloak's realm-per-organisation model gives SCO strong multi-tenancy guarantee
 
 Realms are provisioned and managed automatically by SCO. When a platform operator creates an `Organization`, SCO:
 
-1. Creates a new Keycloak realm with the organisation's name
+1. Creates a new Keycloak realm with the organization's name
 1. Configures default client scopes and role mappings
 1. Sets up the OIDC client for the web console
-1. Optionally configures an identity provider federation if the organisation has a corporate SSO
+1. Optionally configures an identity provider federation if the organization has a corporate SSO
 
-When an organisation is deleted, its realm and all associated users, groups, and clients are removed.
+When an organization is deleted, its realm and all associated users, groups, and clients are removed.
 
 Platform operators do not need to manually create or configure realms in most cases. The automation handles the full lifecycle.
 
 ---
 
-## Organisation Identity Provider Federation
+## Organization Identity Provider Federation
 
-Organisations with an existing corporate directory (LDAP, Active Directory, Google Workspace, Azure AD, `Okta`) can federate that identity provider into their Keycloak realm. Users then log in with their existing corporate credentials; Keycloak handles the federation transparently.
+Organizations with an existing corporate directory (LDAP, Active Directory, Google Workspace, Azure AD, `Okta`) can federate that identity provider into their Keycloak realm. Users then log in with their existing corporate credentials; Keycloak handles the federation transparently.
 
 ### Configuring LDAP federation
 
-In the Keycloak admin console for the organisation's realm, navigate to **User Federation** and add an LDAP provider:
+In the Keycloak admin console for the organization's realm, navigate to **User Federation** and add an LDAP provider:
 
 | Field | Value |
 |-------|-------|
@@ -89,10 +89,10 @@ Configure **First Broker Login** flow to control how new users are handled on fi
 
 ## Managing Users and Groups via SCO APIs
 
-Platform operators and organisation administrators can manage users and groups through the SCO public APIs, without accessing Keycloak directly:
+Platform operators and organization administrators can manage users and groups through the SCO public APIs, without accessing Keycloak directly:
 
 ```yaml
-# Create a user (provisions a Keycloak user in the organisation's realm)
+# Create a user (provisions a Keycloak user in the organization's realm)
 apiVersion: iam.cloud.stakater.com/v1
 kind: User
 metadata:
@@ -127,7 +127,7 @@ See [Create IAM User](../how-to-guides/user/create-iam-user.md) and [Create IAM 
 
 ## OIDC Integration with Project Access
 
-When a consumer authenticates to their project's Kubernetes API endpoint, the request is validated against their organisation's Keycloak realm. The project workspace trusts the realm's OIDC token and maps Keycloak groups to Kubernetes RBAC roles within the project.
+When a consumer authenticates to their project's Kubernetes API endpoint, the request is validated against their organization's Keycloak realm. The project workspace trusts the realm's OIDC token and maps Keycloak groups to Kubernetes RBAC roles within the project.
 
 This means:
 
@@ -147,13 +147,13 @@ Platform operators access the Keycloak admin console through the management inte
 - Reviewing audit events across all realms
 
 !!! note
-    Organisation-level administrators have access only to their own realm through a delegated admin configuration. They cannot see other organisations' realms or the Keycloak administration realm.
+    Organization-level administrators have access only to their own realm through a delegated admin configuration. They cannot see other organizations' realms or the Keycloak administration realm.
 
 ---
 
 ## What's Next?
 
-- [Keycloak Realms](../service-provider-guide/organizations/keycloak-realms.md) — Detailed realm configuration for providers
+- [Keycloak Realms](../service-provider-guide/organisations/keycloak-realms.md) — Detailed realm configuration for providers
 - [Managing Users](../cloud-user-guide/authentication/managing-users.md) — User management guide
 - [Create IAM User](../how-to-guides/user/create-iam-user.md) — How-to guide
 - [Create IAM Group](../how-to-guides/user/create-iam-group.md) — How-to guide

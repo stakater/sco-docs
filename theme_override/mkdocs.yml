@@ -1,8 +1,7 @@
 site_name: Stakater Cloud Orchestrator
 docs_dir: content
 site_url: https://docs.stakater.com/cloud-orchestrator/
-repo_url: https://github.com/stakater/sco-docs
-edit_uri: blob/main/content/
+edit_uri: ''
 theme:
   favicon: assets/images/favicon.svg
 
@@ -18,5 +17,95 @@ extra:
 
 nav:
   - Welcome: index.md
+  - For Cloud Consumers:
+      - audience/cloud-consumers.md
+      - Getting Started:
+          - cloud-user-guide/overview.md
+          - cloud-user-guide/getting-started.md
+      - Authentication and Access:
+          - cloud-user-guide/authentication/logging-in.md
+          - cloud-user-guide/authentication/managing-users.md
+          - cloud-user-guide/kubectl-access/setup-kubectl.md
+          - cloud-user-guide/kubectl-access/kubeconfig-generation.md
+          - cloud-user-guide/terraform-access/setup-terraform.md
+          - cloud-user-guide/terraform-access/kubernetes-provider.md
+          - cloud-user-guide/gitops-access/argocd-setup.md
+          - cloud-user-guide/gitops-access/flux-setup.md
+      - Projects:
+          - cloud-user-guide/projects/creating-projects.md
+          - cloud-user-guide/projects/project-structure.md
+      - Marketplace and Solutions:
+          - cloud-user-guide/solutions/browsing-marketplace.md
+          - cloud-user-guide/solutions/provisioning-solutions.md
+          - marketplace/overview.md
+          - marketplace/browsing.md
+          - marketplace/solution-catalog.md
+      - How-to Guides:
+          - how-to-guides/user/deploy-first-app.md
+          - how-to-guides/user/create-project.md
+          - how-to-guides/user/create-iam-user.md
+          - how-to-guides/user/create-iam-group.md
+          - how-to-guides/user/provision-openshift-cluster.md
+          - how-to-guides/user/provision-virtual-machine.md
+  - For Platform Providers:
+      - audience/platform-providers.md
+      - Getting Started:
+          - service-provider-guide/overview.md
+          - service-provider-guide/getting-started.md
+      - Platform Operations:
+          - installation/overview.md
+          - installation/prerequisites.md
+          - installation/openshift.md
+          - installation/configuration.md
+      - Solutions and Marketplace:
+          - service-provider-guide/solutions/solution-overview.md
+          - service-provider-guide/solutions/creating-solutions.md
+          - service-provider-guide/solutions/crossplane-compositions.md
+          - service-provider-guide/marketplace/publishing-solutions.md
+          - service-provider-guide/marketplace/marketplace-configuration.md
+          - how-to-guides/provider/create-postgresql-solution.md
+      - Organisations and Projects:
+          - service-provider-guide/organizations/creating-organizations.md
+          - service-provider-guide/organizations/keycloak-realms.md
+          - service-provider-guide/projects/project-architecture.md
+          - service-provider-guide/projects/workspace-mapping.md
+      - API Publishing:
+          - service-provider-guide/api-publishing/kcp-overview.md
+          - service-provider-guide/api-publishing/publishing-apis.md
+  - Platform Overview:
+      - about/overview.md
+      - about/key-features.md
+      - about/use-cases.md
+      - about/benefits.md
+      - architecture/architecture.md
+      - architecture/concepts.md
+      - architecture/components.md
+      - architecture/virtual-api-layer.md
+  - Console:
+      - console/overview.md
+      - console/dashboard.md
+      - console/organizations.md
+      - console/projects.md
+      - console/marketplace.md
+      - console/solutions.md
+  - API Reference:
+      - api-reference/overview.md
+      - Cloud Consumer APIs:
+          - api-reference/public-apis/project.md
+          - api-reference/public-apis/iam-user.md
+          - api-reference/public-apis/iam-group.md
+          - api-reference/public-apis/openshift-cluster.md
+          - api-reference/public-apis/virtual-machine.md
+      - Platform APIs:
+          - api-reference/private-apis/hypershift-hosted-cluster.md
+          - api-reference/private-apis/virtual-machine-infrastructure.md
+  - Integrations:
+      - integrations/keycloak.md
+      - integrations/kcp.md
+      - integrations/mto.md
+      - integrations/crossplane.md
+  - Troubleshooting:
+      - troubleshooting/overview.md
+      - troubleshooting/common-issues.md
   - changelog.md
   - eula.md

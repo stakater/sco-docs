@@ -5,29 +5,31 @@
       
       
       
-        <link rel="canonical" href="https://docs.stakater.com/cloud-orchestrator/renovate-main-docker-login-action-4.x/index.html">
+        <link rel="canonical" href="https://docs.stakater.com/cloud-orchestrator/renovate-main-docker-login-action-4.x/integrations/keycloak.html">
       
       
+        <link rel="prev" href="../api-reference/private-apis/virtual-machine-infrastructure.html">
       
-        <link rel="next" href="audience/cloud-consumers.html">
+      
+        <link rel="next" href="kcp.html">
       
       
         
       
       
-      <link rel="icon" href="assets/images/favicon.svg">
+      <link rel="icon" href="../assets/images/favicon.svg">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
-        <title>Stakater Cloud Orchestrator</title>
+        <title>Keycloak - Stakater Cloud Orchestrator</title>
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
       
         
-        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -46,9 +48,9 @@
       
     
     
-      <link rel="stylesheet" href="stylesheets/extra.css">
+      <link rel="stylesheet" href="../stylesheets/extra.css">
     
-    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
   
@@ -64,7 +66,7 @@
 
     
     
-  <link href="assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+  <link href="../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
             html.glightbox-open { overflow: initial; height: 100%; }
             .gslide-title { margin-top: 0px; user-select: text; }
             .gslide-desc { color: #666; user-select: text; }
@@ -93,7 +95,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#welcome-to-stakater-cloud-orchestrator-documentation" class="md-skip">
+        <a href="#keycloak" class="md-skip">
           Skip to content
         </a>
       
@@ -338,7 +340,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <nav class="md-header__inner md-grid" aria-label="Header">
 
     <!-- Link to home -->
-    <a href="index.html" title="Stakater Cloud Orchestrator" class="md-header__button md-logo" aria-label="Stakater Cloud Orchestrator" data-md-component="logo">
+    <a href="../index.html" title="Stakater Cloud Orchestrator" class="md-header__button md-logo" aria-label="Stakater Cloud Orchestrator" data-md-component="logo">
       <!-- 
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -359,10 +361,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
         <!-- Logo -->
         <div class="md-header__topic">
           
-          <img class="md-header__logo_light" src="assets/images/logo-light.png#only-light" alt="logo">
+          <img class="md-header__logo_light" src="../assets/images/logo-light.png#only-light" alt="logo">
           
           
-          <img class="md-header__logo_dark" src="assets/images/logo-dark.png#only-dark" alt="logo">
+          <img class="md-header__logo_dark" src="../assets/images/logo-dark.png#only-dark" alt="logo">
           
           
           <div class="header-site-name">
@@ -1986,7 +1988,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="index.html" title="Stakater Cloud Orchestrator" class="md-nav__button md-logo" aria-label="Stakater Cloud Orchestrator" data-md-component="logo">
+    <a href="../index.html" title="Stakater Cloud Orchestrator" class="md-nav__button md-logo" aria-label="Stakater Cloud Orchestrator" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
@@ -2001,37 +2003,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
       
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Welcome
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="index.html" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
         
   
   
@@ -2047,233 +2022,6 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
 
       </a>
-      
-        
-
-  
-
-<nav class="md-nav md-nav--secondary" aria-label="On this page">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      On this page
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
-      
-        <li class="md-nav__item">
-  <a href="#what-is-sco" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        What is SCO?
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#key-capabilities" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Key Capabilities
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Key Capabilities">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#kubernetes-native-api-layer" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Kubernetes-Native API Layer
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#marketplace" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Marketplace
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#multi-access-methods" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Multi-Access Methods
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#complete-isolation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Complete Isolation
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#who-is-sco-for" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Who is SCO For?
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Who is SCO For?">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#platform-providers" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Platform Providers
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#cloud-consumers" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Cloud Consumers
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#how-it-works" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        How It Works
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#core-technologies" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Core Technologies
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#quick-links" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Quick Links
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Quick Links">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#for-platform-providers" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        For Platform Providers
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#for-cloud-consumers" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        For Cloud Consumers
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#learn-more" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Learn More
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#support-and-community" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Support and Community
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#whats-next" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        What's Next?
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -2332,7 +2080,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="audience/cloud-consumers.html" class="md-nav__link">
+      <a href="../audience/cloud-consumers.html" class="md-nav__link">
         
   
   
@@ -2407,7 +2155,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="cloud-user-guide/overview.html" class="md-nav__link">
+      <a href="../cloud-user-guide/overview.html" class="md-nav__link">
         
   
   
@@ -2435,7 +2183,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="cloud-user-guide/getting-started.html" class="md-nav__link">
+      <a href="../cloud-user-guide/getting-started.html" class="md-nav__link">
         
   
   
@@ -2518,7 +2266,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="cloud-user-guide/authentication/logging-in.html" class="md-nav__link">
+      <a href="../cloud-user-guide/authentication/logging-in.html" class="md-nav__link">
         
   
   
@@ -2546,7 +2294,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="cloud-user-guide/authentication/managing-users.html" class="md-nav__link">
+      <a href="../cloud-user-guide/authentication/managing-users.html" class="md-nav__link">
         
   
   
@@ -2574,7 +2322,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="cloud-user-guide/kubectl-access/setup-kubectl.html" class="md-nav__link">
+      <a href="../cloud-user-guide/kubectl-access/setup-kubectl.html" class="md-nav__link">
         
   
   
@@ -2602,7 +2350,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="cloud-user-guide/kubectl-access/kubeconfig-generation.html" class="md-nav__link">
+      <a href="../cloud-user-guide/kubectl-access/kubeconfig-generation.html" class="md-nav__link">
         
   
   
@@ -2630,7 +2378,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="cloud-user-guide/terraform-access/setup-terraform.html" class="md-nav__link">
+      <a href="../cloud-user-guide/terraform-access/setup-terraform.html" class="md-nav__link">
         
   
   
@@ -2658,7 +2406,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="cloud-user-guide/terraform-access/kubernetes-provider.html" class="md-nav__link">
+      <a href="../cloud-user-guide/terraform-access/kubernetes-provider.html" class="md-nav__link">
         
   
   
@@ -2686,7 +2434,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="cloud-user-guide/gitops-access/argocd-setup.html" class="md-nav__link">
+      <a href="../cloud-user-guide/gitops-access/argocd-setup.html" class="md-nav__link">
         
   
   
@@ -2714,7 +2462,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="cloud-user-guide/gitops-access/flux-setup.html" class="md-nav__link">
+      <a href="../cloud-user-guide/gitops-access/flux-setup.html" class="md-nav__link">
         
   
   
@@ -2797,7 +2545,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="cloud-user-guide/projects/creating-projects.html" class="md-nav__link">
+      <a href="../cloud-user-guide/projects/creating-projects.html" class="md-nav__link">
         
   
   
@@ -2825,7 +2573,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="cloud-user-guide/projects/project-structure.html" class="md-nav__link">
+      <a href="../cloud-user-guide/projects/project-structure.html" class="md-nav__link">
         
   
   
@@ -2908,7 +2656,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="cloud-user-guide/solutions/browsing-marketplace.html" class="md-nav__link">
+      <a href="../cloud-user-guide/solutions/browsing-marketplace.html" class="md-nav__link">
         
   
   
@@ -2936,7 +2684,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="cloud-user-guide/solutions/provisioning-solutions.html" class="md-nav__link">
+      <a href="../cloud-user-guide/solutions/provisioning-solutions.html" class="md-nav__link">
         
   
   
@@ -2964,7 +2712,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="marketplace/overview.html" class="md-nav__link">
+      <a href="../marketplace/overview.html" class="md-nav__link">
         
   
   
@@ -2992,7 +2740,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="marketplace/browsing.html" class="md-nav__link">
+      <a href="../marketplace/browsing.html" class="md-nav__link">
         
   
   
@@ -3020,7 +2768,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="marketplace/solution-catalog.html" class="md-nav__link">
+      <a href="../marketplace/solution-catalog.html" class="md-nav__link">
         
   
   
@@ -3103,7 +2851,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="how-to-guides/user/deploy-first-app.html" class="md-nav__link">
+      <a href="../how-to-guides/user/deploy-first-app.html" class="md-nav__link">
         
   
   
@@ -3131,7 +2879,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="how-to-guides/user/create-project.html" class="md-nav__link">
+      <a href="../how-to-guides/user/create-project.html" class="md-nav__link">
         
   
   
@@ -3159,7 +2907,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="how-to-guides/user/create-iam-user.html" class="md-nav__link">
+      <a href="../how-to-guides/user/create-iam-user.html" class="md-nav__link">
         
   
   
@@ -3187,7 +2935,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="how-to-guides/user/create-iam-group.html" class="md-nav__link">
+      <a href="../how-to-guides/user/create-iam-group.html" class="md-nav__link">
         
   
   
@@ -3215,7 +2963,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="how-to-guides/user/provision-openshift-cluster.html" class="md-nav__link">
+      <a href="../how-to-guides/user/provision-openshift-cluster.html" class="md-nav__link">
         
   
   
@@ -3243,7 +2991,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="how-to-guides/user/provision-virtual-machine.html" class="md-nav__link">
+      <a href="../how-to-guides/user/provision-virtual-machine.html" class="md-nav__link">
         
   
   
@@ -3333,7 +3081,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="audience/platform-providers.html" class="md-nav__link">
+      <a href="../audience/platform-providers.html" class="md-nav__link">
         
   
   
@@ -3408,7 +3156,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="service-provider-guide/overview.html" class="md-nav__link">
+      <a href="../service-provider-guide/overview.html" class="md-nav__link">
         
   
   
@@ -3436,7 +3184,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="service-provider-guide/getting-started.html" class="md-nav__link">
+      <a href="../service-provider-guide/getting-started.html" class="md-nav__link">
         
   
   
@@ -3519,7 +3267,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="installation/overview.html" class="md-nav__link">
+      <a href="../installation/overview.html" class="md-nav__link">
         
   
   
@@ -3547,7 +3295,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="installation/prerequisites.html" class="md-nav__link">
+      <a href="../installation/prerequisites.html" class="md-nav__link">
         
   
   
@@ -3575,7 +3323,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="installation/openshift.html" class="md-nav__link">
+      <a href="../installation/openshift.html" class="md-nav__link">
         
   
   
@@ -3603,7 +3351,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="installation/configuration.html" class="md-nav__link">
+      <a href="../installation/configuration.html" class="md-nav__link">
         
   
   
@@ -3686,7 +3434,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="service-provider-guide/solutions/solution-overview.html" class="md-nav__link">
+      <a href="../service-provider-guide/solutions/solution-overview.html" class="md-nav__link">
         
   
   
@@ -3714,7 +3462,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="service-provider-guide/solutions/creating-solutions.html" class="md-nav__link">
+      <a href="../service-provider-guide/solutions/creating-solutions.html" class="md-nav__link">
         
   
   
@@ -3742,7 +3490,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="service-provider-guide/solutions/crossplane-compositions.html" class="md-nav__link">
+      <a href="../service-provider-guide/solutions/crossplane-compositions.html" class="md-nav__link">
         
   
   
@@ -3770,7 +3518,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="service-provider-guide/marketplace/publishing-solutions.html" class="md-nav__link">
+      <a href="../service-provider-guide/marketplace/publishing-solutions.html" class="md-nav__link">
         
   
   
@@ -3798,7 +3546,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="service-provider-guide/marketplace/marketplace-configuration.html" class="md-nav__link">
+      <a href="../service-provider-guide/marketplace/marketplace-configuration.html" class="md-nav__link">
         
   
   
@@ -3826,7 +3574,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="how-to-guides/provider/create-postgresql-solution.html" class="md-nav__link">
+      <a href="../how-to-guides/provider/create-postgresql-solution.html" class="md-nav__link">
         
   
   
@@ -3909,7 +3657,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="service-provider-guide/organizations/creating-organizations.html" class="md-nav__link">
+      <a href="../service-provider-guide/organizations/creating-organizations.html" class="md-nav__link">
         
   
   
@@ -3937,7 +3685,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="service-provider-guide/organizations/keycloak-realms.html" class="md-nav__link">
+      <a href="../service-provider-guide/organizations/keycloak-realms.html" class="md-nav__link">
         
   
   
@@ -3965,7 +3713,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="service-provider-guide/projects/project-architecture.html" class="md-nav__link">
+      <a href="../service-provider-guide/projects/project-architecture.html" class="md-nav__link">
         
   
   
@@ -3993,7 +3741,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="service-provider-guide/projects/workspace-mapping.html" class="md-nav__link">
+      <a href="../service-provider-guide/projects/workspace-mapping.html" class="md-nav__link">
         
   
   
@@ -4076,7 +3824,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="service-provider-guide/api-publishing/kcp-overview.html" class="md-nav__link">
+      <a href="../service-provider-guide/api-publishing/kcp-overview.html" class="md-nav__link">
         
   
   
@@ -4104,7 +3852,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="service-provider-guide/api-publishing/publishing-apis.html" class="md-nav__link">
+      <a href="../service-provider-guide/api-publishing/publishing-apis.html" class="md-nav__link">
         
   
   
@@ -4194,7 +3942,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="about/overview.html" class="md-nav__link">
+      <a href="../about/overview.html" class="md-nav__link">
         
   
   
@@ -4222,7 +3970,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="about/key-features.html" class="md-nav__link">
+      <a href="../about/key-features.html" class="md-nav__link">
         
   
   
@@ -4250,7 +3998,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="about/use-cases.html" class="md-nav__link">
+      <a href="../about/use-cases.html" class="md-nav__link">
         
   
   
@@ -4278,7 +4026,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="about/benefits.html" class="md-nav__link">
+      <a href="../about/benefits.html" class="md-nav__link">
         
   
   
@@ -4306,7 +4054,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="architecture/architecture.html" class="md-nav__link">
+      <a href="../architecture/architecture.html" class="md-nav__link">
         
   
   
@@ -4334,7 +4082,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="architecture/concepts.html" class="md-nav__link">
+      <a href="../architecture/concepts.html" class="md-nav__link">
         
   
   
@@ -4362,7 +4110,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="architecture/components.html" class="md-nav__link">
+      <a href="../architecture/components.html" class="md-nav__link">
         
   
   
@@ -4390,7 +4138,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="architecture/virtual-api-layer.html" class="md-nav__link">
+      <a href="../architecture/virtual-api-layer.html" class="md-nav__link">
         
   
   
@@ -4472,7 +4220,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="console/overview.html" class="md-nav__link">
+      <a href="../console/overview.html" class="md-nav__link">
         
   
   
@@ -4500,7 +4248,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="console/dashboard.html" class="md-nav__link">
+      <a href="../console/dashboard.html" class="md-nav__link">
         
   
   
@@ -4528,7 +4276,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="console/organizations.html" class="md-nav__link">
+      <a href="../console/organizations.html" class="md-nav__link">
         
   
   
@@ -4556,7 +4304,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="console/projects.html" class="md-nav__link">
+      <a href="../console/projects.html" class="md-nav__link">
         
   
   
@@ -4584,7 +4332,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="console/marketplace.html" class="md-nav__link">
+      <a href="../console/marketplace.html" class="md-nav__link">
         
   
   
@@ -4612,7 +4360,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="console/solutions.html" class="md-nav__link">
+      <a href="../console/solutions.html" class="md-nav__link">
         
   
   
@@ -4694,7 +4442,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="api-reference/overview.html" class="md-nav__link">
+      <a href="../api-reference/overview.html" class="md-nav__link">
         
   
   
@@ -4769,7 +4517,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="api-reference/public-apis/project.html" class="md-nav__link">
+      <a href="../api-reference/public-apis/project.html" class="md-nav__link">
         
   
   
@@ -4797,7 +4545,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="api-reference/public-apis/iam-user.html" class="md-nav__link">
+      <a href="../api-reference/public-apis/iam-user.html" class="md-nav__link">
         
   
   
@@ -4825,7 +4573,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="api-reference/public-apis/iam-group.html" class="md-nav__link">
+      <a href="../api-reference/public-apis/iam-group.html" class="md-nav__link">
         
   
   
@@ -4853,7 +4601,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="api-reference/public-apis/openshift-cluster.html" class="md-nav__link">
+      <a href="../api-reference/public-apis/openshift-cluster.html" class="md-nav__link">
         
   
   
@@ -4881,7 +4629,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="api-reference/public-apis/virtual-machine.html" class="md-nav__link">
+      <a href="../api-reference/public-apis/virtual-machine.html" class="md-nav__link">
         
   
   
@@ -4964,7 +4712,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="api-reference/private-apis/hypershift-hosted-cluster.html" class="md-nav__link">
+      <a href="../api-reference/private-apis/hypershift-hosted-cluster.html" class="md-nav__link">
         
   
   
@@ -4992,7 +4740,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="api-reference/private-apis/virtual-machine-infrastructure.html" class="md-nav__link">
+      <a href="../api-reference/private-apis/virtual-machine-infrastructure.html" class="md-nav__link">
         
   
   
@@ -5032,18 +4780,20 @@ This documentation is for a pull request deployment and is unreleased, it is onl
       
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7">
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked="">
         
           
           <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
@@ -5064,7 +4814,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_7">
             <span class="md-nav__icon md-icon"></span>
             
@@ -5079,10 +4829,37 @@ This documentation is for a pull request deployment and is unreleased, it is onl
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="integrations/keycloak.html" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Keycloak
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="keycloak.html" class="md-nav__link md-nav__link--active">
         
   
   
@@ -5098,6 +4875,144 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
 
       </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#role-in-sco" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Role in SCO
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multi-tenancy-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multi-Tenancy Model
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#realm-lifecycle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Realm Lifecycle
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#organisation-identity-provider-federation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Organisation Identity Provider Federation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Organisation Identity Provider Federation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configuring-ldap-federation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuring LDAP federation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuring-an-oidc-identity-provider-eg-azure-ad-google" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuring an OIDC identity provider (e.g., Azure AD, Google)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#managing-users-and-groups-via-sco-apis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Managing Users and Groups via SCO APIs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#oidc-integration-with-project-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OIDC Integration with Project Access
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#platform-operator-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Platform Operator Access
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#whats-next" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What's Next?
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -5110,7 +5025,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="integrations/kcp.html" class="md-nav__link">
+      <a href="kcp.html" class="md-nav__link">
         
   
   
@@ -5138,7 +5053,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="integrations/mto.html" class="md-nav__link">
+      <a href="mto.html" class="md-nav__link">
         
   
   
@@ -5166,7 +5081,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="integrations/crossplane.html" class="md-nav__link">
+      <a href="crossplane.html" class="md-nav__link">
         
   
   
@@ -5248,7 +5163,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="troubleshooting/overview.html" class="md-nav__link">
+      <a href="../troubleshooting/overview.html" class="md-nav__link">
         
   
   
@@ -5276,7 +5191,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="troubleshooting/common-issues.html" class="md-nav__link">
+      <a href="../troubleshooting/common-issues.html" class="md-nav__link">
         
   
   
@@ -5311,7 +5226,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="changelog.html" class="md-nav__link">
+      <a href="../changelog.html" class="md-nav__link">
         
   
   
@@ -5338,7 +5253,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="eula.html" class="md-nav__link">
+      <a href="../eula.html" class="md-nav__link">
         
   
   
@@ -5387,10 +5302,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
       
         <li class="md-nav__item">
-  <a href="#what-is-sco" class="md-nav__link">
+  <a href="#role-in-sco" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What is SCO?
+        Role in SCO
       
     </span>
   </a>
@@ -5398,22 +5313,44 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
-  <a href="#key-capabilities" class="md-nav__link">
+  <a href="#multi-tenancy-model" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Key Capabilities
+        Multi-Tenancy Model
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Key Capabilities">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#realm-lifecycle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Realm Lifecycle
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#organisation-identity-provider-federation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Organisation Identity Provider Federation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Organisation Identity Provider Federation">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#kubernetes-native-api-layer" class="md-nav__link">
+  <a href="#configuring-ldap-federation" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Kubernetes-Native API Layer
+        Configuring LDAP federation
       
     </span>
   </a>
@@ -5421,32 +5358,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
         
           <li class="md-nav__item">
-  <a href="#marketplace" class="md-nav__link">
+  <a href="#configuring-an-oidc-identity-provider-eg-azure-ad-google" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Marketplace
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#multi-access-methods" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Multi-Access Methods
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#complete-isolation" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Complete Isolation
+        Configuring an OIDC identity provider (e.g., Azure AD, Google)
       
     </span>
   </a>
@@ -5459,49 +5374,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
-  <a href="#who-is-sco-for" class="md-nav__link">
+  <a href="#managing-users-and-groups-via-sco-apis" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Who is SCO For?
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Who is SCO For?">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#platform-providers" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Platform Providers
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#cloud-consumers" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Cloud Consumers
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#how-it-works" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        How It Works
+        Managing Users and Groups via SCO APIs
       
     </span>
   </a>
@@ -5509,10 +5385,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
-  <a href="#core-technologies" class="md-nav__link">
+  <a href="#oidc-integration-with-project-access" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Core Technologies
+        OIDC Integration with Project Access
       
     </span>
   </a>
@@ -5520,60 +5396,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
-  <a href="#quick-links" class="md-nav__link">
+  <a href="#platform-operator-access" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Quick Links
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Quick Links">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#for-platform-providers" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        For Platform Providers
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#for-cloud-consumers" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        For Cloud Consumers
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#learn-more" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Learn More
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#support-and-community" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Support and Community
+        Platform Operator Access
       
     </span>
   </a>
@@ -5608,141 +5434,161 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 
 
 
-<h1 id="welcome-to-stakater-cloud-orchestrator-documentation">Welcome to Stakater Cloud Orchestrator Documentation<a class="headerlink" href="#welcome-to-stakater-cloud-orchestrator-documentation" title="Permanent link">#</a></h1>
-<p>Welcome to the public documentation for <strong>Stakater Cloud Orchestrator (SCO)</strong>.</p>
-<p>This documentation is organised around two external audiences:</p>
+<h1 id="keycloak">Keycloak<a class="headerlink" href="#keycloak" title="Permanent link">#</a></h1>
+<p>Keycloak is the identity platform embedded in SCO. It provides each organisation with a fully isolated, production-grade identity provider (IdP) — supporting SSO, OIDC, SAML, LDAP federation, and fine-grained role management — without any shared identity pool between tenants.</p>
+<hr>
+<h2 id="role-in-sco">Role in SCO<a class="headerlink" href="#role-in-sco" title="Permanent link">#</a></h2>
+<p>Every organisation on the platform gets its own Keycloak <strong>realm</strong>. A realm is a completely isolated identity namespace: users, groups, clients, roles, and authentication flows within one realm have no visibility into any other realm. An organisation's administrators manage their realm independently; platform operators manage the Keycloak instance itself.</p>
+<div class="highlight"><pre><span></span><code>Keycloak instance (platform-managed)
+├── realm: org-acme        ← Organisation A's isolated IdP
+│   ├── Users (Alice, Bob, Carol)
+│   ├── Groups (developers, admins)
+│   ├── Clients (SCO console, kubectl OIDC)
+│   └── Identity providers (corporate LDAP, Google SSO)
+└── realm: org-globex      ← Organisation B's isolated IdP
+    ├── Users (different set)
+    └── ...
+</code></pre></div>
+<p>From a consumer's perspective, their organisation simply has an IdP they authenticate against. Keycloak is the engine behind it, but consumers interact only with the standard OIDC/SAML flows they already know.</p>
+<hr>
+<h2 id="multi-tenancy-model">Multi-Tenancy Model<a class="headerlink" href="#multi-tenancy-model" title="Permanent link">#</a></h2>
+<p>Keycloak's realm-per-organisation model gives SCO strong multi-tenancy guarantees at the identity layer:</p>
 <ul>
-<li><strong>Cloud consumers</strong> who use the platform to create projects, manage access, and provision services</li>
-<li><strong>Platform providers</strong> who host SCO, publish service APIs, and operate the platform for their customer organisations</li>
+<li><strong>No shared user database</strong> — each realm maintains its own users and credentials</li>
+<li><strong>No cross-realm token validity</strong> — a token issued in one realm cannot authenticate against another</li>
+<li><strong>Independent authentication flows</strong> — each organisation can configure its own MFA, password policy, and session settings</li>
+<li><strong>Isolated client registrations</strong> — OIDC clients (e.g., the web console, ArgoCD integrations) are registered per realm, scoped to that organisation</li>
+<li><strong>Independent federation</strong> — each organisation can connect its own LDAP directory or enterprise SSO without affecting others</li>
 </ul>
-<h2 id="what-is-sco">What is SCO?<a class="headerlink" href="#what-is-sco" title="Permanent link">#</a></h2>
-<p>Stakater Cloud Orchestrator is a Kubernetes-native orchestration platform that enables <strong>Managed Service Providers</strong>, <strong>Enterprises</strong>, and <strong>Cloud Providers</strong> to deliver "anything-as-a-service" to their customers. Built on standard Kubernetes APIs and CRDs, SCO provides complete infrastructure and platform services through a unified self-service portal.</p>
-<p><strong>Primary Platform</strong>: Red Hat OpenShift on bare metal (production-ready and tested)
-<strong>Compatibility</strong>: Kubernetes-agnostic design, supports any Kubernetes distribution</p>
-<h2 id="key-capabilities">Key Capabilities<a class="headerlink" href="#key-capabilities" title="Permanent link">#</a></h2>
-<h3 id="kubernetes-native-api-layer">Kubernetes-Native API Layer<a class="headerlink" href="#kubernetes-native-api-layer" title="Permanent link">#</a></h3>
-<p>SCO provides a unified Kubernetes-native API surface with built-in multi-tenancy that abstracts physical clusters. Cloud users interact with a consistent API regardless of the underlying infrastructure.</p>
-<ul>
-<li>Standard Kubernetes API compatibility</li>
-<li>Isolated virtual workspaces per project</li>
-<li>Multi-cluster orchestration capabilities</li>
-<li>No direct cluster access required</li>
-<li>True API-level multi-tenancy</li>
-</ul>
-<h3 id="marketplace">Marketplace<a class="headerlink" href="#marketplace" title="Permanent link">#</a></h3>
-<p>Built-in marketplace for publishing and consuming service offerings using Kubernetes-native CRDs.</p>
-<ul>
-<li><strong>Service Providers</strong> create solutions using standard composition tools (Crossplane, KRO, custom operators)</li>
-<li><strong>Cloud Users</strong> browse and provision services through self-service</li>
-<li>Solutions appear as Kubernetes custom resources</li>
-<li>Flagship offerings: <strong>Virtual Machines</strong> (<code>compute.cloud.stakater.com</code>) and <strong>OpenShift Clusters</strong> (<code>kubernetes.cloud.stakater.com</code>)</li>
-<li>Extensible with custom solutions for databases, storage, and more</li>
-</ul>
-<h3 id="multi-access-methods">Multi-Access Methods<a class="headerlink" href="#multi-access-methods" title="Permanent link">#</a></h3>
-<p>Cloud users can interact with SCO using their preferred tools:</p>
-<ul>
-<li><strong>kubectl</strong>: Standard Kubernetes CLI with kubeconfig</li>
-<li><strong>Terraform</strong>: Using the Kubernetes provider</li>
-<li><strong>GitOps</strong>: ArgoCD, Flux, or other GitOps tools</li>
-<li><strong>Console UI</strong>: Web interface for <code>clickops</code></li>
-</ul>
-<h3 id="complete-isolation">Complete Isolation<a class="headerlink" href="#complete-isolation" title="Permanent link">#</a></h3>
-<p>SCO provides strong isolation at multiple levels:</p>
-<ul>
-<li><strong>Organisations</strong>: Dedicated Keycloak realm per organisation</li>
-<li><strong>Projects</strong>: Combination of KCP workspace (virtual API) + MTO tenant (actual resources)</li>
-<li><strong>Network Isolation</strong>: Complete network separation between projects</li>
-<li><strong>No Host Cluster Access</strong>: Users never interact directly with host clusters</li>
-</ul>
-<h2 id="who-is-sco-for">Who is SCO For?<a class="headerlink" href="#who-is-sco-for" title="Permanent link">#</a></h2>
-<h3 id="platform-providers">Platform Providers<a class="headerlink" href="#platform-providers" title="Permanent link">#</a></h3>
-<p>Platform engineers and administrators who create and manage service offerings.</p>
-<p><strong>Get Started</strong>: <a href="audience/platform-providers.html">Platform Provider Documentation</a></p>
-<p>Key Tasks:</p>
-<ul>
-<li>Create solutions using Crossplane compositions</li>
-<li>Publish solutions to the marketplace</li>
-<li>Create organisations for customers</li>
-<li>Manage the platform and infrastructure</li>
-</ul>
-<h3 id="cloud-consumers">Cloud Consumers<a class="headerlink" href="#cloud-consumers" title="Permanent link">#</a></h3>
-<p>Developers and teams who consume services from the marketplace.</p>
-<p><strong>Get Started</strong>: <a href="audience/cloud-consumers.html">Cloud Consumer Documentation</a></p>
-<p>Key Tasks:</p>
-<ul>
-<li>Create projects for applications</li>
-<li>Browse and provision solutions</li>
-<li>Deploy applications</li>
-<li>Manage resources via kubectl, Terraform, or GitOps</li>
-</ul>
-<h2 id="how-it-works">How It Works<a class="headerlink" href="#how-it-works" title="Permanent link">#</a></h2>
+<hr>
+<h2 id="realm-lifecycle">Realm Lifecycle<a class="headerlink" href="#realm-lifecycle" title="Permanent link">#</a></h2>
+<p>Realms are provisioned and managed automatically by SCO. When a platform operator creates an <code>Organization</code>, SCO:</p>
 <ol>
-<li><strong>SCO is installed</strong> on your Kubernetes cluster using the <code>ksp up</code> CLI command (tested on OpenShift 4.14+)</li>
-<li><strong>Platform providers</strong> create solutions (e.g., VirtualMachine-as-a-Service, OpenShift-as-a-Service) using composition tools</li>
-<li>Solutions are published to the <strong>marketplace</strong> as Kubernetes custom resources</li>
-<li><strong>Organisations</strong> are created with dedicated Keycloak realms for authentication isolation</li>
-<li>Cloud users create <strong>projects</strong> (isolated workspaces with dedicated tenants) within their organisation</li>
-<li>Users provision <strong>solution instances</strong> from the marketplace into their projects using standard Kubernetes APIs</li>
-<li>All services run in isolated environments with network and resource separation</li>
+<li>Creates a new Keycloak realm with the organisation's name</li>
+<li>Configures default client scopes and role mappings</li>
+<li>Sets up the OIDC client for the web console</li>
+<li>Optionally configures an identity provider federation if the organisation has a corporate SSO</li>
 </ol>
-<h2 id="core-technologies">Core Technologies<a class="headerlink" href="#core-technologies" title="Permanent link">#</a></h2>
-<p>SCO leverages proven, cloud-native technologies:</p>
+<p>When an organisation is deleted, its realm and all associated users, groups, and clients are removed.</p>
+<p>Platform operators do not need to manually create or configure realms in most cases. The automation handles the full lifecycle.</p>
+<hr>
+<h2 id="organisation-identity-provider-federation">Organisation Identity Provider Federation<a class="headerlink" href="#organisation-identity-provider-federation" title="Permanent link">#</a></h2>
+<p>Organisations with an existing corporate directory (LDAP, Active Directory, Google Workspace, Azure AD, <code>Okta</code>) can federate that identity provider into their Keycloak realm. Users then log in with their existing corporate credentials; Keycloak handles the federation transparently.</p>
+<h3 id="configuring-ldap-federation">Configuring LDAP federation<a class="headerlink" href="#configuring-ldap-federation" title="Permanent link">#</a></h3>
+<p>In the Keycloak admin console for the organisation's realm, navigate to <strong>User Federation</strong> and add an LDAP provider:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Vendor</td>
+<td>Active Directory / Other</td>
+</tr>
+<tr>
+<td>Connection URL</td>
+<td><code>ldap://ldap.example.com:389</code></td>
+</tr>
+<tr>
+<td>Bind DN</td>
+<td><code>cn=svc-keycloak,ou=service,dc=example,dc=com</code></td>
+</tr>
+<tr>
+<td>Bind Credential</td>
+<td>Service account password</td>
+</tr>
+<tr>
+<td>Users DN</td>
+<td><code>ou=users,dc=example,dc=com</code></td>
+</tr>
+<tr>
+<td>uuid LDAP Attribute</td>
+<td><code>objectGUID</code> (AD) or <code>entryUUID</code></td>
+</tr>
+<tr>
+<td>User Object Classes</td>
+<td><code>person, organizationalPerson, user</code></td>
+</tr>
+</tbody>
+</table>
+<p>After saving, trigger a <strong>Sync all users</strong> to import the directory. Users can then log in with their LDAP credentials.</p>
+<h3 id="configuring-an-oidc-identity-provider-eg-azure-ad-google">Configuring an OIDC identity provider (e.g., Azure AD, Google)<a class="headerlink" href="#configuring-an-oidc-identity-provider-eg-azure-ad-google" title="Permanent link">#</a></h3>
+<p>In the realm, navigate to <strong>Identity Providers</strong> and add an OIDC provider:</p>
+<div class="highlight"><pre><span></span><code>Authorization URL: https://login.microsoftonline.com/&lt;tenant-id&gt;/oauth2/v2.0/authorize
+Token URL:         https://login.microsoftonline.com/&lt;tenant-id&gt;/oauth2/v2.0/token
+Client ID:         &lt;application-id-from-azure&gt;
+Client Secret:     &lt;client-secret-from-azure&gt;
+Default Scopes:    openid email profile
+</code></pre></div>
+<p>Configure <strong>First Broker Login</strong> flow to control how new users are handled on first login (auto-create, require email verification, link to existing account, etc.).</p>
+<hr>
+<h2 id="managing-users-and-groups-via-sco-apis">Managing Users and Groups via SCO APIs<a class="headerlink" href="#managing-users-and-groups-via-sco-apis" title="Permanent link">#</a></h2>
+<p>Platform operators and organisation administrators can manage users and groups through the SCO public APIs, without accessing Keycloak directly:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Create a user (provisions a Keycloak user in the organisation's realm)</span>
+<span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">iam.cloud.stakater.com/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">User</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">alice</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">alice</span>
+<span class="w">    </span><span class="nt">email</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">alice@example.com</span>
+<span class="w">    </span><span class="nt">firstName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Alice</span>
+<span class="w">    </span><span class="nt">lastName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Smith</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1"># Create a group and assign members</span>
+<span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">iam.cloud.stakater.com/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Group</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">platform-admins</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">platform-admins</span>
+<span class="w">    </span><span class="nt">members</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">alice</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bob</span>
+</code></pre></div>
+<p>These claims trigger Crossplane compositions that reconcile the corresponding Keycloak realm users and groups. Direct Keycloak API access is not required for routine IAM management.</p>
+<p>See <a href="../how-to-guides/user/create-iam-user.html">Create IAM User</a> and <a href="../how-to-guides/user/create-iam-group.html">Create IAM Group</a> for full guides.</p>
+<hr>
+<h2 id="oidc-integration-with-project-access">OIDC Integration with Project Access<a class="headerlink" href="#oidc-integration-with-project-access" title="Permanent link">#</a></h2>
+<p>When a consumer authenticates to their project's Kubernetes API endpoint, the request is validated against their organisation's Keycloak realm. The project workspace trusts the realm's OIDC token and maps Keycloak groups to Kubernetes RBAC roles within the project.</p>
+<p>This means:</p>
 <ul>
-<li><strong>Kubernetes</strong>: Foundation for all orchestration (tested on OpenShift 4.14+)</li>
-<li><strong>Kubernetes CRDs</strong>: Native extension mechanism for solutions and services</li>
-<li><strong>Virtual Machine Management</strong>: KubeVirt-based (OpenShift Virtualization on OpenShift)</li>
-<li><strong>Hosted Control Planes</strong>: hypershift for OpenShift-on-OpenShift</li>
-<li><strong><a href="https://docs.stakater.com/mto/">Multi-Tenant Operator (MTO)</a></strong>: Network and resource isolation</li>
-<li><strong><a href="https://www.keycloak.org/">Keycloak</a></strong>: Authentication and authorization with realm isolation</li>
-<li><strong>External Secrets Operator</strong>: Centralized secrets management</li>
-<li><strong>Composition Tools</strong>: Supports Crossplane, KRO, and custom operators for solution definitions</li>
+<li>Adding a user to the <code>developers</code> group in Keycloak automatically grants them developer-level access to all projects that have bound that group</li>
+<li>Removing a user from a group or disabling their account in Keycloak immediately revokes access — no separate Kubernetes RBAC update required</li>
+<li>Group membership from an LDAP federation is honoured: a user in an AD group gets the corresponding project access without any manual mapping</li>
 </ul>
-<h2 id="quick-links">Quick Links<a class="headerlink" href="#quick-links" title="Permanent link">#</a></h2>
-<h3 id="for-platform-providers">For Platform Providers<a class="headerlink" href="#for-platform-providers" title="Permanent link">#</a></h3>
+<hr>
+<h2 id="platform-operator-access">Platform Operator Access<a class="headerlink" href="#platform-operator-access" title="Permanent link">#</a></h2>
+<p>Platform operators access the Keycloak admin console through the management interface. The admin console allows:</p>
 <ul>
-<li><a href="audience/platform-providers.html">Platform Provider Documentation</a> - Start from the provider landing page</li>
-<li><a href="service-provider-guide/getting-started.html">Getting Started</a> - Create your first solution</li>
-<li><a href="service-provider-guide/solutions/solution-overview.html">Solution Overview</a> - Learn about solutions</li>
-<li><a href="service-provider-guide/organizations/creating-organizations.html">Creating Organisations</a> - Set up organisations</li>
-<li><a href="service-provider-guide/marketplace/publishing-solutions.html">Publishing Solutions</a> - Publish to marketplace</li>
+<li>Inspecting and troubleshooting any realm</li>
+<li>Configuring instance-level settings (email, brute force protection, event logging)</li>
+<li>Managing the Keycloak administration realm and administrative service accounts</li>
+<li>Reviewing audit events across all realms</li>
 </ul>
-<h3 id="for-cloud-consumers">For Cloud Consumers<a class="headerlink" href="#for-cloud-consumers" title="Permanent link">#</a></h3>
-<ul>
-<li><a href="audience/cloud-consumers.html">Cloud Consumer Documentation</a> - Start from the consumer landing page</li>
-<li><a href="cloud-user-guide/getting-started.html">Getting Started</a> - Provision your first service</li>
-<li><a href="cloud-user-guide/projects/creating-projects.html">Creating Projects</a> - Set up your workspace</li>
-<li><a href="cloud-user-guide/solutions/browsing-marketplace.html">Browsing Marketplace</a> - Find services</li>
-<li><a href="cloud-user-guide/kubectl-access/setup-kubectl.html">Setup kubectl</a> - Configure CLI access</li>
-</ul>
-<h3 id="learn-more">Learn More<a class="headerlink" href="#learn-more" title="Permanent link">#</a></h3>
-<ul>
-<li><a href="about/overview.html">Overview</a> - Deep dive into SCO</li>
-<li><a href="about/key-features.html">Key Features</a> - Explore capabilities</li>
-<li><a href="architecture/architecture.html">Architecture</a> - Understand the architecture</li>
-<li><a href="architecture/concepts.html">Core Concepts</a> - Learn key concepts</li>
-<li><a href="installation/overview.html">Installation</a> - Install SCO</li>
-</ul>
-<h2 id="support-and-community">Support and Community<a class="headerlink" href="#support-and-community" title="Permanent link">#</a></h2>
-<p>Need help or want to contribute?</p>
-<ul>
-<li><strong>Documentation</strong>: <a href="https://docs.stakater.com/stakater-cloud-orchestrator">docs.Stakater.com/Stakater-cloud-orchestrator</a></li>
-<li><strong>Website</strong>: <a href="https://stakater.com">Stakater.com</a></li>
-<li><strong>Slack</strong>: Join our community (link coming soon)</li>
-</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Organisation-level administrators have access only to their own realm through a delegated admin configuration. They cannot see other organisations' realms or the Keycloak administration realm.</p>
+</div>
+<hr>
 <h2 id="whats-next">What's Next?<a class="headerlink" href="#whats-next" title="Permanent link">#</a></h2>
-<p>Choose your path:</p>
-<p><strong>I want to provide services</strong> → <a href="audience/platform-providers.html">Platform Provider Documentation</a></p>
-<p><strong>I want to consume services</strong> → <a href="audience/cloud-consumers.html">Cloud Consumer Documentation</a></p>
-<p><strong>I want to understand SCO</strong> → <a href="about/overview.html">Overview</a> | <a href="architecture/architecture.html">Architecture</a></p>
+<ul>
+<li><a href="../service-provider-guide/organizations/keycloak-realms.html">Keycloak Realms</a> — Detailed realm configuration for providers</li>
+<li><a href="../cloud-user-guide/authentication/managing-users.html">Managing Users</a> — User management guide</li>
+<li><a href="../how-to-guides/user/create-iam-user.html">Create IAM User</a> — How-to guide</li>
+<li><a href="../how-to-guides/user/create-iam-group.html">Create IAM Group</a> — How-to guide</li>
+</ul>
 
 
 
 
 
 
-
-  
-  
 
 
 
@@ -6030,27 +5876,27 @@ This documentation is for a pull request deployment and is unreleased, it is onl
                 <div class="flex-2">
                     <div class="logo-footer-container">
                         
-                        <img class="md-header__logo_light" src="assets/images/footer-logo-light.png#only-light" alt="logo">
+                        <img class="md-header__logo_light" src="../assets/images/footer-logo-light.png#only-light" alt="logo">
                         
                         
-                        <img src="assets/images/footer-logo-dark.png#only-dark" alt="logo">
+                        <img src="../assets/images/footer-logo-dark.png#only-dark" alt="logo">
                         
                     </div>
 
                     <div class="collaborations-img-container">
                         <div class="display-flex">
                             
-                            <img class="csa-logo-dark" src="assets/images/CSA_dark.png#only-dark" alt="CSA">
+                            <img class="csa-logo-dark" src="../assets/images/CSA_dark.png#only-dark" alt="CSA">
                             
                             
-                            <img class="csa-logo-light" src="assets/images/CSA_light.png#only-light" alt="CSA">
+                            <img class="csa-logo-light" src="../assets/images/CSA_light.png#only-light" alt="CSA">
                             
 
                             
-                            <img class="hc-logo-dark" src="assets/images/HC_dark.png#only-dark" alt="HC">
+                            <img class="hc-logo-dark" src="../assets/images/HC_dark.png#only-dark" alt="HC">
                             
                             
-                            <img class="hc-logo-light" src="assets/images/HC_light.png#only-light" alt="HC">
+                            <img class="hc-logo-light" src="../assets/images/HC_light.png#only-light" alt="HC">
                             
                         </div>
                     </div>
@@ -6427,10 +6273,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["content.code.copy", "navigation.tracking", "toc.follow", "navigation.top"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["content.code.copy", "navigation.tracking", "toc.follow", "navigation.top"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
-      <script src="assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
       
     
   

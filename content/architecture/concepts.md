@@ -75,7 +75,7 @@ SCO includes two flagship solutions out of the box:
 - Public (LoadBalancer) or private networking
 - SSH key-based authentication
 
-**OpenShiftCluster** (`openshiftcluster.cloud.stakater.com/v1`):
+**OpenShiftCluster** (`kubernetes.cloud.stakater.com/v1`):
 
 - User-facing marketplace API for provisioning OpenShift clusters
 - Provisions full OpenShift clusters using Hypershift
@@ -191,7 +191,7 @@ Solutions are published to make their APIs available across isolated workspaces.
 - Enables API sharing across isolation boundaries
 - Standard Kubernetes API semantics
 
-**Example**: The VirtualMachine solution publishes its `vm.cloud.stakater.com` API, which projects can access to create VirtualMachine resources.
+**Example**: The VirtualMachine solution publishes its `compute.cloud.stakater.com` API group, which projects can access to create `VirtualMachine` resources.
 
 ## Virtual Machine Management
 

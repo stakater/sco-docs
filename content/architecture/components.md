@@ -123,7 +123,7 @@ The `api-syncagent` is a per-API-group process that bridges KCP workspaces and t
 - Creates corresponding objects on the service cluster in per-workspace namespaces
 - Synchronises status, connection details, and published related resources such as Secrets from the service cluster back to the consumer workspace
 
-One sync agent runs per published API group. It is deployed through the `ApiExport` / `XApiExport` publication flow, which renders the required KCP export objects, syncagent release, RBAC, and supporting environment configuration.
+One sync agent runs per published API group. It is deployed through the `ApiExport` / `XApiExport` publication flow, which renders the required KCP export objects, `syncagent` release, RBAC, and supporting environment configuration.
 
 See [Publishing APIs](../service-provider-guide/api-publishing/publishing-apis.md).
 

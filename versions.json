@@ -27,9 +27,7 @@
   {
     "version": "renovate-main-nginxinc-nginx-unprivileged-1.x",
     "title": "renovate-main-nginxinc-nginx-unprivileged-1.x",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "renovate-main-dotenv-17.x-lockfile",
@@ -54,6 +52,8 @@
   {
     "version": "architecture",
     "title": "architecture",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   }
 ]

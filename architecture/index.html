@@ -5676,6 +5676,13 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <li>Manage resources via kubectl, Terraform, or GitOps</li>
 </ul>
 <h2 id="how-it-works">How It Works<a class="headerlink" href="#how-it-works" title="Permanent link">#</a></h2>
+<p>At a high level, providers publish service APIs and consumers provision those services into isolated project workspaces. SCO reconciles the requested services onto the underlying infrastructure.</p>
+<pre class="mermaid"><code>flowchart LR
+    Provider[Platform Provider&lt;br/&gt;defines services] --&gt; Catalog[Marketplace&lt;br/&gt;published APIs]
+    Consumer[Cloud Consumer&lt;br/&gt;kubectl / Terraform / GitOps / Console] --&gt; Project[Project Workspace&lt;br/&gt;isolated API endpoint]
+    Catalog --&gt; Project
+    Project --&gt; Platform[SCO Control Plane&lt;br/&gt;KCP, Crossplane, MTO, Keycloak]
+    Platform --&gt; Infra[Infrastructure&lt;br/&gt;VMs, clusters, databases, storage]</code></pre>
 <ol>
 <li><strong>SCO is installed</strong> on your Kubernetes cluster using the <code>ksp up</code> CLI command (tested on OpenShift 4.14+)</li>
 <li><strong>Platform providers</strong> create solutions (e.g., VirtualMachine-as-a-Service, OpenShift-as-a-Service) using composition tools</li>

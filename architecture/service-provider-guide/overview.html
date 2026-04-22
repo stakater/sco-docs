@@ -5312,6 +5312,12 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <li>Publishing APIs through KCP</li>
 <li>Configuring Keycloak realms for organisation isolation</li>
 </ul>
+<p>The provider workflow moves from defining a service API to making that API available in consumer project workspaces:</p>
+<pre class="mermaid"><code>flowchart LR
+    Define[Define service API&lt;br/&gt;XRD / schema] --&gt; Compose[Implement service&lt;br/&gt;Composition / operator]
+    Compose --&gt; Publish[Publish API&lt;br/&gt;ApiExport / syncagent]
+    Publish --&gt; Bind[Project workspaces&lt;br/&gt;receive APIBindings]
+    Bind --&gt; Consume[Cloud users&lt;br/&gt;provision instances]</code></pre>
 <h2 id="key-personas">Key Personas<a class="headerlink" href="#key-personas" title="Permanent link">#</a></h2>
 <p>Throughout this guide, you'll see examples featuring:</p>
 <ul>

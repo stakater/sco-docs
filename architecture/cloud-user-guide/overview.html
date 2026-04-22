@@ -5311,6 +5311,13 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <li>Managing users and authentication</li>
 <li>Understanding project structure and isolation</li>
 </ul>
+<p>The typical cloud user journey starts with access to an isolated project and ends with a running service instance:</p>
+<pre class="mermaid"><code>flowchart LR
+    Login[Log in] --&gt; Project[Create or select project]
+    Project --&gt; Browse[Browse marketplace]
+    Browse --&gt; Provision[Provision service]
+    Provision --&gt; Observe[Watch status and outputs]
+    Observe --&gt; Use[Use service from workload]</code></pre>
 <h2 id="key-personas">Key Personas<a class="headerlink" href="#key-personas" title="Permanent link">#</a></h2>
 <p>Throughout this guide, you'll see examples featuring:</p>
 <ul>

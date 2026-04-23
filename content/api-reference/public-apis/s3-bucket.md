@@ -80,6 +80,10 @@ spec:
               value: https://$(BUCKET_HOST)
 ```
 
+## How-to Guide
+
+[Create an S3 Bucket](../../how-to-guides/user/create-s3-bucket.md)
+
 ## Related
 
 - Platform-tier API: [S3 Bucket (Infrastructure)](../private-apis/s3-bucket-infrastructure.md)

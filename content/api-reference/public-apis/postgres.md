@@ -113,6 +113,10 @@ spec:
                 name: my-db
 ```
 
+## How-to Guide
+
+[Create a Postgres Database](../../how-to-guides/user/create-postgres.md)
+
 ## Related
 
 - Platform-tier API: [Postgres Cluster (Infrastructure)](../private-apis/postgres-cluster-infrastructure.md)

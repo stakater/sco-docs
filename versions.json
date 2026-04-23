@@ -52,13 +52,13 @@
   {
     "version": "feat-api-reference-s3-postgres",
     "title": "feat-api-reference-s3-postgres",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "architecture",
     "title": "architecture",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   }
 ]

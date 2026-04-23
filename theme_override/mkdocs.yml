@@ -96,9 +96,13 @@ nav:
           - api-reference/public-apis/iam-group.md
           - api-reference/public-apis/openshift-cluster.md
           - api-reference/public-apis/virtual-machine.md
+          - api-reference/public-apis/s3-bucket.md
+          - api-reference/public-apis/postgres.md
       - Platform APIs:
           - api-reference/private-apis/hypershift-hosted-cluster.md
           - api-reference/private-apis/virtual-machine-infrastructure.md
+          - api-reference/private-apis/s3-bucket-infrastructure.md
+          - api-reference/private-apis/postgres-cluster-infrastructure.md
   - Integrations:
       - integrations/keycloak.md
       - integrations/kcp.md

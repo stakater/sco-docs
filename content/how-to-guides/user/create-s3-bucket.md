@@ -136,7 +136,11 @@ When you no longer need the bucket, delete the claim:
 kubectl delete s3bucket my-bucket
 ```
 
-The platform tears down the bucket and removes the credentials Secret from your project.
+The platform tears down the bucket. The credentials Secret is removed from your project on a best-effort basis — if a stale `<claim-name>` Secret remains after the claim is gone, drop it with:
+
+```bash
+kubectl delete secret my-bucket
+```
 
 !!! warning
     Bucket contents are deleted when the claim is removed. Export or migrate any data you need to keep before deletion.

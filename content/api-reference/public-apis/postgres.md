@@ -36,16 +36,20 @@ All parameters are nested under `spec.parameters`.
 
 ## Credentials
 
-When the database is ready, the platform delivers a Secret named after the claim (`<metadata.name>`) into the project:
+When the database is ready, the platform delivers a Secret named after the claim (`<metadata.name>`) into the project. The keys cover the most common client conventions:
 
 | Secret key | Description |
 |------------|-------------|
-| `username` | Application user |
+| `username` / `user` | Application user (both keys carry the same value) |
 | `password` | Password for the application user |
 | `host` | Read-write service hostname (matches `status.connection.host`) |
 | `port` | Service port |
-| `database` | Database name |
-| `uri` | Full PostgreSQL connection URI |
+| `dbname` | Database name |
+| `uri` | PostgreSQL connection URI (`postgresql://user:pass@host:port/db`) |
+| `jdbc-uri` | JDBC URL (`jdbc:postgresql://host:port/db?password=...&user=...`) |
+| `fqdn-uri` | Same as `uri` but with the host's fully-qualified cluster DNS name |
+| `fqdn-jdbc-uri` | Same as `jdbc-uri` but with the host's fully-qualified cluster DNS name |
+| `pgpass` | A line for `~/.pgpass` (`host:port:db:user:password`) |
 
 ## Examples
 

@@ -72,16 +72,19 @@ kubectl get postgres my-db -o jsonpath='{.status.connection}'
 
 ## Step 4: Consume the Credentials
 
-The platform delivers a Secret named after the claim (`my-db`) into your project:
+The platform delivers a Secret named after the claim (`my-db`) into your project. Keys cover the common client conventions:
 
 | Secret key | Description |
 |------------|-------------|
-| `username` | Application user |
+| `username` / `user` | Application user (both keys carry the same value) |
 | `password` | Password for the application user |
 | `host` | Read-write service hostname |
 | `port` | Service port |
-| `database` | Database name |
-| `uri` | Full PostgreSQL connection URI |
+| `dbname` | Database name |
+| `uri` | PostgreSQL connection URI |
+| `jdbc-uri` | JDBC URL |
+| `fqdn-uri`, `fqdn-jdbc-uri` | URI / JDBC URL with the host's fully-qualified cluster DNS name |
+| `pgpass` | A line for `~/.pgpass` |
 
 ### Mount it into a workload
 
@@ -119,7 +122,7 @@ kubectl port-forward svc/my-db-rw 5432:5432 &
 
 export PGUSER=$(kubectl get secret my-db -o jsonpath='{.data.username}' | base64 -d)
 export PGPASSWORD=$(kubectl get secret my-db -o jsonpath='{.data.password}' | base64 -d)
-export PGDATABASE=$(kubectl get secret my-db -o jsonpath='{.data.database}' | base64 -d)
+export PGDATABASE=$(kubectl get secret my-db -o jsonpath='{.data.dbname}' | base64 -d)
 
 psql -h 127.0.0.1 -p 5432 -c "SELECT version();"
 ```
@@ -168,7 +171,11 @@ Use that host with the credentials from the Secret to connect from outside.
 kubectl delete postgres my-db
 ```
 
-The platform tears down the database and removes the credentials Secret from your project.
+The platform tears down the database. The credentials Secret is removed from your project on a best-effort basis — if a stale `<claim-name>` Secret remains after the claim is gone, drop it with:
+
+```bash
+kubectl delete secret my-db
+```
 
 !!! warning
     All data is deleted when the claim is removed. Back up any database you need to keep before deletion.

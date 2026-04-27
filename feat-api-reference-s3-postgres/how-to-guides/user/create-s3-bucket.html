@@ -5745,7 +5745,9 @@ aws<span class="w"> </span>--endpoint-url<span class="w"> </span>https://<span c
 <p>When you no longer need the bucket, delete the claim:</p>
 <div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>delete<span class="w"> </span>s3bucket<span class="w"> </span>my-bucket
 </code></pre></div>
-<p>The platform tears down the bucket and removes the credentials Secret from your project.</p>
+<p>The platform tears down the bucket. The credentials Secret is removed from your project on a best-effort basis — if a stale <code>&lt;claim-name&gt;</code> Secret remains after the claim is gone, drop it with:</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>delete<span class="w"> </span>secret<span class="w"> </span>my-bucket
+</code></pre></div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>Bucket contents are deleted when the claim is removed. Export or migrate any data you need to keep before deletion.</p>

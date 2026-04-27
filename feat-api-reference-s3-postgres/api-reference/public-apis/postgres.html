@@ -5756,7 +5756,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </tbody>
 </table>
 <h2 id="credentials">Credentials<a class="headerlink" href="#credentials" title="Permanent link">#</a></h2>
-<p>When the database is ready, the platform delivers a Secret named after the claim (<code>&lt;metadata.name&gt;</code>) into the project:</p>
+<p>When the database is ready, the platform delivers a Secret named after the claim (<code>&lt;metadata.name&gt;</code>) into the project. The keys cover the most common client conventions:</p>
 <table>
 <thead>
 <tr>
@@ -5766,8 +5766,8 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </thead>
 <tbody>
 <tr>
-<td><code>username</code></td>
-<td>Application user</td>
+<td><code>username</code> / <code>user</code></td>
+<td>Application user (both keys carry the same value)</td>
 </tr>
 <tr>
 <td><code>password</code></td>
@@ -5782,12 +5782,28 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <td>Service port</td>
 </tr>
 <tr>
-<td><code>database</code></td>
+<td><code>dbname</code></td>
 <td>Database name</td>
 </tr>
 <tr>
 <td><code>uri</code></td>
-<td>Full PostgreSQL connection URI</td>
+<td>PostgreSQL connection URI (<code>postgresql://user:pass@host:port/db</code>)</td>
+</tr>
+<tr>
+<td><code>jdbc-uri</code></td>
+<td>JDBC URL (<code>jdbc:postgresql://host:port/db?password=...&amp;user=...</code>)</td>
+</tr>
+<tr>
+<td><code>fqdn-uri</code></td>
+<td>Same as <code>uri</code> but with the host's fully-qualified cluster DNS name</td>
+</tr>
+<tr>
+<td><code>fqdn-jdbc-uri</code></td>
+<td>Same as <code>jdbc-uri</code> but with the host's fully-qualified cluster DNS name</td>
+</tr>
+<tr>
+<td><code>pgpass</code></td>
+<td>A line for <code>~/.pgpass</code> (<code>host:port:db:user:password</code>)</td>
 </tr>
 </tbody>
 </table>

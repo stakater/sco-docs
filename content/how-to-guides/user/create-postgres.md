@@ -111,23 +111,41 @@ spec:
                 name: my-db
 ```
 
-The container will see `DATABASE_URL`-equivalent values through the standard keys (`host`, `port`, `username`, `password`, `database`, `uri`).
+The container will see `DATABASE_URL`-equivalent values through the standard keys (`host`, `port`, `username`, `password`, `dbname`, `uri`).
 
 ### Test from your workstation
 
-Port-forward the Postgres service and open a `psql` session:
+For ad-hoc testing — `psql` from your laptop, a local migration runner, a BI tool — set `parameters.exposeLoadBalancer: true` on the claim. The platform provisions an externally-routable endpoint and surfaces its hostname / IP under `status.connection.externalHost`:
+
+```yaml
+apiVersion: database.cloud.stakater.com/v1
+kind: Postgres
+metadata:
+  name: my-db
+spec:
+  parameters:
+    exposeLoadBalancer: true
+```
+
+Connect using the credentials Secret directly — no port-forward needed:
 
 ```bash
-kubectl port-forward svc/my-db-rw 5432:5432 &
-
+PG_HOST=$(kubectl get postgres my-db -o jsonpath='{.status.connection.externalHost}')
 export PGUSER=$(kubectl get secret my-db -o jsonpath='{.data.username}' | base64 -d)
 export PGPASSWORD=$(kubectl get secret my-db -o jsonpath='{.data.password}' | base64 -d)
 export PGDATABASE=$(kubectl get secret my-db -o jsonpath='{.data.dbname}' | base64 -d)
 
+psql -h "$PG_HOST" -p 5432 -c "SELECT version();"
+```
+
+If you left `exposeLoadBalancer` off, the database is only reachable from inside the project — a one-off connection from your laptop is still possible by port-forwarding:
+
+```bash
+kubectl port-forward svc/my-db-rw 5432:5432 &
 psql -h 127.0.0.1 -p 5432 -c "SELECT version();"
 ```
 
-## Step 5: Scale or Expose the Database (Optional)
+## Step 5: Scale the Database (Optional)
 
 ### High availability with 3 instances
 
@@ -142,28 +160,6 @@ spec:
     storage:
       size: 50Gi
 ```
-
-### Externally-reachable database
-
-When you need to connect from outside the project — a local tool, a migration runner, a BI tool — set `exposeLoadBalancer: true`:
-
-```yaml
-apiVersion: database.cloud.stakater.com/v1
-kind: Postgres
-metadata:
-  name: external-db
-spec:
-  parameters:
-    exposeLoadBalancer: true
-```
-
-The external host is surfaced under `status.connection.externalHost`:
-
-```bash
-kubectl get postgres external-db -o jsonpath='{.status.connection.externalHost}'
-```
-
-Use that host with the credentials from the Secret to connect from outside.
 
 ## Step 6: Delete the Database
 

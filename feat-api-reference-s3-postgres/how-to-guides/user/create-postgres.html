@@ -3224,15 +3224,15 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-5-scale-or-expose-the-database-optional" class="md-nav__link">
+  <a href="#step-5-scale-the-database-optional" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 5: Scale or Expose the Database (Optional)
+        Step 5: Scale the Database (Optional)
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Step 5: Scale or Expose the Database (Optional)">
+    <nav class="md-nav" aria-label="Step 5: Scale the Database (Optional)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -3240,17 +3240,6 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     <span class="md-ellipsis">
       
         High availability with 3 instances
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#externally-reachable-database" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Externally-reachable database
       
     </span>
   </a>
@@ -5639,15 +5628,15 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-5-scale-or-expose-the-database-optional" class="md-nav__link">
+  <a href="#step-5-scale-the-database-optional" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 5: Scale or Expose the Database (Optional)
+        Step 5: Scale the Database (Optional)
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Step 5: Scale or Expose the Database (Optional)">
+    <nav class="md-nav" aria-label="Step 5: Scale the Database (Optional)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -5655,17 +5644,6 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     <span class="md-ellipsis">
       
         High availability with 3 instances
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#externally-reachable-database" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Externally-reachable database
       
     </span>
   </a>
@@ -5854,18 +5832,30 @@ my-db   True     True    2m
 <span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">secretRef</span><span class="p">:</span>
 <span class="w">                </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-db</span>
 </code></pre></div>
-<p>The container will see <code>DATABASE_URL</code>-equivalent values through the standard keys (<code>host</code>, <code>port</code>, <code>username</code>, <code>password</code>, <code>database</code>, <code>uri</code>).</p>
+<p>The container will see <code>DATABASE_URL</code>-equivalent values through the standard keys (<code>host</code>, <code>port</code>, <code>username</code>, <code>password</code>, <code>dbname</code>, <code>uri</code>).</p>
 <h3 id="test-from-your-workstation">Test from your workstation<a class="headerlink" href="#test-from-your-workstation" title="Permanent link">#</a></h3>
-<p>Port-forward the Postgres service and open a <code>psql</code> session:</p>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>port-forward<span class="w"> </span>svc/my-db-rw<span class="w"> </span><span class="m">5432</span>:5432<span class="w"> </span><span class="p">&amp;</span>
-
+<p>For ad-hoc testing — <code>psql</code> from your laptop, a local migration runner, a BI tool — set <code>parameters.exposeLoadBalancer: true</code> on the claim. The platform provisions an externally-routable endpoint and surfaces its hostname / IP under <code>status.connection.externalHost</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">database.cloud.stakater.com/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Postgres</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-db</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">exposeLoadBalancer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</code></pre></div>
+<p>Connect using the credentials Secret directly — no port-forward needed:</p>
+<div class="highlight"><pre><span></span><code><span class="nv">PG_HOST</span><span class="o">=</span><span class="k">$(</span>kubectl<span class="w"> </span>get<span class="w"> </span>postgres<span class="w"> </span>my-db<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.status.connection.externalHost}'</span><span class="k">)</span>
 <span class="nb">export</span><span class="w"> </span><span class="nv">PGUSER</span><span class="o">=</span><span class="k">$(</span>kubectl<span class="w"> </span>get<span class="w"> </span>secret<span class="w"> </span>my-db<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.data.username}'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64<span class="w"> </span>-d<span class="k">)</span>
 <span class="nb">export</span><span class="w"> </span><span class="nv">PGPASSWORD</span><span class="o">=</span><span class="k">$(</span>kubectl<span class="w"> </span>get<span class="w"> </span>secret<span class="w"> </span>my-db<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.data.password}'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64<span class="w"> </span>-d<span class="k">)</span>
 <span class="nb">export</span><span class="w"> </span><span class="nv">PGDATABASE</span><span class="o">=</span><span class="k">$(</span>kubectl<span class="w"> </span>get<span class="w"> </span>secret<span class="w"> </span>my-db<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.data.dbname}'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64<span class="w"> </span>-d<span class="k">)</span>
 
+psql<span class="w"> </span>-h<span class="w"> </span><span class="s2">"</span><span class="nv">$PG_HOST</span><span class="s2">"</span><span class="w"> </span>-p<span class="w"> </span><span class="m">5432</span><span class="w"> </span>-c<span class="w"> </span><span class="s2">"SELECT version();"</span>
+</code></pre></div>
+<p>If you left <code>exposeLoadBalancer</code> off, the database is only reachable from inside the project — a one-off connection from your laptop is still possible by port-forwarding:</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>port-forward<span class="w"> </span>svc/my-db-rw<span class="w"> </span><span class="m">5432</span>:5432<span class="w"> </span><span class="p">&amp;</span>
 psql<span class="w"> </span>-h<span class="w"> </span><span class="m">127</span>.0.0.1<span class="w"> </span>-p<span class="w"> </span><span class="m">5432</span><span class="w"> </span>-c<span class="w"> </span><span class="s2">"SELECT version();"</span>
 </code></pre></div>
-<h2 id="step-5-scale-or-expose-the-database-optional">Step 5: Scale or Expose the Database (Optional)<a class="headerlink" href="#step-5-scale-or-expose-the-database-optional" title="Permanent link">#</a></h2>
+<h2 id="step-5-scale-the-database-optional">Step 5: Scale the Database (Optional)<a class="headerlink" href="#step-5-scale-the-database-optional" title="Permanent link">#</a></h2>
 <h3 id="high-availability-with-3-instances">High availability with 3 instances<a class="headerlink" href="#high-availability-with-3-instances" title="Permanent link">#</a></h3>
 <div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">database.cloud.stakater.com/v1</span>
 <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Postgres</span>
@@ -5877,20 +5867,6 @@ psql<span class="w"> </span>-h<span class="w"> </span><span class="m">127</span>
 <span class="w">    </span><span class="nt">storage</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">50Gi</span>
 </code></pre></div>
-<h3 id="externally-reachable-database">Externally-reachable database<a class="headerlink" href="#externally-reachable-database" title="Permanent link">#</a></h3>
-<p>When you need to connect from outside the project — a local tool, a migration runner, a BI tool — set <code>exposeLoadBalancer: true</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">database.cloud.stakater.com/v1</span>
-<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Postgres</span>
-<span class="nt">metadata</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">external-db</span>
-<span class="nt">spec</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">exposeLoadBalancer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-</code></pre></div>
-<p>The external host is surfaced under <code>status.connection.externalHost</code>:</p>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>postgres<span class="w"> </span>external-db<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.status.connection.externalHost}'</span>
-</code></pre></div>
-<p>Use that host with the credentials from the Secret to connect from outside.</p>
 <h2 id="step-6-delete-the-database">Step 6: Delete the Database<a class="headerlink" href="#step-6-delete-the-database" title="Permanent link">#</a></h2>
 <div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>delete<span class="w"> </span>postgres<span class="w"> </span>my-db
 </code></pre></div>

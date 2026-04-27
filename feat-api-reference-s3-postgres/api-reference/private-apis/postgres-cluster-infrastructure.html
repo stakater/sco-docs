@@ -5820,7 +5820,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <td><code>exposeLoadBalancer</code></td>
 <td><code>boolean</code></td>
 <td><code>false</code></td>
-<td>When <code>true</code>, ask CloudNativePG to provision an additional LoadBalancer Service targeting the primary (rw) instance, so the database is reachable outside the cluster. Default is <code>false</code> (private, in-cluster only).</td>
+<td>When <code>true</code>, ask CloudNativePG to provision an additional LoadBalancer Service targeting the primary (read-write) instance, so the database is reachable outside the cluster. Default is <code>false</code> (private, in-cluster only).</td>
 </tr>
 <tr>
 <td><code>kubernetesProviderConfigName</code></td>
@@ -5853,7 +5853,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </tbody>
 </table>
 <h2 id="status-fields">Status Fields<a class="headerlink" href="#status-fields" title="Permanent link">#</a></h2>
-<p><code>status.connection</code> carries non-sensitive endpoint metadata only. Credentials live in the CloudNativePG-managed <code>&lt;cluster-name&gt;-app</code> Secret in the target namespace; they are surfaced to cloud-tier consumers via api-syncagent related resources on the cloud-tier <code>PublishedResource</code> — not here.</p>
+<p><code>status.connection</code> carries non-sensitive endpoint metadata only. Credentials live in the CloudNativePG-managed <code>&lt;cluster-name&gt;-app</code> Secret in the target namespace; they are surfaced to cloud-tier consumers via the <code>api-syncagent</code> related resources on the cloud-tier <code>PublishedResource</code> — not here.</p>
 <table>
 <thead>
 <tr>

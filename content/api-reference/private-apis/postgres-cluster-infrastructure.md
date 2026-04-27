@@ -52,7 +52,7 @@ All parameters are nested under `spec.parameters`.
 
 | Field | Type | Default | Description |
 |-------|------|---------|-------------|
-| `exposeLoadBalancer` | `boolean` | `false` | When `true`, ask CloudNativePG to provision an additional LoadBalancer Service targeting the primary (rw) instance, so the database is reachable outside the cluster. Default is `false` (private, in-cluster only). |
+| `exposeLoadBalancer` | `boolean` | `false` | When `true`, ask CloudNativePG to provision an additional LoadBalancer Service targeting the primary (read-write) instance, so the database is reachable outside the cluster. Default is `false` (private, in-cluster only). |
 | `kubernetesProviderConfigName` | `string` | `kubernetes-provider` | Name of the Kubernetes provider config to use. |
 
 ### Top-level fields
@@ -64,7 +64,7 @@ All parameters are nested under `spec.parameters`.
 
 ## Status Fields
 
-`status.connection` carries non-sensitive endpoint metadata only. Credentials live in the CloudNativePG-managed `<cluster-name>-app` Secret in the target namespace; they are surfaced to cloud-tier consumers via api-syncagent related resources on the cloud-tier `PublishedResource` — not here.
+`status.connection` carries non-sensitive endpoint metadata only. Credentials live in the CloudNativePG-managed `<cluster-name>-app` Secret in the target namespace; they are surfaced to cloud-tier consumers via the `api-syncagent` related resources on the cloud-tier `PublishedResource` — not here.
 
 | Field | Type | Description |
 |-------|------|-------------|

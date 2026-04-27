@@ -2,7 +2,7 @@
 
 Learn how to provision an S3-compatible object storage bucket in your project.
 
-Priya, a developer at ACME Corp, needs persistent object storage for her application's file uploads. She can provision an S3 bucket and consume it from a workload in minutes, using any AWS SDK or S3 client.
+Emma, a developer at ACME Corp, needs persistent object storage for her application's file uploads. She can provision an S3 bucket and consume it from a workload in minutes, using any AWS SDK or S3 client.
 
 ## Prerequisites
 

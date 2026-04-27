@@ -41,7 +41,7 @@ All parameters are nested under `spec.parameters`.
 
 ## Status Fields
 
-`status.bucket` carries non-sensitive bucket metadata only. Credentials live in the OBC-generated `<claim-name>` Secret in the target namespace; they are surfaced to cloud-tier consumers via api-syncagent related resources on the cloud-tier `PublishedResource` — not here.
+`status.bucket` carries non-sensitive bucket metadata only. Credentials live in the OBC-generated `<claim-name>` Secret in the target namespace; they are surfaced to cloud-tier consumers via the `api-syncagent` related resources on the cloud-tier `PublishedResource` — not here.
 
 | Field | Type | Description |
 |-------|------|-------------|

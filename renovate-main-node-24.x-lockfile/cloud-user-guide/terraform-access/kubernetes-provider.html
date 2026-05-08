@@ -5,31 +5,31 @@
       
       
       
-        <link rel="canonical" href="https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/changelog.html">
+        <link rel="canonical" href="https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/cloud-user-guide/terraform-access/kubernetes-provider.html">
       
       
-        <link rel="prev" href="troubleshooting/common-issues.html">
+        <link rel="prev" href="setup-terraform.html">
       
       
-        <link rel="next" href="eula.html">
+        <link rel="next" href="../gitops-access/argocd-setup.html">
       
       
         
       
       
-      <link rel="icon" href="assets/images/favicon.svg">
+      <link rel="icon" href="../../assets/images/favicon.svg">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
-        <title>Changelog - Stakater Cloud Orchestrator</title>
+        <title>Kubernetes Provider - Stakater Cloud Orchestrator</title>
       
     
     
-      <link rel="stylesheet" href="assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
       
         
-        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -48,9 +48,9 @@
       
     
     
-      <link rel="stylesheet" href="stylesheets/extra.css">
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
     
-    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
   
@@ -66,7 +66,7 @@
 
     
     
-  <link href="assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+  <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
             html.glightbox-open { overflow: initial; height: 100%; }
             .gslide-title { margin-top: 0px; user-select: text; }
             .gslide-desc { color: #666; user-select: text; }
@@ -95,7 +95,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#changelog" class="md-skip">
+        <a href="#kubernetes-provider" class="md-skip">
           Skip to content
         </a>
       
@@ -340,7 +340,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <nav class="md-header__inner md-grid" aria-label="Header">
 
     <!-- Link to home -->
-    <a href="index.html" title="Stakater Cloud Orchestrator" class="md-header__button md-logo" aria-label="Stakater Cloud Orchestrator" data-md-component="logo">
+    <a href="../../index.html" title="Stakater Cloud Orchestrator" class="md-header__button md-logo" aria-label="Stakater Cloud Orchestrator" data-md-component="logo">
       <!-- 
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -361,10 +361,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
         <!-- Logo -->
         <div class="md-header__topic">
           
-          <img class="md-header__logo_light" src="assets/images/logo-light.png#only-light" alt="logo">
+          <img class="md-header__logo_light" src="../../assets/images/logo-light.png#only-light" alt="logo">
           
           
-          <img class="md-header__logo_dark" src="assets/images/logo-dark.png#only-dark" alt="logo">
+          <img class="md-header__logo_dark" src="../../assets/images/logo-dark.png#only-dark" alt="logo">
           
           
           <div class="header-site-name">
@@ -1988,7 +1988,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="index.html" title="Stakater Cloud Orchestrator" class="md-nav__button md-logo" aria-label="Stakater Cloud Orchestrator" data-md-component="logo">
+    <a href="../../index.html" title="Stakater Cloud Orchestrator" class="md-nav__button md-logo" aria-label="Stakater Cloud Orchestrator" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
@@ -2006,7 +2006,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="index.html" class="md-nav__link">
+      <a href="../../index.html" class="md-nav__link">
         
   
   
@@ -2030,18 +2030,20 @@ This documentation is for a pull request deployment and is unreleased, it is onl
       
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2">
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked="">
         
           
           <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
@@ -2062,7 +2064,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             
@@ -2080,7 +2082,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="audience/cloud-consumers.html" class="md-nav__link">
+      <a href="../../audience/cloud-consumers.html" class="md-nav__link">
         
   
   
@@ -2155,7 +2157,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="cloud-user-guide/overview.html" class="md-nav__link">
+      <a href="../overview.html" class="md-nav__link">
         
   
   
@@ -2183,7 +2185,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="cloud-user-guide/getting-started.html" class="md-nav__link">
+      <a href="../getting-started.html" class="md-nav__link">
         
   
   
@@ -2216,18 +2218,20 @@ This documentation is for a pull request deployment and is unreleased, it is onl
                 
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3">
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" checked="">
         
           
           <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
@@ -2248,7 +2252,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -2266,7 +2270,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="cloud-user-guide/authentication/logging-in.html" class="md-nav__link">
+      <a href="../authentication/logging-in.html" class="md-nav__link">
         
   
   
@@ -2294,7 +2298,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="cloud-user-guide/authentication/managing-users.html" class="md-nav__link">
+      <a href="../authentication/managing-users.html" class="md-nav__link">
         
   
   
@@ -2322,7 +2326,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="cloud-user-guide/kubectl-access/setup-kubectl.html" class="md-nav__link">
+      <a href="../kubectl-access/setup-kubectl.html" class="md-nav__link">
         
   
   
@@ -2350,7 +2354,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="cloud-user-guide/kubectl-access/kubeconfig-generation.html" class="md-nav__link">
+      <a href="../kubectl-access/kubeconfig-generation.html" class="md-nav__link">
         
   
   
@@ -2378,7 +2382,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="cloud-user-guide/terraform-access/setup-terraform.html" class="md-nav__link">
+      <a href="setup-terraform.html" class="md-nav__link">
         
   
   
@@ -2403,10 +2407,37 @@ This documentation is for a pull request deployment and is unreleased, it is onl
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="cloud-user-guide/terraform-access/kubernetes-provider.html" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Kubernetes Provider
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="kubernetes-provider.html" class="md-nav__link md-nav__link--active">
         
   
   
@@ -2422,6 +2453,111 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
 
       </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#multiple-projects" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multiple Projects
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#managing-all-sco-services" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Managing All SCO Services
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Managing All SCO Services">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#virtual-machine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Virtual Machine
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#openshift-cluster" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OpenShift Cluster
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iam-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IAM Resources
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#state-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        State Management
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#whats-next" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What's Next?
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -2434,7 +2570,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="cloud-user-guide/gitops-access/argocd-setup.html" class="md-nav__link">
+      <a href="../gitops-access/argocd-setup.html" class="md-nav__link">
         
   
   
@@ -2462,7 +2598,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="cloud-user-guide/gitops-access/flux-setup.html" class="md-nav__link">
+      <a href="../gitops-access/flux-setup.html" class="md-nav__link">
         
   
   
@@ -2545,7 +2681,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="cloud-user-guide/projects/creating-projects.html" class="md-nav__link">
+      <a href="../projects/creating-projects.html" class="md-nav__link">
         
   
   
@@ -2573,7 +2709,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="cloud-user-guide/projects/project-structure.html" class="md-nav__link">
+      <a href="../projects/project-structure.html" class="md-nav__link">
         
   
   
@@ -2656,7 +2792,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="cloud-user-guide/solutions/browsing-marketplace.html" class="md-nav__link">
+      <a href="../solutions/browsing-marketplace.html" class="md-nav__link">
         
   
   
@@ -2684,7 +2820,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="cloud-user-guide/solutions/provisioning-solutions.html" class="md-nav__link">
+      <a href="../solutions/provisioning-solutions.html" class="md-nav__link">
         
   
   
@@ -2712,7 +2848,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="marketplace/overview.html" class="md-nav__link">
+      <a href="../../marketplace/overview.html" class="md-nav__link">
         
   
   
@@ -2740,7 +2876,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="marketplace/browsing.html" class="md-nav__link">
+      <a href="../../marketplace/browsing.html" class="md-nav__link">
         
   
   
@@ -2768,7 +2904,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="marketplace/solution-catalog.html" class="md-nav__link">
+      <a href="../../marketplace/solution-catalog.html" class="md-nav__link">
         
   
   
@@ -2851,7 +2987,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="how-to-guides/user/deploy-first-app.html" class="md-nav__link">
+      <a href="../../how-to-guides/user/deploy-first-app.html" class="md-nav__link">
         
   
   
@@ -2879,7 +3015,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="how-to-guides/user/create-project.html" class="md-nav__link">
+      <a href="../../how-to-guides/user/create-project.html" class="md-nav__link">
         
   
   
@@ -2907,7 +3043,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="how-to-guides/user/create-iam-user.html" class="md-nav__link">
+      <a href="../../how-to-guides/user/create-iam-user.html" class="md-nav__link">
         
   
   
@@ -2935,7 +3071,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="how-to-guides/user/create-iam-group.html" class="md-nav__link">
+      <a href="../../how-to-guides/user/create-iam-group.html" class="md-nav__link">
         
   
   
@@ -2963,7 +3099,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="how-to-guides/user/provision-openshift-cluster.html" class="md-nav__link">
+      <a href="../../how-to-guides/user/provision-openshift-cluster.html" class="md-nav__link">
         
   
   
@@ -2991,7 +3127,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="how-to-guides/user/provision-virtual-machine.html" class="md-nav__link">
+      <a href="../../how-to-guides/user/provision-virtual-machine.html" class="md-nav__link">
         
   
   
@@ -3081,7 +3217,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="audience/platform-providers.html" class="md-nav__link">
+      <a href="../../audience/platform-providers.html" class="md-nav__link">
         
   
   
@@ -3156,7 +3292,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="service-provider-guide/overview.html" class="md-nav__link">
+      <a href="../../service-provider-guide/overview.html" class="md-nav__link">
         
   
   
@@ -3184,7 +3320,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="service-provider-guide/getting-started.html" class="md-nav__link">
+      <a href="../../service-provider-guide/getting-started.html" class="md-nav__link">
         
   
   
@@ -3267,7 +3403,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="installation/overview.html" class="md-nav__link">
+      <a href="../../installation/overview.html" class="md-nav__link">
         
   
   
@@ -3295,7 +3431,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="installation/prerequisites.html" class="md-nav__link">
+      <a href="../../installation/prerequisites.html" class="md-nav__link">
         
   
   
@@ -3323,7 +3459,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="installation/openshift.html" class="md-nav__link">
+      <a href="../../installation/openshift.html" class="md-nav__link">
         
   
   
@@ -3351,7 +3487,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="installation/configuration.html" class="md-nav__link">
+      <a href="../../installation/configuration.html" class="md-nav__link">
         
   
   
@@ -3434,7 +3570,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="service-provider-guide/solutions/solution-overview.html" class="md-nav__link">
+      <a href="../../service-provider-guide/solutions/solution-overview.html" class="md-nav__link">
         
   
   
@@ -3462,7 +3598,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="service-provider-guide/solutions/creating-solutions.html" class="md-nav__link">
+      <a href="../../service-provider-guide/solutions/creating-solutions.html" class="md-nav__link">
         
   
   
@@ -3490,7 +3626,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="service-provider-guide/solutions/crossplane-compositions.html" class="md-nav__link">
+      <a href="../../service-provider-guide/solutions/crossplane-compositions.html" class="md-nav__link">
         
   
   
@@ -3518,7 +3654,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="service-provider-guide/marketplace/publishing-solutions.html" class="md-nav__link">
+      <a href="../../service-provider-guide/marketplace/publishing-solutions.html" class="md-nav__link">
         
   
   
@@ -3546,7 +3682,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="service-provider-guide/marketplace/marketplace-configuration.html" class="md-nav__link">
+      <a href="../../service-provider-guide/marketplace/marketplace-configuration.html" class="md-nav__link">
         
   
   
@@ -3574,7 +3710,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="how-to-guides/provider/create-postgresql-solution.html" class="md-nav__link">
+      <a href="../../how-to-guides/provider/create-postgresql-solution.html" class="md-nav__link">
         
   
   
@@ -3657,7 +3793,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="service-provider-guide/organizations/creating-organizations.html" class="md-nav__link">
+      <a href="../../service-provider-guide/organizations/creating-organizations.html" class="md-nav__link">
         
   
   
@@ -3685,7 +3821,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="service-provider-guide/organizations/keycloak-realms.html" class="md-nav__link">
+      <a href="../../service-provider-guide/organizations/keycloak-realms.html" class="md-nav__link">
         
   
   
@@ -3713,7 +3849,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="service-provider-guide/projects/project-architecture.html" class="md-nav__link">
+      <a href="../../service-provider-guide/projects/project-architecture.html" class="md-nav__link">
         
   
   
@@ -3741,7 +3877,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="service-provider-guide/projects/workspace-mapping.html" class="md-nav__link">
+      <a href="../../service-provider-guide/projects/workspace-mapping.html" class="md-nav__link">
         
   
   
@@ -3824,7 +3960,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="service-provider-guide/api-publishing/kcp-overview.html" class="md-nav__link">
+      <a href="../../service-provider-guide/api-publishing/kcp-overview.html" class="md-nav__link">
         
   
   
@@ -3852,7 +3988,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="service-provider-guide/api-publishing/publishing-apis.html" class="md-nav__link">
+      <a href="../../service-provider-guide/api-publishing/publishing-apis.html" class="md-nav__link">
         
   
   
@@ -3942,7 +4078,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="about/overview.html" class="md-nav__link">
+      <a href="../../about/overview.html" class="md-nav__link">
         
   
   
@@ -3970,7 +4106,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="about/key-features.html" class="md-nav__link">
+      <a href="../../about/key-features.html" class="md-nav__link">
         
   
   
@@ -3998,7 +4134,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="about/use-cases.html" class="md-nav__link">
+      <a href="../../about/use-cases.html" class="md-nav__link">
         
   
   
@@ -4026,7 +4162,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="about/benefits.html" class="md-nav__link">
+      <a href="../../about/benefits.html" class="md-nav__link">
         
   
   
@@ -4054,7 +4190,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="architecture/architecture.html" class="md-nav__link">
+      <a href="../../architecture/architecture.html" class="md-nav__link">
         
   
   
@@ -4082,7 +4218,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="architecture/concepts.html" class="md-nav__link">
+      <a href="../../architecture/concepts.html" class="md-nav__link">
         
   
   
@@ -4110,7 +4246,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="architecture/components.html" class="md-nav__link">
+      <a href="../../architecture/components.html" class="md-nav__link">
         
   
   
@@ -4138,7 +4274,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="architecture/virtual-api-layer.html" class="md-nav__link">
+      <a href="../../architecture/virtual-api-layer.html" class="md-nav__link">
         
   
   
@@ -4220,7 +4356,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="console/overview.html" class="md-nav__link">
+      <a href="../../console/overview.html" class="md-nav__link">
         
   
   
@@ -4248,7 +4384,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="console/dashboard.html" class="md-nav__link">
+      <a href="../../console/dashboard.html" class="md-nav__link">
         
   
   
@@ -4276,7 +4412,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="console/organizations.html" class="md-nav__link">
+      <a href="../../console/organizations.html" class="md-nav__link">
         
   
   
@@ -4304,7 +4440,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="console/projects.html" class="md-nav__link">
+      <a href="../../console/projects.html" class="md-nav__link">
         
   
   
@@ -4332,7 +4468,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="console/marketplace.html" class="md-nav__link">
+      <a href="../../console/marketplace.html" class="md-nav__link">
         
   
   
@@ -4360,7 +4496,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="console/solutions.html" class="md-nav__link">
+      <a href="../../console/solutions.html" class="md-nav__link">
         
   
   
@@ -4442,7 +4578,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="api-reference/overview.html" class="md-nav__link">
+      <a href="../../api-reference/overview.html" class="md-nav__link">
         
   
   
@@ -4517,7 +4653,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="api-reference/public-apis/project.html" class="md-nav__link">
+      <a href="../../api-reference/public-apis/project.html" class="md-nav__link">
         
   
   
@@ -4545,7 +4681,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="api-reference/public-apis/iam-user.html" class="md-nav__link">
+      <a href="../../api-reference/public-apis/iam-user.html" class="md-nav__link">
         
   
   
@@ -4573,7 +4709,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="api-reference/public-apis/iam-group.html" class="md-nav__link">
+      <a href="../../api-reference/public-apis/iam-group.html" class="md-nav__link">
         
   
   
@@ -4601,7 +4737,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="api-reference/public-apis/openshift-cluster.html" class="md-nav__link">
+      <a href="../../api-reference/public-apis/openshift-cluster.html" class="md-nav__link">
         
   
   
@@ -4629,7 +4765,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="api-reference/public-apis/virtual-machine.html" class="md-nav__link">
+      <a href="../../api-reference/public-apis/virtual-machine.html" class="md-nav__link">
         
   
   
@@ -4712,7 +4848,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="api-reference/private-apis/hypershift-hosted-cluster.html" class="md-nav__link">
+      <a href="../../api-reference/private-apis/hypershift-hosted-cluster.html" class="md-nav__link">
         
   
   
@@ -4740,7 +4876,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="api-reference/private-apis/virtual-machine-infrastructure.html" class="md-nav__link">
+      <a href="../../api-reference/private-apis/virtual-machine-infrastructure.html" class="md-nav__link">
         
   
   
@@ -4830,7 +4966,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="integrations/keycloak.html" class="md-nav__link">
+      <a href="../../integrations/keycloak.html" class="md-nav__link">
         
   
   
@@ -4858,7 +4994,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="integrations/kcp.html" class="md-nav__link">
+      <a href="../../integrations/kcp.html" class="md-nav__link">
         
   
   
@@ -4886,7 +5022,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="integrations/mto.html" class="md-nav__link">
+      <a href="../../integrations/mto.html" class="md-nav__link">
         
   
   
@@ -4914,7 +5050,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="integrations/crossplane.html" class="md-nav__link">
+      <a href="../../integrations/crossplane.html" class="md-nav__link">
         
   
   
@@ -4996,7 +5132,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="troubleshooting/overview.html" class="md-nav__link">
+      <a href="../../troubleshooting/overview.html" class="md-nav__link">
         
   
   
@@ -5024,7 +5160,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="troubleshooting/common-issues.html" class="md-nav__link">
+      <a href="../../troubleshooting/common-issues.html" class="md-nav__link">
         
   
   
@@ -5056,37 +5192,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
       
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Changelog
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="changelog.html" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../changelog.html" class="md-nav__link">
         
   
   
@@ -5102,39 +5211,6 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
 
       </a>
-      
-        
-
-  
-
-<nav class="md-nav md-nav--secondary" aria-label="On this page">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      On this page
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
-      
-        <li class="md-nav__item">
-  <a href="#v01x" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        v0.1.x
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -5146,7 +5222,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="eula.html" class="md-nav__link">
+      <a href="../../eula.html" class="md-nav__link">
         
   
   
@@ -5195,10 +5271,82 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
       
         <li class="md-nav__item">
-  <a href="#v01x" class="md-nav__link">
+  <a href="#multiple-projects" class="md-nav__link">
     <span class="md-ellipsis">
       
-        v0.1.x
+        Multiple Projects
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#managing-all-sco-services" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Managing All SCO Services
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Managing All SCO Services">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#virtual-machine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Virtual Machine
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#openshift-cluster" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OpenShift Cluster
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iam-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IAM Resources
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#state-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        State Management
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#whats-next" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What's Next?
       
     </span>
   </a>
@@ -5222,8 +5370,112 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 
 
 
-<h1 id="changelog">Changelog<a class="headerlink" href="#changelog" title="Permanent link">#</a></h1>
-<h2 id="v01x">v0.1.x<a class="headerlink" href="#v01x" title="Permanent link">#</a></h2>
+<h1 id="kubernetes-provider">Kubernetes Provider<a class="headerlink" href="#kubernetes-provider" title="Permanent link">#</a></h1>
+<p>Advanced Terraform Kubernetes provider patterns for managing SCO project resources.</p>
+<hr>
+<h2 id="multiple-projects">Multiple Projects<a class="headerlink" href="#multiple-projects" title="Permanent link">#</a></h2>
+<p>Use provider aliases to manage resources across multiple projects in the same Terraform configuration:</p>
+<div class="highlight"><pre><span></span><code><span class="kr">provider</span><span class="w"> </span><span class="nv">"kubernetes"</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="na">alias</span><span class="w">          </span><span class="o">=</span><span class="w"> </span><span class="s2">"frontend"</span>
+<span class="w">  </span><span class="na">config_path</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="s2">"~/.kube/proj-frontend.yaml"</span>
+<span class="w">  </span><span class="na">config_context</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"proj-frontend"</span>
+<span class="p">}</span>
+
+<span class="kr">provider</span><span class="w"> </span><span class="nv">"kubernetes"</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="na">alias</span><span class="w">          </span><span class="o">=</span><span class="w"> </span><span class="s2">"backend"</span>
+<span class="w">  </span><span class="na">config_path</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="s2">"~/.kube/proj-backend.yaml"</span>
+<span class="w">  </span><span class="na">config_context</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"proj-backend"</span>
+<span class="p">}</span>
+
+<span class="kr">resource</span><span class="w"> </span><span class="nc">"kubernetes_manifest"</span><span class="w"> </span><span class="nv">"frontend_vm"</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="na">provider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">kubernetes.frontend</span>
+<span class="w">  </span><span class="nb">manifest</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kr">resource</span><span class="w"> </span><span class="nc">"kubernetes_manifest"</span><span class="w"> </span><span class="nv">"backend_db"</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="na">provider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">kubernetes.backend</span>
+<span class="w">  </span><span class="nb">manifest</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<hr>
+<h2 id="managing-all-sco-services">Managing All SCO Services<a class="headerlink" href="#managing-all-sco-services" title="Permanent link">#</a></h2>
+<h3 id="virtual-machine">Virtual Machine<a class="headerlink" href="#virtual-machine" title="Permanent link">#</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kr">resource</span><span class="w"> </span><span class="nc">"kubernetes_manifest"</span><span class="w"> </span><span class="nv">"app_vm"</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nb">manifest</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="na">apiVersion</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"compute.cloud.stakater.com/v1"</span>
+<span class="w">    </span><span class="na">kind</span><span class="w">       </span><span class="o">=</span><span class="w"> </span><span class="s2">"VirtualMachine"</span>
+<span class="w">    </span><span class="nb">metadata</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="na">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"app-vm"</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="nb">spec</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nb">parameters</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="na">flavour</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="s2">"rhel9"</span>
+<span class="w">        </span><span class="na">instanceType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"o1.large"</span>
+<span class="w">        </span><span class="na">storageSize</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s2">"medium"</span>
+<span class="w">        </span><span class="na">connection</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="s2">"public"</span>
+<span class="w">        </span><span class="na">sshPublicKey</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">var.ssh_public_key</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="nb">timeouts</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="na">create</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"10m"; delete = "10m"</span><span class="w"> </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="openshift-cluster">OpenShift Cluster<a class="headerlink" href="#openshift-cluster" title="Permanent link">#</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kr">resource</span><span class="w"> </span><span class="nc">"kubernetes_manifest"</span><span class="w"> </span><span class="nv">"dev_cluster"</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nb">manifest</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="na">apiVersion</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"kubernetes.cloud.stakater.com/v1"</span>
+<span class="w">    </span><span class="na">kind</span><span class="w">       </span><span class="o">=</span><span class="w"> </span><span class="s2">"OpenShiftCluster"</span>
+<span class="w">    </span><span class="nb">metadata</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="na">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"dev-cluster"</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="nb">spec</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nb">parameters</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="na">clusterName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"dev-cluster"</span>
+<span class="w">        </span><span class="nb">compute</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="na">cpu</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">8</span><span class="p">,</span><span class="w"> </span><span class="na">memory</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"32Gi"</span><span class="w"> </span><span class="p">}</span>
+<span class="w">        </span><span class="nb">nodePool</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="na">replicas</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="p">}</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="nb">timeouts</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="na">create</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"30m"; delete = "20m"</span><span class="w"> </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="iam-resources">IAM Resources<a class="headerlink" href="#iam-resources" title="Permanent link">#</a></h3>
+<div class="highlight"><pre><span></span><code><span class="kr">resource</span><span class="w"> </span><span class="nc">"kubernetes_manifest"</span><span class="w"> </span><span class="nv">"user_alice"</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nb">manifest</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="na">apiVersion</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"iam.cloud.stakater.com/v1"</span>
+<span class="w">    </span><span class="na">kind</span><span class="w">       </span><span class="o">=</span><span class="w"> </span><span class="s2">"User"</span>
+<span class="w">    </span><span class="nb">metadata</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="na">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"alice"</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="nb">spec</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nb">parameters</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="na">username</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="s2">"alice"</span>
+<span class="w">        </span><span class="na">email</span><span class="w">         </span><span class="o">=</span><span class="w"> </span><span class="s2">"alice@example.com"</span>
+<span class="w">        </span><span class="na">firstName</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="s2">"Alice"</span>
+<span class="w">        </span><span class="na">lastName</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="s2">"Smith"</span>
+<span class="w">        </span><span class="na">emailVerified</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="no">true</span>
+<span class="w">        </span><span class="na">enabled</span><span class="w">       </span><span class="o">=</span><span class="w"> </span><span class="no">true</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<hr>
+<h2 id="state-management">State Management<a class="headerlink" href="#state-management" title="Permanent link">#</a></h2>
+<p>Import existing SCO claims into Terraform state:</p>
+<div class="highlight"><pre><span></span><code>terraform<span class="w"> </span>import<span class="w"> </span>kubernetes_manifest.app_vm<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="s2">"apiVersion=compute.cloud.stakater.com/v1,kind=VirtualMachine,name=app-vm"</span>
+</code></pre></div>
+<p>Use remote state for team environments to avoid state conflicts:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">terraform</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kr">backend</span><span class="w"> </span><span class="nv">"s3"</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="na">bucket</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"my-terraform-state"</span>
+<span class="w">    </span><span class="na">key</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="s2">"sco/proj-frontend/terraform.tfstate"</span>
+<span class="w">    </span><span class="na">region</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"eu-west-1"</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<hr>
+<h2 id="whats-next">What's Next?<a class="headerlink" href="#whats-next" title="Permanent link">#</a></h2>
+<ul>
+<li><a href="setup-terraform.html">Setup Terraform</a> — Initial provider setup</li>
+<li><a href="../gitops-access/argocd-setup.html">GitOps Access</a> — Continuous deployment with ArgoCD or Flux</li>
+<li><a href="../../api-reference/overview.html">API Reference</a> — Full parameter reference for all services</li>
+</ul>
 
 
 
@@ -5517,27 +5769,27 @@ This documentation is for a pull request deployment and is unreleased, it is onl
                 <div class="flex-2">
                     <div class="logo-footer-container">
                         
-                        <img class="md-header__logo_light" src="assets/images/footer-logo-light.png#only-light" alt="logo">
+                        <img class="md-header__logo_light" src="../../assets/images/footer-logo-light.png#only-light" alt="logo">
                         
                         
-                        <img src="assets/images/footer-logo-dark.png#only-dark" alt="logo">
+                        <img src="../../assets/images/footer-logo-dark.png#only-dark" alt="logo">
                         
                     </div>
 
                     <div class="collaborations-img-container">
                         <div class="display-flex">
                             
-                            <img class="csa-logo-dark" src="assets/images/CSA_dark.png#only-dark" alt="CSA">
+                            <img class="csa-logo-dark" src="../../assets/images/CSA_dark.png#only-dark" alt="CSA">
                             
                             
-                            <img class="csa-logo-light" src="assets/images/CSA_light.png#only-light" alt="CSA">
+                            <img class="csa-logo-light" src="../../assets/images/CSA_light.png#only-light" alt="CSA">
                             
 
                             
-                            <img class="hc-logo-dark" src="assets/images/HC_dark.png#only-dark" alt="HC">
+                            <img class="hc-logo-dark" src="../../assets/images/HC_dark.png#only-dark" alt="HC">
                             
                             
-                            <img class="hc-logo-light" src="assets/images/HC_light.png#only-light" alt="HC">
+                            <img class="hc-logo-light" src="../../assets/images/HC_light.png#only-light" alt="HC">
                             
                         </div>
                     </div>
@@ -5914,10 +6166,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["content.code.copy", "navigation.tracking", "toc.follow", "navigation.top"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.code.copy", "navigation.tracking", "toc.follow", "navigation.top"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
-      <script src="assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
     
   

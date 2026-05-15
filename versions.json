@@ -52,6 +52,11 @@
     "aliases": []
   },
   {
+    "version": "feat-update-openshift-cluster-guide",
+    "title": "feat-update-openshift-cluster-guide",
+    "aliases": []
+  },
+  {
     "version": "feat-api-reference-s3-postgres",
     "title": "feat-api-reference-s3-postgres",
     "aliases": []

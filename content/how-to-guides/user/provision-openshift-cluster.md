@@ -93,7 +93,7 @@ Each entry under `access.groups` binds a Keycloak group to a ClusterRole. Member
 | Field | Description |
 |-------|-------------|
 | `name` | Keycloak group name exactly as it appears in the `groups` claim of the OIDC token. Must be a valid Kubernetes name (RFC 1123 subdomain). |
-| `role` | ClusterRole to bind. Typically `customer-edit` or `customer-view` (managed by the RBAC Permissions Operator), or a built-in such as `view`, `edit`, or `admin`. |
+| `role` | ClusterRole to bind. Typically, `customer-edit` or `customer-view` (managed by the RBAC Permissions Operator), or a built-in such as `view`, `edit`, or `admin`. |
 
 ## Step 3: Apply the Claim
 
@@ -115,11 +115,17 @@ Check the detailed status and conditions:
 kubectl describe openshiftcluster my-cluster -n my-tenant
 ```
 
-The `status.phase` field moves through `Initializing` → `RegistrationPending` → `Ready`. Once the cluster is ready:
+Once provisioning completes, the claim reports `READY=True` and `SYNCED=True`:
 
 ```text
 NAME         READY   SYNCED   AGE
 my-cluster   True    True     15m
+```
+
+For a more granular view, read `status.phase` directly. It moves through `Initializing` → `RegistrationPending` → `Ready`:
+
+```bash
+kubectl get openshiftcluster my-cluster -n my-tenant -o jsonpath="{.status.phase}"
 ```
 
 ## Step 5: Access the Cluster
@@ -127,8 +133,8 @@ my-cluster   True    True     15m
 Once the cluster is ready, the claim status exposes the console URL, API endpoint, and bootstrap credentials:
 
 ```bash
-kubectl get openshiftcluster my-cluster -n my-tenant -o jsonpath='{.status.consoleUrl}'
-kubectl get openshiftcluster my-cluster -n my-tenant -o jsonpath='{.status.apiEndpoint}'
+kubectl get openshiftcluster my-cluster -n my-tenant -o jsonpath="{.status.consoleUrl}"
+kubectl get openshiftcluster my-cluster -n my-tenant -o jsonpath="{.status.apiEndpoint}"
 ```
 
 Bootstrap credentials are available under `status.credentials` for initial access. After that, users should sign in through the configured Keycloak identity provider using the groups granted via `access.groups`.

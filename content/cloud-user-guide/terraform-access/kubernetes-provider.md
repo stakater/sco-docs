@@ -65,12 +65,13 @@ resource "kubernetes_manifest" "dev_cluster" {
   manifest = {
     apiVersion = "kubernetes.cloud.stakater.com/v1"
     kind       = "OpenShiftCluster"
-    metadata   = { name = "dev-cluster" }
+    metadata   = { name = "dev-cluster", namespace = "my-tenant" }
     spec = {
       parameters = {
-        clusterName = "dev-cluster"
-        compute     = { cpu = 8, memory = "32Gi" }
-        nodePool    = { replicas = 3 }
+        clusterName     = "dev-cluster"
+        version         = "4.19"
+        defaultNodepool = { size = "large", replicas = 3 }
+        networking      = { mode = "public" }
       }
     }
   }

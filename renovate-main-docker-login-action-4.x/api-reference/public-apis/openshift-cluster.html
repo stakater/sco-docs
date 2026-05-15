@@ -4711,6 +4711,17 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#accessgroups" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        access.groups[]
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -5343,6 +5354,17 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#accessgroups" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        access.groups[]
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -5427,7 +5449,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 
 
 <h1 id="openshift-cluster">OpenShift Cluster<a class="headerlink" href="#openshift-cluster" title="Permanent link">#</a></h1>
-<p>Provisions a managed OpenShift hosted cluster with configurable compute and node pool settings.</p>
+<p>Provisions a managed OpenShift hosted cluster with a T-shirt sized default node pool, Keycloak OAuth integration, and group-based access control.</p>
 <h2 id="api-details">API Details<a class="headerlink" href="#api-details" title="Permanent link">#</a></h2>
 <table>
 <thead>
@@ -5474,18 +5496,6 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <td>1–63 characters</td>
 <td>Name of the OpenShift cluster</td>
 </tr>
-<tr>
-<td><code>compute.cpu</code></td>
-<td><code>integer</code></td>
-<td>1–8</td>
-<td>Number of CPU cores per node</td>
-</tr>
-<tr>
-<td><code>compute.memory</code></td>
-<td><code>string</code></td>
-<td>e.g., <code>8Gi</code></td>
-<td>Memory per node</td>
-</tr>
 </tbody>
 </table>
 <h3 id="optional">Optional<a class="headerlink" href="#optional" title="Permanent link">#</a></h3>
@@ -5506,22 +5516,65 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <td>OpenShift version. Allowed: <code>4.18</code>, <code>4.19</code>, <code>4.20</code></td>
 </tr>
 <tr>
-<td><code>storage.rootVolumeSize</code></td>
-<td><code>string</code></td>
-<td><code>10Gi</code></td>
-<td>Root volume size per node (e.g., <code>120Gi</code>)</td>
+<td><code>defaultNodepool.enabled</code></td>
+<td><code>boolean</code></td>
+<td><code>true</code></td>
+<td>Create a default node pool with the cluster. Set to <code>false</code> to manage node pools separately via <code>OpenShiftNodePool</code> claims.</td>
 </tr>
 <tr>
-<td><code>nodePool.replicas</code></td>
+<td><code>defaultNodepool.size</code></td>
+<td><code>string</code></td>
+<td><code>medium</code></td>
+<td>T-shirt size for default node pool nodes. Allowed: <code>small</code>, <code>medium</code>, <code>large</code>, <code>xlarge</code>. Maps to a predefined CPU, memory, and root volume configuration at the platform level.</td>
+</tr>
+<tr>
+<td><code>defaultNodepool.replicas</code></td>
 <td><code>integer</code></td>
 <td><code>3</code></td>
-<td>Number of nodes in the pool (1–10)</td>
+<td>Number of nodes in the default node pool (1–10)</td>
 </tr>
 <tr>
-<td><code>nodePool.labels</code></td>
-<td><code>object</code></td>
+<td><code>networking.mode</code></td>
+<td><code>string</code></td>
+<td><code>public</code></td>
+<td>Network access mode for the cluster API and console. Allowed: <code>public</code>, <code>private</code></td>
+</tr>
+<tr>
+<td><code>access.groups</code></td>
+<td><code>array</code></td>
 <td>—</td>
-<td>Custom key/value labels to apply to nodes</td>
+<td>List of Keycloak group → ClusterRole bindings (see below)</td>
+</tr>
+<tr>
+<td><code>bootstrap.enabled</code></td>
+<td><code>boolean</code></td>
+<td><code>false</code></td>
+<td>When <code>true</code>, the hosting cluster auto-installs core add-ons (Crossplane, ArgoCD, ksp-system). Enable for new clusters; leave disabled for clusters that were bootstrapped manually.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="accessgroups"><code>access.groups[]</code><a class="headerlink" href="#accessgroups" title="Permanent link">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Constraints</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td><code>string</code></td>
+<td>1–253 characters, RFC 1123 subdomain</td>
+<td>Keycloak group name exactly as it appears in the <code>groups</code> claim of the OIDC token.</td>
+</tr>
+<tr>
+<td><code>role</code></td>
+<td><code>string</code></td>
+<td>1–253 characters</td>
+<td>ClusterRole to bind. Typically, <code>customer-edit</code> or <code>customer-view</code> (managed by the RBAC Permissions Operator), or a built-in such as <code>view</code>, <code>edit</code>, or <code>admin</code>.</td>
 </tr>
 </tbody>
 </table>
@@ -5536,24 +5589,44 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </thead>
 <tbody>
 <tr>
-<td><code>status.clusterReady</code></td>
+<td><code>status.ready</code></td>
 <td><code>boolean</code></td>
-<td>Whether the cluster is fully ready</td>
+<td>Whether the cluster is ready for use</td>
 </tr>
 <tr>
-<td><code>status.controlPlaneReady</code></td>
-<td><code>boolean</code></td>
-<td>Whether the control plane is ready</td>
+<td><code>status.phase</code></td>
+<td><code>string</code></td>
+<td>Current phase: <code>Initializing</code>, <code>RegistrationPending</code>, or <code>Ready</code></td>
 </tr>
 <tr>
-<td><code>status.nodePoolReady</code></td>
-<td><code>boolean</code></td>
-<td>Whether the node pool is ready</td>
+<td><code>status.message</code></td>
+<td><code>string</code></td>
+<td>Human-readable status message explaining the current state</td>
 </tr>
 <tr>
-<td><code>status.conditions</code></td>
-<td><code>array</code></td>
-<td>Standard Kubernetes conditions</td>
+<td><code>status.version</code></td>
+<td><code>string</code></td>
+<td>OpenShift cluster version</td>
+</tr>
+<tr>
+<td><code>status.consoleUrl</code></td>
+<td><code>string</code></td>
+<td>URL to access the OpenShift console</td>
+</tr>
+<tr>
+<td><code>status.apiEndpoint</code></td>
+<td><code>string</code></td>
+<td>Kubernetes API server endpoint URL</td>
+</tr>
+<tr>
+<td><code>status.credentials.username</code></td>
+<td><code>string</code></td>
+<td>Bootstrap username for console access</td>
+</tr>
+<tr>
+<td><code>status.credentials.password</code></td>
+<td><code>string</code></td>
+<td>Bootstrap password (kubeadmin)</td>
 </tr>
 </tbody>
 </table>
@@ -5563,32 +5636,35 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">OpenShiftCluster</span>
 <span class="nt">metadata</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-cluster</span>
+<span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-tenant</span>
 <span class="nt">spec</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">clusterName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-cluster</span>
-<span class="w">    </span><span class="nt">compute</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
-<span class="w">      </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="s">"8Gi"</span>
 </code></pre></div>
 <h3 id="full">Full<a class="headerlink" href="#full" title="Permanent link">#</a></h3>
 <div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kubernetes.cloud.stakater.com/v1</span>
 <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">OpenShiftCluster</span>
 <span class="nt">metadata</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">prod-cluster</span>
+<span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-tenant</span>
 <span class="nt">spec</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">clusterName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">prod-cluster</span>
 <span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s">"4.19"</span>
-<span class="w">    </span><span class="nt">compute</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span>
-<span class="w">      </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="s">"16Gi"</span>
-<span class="w">    </span><span class="nt">storage</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">rootVolumeSize</span><span class="p">:</span><span class="w"> </span><span class="s">"120Gi"</span>
-<span class="w">    </span><span class="nt">nodePool</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">replicas</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
-<span class="w">      </span><span class="nt">labels</span><span class="p">:</span>
-<span class="w">        </span><span class="nt">environment</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">production</span>
-<span class="w">        </span><span class="nt">team</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">platform</span>
+<span class="w">    </span><span class="nt">defaultNodepool</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">large</span>
+<span class="w">      </span><span class="nt">replicas</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
+<span class="w">    </span><span class="nt">networking</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">public</span>
+<span class="w">    </span><span class="nt">access</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">groups</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">platform-admins</span>
+<span class="w">          </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">customer-edit</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">developers</span>
+<span class="w">          </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">customer-view</span>
+<span class="w">    </span><span class="nt">bootstrap</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 </code></pre></div>
 <h2 id="how-to-guide">How-to Guide<a class="headerlink" href="#how-to-guide" title="Permanent link">#</a></h2>
 <p><a href="../../how-to-guides/user/provision-openshift-cluster.html">Provision an OpenShift Cluster</a></p>

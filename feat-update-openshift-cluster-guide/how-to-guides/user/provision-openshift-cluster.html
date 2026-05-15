@@ -5605,7 +5605,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </tr>
 <tr>
 <td><code>role</code></td>
-<td>ClusterRole to bind. Typically <code>customer-edit</code> or <code>customer-view</code> (managed by the RBAC Permissions Operator), or a built-in such as <code>view</code>, <code>edit</code>, or <code>admin</code>.</td>
+<td>ClusterRole to bind. Typically, <code>customer-edit</code> or <code>customer-view</code> (managed by the RBAC Permissions Operator), or a built-in such as <code>view</code>, <code>edit</code>, or <code>admin</code>.</td>
 </tr>
 </tbody>
 </table>
@@ -5619,14 +5619,17 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <p>Check the detailed status and conditions:</p>
 <div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>describe<span class="w"> </span>openshiftcluster<span class="w"> </span>my-cluster<span class="w"> </span>-n<span class="w"> </span>my-tenant
 </code></pre></div>
-<p>The <code>status.phase</code> field moves through <code>Initializing</code> → <code>RegistrationPending</code> → <code>Ready</code>. Once the cluster is ready:</p>
+<p>Once provisioning completes, the claim reports <code>READY=True</code> and <code>SYNCED=True</code>:</p>
 <div class="highlight"><pre><span></span><code>NAME         READY   SYNCED   AGE
 my-cluster   True    True     15m
 </code></pre></div>
+<p>For a more granular view, read <code>status.phase</code> directly. It moves through <code>Initializing</code> → <code>RegistrationPending</code> → <code>Ready</code>:</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>openshiftcluster<span class="w"> </span>my-cluster<span class="w"> </span>-n<span class="w"> </span>my-tenant<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s2">"{.status.phase}"</span>
+</code></pre></div>
 <h2 id="step-5-access-the-cluster">Step 5: Access the Cluster<a class="headerlink" href="#step-5-access-the-cluster" title="Permanent link">#</a></h2>
 <p>Once the cluster is ready, the claim status exposes the console URL, API endpoint, and bootstrap credentials:</p>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>openshiftcluster<span class="w"> </span>my-cluster<span class="w"> </span>-n<span class="w"> </span>my-tenant<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.status.consoleUrl}'</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>openshiftcluster<span class="w"> </span>my-cluster<span class="w"> </span>-n<span class="w"> </span>my-tenant<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.status.apiEndpoint}'</span>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>openshiftcluster<span class="w"> </span>my-cluster<span class="w"> </span>-n<span class="w"> </span>my-tenant<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s2">"{.status.consoleUrl}"</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>openshiftcluster<span class="w"> </span>my-cluster<span class="w"> </span>-n<span class="w"> </span>my-tenant<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s2">"{.status.apiEndpoint}"</span>
 </code></pre></div>
 <p>Bootstrap credentials are available under <code>status.credentials</code> for initial access. After that, users should sign in through the configured Keycloak identity provider using the groups granted via <code>access.groups</code>.</p>
 <div class="admonition tip">

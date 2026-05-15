@@ -3101,6 +3101,17 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#access-grants" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Access Grants
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3122,6 +3133,17 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     <span class="md-ellipsis">
       
         Step 4: Monitor Provisioning
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-5-access-the-cluster" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5: Access the Cluster
       
     </span>
   </a>
@@ -5371,6 +5393,17 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#access-grants" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Access Grants
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -5392,6 +5425,17 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     <span class="md-ellipsis">
       
         Step 4: Monitor Provisioning
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-5-access-the-cluster" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5: Access the Cluster
       
     </span>
   </a>
@@ -5427,8 +5471,8 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 
 
 <h1 id="how-to-provision-an-openshift-cluster">How to Provision an OpenShift Cluster<a class="headerlink" href="#how-to-provision-an-openshift-cluster" title="Permanent link">#</a></h1>
-<p>Learn how to provision a managed OpenShift cluster for your team via a Project claim.</p>
-<p>Sam, a senior platform engineer at ACME Corp, needs to provide a dedicated OpenShift cluster for a product team. Sam can provision a fully managed cluster with configurable compute and node pool settings.</p>
+<p>Learn how to provision a managed OpenShift cluster for your team via an OpenShiftCluster claim.</p>
+<p>Sam, a senior platform engineer at ACME Corp, needs to provide a dedicated OpenShift cluster for a product team. Sam can provision a fully managed cluster with a default node pool, networking mode, and group-based access — all through a single claim.</p>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">#</a></h2>
 <ul>
 <li>Access to your organisation's project</li>
@@ -5439,22 +5483,22 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <h2 id="what-gets-created">What Gets Created<a class="headerlink" href="#what-gets-created" title="Permanent link">#</a></h2>
 <p>When you create an OpenShiftCluster claim, the platform provisions:</p>
 <ul>
-<li>A managed <strong>OpenShift cluster</strong> with a dedicated control plane</li>
-<li>A <strong>node pool</strong> with configurable size and replica count</li>
-<li><strong>Cluster credentials</strong> stored securely in your organisation's secrets store</li>
+<li>A managed <strong>OpenShift hosted cluster</strong> with a dedicated control plane</li>
+<li>A default <strong>node pool</strong> sized via a T-shirt size (<code>small</code>, <code>medium</code>, <code>large</code>, <code>xlarge</code>)</li>
+<li><strong>Keycloak OAuth integration</strong> so users can sign in with their organisation identity</li>
+<li><strong>Group-to-role bindings</strong> for cluster access (optional)</li>
+<li><strong>Bootstrap credentials</strong>, console URL, and API endpoint exposed on the claim status</li>
 </ul>
 <h2 id="step-1-minimal-configuration">Step 1: Minimal Configuration<a class="headerlink" href="#step-1-minimal-configuration" title="Permanent link">#</a></h2>
-<p>Create a file named <code>cluster.yaml</code> with only the required parameters:</p>
+<p>Create a file named <code>cluster.yaml</code> with only the required parameter:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kubernetes.cloud.stakater.com/v1</span>
 <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">OpenShiftCluster</span>
 <span class="nt">metadata</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-cluster</span>
+<span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-tenant</span>
 <span class="nt">spec</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">clusterName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-cluster</span>
-<span class="w">    </span><span class="nt">compute</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
-<span class="w">      </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="s">"8Gi"</span>
 </code></pre></div>
 <h3 id="required-parameters">Required Parameters<a class="headerlink" href="#required-parameters" title="Permanent link">#</a></h3>
 <table>
@@ -5469,36 +5513,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <td><code>parameters.clusterName</code></td>
 <td>Name of the OpenShift cluster (1–63 characters)</td>
 </tr>
-<tr>
-<td><code>parameters.compute.cpu</code></td>
-<td>Number of CPU cores per node (1–8)</td>
-</tr>
-<tr>
-<td><code>parameters.compute.memory</code></td>
-<td>Memory per node (e.g., <code>8Gi</code>, <code>16Gi</code>)</td>
-</tr>
 </tbody>
 </table>
+<p>All other parameters fall back to platform-managed defaults — version <code>4.19</code>, a <code>medium</code> node pool with <code>3</code> replicas, and <code>public</code> networking mode.</p>
 <h2 id="step-2-full-configuration">Step 2: Full Configuration<a class="headerlink" href="#step-2-full-configuration" title="Permanent link">#</a></h2>
-<p>For production use, specify all parameters explicitly:</p>
+<p>For production use, customise the version, node pool size, networking mode, and access groups:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kubernetes.cloud.stakater.com/v1</span>
 <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">OpenShiftCluster</span>
 <span class="nt">metadata</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">prod-cluster</span>
+<span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-tenant</span>
 <span class="nt">spec</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">clusterName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">prod-cluster</span>
 <span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s">"4.19"</span>
-<span class="w">    </span><span class="nt">compute</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4</span>
-<span class="w">      </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="s">"16Gi"</span>
-<span class="w">    </span><span class="nt">storage</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">rootVolumeSize</span><span class="p">:</span><span class="w"> </span><span class="s">"120Gi"</span>
-<span class="w">    </span><span class="nt">nodePool</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">replicas</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
-<span class="w">      </span><span class="nt">labels</span><span class="p">:</span>
-<span class="w">        </span><span class="nt">environment</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">production</span>
-<span class="w">        </span><span class="nt">team</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">platform</span>
+<span class="w">    </span><span class="nt">defaultNodepool</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">large</span>
+<span class="w">      </span><span class="nt">replicas</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5</span>
+<span class="w">    </span><span class="nt">networking</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">public</span>
+<span class="w">    </span><span class="nt">access</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">groups</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">platform-admins</span>
+<span class="w">          </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">customer-edit</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">developers</span>
+<span class="w">          </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">customer-view</span>
+<span class="w">    </span><span class="nt">bootstrap</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 </code></pre></div>
 <h3 id="optional-parameters">Optional Parameters<a class="headerlink" href="#optional-parameters" title="Permanent link">#</a></h3>
 <table>
@@ -5513,22 +5555,57 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <tr>
 <td><code>parameters.version</code></td>
 <td><code>4.19</code></td>
-<td>OpenShift version (<code>4.18</code>, <code>4.19</code>, <code>4.20</code>)</td>
+<td>OpenShift version (<code>4.18</code>, <code>4.19</code>, or <code>4.20</code>)</td>
 </tr>
 <tr>
-<td><code>parameters.storage.rootVolumeSize</code></td>
-<td><code>10Gi</code></td>
-<td>Root volume size per node (e.g., <code>120Gi</code>)</td>
+<td><code>parameters.defaultNodepool.enabled</code></td>
+<td><code>true</code></td>
+<td>Create a default node pool with the cluster. Set to <code>false</code> to manage node pools separately via <code>OpenShiftNodePool</code> claims.</td>
 </tr>
 <tr>
-<td><code>parameters.nodePool.replicas</code></td>
+<td><code>parameters.defaultNodepool.size</code></td>
+<td><code>medium</code></td>
+<td>T-shirt size for default node pool nodes: <code>small</code>, <code>medium</code>, <code>large</code>, or <code>xlarge</code>. Each size maps to a predefined CPU, memory, and root volume configuration at the platform level.</td>
+</tr>
+<tr>
+<td><code>parameters.defaultNodepool.replicas</code></td>
 <td><code>3</code></td>
-<td>Number of nodes in the pool (1–10)</td>
+<td>Number of nodes in the default node pool (1–10)</td>
 </tr>
 <tr>
-<td><code>parameters.nodePool.labels</code></td>
+<td><code>parameters.networking.mode</code></td>
+<td><code>public</code></td>
+<td>Network access mode for the cluster API and console: <code>public</code> or <code>private</code></td>
+</tr>
+<tr>
+<td><code>parameters.access.groups</code></td>
 <td>—</td>
-<td>Custom labels to apply to nodes</td>
+<td>List of Keycloak group → ClusterRole bindings (see below)</td>
+</tr>
+<tr>
+<td><code>parameters.bootstrap.enabled</code></td>
+<td><code>false</code></td>
+<td>When <code>true</code>, the hosting cluster auto-installs core add-ons (Crossplane, ArgoCD, ksp-system). Enable for new clusters; leave disabled for clusters that were bootstrapped manually.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="access-grants">Access Grants<a class="headerlink" href="#access-grants" title="Permanent link">#</a></h3>
+<p>Each entry under <code>access.groups</code> binds a Keycloak group to a ClusterRole. Members of that group receive the role across customer-eligible namespaces on the cluster (platform namespaces are excluded centrally).</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td>Keycloak group name exactly as it appears in the <code>groups</code> claim of the OIDC token. Must be a valid Kubernetes name (RFC 1123 subdomain).</td>
+</tr>
+<tr>
+<td><code>role</code></td>
+<td>ClusterRole to bind. Typically, <code>customer-edit</code> or <code>customer-view</code> (managed by the RBAC Permissions Operator), or a built-in such as <code>view</code>, <code>edit</code>, or <code>admin</code>.</td>
 </tr>
 </tbody>
 </table>
@@ -5537,18 +5614,27 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </code></pre></div>
 <h2 id="step-4-monitor-provisioning">Step 4: Monitor Provisioning<a class="headerlink" href="#step-4-monitor-provisioning" title="Permanent link">#</a></h2>
 <p>Cluster provisioning takes several minutes. Monitor progress:</p>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>openshiftcluster<span class="w"> </span>my-cluster
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>openshiftcluster<span class="w"> </span>my-cluster<span class="w"> </span>-n<span class="w"> </span>my-tenant
 </code></pre></div>
-<p>Check detailed status and conditions:</p>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>describe<span class="w"> </span>openshiftcluster<span class="w"> </span>my-cluster
+<p>Check the detailed status and conditions:</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>describe<span class="w"> </span>openshiftcluster<span class="w"> </span>my-cluster<span class="w"> </span>-n<span class="w"> </span>my-tenant
 </code></pre></div>
-<p>Once provisioning completes, the cluster status will show <code>READY: True</code>:</p>
+<p>Once provisioning completes, the claim reports <code>READY=True</code> and <code>SYNCED=True</code>:</p>
 <div class="highlight"><pre><span></span><code>NAME         READY   SYNCED   AGE
 my-cluster   True    True     15m
 </code></pre></div>
+<p>For a more granular view, read <code>status.phase</code> directly. It moves through <code>Initializing</code> → <code>RegistrationPending</code> → <code>Ready</code>:</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>openshiftcluster<span class="w"> </span>my-cluster<span class="w"> </span>-n<span class="w"> </span>my-tenant<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s2">"{.status.phase}"</span>
+</code></pre></div>
+<h2 id="step-5-access-the-cluster">Step 5: Access the Cluster<a class="headerlink" href="#step-5-access-the-cluster" title="Permanent link">#</a></h2>
+<p>Once the cluster is ready, the claim status exposes the console URL, API endpoint, and bootstrap credentials:</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>openshiftcluster<span class="w"> </span>my-cluster<span class="w"> </span>-n<span class="w"> </span>my-tenant<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s2">"{.status.consoleUrl}"</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>openshiftcluster<span class="w"> </span>my-cluster<span class="w"> </span>-n<span class="w"> </span>my-tenant<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s2">"{.status.apiEndpoint}"</span>
+</code></pre></div>
+<p>Bootstrap credentials are available under <code>status.credentials</code> for initial access. After that, users should sign in through the configured Keycloak identity provider using the groups granted via <code>access.groups</code>.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>Contact your platform administrator for the list of validated and supported OpenShift versions for your environment.</p>
+<p>Contact your platform administrator for the list of validated OpenShift versions and the CPU/memory mappings backing each T-shirt size in your environment.</p>
 </div>
 <h2 id="whats-next">What's Next?<a class="headerlink" href="#whats-next" title="Permanent link">#</a></h2>
 <ul>

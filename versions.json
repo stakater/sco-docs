@@ -2,7 +2,9 @@
   {
     "version": "renovate-main-stakater-vale-package-0.x",
     "title": "renovate-main-stakater-vale-package-0.x",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "renovate-main-stakater-.github-0.x",
@@ -52,9 +54,7 @@
   {
     "version": "feat-update-openshift-cluster-guide",
     "title": "feat-update-openshift-cluster-guide",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "feat-api-reference-s3-postgres",

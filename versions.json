@@ -27,9 +27,7 @@
   {
     "version": "renovate-main-nginxinc-nginx-unprivileged-1.x",
     "title": "renovate-main-nginxinc-nginx-unprivileged-1.x",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "renovate-main-dotenv-17.x-lockfile",
@@ -54,7 +52,9 @@
   {
     "version": "feat-update-openshift-cluster-guide",
     "title": "feat-update-openshift-cluster-guide",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "feat-api-reference-s3-postgres",

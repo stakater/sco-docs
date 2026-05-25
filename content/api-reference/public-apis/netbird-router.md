@@ -1,6 +1,6 @@
 # NetbirdRouter
 
-Makes one or more in-cluster Services reachable from peers on your organisation's [Mesh](./mesh.md). Use this to give laptops on the Mesh routed access to services that don't run a NetBird daemon themselves — Vaults, internal HTTP APIs, databases, etc.
+Makes one or more in-cluster Services reachable from peers on your organisation's [Mesh](./mesh.md). Use this to give laptops on the Mesh routed access to services that don't run a NetBird daemon themselves — Vaults, internal APIs, databases, etc.
 
 ## API Details
 
@@ -68,7 +68,7 @@ spec:
         description: "Internal Vault API"
 ```
 
-After Ready, a laptop with the setup key can curl the Vault's HTTPS API by that IP — no public endpoint needed.
+After Ready, a laptop with the setup key can curl the Vault's API by that IP — no public endpoint needed.
 
 ### Multiple routes
 

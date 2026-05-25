@@ -1,6 +1,6 @@
 # Mesh
 
-Provisions a private WireGuard mesh for your organisation — management, signalling, and a web dashboard. Use it to securely connect laptops, virtual machines, and in-cluster services without exposing anything to the public internet.
+Provisions a private mesh network for your organisation — management, signalling, and a web dashboard. Use it to securely connect laptops, virtual machines, and in-cluster services without exposing anything to the public internet.
 
 ## API Details
 

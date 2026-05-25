@@ -87,7 +87,7 @@ Full reference: [Vault API](../api-reference/public-apis/vault.md)
 
 **API:** `network.cloud.stakater.com/v1 Mesh`
 
-Per-tenant NetBird control plane (management + signal + dashboard). Lets your organisation build a WireGuard mesh covering laptops, VMs, and in-cluster services with SSO-driven peer registration.
+Per-tenant NetBird control plane (management + signal + dashboard). Lets your organisation build a private mesh network covering laptops, VMs, and in-cluster services with SSO-driven peer registration.
 
 `spec.parameters` is empty in v1 — everything is platform-derived. The Mesh exposes URLs and a per-org Crossplane ProviderConfig for declarative Groups + Policies.
 

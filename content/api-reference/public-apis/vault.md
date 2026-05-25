@@ -26,7 +26,7 @@ All parameters are nested under `spec.parameters`.
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `status.endpoint.address` | `string` | HTTPS endpoint to point a Vault / OpenBao client at. |
+| `status.endpoint.address` | `string` | Endpoint URL to point a Vault / OpenBao client at. |
 
 ## Authentication
 

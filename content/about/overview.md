@@ -39,6 +39,16 @@ They never touch the underlying infrastructure. They never need cluster administ
 
 The power of SCO lies in its **multi-layer abstraction**:
 
+```mermaid
+flowchart LR
+    User[Consumer Experience<br/>kubectl / GitOps / Terraform / UI]
+    API[Stable Service APIs<br/>VirtualMachine, OpenShiftCluster, Database]
+    Impl[Provider Implementation<br/>Crossplane compositions, operators, APIs]
+    Infra[Your Infrastructure<br/>OpenShift, KubeVirt, Hypershift, storage]
+
+    User --> API --> Impl --> Infra
+```
+
 ```text
 Consumer Experience          Provider-Defined Services         Your Infrastructure
 ─────────────────────        ─────────────────────────         ──────────────────

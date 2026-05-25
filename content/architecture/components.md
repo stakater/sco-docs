@@ -173,16 +173,14 @@ See [Keycloak Integration](../integrations/keycloak.md).
 
 ### OpenBao
 
-OpenBao is the open-source secrets management platform (community fork of HashiCorp Vault). It runs within the management cluster and provides dynamic secrets, PKI infrastructure, and key-value secret storage for both platform components and consumer workloads.
+OpenBao is the open-source secrets management platform (community fork of HashiCorp Vault). The platform runs a single **hub** OpenBao instance for its own secrets and offers **per-tenant** OpenBao instances to cloud users via the [`Vault`](../api-reference/public-apis/vault.md) claim.
 
 **Role in SCO:**
 
-- Issues dynamic credentials for platform services (database passwords, cloud provider keys) that expire automatically and are rotated without manual intervention
-- Provides a PKI engine for TLS certificate issuance used by platform components and hosted clusters
-- Stores platform secrets (Keycloak admin credentials, KCP bootstrap tokens) in encrypted, auditable storage
-- Consumer workloads can request secrets from OpenBao through the External Secrets Operator or the OpenBao agent sidecar, scoped to their project's policy
+- **Platform hub Bao** issues dynamic credentials for platform services (database passwords, cloud provider keys) that expire automatically and are rotated without manual intervention, provides a PKI engine for TLS certificate issuance used by platform components and hosted clusters, and stores platform secrets (Keycloak admin credentials, KCP bootstrap tokens) in encrypted, auditable storage.
+- **Tenant Bao instances** are provisioned per-organisation via the `Vault` claim — each is a transit-unseal spoke off the hub, with HA Raft storage and OIDC authentication wired to the organisation's Keycloak realm. Operators log in via SSO (`bao login -method=oidc`); there is no static root token to manage.
 
-**Integration points:** Crossplane's Vault-compatible provider creates and manages OpenBao policies, mounts, and roles as part of platform compositions. Consumer access to secrets is gated through OpenBao policies generated per organisation and project.
+**Integration points:** Crossplane's Vault-compatible provider creates and manages OpenBao policies, mounts, and roles as part of platform compositions. Tenant Bao instances live on the cluster's default network (lifted out of the project's cluster user-defined network) with NetworkPolicy + EgressFirewall isolation, and can be exposed to laptops on the organisation's NetBird [Mesh](../api-reference/public-apis/mesh.md) via a [NetbirdRouter](../api-reference/public-apis/netbird-router.md).
 
 ---
 

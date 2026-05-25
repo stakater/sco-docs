@@ -100,6 +100,9 @@ nav:
           - api-reference/public-apis/virtual-machine.md
           - api-reference/public-apis/s3-bucket.md
           - api-reference/public-apis/postgres.md
+          - api-reference/public-apis/vault.md
+          - api-reference/public-apis/mesh.md
+          - api-reference/public-apis/netbird-router.md
       - Platform APIs:
           - api-reference/private-apis/hypershift-hosted-cluster.md
           - api-reference/private-apis/virtual-machine-infrastructure.md

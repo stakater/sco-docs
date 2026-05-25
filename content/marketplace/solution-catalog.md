@@ -68,6 +68,47 @@ Full reference: [IAM Group API](../api-reference/public-apis/iam-group.md)
 
 ---
 
+### Vault
+
+**API:** `secrets.cloud.stakater.com/v1 Vault`
+
+Per-tenant OpenBao instance with HA Raft storage and OIDC auth against your organisation's Keycloak realm.
+
+| Parameter | Required | Description |
+|-----------|----------|-------------|
+| `storage.dataSize` | No | PVC size for Raft data (default `15Gi`) |
+| `storage.auditSize` | No | PVC size for audit log (default `10Gi`) |
+
+Full reference: [Vault API](../api-reference/public-apis/vault.md)
+
+---
+
+### Mesh
+
+**API:** `network.cloud.stakater.com/v1 Mesh`
+
+Per-tenant NetBird control plane (management + signal + dashboard). Lets your organisation build a WireGuard mesh covering laptops, VMs, and in-cluster services with SSO-driven peer registration.
+
+`spec.parameters` is empty in v1 — everything is platform-derived. The Mesh exposes URLs and a per-org Crossplane ProviderConfig for declarative Groups + Policies.
+
+Full reference: [Mesh API](../api-reference/public-apis/mesh.md)
+
+---
+
+### NetbirdRouter
+
+**API:** `netbird.cloud.stakater.com/v1 NetbirdRouter`
+
+Per-tenant router pod that joins the Mesh and advertises in-cluster CIDRs / hosts to peers. Use it to give laptops access to internal-only Services (Vault, kube-apiserver Service IPs, etc.) without exposing them to the internet.
+
+| Parameter | Required | Description |
+|-----------|----------|-------------|
+| `routes[]` | Yes | One or more CIDRs / hosts to advertise (e.g. a Vault Service ClusterIP) |
+
+Full reference: [NetbirdRouter API](../api-reference/public-apis/netbird-router.md)
+
+---
+
 ## Common Custom Services
 
 These services are commonly added by platform teams. Availability depends on your installation.

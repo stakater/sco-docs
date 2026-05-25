@@ -47,6 +47,8 @@ nav:
           - how-to-guides/user/create-iam-group.md
           - how-to-guides/user/provision-openshift-cluster.md
           - how-to-guides/user/provision-virtual-machine.md
+          - how-to-guides/user/create-s3-bucket.md
+          - how-to-guides/user/create-postgres.md
   - For Platform Providers:
       - audience/platform-providers.md
       - Getting Started:
@@ -96,9 +98,13 @@ nav:
           - api-reference/public-apis/iam-group.md
           - api-reference/public-apis/openshift-cluster.md
           - api-reference/public-apis/virtual-machine.md
+          - api-reference/public-apis/s3-bucket.md
+          - api-reference/public-apis/postgres.md
       - Platform APIs:
           - api-reference/private-apis/hypershift-hosted-cluster.md
           - api-reference/private-apis/virtual-machine-infrastructure.md
+          - api-reference/private-apis/s3-bucket-infrastructure.md
+          - api-reference/private-apis/postgres-cluster-infrastructure.md
   - Integrations:
       - integrations/keycloak.md
       - integrations/kcp.md

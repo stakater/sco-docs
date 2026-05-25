@@ -37,7 +37,7 @@ The workspace contains:
 
 The MTO tenant enforces tenancy in the actual cluster. For each project, MTO creates and continuously reconciles:
 
-- **Namespaces** — one namespace per service category (e.g., `ws-proj-frontend-vms`). The `namespaceSuffix` defined in the service's `PublishedOffering` determines the suffix.
+- **Namespaces** — one namespace per service category (e.g., `ws-proj-frontend-vms`). The `namespaceSuffix` defined in the service's `ApiExport` determines the suffix.
 - **ResourceQuota** — compute, memory, and storage limits declared in the project claim, applied per namespace
 - **NetworkPolicy** — default-deny ingress from other project namespaces; allow intra-project traffic and egress to platform services
 - **RoleBindings** — user and group access from the project's `access` configuration, propagated from the organisation's identity provider

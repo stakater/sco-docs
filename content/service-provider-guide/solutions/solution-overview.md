@@ -64,10 +64,10 @@ Every solution consists of:
 |-----------|------|
 | `CompositeResourceDefinition` (XRD) | Defines the claim API: schema, validation, versioning |
 | `Composition` | Implements the claim: what resources to create, using which providers |
-| `PublishedOffering` claim | Publishes the API to consumer project workspaces |
+| `ApiExport` claim | Publishes the API to consumer project workspaces |
 | Marketplace metadata | Display name, description, documentation — shown in the catalogue |
 
-The XRD and Composition live on the management cluster. The `PublishedOffering` claim triggers the `api-syncagent` to bridge the API into KCP workspaces. Marketplace metadata controls how the solution appears to consumers.
+The XRD and Composition live on the management cluster. The `ApiExport` claim triggers the `api-syncagent` to bridge the API into KCP workspaces. Marketplace metadata controls how the solution appears to consumers.
 
 ---
 
@@ -76,7 +76,7 @@ The XRD and Composition live on the management cluster. The `PublishedOffering` 
 ```text
 Provider defines XRD + Composition
           ↓
-Provider applies PublishedOffering claim
+Provider applies ApiExport claim
           ↓
 Solution appears in consumer project workspaces
           ↓

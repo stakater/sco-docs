@@ -1,6 +1,6 @@
 # Mesh
 
-Provisions a per-tenant NetBird control plane (management + signal + dashboard) so your organisation can build a WireGuard mesh covering laptops, VMs, in-cluster services, and anything else that runs the NetBird daemon.
+Provisions a private WireGuard mesh for your organisation — management, signalling, and a web dashboard. Use it to securely connect laptops, virtual machines, and in-cluster services without exposing anything to the public internet.
 
 ## API Details
 
@@ -13,20 +13,20 @@ Provisions a per-tenant NetBird control plane (management + signal + dashboard) 
 
 ## Spec Parameters
 
-`spec.parameters` is currently empty. v1 takes no user-tunable fields — every value (mesh URL hostnames, OIDC client wiring, relay reference) is derived from platform configuration. You carve up the mesh into Networks, Groups, and Policies via the dashboard or by creating NetBird Crossplane resources against the per-org [ProviderConfig](#status-fields) this composition wires up.
+`spec.parameters` is currently empty. The Mesh takes no user-tunable fields in v1. You configure networks, groups, and policies via the dashboard once the Mesh is ready.
 
 ## Status Fields
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `status.mesh.dashboardURL` | `string` | NetBird dashboard URL (HTTPS). Log in via Keycloak SSO from your organisation's realm. |
-| `status.mesh.mgmtURL` | `string` | NetBird management gRPC URL (HTTPS, port 443). Configure peers with `netbird up --management-url=<this>`. |
-| `status.mesh.signalURL` | `string` | NetBird signal gRPC URL (HTTPS, port 443). Used by the management URL configuration; you don't usually pass it explicitly. |
-| `status.mesh.providerConfigName` | `string` | Name of the per-organisation NetBird Crossplane ProviderConfig. Downstream resources (e.g. [NetbirdRouter](./netbird-router.md), `NbGroup`, `NbPolicy`, `NbSetupKey`) reference this to scope themselves to this mesh. |
+| `status.mesh.dashboardURL` | `string` | URL of the Mesh dashboard. Log in with your organisation's single sign-on. |
+| `status.mesh.mgmtURL` | `string` | Management endpoint that peers connect to (e.g. `netbird up --management-url=<this>`). |
+| `status.mesh.signalURL` | `string` | Signalling endpoint. Used internally; you don't usually pass it explicitly. |
+| `status.mesh.providerConfigName` | `string` | Name of the per-organisation provider configuration. Reference this if you'd rather manage groups and policies declaratively (see [example below](#defining-a-group-declaratively)). |
 
 ## Authentication
 
-The dashboard and the management gRPC endpoint are both OIDC-protected against your organisation's Keycloak realm. There is no separate username/password issued by the platform — operators and end users log in with their existing organisation identity.
+Both the dashboard and the management endpoint use your organisation's single sign-on. There is no separate username or password issued by the platform.
 
 ## Examples
 
@@ -41,24 +41,22 @@ spec:
   parameters: {}
 ```
 
-That's the entire claim. Once Ready, open `status.mesh.dashboardURL` in a browser to log in, generate setup keys, define groups + policies, etc.
+That's the entire claim. Once Ready, open `status.mesh.dashboardURL` in a browser to log in, generate setup keys, define groups, and write policies.
 
 ### Joining a laptop
 
-After the Mesh is Ready, install the NetBird daemon on the laptop and join via SSO:
+Install the NetBird daemon on the laptop, then run:
 
 ```sh
-# macOS / Linux
 netbird up \
   --management-url=$(kubectl get mesh my-mesh -o jsonpath='{.status.mesh.mgmtURL}')
-# Opens a browser for OIDC login against your Keycloak realm.
 ```
 
-After registration the peer appears in the dashboard, where you assign it to groups and policies.
+This opens a browser for single sign-on. After registration, the peer appears in the dashboard and you can assign it to groups.
 
-### Defining a Group via Crossplane (optional)
+### Defining a Group declaratively
 
-If you'd rather manage groups + policies declaratively rather than via the dashboard, target the per-org ProviderConfig that the Mesh wired up:
+If you prefer YAML over the dashboard, target the per-organisation provider config from `status.mesh.providerConfigName`:
 
 ```yaml
 apiVersion: netbird.io/v1alpha1
@@ -72,11 +70,7 @@ spec:
     name: <value of status.mesh.providerConfigName>
 ```
 
-## Network reachability
-
-`mgmtURL` and `signalURL` are served by a NetBird gRPC stack that needs HTTP/2 ALPN end-to-end. The platform exposes them via MetalLB-backed LoadBalancer Services rather than OpenShift Routes — on the managed clusters this lands on an externally-routable IP from the BGP-advertised pool. On enterprise self-hosted clusters, the same LoadBalancer Service lands on whichever IPAddressPool the cluster operator has configured (typically a private internal pool).
-
-`dashboardURL` is served over HTTP/1.1 + TLS via a regular OpenShift edge Route.
+The same pattern applies to `NbPolicy`, `NbSetupKey`, and `NbNetworkResource` resources.
 
 ## How-to Guide
 
@@ -84,5 +78,5 @@ spec:
 
 ## Related
 
-- [NetbirdRouter](./netbird-router.md) — advertise in-cluster Services / CIDRs to peers on the Mesh.
-- [Vault](./vault.md) — common access pattern: advertise the Vault Service via a NetbirdRouter so peers reach `bao` from their laptop without exposing it to the internet.
+- [NetbirdRouter](./netbird-router.md) — make in-cluster Services reachable from peers on this Mesh.
+- [Vault](./vault.md) — common pattern: expose a Vault via a NetbirdRouter so peers reach it from their laptop without it being on the public internet.

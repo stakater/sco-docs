@@ -1,6 +1,6 @@
 # Vault
 
-Provisions a per-tenant OpenBao instance with HA Raft storage and OIDC authentication wired to your organisation's Keycloak realm.
+Provisions a private Vault instance for your organisation, with single sign-on against your organisation's identity provider.
 
 ## API Details
 
@@ -19,28 +19,24 @@ All parameters are nested under `spec.parameters`.
 
 | Field | Type | Default | Description |
 |-------|------|---------|-------------|
-| `storage.dataSize` | `string` | `15Gi` | PVC size for Raft data storage. |
-| `storage.auditSize` | `string` | `10Gi` | PVC size for audit log storage. |
+| `storage.dataSize` | `string` | `15Gi` | Size of the persistent volume for Vault data. |
+| `storage.auditSize` | `string` | `10Gi` | Size of the persistent volume for the audit log. |
 
 ## Status Fields
 
-`status.endpoint` carries the address you point a Bao/Vault client at. The instance is OIDC-protected — there is no root token reflected here or delivered as a credential. Operators authenticate via the organisation's Keycloak realm.
-
 | Field | Type | Description |
 |-------|------|-------------|
-| `status.endpoint.address` | `string` | HTTPS endpoint hostname for the Vault API (e.g. `bao-<tenant>.<cluster-domain>`). Reachable from inside the cluster, from peers on the organisation's NetBird mesh, and from the platform admin VPN. |
+| `status.endpoint.address` | `string` | HTTPS endpoint to point a Vault / OpenBao client at. |
 
 ## Authentication
 
-The Vault is configured with the **OIDC auth method** bound to your organisation's Keycloak realm — there is no static root token. To log in as an operator:
+The Vault uses your organisation's single sign-on — there is no static root token to manage. To log in as an operator with the OpenBao or Vault CLI:
 
 ```sh
 bao login -method=oidc
 ```
 
-This opens your browser, completes Keycloak login, and writes a token to your local Bao/Vault CLI. Tokens are scoped by Keycloak group membership inside the realm.
-
-The OIDC client is registered as a `KeycloakRealmClient` with an embedded audience mapper so the token's `aud` claim matches the Bao OIDC role.
+This opens your browser, completes login against your organisation's identity provider, and writes a token to the local CLI. Access is scoped by group membership.
 
 ## Examples
 
@@ -69,17 +65,11 @@ spec:
       auditSize: 20Gi
 ```
 
-## Network reachability
-
-The Vault Service lives on the cluster's default network (lifted out of the project's primary cluster user-defined network) so that the OpenShift router, Crossplane controllers, External Secrets Operator, and your tenant's NetBird router pod can all reach it. A NetworkPolicy clamps ingress to the OpenShift router, intra-namespace pods, and Prometheus / User Workload Monitoring scrapers. An OVN EgressFirewall restricts egress to DNS, RFC1918, and the realm's OIDC discovery host.
-
-External access lands on the cluster's default ingress shard, which on the platform's managed clusters is reachable only from the admin VPN — not the public internet. For end-user access from a laptop, use a [NetbirdRouter](./netbird-router.md) to advertise the Vault Service IP to peers on your organisation's [Mesh](./mesh.md).
-
 ## How-to Guide
 
 [Create a Vault](../../how-to-guides/user/create-vault.md)
 
 ## Related
 
-- [Mesh](./mesh.md) — provisions the per-organisation NetBird control plane that fronts in-cluster services for external access.
-- [NetbirdRouter](./netbird-router.md) — advertises a Vault Service (or any other in-cluster CIDR / host) to peers on the Mesh.
+- [Mesh](./mesh.md) — provisions your organisation's private VPN mesh.
+- [NetbirdRouter](./netbird-router.md) — make this Vault reachable from peers on your Mesh without exposing it publicly.

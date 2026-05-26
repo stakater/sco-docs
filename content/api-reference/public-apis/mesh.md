@@ -22,7 +22,6 @@ Provisions a private mesh network for your organisation — management, signalli
 | `status.mesh.dashboardURL` | `string` | URL of the Mesh dashboard. Log in with your organisation's single sign-on. |
 | `status.mesh.mgmtURL` | `string` | Management endpoint that peers connect to (e.g. `netbird up --management-url=<this>`). |
 | `status.mesh.signalURL` | `string` | Signalling endpoint. Used internally; you don't usually pass it explicitly. |
-| `status.mesh.providerConfigName` | `string` | Name of the per-organisation provider configuration. Reference this if you'd rather manage groups and policies declaratively (see [example below](#defining-a-group-declaratively)). |
 
 ## Authentication
 
@@ -54,23 +53,9 @@ netbird up \
 
 This opens a browser for single sign-on. After registration, the peer appears in the dashboard and you can assign it to groups.
 
-### Defining a Group declaratively
+### Managing groups, policies, and setup keys
 
-If you prefer YAML over the dashboard, target the per-organisation provider config from `status.mesh.providerConfigName`:
-
-```yaml
-apiVersion: netbird.io/v1alpha1
-kind: NbGroup
-metadata:
-  name: laptops
-spec:
-  forProvider:
-    name: laptops
-  providerConfigRef:
-    name: <value of status.mesh.providerConfigName>
-```
-
-The same pattern applies to `NbPolicy`, `NbSetupKey`, and `NbNetworkResource` resources.
+Use the Mesh dashboard at `status.mesh.dashboardURL` to define groups, write access policies, and generate setup keys. Declarative management of these via Crossplane claims is on the roadmap — when those APIs ship they will be under `*.cloud.stakater.com` like the rest of the platform.
 
 ## How-to Guide
 

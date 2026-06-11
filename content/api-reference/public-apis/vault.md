@@ -27,6 +27,7 @@ All parameters are nested under `spec.parameters`.
 | Field | Type | Description |
 |-------|------|-------------|
 | `status.endpoint.address` | `string` | Endpoint URL to point a Vault / OpenBao client at. |
+| `status.endpoint.meshAddress` | `string` | Endpoint URL of this Vault on your organisation's [Mesh](./mesh.md). Set once the Mesh endpoint is live; reachable only from enrolled Mesh peers. |
 
 ## Authentication
 
@@ -40,16 +41,16 @@ This opens your browser, completes login against your organisation's identity pr
 
 ## Access over the Mesh
 
-When your organisation runs a [Mesh](./mesh.md), the platform automatically publishes the Vault to Mesh peers — no extra claim needed:
+When your organisation runs a [Mesh](./mesh.md), the platform automatically publishes the Vault to Mesh peers — no extra claim needed. The Mesh endpoint appears in the claim's status as `status.endpoint.meshAddress`:
 
-- The Vault gets a stable DNS name of the form `bao.<organisation>.mesh.<cluster-domain>`, served on standard HTTPS (port 443) with a **publicly-trusted TLS certificate**.
+- It is a stable DNS name (`https://bao.<organisation>.mesh.<cluster-domain>`), served on standard HTTPS (port 443) with a **publicly-trusted TLS certificate**.
 - The name resolves from anywhere, but the Vault is **only reachable from peers enrolled in your organisation's Mesh** — it is never exposed to the public internet.
 - Because the certificate is publicly trusted, clients work out of the box: no custom CA bundle, no `-tls-skip-verify`.
 
 From an enrolled laptop:
 
 ```sh
-export BAO_ADDR=https://bao.<organisation>.mesh.<cluster-domain>
+export BAO_ADDR=$(kubectl get vault my-vault -o jsonpath='{.status.endpoint.meshAddress}')
 bao login -method=oidc
 ```
 

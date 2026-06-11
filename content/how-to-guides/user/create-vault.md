@@ -74,7 +74,11 @@ This opens your browser, completes single sign-on, and writes a token to the loc
 
 ## Step 5 (Optional): Reach It over the Mesh
 
-If your organisation runs a [Mesh](create-mesh.md), the Vault is also published to Mesh peers automatically at:
+If your organisation runs a [Mesh](create-mesh.md), the Vault is also published to Mesh peers automatically. The Mesh endpoint appears in the claim status once it is live:
+
+```bash
+kubectl get vault my-vault -o jsonpath='{.status.endpoint.meshAddress}'
+```
 
 ```text
 https://bao.<organisation>.mesh.<cluster-domain>
@@ -83,7 +87,7 @@ https://bao.<organisation>.mesh.<cluster-domain>
 The name resolves from anywhere but is reachable only from enrolled Mesh peers, and the certificate is publicly trusted — clients need no custom CA bundle and no `-tls-skip-verify`:
 
 ```bash
-export BAO_ADDR=https://bao.<organisation>.mesh.<cluster-domain>
+export BAO_ADDR=$(kubectl get vault my-vault -o jsonpath='{.status.endpoint.meshAddress}')
 bao login -method=oidc
 ```
 

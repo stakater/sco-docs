@@ -55,7 +55,11 @@ This opens a browser for single sign-on. After registration, the peer appears in
 
 ### Managing groups, policies, and setup keys
 
-Use the Mesh dashboard at `status.mesh.dashboardURL` to define groups, write access policies, and generate setup keys. Declarative management of these via Crossplane claims is on the roadmap — when those APIs ship they will be under `*.cloud.stakater.com` like the rest of the platform.
+Use the Mesh dashboard at `status.mesh.dashboardURL` to define groups, write access policies, and generate setup keys. Declarative management of these via claims is on the roadmap — when those APIs ship they will be under `*.cloud.stakater.com` like the rest of the platform.
+
+## Platform services over the Mesh
+
+Platform-provisioned services in your organisation are published to Mesh peers automatically. A [Vault](./vault.md), for example, gets a stable DNS name (`bao.<organisation>.mesh.<cluster-domain>`) served with a publicly-trusted TLS certificate — reachable only from enrolled peers, with no extra claims or dashboard configuration. To expose your **own** services the same way, use a [NetbirdRouter](./netbird-router.md).
 
 ## How-to Guide
 
@@ -63,5 +67,5 @@ Use the Mesh dashboard at `status.mesh.dashboardURL` to define groups, write acc
 
 ## Related
 
-- [NetbirdRouter](./netbird-router.md) — make in-cluster Services reachable from peers on this Mesh.
-- [Vault](./vault.md) — common pattern: expose a Vault via a NetbirdRouter so peers reach it from their laptop without it being on the public internet.
+- [NetbirdRouter](./netbird-router.md) — make your own in-cluster Services reachable from peers on this Mesh.
+- [Vault](./vault.md) — published to Mesh peers automatically when your organisation runs a Mesh.

@@ -38,6 +38,21 @@ bao login -method=oidc
 
 This opens your browser, completes login against your organisation's identity provider, and writes a token to the local CLI. Access is scoped by group membership.
 
+## Access over the Mesh
+
+When your organisation runs a [Mesh](./mesh.md), the platform automatically publishes the Vault to Mesh peers — no extra claim needed:
+
+- The Vault gets a stable DNS name of the form `bao.<organisation>.mesh.<cluster-domain>`, served on standard HTTPS (port 443) with a **publicly-trusted TLS certificate**.
+- The name resolves from anywhere, but the Vault is **only reachable from peers enrolled in your organisation's Mesh** — it is never exposed to the public internet.
+- Because the certificate is publicly trusted, clients work out of the box: no custom CA bundle, no `-tls-skip-verify`.
+
+From an enrolled laptop:
+
+```sh
+export BAO_ADDR=https://bao.<organisation>.mesh.<cluster-domain>
+bao login -method=oidc
+```
+
 ## Examples
 
 ### Minimal
@@ -71,5 +86,5 @@ spec:
 
 ## Related
 
-- [Mesh](./mesh.md) — provisions your organisation's private VPN mesh.
-- [NetbirdRouter](./netbird-router.md) — make this Vault reachable from peers on your Mesh without exposing it publicly.
+- [Mesh](./mesh.md) — provisions your organisation's private VPN mesh. With a Mesh present, this Vault is published to Mesh peers automatically (see [Access over the Mesh](#access-over-the-mesh)).
+- [NetbirdRouter](./netbird-router.md) — expose your **own** in-cluster services to Mesh peers the same way the platform exposes this Vault.

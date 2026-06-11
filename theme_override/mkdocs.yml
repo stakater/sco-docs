@@ -49,6 +49,9 @@ nav:
           - how-to-guides/user/provision-virtual-machine.md
           - how-to-guides/user/create-s3-bucket.md
           - how-to-guides/user/create-postgres.md
+          - how-to-guides/user/create-vault.md
+          - how-to-guides/user/create-mesh.md
+          - how-to-guides/user/expose-service-via-netbird.md
   - For Platform Providers:
       - audience/platform-providers.md
       - Getting Started:

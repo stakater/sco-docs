@@ -1,6 +1,6 @@
 # NetbirdRouter
 
-Makes one or more in-cluster Services reachable from peers on your organisation's [Mesh](./mesh.md). Use this to give laptops on the Mesh routed access to services that don't run a NetBird daemon themselves — Vaults, internal APIs, databases, etc.
+Makes one or more in-cluster Services reachable from peers on your organisation's [Mesh](./mesh.md). Use this to give laptops on the Mesh routed access to your own services that don't run a NetBird daemon themselves — internal APIs, databases, admin UIs, etc. (Platform services such as [Vault](./vault.md) are published to Mesh peers automatically; you don't need a NetbirdRouter for those.)
 
 ## API Details
 
@@ -53,7 +53,7 @@ The peer is auto-allowed to reach the routes; no additional dashboard configurat
 
 ## Examples
 
-### Single route to an internal Vault
+### Single route to an internal service
 
 ```yaml
 apiVersion: netbird.cloud.stakater.com/v1
@@ -63,12 +63,12 @@ metadata:
 spec:
   parameters:
     routes:
-      - name: vault
-        address: 172.30.52.51/32        # ClusterIP of the Vault Service, /32
-        description: "Internal Vault API"
+      - name: internal-api
+        address: 172.30.52.51/32        # ClusterIP of the Service, /32
+        description: "Internal admin API"
 ```
 
-After Ready, a laptop with the setup key can curl the Vault's API by that IP — no public endpoint needed.
+After Ready, a laptop with the setup key can reach the service by that IP — no public endpoint needed.
 
 ### Multiple routes
 
@@ -80,9 +80,9 @@ metadata:
 spec:
   parameters:
     routes:
-      - name: vault
+      - name: internal-api
         address: 172.30.52.51/32
-        description: "Internal Vault API"
+        description: "Internal admin API"
       - name: internal-app
         address: 10.0.5.0/24
         description: "Internal app subnet"
@@ -98,4 +98,4 @@ spec:
 ## Related
 
 - [Mesh](./mesh.md) — the Mesh this router joins. A Mesh must exist before a NetbirdRouter can register.
-- [Vault](./vault.md) — the most common service to expose via a router.
+- [Vault](./vault.md) — published to Mesh peers automatically by the platform; no NetbirdRouter needed.

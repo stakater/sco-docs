@@ -24,6 +24,7 @@ nav:
           - cloud-user-guide/getting-started.md
       - Authentication and Access:
           - cloud-user-guide/authentication/logging-in.md
+          - cloud-user-guide/authentication/organisation-identity.md
           - cloud-user-guide/authentication/managing-users.md
           - cloud-user-guide/kubectl-access/setup-kubectl.md
           - cloud-user-guide/kubectl-access/kubeconfig-generation.md

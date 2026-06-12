@@ -68,7 +68,7 @@ netbird up \
   --management-url=$(kubectl get mesh my-mesh -o jsonpath='{.status.mesh.mgmtURL}')
 ```
 
-This opens a browser for single sign-on. After registration the device appears in the dashboard and can be assigned to groups.
+This opens a browser for single sign-on — leave the command running until the browser flow completes, and use a private window if you need to enrol as a different user than your current browser session. See [One Identity Across Your Organisation](../../cloud-user-guide/authentication/organisation-identity.md) for enrolment caveats and multi-account profiles. After registration the device appears in the dashboard and can be assigned to groups.
 
 ## Step 6: Reach Services over the Mesh
 

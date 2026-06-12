@@ -48,24 +48,18 @@ kubectl apply -f mesh.yaml
 kubectl get mesh my-mesh
 ```
 
-Wait for `READY: True`, then read the endpoints:
-
-```bash
-kubectl get mesh my-mesh -o jsonpath='{.status.mesh.dashboardURL}'
-kubectl get mesh my-mesh -o jsonpath='{.status.mesh.mgmtURL}'
-```
+Wait for `READY: True`.
 
 ## Step 4: Open the Dashboard
 
-Open `dashboardURL` in a browser and sign in with your organisation account. From here you manage peers, define groups, write access policies, and generate setup keys.
+Open your organisation's Mesh dashboard from the SCO console and sign in with your organisation account. From here you manage peers, define groups, write access policies, and generate setup keys.
 
 ## Step 5: Enrol a Device
 
-Install the NetBird client on a laptop, then:
+Install the NetBird client on a laptop. In the dashboard, open **Add Peer** and copy the enrolment command it shows — it already includes your organisation's management URL:
 
 ```bash
-netbird up \
-  --management-url=$(kubectl get mesh my-mesh -o jsonpath='{.status.mesh.mgmtURL}')
+netbird up --management-url=<your organisation's management URL>
 ```
 
 This opens a browser for single sign-on — leave the command running until the browser flow completes, and use a private window if you need to enrol as a different user than your current browser session. See [One Identity Across Your Organisation](../../cloud-user-guide/authentication/organisation-identity.md) for enrolment caveats and multi-account profiles. After registration the device appears in the dashboard and can be assigned to groups.

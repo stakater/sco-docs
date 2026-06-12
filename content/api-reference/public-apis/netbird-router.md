@@ -45,7 +45,7 @@ When the router is Ready, a Secret named after the claim is delivered into your 
 
 ```sh
 netbird up \
-  --management-url=<from your Mesh's status.mesh.mgmtURL> \
+  --management-url=<your organisation's management URL> \
   --setup-key=$(kubectl get secret <claim-name> -o jsonpath='{.data.setupKey}' | base64 -d)
 ```
 

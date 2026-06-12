@@ -66,7 +66,7 @@ The platform delivers a Secret named after the claim (`my-router`) into your pro
 
 ```bash
 netbird up \
-  --management-url=$(kubectl get mesh my-mesh -o jsonpath='{.status.mesh.mgmtURL}') \
+  --management-url=<your organisation's management URL> \
   --setup-key=$(kubectl get secret my-router -o jsonpath='{.data.setupKey}' | base64 -d)
 ```
 

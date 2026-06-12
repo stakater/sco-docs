@@ -18,9 +18,9 @@ Credentials are scoped to the organisation: an account in one organisation canno
 ## The Flow at a Glance
 
 1. **Organisation registration** creates the realm and the first administrator account — the email used to register.
-2. **Members are added** by an administrator (see [Managing Users](managing-users.md)). Each member receives initial credentials.
-3. **First sign-in forces a password change.** Until a member completes it, the initial password is the only valid credential; after it, the initial password is dead.
-4. From then on the same username and password work across every surface in the table above.
+1. **Members are added** by an administrator (see [Managing Users](managing-users.md)). Each member receives initial credentials.
+1. **First sign-in forces a password change.** Until a member completes it, the initial password is the only valid credential; after it, the initial password is dead.
+1. From then on the same username and password work across every surface in the table above.
 
 !!! note
     Your username is the full email address (for example `alice@acmecorp.example.com`), not the short name.
@@ -32,10 +32,10 @@ Credentials are scoped to the organisation: an account in one organisation canno
 Device enrolment uses the same single sign-on. After [creating a Mesh](../../how-to-guides/user/create-mesh.md) (or if your organisation includes one by default):
 
 ```bash
-netbird up --management-url=<your mesh management URL>
+netbird up --management-url=<your organisation's management URL>
 ```
 
-The command opens a browser window for single sign-on and **waits for the result on a local callback port**. Two things follow from that:
+The exact command — including your organisation's management URL — is shown in the Mesh dashboard under **Add Peer**. The command opens a browser window for single sign-on and **waits for the result on a local callback port**. Two things follow from that:
 
 - **Leave `netbird up` running in the foreground** until the browser flow completes. If the process stops waiting — because it was interrupted, or because the sign-in took too long (a forced first-login password change can do this) — the browser's final redirect lands on a closed port and shows *"localhost refused to connect"*. The sign-in itself succeeded; simply run `netbird up` again and complete the (now faster) flow.
 - **The browser that opens shares your existing session.** If you are already signed in as a different user — common when testing with a second account — the enrolment silently registers the device to that user. Copy the printed URL into a private/incognito window to choose the identity explicitly.
@@ -47,7 +47,7 @@ The NetBird client supports profiles, so you never need to wipe state to switch 
 ```bash
 netbird profile add alice-work
 netbird profile select alice-work
-netbird up --management-url=<your mesh management URL>
+netbird up --management-url=<your organisation's management URL>
 ```
 
 Switch back with `netbird profile select default` (disconnect first with `netbird down`), and remove test profiles with `netbird profile remove <name>`.

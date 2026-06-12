@@ -47,8 +47,8 @@ That's the entire claim. Once Ready, open `status.mesh.dashboardURL` in a browse
 Install the NetBird daemon on the laptop, then run:
 
 ```sh
-netbird up \
-  --management-url=$(kubectl get mesh my-mesh -o jsonpath='{.status.mesh.mgmtURL}')
+# copy the exact command from the Mesh dashboard's "Add Peer" dialog
+netbird up --management-url=<your organisation's management URL>
 ```
 
 This opens a browser for single sign-on. After registration, the peer appears in the dashboard and you can assign it to groups.

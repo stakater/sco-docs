@@ -5,31 +5,31 @@
       
       
       
-        <link rel="canonical" href="https://docs.stakater.com/cloud-orchestrator/renovate-main-playwright-monorepo/installation/configuration.html">
+        <link rel="canonical" href="https://docs.stakater.com/cloud-orchestrator/renovate-main-playwright-monorepo/api-reference/public-apis/postgres.html">
       
       
-        <link rel="prev" href="openshift.html">
+        <link rel="prev" href="s3-bucket.html">
       
       
-        <link rel="next" href="../service-provider-guide/solutions/solution-overview.html">
+        <link rel="next" href="../private-apis/hypershift-hosted-cluster.html">
       
       
         
       
       
-      <link rel="icon" href="../assets/images/favicon.svg">
+      <link rel="icon" href="../../assets/images/favicon.svg">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
-        <title>Platform Configuration - Stakater Cloud Orchestrator</title>
+        <title>Postgres - Stakater Cloud Orchestrator</title>
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -48,9 +48,9 @@
       
     
     
-      <link rel="stylesheet" href="../stylesheets/extra.css">
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
     
-    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
   
@@ -66,7 +66,7 @@
 
     
     
-  <link href="../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+  <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
             html.glightbox-open { overflow: initial; height: 100%; }
             .gslide-title { margin-top: 0px; user-select: text; }
             .gslide-desc { color: #666; user-select: text; }
@@ -95,7 +95,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#platform-configuration" class="md-skip">
+        <a href="#postgres" class="md-skip">
           Skip to content
         </a>
       
@@ -340,7 +340,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <nav class="md-header__inner md-grid" aria-label="Header">
 
     <!-- Link to home -->
-    <a href="../index.html" title="Stakater Cloud Orchestrator" class="md-header__button md-logo" aria-label="Stakater Cloud Orchestrator" data-md-component="logo">
+    <a href="../../index.html" title="Stakater Cloud Orchestrator" class="md-header__button md-logo" aria-label="Stakater Cloud Orchestrator" data-md-component="logo">
       <!-- 
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -361,10 +361,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
         <!-- Logo -->
         <div class="md-header__topic">
           
-          <img class="md-header__logo_light" src="../assets/images/logo-light.png#only-light" alt="logo">
+          <img class="md-header__logo_light" src="../../assets/images/logo-light.png#only-light" alt="logo">
           
           
-          <img class="md-header__logo_dark" src="../assets/images/logo-dark.png#only-dark" alt="logo">
+          <img class="md-header__logo_dark" src="../../assets/images/logo-dark.png#only-dark" alt="logo">
           
           
           <div class="header-site-name">
@@ -1988,7 +1988,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../index.html" title="Stakater Cloud Orchestrator" class="md-nav__button md-logo" aria-label="Stakater Cloud Orchestrator" data-md-component="logo">
+    <a href="../../index.html" title="Stakater Cloud Orchestrator" class="md-nav__button md-logo" aria-label="Stakater Cloud Orchestrator" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
@@ -2006,7 +2006,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../index.html" class="md-nav__link">
+      <a href="../../index.html" class="md-nav__link">
         
   
   
@@ -2080,7 +2080,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../audience/cloud-consumers.html" class="md-nav__link">
+      <a href="../../audience/cloud-consumers.html" class="md-nav__link">
         
   
   
@@ -2155,7 +2155,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../cloud-user-guide/overview.html" class="md-nav__link">
+      <a href="../../cloud-user-guide/overview.html" class="md-nav__link">
         
   
   
@@ -2183,7 +2183,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../cloud-user-guide/getting-started.html" class="md-nav__link">
+      <a href="../../cloud-user-guide/getting-started.html" class="md-nav__link">
         
   
   
@@ -2266,7 +2266,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../cloud-user-guide/authentication/logging-in.html" class="md-nav__link">
+      <a href="../../cloud-user-guide/authentication/logging-in.html" class="md-nav__link">
         
   
   
@@ -2294,7 +2294,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../cloud-user-guide/authentication/managing-users.html" class="md-nav__link">
+      <a href="../../cloud-user-guide/authentication/managing-users.html" class="md-nav__link">
         
   
   
@@ -2322,7 +2322,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../cloud-user-guide/kubectl-access/setup-kubectl.html" class="md-nav__link">
+      <a href="../../cloud-user-guide/kubectl-access/setup-kubectl.html" class="md-nav__link">
         
   
   
@@ -2350,7 +2350,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../cloud-user-guide/kubectl-access/kubeconfig-generation.html" class="md-nav__link">
+      <a href="../../cloud-user-guide/kubectl-access/kubeconfig-generation.html" class="md-nav__link">
         
   
   
@@ -2378,7 +2378,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../cloud-user-guide/terraform-access/setup-terraform.html" class="md-nav__link">
+      <a href="../../cloud-user-guide/terraform-access/setup-terraform.html" class="md-nav__link">
         
   
   
@@ -2406,7 +2406,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../cloud-user-guide/terraform-access/kubernetes-provider.html" class="md-nav__link">
+      <a href="../../cloud-user-guide/terraform-access/kubernetes-provider.html" class="md-nav__link">
         
   
   
@@ -2434,7 +2434,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../cloud-user-guide/gitops-access/argocd-setup.html" class="md-nav__link">
+      <a href="../../cloud-user-guide/gitops-access/argocd-setup.html" class="md-nav__link">
         
   
   
@@ -2462,7 +2462,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../cloud-user-guide/gitops-access/flux-setup.html" class="md-nav__link">
+      <a href="../../cloud-user-guide/gitops-access/flux-setup.html" class="md-nav__link">
         
   
   
@@ -2545,7 +2545,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../cloud-user-guide/projects/creating-projects.html" class="md-nav__link">
+      <a href="../../cloud-user-guide/projects/creating-projects.html" class="md-nav__link">
         
   
   
@@ -2573,7 +2573,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../cloud-user-guide/projects/project-structure.html" class="md-nav__link">
+      <a href="../../cloud-user-guide/projects/project-structure.html" class="md-nav__link">
         
   
   
@@ -2656,7 +2656,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../cloud-user-guide/solutions/browsing-marketplace.html" class="md-nav__link">
+      <a href="../../cloud-user-guide/solutions/browsing-marketplace.html" class="md-nav__link">
         
   
   
@@ -2684,7 +2684,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../cloud-user-guide/solutions/provisioning-solutions.html" class="md-nav__link">
+      <a href="../../cloud-user-guide/solutions/provisioning-solutions.html" class="md-nav__link">
         
   
   
@@ -2712,7 +2712,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../marketplace/overview.html" class="md-nav__link">
+      <a href="../../marketplace/overview.html" class="md-nav__link">
         
   
   
@@ -2740,7 +2740,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../marketplace/browsing.html" class="md-nav__link">
+      <a href="../../marketplace/browsing.html" class="md-nav__link">
         
   
   
@@ -2768,7 +2768,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../marketplace/solution-catalog.html" class="md-nav__link">
+      <a href="../../marketplace/solution-catalog.html" class="md-nav__link">
         
   
   
@@ -2851,7 +2851,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../how-to-guides/user/deploy-first-app.html" class="md-nav__link">
+      <a href="../../how-to-guides/user/deploy-first-app.html" class="md-nav__link">
         
   
   
@@ -2879,7 +2879,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../how-to-guides/user/create-project.html" class="md-nav__link">
+      <a href="../../how-to-guides/user/create-project.html" class="md-nav__link">
         
   
   
@@ -2907,7 +2907,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../how-to-guides/user/create-iam-user.html" class="md-nav__link">
+      <a href="../../how-to-guides/user/create-iam-user.html" class="md-nav__link">
         
   
   
@@ -2935,7 +2935,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../how-to-guides/user/create-iam-group.html" class="md-nav__link">
+      <a href="../../how-to-guides/user/create-iam-group.html" class="md-nav__link">
         
   
   
@@ -2963,7 +2963,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../how-to-guides/user/provision-openshift-cluster.html" class="md-nav__link">
+      <a href="../../how-to-guides/user/provision-openshift-cluster.html" class="md-nav__link">
         
   
   
@@ -2991,7 +2991,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../how-to-guides/user/provision-virtual-machine.html" class="md-nav__link">
+      <a href="../../how-to-guides/user/provision-virtual-machine.html" class="md-nav__link">
         
   
   
@@ -3019,7 +3019,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../how-to-guides/user/create-s3-bucket.html" class="md-nav__link">
+      <a href="../../how-to-guides/user/create-s3-bucket.html" class="md-nav__link">
         
   
   
@@ -3047,7 +3047,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../how-to-guides/user/create-postgres.html" class="md-nav__link">
+      <a href="../../how-to-guides/user/create-postgres.html" class="md-nav__link">
         
   
   
@@ -3087,20 +3087,18 @@ This documentation is for a pull request deployment and is unreleased, it is onl
       
   
   
-    
   
   
-  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked="">
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3">
         
           
           <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
@@ -3121,7 +3119,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -3139,7 +3137,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../audience/platform-providers.html" class="md-nav__link">
+      <a href="../../audience/platform-providers.html" class="md-nav__link">
         
   
   
@@ -3214,7 +3212,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../service-provider-guide/overview.html" class="md-nav__link">
+      <a href="../../service-provider-guide/overview.html" class="md-nav__link">
         
   
   
@@ -3242,7 +3240,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../service-provider-guide/getting-started.html" class="md-nav__link">
+      <a href="../../service-provider-guide/getting-started.html" class="md-nav__link">
         
   
   
@@ -3275,20 +3273,18 @@ This documentation is for a pull request deployment and is unreleased, it is onl
                 
   
   
-    
   
   
-  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" checked="">
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3">
         
           
           <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
@@ -3309,7 +3305,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -3327,7 +3323,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="overview.html" class="md-nav__link">
+      <a href="../../installation/overview.html" class="md-nav__link">
         
   
   
@@ -3355,7 +3351,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="prerequisites.html" class="md-nav__link">
+      <a href="../../installation/prerequisites.html" class="md-nav__link">
         
   
   
@@ -3383,7 +3379,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="openshift.html" class="md-nav__link">
+      <a href="../../installation/openshift.html" class="md-nav__link">
         
   
   
@@ -3408,37 +3404,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Platform Configuration
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="configuration.html" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../installation/configuration.html" class="md-nav__link">
         
   
   
@@ -3454,133 +3423,6 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
 
       </a>
-      
-        
-
-  
-
-<nav class="md-nav md-nav--secondary" aria-label="On this page">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      On this page
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
-      
-        <li class="md-nav__item">
-  <a href="#how-configuration-works" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        How Configuration Works
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#customising-platform-configuration" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Customising Platform Configuration
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Customising Platform Configuration">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#example-adjusting-default-project-quota" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Example: Adjusting default project quota
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#example-adjusting-component-resource-limits" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Example: Adjusting component resource limits
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#component-configuration-reference" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Component Configuration Reference
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#discovering-available-configuration-fields" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Discovering Available Configuration Fields
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#viewing-current-configuration" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Viewing Current Configuration
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#configuration-workflow" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Configuration Workflow
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#whats-next" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        What's Next?
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -3648,7 +3490,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../service-provider-guide/solutions/solution-overview.html" class="md-nav__link">
+      <a href="../../service-provider-guide/solutions/solution-overview.html" class="md-nav__link">
         
   
   
@@ -3676,7 +3518,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../service-provider-guide/solutions/creating-solutions.html" class="md-nav__link">
+      <a href="../../service-provider-guide/solutions/creating-solutions.html" class="md-nav__link">
         
   
   
@@ -3704,7 +3546,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../service-provider-guide/solutions/crossplane-compositions.html" class="md-nav__link">
+      <a href="../../service-provider-guide/solutions/crossplane-compositions.html" class="md-nav__link">
         
   
   
@@ -3732,7 +3574,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../service-provider-guide/marketplace/publishing-solutions.html" class="md-nav__link">
+      <a href="../../service-provider-guide/marketplace/publishing-solutions.html" class="md-nav__link">
         
   
   
@@ -3760,7 +3602,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../service-provider-guide/marketplace/marketplace-configuration.html" class="md-nav__link">
+      <a href="../../service-provider-guide/marketplace/marketplace-configuration.html" class="md-nav__link">
         
   
   
@@ -3788,7 +3630,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../how-to-guides/provider/create-postgresql-solution.html" class="md-nav__link">
+      <a href="../../how-to-guides/provider/create-postgresql-solution.html" class="md-nav__link">
         
   
   
@@ -3871,7 +3713,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../service-provider-guide/organizations/creating-organizations.html" class="md-nav__link">
+      <a href="../../service-provider-guide/organizations/creating-organizations.html" class="md-nav__link">
         
   
   
@@ -3899,7 +3741,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../service-provider-guide/organizations/keycloak-realms.html" class="md-nav__link">
+      <a href="../../service-provider-guide/organizations/keycloak-realms.html" class="md-nav__link">
         
   
   
@@ -3927,7 +3769,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../service-provider-guide/projects/project-architecture.html" class="md-nav__link">
+      <a href="../../service-provider-guide/projects/project-architecture.html" class="md-nav__link">
         
   
   
@@ -3955,7 +3797,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../service-provider-guide/projects/workspace-mapping.html" class="md-nav__link">
+      <a href="../../service-provider-guide/projects/workspace-mapping.html" class="md-nav__link">
         
   
   
@@ -4038,7 +3880,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../service-provider-guide/api-publishing/kcp-overview.html" class="md-nav__link">
+      <a href="../../service-provider-guide/api-publishing/kcp-overview.html" class="md-nav__link">
         
   
   
@@ -4066,7 +3908,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../service-provider-guide/api-publishing/publishing-apis.html" class="md-nav__link">
+      <a href="../../service-provider-guide/api-publishing/publishing-apis.html" class="md-nav__link">
         
   
   
@@ -4156,7 +3998,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../about/overview.html" class="md-nav__link">
+      <a href="../../about/overview.html" class="md-nav__link">
         
   
   
@@ -4184,7 +4026,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../about/key-features.html" class="md-nav__link">
+      <a href="../../about/key-features.html" class="md-nav__link">
         
   
   
@@ -4212,7 +4054,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../about/use-cases.html" class="md-nav__link">
+      <a href="../../about/use-cases.html" class="md-nav__link">
         
   
   
@@ -4240,7 +4082,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../about/benefits.html" class="md-nav__link">
+      <a href="../../about/benefits.html" class="md-nav__link">
         
   
   
@@ -4268,7 +4110,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../architecture/architecture.html" class="md-nav__link">
+      <a href="../../architecture/architecture.html" class="md-nav__link">
         
   
   
@@ -4296,7 +4138,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../architecture/concepts.html" class="md-nav__link">
+      <a href="../../architecture/concepts.html" class="md-nav__link">
         
   
   
@@ -4324,7 +4166,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../architecture/components.html" class="md-nav__link">
+      <a href="../../architecture/components.html" class="md-nav__link">
         
   
   
@@ -4352,7 +4194,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../architecture/virtual-api-layer.html" class="md-nav__link">
+      <a href="../../architecture/virtual-api-layer.html" class="md-nav__link">
         
   
   
@@ -4434,7 +4276,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../console/overview.html" class="md-nav__link">
+      <a href="../../console/overview.html" class="md-nav__link">
         
   
   
@@ -4462,7 +4304,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../console/dashboard.html" class="md-nav__link">
+      <a href="../../console/dashboard.html" class="md-nav__link">
         
   
   
@@ -4490,7 +4332,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../console/organizations.html" class="md-nav__link">
+      <a href="../../console/organizations.html" class="md-nav__link">
         
   
   
@@ -4518,7 +4360,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../console/projects.html" class="md-nav__link">
+      <a href="../../console/projects.html" class="md-nav__link">
         
   
   
@@ -4546,7 +4388,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../console/marketplace.html" class="md-nav__link">
+      <a href="../../console/marketplace.html" class="md-nav__link">
         
   
   
@@ -4574,7 +4416,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../console/solutions.html" class="md-nav__link">
+      <a href="../../console/solutions.html" class="md-nav__link">
         
   
   
@@ -4606,18 +4448,20 @@ This documentation is for a pull request deployment and is unreleased, it is onl
       
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6">
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked="">
         
           
           <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
@@ -4638,7 +4482,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_6">
             <span class="md-nav__icon md-icon"></span>
             
@@ -4656,7 +4500,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../api-reference/overview.html" class="md-nav__link">
+      <a href="../overview.html" class="md-nav__link">
         
   
   
@@ -4681,18 +4525,20 @@ This documentation is for a pull request deployment and is unreleased, it is onl
                 
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_2">
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_2" checked="">
         
           
           <label class="md-nav__link" for="__nav_6_2" id="__nav_6_2_label" tabindex="0">
@@ -4713,7 +4559,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_6_2">
             <span class="md-nav__icon md-icon"></span>
             
@@ -4731,7 +4577,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../api-reference/public-apis/project.html" class="md-nav__link">
+      <a href="project.html" class="md-nav__link">
         
   
   
@@ -4759,7 +4605,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../api-reference/public-apis/iam-user.html" class="md-nav__link">
+      <a href="iam-user.html" class="md-nav__link">
         
   
   
@@ -4787,7 +4633,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../api-reference/public-apis/iam-group.html" class="md-nav__link">
+      <a href="iam-group.html" class="md-nav__link">
         
   
   
@@ -4815,7 +4661,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../api-reference/public-apis/openshift-cluster.html" class="md-nav__link">
+      <a href="openshift-cluster.html" class="md-nav__link">
         
   
   
@@ -4843,7 +4689,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../api-reference/public-apis/virtual-machine.html" class="md-nav__link">
+      <a href="virtual-machine.html" class="md-nav__link">
         
   
   
@@ -4871,7 +4717,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../api-reference/public-apis/s3-bucket.html" class="md-nav__link">
+      <a href="s3-bucket.html" class="md-nav__link">
         
   
   
@@ -4896,10 +4742,37 @@ This documentation is for a pull request deployment and is unreleased, it is onl
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../api-reference/public-apis/postgres.html" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Postgres
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="postgres.html" class="md-nav__link md-nav__link--active">
         
   
   
@@ -4915,6 +4788,172 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
 
       </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#api-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        API Details
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spec-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Spec Parameters
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Spec Parameters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#optional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optional
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#status-fields" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Status Fields
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#credentials" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Credentials
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Examples
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#minimal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Minimal
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#highly-available-larger-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Highly-available, larger storage
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#externally-reachable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Externally-reachable
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#consuming-the-credentials" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Consuming the credentials
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-guide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How-to Guide
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Related
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -4982,7 +5021,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../api-reference/private-apis/hypershift-hosted-cluster.html" class="md-nav__link">
+      <a href="../private-apis/hypershift-hosted-cluster.html" class="md-nav__link">
         
   
   
@@ -5010,7 +5049,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../api-reference/private-apis/virtual-machine-infrastructure.html" class="md-nav__link">
+      <a href="../private-apis/virtual-machine-infrastructure.html" class="md-nav__link">
         
   
   
@@ -5038,7 +5077,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../api-reference/private-apis/s3-bucket-infrastructure.html" class="md-nav__link">
+      <a href="../private-apis/s3-bucket-infrastructure.html" class="md-nav__link">
         
   
   
@@ -5066,7 +5105,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../api-reference/private-apis/postgres-cluster-infrastructure.html" class="md-nav__link">
+      <a href="../private-apis/postgres-cluster-infrastructure.html" class="md-nav__link">
         
   
   
@@ -5156,7 +5195,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../integrations/keycloak.html" class="md-nav__link">
+      <a href="../../integrations/keycloak.html" class="md-nav__link">
         
   
   
@@ -5184,7 +5223,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../integrations/kcp.html" class="md-nav__link">
+      <a href="../../integrations/kcp.html" class="md-nav__link">
         
   
   
@@ -5212,7 +5251,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../integrations/mto.html" class="md-nav__link">
+      <a href="../../integrations/mto.html" class="md-nav__link">
         
   
   
@@ -5240,7 +5279,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../integrations/crossplane.html" class="md-nav__link">
+      <a href="../../integrations/crossplane.html" class="md-nav__link">
         
   
   
@@ -5322,7 +5361,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../troubleshooting/overview.html" class="md-nav__link">
+      <a href="../../troubleshooting/overview.html" class="md-nav__link">
         
   
   
@@ -5350,7 +5389,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../troubleshooting/common-issues.html" class="md-nav__link">
+      <a href="../../troubleshooting/common-issues.html" class="md-nav__link">
         
   
   
@@ -5385,7 +5424,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../changelog.html" class="md-nav__link">
+      <a href="../../changelog.html" class="md-nav__link">
         
   
   
@@ -5412,7 +5451,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../eula.html" class="md-nav__link">
+      <a href="../../eula.html" class="md-nav__link">
         
   
   
@@ -5461,10 +5500,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
       
         <li class="md-nav__item">
-  <a href="#how-configuration-works" class="md-nav__link">
+  <a href="#api-details" class="md-nav__link">
     <span class="md-ellipsis">
       
-        How Configuration Works
+        API Details
       
     </span>
   </a>
@@ -5472,33 +5511,22 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
-  <a href="#customising-platform-configuration" class="md-nav__link">
+  <a href="#spec-parameters" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Customising Platform Configuration
+        Spec Parameters
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Customising Platform Configuration">
+    <nav class="md-nav" aria-label="Spec Parameters">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#example-adjusting-default-project-quota" class="md-nav__link">
+  <a href="#optional" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Example: Adjusting default project quota
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#example-adjusting-component-resource-limits" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Example: Adjusting component resource limits
+        Optional
       
     </span>
   </a>
@@ -5511,10 +5539,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
-  <a href="#component-configuration-reference" class="md-nav__link">
+  <a href="#status-fields" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Component Configuration Reference
+        Status Fields
       
     </span>
   </a>
@@ -5522,10 +5550,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
-  <a href="#discovering-available-configuration-fields" class="md-nav__link">
+  <a href="#credentials" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Discovering Available Configuration Fields
+        Credentials
       
     </span>
   </a>
@@ -5533,10 +5561,71 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
-  <a href="#viewing-current-configuration" class="md-nav__link">
+  <a href="#examples" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Viewing Current Configuration
+        Examples
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Examples">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#minimal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Minimal
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#highly-available-larger-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Highly-available, larger storage
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#externally-reachable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Externally-reachable
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#consuming-the-credentials" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Consuming the credentials
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-guide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How-to Guide
       
     </span>
   </a>
@@ -5544,21 +5633,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
-  <a href="#configuration-workflow" class="md-nav__link">
+  <a href="#related" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Configuration Workflow
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#whats-next" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        What's Next?
+        Related
       
     </span>
   </a>
@@ -5582,157 +5660,210 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 
 
 
-<h1 id="platform-configuration">Platform Configuration<a class="headerlink" href="#platform-configuration" title="Permanent link">#</a></h1>
-<p>SCO uses a GitOps-native configuration model. Rather than a traditional admin control panel or config file, platform behaviour is controlled through Kubernetes <code>EnvironmentConfig</code> resources that are reconciled continuously by Crossplane.</p>
-<hr>
-<h2 id="how-configuration-works">How Configuration Works<a class="headerlink" href="#how-configuration-works" title="Permanent link">#</a></h2>
-<p>When <code>ksp up</code> bootstraps the platform, it generates an initial set of <code>EnvironmentConfig</code> resources — one per platform component. These EnvironmentConfigs encode the default values for every configurable aspect of each component: resource limits, feature flags, version pins, networking settings, storage configuration, and integration parameters.</p>
-<p>Each platform component is packaged as an OCI artifact (Helm chart plus Crossplane configurations). Crossplane watches the <code>EnvironmentConfig</code> resources and, when values change, re-renders the ArgoCD <code>Application</code> for that component — injecting the updated values from the <code>EnvironmentConfig</code> as Helm values. ArgoCD then reconciles the component toward the new desired state automatically.</p>
-<div class="highlight"><pre><span></span><code>ksp up (initial install)
-    ↓
-KubeStackConfig + KubeStackPlus claims applied
-    ↓
-Crossplane generates EnvironmentConfigs (one per component)
-    ↓
-EnvironmentConfigs hold default values from ksp up inputs
-    ↓
-Crossplane renders ArgoCD Applications sourcing values from EnvironmentConfigs
-    ↓
-ArgoCD deploys each component from its OCI artifact
-    ↓
-Platform running with defaults
-</code></pre></div>
-<hr>
-<h2 id="customising-platform-configuration">Customising Platform Configuration<a class="headerlink" href="#customising-platform-configuration" title="Permanent link">#</a></h2>
-<p>To change any default — for example, increasing the replica count for the KCP workspace service, or adjusting default resource quotas for new projects — platform operators create <strong>override EnvironmentConfigs</strong> in their GitOps repository.</p>
-<p>An override EnvironmentConfig targets a specific component and declares only the values that differ from the defaults. When applied to the cluster, Crossplane merges it with the component's default EnvironmentConfig and re-renders the ArgoCD <code>Application</code> with the updated Helm values. ArgoCD then reconciles the component.</p>
-<h3 id="example-adjusting-default-project-quota">Example: Adjusting default project quota<a class="headerlink" href="#example-adjusting-default-project-quota" title="Permanent link">#</a></h3>
-<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">apiextensions.crossplane.io/v1beta1</span>
-<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">EnvironmentConfig</span>
-<span class="nt">metadata</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mto-quota-override</span>
-<span class="w">  </span><span class="nt">labels</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">kcp/component</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mto</span>
-<span class="w">    </span><span class="nt">platform/override</span><span class="p">:</span><span class="w"> </span><span class="s">"true"</span>
-<span class="nt">data</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">defaultQuota</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">small</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">requests.cpu</span><span class="p">:</span><span class="w"> </span><span class="s">"4"</span>
-<span class="w">      </span><span class="nt">requests.memory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8Gi</span>
-<span class="w">      </span><span class="nt">limits.cpu</span><span class="p">:</span><span class="w"> </span><span class="s">"8"</span>
-<span class="w">      </span><span class="nt">limits.memory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">16Gi</span>
-<span class="w">    </span><span class="nt">medium</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">requests.cpu</span><span class="p">:</span><span class="w"> </span><span class="s">"8"</span>
-<span class="w">      </span><span class="nt">requests.memory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">16Gi</span>
-<span class="w">      </span><span class="nt">limits.cpu</span><span class="p">:</span><span class="w"> </span><span class="s">"16"</span>
-<span class="w">      </span><span class="nt">limits.memory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">32Gi</span>
-</code></pre></div>
-<p>Store this in your GitOps repository. When ArgoCD syncs it to the cluster, Crossplane picks up the change and updates the Multi-Tenant Operator's quota configuration.</p>
-<h3 id="example-adjusting-component-resource-limits">Example: Adjusting component resource limits<a class="headerlink" href="#example-adjusting-component-resource-limits" title="Permanent link">#</a></h3>
-<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">apiextensions.crossplane.io/v1beta1</span>
-<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">EnvironmentConfig</span>
-<span class="nt">metadata</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kcp-resources-override</span>
-<span class="w">  </span><span class="nt">labels</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">kcp/component</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kcp</span>
-<span class="w">    </span><span class="nt">platform/override</span><span class="p">:</span><span class="w"> </span><span class="s">"true"</span>
-<span class="nt">data</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">resources</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">requests</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="s">"2"</span>
-<span class="w">      </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4Gi</span>
-<span class="w">    </span><span class="nt">limits</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">cpu</span><span class="p">:</span><span class="w"> </span><span class="s">"4"</span>
-<span class="w">      </span><span class="nt">memory</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8Gi</span>
-<span class="w">  </span><span class="nt">replicas</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
-</code></pre></div>
-<hr>
-<h2 id="component-configuration-reference">Component Configuration Reference<a class="headerlink" href="#component-configuration-reference" title="Permanent link">#</a></h2>
-<p>Each platform component has a corresponding EnvironmentConfig namespace. The labels identify which component a config applies to.</p>
+<h1 id="postgres">Postgres<a class="headerlink" href="#postgres" title="Permanent link">#</a></h1>
+<p>Provisions a PostgreSQL database.</p>
+<h2 id="api-details">API Details<a class="headerlink" href="#api-details" title="Permanent link">#</a></h2>
 <table>
 <thead>
 <tr>
-<th>Component label</th>
-<th>Component</th>
+<th>Field</th>
+<th>Value</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>kcp/component: kcp</code></td>
-<td>KCP workspace service</td>
+<td><strong>API Group</strong></td>
+<td><code>database.cloud.stakater.com</code></td>
 </tr>
 <tr>
-<td><code>kcp/component: mto</code></td>
-<td>Multi-Tenant Operator</td>
+<td><strong>Version</strong></td>
+<td><code>v1</code></td>
 </tr>
 <tr>
-<td><code>kcp/component: keycloak</code></td>
-<td>Keycloak identity platform</td>
+<td><strong>Kind</strong></td>
+<td><code>Postgres</code></td>
 </tr>
 <tr>
-<td><code>kcp/component: openbao</code></td>
-<td>OpenBao secrets engine</td>
-</tr>
-<tr>
-<td><code>kcp/component: crossplane</code></td>
-<td>Crossplane and providers</td>
-</tr>
-<tr>
-<td><code>kcp/component: hypershift</code></td>
-<td>Hypershift operator</td>
-</tr>
-<tr>
-<td><code>kcp/component: openshift-virt</code></td>
-<td>OpenShift Virtualization</td>
-</tr>
-<tr>
-<td><code>kcp/component: platform-services</code></td>
-<td><code>api-syncagent</code> and API publishing</td>
+<td><strong>Scope</strong></td>
+<td>Namespace-scoped</td>
 </tr>
 </tbody>
 </table>
-<hr>
-<h2 id="discovering-available-configuration-fields">Discovering Available Configuration Fields<a class="headerlink" href="#discovering-available-configuration-fields" title="Permanent link">#</a></h2>
-<p>Each addon's EnvironmentConfig stores its Helm values and version under keys following the pattern <code>{VARIANT}-{PLATFORM}-VALUES</code> and <code>{VARIANT}-{PLATFORM}-VERSION</code> (e.g., <code>SCOBASIC-OCP-VALUES</code>). To discover what fields are available for a specific component:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># List all addon EnvironmentConfigs</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>environmentconfigs<span class="w"> </span>-l<span class="w"> </span>kubestack.stakater.com/config-scope<span class="o">=</span>addon
-
-<span class="c1"># Inspect a specific addon's EnvironmentConfig to see its current values</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>environmentconfig<span class="w"> </span>&lt;addon-name&gt;<span class="w"> </span>-o<span class="w"> </span>yaml
-
-<span class="c1"># Example: view the cert-manager configuration</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>environmentconfig<span class="w"> </span>cert-manager<span class="w"> </span>-o<span class="w"> </span>yaml
+<h2 id="spec-parameters">Spec Parameters<a class="headerlink" href="#spec-parameters" title="Permanent link">#</a></h2>
+<p>All parameters are nested under <code>spec.parameters</code>.</p>
+<h3 id="optional">Optional<a class="headerlink" href="#optional" title="Permanent link">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>instances</code></td>
+<td><code>integer</code></td>
+<td><code>1</code></td>
+<td>Number of PostgreSQL instances (replicas)</td>
+</tr>
+<tr>
+<td><code>storage.size</code></td>
+<td><code>string</code></td>
+<td><code>10Gi</code></td>
+<td>Disk size per PostgreSQL instance</td>
+</tr>
+<tr>
+<td><code>exposeLoadBalancer</code></td>
+<td><code>boolean</code></td>
+<td><code>false</code></td>
+<td>When <code>true</code>, the database is reachable from outside the project via an externally-routable endpoint. When <code>false</code>, the database is reachable only from inside the project.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="status-fields">Status Fields<a class="headerlink" href="#status-fields" title="Permanent link">#</a></h2>
+<p><code>status.connection</code> carries non-sensitive endpoint metadata only. Credentials (username, password, URI) are <strong>not</strong> placed here — they are delivered to the project as a Secret (see <a href="#credentials">Credentials</a>).</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>status.connection.host</code></td>
+<td><code>string</code></td>
+<td>PostgreSQL read-write service hostname</td>
+</tr>
+<tr>
+<td><code>status.connection.port</code></td>
+<td><code>string</code></td>
+<td>PostgreSQL service port (typically <code>5432</code>)</td>
+</tr>
+<tr>
+<td><code>status.connection.database</code></td>
+<td><code>string</code></td>
+<td>Database name</td>
+</tr>
+<tr>
+<td><code>status.connection.externalHost</code></td>
+<td><code>string</code></td>
+<td>Externally-reachable hostname or IP of the database. Populated only when <code>parameters.exposeLoadBalancer</code> is <code>true</code>.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="credentials">Credentials<a class="headerlink" href="#credentials" title="Permanent link">#</a></h2>
+<p>When the database is ready, the platform delivers a Secret named after the claim (<code>&lt;metadata.name&gt;</code>) into the project. The keys cover the most common client conventions:</p>
+<table>
+<thead>
+<tr>
+<th>Secret key</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>username</code> / <code>user</code></td>
+<td>Application user (both keys carry the same value)</td>
+</tr>
+<tr>
+<td><code>password</code></td>
+<td>Password for the application user</td>
+</tr>
+<tr>
+<td><code>host</code></td>
+<td>Read-write service hostname (matches <code>status.connection.host</code>)</td>
+</tr>
+<tr>
+<td><code>port</code></td>
+<td>Service port</td>
+</tr>
+<tr>
+<td><code>dbname</code></td>
+<td>Database name</td>
+</tr>
+<tr>
+<td><code>uri</code></td>
+<td>PostgreSQL connection URI (<code>postgresql://user:pass@host:port/db</code>)</td>
+</tr>
+<tr>
+<td><code>jdbc-uri</code></td>
+<td>JDBC URL (<code>jdbc:postgresql://host:port/db?password=...&amp;user=...</code>)</td>
+</tr>
+<tr>
+<td><code>fqdn-uri</code></td>
+<td>Same as <code>uri</code> but with the host's fully-qualified cluster DNS name</td>
+</tr>
+<tr>
+<td><code>fqdn-jdbc-uri</code></td>
+<td>Same as <code>jdbc-uri</code> but with the host's fully-qualified cluster DNS name</td>
+</tr>
+<tr>
+<td><code>pgpass</code></td>
+<td>A line for <code>~/.pgpass</code> (<code>host:port:db:user:password</code>)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">#</a></h2>
+<h3 id="minimal">Minimal<a class="headerlink" href="#minimal" title="Permanent link">#</a></h3>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">database.cloud.stakater.com/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Postgres</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-db</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span>
 </code></pre></div>
-<p>The <code>data</code> section of the EnvironmentConfig contains the Helm values that are passed to the addon's ArgoCD Application. These values correspond to the Helm chart's <code>values.yaml</code> for that addon.</p>
-<hr>
-<h2 id="viewing-current-configuration">Viewing Current Configuration<a class="headerlink" href="#viewing-current-configuration" title="Permanent link">#</a></h2>
-<p>To inspect the current EnvironmentConfig for a component:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># List all platform EnvironmentConfigs</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>environmentconfigs<span class="w"> </span>-l<span class="w"> </span>kcp/component
-
-<span class="c1"># View the default config for a component</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>environmentconfig<span class="w"> </span>kcp-defaults<span class="w"> </span>-o<span class="w"> </span>yaml
-
-<span class="c1"># View any overrides</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>environmentconfigs<span class="w"> </span>-l<span class="w"> </span>platform/override<span class="o">=</span><span class="nb">true</span>
+<h3 id="highly-available-larger-storage">Highly-available, larger storage<a class="headerlink" href="#highly-available-larger-storage" title="Permanent link">#</a></h3>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">database.cloud.stakater.com/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Postgres</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">app-db</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">instances</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class="w">    </span><span class="nt">storage</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">50Gi</span>
 </code></pre></div>
-<hr>
-<h2 id="configuration-workflow">Configuration Workflow<a class="headerlink" href="#configuration-workflow" title="Permanent link">#</a></h2>
-<p>The recommended workflow for platform configuration changes:</p>
-<ol>
-<li><strong>Identify the setting</strong> — inspect the default EnvironmentConfig for the target component to find the correct key</li>
-<li><strong>Create an override</strong> — write a new EnvironmentConfig in your GitOps repository targeting only the keys you need to change</li>
-<li><strong>Raise a pull request</strong> — review and approve the change through your standard code review process</li>
-<li><strong>Merge and sync</strong> — ArgoCD syncs the override to the cluster; Crossplane reconciles the component</li>
-<li><strong>Verify</strong> — check the component's status and confirm the new configuration is in effect</li>
-</ol>
-<p>This workflow ensures all configuration changes are auditable, reversible (via Git revert), and applied through the same review process as application changes.</p>
-<hr>
-<h2 id="whats-next">What's Next?<a class="headerlink" href="#whats-next" title="Permanent link">#</a></h2>
+<h3 id="externally-reachable">Externally-reachable<a class="headerlink" href="#externally-reachable" title="Permanent link">#</a></h3>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">database.cloud.stakater.com/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Postgres</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">external-db</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">exposeLoadBalancer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</code></pre></div>
+<h3 id="consuming-the-credentials">Consuming the credentials<a class="headerlink" href="#consuming-the-credentials" title="Permanent link">#</a></h3>
+<p>Mount the delivered Secret as environment variables on a workload:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">apps/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Deployment</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">postgres-client</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">replicas</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">  </span><span class="nt">selector</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">matchLabels</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">postgres-client</span>
+<span class="w">  </span><span class="nt">template</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">metadata</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">labels</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">postgres-client</span>
+<span class="w">    </span><span class="nt">spec</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">containers</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">app</span>
+<span class="w">          </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-app:latest</span>
+<span class="w">          </span><span class="nt">envFrom</span><span class="p">:</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">secretRef</span><span class="p">:</span>
+<span class="w">                </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-db</span>
+</code></pre></div>
+<h2 id="how-to-guide">How-to Guide<a class="headerlink" href="#how-to-guide" title="Permanent link">#</a></h2>
+<p><a href="../../how-to-guides/user/create-postgres.html">Create a Postgres Database</a></p>
+<h2 id="related">Related<a class="headerlink" href="#related" title="Permanent link">#</a></h2>
 <ul>
-<li><a href="../service-provider-guide/getting-started.html">Service Provider Guide</a> — Start building service offerings</li>
-<li><a href="../integrations/crossplane.html">Crossplane Integration</a> — How Crossplane manages platform components</li>
-<li><a href="../architecture/architecture.html">Architecture</a> — Understanding the platform's design</li>
+<li>Platform-tier API: <a href="../private-apis/postgres-cluster-infrastructure.html">Postgres Cluster (Infrastructure)</a></li>
 </ul>
 
 
@@ -6027,27 +6158,27 @@ kubectl<span class="w"> </span>get<span class="w"> </span>environmentconfigs<spa
                 <div class="flex-2">
                     <div class="logo-footer-container">
                         
-                        <img class="md-header__logo_light" src="../assets/images/footer-logo-light.png#only-light" alt="logo">
+                        <img class="md-header__logo_light" src="../../assets/images/footer-logo-light.png#only-light" alt="logo">
                         
                         
-                        <img src="../assets/images/footer-logo-dark.png#only-dark" alt="logo">
+                        <img src="../../assets/images/footer-logo-dark.png#only-dark" alt="logo">
                         
                     </div>
 
                     <div class="collaborations-img-container">
                         <div class="display-flex">
                             
-                            <img class="csa-logo-dark" src="../assets/images/CSA_dark.png#only-dark" alt="CSA">
+                            <img class="csa-logo-dark" src="../../assets/images/CSA_dark.png#only-dark" alt="CSA">
                             
                             
-                            <img class="csa-logo-light" src="../assets/images/CSA_light.png#only-light" alt="CSA">
+                            <img class="csa-logo-light" src="../../assets/images/CSA_light.png#only-light" alt="CSA">
                             
 
                             
-                            <img class="hc-logo-dark" src="../assets/images/HC_dark.png#only-dark" alt="HC">
+                            <img class="hc-logo-dark" src="../../assets/images/HC_dark.png#only-dark" alt="HC">
                             
                             
-                            <img class="hc-logo-light" src="../assets/images/HC_light.png#only-light" alt="HC">
+                            <img class="hc-logo-light" src="../../assets/images/HC_light.png#only-light" alt="HC">
                             
                         </div>
                     </div>
@@ -6424,10 +6555,10 @@ kubectl<span class="w"> </span>get<span class="w"> </span>environmentconfigs<spa
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["content.code.copy", "navigation.tracking", "toc.follow", "navigation.top"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.code.copy", "navigation.tracking", "toc.follow", "navigation.top"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
     
   

@@ -3109,6 +3109,62 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../how-to-guides/user/create-s3-bucket.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Create an S3 Bucket
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../how-to-guides/user/create-postgres.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Create a Postgres Database
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -4747,6 +4803,62 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api-reference/public-apis/s3-bucket.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    S3 Bucket
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api-reference/public-apis/postgres.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Postgres
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -4845,6 +4957,62 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     
   
     Virtual Machine (Infrastructure)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api-reference/private-apis/s3-bucket-infrastructure.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    S3 Bucket (Infrastructure)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api-reference/private-apis/postgres-cluster-infrastructure.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Postgres Cluster (Infrastructure)
   
 
     
@@ -5311,6 +5479,13 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <li>Managing users and authentication</li>
 <li>Understanding project structure and isolation</li>
 </ul>
+<p>The typical cloud user journey starts with access to an isolated project and ends with a running service instance:</p>
+<pre class="mermaid"><code>flowchart LR
+    Login[Log in] --&gt; Project[Create or select project]
+    Project --&gt; Browse[Browse marketplace]
+    Browse --&gt; Provision[Provision service]
+    Provision --&gt; Observe[Watch status and outputs]
+    Observe --&gt; Use[Use service from workload]</code></pre>
 <h2 id="key-personas">Key Personas<a class="headerlink" href="#key-personas" title="Permanent link">#</a></h2>
 <p>Throughout this guide, you'll see examples featuring:</p>
 <ul>

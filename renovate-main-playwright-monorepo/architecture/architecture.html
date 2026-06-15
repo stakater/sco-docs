@@ -3012,6 +3012,62 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../how-to-guides/user/create-s3-bucket.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Create an S3 Bucket
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../how-to-guides/user/create-postgres.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Create a Postgres Database
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -4828,6 +4884,62 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api-reference/public-apis/s3-bucket.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    S3 Bucket
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api-reference/public-apis/postgres.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Postgres
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -4926,6 +5038,62 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     
   
     Virtual Machine (Infrastructure)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api-reference/private-apis/s3-bucket-infrastructure.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    S3 Bucket (Infrastructure)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api-reference/private-apis/postgres-cluster-infrastructure.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Postgres Cluster (Infrastructure)
   
 
     
@@ -5462,12 +5630,22 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <h2 id="design-principles">Design Principles<a class="headerlink" href="#design-principles" title="Permanent link">#</a></h2>
 <p><strong>Kubernetes-native throughout.</strong> Every platform component is managed as a Kubernetes resource. Configuration is declarative, reconciliation is continuous, and the Kubernetes API is the universal integration surface.</p>
 <p><strong>Open standards, no proprietary lock-in.</strong> SCO relies on OIDC, Kubernetes API conventions, OCI, Helm, and open-source projects. There are no proprietary control planes or vendor-specific APIs in the critical path.</p>
-<p><strong>GitOps-first.</strong> Platform configuration is code, stored in version control, applied through a GitOps engine. The running state of the platform is always derivable from its Git repository. Changes are reviewed, audited, and rolled back the same way application changes are.</p>
+<p><strong>GitOps-first.</strong> Platform configuration is code, stored in version control, applied through a GitOps engine. Git defines the intended platform state and remains the primary audit trail, while runtime behaviour still depends on reconciliation across ArgoCD, Crossplane, KCP, and the backing operators. Changes are reviewed, audited, and rolled back the same way application changes are.</p>
 <p><strong>Separation of concerns.</strong> The composition layer (what services exist), the multitenancy layer (who can access what), the identity layer (who you are), and the secrets layer (what credentials you hold) are each handled by a dedicated system with a well-defined interface.</p>
 <p><strong>Anything as a service.</strong> The composition engine can wrap any Kubernetes operator, cloud API, or internal system and expose it as a Kubernetes custom resource. Providers define services once; the platform makes them available to all consumers without modification.</p>
-<p><strong>Self-healing and declarative.</strong> All resources are continuously reconciled. Deleted namespaces are recreated. Modified quotas are reverted. Failed compositions retry. Operators are reinstalled if removed. The desired state declared in Git is always enforced.</p>
+<p><strong>Self-healing and declarative.</strong> All resources are continuously reconciled. Deleted namespaces are recreated. Modified quotas are reverted. Failed compositions retry. Operators are reinstalled if removed. The platform continuously drives toward the desired state declared in Git.</p>
 <hr>
 <h2 id="platform-layers">Platform Layers<a class="headerlink" href="#platform-layers" title="Permanent link">#</a></h2>
+<p>The same architecture can be read as a layered dependency stack:</p>
+<pre class="mermaid"><code>flowchart TB
+    U[Consumer Experience&lt;br/&gt;kubectl / GitOps / Terraform / Console]
+    K[KCP Virtual API Layer&lt;br/&gt;Workspaces, APIExport, APIBinding]
+    T[Tenancy and Identity&lt;br/&gt;MTO, Keycloak]
+    C[Composition Layer&lt;br/&gt;Crossplane, XRDs, Compositions, Functions]
+    S[Platform Services&lt;br/&gt;KubeVirt, Hypershift, OpenBao, Operators]
+    O[Foundation&lt;br/&gt;OpenShift, Networking, Storage, ArgoCD]
+
+    U --&gt; K --&gt; T --&gt; C --&gt; S --&gt; O</code></pre>
 <div class="highlight"><pre><span></span><code>┌─────────────────────────────────────────────────────────────────────┐
 │                        Consumer Experience                          │
 │         kubectl / GitOps / Terraform / Console                      │
@@ -5518,31 +5696,53 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <li><strong>Keycloak:</strong> Provides one isolated identity realm per organisation. Each organisation's users, groups, SSO configuration, and OIDC clients are scoped to their realm. Group membership in Keycloak is automatically propagated into Kubernetes RBAC within the project.</li>
 </ul>
 <h3 id="virtual-api-layer-kcp">Virtual API Layer: KCP<a class="headerlink" href="#virtual-api-layer-kcp" title="Permanent link">#</a></h3>
-<p>KCP (Kubernetes Control Plane) provides each project with its own fully isolated Kubernetes API endpoint — a workspace — without running a separate physical cluster. Consumers use standard tools (<code>kubectl</code>, ArgoCD, Terraform, Flux) against their workspace URL. Requests are routed through KCP to the <code>api-syncagent</code>, which creates corresponding objects on the service cluster for Crossplane to reconcile.</p>
+<p>KCP (Kubernetes Control Plane) provides each project with its own fully isolated Kubernetes API endpoint — a workspace — without running a separate physical cluster. Consumers use standard tools (<code>kubectl</code>, ArgoCD, Terraform, Flux) against their workspace URL. KCP serves only the APIs that have been exported and bound into that workspace; the <code>api-syncagent</code> then mirrors those claims onto the service cluster for Crossplane to reconcile.</p>
 <hr>
 <h2 id="request-flow">Request Flow<a class="headerlink" href="#request-flow" title="Permanent link">#</a></h2>
 <p>A consumer provisioning a virtual machine follows this path:</p>
+<pre class="mermaid"><code>sequenceDiagram
+    participant User as Consumer
+    participant KCP as Project Workspace
+    participant SA as api-syncagent
+    participant Host as Service Cluster Namespace
+    participant XP as Crossplane
+    participant Op as Backing Operator
+
+    User-&gt;&gt;KCP: Create VirtualMachine claim
+    KCP-&gt;&gt;SA: Expose claim through published API
+    SA-&gt;&gt;Host: Mirror claim into workspace namespace
+    Host-&gt;&gt;XP: Reconcile composition
+    XP-&gt;&gt;Op: Create backend resources
+    Op--&gt;&gt;XP: Status and observed state
+    XP--&gt;&gt;SA: Claim status and related resources
+    SA--&gt;&gt;KCP: Write back status and related resources
+    KCP--&gt;&gt;User: Claim becomes Ready</code></pre>
 <div class="highlight"><pre><span></span><code>1. Consumer applies VirtualMachine claim to their project kubeconfig
         ↓
 2. KCP workspace receives the API request
         ↓
-3. api-syncagent observes the new object in the workspace
+3. The claim is stored under an API that was previously published via
+   APIExport and bound into the workspace via APIBinding
         ↓
-4. api-syncagent creates a VirtualMachine object in the consumer's
+4. api-syncagent observes the new object through the exported API's
+   virtual workspace endpoint
+        ↓
+5. api-syncagent creates a VirtualMachine object in the consumer's
    namespace on the service cluster
         ↓
-5. Crossplane composition pipeline runs (KCL functions)
+6. Crossplane composition pipeline runs (KCL functions)
         ↓
-6. Composed resources created:
+7. Composed resources created:
    - KubeVirt VirtualMachine
    - DataVolume (OS disk)
    - Service (network access)
         ↓
-7. KubeVirt reconciles the VM on a bare-metal hypervisor node
+8. KubeVirt reconciles the VM on a bare-metal hypervisor node
         ↓
-8. Status propagated back through Crossplane → api-syncagent → KCP workspace
+9. Status and any published related resources are propagated back
+   through Crossplane → api-syncagent → KCP workspace
         ↓
-9. Consumer sees Ready status on their VirtualMachine claim
+10. Consumer sees Ready status on their VirtualMachine claim
 </code></pre></div>
 <p>The consumer never knows the path through KCP, the <code>api-syncagent</code>, or KubeVirt. They see a Kubernetes resource that went from <code>Pending</code> to <code>Ready</code>.</p>
 <hr>

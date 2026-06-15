@@ -3012,6 +3012,62 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../how-to-guides/user/create-s3-bucket.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Create an S3 Bucket
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../how-to-guides/user/create-postgres.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Create a Postgres Database
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -4878,6 +4934,62 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api-reference/public-apis/s3-bucket.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    S3 Bucket
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api-reference/public-apis/postgres.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Postgres
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -4976,6 +5088,62 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     
   
     Virtual Machine (Infrastructure)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api-reference/private-apis/s3-bucket-infrastructure.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    S3 Bucket (Infrastructure)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api-reference/private-apis/postgres-cluster-infrastructure.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Postgres Cluster (Infrastructure)
   
 
     
@@ -5574,43 +5742,64 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <li><strong>Its own OIDC issuer</strong> — token validation is workspace-scoped, backed by the organisation's Keycloak realm</li>
 </ul>
 <p>KCP stores all workspace state in a shared etcd, but each workspace is logically isolated. The KCP process serves each workspace API from a single binary — there is no per-workspace API server pod or separate control plane process.</p>
-<p>This makes workspaces extremely lightweight. Provisioning a new project workspace is a matter of seconds and requires no additional compute resources proportional to the number of projects.</p>
+<p>This makes workspaces extremely lightweight. Under healthy control-plane conditions, provisioning a new project workspace is typically a matter of seconds and requires no additional compute resources proportional to the number of projects.</p>
 <hr>
 <h2 id="workspace-hierarchy-in-sco">Workspace Hierarchy in SCO<a class="headerlink" href="#workspace-hierarchy-in-sco" title="Permanent link">#</a></h2>
-<p>SCO organises workspaces in a three-level tree:</p>
-<div class="highlight"><pre><span></span><code>root (platform workspace)
-│  Holds: APIExports, platform-level configuration
+<p>SCO organises workspaces in a three-level tree. The exact path layout in the current platform includes a shared producer workspace for exports and a <code>cloud</code> branch for tenant-facing workspaces:</p>
+<pre class="mermaid"><code>flowchart TB
+    root[root]
+    producers[producers&lt;br/&gt;shared APIExports]
+    cloud[cloud]
+    org[organisation workspace]
+    project[project workspace]
+
+    root --&gt; producers
+    root --&gt; cloud
+    cloud --&gt; org
+    org --&gt; project</code></pre>
+<div class="highlight"><pre><span></span><code>root
+├── producers
+│   Holds: shared APIExports for published service APIs
 │
-├── org-acme  (organisation workspace)
-│   │  Holds: IAM configuration (users, groups, IDP settings)
-│   │
-│   ├── proj-frontend  (project workspace)
-│   │     Holds: APIBindings, consumer claims (VirtualMachine, etc.)
-│   │     Endpoint: https://kcp.example.com/clusters/org-acme:proj-frontend
-│   │
-│   └── proj-backend  (project workspace)
-│         Holds: APIBindings, consumer claims
-│         Endpoint: https://kcp.example.com/clusters/org-acme:proj-backend
-│
-└── org-globex  (organisation workspace)
-    └── proj-apps
+└── cloud
+    ├── org-acme  (organisation workspace)
+    │   │  Holds: organisation-scoped configuration
+    │   │
+    │   ├── proj-frontend  (project workspace)
+    │   │     Holds: APIBindings, consumer claims (VirtualMachine, etc.)
+    │   │     Endpoint: https://kcp.example.com/clusters/root:cloud:org-acme:proj-frontend
+    │   │
+    │   └── proj-backend  (project workspace)
+    │         Holds: APIBindings, consumer claims
+    │         Endpoint: https://kcp.example.com/clusters/root:cloud:org-acme:proj-backend
+    │
+    └── org-globex  (organisation workspace)
+        └── proj-apps
 </code></pre></div>
-<p><strong>Root workspace:</strong> Owned by the platform team. Hosts <code>APIExport</code> resources that declare which API groups are available for consumer workspaces to bind. Also holds the platform workspace template used when provisioning organisation and project workspaces.</p>
+<p><strong>Root and producer workspaces:</strong> Owned by the platform team. Published service APIs are exported from the shared producer workspace, while platform-level configuration and templates live higher in the hierarchy.</p>
 <p><strong>Organisation workspaces:</strong> One per customer or business unit. Hold IAM resources — user and group definitions that are projected into Keycloak realm configuration. Organisation workspaces are not directly accessed by consumers.</p>
-<p><strong>Project workspaces:</strong> One per team or workload environment. These are the consumer-facing endpoints. Each project workspace contains <code>APIBinding</code> resources (automatically created by SCO) that import the published API groups from the root workspace, making the service catalogue available as native Kubernetes resource types.</p>
+<p><strong>Project workspaces:</strong> One per team or workload environment. These are the consumer-facing endpoints. Each project workspace contains <code>APIBinding</code> resources created by the <code>Project</code> composition from the currently selected platform-services configuration, importing the published API groups that should be available there.</p>
 <hr>
 <h2 id="apiexport-and-apibinding"><code>APIExport</code> and <code>APIBinding</code><a class="headerlink" href="#apiexport-and-apibinding" title="Permanent link">#</a></h2>
 <h3 id="apiexport"><code>APIExport</code><a class="headerlink" href="#apiexport" title="Permanent link">#</a></h3>
-<p>An <code>APIExport</code> lives in the platform root workspace and declares that a set of Kubernetes resource types is available for other workspaces to consume.</p>
-<p>When a platform provider publishes a new service (e.g., <code>databases.cloud.stakater.com/v1 PostgreSQLDatabase</code>), an <code>APIExport</code> is created for that API group. The export includes:</p>
+<p>An <code>APIExport</code> lives in the producer side of the platform workspace hierarchy and declares that a set of Kubernetes resource types is available for other workspaces to consume.</p>
+<p>When a platform provider publishes a new service (e.g., <code>database.cloud.stakater.com/v1 PostgreSQLDatabase</code>), an <code>APIExport</code> is created for that API group. The export includes:</p>
 <ul>
 <li>The set of resource types included (kinds, versions)</li>
 <li>Permission claims — the access the export's controller (the <code>api-syncagent</code>) requires in consumer workspaces to manage the objects placed there</li>
 </ul>
 <h3 id="apibinding"><code>APIBinding</code><a class="headerlink" href="#apibinding" title="Permanent link">#</a></h3>
 <p>An <code>APIBinding</code> lives in a project workspace and declares that this workspace should have access to a particular <code>APIExport</code>. When a binding is created, KCP makes the exported resource types available as native API types in the workspace.</p>
-<p>SCO creates <code>APIBinding</code> resources automatically in every project workspace for all published API groups. Consumers do not configure bindings themselves — the APIs simply appear.</p>
+<p>SCO creates <code>APIBinding</code> resources for project workspaces through the <code>Project</code> composition. In practice this means APIs become available only when they are both published and present in the platform-services configuration consumed during project reconciliation; consumers do not configure bindings themselves.</p>
 <p>When a consumer runs <code>kubectl api-resources</code> against their project kubeconfig, they see all bound resource types as if they were built into their cluster.</p>
+<pre class="mermaid"><code>flowchart LR
+    Provider[Provider package&lt;br/&gt;ApiExport / XApiExport] --&gt; Export[APIExport&lt;br/&gt;root:producers]
+    Provider --&gt; Published[PublishedResource&lt;br/&gt;with related resources]
+    Provider --&gt; Syncagent[api-syncagent release]
+    Platform[platform-services&lt;br/&gt;EnvironmentConfig] --&gt; Project[Project composition]
+    Export --&gt; Binding[APIBinding]
+    Project --&gt; Binding
+    Binding --&gt; Workspace[Project workspace&lt;br/&gt;root:cloud:org:project]</code></pre>
 <h3 id="how-kcp-handles-api-requests">How KCP Handles API Requests<a class="headerlink" href="#how-kcp-handles-api-requests" title="Permanent link">#</a></h3>
 <p>When a consumer applies a resource to their project workspace:</p>
 <ol>
@@ -5619,11 +5808,20 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <li>KCP notifies the <code>APIExport</code>'s virtual workspace endpoint that a new object is present</li>
 <li>The <code>api-syncagent</code> (watching that virtual workspace) picks up the new object</li>
 </ol>
-<p>The object in the consumer workspace is the source of truth for the consumer. Its status, conditions, and connection details are written back to it by the <code>api-syncagent</code>. The consumer never needs to know that the object is being reconciled on a different cluster.</p>
+<p>The object in the consumer workspace is the source of truth for the consumer. Its status, conditions, connection details, and any explicitly published related resources are written back to it by the <code>api-syncagent</code>. The consumer never needs to know that the object is being reconciled on a different cluster.</p>
 <hr>
 <h2 id="the-api-sync-agent">The API Sync Agent<a class="headerlink" href="#the-api-sync-agent" title="Permanent link">#</a></h2>
 <p>The <code>api-syncagent</code> is the bridge between KCP workspaces and the Crossplane service cluster. For each published API group, a dedicated sync agent process watches the virtual workspace endpoint associated with the <code>APIExport</code>.</p>
 <p><strong>Sync flow:</strong></p>
+<pre class="mermaid"><code>flowchart LR
+    Claim[Consumer claim&lt;br/&gt;in project workspace] --&gt; VWS[KCP virtual workspace endpoint]
+    VWS --&gt; Sync[api-syncagent]
+    Sync --&gt; Host[Mirrored claim&lt;br/&gt;in service-cluster namespace]
+    Host --&gt; Crossplane[Crossplane composition]
+    Crossplane --&gt; Backend[Backend operator resources]
+    Backend --&gt; Observed[Observed Secret or status]
+    Observed --&gt; SyncBack[api-syncagent related-resource sync]
+    SyncBack --&gt; WorkspaceSecret[Status and related Secret&lt;br/&gt;back in workspace]</code></pre>
 <div class="highlight"><pre><span></span><code>Consumer workspace (project-frontend)
     VirtualMachine claim applied
            │
@@ -5657,11 +5855,11 @@ Consumer workspace: VirtualMachine shows Ready
 <ol>
 <li>Creates the KCP project workspace (child of the organisation workspace)</li>
 <li>Generates a kubeconfig for the project workspace and makes it available</li>
-<li>Creates <code>APIBinding</code> resources in the project workspace for all published API groups</li>
+<li>Creates <code>APIBinding</code> resources in the project workspace for the published API groups selected through the platform-services configuration</li>
 <li>Creates a <code>Tenant</code> resource in MTO, triggering namespace, quota, and network policy provisioning</li>
 <li>Configures RBAC in the workspace based on the project's <code>access</code> configuration</li>
 </ol>
-<p>The workspace is ready in seconds. The consumer receives a kubeconfig and can immediately begin applying resources.</p>
+<p>The workspace is typically ready quickly once the workspace, bindings, and backing tenant resources have reconciled. The consumer receives a kubeconfig and can begin applying resources after those steps complete.</p>
 <h3 id="authentication">Authentication<a class="headerlink" href="#authentication" title="Permanent link">#</a></h3>
 <p>Each KCP workspace validates tokens against the organisation's Keycloak realm. A consumer authenticates to Keycloak (via OIDC), receives a token scoped to their organisation, and uses that token against their project workspace API server. KCP validates the token signature against the organisation's realm public key.</p>
 <p>RBAC within the workspace controls which resource types a user can interact with and at what permission level.</p>
@@ -5702,12 +5900,6 @@ Consumer workspace: VirtualMachine shows Ready
 <hr>
 <h2 id="scaling-characteristics">Scaling Characteristics<a class="headerlink" href="#scaling-characteristics" title="Permanent link">#</a></h2>
 <p>The KCP workspace model is designed for high workspace counts. A single KCP instance can serve tens of thousands of workspaces with low per-workspace overhead.</p>
-<p>The limiting factors in SCO are:</p>
-<ul>
-<li><strong><code>api-syncagent</code> instances:</strong> one per published API group; each scales horizontally</li>
-<li><strong>Crossplane composition throughput:</strong> scaled by adding provider replicas</li>
-<li><strong>MTO namespace count:</strong> one namespace set per project; Kubernetes supports tens of thousands of namespaces per cluster</li>
-</ul>
 <p>For large deployments, the platform can run multiple KCP instances with workspace routing distributed across them.</p>
 <hr>
 <h2 id="whats-next">What's Next?<a class="headerlink" href="#whats-next" title="Permanent link">#</a></h2>

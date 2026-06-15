@@ -3012,6 +3012,62 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../how-to-guides/user/create-s3-bucket.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Create an S3 Bucket
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../how-to-guides/user/create-postgres.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Create a Postgres Database
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -5091,6 +5147,62 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api-reference/public-apis/s3-bucket.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    S3 Bucket
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api-reference/public-apis/postgres.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Postgres
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -5189,6 +5301,62 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     
   
     Virtual Machine (Infrastructure)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api-reference/private-apis/s3-bucket-infrastructure.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    S3 Bucket (Infrastructure)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api-reference/private-apis/postgres-cluster-infrastructure.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Postgres Cluster (Infrastructure)
   
 
     
@@ -5987,7 +6155,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <hr>
 <h2 id="foundation">Foundation<a class="headerlink" href="#foundation" title="Permanent link">#</a></h2>
 <h3 id="red-hat-openshift">Red Hat OpenShift<a class="headerlink" href="#red-hat-openshift" title="Permanent link">#</a></h3>
-<p>OpenShift is the management cluster on which all SCO components run. SCO requires OpenShift (rather than vanilla Kubernetes) for several reasons:</p>
+<p>With OpenShift as the management cluster on which SCO is deployed we can make use of the many components that can run on OpenShift:</p>
 <ul>
 <li><strong>OpenShift Virtualization</strong> requires bare-metal nodes with hardware virtualization support, which OpenShift's node management provisions and configures</li>
 <li><strong>Hypershift</strong> is officially supported and tested on OpenShift</li>
@@ -6039,18 +6207,31 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <li>Provides each organisation with an organisation workspace</li>
 <li>Provides each project with a project workspace — its own Kubernetes API endpoint</li>
 <li>Hosts <code>APIExport</code> resources that declare which APIs are available to consumer workspaces</li>
-<li>Routes API requests from consumers to the <code>api-syncagent</code> for fulfillment</li>
+<li>Exposes published APIs to consumers and the corresponding virtual workspace endpoints to the <code>api-syncagent</code></li>
 <li>Enforces API-level isolation: resources in one workspace are invisible to all other workspaces</li>
 </ul>
-<p><strong>Workspace hierarchy:</strong></p>
-<div class="highlight"><pre><span></span><code>root (platform)
-├── org-acme (organisation workspace)
-│   ├── proj-frontend (project workspace)
-│   └── proj-backend  (project workspace)
-└── org-globex
-    └── proj-apps
+<p><strong>Workspace hierarchy (logical view):</strong></p>
+<pre class="mermaid"><code>flowchart TB
+    root[root]
+    producers[producers&lt;br/&gt;shared API exports]
+    cloud[cloud]
+    org[organisation workspace]
+    project[project workspace]
+
+    root --&gt; producers
+    root --&gt; cloud
+    cloud --&gt; org
+    org --&gt; project</code></pre>
+<div class="highlight"><pre><span></span><code>root
+├── producers          (shared producer workspace for exported APIs)
+└── cloud
+    ├── org-acme       (organisation workspace)
+    │   ├── proj-frontend  (project workspace)
+    │   └── proj-backend   (project workspace)
+    └── org-globex
+        └── proj-apps
 </code></pre></div>
-<p><strong>Integration points:</strong> KCP integrates with the <code>api-syncagent</code> (which bridges workspace API calls to the service cluster), Keycloak (for OIDC token validation per workspace), and MTO (which provisions the physical namespace layer backing each project).</p>
+<p><strong>Integration points:</strong> KCP integrates with the <code>api-syncagent</code> (which bridges published workspace APIs to the service cluster), Keycloak (for OIDC token validation per workspace), and MTO (which provisions the physical namespace layer backing each project).</p>
 <p>See <a href="virtual-api-layer.html">Virtual API Layer</a> and <a href="../integrations/kcp.html">KCP Integration</a> for details.</p>
 <h3 id="api-sync-agent">API Sync Agent<a class="headerlink" href="#api-sync-agent" title="Permanent link">#</a></h3>
 <p>The <code>api-syncagent</code> is a per-API-group process that bridges KCP workspaces and the Crossplane service cluster.</p>
@@ -6058,9 +6239,9 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <ul>
 <li>Watches consumer project workspaces for new claims of published resource types</li>
 <li>Creates corresponding objects on the service cluster in per-workspace namespaces</li>
-<li>Synchronises status and connection details from the service cluster back to the consumer workspace</li>
+<li>Synchronises status, connection details, and published related resources such as Secrets from the service cluster back to the consumer workspace</li>
 </ul>
-<p>One sync agent runs per published API group. It is deployed automatically when a platform provider creates a <code>PublishedOffering</code> claim.</p>
+<p>One sync agent runs per published API group. It is deployed through the <code>ApiExport</code> / <code>XApiExport</code> publication flow, which renders the required KCP export objects, <code>syncagent</code> release, RBAC, and supporting environment configuration.</p>
 <p>See <a href="../service-provider-guide/api-publishing/publishing-apis.html">Publishing APIs</a>.</p>
 <hr>
 <h2 id="tenancy-enforcement">Tenancy Enforcement<a class="headerlink" href="#tenancy-enforcement" title="Permanent link">#</a></h2>

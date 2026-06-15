@@ -3012,6 +3012,62 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../how-to-guides/user/create-s3-bucket.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Create an S3 Bucket
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../how-to-guides/user/create-postgres.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Create a Postgres Database
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -4911,6 +4967,62 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api-reference/public-apis/s3-bucket.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    S3 Bucket
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api-reference/public-apis/postgres.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Postgres
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -5009,6 +5121,62 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     
   
     Virtual Machine (Infrastructure)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api-reference/private-apis/s3-bucket-infrastructure.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    S3 Bucket (Infrastructure)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api-reference/private-apis/postgres-cluster-infrastructure.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Postgres Cluster (Infrastructure)
   
 
     
@@ -5687,7 +5855,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <li>Public (LoadBalancer) or private networking</li>
 <li>SSH key-based authentication</li>
 </ul>
-<p><strong>OpenShiftCluster</strong> (<code>openshiftcluster.cloud.stakater.com/v1</code>):</p>
+<p><strong>OpenShiftCluster</strong> (<code>kubernetes.cloud.stakater.com/v1</code>):</p>
 <ul>
 <li>User-facing marketplace API for provisioning OpenShift clusters</li>
 <li>Provisions full OpenShift clusters using Hypershift</li>
@@ -5790,7 +5958,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <li>Enables API sharing across isolation boundaries</li>
 <li>Standard Kubernetes API semantics</li>
 </ul>
-<p><strong>Example</strong>: The VirtualMachine solution publishes its <code>vm.cloud.stakater.com</code> API, which projects can access to create VirtualMachine resources.</p>
+<p><strong>Example</strong>: The VirtualMachine solution publishes its <code>compute.cloud.stakater.com</code> API group, which projects can access to create <code>VirtualMachine</code> resources.</p>
 <h2 id="virtual-machine-management">Virtual Machine Management<a class="headerlink" href="#virtual-machine-management" title="Permanent link">#</a></h2>
 <p>SCO provides VM-as-a-Service using <strong>KubeVirt</strong> technology for virtual machine orchestration.</p>
 <ul>

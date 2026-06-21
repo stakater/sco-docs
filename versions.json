@@ -47,7 +47,9 @@
   {
     "version": "renovate-main-actions-checkout-7.x",
     "title": "renovate-main-actions-checkout-7.x",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "renovate-main-actions-checkout-6.x",
@@ -62,9 +64,7 @@
   {
     "version": "docs-api-reference-vault-mesh-netbird-router",
     "title": "docs-api-reference-vault-mesh-netbird-router",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "architecture",

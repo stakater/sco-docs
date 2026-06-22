@@ -10,7 +10,7 @@ SCO is installed using the **`ksp up`** command from the KubeStack+ CLI. Running
     The `ksp` CLI and the registry credentials for SCO components are both provided by Stakater — request them from `sales@stakater.com`. Complete the [Prerequisites](prerequisites.md) before you begin.
 
 !!! info "Variant scope"
-    This guide installs the **`hosting`** variant — an OpenShift cluster that runs the Hypershift operator and hosts other clusters. Other variants (`scosmart`, `scobasic`, `hosted`, `dev`) differ in claim shape and prerequisites.
+    This guide installs the **`hosting`** variant — the full greenfield deployment that brings up the entire platform foundation (storage, GitOps, Hypershift, cluster management, …) and the SCO layer on a base OpenShift cluster. Other variants (`scosmart`, `scobasic`, `hosted`, `dev`) install different subsets.
 
 The command takes two claim files plus your registry secret:
 

@@ -20,7 +20,7 @@ oc get nodes
 
 ## Step 2: Prepare Claim Files
 
-This guide targets **`variant: hosting`** — an OpenShift cluster that runs the Hypershift operator and hosts other clusters. You author two claim files and adjust every `<...>` placeholder for your environment.
+This guide targets **`variant: hosting`** — the full greenfield deployment that installs the entire platform foundation plus the SCO layer on a base OpenShift cluster. You author two claim files and adjust every `<...>` placeholder for your environment.
 
 ### KubeStackConfig Claim (`kubestack-config-claim.yaml`)
 

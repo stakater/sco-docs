@@ -8,7 +8,7 @@ Requirements for installing Stakater Cloud Orchestrator on OpenShift.
 - **Deployment**: Bare metal (production-supported)
 - **Access**: Cluster administrator privileges
 - **Nodes**: Minimum 6 worker nodes recommended for production
-- **Storage**: Persistent storage provisioner configured (any CSI driver)
+- **Storage**: Worker nodes with unused raw disks — the hosting variant deploys ODF as the cluster storage layer (you do not pre-configure a CSI provisioner)
 
 ### Compute Resources
 
@@ -21,17 +21,14 @@ Recommended minimum capacity for the SCO platform:
 
 Storage: 500 GB+ available across workers.
 
-### Hosting Variant Requirements
+### What the `hosting` variant installs
 
-This guide targets the **`hosting`** variant, so the cluster must be able to host other clusters and run the platform's control plane. Have these ready before you install:
+`hosting` is the **full greenfield deployment**. Starting from a base OpenShift cluster, `ksp up` brings up the **entire stack** — you do **not** pre-install these components yourself:
 
-| Capability | Required | Notes |
-|------------|:--------:|-------|
-| Hypershift operator | ✅ | The hosting cluster runs Hypershift to provision and host spoke clusters. |
-| Block + object storage (e.g. ODF) | ✅ | Backs platform databases, object storage, and HostedCluster etcd; must be healthy before install. |
-| Identity provider (Keycloak or Azure AD) | ✅ | Reachable from the cluster — SCO provisions realms/clients against it. |
-| Secrets backend (Vault / OpenBao) | ✅ | Reachable from the cluster — used for platform and OIDC secrets. |
-| OpenShift Virtualization | — | Only if you will run VM workloads on hosted clusters. |
+- **Platform foundation** — GitOps (OpenShift GitOps / Argo CD), Crossplane (operator, providers, functions), storage (ODF), cluster management (ACM), Hypershift, and the supporting identity and secrets services.
+- **SCO layer** — the Stakater Cloud control plane and all the user-facing cloud APIs (`*.cloud.stakater.com`) your tenants consume.
+
+The only things you provide up front are a base cluster with enough capacity (see above), wildcard DNS/TLS, and the `ksp` CLI plus registry credentials. `ksp up` installs and wires everything else.
 
 ## Tool Requirements
 

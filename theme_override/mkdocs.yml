@@ -24,6 +24,7 @@ nav:
           - cloud-user-guide/getting-started.md
       - Authentication and Access:
           - cloud-user-guide/authentication/logging-in.md
+          - cloud-user-guide/authentication/organisation-identity.md
           - cloud-user-guide/authentication/managing-users.md
           - cloud-user-guide/kubectl-access/setup-kubectl.md
           - cloud-user-guide/kubectl-access/kubeconfig-generation.md
@@ -49,6 +50,9 @@ nav:
           - how-to-guides/user/provision-virtual-machine.md
           - how-to-guides/user/create-s3-bucket.md
           - how-to-guides/user/create-postgres.md
+          - how-to-guides/user/create-vault.md
+          - how-to-guides/user/create-mesh.md
+          - how-to-guides/user/expose-service-via-netbird.md
   - For Platform Providers:
       - audience/platform-providers.md
       - Getting Started:
@@ -100,6 +104,9 @@ nav:
           - api-reference/public-apis/virtual-machine.md
           - api-reference/public-apis/s3-bucket.md
           - api-reference/public-apis/postgres.md
+          - api-reference/public-apis/vault.md
+          - api-reference/public-apis/mesh.md
+          - api-reference/public-apis/netbird-router.md
       - Platform APIs:
           - api-reference/private-apis/hypershift-hosted-cluster.md
           - api-reference/private-apis/virtual-machine-infrastructure.md

@@ -42,7 +42,7 @@ When you publish an API group, SCO automatically creates:
 | `api-syncagent` `Deployment` (via Helm) | Management cluster | The running sync process that watches and bridges workspaces |
 | `EnvironmentConfig` | Management cluster | Registers the published services for platform-level integration |
 
-All of this is driven by a single `PublishedOffering` claim.
+All of this is driven by a single `ApiExport` claim.
 
 ---
 
@@ -57,7 +57,7 @@ Before publishing an API, ensure the following are in place:
 
 ### Installing the catalog package
 
-The `kcp-api-syncagent` Helm chart installs the `PublishedResource` CRD and (on OpenShift) the required `SecurityContextConstraints`. Install it on the service cluster before creating any `PublishedOffering` claims:
+The `kcp-api-syncagent` Helm chart installs the `PublishedResource` CRD and (on OpenShift) the required `SecurityContextConstraints`. Install it on the service cluster before creating any `ApiExport` claims:
 
 ```bash
 helm install kcp-api-syncagent oci://ghcr.io/stakater/catalog/kcp-api-syncagent \
@@ -70,11 +70,11 @@ helm install kcp-api-syncagent oci://ghcr.io/stakater/catalog/kcp-api-syncagent 
 
 ## Publishing an API Group
 
-Create a `PublishedOffering` claim declaring which API groups and resource types to publish:
+Create an `ApiExport` claim declaring which API groups and resource types to publish:
 
 ```yaml
 apiVersion: infrastructure.stakater.com/v1alpha1
-kind: PublishedOffering
+kind: ApiExport
 metadata:
   name: my-database-service
 spec:
@@ -103,11 +103,11 @@ Apply this to the management cluster. SCO provisions the full publication stack 
 
 ## Publishing Multiple API Groups
 
-A single `PublishedOffering` claim can publish multiple API groups. Each group gets its own `APIExport`, `ClusterRole`, `ClusterRoleBinding`, and sync agent deployment:
+A single `ApiExport` claim can publish multiple API groups. Each group gets its own `APIExport`, `ClusterRole`, `ClusterRoleBinding`, and sync agent deployment:
 
 ```yaml
 apiVersion: infrastructure.stakater.com/v1alpha1
-kind: PublishedOffering
+kind: ApiExport
 metadata:
   name: platform-services
 spec:
@@ -181,11 +181,11 @@ For a project workspace named `org-acme-frontend` with a `PostgreSQLDatabase` cl
 
 ## Checking Publication Status
 
-After applying a `PublishedOffering` claim, verify that all components are ready:
+After applying an `ApiExport` claim, verify that all components are ready:
 
 ```bash
-# Check the PublishedOffering composite status
-kubectl get publishedoffering my-database-service -o yaml
+# Check the ApiExport composite status
+kubectl get apiexport my-database-service -o yaml
 
 # Confirm sync agents are running
 kubectl get pods -n kcp-system -l api-group=databases.cloud.stakater.com
@@ -198,7 +198,7 @@ kubectl get publishedresources
 kubectl get apiexports
 ```
 
-The `PublishedOffering` claim enters a `Ready: True` state once all constituent resources are healthy.
+The `ApiExport` claim enters a `Ready: True` state once all constituent resources are healthy.
 
 ---
 

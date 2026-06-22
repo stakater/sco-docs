@@ -213,7 +213,7 @@ kubectl delete postgresqldatabase test-postgres
 
 ```yaml
 apiVersion: infrastructure.stakater.com/v1alpha1
-kind: PublishedOffering
+kind: ApiExport
 metadata:
   name: databases-service
 spec:
@@ -237,8 +237,8 @@ spec:
 ```
 
 ```bash
-kubectl apply -f published-offering.yaml
-kubectl get publishedoffering databases-service
+kubectl apply -f apiexport.yaml
+kubectl get apiexport databases-service
 ```
 
 ---

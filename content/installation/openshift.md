@@ -20,83 +20,114 @@ oc get nodes
 
 ## Step 2: Prepare Claim Files
 
-You need two claim files. Create them based on the examples below, adjusting values for your environment.
+This guide targets **`variant: hosting`** — an OpenShift cluster that runs the HyperShift operator and hosts other clusters. You author two claim files and adjust every `<...>` placeholder for your environment.
 
 ### KubeStackConfig Claim (`kubestack-config-claim.yaml`)
 
-This claim is applied first and configures the platform environment:
+Applied first. Carries cluster identity, networking, reserved namespaces, and per-cluster knobs.
 
 ```yaml
 apiVersion: cloud.stakater.com/v1alpha1
 kind: KubeStackConfig
 metadata:
-  name: <cluster-name>
-  namespace: ksp-system
+  name: <cluster-slug>-config              # convention: <cluster-slug>-config
+  labels:
+    crossplane.io/composite: <cluster-slug>-config
 spec:
+  managementPolicies:
+    - '*'
   parameters:
-    name: <cluster-name>
-    variant: scobasic
+    # Cluster identity
     platform: ocp
-    location: <location>
-    domain: apps.<cluster-name>.example.com
-    registrySecretRef:
-      name: <registry-secret-name>
-      namespace: <registry-secret-namespace>
-    namespaces:                        # optional
-      platform: platform-system
-      monitoring: monitoring
+    variant: hosting
+    name: <cluster-slug>                   # short identifier, e.g. eu-1-ndskuue5
+    domain: apps.<cluster-domain>          # wildcard apps domain, e.g. apps.eu-1.ndskuue5.example.com
+
+    # Reserved namespaces (keep the defaults unless you have a reason to change them)
+    namespaces:
       logging: logging
-    network:                           # optional
-      podCIDR: <pod-cidr>
-      serviceCIDR: <service-cidr>
+      monitoring: monitoring
+      platform: platform-system
+
+    # Network — mirror `oc get network cluster -o yaml`
+    network:
       clusterDomain: cluster.local
+      podCIDR: 10.128.0.0/14
+      serviceCIDR: 172.30.0.0/16
+
+    # Hosted-cluster public DNS / routing — environment-specific (see note below)
+    openshiftCluster:
+      public:
+        baseUrl: "public.<cluster-domain>"
+        dnsSplit:
+          enabled: true
+          zones:
+            - "public.<cluster-domain>"
+          upstreams:
+            - "<upstream-dns-1>"
+            - "<upstream-dns-2>"
+        openbsdUnbound:
+          enabled: true
+          openbsdHosts:
+            - "<router-host-1>"
+            - "<router-host-2>"
+          routerPodIPs:
+            - "<router-pod-ip>"
+        azuread:                           # omit this block if you do not use Azure AD
+          pimEligibleMembers:
+            - objectId: <azure-object-id>
+              assignmentType: member
+              justification: <justification>
+  providerConfigRef:
+    name: kubernetes-provider
 ```
 
-**Required parameters:**
+| Field | Required | Description |
+|-------|:--------:|-------------|
+| `parameters.name` | ✅ | Cluster slug — short identifier; appears in resource names and labels. Use it consistently. |
+| `parameters.variant` | ✅ | `hosting` for a hosting-cluster install. |
+| `parameters.platform` | ✅ | `ocp` for OpenShift. |
+| `parameters.domain` | ✅ | Wildcard apps domain — `apps.<cluster-name>.<domain>`. |
+| `parameters.namespaces.{platform,monitoring,logging}` | — | Reserved namespace names (defaults: `platform-system` / `monitoring` / `logging`). |
+| `parameters.network.{clusterDomain,podCIDR,serviceCIDR}` | — | Mirror the cluster's `Network` CR (`oc get network cluster -o yaml`). |
+| `parameters.openshiftCluster.public.baseUrl` | — | DNS subdomain for hosted-cluster public access (the split-DNS source). |
+| `parameters.openshiftCluster.public.dnsSplit` | — | Upstream DNS zones for hosted-cluster public resolution. |
+| `parameters.openshiftCluster.public.openbsdUnbound` | — | Router hosts that proxy DNS for hosted-cluster public access. |
+| `parameters.openshiftCluster.public.azuread.pimEligibleMembers` | — | Azure AD principals (object IDs) granted PIM-eligible access. Omit if not using Azure AD. |
 
-| Parameter | Description |
-|-----------|-------------|
-| `parameters.name` | Unique name for this cluster instance |
-| `parameters.location` | Physical or logical location of the cluster |
-| `parameters.domain` | Base domain for SCO ingress routes |
-
-**Optional parameters:**
-
-| Parameter | Default | Description |
-|-----------|---------|-------------|
-| `parameters.variant` | `scosmart` | SCO deployment variant (`scobasic`, `scosmart`) |
-| `parameters.platform` | `ocp` | Target platform |
-| `parameters.registrySecretRef` | — | Reference to the pull secret for the OCI registry |
-| `parameters.namespaces.platform` | `platform-system` | Namespace for platform components |
-| `parameters.namespaces.monitoring` | `monitoring` | Namespace for monitoring stack |
-| `parameters.namespaces.logging` | `logging` | Namespace for logging stack |
-| `parameters.network.podCIDR` | — | CIDR range for pod networking |
-| `parameters.network.serviceCIDR` | — | CIDR range for service networking |
-| `parameters.network.clusterDomain` | `cluster.local` | Internal cluster DNS domain |
+!!! note
+    The `openshiftCluster.public` block (split-DNS, OpenBSD-unbound, Azure AD) depends on your hosting cluster's networking and identity environment. Confirm the upstream DNS, router, and identity values with your platform team, and drop any sub-block that does not apply to your setup.
 
 ### KubeStackPlus Claim (`kubestack-plus-claim.yaml`)
 
-This claim is applied second and deploys the SCO platform:
+Applied second — it triggers the platform composition. For `variant: hosting` this claim is **minimal**; almost all configuration flows through `KubeStackConfig`.
 
 ```yaml
 apiVersion: cloud.stakater.com/v1alpha1
 kind: KubeStackPlus
 metadata:
-  name: <cluster-name>-ocp-scobasic
-  namespace: ksp-system
+  name: <cluster-slug>-package             # convention: <cluster-slug>-package
+  labels:
+    crossplane.io/composite: <cluster-slug>-package
 spec:
+  managementPolicies:
+    - '*'
+  parameters:
+    platform: ocp
+    variant: hosting
+    server: 'https://kubernetes.default.svc'   # local hosting cluster API
   providerConfigRef:
     name: kubernetes-provider
-  parameters:
-    variant: scobasic
-    platform: ocp
 ```
 
-| Parameter | Value | Description |
-|-----------|-------|-------------|
-| `parameters.variant` | `scobasic` | SCO deployment variant |
-| `parameters.platform` | `ocp` | Target platform (OpenShift) |
-| `parameters.server` | `https://kubernetes.default.svc` | (Optional) ArgoCD Application destination server. Override for multi-cluster setups. |
+| Field | Required | Description |
+|-------|:--------:|-------------|
+| `metadata.name` | ✅ | Claim name. Convention: `<cluster-slug>-package`. |
+| `parameters.variant` | ✅ | `hosting` — must match the `KubeStackConfig` variant. |
+| `parameters.platform` | ✅ | `ocp`. |
+| `parameters.server` | — | ArgoCD Application destination API server. For `hosting`, the local cluster API (default `https://kubernetes.default.svc`). |
+| `parameters.excludedAddons` | — | Optional list of addon names to exclude (see below). |
+| `spec.providerConfigRef.name` | ✅ | `kubernetes-provider` — the CLI installs this provider if it is missing. |
 
 #### Excluding Addons
 
@@ -105,7 +136,7 @@ If you need to exclude specific addons from the deployment, use the `excludedAdd
 ```yaml
 spec:
   parameters:
-    variant: scobasic
+    variant: hosting
     platform: ocp
     excludedAddons:
       - kcp-operator
@@ -122,35 +153,36 @@ spec:
 
 ## Step 3: Prepare Registry Credentials
 
-If using a private OCI registry, create a registry secrets file (`registry-secret.yaml`):
+SCO's components are pulled from Stakater's private registry, so a registry-secret file is **required**. Use the username and token Stakater provided — request them from **[sales@stakater.com](mailto:sales@stakater.com)** if you don't have them yet (see [Prerequisites](prerequisites.md#registry-access)).
+
+Create `registry-secret.yaml`:
 
 ```yaml
 registry:
   url: "ghcr.io"
   gitopsChartsUrl: "ghcr.io/stakater"
   username: "<your-username>"
-  password: "<your-token>"
+  password: "<your-token>"     # use either password or token; token wins if both are set
 ```
+
+`ksp up` uses this file to log in to the registry and to create the in-cluster pull secrets that Crossplane and the composition functions need. It is **not** referenced from the claim files — it is passed on the command line via `--registry-secret` (Step 4).
 
 ## Step 4: Run Installation
 
-Execute `ksp up` with both claim files:
+`ksp up` operates on your **current `oc`/`kubectl` context**, so confirm it points at the target cluster first (`oc whoami --show-server`). Then run it with both claim files and your registry secret — `-c` (KubeStackConfig) is applied first, then `-f` (KubeStackPlus):
 
 ```bash
-# Interactive (prompts for confirmation)
-ksp up -f kubestack-plus-claim.yaml -c kubestack-config-claim.yaml
-
-# Non-interactive
-ksp up -f kubestack-plus-claim.yaml -c kubestack-config-claim.yaml --no-prompt
+ksp up \
+  -c kubestack-config-claim.yaml \
+  -f kubestack-plus-claim.yaml \
+  --registry-secret ./registry-secret.yaml
 ```
 
-If using a private registry:
+By default `ksp up` asks you to confirm the target cluster before making changes. For non-interactive runs (e.g. CI/CD), add `--no-prompt`:
 
 ```bash
-ksp up -f kubestack-plus-claim.yaml \
-       -c kubestack-config-claim.yaml \
-       --registry-secret ./registry-secret.yaml \
-       --no-prompt
+ksp up -c kubestack-config-claim.yaml -f kubestack-plus-claim.yaml \
+       --registry-secret ./registry-secret.yaml --no-prompt
 ```
 
 To install prerequisites only without applying claims (useful for validating the cluster first):

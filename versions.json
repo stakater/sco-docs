@@ -2,7 +2,9 @@
   {
     "version": "sco-console-docs-discovery",
     "title": "sco-console-docs-discovery",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "renovate-main-stakater-vale-package-0.x",
@@ -52,9 +54,7 @@
   {
     "version": "renovate-main-actions-checkout-7.x",
     "title": "renovate-main-actions-checkout-7.x",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "renovate-main-actions-checkout-6.x",

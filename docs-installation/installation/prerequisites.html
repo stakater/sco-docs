@@ -5883,9 +5883,9 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </thead>
 <tbody>
 <tr>
-<td>HyperShift operator</td>
+<td>Hypershift operator</td>
 <td style="text-align: center;">✅</td>
-<td>The hosting cluster runs HyperShift to provision and host spoke clusters.</td>
+<td>The hosting cluster runs Hypershift to provision and host spoke clusters.</td>
 </tr>
 <tr>
 <td>Block + object storage (e.g. ODF)</td>
@@ -5912,7 +5912,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <h2 id="tool-requirements">Tool Requirements<a class="headerlink" href="#tool-requirements" title="Permanent link">#</a></h2>
 <h3 id="kubestack-cli-ksp">KubeStack+ CLI (<code>ksp</code>)<a class="headerlink" href="#kubestack-cli-ksp" title="Permanent link">#</a></h3>
 <p>Stakater provides the <code>ksp</code> CLI together with your registry credentials when you
-engage — request both from <strong><a href="mailto:sales@stakater.com">sales@stakater.com</a></strong> (see
+engage — request both from <code>sales@stakater.com</code> (see
 <a href="#registry-access">Registry Access</a> below). Builds are available for
 <strong>Linux x86_64</strong>, <strong>macOS arm64</strong> (Apple Silicon), and <strong>Windows x86_64</strong>.</p>
 <p>Once you have the release archive for your platform, extract the <code>ksp</code> binary and put
@@ -5943,10 +5943,10 @@ oc<span class="w"> </span>whoami
 <li><strong>Connectivity</strong>: Outbound access to container registries (docker.io, Quay.io, ghcr.io)</li>
 </ul>
 <h2 id="registry-access">Registry Access<a class="headerlink" href="#registry-access" title="Permanent link">#</a></h2>
-<p>SCO's platform components — Crossplane configuration packages, composition functions, and Helm charts — are published to <strong>Stakater's private registry</strong> (<code>ghcr.io/stakater</code>). Installing SCO therefore <strong>requires Stakater registry credentials</strong>.</p>
+<p>SCO platform components — Crossplane configuration packages, composition functions, and Helm charts — are published to <strong>Stakater's private registry</strong> (<code>ghcr.io/stakater</code>). Installing SCO therefore <strong>requires Stakater registry credentials</strong>.</p>
 <div class="admonition important">
 <p class="admonition-title">Request your registry credentials</p>
-<p>Email <strong><a href="mailto:sales@stakater.com">sales@stakater.com</a></strong> to request access. You will receive a username and a token with read access to <code>ghcr.io/stakater</code>. You supply these to <code>ksp up</code> through a registry-secret file (<code>--registry-secret</code>) — see <a href="openshift.html">OpenShift Installation</a>.</p>
+<p>Email <code>sales@stakater.com</code> to request access. You will receive a username and a token with read access to <code>ghcr.io/stakater</code>. You supply these to <code>ksp up</code> through a registry-secret file (<code>--registry-secret</code>) — see <a href="openshift.html">OpenShift Installation</a>.</p>
 </div>
 <p>The cluster also needs outbound connectivity to the public registries SCO depends on: docker.io, Quay.io, ghcr.io, and the Red Hat registry (for OpenShift platform components).</p>
 <h2 id="configuration-claim-files">Configuration Claim Files<a class="headerlink" href="#configuration-claim-files" title="Permanent link">#</a></h2>
@@ -5964,7 +5964,7 @@ oc<span class="w"> </span>whoami
 <li>[ ] <code>oc</code> authenticated to the cluster</li>
 <li>[ ] Wildcard DNS configured</li>
 <li>[ ] Wildcard TLS certificate ready</li>
-<li>[ ] Stakater registry credentials obtained (from sales@stakater.com)</li>
+<li>[ ] Stakater registry credentials obtained (from <code>sales@stakater.com</code>)</li>
 <li>[ ] <code>KubeStackConfig</code> claim file prepared</li>
 <li>[ ] <code>KubeStackPlus</code> claim file prepared</li>
 <li>[ ] Minimum compute and storage capacity available</li>

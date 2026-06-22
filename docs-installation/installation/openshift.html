@@ -6135,7 +6135,7 @@ oc<span class="w"> </span>whoami
 oc<span class="w"> </span>get<span class="w"> </span>nodes
 </code></pre></div>
 <h2 id="step-2-prepare-claim-files">Step 2: Prepare Claim Files<a class="headerlink" href="#step-2-prepare-claim-files" title="Permanent link">#</a></h2>
-<p>This guide targets <strong><code>variant: hosting</code></strong> — an OpenShift cluster that runs the HyperShift operator and hosts other clusters. You author two claim files and adjust every <code>&lt;...&gt;</code> placeholder for your environment.</p>
+<p>This guide targets <strong><code>variant: hosting</code></strong> — an OpenShift cluster that runs the Hypershift operator and hosts other clusters. You author two claim files and adjust every <code>&lt;...&gt;</code> placeholder for your environment.</p>
 <h3 id="kubestackconfig-claim-kubestack-config-claimyaml">KubeStackConfig Claim (<code>kubestack-config-claim.yaml</code>)<a class="headerlink" href="#kubestackconfig-claim-kubestack-config-claimyaml" title="Permanent link">#</a></h3>
 <p>Applied first. Carries cluster identity, networking, reserved namespaces, and per-cluster knobs.</p>
 <div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cloud.stakater.com/v1alpha1</span>
@@ -6337,7 +6337,7 @@ oc<span class="w"> </span>get<span class="w"> </span>nodes
 <p>Example claim files are available in the <code>examples/</code> directory of the KubeStack+ CLI repository.</p>
 </div>
 <h2 id="step-3-prepare-registry-credentials">Step 3: Prepare Registry Credentials<a class="headerlink" href="#step-3-prepare-registry-credentials" title="Permanent link">#</a></h2>
-<p>SCO's components are pulled from Stakater's private registry, so a registry-secret file is <strong>required</strong>. Use the username and token Stakater provided — request them from <strong><a href="mailto:sales@stakater.com">sales@stakater.com</a></strong> if you don't have them yet (see <a href="prerequisites.html#registry-access">Prerequisites</a>).</p>
+<p>SCO components are pulled from Stakater's private registry, so a registry-secret file is <strong>required</strong>. Use the username and token Stakater provided — request them from <code>sales@stakater.com</code> if you don't have them yet (see <a href="prerequisites.html#registry-access">Prerequisites</a>).</p>
 <p>Create <code>registry-secret.yaml</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">registry</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="s">"ghcr.io"</span>

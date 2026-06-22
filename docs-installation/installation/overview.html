@@ -5684,17 +5684,17 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <p>SCO is installed using the <strong><code>ksp up</code></strong> command from the KubeStack+ CLI. Running <code>ksp up</code> locally, against the cluster your <code>oc</code>/<code>kubectl</code> context points at, bootstraps your OpenShift cluster with all required components.</p>
 <div class="admonition note">
 <p class="admonition-title">Get the CLI and credentials first</p>
-<p>The <code>ksp</code> CLI and the registry credentials for SCO's components are both provided by Stakater — request them from <strong><a href="mailto:sales@stakater.com">sales@stakater.com</a></strong>. Complete the <a href="prerequisites.html">Prerequisites</a> before you begin.</p>
+<p>The <code>ksp</code> CLI and the registry credentials for SCO components are both provided by Stakater — request them from <code>sales@stakater.com</code>. Complete the <a href="prerequisites.html">Prerequisites</a> before you begin.</p>
 </div>
 <div class="admonition info">
 <p class="admonition-title">Variant scope</p>
-<p>This guide installs the <strong><code>hosting</code></strong> variant — an OpenShift cluster that runs the HyperShift operator and hosts other clusters. Other variants (<code>scosmart</code>, <code>scobasic</code>, <code>hosted</code>, <code>dev</code>) differ in claim shape and prerequisites.</p>
+<p>This guide installs the <strong><code>hosting</code></strong> variant — an OpenShift cluster that runs the Hypershift operator and hosts other clusters. Other variants (<code>scosmart</code>, <code>scobasic</code>, <code>hosted</code>, <code>dev</code>) differ in claim shape and prerequisites.</p>
 </div>
 <p>The command takes two claim files plus your registry secret:</p>
 <ul>
 <li><strong><code>-c</code></strong> — the <code>KubeStackConfig</code> claim, applied first to generate environment configuration</li>
 <li><strong><code>-f</code></strong> — the <code>KubeStackPlus</code> claim, applied second to deploy the SCO platform</li>
-<li><strong><code>--registry-secret</code></strong> — credentials for pulling SCO's components from Stakater's private registry</li>
+<li><strong><code>--registry-secret</code></strong> — credentials for pulling SCO components from Stakater's private registry</li>
 </ul>
 <div class="highlight"><pre><span></span><code>ksp<span class="w"> </span>up<span class="w"> </span>-c<span class="w"> </span>kubestack-config-claim.yaml<span class="w"> </span>-f<span class="w"> </span>kubestack-plus-claim.yaml<span class="w"> </span>--registry-secret<span class="w"> </span>registry-secret.yaml
 </code></pre></div>

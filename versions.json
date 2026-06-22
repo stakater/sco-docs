@@ -65,6 +65,11 @@
     "aliases": []
   },
   {
+    "version": "docs-installation",
+    "title": "docs-installation",
+    "aliases": []
+  },
+  {
     "version": "architecture",
     "title": "architecture",
     "aliases": []

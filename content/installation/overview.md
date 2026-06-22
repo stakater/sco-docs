@@ -7,16 +7,16 @@ Learn how to install Stakater Cloud Orchestrator on your OpenShift cluster.
 SCO is installed using the **`ksp up`** command from the KubeStack+ CLI. Running `ksp up` locally, against the cluster your `oc`/`kubectl` context points at, bootstraps your OpenShift cluster with all required components.
 
 !!! note "Get the CLI and credentials first"
-    The `ksp` CLI and the registry credentials for SCO's components are both provided by Stakater — request them from **[sales@stakater.com](mailto:sales@stakater.com)**. Complete the [Prerequisites](prerequisites.md) before you begin.
+    The `ksp` CLI and the registry credentials for SCO components are both provided by Stakater — request them from `sales@stakater.com`. Complete the [Prerequisites](prerequisites.md) before you begin.
 
 !!! info "Variant scope"
-    This guide installs the **`hosting`** variant — an OpenShift cluster that runs the HyperShift operator and hosts other clusters. Other variants (`scosmart`, `scobasic`, `hosted`, `dev`) differ in claim shape and prerequisites.
+    This guide installs the **`hosting`** variant — an OpenShift cluster that runs the Hypershift operator and hosts other clusters. Other variants (`scosmart`, `scobasic`, `hosted`, `dev`) differ in claim shape and prerequisites.
 
 The command takes two claim files plus your registry secret:
 
 - **`-c`** — the `KubeStackConfig` claim, applied first to generate environment configuration
 - **`-f`** — the `KubeStackPlus` claim, applied second to deploy the SCO platform
-- **`--registry-secret`** — credentials for pulling SCO's components from Stakater's private registry
+- **`--registry-secret`** — credentials for pulling SCO components from Stakater's private registry
 
 ```bash
 ksp up -c kubestack-config-claim.yaml -f kubestack-plus-claim.yaml --registry-secret registry-secret.yaml

@@ -20,7 +20,7 @@ oc get nodes
 
 ## Step 2: Prepare Claim Files
 
-This guide targets **`variant: hosting`** — an OpenShift cluster that runs the HyperShift operator and hosts other clusters. You author two claim files and adjust every `<...>` placeholder for your environment.
+This guide targets **`variant: hosting`** — an OpenShift cluster that runs the Hypershift operator and hosts other clusters. You author two claim files and adjust every `<...>` placeholder for your environment.
 
 ### KubeStackConfig Claim (`kubestack-config-claim.yaml`)
 
@@ -153,7 +153,7 @@ spec:
 
 ## Step 3: Prepare Registry Credentials
 
-SCO's components are pulled from Stakater's private registry, so a registry-secret file is **required**. Use the username and token Stakater provided — request them from **[sales@stakater.com](mailto:sales@stakater.com)** if you don't have them yet (see [Prerequisites](prerequisites.md#registry-access)).
+SCO components are pulled from Stakater's private registry, so a registry-secret file is **required**. Use the username and token Stakater provided — request them from `sales@stakater.com` if you don't have them yet (see [Prerequisites](prerequisites.md#registry-access)).
 
 Create `registry-secret.yaml`:
 

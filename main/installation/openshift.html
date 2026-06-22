@@ -6134,150 +6134,184 @@ oc<span class="w"> </span>whoami
 oc<span class="w"> </span>get<span class="w"> </span>nodes
 </code></pre></div>
 <h2 id="step-2-prepare-claim-files">Step 2: Prepare Claim Files<a class="headerlink" href="#step-2-prepare-claim-files" title="Permanent link">#</a></h2>
-<p>You need two claim files. Create them based on the examples below, adjusting values for your environment.</p>
+<p>This guide targets <strong><code>variant: hosting</code></strong> — the full greenfield deployment that installs the entire platform foundation plus the SCO layer on a base OpenShift cluster. You author two claim files and adjust every <code>&lt;...&gt;</code> placeholder for your environment.</p>
 <h3 id="kubestackconfig-claim-kubestack-config-claimyaml">KubeStackConfig Claim (<code>kubestack-config-claim.yaml</code>)<a class="headerlink" href="#kubestackconfig-claim-kubestack-config-claimyaml" title="Permanent link">#</a></h3>
-<p>This claim is applied first and configures the platform environment:</p>
+<p>Applied first. Carries cluster identity, networking, reserved namespaces, and per-cluster knobs.</p>
 <div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cloud.stakater.com/v1alpha1</span>
 <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">KubeStackConfig</span>
 <span class="nt">metadata</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;cluster-name&gt;</span>
-<span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ksp-system</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;cluster-slug&gt;-config</span><span class="w">              </span><span class="c1"># convention: &lt;cluster-slug&gt;-config</span>
+<span class="w">  </span><span class="nt">labels</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">crossplane.io/composite</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;cluster-slug&gt;-config</span>
 <span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">managementPolicies</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">'*'</span>
 <span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;cluster-name&gt;</span>
-<span class="w">    </span><span class="nt">variant</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">scobasic</span>
+<span class="w">    </span><span class="c1"># Cluster identity</span>
 <span class="w">    </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ocp</span>
-<span class="w">    </span><span class="nt">location</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;location&gt;</span>
-<span class="w">    </span><span class="nt">domain</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">apps.&lt;cluster-name&gt;.example.com</span>
-<span class="w">    </span><span class="nt">registrySecretRef</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;registry-secret-name&gt;</span>
-<span class="w">      </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;registry-secret-namespace&gt;</span>
-<span class="w">    </span><span class="nt">namespaces</span><span class="p">:</span><span class="w">                        </span><span class="c1"># optional</span>
-<span class="w">      </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">platform-system</span>
-<span class="w">      </span><span class="nt">monitoring</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">monitoring</span>
+<span class="w">    </span><span class="nt">variant</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hosting</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;cluster-slug&gt;</span><span class="w">                   </span><span class="c1"># short identifier, e.g. eu-1-ndskuue5</span>
+<span class="w">    </span><span class="nt">domain</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">apps.&lt;cluster-domain&gt;</span><span class="w">          </span><span class="c1"># wildcard apps domain, e.g. apps.eu-1.ndskuue5.example.com</span>
+
+<span class="w">    </span><span class="c1"># Reserved namespaces (keep the defaults unless you have a reason to change them)</span>
+<span class="w">    </span><span class="nt">namespaces</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">logging</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">logging</span>
-<span class="w">    </span><span class="nt">network</span><span class="p">:</span><span class="w">                           </span><span class="c1"># optional</span>
-<span class="w">      </span><span class="nt">podCIDR</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;pod-cidr&gt;</span>
-<span class="w">      </span><span class="nt">serviceCIDR</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;service-cidr&gt;</span>
+<span class="w">      </span><span class="nt">monitoring</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">monitoring</span>
+<span class="w">      </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">platform-system</span>
+
+<span class="w">    </span><span class="c1"># Network — mirror `oc get network cluster -o yaml`</span>
+<span class="w">    </span><span class="nt">network</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">clusterDomain</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cluster.local</span>
+<span class="w">      </span><span class="nt">podCIDR</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.128.0.0/14</span>
+<span class="w">      </span><span class="nt">serviceCIDR</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">172.30.0.0/16</span>
+
+<span class="w">    </span><span class="c1"># Hosted-cluster public DNS / routing — environment-specific (see note below)</span>
+<span class="w">    </span><span class="nt">openshiftCluster</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">public</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">baseUrl</span><span class="p">:</span><span class="w"> </span><span class="s">"public.&lt;cluster-domain&gt;"</span>
+<span class="w">        </span><span class="nt">dnsSplit</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">          </span><span class="nt">zones</span><span class="p">:</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"public.&lt;cluster-domain&gt;"</span>
+<span class="w">          </span><span class="nt">upstreams</span><span class="p">:</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"&lt;upstream-dns-1&gt;"</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"&lt;upstream-dns-2&gt;"</span>
+<span class="w">        </span><span class="nt">openbsdUnbound</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">          </span><span class="nt">openbsdHosts</span><span class="p">:</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"&lt;router-host-1&gt;"</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"&lt;router-host-2&gt;"</span>
+<span class="w">          </span><span class="nt">routerPodIPs</span><span class="p">:</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"&lt;router-pod-ip&gt;"</span>
+<span class="w">        </span><span class="nt">azuread</span><span class="p">:</span><span class="w">                           </span><span class="c1"># omit this block if you do not use Azure AD</span>
+<span class="w">          </span><span class="nt">pimEligibleMembers</span><span class="p">:</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">objectId</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;azure-object-id&gt;</span>
+<span class="w">              </span><span class="nt">assignmentType</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">member</span>
+<span class="w">              </span><span class="nt">justification</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;justification&gt;</span>
+<span class="w">  </span><span class="nt">providerConfigRef</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kubernetes-provider</span>
 </code></pre></div>
-<p><strong>Required parameters:</strong></p>
 <table>
 <thead>
 <tr>
-<th>Parameter</th>
+<th>Field</th>
+<th style="text-align: center;">Required</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>parameters.name</code></td>
-<td>Unique name for this cluster instance</td>
+<td style="text-align: center;">✅</td>
+<td>Cluster slug — short identifier; appears in resource names and labels. Use it consistently.</td>
 </tr>
-<tr>
-<td><code>parameters.location</code></td>
-<td>Physical or logical location of the cluster</td>
-</tr>
-<tr>
-<td><code>parameters.domain</code></td>
-<td>Base domain for SCO ingress routes</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Optional parameters:</strong></p>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
 <tr>
 <td><code>parameters.variant</code></td>
-<td><code>scosmart</code></td>
-<td>SCO deployment variant (<code>scobasic</code>, <code>scosmart</code>)</td>
+<td style="text-align: center;">✅</td>
+<td><code>hosting</code> for a hosting-cluster install.</td>
 </tr>
 <tr>
 <td><code>parameters.platform</code></td>
-<td><code>ocp</code></td>
-<td>Target platform</td>
+<td style="text-align: center;">✅</td>
+<td><code>ocp</code> for OpenShift.</td>
 </tr>
 <tr>
-<td><code>parameters.registrySecretRef</code></td>
-<td>—</td>
-<td>Reference to the pull secret for the OCI registry</td>
+<td><code>parameters.domain</code></td>
+<td style="text-align: center;">✅</td>
+<td>Wildcard apps domain — <code>apps.&lt;cluster-name&gt;.&lt;domain&gt;</code>.</td>
 </tr>
 <tr>
-<td><code>parameters.namespaces.platform</code></td>
-<td><code>platform-system</code></td>
-<td>Namespace for platform components</td>
+<td><code>parameters.namespaces.{platform,monitoring,logging}</code></td>
+<td style="text-align: center;">—</td>
+<td>Reserved namespace names (defaults: <code>platform-system</code> / <code>monitoring</code> / <code>logging</code>).</td>
 </tr>
 <tr>
-<td><code>parameters.namespaces.monitoring</code></td>
-<td><code>monitoring</code></td>
-<td>Namespace for monitoring stack</td>
+<td><code>parameters.network.{clusterDomain,podCIDR,serviceCIDR}</code></td>
+<td style="text-align: center;">—</td>
+<td>Mirror the cluster's <code>Network</code> CR (<code>oc get network cluster -o yaml</code>).</td>
 </tr>
 <tr>
-<td><code>parameters.namespaces.logging</code></td>
-<td><code>logging</code></td>
-<td>Namespace for logging stack</td>
+<td><code>parameters.openshiftCluster.public.baseUrl</code></td>
+<td style="text-align: center;">—</td>
+<td>DNS subdomain for hosted-cluster public access (the split-DNS source).</td>
 </tr>
 <tr>
-<td><code>parameters.network.podCIDR</code></td>
-<td>—</td>
-<td>CIDR range for pod networking</td>
+<td><code>parameters.openshiftCluster.public.dnsSplit</code></td>
+<td style="text-align: center;">—</td>
+<td>Upstream DNS zones for hosted-cluster public resolution.</td>
 </tr>
 <tr>
-<td><code>parameters.network.serviceCIDR</code></td>
-<td>—</td>
-<td>CIDR range for service networking</td>
+<td><code>parameters.openshiftCluster.public.openbsdUnbound</code></td>
+<td style="text-align: center;">—</td>
+<td>Router hosts that proxy DNS for hosted-cluster public access.</td>
 </tr>
 <tr>
-<td><code>parameters.network.clusterDomain</code></td>
-<td><code>cluster.local</code></td>
-<td>Internal cluster DNS domain</td>
+<td><code>parameters.openshiftCluster.public.azuread.pimEligibleMembers</code></td>
+<td style="text-align: center;">—</td>
+<td>Azure AD principals (object IDs) granted PIM-eligible access. Omit if not using Azure AD.</td>
 </tr>
 </tbody>
 </table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code>openshiftCluster.public</code> block (split-DNS, OpenBSD-unbound, Azure AD) depends on your hosting cluster's networking and identity environment. Confirm the upstream DNS, router, and identity values with your platform team, and drop any sub-block that does not apply to your setup.</p>
+</div>
 <h3 id="kubestackplus-claim-kubestack-plus-claimyaml">KubeStackPlus Claim (<code>kubestack-plus-claim.yaml</code>)<a class="headerlink" href="#kubestackplus-claim-kubestack-plus-claimyaml" title="Permanent link">#</a></h3>
-<p>This claim is applied second and deploys the SCO platform:</p>
+<p>Applied second — it triggers the platform composition. For <code>variant: hosting</code> this claim is <strong>minimal</strong>; almost all configuration flows through <code>KubeStackConfig</code>.</p>
 <div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cloud.stakater.com/v1alpha1</span>
 <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">KubeStackPlus</span>
 <span class="nt">metadata</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;cluster-name&gt;-ocp-scobasic</span>
-<span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ksp-system</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;cluster-slug&gt;-package</span><span class="w">             </span><span class="c1"># convention: &lt;cluster-slug&gt;-package</span>
+<span class="w">  </span><span class="nt">labels</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">crossplane.io/composite</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;cluster-slug&gt;-package</span>
 <span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">managementPolicies</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">'*'</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ocp</span>
+<span class="w">    </span><span class="nt">variant</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hosting</span>
+<span class="w">    </span><span class="nt">server</span><span class="p">:</span><span class="w"> </span><span class="s">'https://kubernetes.default.svc'</span><span class="w">   </span><span class="c1"># local hosting cluster API</span>
 <span class="w">  </span><span class="nt">providerConfigRef</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kubernetes-provider</span>
-<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">variant</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">scobasic</span>
-<span class="w">    </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ocp</span>
 </code></pre></div>
 <table>
 <thead>
 <tr>
-<th>Parameter</th>
-<th>Value</th>
+<th>Field</th>
+<th style="text-align: center;">Required</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td><code>metadata.name</code></td>
+<td style="text-align: center;">✅</td>
+<td>Claim name. Convention: <code>&lt;cluster-slug&gt;-package</code>.</td>
+</tr>
+<tr>
 <td><code>parameters.variant</code></td>
-<td><code>scobasic</code></td>
-<td>SCO deployment variant</td>
+<td style="text-align: center;">✅</td>
+<td><code>hosting</code> — must match the <code>KubeStackConfig</code> variant.</td>
 </tr>
 <tr>
 <td><code>parameters.platform</code></td>
-<td><code>ocp</code></td>
-<td>Target platform (OpenShift)</td>
+<td style="text-align: center;">✅</td>
+<td><code>ocp</code>.</td>
 </tr>
 <tr>
 <td><code>parameters.server</code></td>
-<td><code>https://kubernetes.default.svc</code></td>
-<td>(Optional) ArgoCD Application destination server. Override for multi-cluster setups.</td>
+<td style="text-align: center;">—</td>
+<td>ArgoCD Application destination API server. For <code>hosting</code>, the local cluster API (default <code>https://kubernetes.default.svc</code>).</td>
+</tr>
+<tr>
+<td><code>parameters.excludedAddons</code></td>
+<td style="text-align: center;">—</td>
+<td>Optional list of addon names to exclude (see below).</td>
+</tr>
+<tr>
+<td><code>spec.providerConfigRef.name</code></td>
+<td style="text-align: center;">✅</td>
+<td><code>kubernetes-provider</code> — the CLI installs this provider if it is missing.</td>
 </tr>
 </tbody>
 </table>
@@ -6285,7 +6319,7 @@ oc<span class="w"> </span>get<span class="w"> </span>nodes
 <p>If you need to exclude specific addons from the deployment, use the <code>excludedAddons</code> field:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">spec</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">variant</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">scobasic</span>
+<span class="w">    </span><span class="nt">variant</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hosting</span>
 <span class="w">    </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ocp</span>
 <span class="w">    </span><span class="nt">excludedAddons</span><span class="p">:</span>
 <span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kcp-operator</span>
@@ -6302,26 +6336,25 @@ oc<span class="w"> </span>get<span class="w"> </span>nodes
 <p>Example claim files are available in the <code>examples/</code> directory of the KubeStack+ CLI repository.</p>
 </div>
 <h2 id="step-3-prepare-registry-credentials">Step 3: Prepare Registry Credentials<a class="headerlink" href="#step-3-prepare-registry-credentials" title="Permanent link">#</a></h2>
-<p>If using a private OCI registry, create a registry secrets file (<code>registry-secret.yaml</code>):</p>
+<p>SCO components are pulled from Stakater's private registry, so a registry-secret file is <strong>required</strong>. Use the username and token Stakater provided — request them from <code>sales@stakater.com</code> if you don't have them yet (see <a href="prerequisites.html#registry-access">Prerequisites</a>).</p>
+<p>Create <code>registry-secret.yaml</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">registry</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="s">"ghcr.io"</span>
 <span class="w">  </span><span class="nt">gitopsChartsUrl</span><span class="p">:</span><span class="w"> </span><span class="s">"ghcr.io/stakater"</span>
 <span class="w">  </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="s">"&lt;your-username&gt;"</span>
-<span class="w">  </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="s">"&lt;your-token&gt;"</span>
+<span class="w">  </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="s">"&lt;your-token&gt;"</span><span class="w">     </span><span class="c1"># use either password or token; token wins if both are set</span>
 </code></pre></div>
+<p><code>ksp up</code> uses this file to log in to the registry and to create the in-cluster pull secrets that Crossplane and the composition functions need. It is <strong>not</strong> referenced from the claim files — it is passed on the command line via <code>--registry-secret</code> (Step 4).</p>
 <h2 id="step-4-run-installation">Step 4: Run Installation<a class="headerlink" href="#step-4-run-installation" title="Permanent link">#</a></h2>
-<p>Execute <code>ksp up</code> with both claim files:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># Interactive (prompts for confirmation)</span>
-ksp<span class="w"> </span>up<span class="w"> </span>-f<span class="w"> </span>kubestack-plus-claim.yaml<span class="w"> </span>-c<span class="w"> </span>kubestack-config-claim.yaml
-
-<span class="c1"># Non-interactive</span>
-ksp<span class="w"> </span>up<span class="w"> </span>-f<span class="w"> </span>kubestack-plus-claim.yaml<span class="w"> </span>-c<span class="w"> </span>kubestack-config-claim.yaml<span class="w"> </span>--no-prompt
+<p><code>ksp up</code> operates on your <strong>current <code>oc</code>/<code>kubectl</code> context</strong>, so confirm it points at the target cluster first (<code>oc whoami --show-server</code>). Then run it with both claim files and your registry secret — <code>-c</code> (KubeStackConfig) is applied first, then <code>-f</code> (KubeStackPlus):</p>
+<div class="highlight"><pre><span></span><code>ksp<span class="w"> </span>up<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-c<span class="w"> </span>kubestack-config-claim.yaml<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-f<span class="w"> </span>kubestack-plus-claim.yaml<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--registry-secret<span class="w"> </span>./registry-secret.yaml
 </code></pre></div>
-<p>If using a private registry:</p>
-<div class="highlight"><pre><span></span><code>ksp<span class="w"> </span>up<span class="w"> </span>-f<span class="w"> </span>kubestack-plus-claim.yaml<span class="w"> </span><span class="se">\</span>
-<span class="w">       </span>-c<span class="w"> </span>kubestack-config-claim.yaml<span class="w"> </span><span class="se">\</span>
-<span class="w">       </span>--registry-secret<span class="w"> </span>./registry-secret.yaml<span class="w"> </span><span class="se">\</span>
-<span class="w">       </span>--no-prompt
+<p>By default <code>ksp up</code> asks you to confirm the target cluster before making changes. For non-interactive runs (e.g. CI/CD), add <code>--no-prompt</code>:</p>
+<div class="highlight"><pre><span></span><code>ksp<span class="w"> </span>up<span class="w"> </span>-c<span class="w"> </span>kubestack-config-claim.yaml<span class="w"> </span>-f<span class="w"> </span>kubestack-plus-claim.yaml<span class="w"> </span><span class="se">\</span>
+<span class="w">       </span>--registry-secret<span class="w"> </span>./registry-secret.yaml<span class="w"> </span>--no-prompt
 </code></pre></div>
 <p>To install prerequisites only without applying claims (useful for validating the cluster first):</p>
 <div class="highlight"><pre><span></span><code>ksp<span class="w"> </span>up<span class="w"> </span>--dev-mode

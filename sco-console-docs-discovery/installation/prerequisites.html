@@ -2294,6 +2294,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
+      <a href="../cloud-user-guide/authentication/organisation-identity.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    One Identity Across Your Organisation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../cloud-user-guide/authentication/managing-users.html" class="md-nav__link">
         
   
@@ -3068,6 +3096,90 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../how-to-guides/user/create-vault.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Create a Vault
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../how-to-guides/user/create-mesh.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Create a Mesh
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../how-to-guides/user/expose-service-via-netbird.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Expose an Internal Service via the Mesh
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -3440,10 +3552,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
         
           <li class="md-nav__item">
-  <a href="#optional-openshift-capabilities" class="md-nav__link">
+  <a href="#what-the-hosting-variant-installs" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Optional OpenShift Capabilities
+        What the hosting variant installs
       
     </span>
   </a>
@@ -4948,6 +5060,90 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api-reference/public-apis/vault.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vault
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api-reference/public-apis/mesh.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mesh
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api-reference/public-apis/netbird-router.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NetbirdRouter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -5512,10 +5708,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
         
           <li class="md-nav__item">
-  <a href="#optional-openshift-capabilities" class="md-nav__link">
+  <a href="#what-the-hosting-variant-installs" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Optional OpenShift Capabilities
+        What the hosting variant installs
       
     </span>
   </a>
@@ -5646,7 +5842,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <li><strong>Deployment</strong>: Bare metal (production-supported)</li>
 <li><strong>Access</strong>: Cluster administrator privileges</li>
 <li><strong>Nodes</strong>: Minimum 6 worker nodes recommended for production</li>
-<li><strong>Storage</strong>: Persistent storage provisioner configured (any CSI driver)</li>
+<li><strong>Storage</strong>: Worker nodes with unused raw disks — the hosting variant deploys ODF as the cluster storage layer (you do not pre-configure a CSI provisioner)</li>
 </ul>
 <h3 id="compute-resources">Compute Resources<a class="headerlink" href="#compute-resources" title="Permanent link">#</a></h3>
 <p>Recommended minimum capacity for the SCO platform:</p>
@@ -5675,37 +5871,35 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </tbody>
 </table>
 <p>Storage: 500 GB+ available across workers.</p>
-<h3 id="optional-openshift-capabilities">Optional OpenShift Capabilities<a class="headerlink" href="#optional-openshift-capabilities" title="Permanent link">#</a></h3>
-<table>
-<thead>
-<tr>
-<th>Capability</th>
-<th>Required for</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>OpenShift Virtualization</td>
-<td>VM workloads</td>
-</tr>
-<tr>
-<td>Hypershift operator</td>
-<td>Hosted OpenShift cluster provisioning</td>
-</tr>
-</tbody>
-</table>
+<h3 id="what-the-hosting-variant-installs">What the <code>hosting</code> variant installs<a class="headerlink" href="#what-the-hosting-variant-installs" title="Permanent link">#</a></h3>
+<p><code>hosting</code> is the <strong>full greenfield deployment</strong>. Starting from a base OpenShift cluster, <code>ksp up</code> brings up the <strong>entire stack</strong> — you do <strong>not</strong> pre-install these components yourself:</p>
+<ul>
+<li><strong>Platform foundation</strong> — GitOps (OpenShift GitOps / Argo CD), Crossplane (operator, providers, functions), storage (ODF), cluster management (ACM), Hypershift, and the supporting identity and secrets services.</li>
+<li><strong>SCO layer</strong> — the Stakater Cloud control plane and all the user-facing cloud APIs (<code>*.cloud.stakater.com</code>) your tenants consume.</li>
+</ul>
+<p>The only things you provide up front are a base cluster with enough capacity (see above), wildcard DNS/TLS, and the <code>ksp</code> CLI plus registry credentials. <code>ksp up</code> installs and wires everything else.</p>
 <h2 id="tool-requirements">Tool Requirements<a class="headerlink" href="#tool-requirements" title="Permanent link">#</a></h2>
 <h3 id="kubestack-cli-ksp">KubeStack+ CLI (<code>ksp</code>)<a class="headerlink" href="#kubestack-cli-ksp" title="Permanent link">#</a></h3>
-<p>Download the latest release from GitHub:</p>
-<div class="highlight"><pre><span></span><code>wget<span class="w"> </span>https://github.com/stakater-ab/kubestackplus-cli/releases/latest/download/ksp-linux-amd64
-chmod<span class="w"> </span>+x<span class="w"> </span>ksp-linux-amd64
-sudo<span class="w"> </span>mv<span class="w"> </span>ksp-linux-amd64<span class="w"> </span>/usr/local/bin/ksp
+<p>Stakater provides the <code>ksp</code> CLI together with your registry credentials when you
+engage — request both from <code>sales@stakater.com</code> (see
+<a href="#registry-access">Registry Access</a> below). Builds are available for
+<strong>Linux x86_64</strong>, <strong>macOS arm64</strong> (Apple Silicon), and <strong>Windows x86_64</strong>.</p>
+<p>Once you have the release archive for your platform, extract the <code>ksp</code> binary and put
+it on your <code>PATH</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Linux (x86_64)</span>
+tar<span class="w"> </span>-xzf<span class="w"> </span>ksp_linux_x86_64.tar.gz
+sudo<span class="w"> </span>mv<span class="w"> </span>ksp_linux_x86_64/bin/linux_amd64/ksp<span class="w"> </span>/usr/local/bin/ksp
 
+<span class="c1"># macOS (Apple Silicon)</span>
+tar<span class="w"> </span>-xzf<span class="w"> </span>ksp_darwin_arm64.tar.gz
+sudo<span class="w"> </span>mv<span class="w"> </span>ksp_darwin_arm64/bin/darwin_arm64/ksp<span class="w"> </span>/usr/local/bin/ksp
+xattr<span class="w"> </span>-d<span class="w"> </span>com.apple.quarantine<span class="w"> </span>/usr/local/bin/ksp<span class="w">   </span><span class="c1"># clear the Gatekeeper quarantine flag</span>
+
+<span class="c1"># Verify</span>
 ksp<span class="w"> </span>version
 </code></pre></div>
-<p>On macOS, remove the quarantine attribute after downloading:</p>
-<div class="highlight"><pre><span></span><code>xattr<span class="w"> </span>-d<span class="w"> </span>com.apple.quarantine<span class="w"> </span>~/Downloads/ksp
-</code></pre></div>
+<p>On Windows, extract the <code>ksp_windows_x86_64.zip</code> archive and add the folder containing
+<code>ksp.exe</code> to your <code>PATH</code>.</p>
 <h3 id="oc-kubectl">oc / kubectl<a class="headerlink" href="#oc-kubectl" title="Permanent link">#</a></h3>
 <div class="highlight"><pre><span></span><code><span class="c1"># Verify oc is installed and authenticated</span>
 oc<span class="w"> </span>version
@@ -5718,13 +5912,12 @@ oc<span class="w"> </span>whoami
 <li><strong>Connectivity</strong>: Outbound access to container registries (docker.io, Quay.io, ghcr.io)</li>
 </ul>
 <h2 id="registry-access">Registry Access<a class="headerlink" href="#registry-access" title="Permanent link">#</a></h2>
-<p>SCO components are pulled from:</p>
-<ul>
-<li><strong>Public registries</strong>: docker.io, Quay.io, ghcr.io</li>
-<li><strong>Red Hat registry</strong>: For OpenShift platform components</li>
-<li><strong>Stakater registry</strong>: For SCO proprietary components (credentials provided by Stakater)</li>
-</ul>
-<p>If using a private registry mirror, prepare a registry secret file for the <code>--registry-secret</code> flag (see <a href="openshift.html">Installation</a>).</p>
+<p>SCO platform components — Crossplane configuration packages, composition functions, and Helm charts — are published to <strong>Stakater's private registry</strong> (<code>ghcr.io/stakater</code>). Installing SCO therefore <strong>requires Stakater registry credentials</strong>.</p>
+<div class="admonition important">
+<p class="admonition-title">Request your registry credentials</p>
+<p>Email <code>sales@stakater.com</code> to request access. You will receive a username and a token with read access to <code>ghcr.io/stakater</code>. You supply these to <code>ksp up</code> through a registry-secret file (<code>--registry-secret</code>) — see <a href="openshift.html">OpenShift Installation</a>.</p>
+</div>
+<p>The cluster also needs outbound connectivity to the public registries SCO depends on: docker.io, Quay.io, ghcr.io, and the Red Hat registry (for OpenShift platform components).</p>
 <h2 id="configuration-claim-files">Configuration Claim Files<a class="headerlink" href="#configuration-claim-files" title="Permanent link">#</a></h2>
 <p>Before running <code>ksp up</code> you need two claim files prepared:</p>
 <ol>
@@ -5740,7 +5933,7 @@ oc<span class="w"> </span>whoami
 <li>[ ] <code>oc</code> authenticated to the cluster</li>
 <li>[ ] Wildcard DNS configured</li>
 <li>[ ] Wildcard TLS certificate ready</li>
-<li>[ ] Registry credentials available (if using private registry)</li>
+<li>[ ] Stakater registry credentials obtained (from <code>sales@stakater.com</code>)</li>
 <li>[ ] <code>KubeStackConfig</code> claim file prepared</li>
 <li>[ ] <code>KubeStackPlus</code> claim file prepared</li>
 <li>[ ] Minimum compute and storage capacity available</li>

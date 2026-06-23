@@ -2294,6 +2294,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
+      <a href="../cloud-user-guide/authentication/organisation-identity.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    One Identity Across Your Organisation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../cloud-user-guide/authentication/managing-users.html" class="md-nav__link">
         
   
@@ -3055,6 +3083,90 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     
   
     How to Create a Postgres Database
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../how-to-guides/user/create-vault.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Create a Vault
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../how-to-guides/user/create-mesh.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Create a Mesh
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../how-to-guides/user/expose-service-via-netbird.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Expose an Internal Service via the Mesh
   
 
     
@@ -4863,6 +4975,90 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="public-apis/vault.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vault
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="public-apis/mesh.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mesh
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="public-apis/netbird-router.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NetbirdRouter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -5527,6 +5723,24 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <td><code>database.cloud.stakater.com/v1</code></td>
 <td><code>Postgres</code></td>
 <td>PostgreSQL database backed by CloudNativePG</td>
+</tr>
+<tr>
+<td><a href="public-apis/vault.html">Vault</a></td>
+<td><code>secrets.cloud.stakater.com/v1</code></td>
+<td><code>Vault</code></td>
+<td>Per-tenant OpenBao instance with OIDC auth and HA Raft storage</td>
+</tr>
+<tr>
+<td><a href="public-apis/mesh.html">Mesh</a></td>
+<td><code>network.cloud.stakater.com/v1</code></td>
+<td><code>Mesh</code></td>
+<td>Per-tenant NetBird control plane (management + signal + dashboard)</td>
+</tr>
+<tr>
+<td><a href="public-apis/netbird-router.html">NetbirdRouter</a></td>
+<td><code>netbird.cloud.stakater.com/v1</code></td>
+<td><code>NetbirdRouter</code></td>
+<td>Router pod that advertises in-cluster CIDRs to peers on a Mesh</td>
 </tr>
 </tbody>
 </table>

@@ -2,7 +2,9 @@
   {
     "version": "sco-console-docs-discovery",
     "title": "sco-console-docs-discovery",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "renovate-main-stakater-vale-package-0.x",
@@ -67,9 +69,7 @@
   {
     "version": "docs-installation",
     "title": "docs-installation",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "architecture",

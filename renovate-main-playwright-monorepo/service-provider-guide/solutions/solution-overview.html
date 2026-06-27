@@ -2294,6 +2294,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
+      <a href="../../cloud-user-guide/authentication/organisation-identity.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    One Identity Across Your Organisation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../cloud-user-guide/authentication/managing-users.html" class="md-nav__link">
         
   
@@ -3055,6 +3083,90 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     
   
     How to Create a Postgres Database
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../how-to-guides/user/create-vault.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Create a Vault
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../how-to-guides/user/create-mesh.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Create a Mesh
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../how-to-guides/user/expose-service-via-netbird.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Expose an Internal Service via the Mesh
   
 
     
@@ -4909,6 +5021,90 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api-reference/public-apis/vault.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vault
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api-reference/public-apis/mesh.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mesh
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api-reference/public-apis/netbird-router.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NetbirdRouter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -5644,7 +5840,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <td>Implements the claim: what resources to create, using which providers</td>
 </tr>
 <tr>
-<td><code>PublishedOffering</code> claim</td>
+<td><code>ApiExport</code> claim</td>
 <td>Publishes the API to consumer project workspaces</td>
 </tr>
 <tr>
@@ -5653,12 +5849,12 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </tr>
 </tbody>
 </table>
-<p>The XRD and Composition live on the management cluster. The <code>PublishedOffering</code> claim triggers the <code>api-syncagent</code> to bridge the API into KCP workspaces. Marketplace metadata controls how the solution appears to consumers.</p>
+<p>The XRD and Composition live on the management cluster. The <code>ApiExport</code> claim triggers the <code>api-syncagent</code> to bridge the API into KCP workspaces. Marketplace metadata controls how the solution appears to consumers.</p>
 <hr>
 <h2 id="solution-lifecycle">Solution Lifecycle<a class="headerlink" href="#solution-lifecycle" title="Permanent link">#</a></h2>
 <div class="highlight"><pre><span></span><code>Provider defines XRD + Composition
           ↓
-Provider applies PublishedOffering claim
+Provider applies ApiExport claim
           ↓
 Solution appears in consumer project workspaces
           ↓

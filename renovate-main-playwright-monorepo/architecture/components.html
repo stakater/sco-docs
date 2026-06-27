@@ -2294,6 +2294,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
+      <a href="../cloud-user-guide/authentication/organisation-identity.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    One Identity Across Your Organisation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../cloud-user-guide/authentication/managing-users.html" class="md-nav__link">
         
   
@@ -3055,6 +3083,90 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     
   
     How to Create a Postgres Database
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../how-to-guides/user/create-vault.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Create a Vault
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../how-to-guides/user/create-mesh.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Create a Mesh
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../how-to-guides/user/expose-service-via-netbird.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Expose an Internal Service via the Mesh
   
 
     
@@ -5203,6 +5315,90 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api-reference/public-apis/vault.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vault
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api-reference/public-apis/mesh.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mesh
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api-reference/public-apis/netbird-router.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    NetbirdRouter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -6274,15 +6470,13 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <hr>
 <h2 id="secrets-management">Secrets Management<a class="headerlink" href="#secrets-management" title="Permanent link">#</a></h2>
 <h3 id="openbao">OpenBao<a class="headerlink" href="#openbao" title="Permanent link">#</a></h3>
-<p>OpenBao is the open-source secrets management platform (community fork of HashiCorp Vault). It runs within the management cluster and provides dynamic secrets, PKI infrastructure, and key-value secret storage for both platform components and consumer workloads.</p>
+<p>OpenBao is the open-source secrets management platform (community fork of HashiCorp Vault). The platform runs a hub OpenBao instance for its own secrets and offers per-organisation OpenBao instances to cloud users via the <a href="../api-reference/public-apis/vault.html"><code>Vault</code></a> claim.</p>
 <p><strong>Role in SCO:</strong></p>
 <ul>
-<li>Issues dynamic credentials for platform services (database passwords, cloud provider keys) that expire automatically and are rotated without manual intervention</li>
-<li>Provides a PKI engine for TLS certificate issuance used by platform components and hosted clusters</li>
-<li>Stores platform secrets (Keycloak admin credentials, KCP bootstrap tokens) in encrypted, auditable storage</li>
-<li>Consumer workloads can request secrets from OpenBao through the External Secrets Operator or the OpenBao agent sidecar, scoped to their project's policy</li>
+<li>The <strong>platform hub</strong> issues dynamic credentials for platform services (database passwords, cloud provider keys) that expire automatically and are rotated without manual intervention, provides a PKI engine for TLS certificate issuance used by platform components and hosted clusters, and stores platform secrets in encrypted, auditable storage.</li>
+<li><strong>Per-organisation Vaults</strong> are provisioned via the <code>Vault</code> claim. Each is independent of the others and uses single sign-on against the organisation's identity provider — operators log in via SSO (<code>bao login -method=oidc</code>); there is no static root token to manage.</li>
 </ul>
-<p><strong>Integration points:</strong> Crossplane's Vault-compatible provider creates and manages OpenBao policies, mounts, and roles as part of platform compositions. Consumer access to secrets is gated through OpenBao policies generated per organisation and project.</p>
+<p><strong>Consumer access:</strong> Per-organisation Vaults are reachable from inside the organisation's projects and from peers on the organisation's <a href="../api-reference/public-apis/mesh.html">Mesh</a> via a <a href="../api-reference/public-apis/netbird-router.html">NetbirdRouter</a>. They are not exposed on the public internet.</p>
 <hr>
 <h2 id="infrastructure-services">Infrastructure Services<a class="headerlink" href="#infrastructure-services" title="Permanent link">#</a></h2>
 <h3 id="openshift-virtualization-kubevirt">OpenShift Virtualization (KubeVirt)<a class="headerlink" href="#openshift-virtualization-kubevirt" title="Permanent link">#</a></h3>

@@ -67,6 +67,7 @@ To log out, use the account menu in the top-right corner of the console and sele
 
 ## What's Next?
 
+- [Accessing the Console](../../console/accessing-the-console.md) — Sign in to the console step by step
 - [Managing Users](managing-users.md) — Invite colleagues and manage access
 - [Creating Projects](../projects/creating-projects.md) — Set up your first project
 - [Setup kubectl](../kubectl-access/setup-kubectl.md) — Configure CLI access

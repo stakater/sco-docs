@@ -78,6 +78,9 @@ nav:
       - API Publishing:
           - service-provider-guide/api-publishing/kcp-overview.md
           - service-provider-guide/api-publishing/publishing-apis.md
+      - Console:
+          - how-to-guides/provider/control-ui-rendering.md
+          - service-provider-guide/console/ui-extensions-reference.md
   - Platform Overview:
       - about/overview.md
       - about/key-features.md
@@ -89,9 +92,11 @@ nav:
       - architecture/virtual-api-layer.md
   - Console:
       - console/overview.md
+      - console/accessing-the-console.md
       - console/dashboard.md
       - console/organizations.md
       - console/projects.md
+      - console/resources.md
       - console/marketplace.md
       - console/solutions.md
   - API Reference:

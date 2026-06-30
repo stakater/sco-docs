@@ -72,6 +72,11 @@
     "aliases": []
   },
   {
+    "version": "docs-console-user-docs",
+    "title": "docs-console-user-docs",
+    "aliases": []
+  },
+  {
     "version": "architecture",
     "title": "architecture",
     "aliases": []

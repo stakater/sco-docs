@@ -7,7 +7,9 @@
   {
     "version": "renovate-main-stakater-vale-package-0.x",
     "title": "renovate-main-stakater-vale-package-0.x",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "renovate-main-stakater-.github-0.x",
@@ -72,9 +74,7 @@
   {
     "version": "docs-console-user-docs",
     "title": "docs-console-user-docs",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "architecture",

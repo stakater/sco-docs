@@ -62,14 +62,14 @@
   {
     "version": "modeling-subresources",
     "title": "modeling-subresources",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "main",
     "title": "main",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "feat-api-reference-s3-postgres",

@@ -37,7 +37,9 @@
   {
     "version": "renovate-main-dotenv-17.x-lockfile",
     "title": "renovate-main-dotenv-17.x-lockfile",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "renovate-main-docker-login-action-4.x",
@@ -72,9 +74,7 @@
   {
     "version": "docs-console-user-docs",
     "title": "docs-console-user-docs",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "architecture",

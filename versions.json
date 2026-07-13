@@ -22,9 +22,7 @@
   {
     "version": "renovate-main-node-24.x-lockfile",
     "title": "renovate-main-node-24.x-lockfile",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "renovate-main-node-24.x",
@@ -74,7 +72,9 @@
   {
     "version": "docs-console-user-docs",
     "title": "docs-console-user-docs",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "architecture",

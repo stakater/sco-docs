@@ -1,8 +1,8 @@
 # Console UI Extensions Reference
 
-The SCO console is schema-driven: it builds resource lists, detail pages, and create/edit forms directly from each resource's OpenAPI schema. The `x-sco-ui-*` extensions documented here let you, as a platform provider, control that rendering by annotating the schema — no console code changes required.
+The SCO console is schema-driven: it builds resource lists, detail pages, and create/edit forms directly from each resource's OpenAPI schema. The `x-sco-ui-*` extensions documented here let you, as a platform provider, control that rendering by annotating your Crossplane Composition's OpenAPI schema — no console code changes required.
 
-Add the extensions to the schema your API exposes. Resources without `x-sco-ui-*` extensions still render, using sensible defaults inferred from the schema type.
+Add the extensions to your Crossplane Composition's OpenAPI schema. Resources without `x-sco-ui-*` extensions still render, using sensible defaults inferred from the schema type.
 
 For a task-oriented introduction, see [Controlling Console UI Rendering](../../how-to-guides/provider/control-ui-rendering.md).
 
@@ -33,7 +33,7 @@ Set these on individual schema **properties**.
 | `x-sco-ui-visibility` | `hidden`, `inline`, `readonly`, `hide-if-null` | Controls whether and how the field shows. See [Visibility](#visibility). |
 | `x-sco-ui-complexity` | `advanced` | Hides the field in **Standard** mode; shows it in **Advanced** mode. |
 | `x-sco-value-encoding` | `base64` | The user edits plain text; the console encodes on save and decodes on load. |
-| `x-sco-value-type` | `enum` | The field's options come from the platform's value catalogue rather than a schema `enum`. Renders as a select. |
+| `x-sco-value-type` | `enum` | The field's options come from an EnumContext rather than a schema `enum`. Renders as a select. See [Value Type](#value-type). |
 
 ### `x-sco-ui-component` values
 
@@ -51,6 +51,30 @@ If the value isn't valid for the view, the console falls back to type inference.
 | `inline` | For objects: the wrapper is dropped and its child fields render at the parent level (paths are preserved). |
 | `readonly` | **Forms only** — shown as read-only text, skipped by validation. |
 | `hide-if-null` | **Detail only** — field is hidden when its value is empty (`null`, `""`, `0`, `false`, empty array/object). |
+
+### Value Type
+
+`x-sco-value-type` describes **what a value is**, as opposed to `x-sco-ui-component`, which controls **how it is shown**. Native JSON Schema (`type`, `format`, `enum`) already expresses most value facts; this tag carries only what the schema vocabulary can't.
+
+Its one value, `enum`, marks a field whose options come from an **EnumContext** — a platform-managed catalogue keyed by the resource's kind and the field's path — rather than a static schema `enum`. Use it for values that are dynamic and environment-specific: for example a VM's `instanceType`, whose available sizes live in an `EnvironmentConfig` rather than in the schema. Without the tag, such a field has no `enum` and falls back to a free-text input.
+
+The tag is also the signal for *which* EnumContexts a form depends on, so the console can load only those catalogues instead of fetching all of them up front.
+
+By default the field renders as a `select`; set `x-sco-ui-component` to `select-detail` or `select-table` for the enriched variants. Options resolve against a schema `enum` as follows:
+
+| Situation | Result |
+|-----------|--------|
+| Schema `enum` present | The schema is authoritative. The EnumContext only enriches those options (labels, summaries, specs); no value outside the schema `enum` is ever shown. |
+| No schema `enum` + `x-sco-value-type: enum` + a matching EnumContext | Options are sourced from the EnumContext. |
+| No tag, or no matching EnumContext | Free-text input (unchanged). |
+
+```json
+"instanceType": {
+  "type": "string",
+  "x-sco-value-type": "enum",
+  "x-sco-ui-component": "select-detail"
+}
+```
 
 ---
 
@@ -131,6 +155,26 @@ A tab of `type: relatedList` renders the `relation` with the matching `id` as a 
 | `when` | Show the action only when a `path` `equals` a value. |
 | `confirm` | Require confirmation, with a `title`, `message`, and `confirmLabel`. |
 | `form` | Collect input before running the action (`presentation`, `title`, `submitLabel`, `schema`). |
+
+---
+
+## Resource Status: `x-sco-status-cel`
+
+Set `x-sco-status-cel` on the **root** of a resource schema to derive a single status indicator for each resource from its live data. Its value is a [CEL](https://github.com/google/cel-spec) expression, evaluated against each resource, that must return one of `ready`, `progressing`, `warning`, `error`, or `unknown`. The result maps to a coloured indicator shown in the list and detail views.
+
+```json
+"x-sco-status-cel": "self.status.phase == 'Running' ? 'ready' : self.status.phase == 'Pending' ? 'progressing' : 'unknown'"
+```
+
+`self` is the whole resource; use dot notation for nested fields (`self.status.phase`). The tag is view-independent, so it has no `-detail-` or `-form-` variant. When it is absent, no indicator is shown. A parse error, a missing field, or a value outside the five allowed strings resolves to `unknown` — logged to the browser console, never surfaced to the user.
+
+| Value | Indicator |
+|-------|-----------|
+| `ready` | Success (green) |
+| `progressing` | In progress (blue) |
+| `warning` | Warning (amber) |
+| `error` | Error (red) |
+| `unknown` | Unknown (grey) |
 
 ---
 

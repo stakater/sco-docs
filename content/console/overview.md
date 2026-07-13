@@ -1,8 +1,6 @@
 # Console Overview
 
-The Stakater Cloud Orchestrator (SCO) console is the web interface for your organisation. It is where cloud consumers sign in, browse the services available to them, provision resources, and manage what they have created — without touching `kubectl`.
-
-The console is **schema-driven**: it builds itself from the APIs your organisation exposes and the permissions you have been granted. You only ever see the resources and actions you are allowed to use.
+The Stakater Cloud Orchestrator (SCO) console is the web interface for your organisation. It is where cloud consumers sign in, browse the services available to them, provision resources, and manage what they have created.
 
 ![The SCO console after sign-in](../images/console/dashboard-org-stats.png)
 
@@ -10,7 +8,7 @@ The console is **schema-driven**: it builds itself from the APIs your organisati
 
 ## Who the Console Is For
 
-The console is aimed at cloud consumers — developers, team leads, and organisation administrators who provision and manage services on the platform. Platform providers configure how the console renders resources; see [Controlling Console UI Rendering](../how-to-guides/provider/control-ui-rendering.md).
+The console is aimed at cloud consumers — developers, team leads, and organisation administrators who provision and manage services on the platform.
 
 ---
 

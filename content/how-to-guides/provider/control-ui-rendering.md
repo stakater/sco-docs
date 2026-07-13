@@ -1,6 +1,6 @@
 # How to Control Console UI Rendering
 
-Shape how your resources appear in the SCO console — labels, inputs, ordering, grouping, visibility, and detail pages — by annotating their OpenAPI schema.
+Shape how your resources appear in the SCO console — labels, inputs, ordering, grouping, visibility, and detail pages — by annotating your Crossplane Composition's OpenAPI schema.
 
 Sam, a platform provider at ACME Corp, has published a new resource API. It works, but in the console it renders with raw field names in schema order. Sam wants a polished form and detail page without changing any console code.
 
@@ -83,4 +83,3 @@ At the schema **root**, `x-sco-ui` adds a summary strip, extra tabs, and actions
 ## What's Next?
 
 - [Console UI Extensions Reference](../../service-provider-guide/console/ui-extensions-reference.md) — Every tag, value, and rule
-- [Console Overview](../../console/overview.md) — How consumers experience the console

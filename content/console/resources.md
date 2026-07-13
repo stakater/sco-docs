@@ -1,6 +1,6 @@
 # Working with Resources
 
-The console uses the same set of views for every kind of resource your organisation exposes — virtual machines, clusters, databases, storage, organisation users and groups, projects, and more. Once you know how one resource works in the console, you know how they all work.
+The console uses the same set of views for every kind of resource in your organisation — virtual machines, clusters, databases, storage, organisation users and groups, projects, and more. Once you know how one resource works in the console, you know how they all work.
 
 Each resource type has four views: a **list**, a **detail** page, a **create** form, and an **edit** form. The fields and columns you see are driven by each resource's schema, so they match the resource you are working with.
 

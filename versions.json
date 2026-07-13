@@ -67,11 +67,6 @@
     ]
   },
   {
-    "version": "main",
-    "title": "main",
-    "aliases": []
-  },
-  {
     "version": "feat-api-reference-s3-postgres",
     "title": "feat-api-reference-s3-postgres",
     "aliases": []

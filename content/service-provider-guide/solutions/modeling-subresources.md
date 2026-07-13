@@ -15,16 +15,18 @@ The examples use the platform's `OpenShiftNodePool`, a subresource of `OpenShift
 
 ## When to Model a Subresource
 
-Model a child as its own claim kind when:
+A subresource is a claim kind in its own right: it has its own top-level API, appears as its own resource in the console, and is managed independently of its parent. Model a child as a subresource when:
 
+- **It is a resource in its own right** — consumers should see and manage it as its own object in the console, not as a field buried in the parent's spec
 - **Independent lifecycle** — consumers create, resize, and delete children without touching the parent (e.g. adding a node pool to a running cluster)
 - **Variable cardinality** — one parent has many children, and the number is not known when the parent is created
 - **Separate ownership** — different people manage the parent and the children
 
+A child that is created alongside its parent by default can still be a subresource — being created together does not make something part of the parent. What matters is whether it stands on its own as a resource afterwards.
+
 Do **not** model a subresource when:
 
-- **Parent and child are always created together** — compose them in one composition instead
-- **You only need to read external state** — use an Observe-only resource inside the composition (see [Crossplane Compositions](crossplane-compositions.md))
+- **It is plain configuration of the parent** — a setting with no identity or lifecycle of its own belongs in the parent's spec
 
 !!! note
     A parent reference gives you a *verified link*, not cascade deletion. Deleting a parent claim does not delete its children — they remain, with `status.<role>Ref.available: false` and a message explaining why. If you need cascade deletion, that is a separate concern to solve outside this contract.

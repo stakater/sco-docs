@@ -91,6 +91,17 @@ Key Tasks:
 
 ## How It Works
 
+At a high level, providers publish service APIs and consumers provision those services into isolated project workspaces. SCO reconciles the requested services onto the underlying infrastructure.
+
+```mermaid
+flowchart LR
+    Provider[Platform Provider<br/>defines services] --> Catalog[Marketplace<br/>published APIs]
+    Consumer[Cloud Consumer<br/>kubectl / Terraform / GitOps / Console] --> Project[Project Workspace<br/>isolated API endpoint]
+    Catalog --> Project
+    Project --> Platform[SCO Control Plane<br/>KCP, Crossplane, MTO, Keycloak]
+    Platform --> Infra[Infrastructure<br/>VMs, clusters, databases, storage]
+```
+
 1. **SCO is installed** on your Kubernetes cluster using the `ksp up` CLI command (tested on OpenShift 4.14+)
 1. **Platform providers** create solutions (e.g., VirtualMachine-as-a-Service, OpenShift-as-a-Service) using composition tools
 1. Solutions are published to the **marketplace** as Kubernetes custom resources

@@ -24,6 +24,7 @@ nav:
           - cloud-user-guide/getting-started.md
       - Authentication and Access:
           - cloud-user-guide/authentication/logging-in.md
+          - cloud-user-guide/authentication/organisation-identity.md
           - cloud-user-guide/authentication/managing-users.md
           - cloud-user-guide/kubectl-access/setup-kubectl.md
           - cloud-user-guide/kubectl-access/kubeconfig-generation.md
@@ -47,6 +48,11 @@ nav:
           - how-to-guides/user/create-iam-group.md
           - how-to-guides/user/provision-openshift-cluster.md
           - how-to-guides/user/provision-virtual-machine.md
+          - how-to-guides/user/create-s3-bucket.md
+          - how-to-guides/user/create-postgres.md
+          - how-to-guides/user/create-vault.md
+          - how-to-guides/user/create-mesh.md
+          - how-to-guides/user/expose-service-via-netbird.md
   - For Platform Providers:
       - audience/platform-providers.md
       - Getting Started:
@@ -72,6 +78,9 @@ nav:
       - API Publishing:
           - service-provider-guide/api-publishing/kcp-overview.md
           - service-provider-guide/api-publishing/publishing-apis.md
+      - Console:
+          - how-to-guides/provider/control-ui-rendering.md
+          - service-provider-guide/console/ui-extensions-reference.md
   - Platform Overview:
       - about/overview.md
       - about/key-features.md
@@ -83,9 +92,10 @@ nav:
       - architecture/virtual-api-layer.md
   - Console:
       - console/overview.md
+      - console/accessing-the-console.md
       - console/dashboard.md
-      - console/organizations.md
       - console/projects.md
+      - console/resources.md
       - console/marketplace.md
       - console/solutions.md
   - API Reference:
@@ -96,9 +106,16 @@ nav:
           - api-reference/public-apis/iam-group.md
           - api-reference/public-apis/openshift-cluster.md
           - api-reference/public-apis/virtual-machine.md
+          - api-reference/public-apis/s3-bucket.md
+          - api-reference/public-apis/postgres.md
+          - api-reference/public-apis/vault.md
+          - api-reference/public-apis/mesh.md
+          - api-reference/public-apis/netbird-router.md
       - Platform APIs:
           - api-reference/private-apis/hypershift-hosted-cluster.md
           - api-reference/private-apis/virtual-machine-infrastructure.md
+          - api-reference/private-apis/s3-bucket-infrastructure.md
+          - api-reference/private-apis/postgres-cluster-infrastructure.md
   - Integrations:
       - integrations/keycloak.md
       - integrations/kcp.md

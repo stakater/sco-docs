@@ -45,6 +45,8 @@ After logging in, you will see the projects you have access to. Select a project
 
 See [Setup kubectl](../kubectl-access/setup-kubectl.md) for CLI access.
 
+The same account signs you in to every surface your organisation reaches — the Mesh dashboard, device enrolment, Vault, and cluster consoles. See [One Identity Across Your Organisation](organisation-identity.md).
+
 ---
 
 ## Logging Out
@@ -65,6 +67,7 @@ To log out, use the account menu in the top-right corner of the console and sele
 
 ## What's Next?
 
+- [Accessing the Console](../../console/accessing-the-console.md) — Sign in to the console step by step
 - [Managing Users](managing-users.md) — Invite colleagues and manage access
 - [Creating Projects](../projects/creating-projects.md) — Set up your first project
 - [Setup kubectl](../kubectl-access/setup-kubectl.md) — Configure CLI access

@@ -26,38 +26,54 @@ A KCP workspace is a virtual Kubernetes environment. It has:
 
 KCP stores all workspace state in a shared etcd, but each workspace is logically isolated. The KCP process serves each workspace API from a single binary — there is no per-workspace API server pod or separate control plane process.
 
-This makes workspaces extremely lightweight. Provisioning a new project workspace is a matter of seconds and requires no additional compute resources proportional to the number of projects.
+This makes workspaces extremely lightweight. Under healthy control-plane conditions, provisioning a new project workspace is typically a matter of seconds and requires no additional compute resources proportional to the number of projects.
 
 ---
 
 ## Workspace Hierarchy in SCO
 
-SCO organises workspaces in a three-level tree:
+SCO organises workspaces in a three-level tree. The exact path layout in the current platform includes a shared producer workspace for exports and a `cloud` branch for tenant-facing workspaces:
 
-```text
-root (platform workspace)
-│  Holds: APIExports, platform-level configuration
-│
-├── org-acme  (organisation workspace)
-│   │  Holds: IAM configuration (users, groups, IDP settings)
-│   │
-│   ├── proj-frontend  (project workspace)
-│   │     Holds: APIBindings, consumer claims (VirtualMachine, etc.)
-│   │     Endpoint: https://kcp.example.com/clusters/org-acme:proj-frontend
-│   │
-│   └── proj-backend  (project workspace)
-│         Holds: APIBindings, consumer claims
-│         Endpoint: https://kcp.example.com/clusters/org-acme:proj-backend
-│
-└── org-globex  (organisation workspace)
-    └── proj-apps
+```mermaid
+flowchart TB
+    root[root]
+    producers[producers<br/>shared APIExports]
+    cloud[cloud]
+    org[organisation workspace]
+    project[project workspace]
+
+    root --> producers
+    root --> cloud
+    cloud --> org
+    org --> project
 ```
 
-**Root workspace:** Owned by the platform team. Hosts `APIExport` resources that declare which API groups are available for consumer workspaces to bind. Also holds the platform workspace template used when provisioning organisation and project workspaces.
+```text
+root
+├── producers
+│   Holds: shared APIExports for published service APIs
+│
+└── cloud
+    ├── org-acme  (organisation workspace)
+    │   │  Holds: organisation-scoped configuration
+    │   │
+    │   ├── proj-frontend  (project workspace)
+    │   │     Holds: APIBindings, consumer claims (VirtualMachine, etc.)
+    │   │     Endpoint: https://kcp.example.com/clusters/root:cloud:org-acme:proj-frontend
+    │   │
+    │   └── proj-backend  (project workspace)
+    │         Holds: APIBindings, consumer claims
+    │         Endpoint: https://kcp.example.com/clusters/root:cloud:org-acme:proj-backend
+    │
+    └── org-globex  (organisation workspace)
+        └── proj-apps
+```
+
+**Root and producer workspaces:** Owned by the platform team. Published service APIs are exported from the shared producer workspace, while platform-level configuration and templates live higher in the hierarchy.
 
 **Organisation workspaces:** One per customer or business unit. Hold IAM resources — user and group definitions that are projected into Keycloak realm configuration. Organisation workspaces are not directly accessed by consumers.
 
-**Project workspaces:** One per team or workload environment. These are the consumer-facing endpoints. Each project workspace contains `APIBinding` resources (automatically created by SCO) that import the published API groups from the root workspace, making the service catalogue available as native Kubernetes resource types.
+**Project workspaces:** One per team or workload environment. These are the consumer-facing endpoints. Each project workspace contains `APIBinding` resources created by the `Project` composition from the currently selected platform-services configuration, importing the published API groups that should be available there.
 
 ---
 
@@ -65,9 +81,9 @@ root (platform workspace)
 
 ### `APIExport`
 
-An `APIExport` lives in the platform root workspace and declares that a set of Kubernetes resource types is available for other workspaces to consume.
+An `APIExport` lives in the producer side of the platform workspace hierarchy and declares that a set of Kubernetes resource types is available for other workspaces to consume.
 
-When a platform provider publishes a new service (e.g., `databases.cloud.stakater.com/v1 PostgreSQLDatabase`), an `APIExport` is created for that API group. The export includes:
+When a platform provider publishes a new service (e.g., `database.cloud.stakater.com/v1 PostgreSQLDatabase`), an `APIExport` is created for that API group. The export includes:
 
 - The set of resource types included (kinds, versions)
 - Permission claims — the access the export's controller (the `api-syncagent`) requires in consumer workspaces to manage the objects placed there
@@ -76,9 +92,20 @@ When a platform provider publishes a new service (e.g., `databases.cloud.stakate
 
 An `APIBinding` lives in a project workspace and declares that this workspace should have access to a particular `APIExport`. When a binding is created, KCP makes the exported resource types available as native API types in the workspace.
 
-SCO creates `APIBinding` resources automatically in every project workspace for all published API groups. Consumers do not configure bindings themselves — the APIs simply appear.
+SCO creates `APIBinding` resources for project workspaces through the `Project` composition. In practice this means APIs become available only when they are both published and present in the platform-services configuration consumed during project reconciliation; consumers do not configure bindings themselves.
 
 When a consumer runs `kubectl api-resources` against their project kubeconfig, they see all bound resource types as if they were built into their cluster.
+
+```mermaid
+flowchart LR
+    Provider[Provider package<br/>ApiExport / XApiExport] --> Export[APIExport<br/>root:producers]
+    Provider --> Published[PublishedResource<br/>with related resources]
+    Provider --> Syncagent[api-syncagent release]
+    Platform[platform-services<br/>EnvironmentConfig] --> Project[Project composition]
+    Export --> Binding[APIBinding]
+    Project --> Binding
+    Binding --> Workspace[Project workspace<br/>root:cloud:org:project]
+```
 
 ### How KCP Handles API Requests
 
@@ -89,7 +116,7 @@ When a consumer applies a resource to their project workspace:
 1. KCP notifies the `APIExport`'s virtual workspace endpoint that a new object is present
 1. The `api-syncagent` (watching that virtual workspace) picks up the new object
 
-The object in the consumer workspace is the source of truth for the consumer. Its status, conditions, and connection details are written back to it by the `api-syncagent`. The consumer never needs to know that the object is being reconciled on a different cluster.
+The object in the consumer workspace is the source of truth for the consumer. Its status, conditions, connection details, and any explicitly published related resources are written back to it by the `api-syncagent`. The consumer never needs to know that the object is being reconciled on a different cluster.
 
 ---
 
@@ -98,6 +125,18 @@ The object in the consumer workspace is the source of truth for the consumer. It
 The `api-syncagent` is the bridge between KCP workspaces and the Crossplane service cluster. For each published API group, a dedicated sync agent process watches the virtual workspace endpoint associated with the `APIExport`.
 
 **Sync flow:**
+
+```mermaid
+flowchart LR
+    Claim[Consumer claim<br/>in project workspace] --> VWS[KCP virtual workspace endpoint]
+    VWS --> Sync[api-syncagent]
+    Sync --> Host[Mirrored claim<br/>in service-cluster namespace]
+    Host --> Crossplane[Crossplane composition]
+    Crossplane --> Backend[Backend operator resources]
+    Backend --> Observed[Observed Secret or status]
+    Observed --> SyncBack[api-syncagent related-resource sync]
+    SyncBack --> WorkspaceSecret[Status and related Secret<br/>back in workspace]
+```
 
 ```text
 Consumer workspace (project-frontend)
@@ -139,11 +178,11 @@ When a consumer creates a `Project` claim, SCO:
 
 1. Creates the KCP project workspace (child of the organisation workspace)
 1. Generates a kubeconfig for the project workspace and makes it available
-1. Creates `APIBinding` resources in the project workspace for all published API groups
+1. Creates `APIBinding` resources in the project workspace for the published API groups selected through the platform-services configuration
 1. Creates a `Tenant` resource in MTO, triggering namespace, quota, and network policy provisioning
 1. Configures RBAC in the workspace based on the project's `access` configuration
 
-The workspace is ready in seconds. The consumer receives a kubeconfig and can immediately begin applying resources.
+The workspace is typically ready quickly once the workspace, bindings, and backing tenant resources have reconciled. The consumer receives a kubeconfig and can begin applying resources after those steps complete.
 
 ### Authentication
 
@@ -197,12 +236,6 @@ Deletion is ordered and safe — infrastructure resources are not deleted until 
 ## Scaling Characteristics
 
 The KCP workspace model is designed for high workspace counts. A single KCP instance can serve tens of thousands of workspaces with low per-workspace overhead.
-
-The limiting factors in SCO are:
-
-- **`api-syncagent` instances:** one per published API group; each scales horizontally
-- **Crossplane composition throughput:** scaled by adding provider replicas
-- **MTO namespace count:** one namespace set per project; Kubernetes supports tens of thousands of namespaces per cluster
 
 For large deployments, the platform can run multiple KCP instances with workspace routing distributed across them.
 

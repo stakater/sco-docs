@@ -21,6 +21,17 @@ This guide covers:
 - Managing users and authentication
 - Understanding project structure and isolation
 
+The typical cloud user journey starts with access to an isolated project and ends with a running service instance:
+
+```mermaid
+flowchart LR
+    Login[Log in] --> Project[Create or select project]
+    Project --> Browse[Browse marketplace]
+    Browse --> Provision[Provision service]
+    Provision --> Observe[Watch status and outputs]
+    Observe --> Use[Use service from workload]
+```
+
 ## Key Personas
 
 Throughout this guide, you'll see examples featuring:

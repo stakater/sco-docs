@@ -63,7 +63,7 @@ The **`api-syncagent`** is the component that bridges this gap. It:
 
 This synchronisation is defined through `PublishedResource` objects, which describe the mapping: what kind of object to watch for in KCP workspaces, what namespace to create it in on the service cluster, and any field transformations needed.
 
-Platform providers configure this through the `PublishedOffering` claim described in [Publishing APIs](publishing-apis.md). The sync agent deployment, RBAC, and `PublishedResource` configuration are all created automatically.
+Platform providers configure this through the `ApiExport` claim described in [Publishing APIs](publishing-apis.md). The sync agent deployment, RBAC, and `PublishedResource` configuration are all created automatically.
 
 ---
 
@@ -76,7 +76,7 @@ Platform team defines:
   Crossplane XRD (schema) + Composition (implementation)
                 │
                 ▼
-  PublishedOffering claim applied
+  ApiExport claim applied
                 │
                 ▼
   SCO provisions:
@@ -135,7 +135,7 @@ As a platform provider, you do not interact with KCP directly for routine operat
 
 You interact with KCP indirectly through:
 
-- **`PublishedOffering` claims** — to expose a new API group to consumer projects (see [Publishing APIs](publishing-apis.md))
+- **`ApiExport` claims** — to expose a new API group to consumer projects (see [Publishing APIs](publishing-apis.md))
 - **`Organization` and `Project` resources** — to provision and manage the workspace hierarchy
 - **kubeconfig management** — if you need direct workspace access for debugging
 

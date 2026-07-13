@@ -357,11 +357,11 @@ kubectl delete postgresqldatabase test-db
 
 ## Step 4: Publish to Consumer Projects
 
-Once the XRD and Composition are verified, publish the API to consumer project workspaces using a `PublishedOffering` claim:
+Once the XRD and Composition are verified, publish the API to consumer project workspaces using an `ApiExport` claim:
 
 ```yaml
 apiVersion: infrastructure.stakater.com/v1alpha1
-kind: PublishedOffering
+kind: ApiExport
 metadata:
   name: databases-service
 spec:
@@ -385,7 +385,7 @@ spec:
 ```
 
 ```bash
-kubectl apply -f published-offering.yaml
+kubectl apply -f apiexport.yaml
 ```
 
 The `PostgreSQLDatabase` claim type is now available in all consumer project workspaces. See [Publishing APIs](../api-publishing/publishing-apis.md) for the full publishing guide.

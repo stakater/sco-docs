@@ -8,7 +8,7 @@ Detailed reference for every component in the Stakater Cloud Orchestrator platfo
 
 ### Red Hat OpenShift
 
-OpenShift is the management cluster on which all SCO components run. SCO requires OpenShift (rather than vanilla Kubernetes) for several reasons:
+With OpenShift as the management cluster on which SCO is deployed we can make use of the many components that can run on OpenShift:
 
 - **OpenShift Virtualization** requires bare-metal nodes with hardware virtualization support, which OpenShift's node management provisions and configures
 - **Hypershift** is officially supported and tested on OpenShift
@@ -79,21 +79,37 @@ KCP provides the multi-tenant virtual API layer. It runs as a service within the
 - Provides each organisation with an organisation workspace
 - Provides each project with a project workspace — its own Kubernetes API endpoint
 - Hosts `APIExport` resources that declare which APIs are available to consumer workspaces
-- Routes API requests from consumers to the `api-syncagent` for fulfillment
+- Exposes published APIs to consumers and the corresponding virtual workspace endpoints to the `api-syncagent`
 - Enforces API-level isolation: resources in one workspace are invisible to all other workspaces
 
-**Workspace hierarchy:**
+**Workspace hierarchy (logical view):**
 
-```text
-root (platform)
-├── org-acme (organisation workspace)
-│   ├── proj-frontend (project workspace)
-│   └── proj-backend  (project workspace)
-└── org-globex
-    └── proj-apps
+```mermaid
+flowchart TB
+    root[root]
+    producers[producers<br/>shared API exports]
+    cloud[cloud]
+    org[organisation workspace]
+    project[project workspace]
+
+    root --> producers
+    root --> cloud
+    cloud --> org
+    org --> project
 ```
 
-**Integration points:** KCP integrates with the `api-syncagent` (which bridges workspace API calls to the service cluster), Keycloak (for OIDC token validation per workspace), and MTO (which provisions the physical namespace layer backing each project).
+```text
+root
+├── producers          (shared producer workspace for exported APIs)
+└── cloud
+    ├── org-acme       (organisation workspace)
+    │   ├── proj-frontend  (project workspace)
+    │   └── proj-backend   (project workspace)
+    └── org-globex
+        └── proj-apps
+```
+
+**Integration points:** KCP integrates with the `api-syncagent` (which bridges published workspace APIs to the service cluster), Keycloak (for OIDC token validation per workspace), and MTO (which provisions the physical namespace layer backing each project).
 
 See [Virtual API Layer](virtual-api-layer.md) and [KCP Integration](../integrations/kcp.md) for details.
 
@@ -105,9 +121,9 @@ The `api-syncagent` is a per-API-group process that bridges KCP workspaces and t
 
 - Watches consumer project workspaces for new claims of published resource types
 - Creates corresponding objects on the service cluster in per-workspace namespaces
-- Synchronises status and connection details from the service cluster back to the consumer workspace
+- Synchronises status, connection details, and published related resources such as Secrets from the service cluster back to the consumer workspace
 
-One sync agent runs per published API group. It is deployed automatically when a platform provider creates a `PublishedOffering` claim.
+One sync agent runs per published API group. It is deployed through the `ApiExport` / `XApiExport` publication flow, which renders the required KCP export objects, `syncagent` release, RBAC, and supporting environment configuration.
 
 See [Publishing APIs](../service-provider-guide/api-publishing/publishing-apis.md).
 
@@ -157,16 +173,14 @@ See [Keycloak Integration](../integrations/keycloak.md).
 
 ### OpenBao
 
-OpenBao is the open-source secrets management platform (community fork of HashiCorp Vault). It runs within the management cluster and provides dynamic secrets, PKI infrastructure, and key-value secret storage for both platform components and consumer workloads.
+OpenBao is the open-source secrets management platform (community fork of HashiCorp Vault). The platform runs a hub OpenBao instance for its own secrets and offers per-organisation OpenBao instances to cloud users via the [`Vault`](../api-reference/public-apis/vault.md) claim.
 
 **Role in SCO:**
 
-- Issues dynamic credentials for platform services (database passwords, cloud provider keys) that expire automatically and are rotated without manual intervention
-- Provides a PKI engine for TLS certificate issuance used by platform components and hosted clusters
-- Stores platform secrets (Keycloak admin credentials, KCP bootstrap tokens) in encrypted, auditable storage
-- Consumer workloads can request secrets from OpenBao through the External Secrets Operator or the OpenBao agent sidecar, scoped to their project's policy
+- The **platform hub** issues dynamic credentials for platform services (database passwords, cloud provider keys) that expire automatically and are rotated without manual intervention, provides a PKI engine for TLS certificate issuance used by platform components and hosted clusters, and stores platform secrets in encrypted, auditable storage.
+- **Per-organisation Vaults** are provisioned via the `Vault` claim. Each is independent of the others and uses single sign-on against the organisation's identity provider — operators log in via SSO (`bao login -method=oidc`); there is no static root token to manage.
 
-**Integration points:** Crossplane's Vault-compatible provider creates and manages OpenBao policies, mounts, and roles as part of platform compositions. Consumer access to secrets is gated through OpenBao policies generated per organisation and project.
+**Consumer access:** Per-organisation Vaults are reachable from inside the organisation's projects and from peers on the organisation's [Mesh](../api-reference/public-apis/mesh.md) via a [NetbirdRouter](../api-reference/public-apis/netbird-router.md). They are not exposed on the public internet.
 
 ---
 

@@ -6023,16 +6023,17 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </ul>
 <hr>
 <h2 id="when-to-model-a-subresource">When to Model a Subresource<a class="headerlink" href="#when-to-model-a-subresource" title="Permanent link">#</a></h2>
-<p>Model a child as its own claim kind when:</p>
+<p>A subresource is a claim kind in its own right: it has its own top-level API, appears as its own resource in the console, and is managed independently of its parent. Model a child as a subresource when:</p>
 <ul>
+<li><strong>It is a resource in its own right</strong> — consumers should see and manage it as its own object in the console, not as a field buried in the parent's spec</li>
 <li><strong>Independent lifecycle</strong> — consumers create, resize, and delete children without touching the parent (e.g. adding a node pool to a running cluster)</li>
 <li><strong>Variable cardinality</strong> — one parent has many children, and the number is not known when the parent is created</li>
 <li><strong>Separate ownership</strong> — different people manage the parent and the children</li>
 </ul>
+<p>A child that is created alongside its parent by default can still be a subresource — being created together does not make something part of the parent. What matters is whether it stands on its own as a resource afterwards.</p>
 <p>Do <strong>not</strong> model a subresource when:</p>
 <ul>
-<li><strong>Parent and child are always created together</strong> — compose them in one composition instead</li>
-<li><strong>You only need to read external state</strong> — use an Observe-only resource inside the composition (see <a href="crossplane-compositions.html">Crossplane Compositions</a>)</li>
+<li><strong>It is plain configuration of the parent</strong> — a setting with no identity or lifecycle of its own belongs in the parent's spec</li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>

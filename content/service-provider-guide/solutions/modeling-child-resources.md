@@ -79,6 +79,8 @@ spec:
                   required:
                     - clusterRef
                   properties:
+                    # The parent reference field — everything else in this
+                    # XRD is the usual claim schema
                     clusterRef:
                       type: object
                       description: Reference to the OpenShiftCluster this pool belongs to
@@ -108,7 +110,7 @@ metadata:
 spec:
   parameters:
     clusterRef:
-      name: my-cluster
+      name: my-cluster    # the only thing the consumer supplies about the parent
     size: small
     replicas: 2
 ```
@@ -124,10 +126,10 @@ clusterRef:
   type: object
   description: Reference to the OpenShiftCluster this pool belongs to
   x-sco-parent-ref:
-    parentKinds:
+    parentKinds:                # which kinds this slot accepts
       - apiVersion: kubernetes.cloud.stakater.com/v1
         kind: OpenShiftCluster
-    statusPath: status.clusterRef
+    statusPath: status.clusterRef    # where the verified reference lives (Step 3)
   required:
     - name
   properties:
@@ -162,6 +164,7 @@ status:
       type: object
       description: Verified reference to the parent OpenShiftCluster
       properties:
+        # Always written, on every reconcile
         name:
           type: string
           description: Name of the parent
@@ -174,6 +177,7 @@ status:
         namespace:
           type: string
           description: Namespace of the parent
+        # Written only once the parent has been observed
         uid:
           type: string
           description: Observed UID of the parent (survives rename)
@@ -201,10 +205,10 @@ On the XRD version entry (alongside `schema`), add printer columns showing the c
 
 ```yaml
 additionalPrinterColumns:
-  - name: Cluster
+  - name: Cluster                # the claimed parent (what the consumer asked for)
     type: string
     jsonPath: .spec.parameters.clusterRef.name
-  - name: Verified
+  - name: Verified               # whether that link is confirmed (Step 3)
     type: boolean
     jsonPath: .status.clusterRef.available
   - name: Phase
@@ -229,10 +233,15 @@ The child's composition must observe the parent, gate its own resources on the p
 import stakaterCommon as sc
 
 oxr = option("params").oxr
-ocds = option("params").ocds
-parameters = oxr.spec.parameters
+ocds = option("params").ocds or {}
+env = option("params").ctx["apiextensions.crossplane.io/environment"]
 
 methods = sc.generateItemMethods(ocds)
+
+spec = oxr.spec
+parameters = spec.parameters or {}
+
+kubernetesProviderConfigName = env?.providerConfigs?.kubernetes or "kubernetes-provider"
 
 # Observe the parent and surface the verified reference
 cluster = sc.parentRef({
@@ -242,7 +251,7 @@ cluster = sc.parentRef({
     parentApiVersion: "kubernetes.cloud.stakater.com/v1"
     parentName: parameters.clusterRef.name
     defaultNamespace: oxr.metadata.namespace
-    providerConfigRef: "kubernetes-provider"
+    providerConfigRef: kubernetesProviderConfigName
     # What "ready" means for this parent kind (optional — defaults to
     # the parent's Available condition)
     readyCheck: lambda parent: any -> bool {

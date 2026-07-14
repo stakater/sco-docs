@@ -47,9 +47,7 @@
   {
     "version": "renovate-main-actions-setup-node-7.x",
     "title": "renovate-main-actions-setup-node-7.x",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "renovate-main-actions-setup-node-6.x",
@@ -69,7 +67,9 @@
   {
     "version": "modeling-subresources",
     "title": "modeling-subresources",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "feat-api-reference-s3-postgres",

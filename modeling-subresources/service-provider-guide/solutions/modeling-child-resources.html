@@ -6051,24 +6051,46 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <p>The parent solution needs no changes.</p>
 <hr>
 <h2 id="step-1-add-the-reference-field-to-the-child-xrd">Step 1: Add the Reference Field to the Child XRD<a class="headerlink" href="#step-1-add-the-reference-field-to-the-child-xrd" title="Permanent link">#</a></h2>
-<p>Each parent reference is an object under <code>spec.parameters</code>, holding the parent's name:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">spec</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">object</span>
-<span class="w">    </span><span class="nt">required</span><span class="p">:</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">clusterRef</span>
-<span class="w">    </span><span class="nt">properties</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">clusterRef</span><span class="p">:</span>
-<span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">object</span>
-<span class="w">        </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Reference to the OpenShiftCluster this pool belongs to</span>
-<span class="w">        </span><span class="nt">required</span><span class="p">:</span>
-<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">name</span>
-<span class="w">        </span><span class="nt">properties</span><span class="p">:</span>
-<span class="w">          </span><span class="nt">name</span><span class="p">:</span>
-<span class="w">            </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
-<span class="w">            </span><span class="nt">minLength</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
-<span class="w">            </span><span class="nt">maxLength</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">63</span>
-<span class="w">            </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Name of the OpenShiftCluster in the same project</span>
+<p>The parent reference is declared in the child's <code>CompositeResourceDefinition</code> (XRD) — the same XRD that defines the claim API, as covered in <a href="creating-solutions.html">Creating Solutions</a>. Inside the XRD's <code>openAPIV3Schema</code> (which describes the claims consumers create, not a claim itself), each parent reference is an object under the claim's <code>spec.parameters</code>, holding the parent's name:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">apiextensions.crossplane.io/v2</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CompositeResourceDefinition</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openshiftnodepools.kubernetes.cloud.stakater.com</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">scope</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Namespaced</span>
+<span class="w">  </span><span class="nt">group</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kubernetes.cloud.stakater.com</span>
+<span class="w">  </span><span class="nt">names</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">OpenShiftNodePool</span>
+<span class="w">    </span><span class="nt">plural</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openshiftnodepools</span>
+<span class="w">  </span><span class="nt">versions</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
+<span class="w">      </span><span class="nt">served</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">referenceable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">schema</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">openAPIV3Schema</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">object</span>
+<span class="w">          </span><span class="nt">properties</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">spec</span><span class="p">:</span>
+<span class="w">              </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">object</span>
+<span class="w">              </span><span class="nt">required</span><span class="p">:</span>
+<span class="w">                </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">parameters</span>
+<span class="w">              </span><span class="nt">properties</span><span class="p">:</span>
+<span class="w">                </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">                  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">object</span>
+<span class="w">                  </span><span class="nt">required</span><span class="p">:</span>
+<span class="w">                    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">clusterRef</span>
+<span class="w">                  </span><span class="nt">properties</span><span class="p">:</span>
+<span class="w">                    </span><span class="nt">clusterRef</span><span class="p">:</span>
+<span class="w">                      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">object</span>
+<span class="w">                      </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Reference to the OpenShiftCluster this pool belongs to</span>
+<span class="w">                      </span><span class="nt">required</span><span class="p">:</span>
+<span class="w">                        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">name</span>
+<span class="w">                      </span><span class="nt">properties</span><span class="p">:</span>
+<span class="w">                        </span><span class="nt">name</span><span class="p">:</span>
+<span class="w">                          </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="w">                          </span><span class="nt">minLength</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">                          </span><span class="nt">maxLength</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">63</span>
+<span class="w">                          </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Name of the OpenShiftCluster in the same project</span>
 </code></pre></div>
 <p>Conventions:</p>
 <ul>
@@ -6090,7 +6112,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </code></pre></div>
 <hr>
 <h2 id="step-2-tag-the-field-for-marketplace-discovery">Step 2: Tag the Field for Marketplace Discovery<a class="headerlink" href="#step-2-tag-the-field-for-marketplace-discovery" title="Permanent link">#</a></h2>
-<p>Add the <code>x-sco-parent-ref</code> tag directly on the reference field in the child XRD:</p>
+<p>Add the <code>x-sco-parent-ref</code> tag directly on the reference field's schema node from Step 1 (<code>spec.parameters.clusterRef</code> inside the XRD's <code>openAPIV3Schema</code>):</p>
 <div class="highlight"><pre><span></span><code><span class="nt">clusterRef</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">object</span>
 <span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Reference to the OpenShiftCluster this pool belongs to</span>
@@ -6135,7 +6157,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </div>
 <hr>
 <h2 id="step-3-declare-the-verified-status-block">Step 3: Declare the Verified Status Block<a class="headerlink" href="#step-3-declare-the-verified-status-block" title="Permanent link">#</a></h2>
-<p>Mirror the reference at <code>status.&lt;role&gt;Ref</code>. This is pure data, written by the child's composition on every reconcile — the discovery tag from Step 2 does not appear here:</p>
+<p>Still in the XRD's <code>openAPIV3Schema</code>, mirror the reference under the claim's <code>status</code> at <code>status.&lt;role&gt;Ref</code>. This is pure data, written by the child's composition on every reconcile — the discovery tag from Step 2 does not appear here:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">status</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">object</span>
 <span class="w">  </span><span class="nt">properties</span><span class="p">:</span>
@@ -6190,7 +6212,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <p>The <code>uid</code> records <em>which</em> parent instance was observed, so the link survives a parent being renamed or recreated. A typo in <code>clusterRef.name</code> is machine-detectable: <code>available</code> stays <code>false</code> and <code>message</code> says the parent was not found.</p>
 <hr>
 <h2 id="step-4-add-printer-columns">Step 4: Add Printer Columns<a class="headerlink" href="#step-4-add-printer-columns" title="Permanent link">#</a></h2>
-<p>Show the claimed parent and its verification state at <code>kubectl get</code> time:</p>
+<p>On the XRD version entry (alongside <code>schema</code>), add printer columns showing the claimed parent and its verification state at <code>kubectl get</code> time:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">additionalPrinterColumns</span><span class="p">:</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Cluster</span>
 <span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
@@ -6209,86 +6231,66 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </code></pre></div>
 <hr>
 <h2 id="step-5-implement-the-parent-watch-in-the-composition">Step 5: Implement the Parent Watch in the Composition<a class="headerlink" href="#step-5-implement-the-parent-watch-in-the-composition" title="Permanent link">#</a></h2>
-<p>The child's composition observes the parent, gates its own resources on the parent being ready, and writes the status block. The pattern in KCL (<code>function-kcl</code>):</p>
-<div class="highlight"><pre><span></span><code>oxr = option("params").oxr
+<p>The child's composition must observe the parent, gate its own resources on the parent being ready, and write the status block from Step 3 on every reconcile. The <code>stakater-common</code> KCL module packages all of this behind a single call, <code>parentRef</code>:</p>
+<div class="highlight"><pre><span></span><code>import stakaterCommon as sc
+
+oxr = option("params").oxr
 ocds = option("params").ocds
 parameters = oxr.spec.parameters
 
-_parentName = parameters.clusterRef.name
-_parentNamespace = oxr.metadata.namespace
+methods = sc.generateItemMethods(ocds)
 
-# 1. Observe the parent — never manage it
-_parentObserver = {
-    apiVersion: "kubernetes.crossplane.io/v1alpha2"
-    kind: "Object"
-    metadata: {
-        name: "{}-cluster".format(oxr.metadata.name)
-        annotations: {"krm.kcl.dev/composition-resource-name": "cluster-observer"}
+# Observe the parent and surface the verified reference
+cluster = sc.parentRef({
+    role: "cluster"                       # writes status.clusterRef
+    namePrefix: oxr.metadata.name
+    parentKind: "OpenShiftCluster"
+    parentApiVersion: "kubernetes.cloud.stakater.com/v1"
+    parentName: parameters.clusterRef.name
+    defaultNamespace: oxr.metadata.namespace
+    providerConfigRef: "kubernetes-provider"
+    # What "ready" means for this parent kind (optional — defaults to
+    # the parent's Available condition)
+    readyCheck: lambda parent: any -&gt; bool {
+        _conds = parent?.status?.conditions or []
+        len([c for c in _conds if c.type == "Available" and c.status == "True"]) &gt; 0
     }
-    spec: {
-        managementPolicies: ["Observe"]
-        providerConfigRef: {name: kubernetesProvider}
-        forProvider: {
-            manifest: {
-                apiVersion: "kubernetes.cloud.stakater.com/v1"
-                kind: "OpenShiftCluster"
-                metadata: {name: _parentName, namespace: _parentNamespace}
-            }
-        }
+    # Parent fields the child needs downstream (optional)
+    extract: {
+        version: lambda parent: any -&gt; str { parent?.status?.version or "" }
     }
-}
+    # Status to show on the child while the parent is not ready
+    xrStatusOnWaiting: {
+        ready: False
+        phase: "WaitingForCluster"
+        message: "Waiting for OpenShiftCluster '{}' to become Available".format(parameters.clusterRef.name)
+    }
+}, methods)
 
-# 2. Read what the observer saw on the previous reconcile
-_parent = ocds?.["cluster-observer"]?.Resource?.status?.atProvider?.manifest
-_conditions = _parent?.status?.conditions or []
-_parentAvailable = len([c for c in _conditions if c.type == "Available" and c.status == "True"]) &gt; 0
-
-# 3. Build the verified reference — written on every reconcile
-_clusterRef = {
-    name: _parentName
-    namespace: _parentNamespace
-    kind: "OpenShiftCluster"
-    apiVersion: "kubernetes.cloud.stakater.com/v1"
-} | ({
-    uid: _parent?.metadata?.uid
-    available: True
-} if _parentAvailable else {
-    available: False
-    message: "Waiting for OpenShiftCluster {} to become available".format(_parentName)
+# Create the child's resources only once the parent is ready
+nodePool = methods.createItem({
+    condition: lambda _: {str:sc.savedItem} -&gt; bool { cluster.ready }
+    dependsOn: [cluster.item]
+    resourceName: "{}-nodepool".format(oxr.metadata.name)
+    content: {
+        # ... the child's actual resources, free to use cluster.fields.version ...
+    }
 })
 
-# 4. Extract parent fields the child needs
-_releaseImage = _parent?.spec?.release?.image or ""
-
-# 5. Create the child's resources only once the parent is available
-_nodePool = [
-    {
-        # ... the child's actual resources, free to use _releaseImage ...
-    }
-] if _parentAvailable else []
-
-# 6. Write status back to the composite
-_xrPatch = {
-    apiVersion: oxr.apiVersion
-    kind: oxr.kind
-    metadata: {name: oxr.metadata.name}
-    status: {
-        clusterRef: _clusterRef
-        phase: "Creating" if _parentAvailable else "WaitingForCluster"
-        ready: False
-        message: "NodePool {} is creating".format(oxr.metadata.name) if _parentAvailable else "Waiting for cluster {}".format(_parentName)
-    }
-}
-
-items = [_parentObserver] + _nodePool + [_xrPatch]
+items = methods.renderItems({})
 </code></pre></div>
-<p>The key behaviours:</p>
+<p>The one <code>parentRef</code> call gives you the whole contract:</p>
 <ul>
-<li><strong>The observer uses <code>managementPolicies: ["Observe"]</code></strong> — the child never mutates or takes ownership of the parent.</li>
-<li><strong>The status block is written on every reconcile</strong>, whether or not the parent is available, so consumers and the console always see the current link state.</li>
-<li><strong>Child resources are gated</strong> on <code>_parentAvailable</code> — nothing is provisioned against a parent that does not exist or is not ready, and the claim reports a clear <code>WaitingForCluster</code> phase instead of failing opaquely.</li>
-<li><strong>Adapt the readiness check to the parent kind</strong> — condition types and readiness signals differ per solution.</li>
+<li><strong>An observer for the parent</strong> with <code>managementPolicies: ["Observe"]</code> — the child never mutates or takes ownership of the parent.</li>
+<li><strong>A readiness gate</strong> — <code>cluster.ready</code> and <code>cluster.item</code> for <code>condition</code>/<code>dependsOn</code> on dependent items, so nothing is provisioned against a parent that does not exist or is not ready.</li>
+<li><strong>The <code>status.&lt;role&gt;Ref</code> block from Step 3</strong>, written on every reconcile: <code>name</code>/<code>kind</code>/<code>apiVersion</code>/<code>namespace</code> always, <code>uid</code>/<code>available</code> once the parent is observed, <code>message</code> while it is not.</li>
+<li><strong>Extracted parent fields</strong> via <code>cluster.fields.&lt;key&gt;</code>.</li>
+<li><strong>A clear waiting state</strong> — while the parent is not ready, the child's status shows the <code>xrStatusOnWaiting</code> block (e.g. <code>phase: WaitingForCluster</code>) instead of failing opaquely.</li>
 </ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Compositions written with other pipeline functions (Go templates, Python, …) implement the same contract by hand: an Observe-only resource for the parent, a readiness gate on the child's resources, and the Step 3 status block written on every reconcile.</p>
+</div>
 <hr>
 <h2 id="step-6-verify">Step 6: Verify<a class="headerlink" href="#step-6-verify" title="Permanent link">#</a></h2>
 <p>Create the child <strong>before</strong> its parent exists, and confirm it waits rather than fails:</p>

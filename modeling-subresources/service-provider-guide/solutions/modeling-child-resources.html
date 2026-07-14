@@ -5,7 +5,7 @@
       
       
       
-        <link rel="canonical" href="https://docs.stakater.com/cloud-orchestrator/modeling-subresources/service-provider-guide/solutions/modeling-subresources.html">
+        <link rel="canonical" href="https://docs.stakater.com/cloud-orchestrator/modeling-subresources/service-provider-guide/solutions/modeling-child-resources.html">
       
       
         <link rel="prev" href="creating-solutions.html">
@@ -22,7 +22,7 @@
     
     
       
-        <title>Modelling Subresources - Stakater Cloud Orchestrator</title>
+        <title>Modelling Child Resources - Stakater Cloud Orchestrator</title>
       
     
     
@@ -95,7 +95,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#modelling-subresources" class="md-skip">
+        <a href="#modelling-child-resources" class="md-skip">
           Skip to content
         </a>
       
@@ -3727,7 +3727,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Modelling Subresources
+    Modelling Child Resources
   
 
     
@@ -3738,14 +3738,14 @@ This documentation is for a pull request deployment and is unreleased, it is onl
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <a href="modeling-subresources.html" class="md-nav__link md-nav__link--active">
+      <a href="modeling-child-resources.html" class="md-nav__link md-nav__link--active">
         
   
   
   <span class="md-ellipsis">
     
   
-    Modelling Subresources
+    Modelling Child Resources
   
 
     
@@ -3784,10 +3784,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
-  <a href="#when-to-model-a-subresource" class="md-nav__link">
+  <a href="#when-to-model-a-child-resource" class="md-nav__link">
     <span class="md-ellipsis">
       
-        When to Model a Subresource
+        When to Model a Child Resource
       
     </span>
   </a>
@@ -5897,10 +5897,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
-  <a href="#when-to-model-a-subresource" class="md-nav__link">
+  <a href="#when-to-model-a-child-resource" class="md-nav__link">
     <span class="md-ellipsis">
       
-        When to Model a Subresource
+        When to Model a Child Resource
       
     </span>
   </a>
@@ -6012,9 +6012,9 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 
 
 
-<h1 id="modelling-subresources">Modelling Subresources<a class="headerlink" href="#modelling-subresources" title="Permanent link">#</a></h1>
-<p>Some solutions are not a single resource but a family of related ones: an OpenShift cluster and its node pools, a database instance and its logical databases. This guide shows how to model the child as its own claim kind — a subresource — that holds a verified reference to its parent claim.</p>
-<p>The examples use the platform's <code>OpenShiftNodePool</code>, a subresource of <code>OpenShiftCluster</code>, as the running example. The same contract applies to any parent/child pair.</p>
+<h1 id="modelling-child-resources">Modelling Child Resources<a class="headerlink" href="#modelling-child-resources" title="Permanent link">#</a></h1>
+<p>Some solutions are not a single resource but a family of related ones: an OpenShift cluster and its node pools, a database instance and its logical databases. This guide shows how to model the child as its own claim kind — a child resource — that holds a verified reference to its parent claim.</p>
+<p>The examples use the platform's <code>OpenShiftNodePool</code>, a child resource of <code>OpenShiftCluster</code>, as the running example. The same contract applies to any parent/child pair.</p>
 <hr>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">#</a></h2>
 <ul>
@@ -6022,16 +6022,16 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <li>Familiarity with <a href="crossplane-compositions.html">Crossplane Compositions</a> authoring patterns</li>
 </ul>
 <hr>
-<h2 id="when-to-model-a-subresource">When to Model a Subresource<a class="headerlink" href="#when-to-model-a-subresource" title="Permanent link">#</a></h2>
-<p>A subresource is a claim kind in its own right: it has its own top-level API, appears as its own resource in the console, and is managed independently of its parent. Model a child as a subresource when:</p>
+<h2 id="when-to-model-a-child-resource">When to Model a Child Resource<a class="headerlink" href="#when-to-model-a-child-resource" title="Permanent link">#</a></h2>
+<p>A child resource is a claim kind in its own right: it has its own top-level API, appears as its own resource in the console, and is managed independently of its parent. Model a child as its own claim kind when:</p>
 <ul>
 <li><strong>It is a resource in its own right</strong> — consumers should see and manage it as its own object in the console, not as a field buried in the parent's spec</li>
 <li><strong>Independent lifecycle</strong> — consumers create, resize, and delete children without touching the parent (e.g. adding a node pool to a running cluster)</li>
 <li><strong>Variable cardinality</strong> — one parent has many children, and the number is not known when the parent is created</li>
 <li><strong>Separate ownership</strong> — different people manage the parent and the children</li>
 </ul>
-<p>A child that is created alongside its parent by default can still be a subresource — being created together does not make something part of the parent. What matters is whether it stands on its own as a resource afterwards.</p>
-<p>Do <strong>not</strong> model a subresource when:</p>
+<p>A child that is created alongside its parent by default can still be a child resource — being created together does not make something part of the parent. What matters is whether it stands on its own as a resource afterwards.</p>
+<p>Do <strong>not</strong> model a child resource when:</p>
 <ul>
 <li><strong>It is plain configuration of the parent</strong> — a setting with no identity or lifecycle of its own belongs in the parent's spec</li>
 </ul>
@@ -6041,7 +6041,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </div>
 <hr>
 <h2 id="the-parent-reference-contract">The Parent Reference Contract<a class="headerlink" href="#the-parent-reference-contract" title="Permanent link">#</a></h2>
-<p>A subresource declares its parent relationship in four places, all on the <strong>child</strong> solution:</p>
+<p>A child resource declares its parent relationship in four places, all on the <strong>child</strong> solution:</p>
 <ol>
 <li><strong>A reference field</strong> in the child's spec — <code>spec.parameters.&lt;role&gt;Ref</code>, where <code>&lt;role&gt;</code> names the relationship (<code>clusterRef</code>, <code>networkRef</code>, …)</li>
 <li><strong>A discovery tag</strong> (<code>x-sco-parent-ref</code>) on that field, so the marketplace and console can render the relationship</li>

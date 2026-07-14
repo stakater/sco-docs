@@ -48,26 +48,48 @@ The parent solution needs no changes.
 
 ## Step 1: Add the Reference Field to the Child XRD
 
-Each parent reference is an object under `spec.parameters`, holding the parent's name:
+The parent reference is declared in the child's `CompositeResourceDefinition` (XRD) — the same XRD that defines the claim API, as covered in [Creating Solutions](creating-solutions.md). Inside the XRD's `openAPIV3Schema` (which describes the claims consumers create, not a claim itself), each parent reference is an object under the claim's `spec.parameters`, holding the parent's name:
 
 ```yaml
+apiVersion: apiextensions.crossplane.io/v2
+kind: CompositeResourceDefinition
+metadata:
+  name: openshiftnodepools.kubernetes.cloud.stakater.com
 spec:
-  parameters:
-    type: object
-    required:
-      - clusterRef
-    properties:
-      clusterRef:
-        type: object
-        description: Reference to the OpenShiftCluster this pool belongs to
-        required:
-          - name
-        properties:
-          name:
-            type: string
-            minLength: 1
-            maxLength: 63
-            description: Name of the OpenShiftCluster in the same project
+  scope: Namespaced
+  group: kubernetes.cloud.stakater.com
+  names:
+    kind: OpenShiftNodePool
+    plural: openshiftnodepools
+  versions:
+    - name: v1
+      served: true
+      referenceable: true
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            spec:
+              type: object
+              required:
+                - parameters
+              properties:
+                parameters:
+                  type: object
+                  required:
+                    - clusterRef
+                  properties:
+                    clusterRef:
+                      type: object
+                      description: Reference to the OpenShiftCluster this pool belongs to
+                      required:
+                        - name
+                      properties:
+                        name:
+                          type: string
+                          minLength: 1
+                          maxLength: 63
+                          description: Name of the OpenShiftCluster in the same project
 ```
 
 Conventions:
@@ -95,7 +117,7 @@ spec:
 
 ## Step 2: Tag the Field for Marketplace Discovery
 
-Add the `x-sco-parent-ref` tag directly on the reference field in the child XRD:
+Add the `x-sco-parent-ref` tag directly on the reference field's schema node from Step 1 (`spec.parameters.clusterRef` inside the XRD's `openAPIV3Schema`):
 
 ```yaml
 clusterRef:
@@ -130,7 +152,7 @@ The tag only carries what cannot be deduced: the accepted parent kinds, and the 
 
 ## Step 3: Declare the Verified Status Block
 
-Mirror the reference at `status.<role>Ref`. This is pure data, written by the child's composition on every reconcile — the discovery tag from Step 2 does not appear here:
+Still in the XRD's `openAPIV3Schema`, mirror the reference under the claim's `status` at `status.<role>Ref`. This is pure data, written by the child's composition on every reconcile — the discovery tag from Step 2 does not appear here:
 
 ```yaml
 status:
@@ -175,7 +197,7 @@ The `uid` records *which* parent instance was observed, so the link survives a p
 
 ## Step 4: Add Printer Columns
 
-Show the claimed parent and its verification state at `kubectl get` time:
+On the XRD version entry (alongside `schema`), add printer columns showing the claimed parent and its verification state at `kubectl get` time:
 
 ```yaml
 additionalPrinterColumns:
@@ -201,88 +223,67 @@ staging-workers      staging      false      WaitingForCluster
 
 ## Step 5: Implement the Parent Watch in the Composition
 
-The child's composition observes the parent, gates its own resources on the parent being ready, and writes the status block. The pattern in KCL (`function-kcl`):
+The child's composition must observe the parent, gate its own resources on the parent being ready, and write the status block from Step 3 on every reconcile. The `stakater-common` KCL module packages all of this behind a single call, `parentRef`:
 
 ```kcl
+import stakaterCommon as sc
+
 oxr = option("params").oxr
 ocds = option("params").ocds
 parameters = oxr.spec.parameters
 
-_parentName = parameters.clusterRef.name
-_parentNamespace = oxr.metadata.namespace
+methods = sc.generateItemMethods(ocds)
 
-# 1. Observe the parent — never manage it
-_parentObserver = {
-    apiVersion: "kubernetes.crossplane.io/v1alpha2"
-    kind: "Object"
-    metadata: {
-        name: "{}-cluster".format(oxr.metadata.name)
-        annotations: {"krm.kcl.dev/composition-resource-name": "cluster-observer"}
+# Observe the parent and surface the verified reference
+cluster = sc.parentRef({
+    role: "cluster"                       # writes status.clusterRef
+    namePrefix: oxr.metadata.name
+    parentKind: "OpenShiftCluster"
+    parentApiVersion: "kubernetes.cloud.stakater.com/v1"
+    parentName: parameters.clusterRef.name
+    defaultNamespace: oxr.metadata.namespace
+    providerConfigRef: "kubernetes-provider"
+    # What "ready" means for this parent kind (optional — defaults to
+    # the parent's Available condition)
+    readyCheck: lambda parent: any -> bool {
+        _conds = parent?.status?.conditions or []
+        len([c for c in _conds if c.type == "Available" and c.status == "True"]) > 0
     }
-    spec: {
-        managementPolicies: ["Observe"]
-        providerConfigRef: {name: kubernetesProvider}
-        forProvider: {
-            manifest: {
-                apiVersion: "kubernetes.cloud.stakater.com/v1"
-                kind: "OpenShiftCluster"
-                metadata: {name: _parentName, namespace: _parentNamespace}
-            }
-        }
+    # Parent fields the child needs downstream (optional)
+    extract: {
+        version: lambda parent: any -> str { parent?.status?.version or "" }
     }
-}
+    # Status to show on the child while the parent is not ready
+    xrStatusOnWaiting: {
+        ready: False
+        phase: "WaitingForCluster"
+        message: "Waiting for OpenShiftCluster '{}' to become Available".format(parameters.clusterRef.name)
+    }
+}, methods)
 
-# 2. Read what the observer saw on the previous reconcile
-_parent = ocds?.["cluster-observer"]?.Resource?.status?.atProvider?.manifest
-_conditions = _parent?.status?.conditions or []
-_parentAvailable = len([c for c in _conditions if c.type == "Available" and c.status == "True"]) > 0
-
-# 3. Build the verified reference — written on every reconcile
-_clusterRef = {
-    name: _parentName
-    namespace: _parentNamespace
-    kind: "OpenShiftCluster"
-    apiVersion: "kubernetes.cloud.stakater.com/v1"
-} | ({
-    uid: _parent?.metadata?.uid
-    available: True
-} if _parentAvailable else {
-    available: False
-    message: "Waiting for OpenShiftCluster {} to become available".format(_parentName)
+# Create the child's resources only once the parent is ready
+nodePool = methods.createItem({
+    condition: lambda _: {str:sc.savedItem} -> bool { cluster.ready }
+    dependsOn: [cluster.item]
+    resourceName: "{}-nodepool".format(oxr.metadata.name)
+    content: {
+        # ... the child's actual resources, free to use cluster.fields.version ...
+    }
 })
 
-# 4. Extract parent fields the child needs
-_releaseImage = _parent?.spec?.release?.image or ""
-
-# 5. Create the child's resources only once the parent is available
-_nodePool = [
-    {
-        # ... the child's actual resources, free to use _releaseImage ...
-    }
-] if _parentAvailable else []
-
-# 6. Write status back to the composite
-_xrPatch = {
-    apiVersion: oxr.apiVersion
-    kind: oxr.kind
-    metadata: {name: oxr.metadata.name}
-    status: {
-        clusterRef: _clusterRef
-        phase: "Creating" if _parentAvailable else "WaitingForCluster"
-        ready: False
-        message: "NodePool {} is creating".format(oxr.metadata.name) if _parentAvailable else "Waiting for cluster {}".format(_parentName)
-    }
-}
-
-items = [_parentObserver] + _nodePool + [_xrPatch]
+items = methods.renderItems({})
 ```
 
-The key behaviours:
+The one `parentRef` call gives you the whole contract:
 
-- **The observer uses `managementPolicies: ["Observe"]`** — the child never mutates or takes ownership of the parent.
-- **The status block is written on every reconcile**, whether or not the parent is available, so consumers and the console always see the current link state.
-- **Child resources are gated** on `_parentAvailable` — nothing is provisioned against a parent that does not exist or is not ready, and the claim reports a clear `WaitingForCluster` phase instead of failing opaquely.
-- **Adapt the readiness check to the parent kind** — condition types and readiness signals differ per solution.
+- **An observer for the parent** with `managementPolicies: ["Observe"]` — the child never mutates or takes ownership of the parent.
+- **A readiness gate** — `cluster.ready` and `cluster.item` for `condition`/`dependsOn` on dependent items, so nothing is provisioned against a parent that does not exist or is not ready.
+- **The `status.<role>Ref` block from Step 3**, written on every reconcile: `name`/`kind`/`apiVersion`/`namespace` always, `uid`/`available` once the parent is observed, `message` while it is not.
+- **Extracted parent fields** via `cluster.fields.<key>`.
+- **A clear waiting state** — while the parent is not ready, the child's status shows the `xrStatusOnWaiting` block (e.g. `phase: WaitingForCluster`) instead of failing opaquely.
+
+!!! note
+    Compositions written with other pipeline functions (Go templates, Python, …) implement the same contract by hand: an Observe-only resource for the parent, a readiness gate on the child's resources, and the Step 3 status block written on every reconcile.
 
 ---
 

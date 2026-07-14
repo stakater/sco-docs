@@ -1,8 +1,8 @@
-# Modelling Subresources
+# Modelling Child Resources
 
-Some solutions are not a single resource but a family of related ones: an OpenShift cluster and its node pools, a database instance and its logical databases. This guide shows how to model the child as its own claim kind — a subresource — that holds a verified reference to its parent claim.
+Some solutions are not a single resource but a family of related ones: an OpenShift cluster and its node pools, a database instance and its logical databases. This guide shows how to model the child as its own claim kind — a child resource — that holds a verified reference to its parent claim.
 
-The examples use the platform's `OpenShiftNodePool`, a subresource of `OpenShiftCluster`, as the running example. The same contract applies to any parent/child pair.
+The examples use the platform's `OpenShiftNodePool`, a child resource of `OpenShiftCluster`, as the running example. The same contract applies to any parent/child pair.
 
 ---
 
@@ -13,18 +13,18 @@ The examples use the platform's `OpenShiftNodePool`, a subresource of `OpenShift
 
 ---
 
-## When to Model a Subresource
+## When to Model a Child Resource
 
-A subresource is a claim kind in its own right: it has its own top-level API, appears as its own resource in the console, and is managed independently of its parent. Model a child as a subresource when:
+A child resource is a claim kind in its own right: it has its own top-level API, appears as its own resource in the console, and is managed independently of its parent. Model a child as its own claim kind when:
 
 - **It is a resource in its own right** — consumers should see and manage it as its own object in the console, not as a field buried in the parent's spec
 - **Independent lifecycle** — consumers create, resize, and delete children without touching the parent (e.g. adding a node pool to a running cluster)
 - **Variable cardinality** — one parent has many children, and the number is not known when the parent is created
 - **Separate ownership** — different people manage the parent and the children
 
-A child that is created alongside its parent by default can still be a subresource — being created together does not make something part of the parent. What matters is whether it stands on its own as a resource afterwards.
+A child that is created alongside its parent by default can still be a child resource — being created together does not make something part of the parent. What matters is whether it stands on its own as a resource afterwards.
 
-Do **not** model a subresource when:
+Do **not** model a child resource when:
 
 - **It is plain configuration of the parent** — a setting with no identity or lifecycle of its own belongs in the parent's spec
 
@@ -35,7 +35,7 @@ Do **not** model a subresource when:
 
 ## The Parent Reference Contract
 
-A subresource declares its parent relationship in four places, all on the **child** solution:
+A child resource declares its parent relationship in four places, all on the **child** solution:
 
 1. **A reference field** in the child's spec — `spec.parameters.<role>Ref`, where `<role>` names the relationship (`clusterRef`, `networkRef`, …)
 1. **A discovery tag** (`x-sco-parent-ref`) on that field, so the marketplace and console can render the relationship

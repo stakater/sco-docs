@@ -6080,6 +6080,8 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <span class="w">                  </span><span class="nt">required</span><span class="p">:</span>
 <span class="w">                    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">clusterRef</span>
 <span class="w">                  </span><span class="nt">properties</span><span class="p">:</span>
+<span class="w">                    </span><span class="c1"># The parent reference field — everything else in this</span>
+<span class="w">                    </span><span class="c1"># XRD is the usual claim schema</span>
 <span class="w">                    </span><span class="nt">clusterRef</span><span class="p">:</span>
 <span class="w">                      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">object</span>
 <span class="w">                      </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Reference to the OpenShiftCluster this pool belongs to</span>
@@ -6106,7 +6108,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <span class="nt">spec</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">clusterRef</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-cluster</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-cluster</span><span class="w">    </span><span class="c1"># the only thing the consumer supplies about the parent</span>
 <span class="w">    </span><span class="nt">size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">small</span>
 <span class="w">    </span><span class="nt">replicas</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
 </code></pre></div>
@@ -6117,10 +6119,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">object</span>
 <span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Reference to the OpenShiftCluster this pool belongs to</span>
 <span class="w">  </span><span class="nt">x-sco-parent-ref</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">parentKinds</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">parentKinds</span><span class="p">:</span><span class="w">                </span><span class="c1"># which kinds this slot accepts</span>
 <span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kubernetes.cloud.stakater.com/v1</span>
 <span class="w">        </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">OpenShiftCluster</span>
-<span class="w">    </span><span class="nt">statusPath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">status.clusterRef</span>
+<span class="w">    </span><span class="nt">statusPath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">status.clusterRef</span><span class="w">    </span><span class="c1"># where the verified reference lives (Step 3)</span>
 <span class="w">  </span><span class="nt">required</span><span class="p">:</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">name</span>
 <span class="w">  </span><span class="nt">properties</span><span class="p">:</span>
@@ -6165,6 +6167,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">object</span>
 <span class="w">      </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Verified reference to the parent OpenShiftCluster</span>
 <span class="w">      </span><span class="nt">properties</span><span class="p">:</span>
+<span class="w">        </span><span class="c1"># Always written, on every reconcile</span>
 <span class="w">        </span><span class="nt">name</span><span class="p">:</span>
 <span class="w">          </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
 <span class="w">          </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Name of the parent</span>
@@ -6177,6 +6180,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <span class="w">        </span><span class="nt">namespace</span><span class="p">:</span>
 <span class="w">          </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
 <span class="w">          </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Namespace of the parent</span>
+<span class="w">        </span><span class="c1"># Written only once the parent has been observed</span>
 <span class="w">        </span><span class="nt">uid</span><span class="p">:</span>
 <span class="w">          </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
 <span class="w">          </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Observed UID of the parent (survives rename)</span>
@@ -6214,10 +6218,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <h2 id="step-4-add-printer-columns">Step 4: Add Printer Columns<a class="headerlink" href="#step-4-add-printer-columns" title="Permanent link">#</a></h2>
 <p>On the XRD version entry (alongside <code>schema</code>), add printer columns showing the claimed parent and its verification state at <code>kubectl get</code> time:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">additionalPrinterColumns</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Cluster</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Cluster</span><span class="w">                </span><span class="c1"># the claimed parent (what the consumer asked for)</span>
 <span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
 <span class="w">    </span><span class="nt">jsonPath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">.spec.parameters.clusterRef.name</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Verified</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Verified</span><span class="w">               </span><span class="c1"># whether that link is confirmed (Step 3)</span>
 <span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">boolean</span>
 <span class="w">    </span><span class="nt">jsonPath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">.status.clusterRef.available</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Phase</span>
@@ -6235,10 +6239,15 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <div class="highlight"><pre><span></span><code>import stakaterCommon as sc
 
 oxr = option("params").oxr
-ocds = option("params").ocds
-parameters = oxr.spec.parameters
+ocds = option("params").ocds or {}
+env = option("params").ctx["apiextensions.crossplane.io/environment"]
 
 methods = sc.generateItemMethods(ocds)
+
+spec = oxr.spec
+parameters = spec.parameters or {}
+
+kubernetesProviderConfigName = env?.providerConfigs?.kubernetes or "kubernetes-provider"
 
 # Observe the parent and surface the verified reference
 cluster = sc.parentRef({
@@ -6248,7 +6257,7 @@ cluster = sc.parentRef({
     parentApiVersion: "kubernetes.cloud.stakater.com/v1"
     parentName: parameters.clusterRef.name
     defaultNamespace: oxr.metadata.namespace
-    providerConfigRef: "kubernetes-provider"
+    providerConfigRef: kubernetesProviderConfigName
     # What "ready" means for this parent kind (optional — defaults to
     # the parent's Available condition)
     readyCheck: lambda parent: any -&gt; bool {

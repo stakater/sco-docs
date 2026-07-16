@@ -55,6 +55,14 @@ All parameters are nested under `spec.parameters`.
 | `exposeLoadBalancer` | `boolean` | `false` | When `true`, ask CloudNativePG to provision an additional LoadBalancer Service targeting the primary (read-write) instance, so the database is reachable outside the cluster. Default is `false` (private, in-cluster only). |
 | `kubernetesProviderConfigName` | `string` | `kubernetes-provider` | Name of the Kubernetes provider config to use. |
 
+### Credential delivery
+
+| Field | Type | Default | Description |
+|-------|------|---------|-------------|
+| `credentialsStore.providerConfigName` | `string` | — | Name of the per-tenant `vault.upbound.io` ProviderConfig pointing at the target OpenBao (created by openbao-infrastructure, `<tenant>-bao`). Set by the cloud tier; leave the whole block unset to skip credential delivery (infra-only use). |
+| `credentialsStore.mount` | `string` | `services` | kv-v2 mount to write into. |
+| `credentialsStore.path` | `string` | — | Full secret path within the mount, e.g. `<project>/postgres/<claim-name>`. |
+
 ### Top-level fields
 
 | Field | Type | Description |
@@ -64,7 +72,7 @@ All parameters are nested under `spec.parameters`.
 
 ## Status Fields
 
-`status.connection` carries non-sensitive endpoint metadata only. Credentials live in the CloudNativePG-managed `<cluster-name>-app` Secret in the target namespace; they are surfaced to cloud-tier consumers via the `api-syncagent` related resources on the cloud-tier `PublishedResource` — not here.
+`status.connection` carries non-sensitive endpoint metadata only. Credentials live in the CloudNativePG-managed `<cluster-name>-app` Secret in the target namespace; the composition writes them into the tenant's OpenBao (kv-v2 `SecretV2` via the `credentialsStore` parameters) for cloud-tier consumers — not here.
 
 | Field | Type | Description |
 |-------|------|-------------|

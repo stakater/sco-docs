@@ -52,7 +52,7 @@ Wait for `READY: True`.
 
 ## Step 4: Open the Dashboard
 
-Open your organisation's Mesh dashboard from the SCO console and sign in with your organisation account. From here you manage peers, define groups, write access policies, and generate setup keys.
+Open your organisation's Mesh dashboard from the SCO console and sign in with your organisation account. From here you manage peers, define groups, and write access policies — or manage groups and policies declaratively with `MeshGroup` / `MeshPolicy` claims.
 
 ## Step 5: Enrol a Device
 
@@ -67,10 +67,10 @@ This opens a browser for single sign-on — leave the command running until the 
 ## Step 6: Reach Services over the Mesh
 
 - **Platform services** are published automatically. With a [Vault](create-vault.md) in your organisation, an enrolled laptop reaches it at `https://bao.<organisation>.mesh.<cluster-domain>` with a publicly-trusted certificate.
-- **Your own services** can be advertised to Mesh peers with a [NetbirdRouter](expose-service-via-netbird.md).
+- **Your own services** can be advertised to Mesh peers with a [MeshRouter](expose-service-via-mesh.md).
 
 ## Related
 
 - [Mesh API reference](../../api-reference/public-apis/mesh.md)
-- [Expose an internal service via the Mesh](expose-service-via-netbird.md)
+- [Expose an internal service via the Mesh](expose-service-via-mesh.md)
 - [Create a Vault](create-vault.md)

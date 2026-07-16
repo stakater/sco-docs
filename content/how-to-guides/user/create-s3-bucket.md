@@ -9,13 +9,14 @@ Emma, a developer at ACME Corp, needs persistent object storage for her applicat
 - A [Project](create-project.md) already created
 - The `s3bucket.storage.cloud.stakater.com` API available
 - `kubectl` configured with your project kubeconfig
+- To read the credentials: access to your organisation's [Vault](create-vault.md) from a device enrolled on the [Mesh](create-mesh.md)
 
 ## What Gets Created
 
 When you create an S3Bucket claim, the platform provisions:
 
 - An **S3-compatible bucket** in the platform's object storage
-- A **Secret** in your project containing access credentials and endpoint metadata, named after the claim
+- **Credentials in your organisation's vault**, at the path published in the claim's status
 
 ## Step 1: Define an S3Bucket Claim
 
@@ -53,37 +54,46 @@ NAME        SYNCED   READY   AGE
 my-bucket   True     True    1m
 ```
 
-Inspect the endpoint and bucket name:
+Inspect the endpoint, bucket name and credentials location:
 
 ```bash
 kubectl get s3bucket my-bucket -o jsonpath='{.status.bucket}'
 ```
 
 ```json
-{"name":"my-bucket-0c1a2b3c","endpoint":"s3.apps.example.stakater.cloud"}
+{"name":"my-bucket-0c1a2b3c","endpoint":"s3.apps.example.stakater.cloud","credentialsRef":{"vault":"https://bao.acme.mesh.example.stakater.cloud","mount":"services","path":"my-project/s3bucket/my-bucket"}}
 ```
 
-## Step 4: Consume the Credentials
+## Step 4: Read the Credentials
 
-The platform delivers a Secret named after the claim (`my-bucket`) into your project. Its keys match the AWS SDK / CLI environment variable convention:
+The platform stores the credentials in your organisation's vault at `status.bucket.credentialsRef`. Open the vault URL in a browser (from a Mesh-enrolled device) and navigate to the `services` secret engine, or use the CLI:
 
-| Secret key | Description |
-|------------|-------------|
+```bash
+export BAO_ADDR=$(kubectl get s3bucket my-bucket -o jsonpath='{.status.bucket.credentialsRef.vault}')
+bao login -method=oidc
+bao kv get -mount=services $(kubectl get s3bucket my-bucket -o jsonpath='{.status.bucket.credentialsRef.path}')
+```
+
+Keys match the AWS SDK / CLI environment variable convention:
+
+| Key | Description |
+|-----|-------------|
 | `AWS_ACCESS_KEY_ID` | Access key |
 | `AWS_SECRET_ACCESS_KEY` | Secret key |
 | `BUCKET_NAME` | Bucket name (same as `status.bucket.name`) |
 | `BUCKET_HOST` | S3 endpoint host (same as `status.bucket.endpoint`) |
 | `BUCKET_PORT` | S3 endpoint port |
 
-### Inspect the Secret
+### Mount the credentials into a workload
+
+Create a Secret next to your workload from the vault values, then reference it with `envFrom` so every key becomes an environment variable:
 
 ```bash
-kubectl get secret my-bucket -o jsonpath='{.data.BUCKET_NAME}' | base64 -d
+bao kv get -mount=services -format=json my-project/s3bucket/my-bucket \
+  | jq -r '.data.data' > creds.json
+kubectl create secret generic my-bucket --from-env-file=<(jq -r 'to_entries[] | "\(.key)=\(.value)"' creds.json)
+rm creds.json
 ```
-
-### Mount it into a workload
-
-Reference the Secret with `envFrom` so every key becomes an environment variable:
 
 ```yaml
 apiVersion: apps/v1
@@ -114,13 +124,14 @@ spec:
 
 ### Test from your workstation
 
-Export the credentials and use the AWS CLI with the bucket's endpoint:
+Export the credentials from the vault and use the AWS CLI with the bucket's endpoint:
 
 ```bash
-export AWS_ACCESS_KEY_ID=$(kubectl get secret my-bucket -o jsonpath='{.data.AWS_ACCESS_KEY_ID}' | base64 -d)
-export AWS_SECRET_ACCESS_KEY=$(kubectl get secret my-bucket -o jsonpath='{.data.AWS_SECRET_ACCESS_KEY}' | base64 -d)
-export BUCKET_HOST=$(kubectl get secret my-bucket -o jsonpath='{.data.BUCKET_HOST}' | base64 -d)
-export BUCKET_NAME=$(kubectl get secret my-bucket -o jsonpath='{.data.BUCKET_NAME}' | base64 -d)
+CREDS=$(bao kv get -mount=services -format=json my-project/s3bucket/my-bucket | jq -r '.data.data')
+export AWS_ACCESS_KEY_ID=$(echo "$CREDS" | jq -r '.AWS_ACCESS_KEY_ID')
+export AWS_SECRET_ACCESS_KEY=$(echo "$CREDS" | jq -r '.AWS_SECRET_ACCESS_KEY')
+export BUCKET_HOST=$(echo "$CREDS" | jq -r '.BUCKET_HOST')
+export BUCKET_NAME=$(echo "$CREDS" | jq -r '.BUCKET_NAME')
 
 aws --endpoint-url https://$BUCKET_HOST s3 ls s3://$BUCKET_NAME/
 echo "hello" > hello.txt
@@ -136,7 +147,7 @@ When you no longer need the bucket, delete the claim:
 kubectl delete s3bucket my-bucket
 ```
 
-The platform tears down the bucket. The credentials Secret is removed from your project on a best-effort basis — if a stale `<claim-name>` Secret remains after the claim is gone, drop it with:
+The platform tears down the bucket and removes the credentials from your organisation's vault. If you copied the credentials into Secrets next to your workloads, remember to delete those too:
 
 ```bash
 kubectl delete secret my-bucket

@@ -36,7 +36,7 @@ All parameters are nested under `spec.parameters`.
 
 | Field | Type | Default | Description |
 |-------|------|---------|-------------|
-| `credentialsStore.providerConfigName` | `string` | — | Name of the per-tenant `vault.upbound.io` ProviderConfig pointing at the target OpenBao (created by openbao-infrastructure, `<tenant>-bao`). Set by the cloud tier; leave the whole block unset to skip credential delivery (infra-only use). |
+| `credentialsStore.providerConfigName` | `string` | — | Name of the per-tenant `vault.upbound.io` ProviderConfig pointing at the target OpenBao (created by `openbao-infrastructure`, `<tenant>-bao`). Set by the cloud tier; leave the whole block unset to skip credential delivery (infra-only use). |
 | `credentialsStore.mount` | `string` | `services` | kv-v2 mount to write into. |
 | `credentialsStore.path` | `string` | — | Full secret path within the mount, e.g. `<project>/s3bucket/<claim-name>`. |
 

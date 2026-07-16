@@ -16,7 +16,7 @@ Emma, a developer at ACME Corp, needs persistent object storage for her applicat
 When you create an S3Bucket claim, the platform provisions:
 
 - An **S3-compatible bucket** in the platform's object storage
-- **Credentials in your organisation's vault**, at the path published in the claim's status
+- **Credentials in your organisation's Vault**, at the path published in the claim's status
 
 ## Step 1: Define an S3Bucket Claim
 
@@ -66,7 +66,7 @@ kubectl get s3bucket my-bucket -o jsonpath='{.status.bucket}'
 
 ## Step 4: Read the Credentials
 
-The platform stores the credentials in your organisation's vault at `status.bucket.credentialsRef`. Open the vault URL in a browser (from a Mesh-enrolled device) and navigate to the `services` secret engine, or use the CLI:
+The platform stores the credentials in your organisation's Vault at `status.bucket.credentialsRef`. Open the Vault URL in a browser (from a Mesh-enrolled device) and navigate to the `services` secret engine, or use the CLI:
 
 ```bash
 export BAO_ADDR=$(kubectl get s3bucket my-bucket -o jsonpath='{.status.bucket.credentialsRef.vault}')
@@ -86,7 +86,7 @@ Keys match the AWS SDK / CLI environment variable convention:
 
 ### Mount the credentials into a workload
 
-Create a Secret next to your workload from the vault values, then reference it with `envFrom` so every key becomes an environment variable:
+Create a Secret next to your workload from the Vault values, then reference it with `envFrom` so every key becomes an environment variable:
 
 ```bash
 bao kv get -mount=services -format=json my-project/s3bucket/my-bucket \
@@ -124,7 +124,7 @@ spec:
 
 ### Test from your workstation
 
-Export the credentials from the vault and use the AWS CLI with the bucket's endpoint:
+Export the credentials from the Vault and use the AWS CLI with the bucket's endpoint:
 
 ```bash
 CREDS=$(bao kv get -mount=services -format=json my-project/s3bucket/my-bucket | jq -r '.data.data')
@@ -147,7 +147,7 @@ When you no longer need the bucket, delete the claim:
 kubectl delete s3bucket my-bucket
 ```
 
-The platform tears down the bucket and removes the credentials from your organisation's vault. If you copied the credentials into Secrets next to your workloads, remember to delete those too:
+The platform tears down the bucket and removes the credentials from your organisation's Vault. If you copied the credentials into Secrets next to your workloads, remember to delete those too:
 
 ```bash
 kubectl delete secret my-bucket

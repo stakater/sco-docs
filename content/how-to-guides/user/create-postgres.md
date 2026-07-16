@@ -16,7 +16,7 @@ Jordan, a backend engineer at ACME Corp, needs a managed PostgreSQL database for
 When you create a Postgres claim, the platform provisions:
 
 - A **PostgreSQL database** sized to your requested number of instances and disk
-- **Credentials in your organisation's vault**, at the path published in the claim's status
+- **Credentials in your organisation's Vault**, at the path published in the claim's status
 - Optionally, an **externally-reachable endpoint** when `exposeLoadBalancer: true`
 
 ## Step 1: Define a Postgres Claim
@@ -73,7 +73,7 @@ kubectl get postgres my-db -o jsonpath='{.status.connection}'
 
 ## Step 4: Read the Credentials
 
-The platform stores the credentials in your organisation's vault at `status.connection.credentialsRef`. Open the vault URL in a browser (from a Mesh-enrolled device) and navigate to the `services` secret engine, or use the CLI:
+The platform stores the credentials in your organisation's Vault at `status.connection.credentialsRef`. Open the Vault URL in a browser (from a Mesh-enrolled device) and navigate to the `services` secret engine, or use the CLI:
 
 ```bash
 export BAO_ADDR=$(kubectl get postgres my-db -o jsonpath='{.status.connection.credentialsRef.vault}')
@@ -97,7 +97,7 @@ Keys cover the common client conventions:
 
 ### Mount the credentials into a workload
 
-Create a Secret next to your workload from the vault values, then reference it with `envFrom`:
+Create a Secret next to your workload from the Vault values, then reference it with `envFrom`:
 
 ```bash
 bao kv get -mount=services -format=json my-project/postgres/my-db \
@@ -145,7 +145,7 @@ spec:
     exposeLoadBalancer: true
 ```
 
-Connect using the credentials from the vault — no port-forward needed:
+Connect using the credentials from the Vault — no port-forward needed:
 
 ```bash
 PG_HOST=$(kubectl get postgres my-db -o jsonpath='{.status.connection.externalHost}')
@@ -186,7 +186,7 @@ spec:
 kubectl delete postgres my-db
 ```
 
-The platform tears down the database and removes the credentials from your organisation's vault. If you copied the credentials into Secrets next to your workloads, remember to delete those too:
+The platform tears down the database and removes the credentials from your organisation's Vault. If you copied the credentials into Secrets next to your workloads, remember to delete those too:
 
 ```bash
 kubectl delete secret my-db

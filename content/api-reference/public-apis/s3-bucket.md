@@ -17,19 +17,19 @@ Provisions an S3-compatible object storage bucket.
 
 ## Status Fields
 
-`status.bucket` carries non-sensitive bucket metadata plus a pointer to the credentials. Access credentials are **not** placed here — they are stored in your organisation's vault (see [Credentials](#credentials)).
+`status.bucket` carries non-sensitive bucket metadata plus a pointer to the credentials. Access credentials are **not** placed here — they are stored in your organisation's Vault (see [Credentials](#credentials)).
 
 | Field | Type | Description |
 |-------|------|-------------|
 | `status.bucket.name` | `string` | Provisioned bucket name |
 | `status.bucket.endpoint` | `string` | S3 endpoint hostname to target with an S3 client |
-| `status.bucket.credentialsRef.vault` | `string` | URL of the vault holding the credentials, reachable over your organisation's [Mesh](./mesh.md) |
+| `status.bucket.credentialsRef.vault` | `string` | URL of the Vault holding the credentials, reachable over your organisation's [Mesh](./mesh.md) |
 | `status.bucket.credentialsRef.mount` | `string` | Secret engine the credentials are under (`services`) |
 | `status.bucket.credentialsRef.path` | `string` | Path of the credentials within the mount (`<project>/s3bucket/<claim-name>`) |
 
 ## Credentials
 
-When the bucket is ready, the platform writes the credentials into your organisation's [Vault](./vault.md) at the location given by `status.bucket.credentialsRef`. Read them in the vault web UI, or with the CLI from a device enrolled on your organisation's Mesh:
+When the bucket is ready, the platform writes the credentials into your organisation's [Vault](./vault.md) at the location given by `status.bucket.credentialsRef`. Read them in the Vault web UI, or with the CLI from a device enrolled on your organisation's Mesh:
 
 ```bash
 export BAO_ADDR=$(kubectl get s3bucket my-bucket -o jsonpath='{.status.bucket.credentialsRef.vault}')
@@ -62,7 +62,7 @@ spec:
 
 ### Consuming the credentials from a workload
 
-Fetch the credentials from the vault and create a Secret next to your workload, then mount it as environment variables:
+Fetch the credentials from the Vault and create a Secret next to your workload, then mount it as environment variables:
 
 ```bash
 bao kv get -mount=services -format=json <project>/s3bucket/my-bucket \

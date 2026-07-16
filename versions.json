@@ -77,6 +77,11 @@
     "aliases": []
   },
   {
+    "version": "docs-mesh-api-and-vault-credentials",
+    "title": "docs-mesh-api-and-vault-credentials",
+    "aliases": []
+  },
+  {
     "version": "docs-installation",
     "title": "docs-installation",
     "aliases": []

@@ -17,7 +17,9 @@
   {
     "version": "renovate-main-playwright-monorepo",
     "title": "renovate-main-playwright-monorepo",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "renovate-main-node-24.x-lockfile",
@@ -77,9 +79,7 @@
   {
     "version": "docs-mesh-api-and-vault-credentials",
     "title": "docs-mesh-api-and-vault-credentials",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "docs-installation",

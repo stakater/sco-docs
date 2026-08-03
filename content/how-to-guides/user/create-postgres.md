@@ -9,13 +9,14 @@ Jordan, a backend engineer at ACME Corp, needs a managed PostgreSQL database for
 - A [Project](create-project.md) already created
 - The `postgres.database.cloud.stakater.com` API available
 - `kubectl` configured with your project kubeconfig
+- To read the credentials: access to your organisation's [Vault](create-vault.md) from a device enrolled on the [Mesh](create-mesh.md)
 
 ## What Gets Created
 
 When you create a Postgres claim, the platform provisions:
 
 - A **PostgreSQL database** sized to your requested number of instances and disk
-- A **Secret** in your project containing the connection URI and credentials, named after the claim
+- **Credentials in your organisation's Vault**, at the path published in the claim's status
 - Optionally, an **externally-reachable endpoint** when `exposeLoadBalancer: true`
 
 ## Step 1: Define a Postgres Claim
@@ -60,22 +61,30 @@ NAME    SYNCED   READY   AGE
 my-db   True     True    2m
 ```
 
-Inspect the endpoint metadata:
+Inspect the endpoint metadata and the credentials location:
 
 ```bash
 kubectl get postgres my-db -o jsonpath='{.status.connection}'
 ```
 
 ```json
-{"host":"my-db-rw.projects.svc.cluster.local","port":"5432","database":"my-db"}
+{"host":"my-db-rw.projects.svc.cluster.local","port":"5432","database":"my-db","credentialsRef":{"vault":"https://bao.acme.mesh.example.stakater.cloud","mount":"services","path":"my-project/postgres/my-db"}}
 ```
 
-## Step 4: Consume the Credentials
+## Step 4: Read the Credentials
 
-The platform delivers a Secret named after the claim (`my-db`) into your project. Keys cover the common client conventions:
+The platform stores the credentials in your organisation's Vault at `status.connection.credentialsRef`. Open the Vault URL in a browser (from a Mesh-enrolled device) and navigate to the `services` secret engine, or use the CLI:
 
-| Secret key | Description |
-|------------|-------------|
+```bash
+export BAO_ADDR=$(kubectl get postgres my-db -o jsonpath='{.status.connection.credentialsRef.vault}')
+bao login -method=oidc
+bao kv get -mount=services $(kubectl get postgres my-db -o jsonpath='{.status.connection.credentialsRef.path}')
+```
+
+Keys cover the common client conventions:
+
+| Key | Description |
+|-----|-------------|
 | `username` / `user` | Application user (both keys carry the same value) |
 | `password` | Password for the application user |
 | `host` | Read-write service hostname |
@@ -86,7 +95,16 @@ The platform delivers a Secret named after the claim (`my-db`) into your project
 | `fqdn-uri`, `fqdn-jdbc-uri` | URI / JDBC URL with the host's fully-qualified cluster DNS name |
 | `pgpass` | A line for `~/.pgpass` |
 
-### Mount it into a workload
+### Mount the credentials into a workload
+
+Create a Secret next to your workload from the Vault values, then reference it with `envFrom`:
+
+```bash
+bao kv get -mount=services -format=json my-project/postgres/my-db \
+  | jq -r '.data.data' > creds.json
+kubectl create secret generic my-db --from-env-file=<(jq -r 'to_entries[] | "\(.key)=\(.value)"' creds.json)
+rm creds.json
+```
 
 ```yaml
 apiVersion: apps/v1
@@ -127,13 +145,14 @@ spec:
     exposeLoadBalancer: true
 ```
 
-Connect using the credentials Secret directly — no port-forward needed:
+Connect using the credentials from the Vault — no port-forward needed:
 
 ```bash
 PG_HOST=$(kubectl get postgres my-db -o jsonpath='{.status.connection.externalHost}')
-export PGUSER=$(kubectl get secret my-db -o jsonpath='{.data.username}' | base64 -d)
-export PGPASSWORD=$(kubectl get secret my-db -o jsonpath='{.data.password}' | base64 -d)
-export PGDATABASE=$(kubectl get secret my-db -o jsonpath='{.data.dbname}' | base64 -d)
+CREDS=$(bao kv get -mount=services -format=json my-project/postgres/my-db | jq -r '.data.data')
+export PGUSER=$(echo "$CREDS" | jq -r '.username')
+export PGPASSWORD=$(echo "$CREDS" | jq -r '.password')
+export PGDATABASE=$(echo "$CREDS" | jq -r '.dbname')
 
 psql -h "$PG_HOST" -p 5432 -c "SELECT version();"
 ```
@@ -167,7 +186,7 @@ spec:
 kubectl delete postgres my-db
 ```
 
-The platform tears down the database. The credentials Secret is removed from your project on a best-effort basis — if a stale `<claim-name>` Secret remains after the claim is gone, drop it with:
+The platform tears down the database and removes the credentials from your organisation's Vault. If you copied the credentials into Secrets next to your workloads, remember to delete those too:
 
 ```bash
 kubectl delete secret my-db

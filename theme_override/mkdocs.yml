@@ -52,7 +52,7 @@ nav:
           - how-to-guides/user/create-postgres.md
           - how-to-guides/user/create-vault.md
           - how-to-guides/user/create-mesh.md
-          - how-to-guides/user/expose-service-via-netbird.md
+          - how-to-guides/user/expose-service-via-mesh.md
   - For Platform Providers:
       - audience/platform-providers.md
       - Getting Started:
@@ -110,7 +110,7 @@ nav:
           - api-reference/public-apis/postgres.md
           - api-reference/public-apis/vault.md
           - api-reference/public-apis/mesh.md
-          - api-reference/public-apis/netbird-router.md
+          - api-reference/public-apis/mesh-router.md
       - Platform APIs:
           - api-reference/private-apis/hypershift-hosted-cluster.md
           - api-reference/private-apis/virtual-machine-infrastructure.md

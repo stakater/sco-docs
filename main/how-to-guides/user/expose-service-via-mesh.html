@@ -5,7 +5,7 @@
       
       
       
-        <link rel="canonical" href="https://docs.stakater.com/cloud-orchestrator/main/how-to-guides/user/expose-service-via-netbird.html">
+        <link rel="canonical" href="https://docs.stakater.com/cloud-orchestrator/main/how-to-guides/user/expose-service-via-mesh.html">
       
       
         <link rel="prev" href="create-mesh.html">
@@ -18,7 +18,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -26,7 +26,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -3189,7 +3189,7 @@ This documentation is either for an old version, or for the unreleased 'main' ve
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <a href="expose-service-via-netbird.html" class="md-nav__link md-nav__link--active">
+      <a href="expose-service-via-mesh.html" class="md-nav__link md-nav__link--active">
         
   
   
@@ -3257,10 +3257,10 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-2-define-a-netbirdrouter-claim" class="md-nav__link">
+  <a href="#step-2-define-a-meshrouter-claim" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 2: Define a NetbirdRouter Claim
+        Step 2: Define a MeshRouter Claim
       
     </span>
   </a>
@@ -3290,10 +3290,10 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-5-connect-a-device-with-the-setup-key" class="md-nav__link">
+  <a href="#step-5-grant-access-with-a-meshpolicy" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 5: Connect a Device with the Setup Key
+        Step 5: Grant Access with a MeshPolicy
       
     </span>
   </a>
@@ -5227,14 +5227,14 @@ This documentation is either for an old version, or for the unreleased 'main' ve
   
   
     <li class="md-nav__item">
-      <a href="../../api-reference/public-apis/netbird-router.html" class="md-nav__link">
+      <a href="../../api-reference/public-apis/mesh-router.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    NetbirdRouter
+    MeshRouter
   
 
     
@@ -5822,10 +5822,10 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-2-define-a-netbirdrouter-claim" class="md-nav__link">
+  <a href="#step-2-define-a-meshrouter-claim" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 2: Define a NetbirdRouter Claim
+        Step 2: Define a MeshRouter Claim
       
     </span>
   </a>
@@ -5855,10 +5855,10 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-5-connect-a-device-with-the-setup-key" class="md-nav__link">
+  <a href="#step-5-grant-access-with-a-meshpolicy" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 5: Connect a Device with the Setup Key
+        Step 5: Grant Access with a MeshPolicy
       
     </span>
   </a>
@@ -5906,31 +5906,31 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 
 <h1 id="how-to-expose-an-internal-service-via-the-mesh">How to Expose an Internal Service via the Mesh<a class="headerlink" href="#how-to-expose-an-internal-service-via-the-mesh" title="Permanent link">#</a></h1>
 <p>Learn how to make an in-cluster service reachable from laptops and VMs on your organisation's Mesh — without a public endpoint.</p>
-<p>Emma, a developer at ACME Corp, runs an internal admin API in her project. Her team needs to reach it from their laptops, but it must not be exposed to the internet. A NetbirdRouter advertises the service's address to Mesh peers, so enrolled devices reach it directly over the encrypted mesh.</p>
+<p>Emma, a developer at ACME Corp, runs an internal admin API in her project. Her team needs to reach it from their laptops, but it must not be exposed to the internet. A MeshRouter advertises the service's address to Mesh peers, and a MeshPolicy grants her team's group access — enrolled devices then reach it directly over the encrypted mesh.</p>
 <blockquote>
-<p>Platform services such as a <a href="create-vault.html">Vault</a> are published to Mesh peers automatically — you only need a NetbirdRouter for your <strong>own</strong> services.</p>
+<p>Platform services such as a <a href="create-vault.html">Vault</a> are published to Mesh peers automatically — you only need a MeshRouter for your <strong>own</strong> services.</p>
 </blockquote>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">#</a></h2>
 <ul>
 <li>A <a href="create-mesh.html">Mesh</a> in your organisation, already Ready</li>
-<li>The <code>netbirdrouter.netbird.cloud.stakater.com</code> API available</li>
+<li>The <code>meshrouter.network.cloud.stakater.com</code> API available</li>
 <li><code>kubectl</code> configured with your project kubeconfig</li>
 <li>The in-cluster Service you want to expose (note its ClusterIP)</li>
 </ul>
 <h2 id="what-gets-created">What Gets Created<a class="headerlink" href="#what-gets-created" title="Permanent link">#</a></h2>
-<p>When you create a NetbirdRouter claim, the platform provisions:</p>
+<p>When you create a MeshRouter claim, the platform provisions:</p>
 <ul>
 <li>A <strong>routing peer</strong> joined to your organisation's Mesh that advertises your routes</li>
-<li>Mesh <strong>access policy</strong> allowing holders of the client setup key to reach the advertised routes</li>
-<li>A <strong>Secret</strong> in your project containing the client setup key, named after the claim</li>
+<li>A <strong>peer group</strong> named <code>&lt;claim-name&gt;-routers</code> holding the routing peer — the destination group for your access policies</li>
 </ul>
+<p>Access is granted separately with a MeshPolicy (Step 5); devices authenticate to the Mesh with your organisation's single sign-on, so there are no keys to distribute.</p>
 <h2 id="step-1-find-the-service-address">Step 1: Find the Service Address<a class="headerlink" href="#step-1-find-the-service-address" title="Permanent link">#</a></h2>
 <div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>svc<span class="w"> </span>my-admin-api<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.spec.clusterIP}'</span>
 </code></pre></div>
-<h2 id="step-2-define-a-netbirdrouter-claim">Step 2: Define a NetbirdRouter Claim<a class="headerlink" href="#step-2-define-a-netbirdrouter-claim" title="Permanent link">#</a></h2>
+<h2 id="step-2-define-a-meshrouter-claim">Step 2: Define a MeshRouter Claim<a class="headerlink" href="#step-2-define-a-meshrouter-claim" title="Permanent link">#</a></h2>
 <p>Create a file named <code>router.yaml</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">netbird.cloud.stakater.com/v1</span>
-<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NetbirdRouter</span>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">network.cloud.stakater.com/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MeshRouter</span>
 <span class="nt">metadata</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-router</span>
 <span class="nt">spec</span><span class="p">:</span>
@@ -5940,29 +5940,40 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 <span class="w">        </span><span class="nt">address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">172.30.52.51/32</span><span class="w">        </span><span class="c1"># the Service ClusterIP, as a /32</span>
 <span class="w">        </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">"Internal</span><span class="nv"> </span><span class="s">admin</span><span class="nv"> </span><span class="s">API"</span>
 </code></pre></div>
-<p>A router can advertise multiple routes — CIDRs, single hosts, or domains. See the <a href="../../api-reference/public-apis/netbird-router.html">API reference</a> for all fields.</p>
+<p>A router can advertise multiple routes — CIDRs, single hosts, or domains. See the <a href="../../api-reference/public-apis/mesh-router.html">API reference</a> for all fields.</p>
 <h2 id="step-3-apply-the-claim">Step 3: Apply the Claim<a class="headerlink" href="#step-3-apply-the-claim" title="Permanent link">#</a></h2>
 <div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>router.yaml
 </code></pre></div>
 <h2 id="step-4-verify-the-router">Step 4: Verify the Router<a class="headerlink" href="#step-4-verify-the-router" title="Permanent link">#</a></h2>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>netbirdrouter<span class="w"> </span>my-router
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>meshrouter<span class="w"> </span>my-router
 </code></pre></div>
 <p>Wait for <code>READY: True</code>. The routing peer also appears in your Mesh dashboard.</p>
-<h2 id="step-5-connect-a-device-with-the-setup-key">Step 5: Connect a Device with the Setup Key<a class="headerlink" href="#step-5-connect-a-device-with-the-setup-key" title="Permanent link">#</a></h2>
-<p>The platform delivers a Secret named after the claim (<code>my-router</code>) into your project. It contains the client setup key — share it with devices that should reach the advertised routes:</p>
-<div class="highlight"><pre><span></span><code>netbird<span class="w"> </span>up<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--management-url<span class="o">=</span>&lt;your<span class="w"> </span>organisation<span class="s1">'s management URL&gt; \</span>
-<span class="s1">  --setup-key=$(kubectl get secret my-router -o jsonpath='</span><span class="o">{</span>.data.setupKey<span class="o">}</span><span class="err">'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64<span class="w"> </span>-d<span class="o">)</span>
+<h2 id="step-5-grant-access-with-a-meshpolicy">Step 5: Grant Access with a MeshPolicy<a class="headerlink" href="#step-5-grant-access-with-a-meshpolicy" title="Permanent link">#</a></h2>
+<p>Allow the Mesh groups that should reach the routes. The router's destination group is named after the claim (<code>my-router-routers</code>):</p>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">network.cloud.stakater.com/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MeshPolicy</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">allow-devs-to-my-router</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">allow-devs-to-my-router</span>
+<span class="w">    </span><span class="nt">rules</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">devs-to-routes</span>
+<span class="w">        </span><span class="nt">sourceGroupNames</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">developers</span><span class="w">            </span><span class="c1"># your users' Mesh group</span>
+<span class="w">        </span><span class="nt">destinationGroupNames</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-router-routers</span>
 </code></pre></div>
-<p>The device is automatically allowed to reach the routes — no dashboard configuration needed.</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>policy.yaml
+</code></pre></div>
 <h2 id="step-6-test">Step 6: Test<a class="headerlink" href="#step-6-test" title="Permanent link">#</a></h2>
-<p>From the enrolled device:</p>
+<p>From a device enrolled on the Mesh (see <a href="create-mesh.html">Create a Mesh</a> for enrolment) and in an allowed group:</p>
 <div class="highlight"><pre><span></span><code>curl<span class="w"> </span>http://172.30.52.51/healthz
 </code></pre></div>
 <p>The request travels over the encrypted mesh to the routing peer, which forwards it to the in-cluster Service.</p>
 <h2 id="related">Related<a class="headerlink" href="#related" title="Permanent link">#</a></h2>
 <ul>
-<li><a href="../../api-reference/public-apis/netbird-router.html">NetbirdRouter API reference</a></li>
+<li><a href="../../api-reference/public-apis/mesh-router.html">MeshRouter API reference</a></li>
 <li><a href="create-mesh.html">Create a Mesh</a></li>
 <li><a href="create-vault.html">Create a Vault</a> — published over the Mesh automatically</li>
 </ul>
@@ -6659,7 +6670,7 @@ This documentation is either for an old version, or for the unreleased 'main' ve
       <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.code.copy", "navigation.tracking", "toc.follow", "navigation.top"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
     
   

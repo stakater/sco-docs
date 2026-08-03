@@ -5,7 +5,7 @@
       
       
       
-        <link rel="canonical" href="https://docs.stakater.com/cloud-orchestrator/renovate-main-playwright-monorepo/api-reference/public-apis/netbird-router.html">
+        <link rel="canonical" href="https://docs.stakater.com/cloud-orchestrator/renovate-main-playwright-monorepo/api-reference/public-apis/mesh-router.html">
       
       
         <link rel="prev" href="mesh.html">
@@ -22,7 +22,7 @@
     
     
       
-        <title>NetbirdRouter - Stakater Cloud Orchestrator</title>
+        <title>MeshRouter - Stakater Cloud Orchestrator</title>
       
     
     
@@ -95,7 +95,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#netbirdrouter" class="md-skip">
+        <a href="#meshrouter" class="md-skip">
           Skip to content
         </a>
       
@@ -3159,7 +3159,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../how-to-guides/user/expose-service-via-netbird.html" class="md-nav__link">
+      <a href="../../how-to-guides/user/expose-service-via-mesh.html" class="md-nav__link">
         
   
   
@@ -5096,7 +5096,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    NetbirdRouter
+    MeshRouter
   
 
     
@@ -5107,14 +5107,14 @@ This documentation is for a pull request deployment and is unreleased, it is onl
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <a href="netbird-router.html" class="md-nav__link md-nav__link--active">
+      <a href="mesh-router.html" class="md-nav__link md-nav__link--active">
         
   
   
   <span class="md-ellipsis">
     
   
-    NetbirdRouter
+    MeshRouter
   
 
     
@@ -5203,10 +5203,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
-  <a href="#credentials" class="md-nav__link">
+  <a href="#granting-access" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Credentials
+        Granting Access
       
     </span>
   </a>
@@ -5885,10 +5885,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
-  <a href="#credentials" class="md-nav__link">
+  <a href="#granting-access" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Credentials
+        Granting Access
       
     </span>
   </a>
@@ -5973,8 +5973,8 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 
 
 
-<h1 id="netbirdrouter">NetbirdRouter<a class="headerlink" href="#netbirdrouter" title="Permanent link">#</a></h1>
-<p>Makes one or more in-cluster Services reachable from peers on your organisation's <a href="mesh.html">Mesh</a>. Use this to give laptops on the Mesh routed access to your own services that don't run a NetBird daemon themselves — internal APIs, databases, admin UIs, etc. (Platform services such as <a href="vault.html">Vault</a> are published to Mesh peers automatically; you don't need a NetbirdRouter for those.)</p>
+<h1 id="meshrouter">MeshRouter<a class="headerlink" href="#meshrouter" title="Permanent link">#</a></h1>
+<p>Makes one or more in-cluster Services reachable from peers on your organisation's <a href="mesh.html">Mesh</a>. Use this to give laptops on the Mesh routed access to your own services that don't run a mesh agent themselves — internal APIs, databases, admin UIs, etc. (Platform services such as <a href="vault.html">Vault</a> are published to Mesh peers automatically; you don't need a MeshRouter for those.)</p>
 <h2 id="api-details">API Details<a class="headerlink" href="#api-details" title="Permanent link">#</a></h2>
 <table>
 <thead>
@@ -5986,7 +5986,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <tbody>
 <tr>
 <td><strong>API Group</strong></td>
-<td><code>netbird.cloud.stakater.com</code></td>
+<td><code>network.cloud.stakater.com</code></td>
 </tr>
 <tr>
 <td><strong>Version</strong></td>
@@ -5994,7 +5994,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </tr>
 <tr>
 <td><strong>Kind</strong></td>
-<td><code>NetbirdRouter</code></td>
+<td><code>MeshRouter</code></td>
 </tr>
 <tr>
 <td><strong>Scope</strong></td>
@@ -6079,28 +6079,38 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </thead>
 <tbody>
 <tr>
-<td><code>status.router.clientSetupKeySecretRef.name</code></td>
+<td><code>status.router.routerPodNamespace</code></td>
 <td><code>string</code></td>
-<td>Name of the Secret containing the client setup key (see <a href="#credentials">Credentials</a>).</td>
+<td>Namespace where the routing peer runs.</td>
 </tr>
 <tr>
-<td><code>status.router.clientSetupKeySecretRef.key</code></td>
+<td><code>status.router.groups.routers</code></td>
 <td><code>string</code></td>
-<td>Key inside that Secret.</td>
+<td>ID of the router's peer group — the destination group to reference from access policies.</td>
 </tr>
 </tbody>
 </table>
-<h2 id="credentials">Credentials<a class="headerlink" href="#credentials" title="Permanent link">#</a></h2>
-<p>When the router is Ready, a Secret named after the claim is delivered into your project. It contains the <strong>client setup key</strong> — share this with any laptop or VM that should be allowed to reach the advertised routes via the Mesh:</p>
-<div class="highlight"><pre><span></span><code>netbird<span class="w"> </span>up<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--management-url<span class="o">=</span>&lt;your<span class="w"> </span>organisation<span class="s1">'s management URL&gt; \</span>
-<span class="s1">  --setup-key=$(kubectl get secret &lt;claim-name&gt; -o jsonpath='</span><span class="o">{</span>.data.setupKey<span class="o">}</span><span class="err">'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64<span class="w"> </span>-d<span class="o">)</span>
+<h2 id="granting-access">Granting Access<a class="headerlink" href="#granting-access" title="Permanent link">#</a></h2>
+<p>Enrolled devices sign in to the Mesh with your organisation's single sign-on — there are no keys to distribute. Access to the advertised routes is governed by Mesh access policies: the router publishes its routes to a peer group named <code>&lt;claim-name&gt;-routers</code>, and you allow your users' groups to reach it with a <a href="mesh.html">MeshPolicy</a> claim:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">network.cloud.stakater.com/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MeshPolicy</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">allow-devs-to-my-router</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">allow-devs-to-my-router</span>
+<span class="w">    </span><span class="nt">rules</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">devs-to-routes</span>
+<span class="w">        </span><span class="nt">sourceGroupNames</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">developers</span><span class="w">            </span><span class="c1"># your users' Mesh group</span>
+<span class="w">        </span><span class="nt">destinationGroupNames</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-router-routers</span><span class="w">     </span><span class="c1"># "&lt;router claim name&gt;-routers"</span>
 </code></pre></div>
-<p>The peer is auto-allowed to reach the routes; no additional dashboard configuration needed.</p>
+<p>Peers in the source groups can then reach every address the router advertises.</p>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">#</a></h2>
 <h3 id="single-route-to-an-internal-service">Single route to an internal service<a class="headerlink" href="#single-route-to-an-internal-service" title="Permanent link">#</a></h3>
-<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">netbird.cloud.stakater.com/v1</span>
-<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NetbirdRouter</span>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">network.cloud.stakater.com/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MeshRouter</span>
 <span class="nt">metadata</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-router</span>
 <span class="nt">spec</span><span class="p">:</span>
@@ -6110,10 +6120,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <span class="w">        </span><span class="nt">address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">172.30.52.51/32</span><span class="w">        </span><span class="c1"># ClusterIP of the Service, /32</span>
 <span class="w">        </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">"Internal</span><span class="nv"> </span><span class="s">admin</span><span class="nv"> </span><span class="s">API"</span>
 </code></pre></div>
-<p>After Ready, a laptop with the setup key can reach the service by that IP — no public endpoint needed.</p>
+<p>After Ready (plus a MeshPolicy allowing your group), an enrolled laptop can reach the service by that IP — no public endpoint needed.</p>
 <h3 id="multiple-routes">Multiple routes<a class="headerlink" href="#multiple-routes" title="Permanent link">#</a></h3>
-<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">netbird.cloud.stakater.com/v1</span>
-<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NetbirdRouter</span>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">network.cloud.stakater.com/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MeshRouter</span>
 <span class="nt">metadata</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-router</span>
 <span class="nt">spec</span><span class="p">:</span>
@@ -6130,11 +6140,11 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <span class="w">        </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">"DNS-based</span><span class="nv"> </span><span class="s">route"</span>
 </code></pre></div>
 <h2 id="how-to-guide">How-to Guide<a class="headerlink" href="#how-to-guide" title="Permanent link">#</a></h2>
-<p><a href="../../how-to-guides/user/expose-service-via-netbird.html">Expose an internal service via the Mesh</a></p>
+<p><a href="../../how-to-guides/user/expose-service-via-mesh.html">Expose an internal service via the Mesh</a></p>
 <h2 id="related">Related<a class="headerlink" href="#related" title="Permanent link">#</a></h2>
 <ul>
-<li><a href="mesh.html">Mesh</a> — the Mesh this router joins. A Mesh must exist before a NetbirdRouter can register.</li>
-<li><a href="vault.html">Vault</a> — published to Mesh peers automatically by the platform; no NetbirdRouter needed.</li>
+<li><a href="mesh.html">Mesh</a> — the Mesh this router joins. A Mesh must exist before a MeshRouter can register.</li>
+<li><a href="vault.html">Vault</a> — published to Mesh peers automatically; no MeshRouter needed.</li>
 </ul>
 
 

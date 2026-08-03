@@ -11,7 +11,7 @@
         <link rel="prev" href="create-vault.html">
       
       
-        <link rel="next" href="expose-service-via-netbird.html">
+        <link rel="next" href="expose-service-via-mesh.html">
       
       
         
@@ -3311,7 +3311,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="expose-service-via-netbird.html" class="md-nav__link">
+      <a href="expose-service-via-mesh.html" class="md-nav__link">
         
   
   
@@ -5228,14 +5228,14 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../api-reference/public-apis/netbird-router.html" class="md-nav__link">
+      <a href="../../api-reference/public-apis/mesh-router.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    NetbirdRouter
+    MeshRouter
   
 
     
@@ -5943,7 +5943,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </code></pre></div>
 <p>Wait for <code>READY: True</code>.</p>
 <h2 id="step-4-open-the-dashboard">Step 4: Open the Dashboard<a class="headerlink" href="#step-4-open-the-dashboard" title="Permanent link">#</a></h2>
-<p>Open your organisation's Mesh dashboard from the SCO console and sign in with your organisation account. From here you manage peers, define groups, write access policies, and generate setup keys.</p>
+<p>Open your organisation's Mesh dashboard from the SCO console and sign in with your organisation account. From here you manage peers, define groups, and write access policies — or manage groups and policies declaratively with <code>MeshGroup</code> / <code>MeshPolicy</code> claims.</p>
 <h2 id="step-5-enrol-a-device">Step 5: Enrol a Device<a class="headerlink" href="#step-5-enrol-a-device" title="Permanent link">#</a></h2>
 <p>Install the NetBird client on a laptop. In the dashboard, open <strong>Add Peer</strong> and copy the enrolment command it shows — it already includes your organisation's management URL:</p>
 <div class="highlight"><pre><span></span><code>netbird<span class="w"> </span>up<span class="w"> </span>--management-url<span class="o">=</span>&lt;your<span class="w"> </span>organisation<span class="err">'</span>s<span class="w"> </span>management<span class="w"> </span>URL&gt;
@@ -5952,12 +5952,12 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <h2 id="step-6-reach-services-over-the-mesh">Step 6: Reach Services over the Mesh<a class="headerlink" href="#step-6-reach-services-over-the-mesh" title="Permanent link">#</a></h2>
 <ul>
 <li><strong>Platform services</strong> are published automatically. With a <a href="create-vault.html">Vault</a> in your organisation, an enrolled laptop reaches it at <code>https://bao.&lt;organisation&gt;.mesh.&lt;cluster-domain&gt;</code> with a publicly-trusted certificate.</li>
-<li><strong>Your own services</strong> can be advertised to Mesh peers with a <a href="expose-service-via-netbird.html">NetbirdRouter</a>.</li>
+<li><strong>Your own services</strong> can be advertised to Mesh peers with a <a href="expose-service-via-mesh.html">MeshRouter</a>.</li>
 </ul>
 <h2 id="related">Related<a class="headerlink" href="#related" title="Permanent link">#</a></h2>
 <ul>
 <li><a href="../../api-reference/public-apis/mesh.html">Mesh API reference</a></li>
-<li><a href="expose-service-via-netbird.html">Expose an internal service via the Mesh</a></li>
+<li><a href="expose-service-via-mesh.html">Expose an internal service via the Mesh</a></li>
 <li><a href="create-vault.html">Create a Vault</a></li>
 </ul>
 

@@ -3159,7 +3159,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../how-to-guides/user/expose-service-via-netbird.html" class="md-nav__link">
+      <a href="../how-to-guides/user/expose-service-via-mesh.html" class="md-nav__link">
         
   
   
@@ -5517,14 +5517,14 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../api-reference/public-apis/netbird-router.html" class="md-nav__link">
+      <a href="../api-reference/public-apis/mesh-router.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    NetbirdRouter
+    MeshRouter
   
 
     
@@ -6615,7 +6615,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <li>The <strong>platform hub</strong> issues dynamic credentials for platform services (database passwords, cloud provider keys) that expire automatically and are rotated without manual intervention, provides a PKI engine for TLS certificate issuance used by platform components and hosted clusters, and stores platform secrets in encrypted, auditable storage.</li>
 <li><strong>Per-organisation Vaults</strong> are provisioned via the <code>Vault</code> claim. Each is independent of the others and uses single sign-on against the organisation's identity provider — operators log in via SSO (<code>bao login -method=oidc</code>); there is no static root token to manage.</li>
 </ul>
-<p><strong>Consumer access:</strong> Per-organisation Vaults are reachable from inside the organisation's projects and from peers on the organisation's <a href="../api-reference/public-apis/mesh.html">Mesh</a> via a <a href="../api-reference/public-apis/netbird-router.html">NetbirdRouter</a>. They are not exposed on the public internet.</p>
+<p><strong>Consumer access:</strong> Per-organisation Vaults are reachable from inside the organisation's projects and from peers on the organisation's <a href="../api-reference/public-apis/mesh.html">Mesh</a> via a <a href="../api-reference/public-apis/mesh-router.html">MeshRouter</a>. They are not exposed on the public internet.</p>
 <hr>
 <h2 id="infrastructure-services">Infrastructure Services<a class="headerlink" href="#infrastructure-services" title="Permanent link">#</a></h2>
 <h3 id="openshift-virtualization-kubevirt">OpenShift Virtualization (KubeVirt)<a class="headerlink" href="#openshift-virtualization-kubevirt" title="Permanent link">#</a></h3>

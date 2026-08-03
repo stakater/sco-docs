@@ -57,11 +57,11 @@
          <lastmod>2026-08-03</lastmod>
     </url>
     <url>
-         <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-stakater-.github-0.x/api-reference/public-apis/mesh.html</loc>
+         <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-stakater-.github-0.x/api-reference/public-apis/mesh-router.html</loc>
          <lastmod>2026-08-03</lastmod>
     </url>
     <url>
-         <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-stakater-.github-0.x/api-reference/public-apis/netbird-router.html</loc>
+         <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-stakater-.github-0.x/api-reference/public-apis/mesh.html</loc>
          <lastmod>2026-08-03</lastmod>
     </url>
     <url>
@@ -241,7 +241,7 @@
          <lastmod>2026-08-03</lastmod>
     </url>
     <url>
-         <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-stakater-.github-0.x/how-to-guides/user/expose-service-via-netbird.html</loc>
+         <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-stakater-.github-0.x/how-to-guides/user/expose-service-via-mesh.html</loc>
          <lastmod>2026-08-03</lastmod>
     </url>
     <url>

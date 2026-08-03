@@ -3213,22 +3213,22 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-4-consume-the-credentials" class="md-nav__link">
+  <a href="#step-4-read-the-credentials" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 4: Consume the Credentials
+        Step 4: Read the Credentials
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Step 4: Consume the Credentials">
+    <nav class="md-nav" aria-label="Step 4: Read the Credentials">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#mount-it-into-a-workload" class="md-nav__link">
+  <a href="#mount-the-credentials-into-a-workload" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Mount it into a workload
+        Mount the credentials into a workload
       
     </span>
   </a>
@@ -3373,7 +3373,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="expose-service-via-netbird.html" class="md-nav__link">
+      <a href="expose-service-via-mesh.html" class="md-nav__link">
         
   
   
@@ -5290,14 +5290,14 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../api-reference/public-apis/netbird-router.html" class="md-nav__link">
+      <a href="../../api-reference/public-apis/mesh-router.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    NetbirdRouter
+    MeshRouter
   
 
     
@@ -5924,22 +5924,22 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-4-consume-the-credentials" class="md-nav__link">
+  <a href="#step-4-read-the-credentials" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 4: Consume the Credentials
+        Step 4: Read the Credentials
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Step 4: Consume the Credentials">
+    <nav class="md-nav" aria-label="Step 4: Read the Credentials">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#mount-it-into-a-workload" class="md-nav__link">
+  <a href="#mount-the-credentials-into-a-workload" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Mount it into a workload
+        Mount the credentials into a workload
       
     </span>
   </a>
@@ -6037,12 +6037,13 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <li>A <a href="create-project.html">Project</a> already created</li>
 <li>The <code>postgres.database.cloud.stakater.com</code> API available</li>
 <li><code>kubectl</code> configured with your project kubeconfig</li>
+<li>To read the credentials: access to your organisation's <a href="create-vault.html">Vault</a> from a device enrolled on the <a href="create-mesh.html">Mesh</a></li>
 </ul>
 <h2 id="what-gets-created">What Gets Created<a class="headerlink" href="#what-gets-created" title="Permanent link">#</a></h2>
 <p>When you create a Postgres claim, the platform provisions:</p>
 <ul>
 <li>A <strong>PostgreSQL database</strong> sized to your requested number of instances and disk</li>
-<li>A <strong>Secret</strong> in your project containing the connection URI and credentials, named after the claim</li>
+<li><strong>Credentials in your organisation's Vault</strong>, at the path published in the claim's status</li>
 <li>Optionally, an <strong>externally-reachable endpoint</strong> when <code>exposeLoadBalancer: true</code></li>
 </ul>
 <h2 id="step-1-define-a-postgres-claim">Step 1: Define a Postgres Claim<a class="headerlink" href="#step-1-define-a-postgres-claim" title="Permanent link">#</a></h2>
@@ -6092,17 +6093,22 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <div class="highlight"><pre><span></span><code>NAME    SYNCED   READY   AGE
 my-db   True     True    2m
 </code></pre></div>
-<p>Inspect the endpoint metadata:</p>
+<p>Inspect the endpoint metadata and the credentials location:</p>
 <div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>postgres<span class="w"> </span>my-db<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.status.connection}'</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">"host"</span><span class="p">:</span><span class="s2">"my-db-rw.projects.svc.cluster.local"</span><span class="p">,</span><span class="nt">"port"</span><span class="p">:</span><span class="s2">"5432"</span><span class="p">,</span><span class="nt">"database"</span><span class="p">:</span><span class="s2">"my-db"</span><span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">"host"</span><span class="p">:</span><span class="s2">"my-db-rw.projects.svc.cluster.local"</span><span class="p">,</span><span class="nt">"port"</span><span class="p">:</span><span class="s2">"5432"</span><span class="p">,</span><span class="nt">"database"</span><span class="p">:</span><span class="s2">"my-db"</span><span class="p">,</span><span class="nt">"credentialsRef"</span><span class="p">:{</span><span class="nt">"vault"</span><span class="p">:</span><span class="s2">"https://bao.acme.mesh.example.stakater.cloud"</span><span class="p">,</span><span class="nt">"mount"</span><span class="p">:</span><span class="s2">"services"</span><span class="p">,</span><span class="nt">"path"</span><span class="p">:</span><span class="s2">"my-project/postgres/my-db"</span><span class="p">}}</span>
 </code></pre></div>
-<h2 id="step-4-consume-the-credentials">Step 4: Consume the Credentials<a class="headerlink" href="#step-4-consume-the-credentials" title="Permanent link">#</a></h2>
-<p>The platform delivers a Secret named after the claim (<code>my-db</code>) into your project. Keys cover the common client conventions:</p>
+<h2 id="step-4-read-the-credentials">Step 4: Read the Credentials<a class="headerlink" href="#step-4-read-the-credentials" title="Permanent link">#</a></h2>
+<p>The platform stores the credentials in your organisation's Vault at <code>status.connection.credentialsRef</code>. Open the Vault URL in a browser (from a Mesh-enrolled device) and navigate to the <code>services</code> secret engine, or use the CLI:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">BAO_ADDR</span><span class="o">=</span><span class="k">$(</span>kubectl<span class="w"> </span>get<span class="w"> </span>postgres<span class="w"> </span>my-db<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.status.connection.credentialsRef.vault}'</span><span class="k">)</span>
+bao<span class="w"> </span>login<span class="w"> </span>-method<span class="o">=</span>oidc
+bao<span class="w"> </span>kv<span class="w"> </span>get<span class="w"> </span>-mount<span class="o">=</span>services<span class="w"> </span><span class="k">$(</span>kubectl<span class="w"> </span>get<span class="w"> </span>postgres<span class="w"> </span>my-db<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.status.connection.credentialsRef.path}'</span><span class="k">)</span>
+</code></pre></div>
+<p>Keys cover the common client conventions:</p>
 <table>
 <thead>
 <tr>
-<th>Secret key</th>
+<th>Key</th>
 <th>Description</th>
 </tr>
 </thead>
@@ -6145,7 +6151,13 @@ my-db   True     True    2m
 </tr>
 </tbody>
 </table>
-<h3 id="mount-it-into-a-workload">Mount it into a workload<a class="headerlink" href="#mount-it-into-a-workload" title="Permanent link">#</a></h3>
+<h3 id="mount-the-credentials-into-a-workload">Mount the credentials into a workload<a class="headerlink" href="#mount-the-credentials-into-a-workload" title="Permanent link">#</a></h3>
+<p>Create a Secret next to your workload from the Vault values, then reference it with <code>envFrom</code>:</p>
+<div class="highlight"><pre><span></span><code>bao<span class="w"> </span>kv<span class="w"> </span>get<span class="w"> </span>-mount<span class="o">=</span>services<span class="w"> </span>-format<span class="o">=</span>json<span class="w"> </span>my-project/postgres/my-db<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">'.data.data'</span><span class="w"> </span>&gt;<span class="w"> </span>creds.json
+kubectl<span class="w"> </span>create<span class="w"> </span>secret<span class="w"> </span>generic<span class="w"> </span>my-db<span class="w"> </span>--from-env-file<span class="o">=</span>&lt;<span class="o">(</span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">'to_entries[] | "\(.key)=\(.value)"'</span><span class="w"> </span>creds.json<span class="o">)</span>
+rm<span class="w"> </span>creds.json
+</code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">apps/v1</span>
 <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Deployment</span>
 <span class="nt">metadata</span><span class="p">:</span>
@@ -6178,11 +6190,12 @@ my-db   True     True    2m
 <span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">exposeLoadBalancer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 </code></pre></div>
-<p>Connect using the credentials Secret directly — no port-forward needed:</p>
+<p>Connect using the credentials from the Vault — no port-forward needed:</p>
 <div class="highlight"><pre><span></span><code><span class="nv">PG_HOST</span><span class="o">=</span><span class="k">$(</span>kubectl<span class="w"> </span>get<span class="w"> </span>postgres<span class="w"> </span>my-db<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.status.connection.externalHost}'</span><span class="k">)</span>
-<span class="nb">export</span><span class="w"> </span><span class="nv">PGUSER</span><span class="o">=</span><span class="k">$(</span>kubectl<span class="w"> </span>get<span class="w"> </span>secret<span class="w"> </span>my-db<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.data.username}'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64<span class="w"> </span>-d<span class="k">)</span>
-<span class="nb">export</span><span class="w"> </span><span class="nv">PGPASSWORD</span><span class="o">=</span><span class="k">$(</span>kubectl<span class="w"> </span>get<span class="w"> </span>secret<span class="w"> </span>my-db<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.data.password}'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64<span class="w"> </span>-d<span class="k">)</span>
-<span class="nb">export</span><span class="w"> </span><span class="nv">PGDATABASE</span><span class="o">=</span><span class="k">$(</span>kubectl<span class="w"> </span>get<span class="w"> </span>secret<span class="w"> </span>my-db<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.data.dbname}'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64<span class="w"> </span>-d<span class="k">)</span>
+<span class="nv">CREDS</span><span class="o">=</span><span class="k">$(</span>bao<span class="w"> </span>kv<span class="w"> </span>get<span class="w"> </span>-mount<span class="o">=</span>services<span class="w"> </span>-format<span class="o">=</span>json<span class="w"> </span>my-project/postgres/my-db<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">'.data.data'</span><span class="k">)</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">PGUSER</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="s2">"</span><span class="nv">$CREDS</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">'.username'</span><span class="k">)</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">PGPASSWORD</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="s2">"</span><span class="nv">$CREDS</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">'.password'</span><span class="k">)</span>
+<span class="nb">export</span><span class="w"> </span><span class="nv">PGDATABASE</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="s2">"</span><span class="nv">$CREDS</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">'.dbname'</span><span class="k">)</span>
 
 psql<span class="w"> </span>-h<span class="w"> </span><span class="s2">"</span><span class="nv">$PG_HOST</span><span class="s2">"</span><span class="w"> </span>-p<span class="w"> </span><span class="m">5432</span><span class="w"> </span>-c<span class="w"> </span><span class="s2">"SELECT version();"</span>
 </code></pre></div>
@@ -6205,7 +6218,7 @@ psql<span class="w"> </span>-h<span class="w"> </span><span class="m">127</span>
 <h2 id="step-6-delete-the-database">Step 6: Delete the Database<a class="headerlink" href="#step-6-delete-the-database" title="Permanent link">#</a></h2>
 <div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>delete<span class="w"> </span>postgres<span class="w"> </span>my-db
 </code></pre></div>
-<p>The platform tears down the database. The credentials Secret is removed from your project on a best-effort basis — if a stale <code>&lt;claim-name&gt;</code> Secret remains after the claim is gone, drop it with:</p>
+<p>The platform tears down the database and removes the credentials from your organisation's Vault. If you copied the credentials into Secrets next to your workloads, remember to delete those too:</p>
 <div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>delete<span class="w"> </span>secret<span class="w"> </span>my-db
 </code></pre></div>
 <div class="admonition warning">

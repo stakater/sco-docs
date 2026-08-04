@@ -163,9 +163,17 @@ registry:
   gitopsChartsUrl: "ghcr.io/stakater"
   username: "<your-username>"
   password: "<your-token>"     # use either password or token; token wins if both are set
+  profile: distribution
 ```
 
-`ksp up` uses this file to log in to the registry and to create the in-cluster pull secrets that Crossplane and the composition functions need. It is **not** referenced from the claim files — it is passed on the command line via `--registry-secret` (Step 4).
+!!! important "`profile: distribution` is required for customer installs"
+    Your credentials open Stakater's **customer distribution registry**, which
+    carries the released versions of every platform component. The
+    `profile: distribution` line points the whole installation — charts,
+    packages, and images — at that registry. Without it the installer
+    assumes Stakater's internal environment and every pull will be denied.
+
+`ksp up` uses this file to log in to the registry and to create the in-cluster pull secrets the platform needs. It is **not** referenced from the claim files — it is passed on the command line via `--registry-secret` (Step 4).
 
 ## Step 4: Run Installation
 

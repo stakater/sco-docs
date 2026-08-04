@@ -11,14 +11,14 @@
         <link rel="prev" href="prerequisites.html">
       
       
-        <link rel="next" href="configuration.html">
+        <link rel="next" href="openbao-unseal.html">
       
       
         
       
       
       <link rel="icon" href="../assets/images/favicon.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -26,7 +26,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -3159,7 +3159,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../how-to-guides/user/expose-service-via-netbird.html" class="md-nav__link">
+      <a href="../how-to-guides/user/expose-service-via-mesh.html" class="md-nav__link">
         
   
   
@@ -3849,6 +3849,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
+      <a href="openbao-unseal.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Choosing the Platform Secret Store Unseal Method
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="configuration.html" class="md-nav__link">
         
   
@@ -4379,6 +4407,117 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 
               
             
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7">
+        
+          
+          <label class="md-nav__link" for="__nav_3_7" id="__nav_3_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Console
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Console
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../how-to-guides/provider/control-ui-rendering.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Control Console UI Rendering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../service-provider-guide/console/ui-extensions-reference.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Console UI Extensions Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -4746,6 +4885,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
+      <a href="../console/accessing-the-console.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Accessing the Console
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../console/dashboard.html" class="md-nav__link">
         
   
@@ -4774,14 +4941,14 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../console/organizations.html" class="md-nav__link">
+      <a href="../console/projects.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Organizations
+    Projects
   
 
     
@@ -4802,14 +4969,14 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../console/projects.html" class="md-nav__link">
+      <a href="../console/resources.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Projects
+    Working with Resources
   
 
     
@@ -5267,14 +5434,14 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../api-reference/public-apis/netbird-router.html" class="md-nav__link">
+      <a href="../api-reference/public-apis/mesh-router.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    NetbirdRouter
+    MeshRouter
   
 
     
@@ -6415,6 +6582,10 @@ oc<span class="w"> </span>get<span class="w"> </span>nodes
 </tr>
 </tbody>
 </table>
+<div class="admonition warning">
+<p class="admonition-title">Air-gapped or no-cloud installs: decide the unseal method now</p>
+<p>The platform's secret store unseals via AWS KMS by default, which requires cloud egress. If this cluster cannot reach a cloud KMS, you must select the static unseal method <strong>on this first install</strong> — it is fixed at initialisation and cannot be changed afterwards by editing configuration. See <a href="openbao-unseal.html">Secret Store Unseal Method</a>.</p>
+</div>
 <h2 id="step-5-monitor-installation">Step 5: Monitor Installation<a class="headerlink" href="#step-5-monitor-installation" title="Permanent link">#</a></h2>
 <p>The command outputs progress as it runs:</p>
 <div class="highlight"><pre><span></span><code>✓ Checking cluster capabilities...
@@ -6554,6 +6725,7 @@ oc<span class="w"> </span>delete<span class="w"> </span>namespace<span class="w"
 <h2 id="whats-next">What's Next?<a class="headerlink" href="#whats-next" title="Permanent link">#</a></h2>
 <ul>
 <li><a href="configuration.html">Configuration</a> - Configure SCO for your environment</li>
+<li><a href="openbao-unseal.html">Secret Store Unseal Method</a> - Choose how the platform secret store unseals</li>
 <li><a href="../console/overview.html">Console Overview</a> - Access the SCO console</li>
 <li><a href="../service-provider-guide/getting-started.html">Service Provider Guide</a> - Start creating solutions</li>
 </ul>
@@ -7250,7 +7422,7 @@ oc<span class="w"> </span>delete<span class="w"> </span>namespace<span class="w"
       <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["content.code.copy", "navigation.tracking", "toc.follow", "navigation.top"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
       
     
   

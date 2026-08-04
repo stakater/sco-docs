@@ -207,6 +207,9 @@ ksp up --dev-mode
 | `--argocd-namespace <ns>` | ArgoCD namespace for repository secret (required in brownfield when ArgoCD is pre-existing) |
 | `--force` | Force installation even if KubeStackConfig claim already exists |
 
+!!! warning "Air-gapped or no-cloud installs: decide the unseal method now"
+    The platform's secret store unseals via AWS KMS by default, which requires cloud egress. If this cluster cannot reach a cloud KMS, you must select the static unseal method **on this first install** — it is fixed at initialisation and cannot be changed afterwards by editing configuration. See [Secret Store Unseal Method](openbao-unseal.md).
+
 ## Step 5: Monitor Installation
 
 The command outputs progress as it runs:
@@ -364,5 +367,6 @@ oc delete namespace ksp-system
 ## What's Next?
 
 - [Configuration](configuration.md) - Configure SCO for your environment
+- [Secret Store Unseal Method](openbao-unseal.md) - Choose how the platform secret store unseals
 - [Console Overview](../console/overview.md) - Access the SCO console
 - [Service Provider Guide](../service-provider-guide/getting-started.md) - Start creating solutions

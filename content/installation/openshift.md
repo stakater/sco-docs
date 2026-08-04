@@ -153,7 +153,7 @@ spec:
 
 ## Step 3: Prepare Registry Credentials
 
-SCO components are pulled from Stakater's private registry, so a registry-secret file is **required**. Use the username and token Stakater provided — request them from `sales@stakater.com` if you don't have them yet (see [Prerequisites](prerequisites.md#registry-access)).
+SCO components are pulled from Stakater's customer distribution registry, so a registry-secret file is **required**. Use the username and token Stakater provided — request them from `sales@stakater.com` if you don't have them yet (see [Prerequisites](prerequisites.md#registry-access)).
 
 Create `registry-secret.yaml`:
 

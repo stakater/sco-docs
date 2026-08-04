@@ -5,31 +5,31 @@
       
       
       
-        <link rel="canonical" href="https://docs.stakater.com/cloud-orchestrator/renovate-main-docker-login-action-4.x/how-to-guides/provider/control-ui-rendering.html">
+        <link rel="canonical" href="https://docs.stakater.com/cloud-orchestrator/renovate-main-docker-login-action-4.x/installation/openbao-unseal.html">
       
       
-        <link rel="prev" href="../../service-provider-guide/api-publishing/publishing-apis.html">
+        <link rel="prev" href="openshift.html">
       
       
-        <link rel="next" href="../../service-provider-guide/console/ui-extensions-reference.html">
+        <link rel="next" href="configuration.html">
       
       
         
       
       
-      <link rel="icon" href="../../assets/images/favicon.svg">
+      <link rel="icon" href="../assets/images/favicon.svg">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
-        <title>How to Control Console UI Rendering - Stakater Cloud Orchestrator</title>
+        <title>Choosing the Platform Secret Store Unseal Method - Stakater Cloud Orchestrator</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -48,9 +48,9 @@
       
     
     
-      <link rel="stylesheet" href="../../stylesheets/extra.css">
+      <link rel="stylesheet" href="../stylesheets/extra.css">
     
-    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
   
@@ -66,7 +66,7 @@
 
     
     
-  <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+  <link href="../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
             html.glightbox-open { overflow: initial; height: 100%; }
             .gslide-title { margin-top: 0px; user-select: text; }
             .gslide-desc { color: #666; user-select: text; }
@@ -95,7 +95,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#how-to-control-console-ui-rendering" class="md-skip">
+        <a href="#choosing-the-platform-secret-store-unseal-method" class="md-skip">
           Skip to content
         </a>
       
@@ -340,7 +340,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <nav class="md-header__inner md-grid" aria-label="Header">
 
     <!-- Link to home -->
-    <a href="../../index.html" title="Stakater Cloud Orchestrator" class="md-header__button md-logo" aria-label="Stakater Cloud Orchestrator" data-md-component="logo">
+    <a href="../index.html" title="Stakater Cloud Orchestrator" class="md-header__button md-logo" aria-label="Stakater Cloud Orchestrator" data-md-component="logo">
       <!-- 
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -361,10 +361,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
         <!-- Logo -->
         <div class="md-header__topic">
           
-          <img class="md-header__logo_light" src="../../assets/images/logo-light.png#only-light" alt="logo">
+          <img class="md-header__logo_light" src="../assets/images/logo-light.png#only-light" alt="logo">
           
           
-          <img class="md-header__logo_dark" src="../../assets/images/logo-dark.png#only-dark" alt="logo">
+          <img class="md-header__logo_dark" src="../assets/images/logo-dark.png#only-dark" alt="logo">
           
           
           <div class="header-site-name">
@@ -1988,7 +1988,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../../index.html" title="Stakater Cloud Orchestrator" class="md-nav__button md-logo" aria-label="Stakater Cloud Orchestrator" data-md-component="logo">
+    <a href="../index.html" title="Stakater Cloud Orchestrator" class="md-nav__button md-logo" aria-label="Stakater Cloud Orchestrator" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
@@ -2006,7 +2006,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../index.html" class="md-nav__link">
+      <a href="../index.html" class="md-nav__link">
         
   
   
@@ -2080,7 +2080,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../audience/cloud-consumers.html" class="md-nav__link">
+      <a href="../audience/cloud-consumers.html" class="md-nav__link">
         
   
   
@@ -2155,7 +2155,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../cloud-user-guide/overview.html" class="md-nav__link">
+      <a href="../cloud-user-guide/overview.html" class="md-nav__link">
         
   
   
@@ -2183,7 +2183,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../cloud-user-guide/getting-started.html" class="md-nav__link">
+      <a href="../cloud-user-guide/getting-started.html" class="md-nav__link">
         
   
   
@@ -2266,7 +2266,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../cloud-user-guide/authentication/logging-in.html" class="md-nav__link">
+      <a href="../cloud-user-guide/authentication/logging-in.html" class="md-nav__link">
         
   
   
@@ -2294,7 +2294,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../cloud-user-guide/authentication/organisation-identity.html" class="md-nav__link">
+      <a href="../cloud-user-guide/authentication/organisation-identity.html" class="md-nav__link">
         
   
   
@@ -2322,7 +2322,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../cloud-user-guide/authentication/managing-users.html" class="md-nav__link">
+      <a href="../cloud-user-guide/authentication/managing-users.html" class="md-nav__link">
         
   
   
@@ -2350,7 +2350,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../cloud-user-guide/kubectl-access/setup-kubectl.html" class="md-nav__link">
+      <a href="../cloud-user-guide/kubectl-access/setup-kubectl.html" class="md-nav__link">
         
   
   
@@ -2378,7 +2378,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../cloud-user-guide/kubectl-access/kubeconfig-generation.html" class="md-nav__link">
+      <a href="../cloud-user-guide/kubectl-access/kubeconfig-generation.html" class="md-nav__link">
         
   
   
@@ -2406,7 +2406,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../cloud-user-guide/terraform-access/setup-terraform.html" class="md-nav__link">
+      <a href="../cloud-user-guide/terraform-access/setup-terraform.html" class="md-nav__link">
         
   
   
@@ -2434,7 +2434,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../cloud-user-guide/terraform-access/kubernetes-provider.html" class="md-nav__link">
+      <a href="../cloud-user-guide/terraform-access/kubernetes-provider.html" class="md-nav__link">
         
   
   
@@ -2462,7 +2462,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../cloud-user-guide/gitops-access/argocd-setup.html" class="md-nav__link">
+      <a href="../cloud-user-guide/gitops-access/argocd-setup.html" class="md-nav__link">
         
   
   
@@ -2490,7 +2490,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../cloud-user-guide/gitops-access/flux-setup.html" class="md-nav__link">
+      <a href="../cloud-user-guide/gitops-access/flux-setup.html" class="md-nav__link">
         
   
   
@@ -2573,7 +2573,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../cloud-user-guide/projects/creating-projects.html" class="md-nav__link">
+      <a href="../cloud-user-guide/projects/creating-projects.html" class="md-nav__link">
         
   
   
@@ -2601,7 +2601,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../cloud-user-guide/projects/project-structure.html" class="md-nav__link">
+      <a href="../cloud-user-guide/projects/project-structure.html" class="md-nav__link">
         
   
   
@@ -2684,7 +2684,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../cloud-user-guide/solutions/browsing-marketplace.html" class="md-nav__link">
+      <a href="../cloud-user-guide/solutions/browsing-marketplace.html" class="md-nav__link">
         
   
   
@@ -2712,7 +2712,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../cloud-user-guide/solutions/provisioning-solutions.html" class="md-nav__link">
+      <a href="../cloud-user-guide/solutions/provisioning-solutions.html" class="md-nav__link">
         
   
   
@@ -2740,7 +2740,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../marketplace/overview.html" class="md-nav__link">
+      <a href="../marketplace/overview.html" class="md-nav__link">
         
   
   
@@ -2768,7 +2768,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../marketplace/browsing.html" class="md-nav__link">
+      <a href="../marketplace/browsing.html" class="md-nav__link">
         
   
   
@@ -2796,7 +2796,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../marketplace/solution-catalog.html" class="md-nav__link">
+      <a href="../marketplace/solution-catalog.html" class="md-nav__link">
         
   
   
@@ -2879,7 +2879,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../user/deploy-first-app.html" class="md-nav__link">
+      <a href="../how-to-guides/user/deploy-first-app.html" class="md-nav__link">
         
   
   
@@ -2907,7 +2907,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../user/create-project.html" class="md-nav__link">
+      <a href="../how-to-guides/user/create-project.html" class="md-nav__link">
         
   
   
@@ -2935,7 +2935,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../user/create-iam-user.html" class="md-nav__link">
+      <a href="../how-to-guides/user/create-iam-user.html" class="md-nav__link">
         
   
   
@@ -2963,7 +2963,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../user/create-iam-group.html" class="md-nav__link">
+      <a href="../how-to-guides/user/create-iam-group.html" class="md-nav__link">
         
   
   
@@ -2991,7 +2991,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../user/provision-openshift-cluster.html" class="md-nav__link">
+      <a href="../how-to-guides/user/provision-openshift-cluster.html" class="md-nav__link">
         
   
   
@@ -3019,7 +3019,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../user/provision-virtual-machine.html" class="md-nav__link">
+      <a href="../how-to-guides/user/provision-virtual-machine.html" class="md-nav__link">
         
   
   
@@ -3047,7 +3047,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../user/create-s3-bucket.html" class="md-nav__link">
+      <a href="../how-to-guides/user/create-s3-bucket.html" class="md-nav__link">
         
   
   
@@ -3075,7 +3075,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../user/create-postgres.html" class="md-nav__link">
+      <a href="../how-to-guides/user/create-postgres.html" class="md-nav__link">
         
   
   
@@ -3103,7 +3103,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../user/create-vault.html" class="md-nav__link">
+      <a href="../how-to-guides/user/create-vault.html" class="md-nav__link">
         
   
   
@@ -3131,7 +3131,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../user/create-mesh.html" class="md-nav__link">
+      <a href="../how-to-guides/user/create-mesh.html" class="md-nav__link">
         
   
   
@@ -3159,7 +3159,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../user/expose-service-via-mesh.html" class="md-nav__link">
+      <a href="../how-to-guides/user/expose-service-via-mesh.html" class="md-nav__link">
         
   
   
@@ -3251,7 +3251,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../audience/platform-providers.html" class="md-nav__link">
+      <a href="../audience/platform-providers.html" class="md-nav__link">
         
   
   
@@ -3326,7 +3326,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../service-provider-guide/overview.html" class="md-nav__link">
+      <a href="../service-provider-guide/overview.html" class="md-nav__link">
         
   
   
@@ -3354,7 +3354,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../service-provider-guide/getting-started.html" class="md-nav__link">
+      <a href="../service-provider-guide/getting-started.html" class="md-nav__link">
         
   
   
@@ -3387,18 +3387,20 @@ This documentation is for a pull request deployment and is unreleased, it is onl
                 
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3">
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" checked="">
         
           
           <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
@@ -3419,7 +3421,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -3437,7 +3439,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../installation/overview.html" class="md-nav__link">
+      <a href="overview.html" class="md-nav__link">
         
   
   
@@ -3465,7 +3467,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../installation/prerequisites.html" class="md-nav__link">
+      <a href="prerequisites.html" class="md-nav__link">
         
   
   
@@ -3493,7 +3495,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../installation/openshift.html" class="md-nav__link">
+      <a href="openshift.html" class="md-nav__link">
         
   
   
@@ -3518,10 +3520,37 @@ This documentation is for a pull request deployment and is unreleased, it is onl
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../installation/openbao-unseal.html" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Choosing the Platform Secret Store Unseal Method
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="openbao-unseal.html" class="md-nav__link md-nav__link--active">
         
   
   
@@ -3537,6 +3566,183 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
 
       </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#which-one-should-you-choose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Which one should you choose?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-they-compare" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How they compare
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="How they compare">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#security" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Security
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Operations
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#risks-common-to-both-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Risks common to both methods
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuring-the-static-method" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuring the static method
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuring the static method">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-generate-the-unseal-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Generate the unseal key
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-seed-the-key-as-a-cluster-secret" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Seed the key as a cluster secret
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-select-the-method-in-your-environment-config" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Select the method in your environment config
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-install-and-verify" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: Install and verify
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rotating-a-static-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rotating a static key
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#changing-methods-on-a-running-platform" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Changing methods on a running platform
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#whats-next" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What's Next?
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -3549,7 +3755,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../installation/configuration.html" class="md-nav__link">
+      <a href="configuration.html" class="md-nav__link">
         
   
   
@@ -3632,7 +3838,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../service-provider-guide/solutions/solution-overview.html" class="md-nav__link">
+      <a href="../service-provider-guide/solutions/solution-overview.html" class="md-nav__link">
         
   
   
@@ -3660,7 +3866,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../service-provider-guide/solutions/creating-solutions.html" class="md-nav__link">
+      <a href="../service-provider-guide/solutions/creating-solutions.html" class="md-nav__link">
         
   
   
@@ -3688,7 +3894,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../service-provider-guide/solutions/crossplane-compositions.html" class="md-nav__link">
+      <a href="../service-provider-guide/solutions/crossplane-compositions.html" class="md-nav__link">
         
   
   
@@ -3716,7 +3922,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../service-provider-guide/marketplace/publishing-solutions.html" class="md-nav__link">
+      <a href="../service-provider-guide/marketplace/publishing-solutions.html" class="md-nav__link">
         
   
   
@@ -3744,7 +3950,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../service-provider-guide/marketplace/marketplace-configuration.html" class="md-nav__link">
+      <a href="../service-provider-guide/marketplace/marketplace-configuration.html" class="md-nav__link">
         
   
   
@@ -3772,7 +3978,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="create-postgresql-solution.html" class="md-nav__link">
+      <a href="../how-to-guides/provider/create-postgresql-solution.html" class="md-nav__link">
         
   
   
@@ -3855,7 +4061,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../service-provider-guide/organizations/creating-organizations.html" class="md-nav__link">
+      <a href="../service-provider-guide/organizations/creating-organizations.html" class="md-nav__link">
         
   
   
@@ -3883,7 +4089,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../service-provider-guide/organizations/keycloak-realms.html" class="md-nav__link">
+      <a href="../service-provider-guide/organizations/keycloak-realms.html" class="md-nav__link">
         
   
   
@@ -3911,7 +4117,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../service-provider-guide/projects/project-architecture.html" class="md-nav__link">
+      <a href="../service-provider-guide/projects/project-architecture.html" class="md-nav__link">
         
   
   
@@ -3939,7 +4145,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../service-provider-guide/projects/workspace-mapping.html" class="md-nav__link">
+      <a href="../service-provider-guide/projects/workspace-mapping.html" class="md-nav__link">
         
   
   
@@ -4022,7 +4228,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../service-provider-guide/api-publishing/kcp-overview.html" class="md-nav__link">
+      <a href="../service-provider-guide/api-publishing/kcp-overview.html" class="md-nav__link">
         
   
   
@@ -4050,7 +4256,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../service-provider-guide/api-publishing/publishing-apis.html" class="md-nav__link">
+      <a href="../service-provider-guide/api-publishing/publishing-apis.html" class="md-nav__link">
         
   
   
@@ -4083,20 +4289,18 @@ This documentation is for a pull request deployment and is unreleased, it is onl
                 
   
   
-    
   
   
-  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7" checked="">
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7">
         
           
           <label class="md-nav__link" for="__nav_3_7" id="__nav_3_7_label" tabindex="0">
@@ -4117,7 +4321,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_7_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_7_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3_7">
             <span class="md-nav__icon md-icon"></span>
             
@@ -4132,37 +4336,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    How to Control Console UI Rendering
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="control-ui-rendering.html" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../how-to-guides/provider/control-ui-rendering.html" class="md-nav__link">
         
   
   
@@ -4178,116 +4355,6 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
 
       </a>
-      
-        
-
-  
-
-<nav class="md-nav md-nav--secondary" aria-label="On this page">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      On this page
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
-      
-        <li class="md-nav__item">
-  <a href="#prerequisites" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Prerequisites
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#how-it-works" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        How It Works
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#rename-a-field" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Rename a Field
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#order-and-group-fields" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Order and Group Fields
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#choose-the-input" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Choose the Input
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#hide-a-field-or-mark-it-advanced" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Hide a Field or Mark It Advanced
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#tailor-the-detail-page" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Tailor the Detail Page
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#whats-next" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        What's Next?
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -4300,7 +4367,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../service-provider-guide/console/ui-extensions-reference.html" class="md-nav__link">
+      <a href="../service-provider-guide/console/ui-extensions-reference.html" class="md-nav__link">
         
   
   
@@ -4390,7 +4457,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../about/overview.html" class="md-nav__link">
+      <a href="../about/overview.html" class="md-nav__link">
         
   
   
@@ -4418,7 +4485,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../about/key-features.html" class="md-nav__link">
+      <a href="../about/key-features.html" class="md-nav__link">
         
   
   
@@ -4446,7 +4513,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../about/use-cases.html" class="md-nav__link">
+      <a href="../about/use-cases.html" class="md-nav__link">
         
   
   
@@ -4474,7 +4541,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../about/benefits.html" class="md-nav__link">
+      <a href="../about/benefits.html" class="md-nav__link">
         
   
   
@@ -4502,7 +4569,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../architecture/architecture.html" class="md-nav__link">
+      <a href="../architecture/architecture.html" class="md-nav__link">
         
   
   
@@ -4530,7 +4597,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../architecture/concepts.html" class="md-nav__link">
+      <a href="../architecture/concepts.html" class="md-nav__link">
         
   
   
@@ -4558,7 +4625,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../architecture/components.html" class="md-nav__link">
+      <a href="../architecture/components.html" class="md-nav__link">
         
   
   
@@ -4586,7 +4653,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../architecture/virtual-api-layer.html" class="md-nav__link">
+      <a href="../architecture/virtual-api-layer.html" class="md-nav__link">
         
   
   
@@ -4668,7 +4735,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../console/overview.html" class="md-nav__link">
+      <a href="../console/overview.html" class="md-nav__link">
         
   
   
@@ -4696,7 +4763,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../console/accessing-the-console.html" class="md-nav__link">
+      <a href="../console/accessing-the-console.html" class="md-nav__link">
         
   
   
@@ -4724,7 +4791,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../console/dashboard.html" class="md-nav__link">
+      <a href="../console/dashboard.html" class="md-nav__link">
         
   
   
@@ -4752,7 +4819,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../console/projects.html" class="md-nav__link">
+      <a href="../console/projects.html" class="md-nav__link">
         
   
   
@@ -4780,7 +4847,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../console/resources.html" class="md-nav__link">
+      <a href="../console/resources.html" class="md-nav__link">
         
   
   
@@ -4808,7 +4875,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../console/marketplace.html" class="md-nav__link">
+      <a href="../console/marketplace.html" class="md-nav__link">
         
   
   
@@ -4836,7 +4903,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../console/solutions.html" class="md-nav__link">
+      <a href="../console/solutions.html" class="md-nav__link">
         
   
   
@@ -4918,7 +4985,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../api-reference/overview.html" class="md-nav__link">
+      <a href="../api-reference/overview.html" class="md-nav__link">
         
   
   
@@ -4993,7 +5060,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../api-reference/public-apis/project.html" class="md-nav__link">
+      <a href="../api-reference/public-apis/project.html" class="md-nav__link">
         
   
   
@@ -5021,7 +5088,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../api-reference/public-apis/iam-user.html" class="md-nav__link">
+      <a href="../api-reference/public-apis/iam-user.html" class="md-nav__link">
         
   
   
@@ -5049,7 +5116,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../api-reference/public-apis/iam-group.html" class="md-nav__link">
+      <a href="../api-reference/public-apis/iam-group.html" class="md-nav__link">
         
   
   
@@ -5077,7 +5144,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../api-reference/public-apis/openshift-cluster.html" class="md-nav__link">
+      <a href="../api-reference/public-apis/openshift-cluster.html" class="md-nav__link">
         
   
   
@@ -5105,7 +5172,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../api-reference/public-apis/virtual-machine.html" class="md-nav__link">
+      <a href="../api-reference/public-apis/virtual-machine.html" class="md-nav__link">
         
   
   
@@ -5133,7 +5200,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../api-reference/public-apis/s3-bucket.html" class="md-nav__link">
+      <a href="../api-reference/public-apis/s3-bucket.html" class="md-nav__link">
         
   
   
@@ -5161,7 +5228,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../api-reference/public-apis/postgres.html" class="md-nav__link">
+      <a href="../api-reference/public-apis/postgres.html" class="md-nav__link">
         
   
   
@@ -5189,7 +5256,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../api-reference/public-apis/vault.html" class="md-nav__link">
+      <a href="../api-reference/public-apis/vault.html" class="md-nav__link">
         
   
   
@@ -5217,7 +5284,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../api-reference/public-apis/mesh.html" class="md-nav__link">
+      <a href="../api-reference/public-apis/mesh.html" class="md-nav__link">
         
   
   
@@ -5245,7 +5312,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../api-reference/public-apis/mesh-router.html" class="md-nav__link">
+      <a href="../api-reference/public-apis/mesh-router.html" class="md-nav__link">
         
   
   
@@ -5328,7 +5395,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../api-reference/private-apis/hypershift-hosted-cluster.html" class="md-nav__link">
+      <a href="../api-reference/private-apis/hypershift-hosted-cluster.html" class="md-nav__link">
         
   
   
@@ -5356,7 +5423,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../api-reference/private-apis/virtual-machine-infrastructure.html" class="md-nav__link">
+      <a href="../api-reference/private-apis/virtual-machine-infrastructure.html" class="md-nav__link">
         
   
   
@@ -5384,7 +5451,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../api-reference/private-apis/s3-bucket-infrastructure.html" class="md-nav__link">
+      <a href="../api-reference/private-apis/s3-bucket-infrastructure.html" class="md-nav__link">
         
   
   
@@ -5412,7 +5479,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../api-reference/private-apis/postgres-cluster-infrastructure.html" class="md-nav__link">
+      <a href="../api-reference/private-apis/postgres-cluster-infrastructure.html" class="md-nav__link">
         
   
   
@@ -5502,7 +5569,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../integrations/keycloak.html" class="md-nav__link">
+      <a href="../integrations/keycloak.html" class="md-nav__link">
         
   
   
@@ -5530,7 +5597,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../integrations/kcp.html" class="md-nav__link">
+      <a href="../integrations/kcp.html" class="md-nav__link">
         
   
   
@@ -5558,7 +5625,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../integrations/mto.html" class="md-nav__link">
+      <a href="../integrations/mto.html" class="md-nav__link">
         
   
   
@@ -5586,7 +5653,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../integrations/crossplane.html" class="md-nav__link">
+      <a href="../integrations/crossplane.html" class="md-nav__link">
         
   
   
@@ -5668,7 +5735,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../troubleshooting/overview.html" class="md-nav__link">
+      <a href="../troubleshooting/overview.html" class="md-nav__link">
         
   
   
@@ -5696,7 +5763,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../troubleshooting/common-issues.html" class="md-nav__link">
+      <a href="../troubleshooting/common-issues.html" class="md-nav__link">
         
   
   
@@ -5731,7 +5798,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../changelog.html" class="md-nav__link">
+      <a href="../changelog.html" class="md-nav__link">
         
   
   
@@ -5758,7 +5825,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../eula.html" class="md-nav__link">
+      <a href="../eula.html" class="md-nav__link">
         
   
   
@@ -5807,10 +5874,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
       
         <li class="md-nav__item">
-  <a href="#prerequisites" class="md-nav__link">
+  <a href="#which-one-should-you-choose" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Prerequisites
+        Which one should you choose?
       
     </span>
   </a>
@@ -5818,10 +5885,49 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
-  <a href="#how-it-works" class="md-nav__link">
+  <a href="#how-they-compare" class="md-nav__link">
     <span class="md-ellipsis">
       
-        How It Works
+        How they compare
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="How they compare">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#security" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Security
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Operations
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#risks-common-to-both-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Risks common to both methods
       
     </span>
   </a>
@@ -5829,10 +5935,71 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
-  <a href="#rename-a-field" class="md-nav__link">
+  <a href="#configuring-the-static-method" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Rename a Field
+        Configuring the static method
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuring the static method">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-generate-the-unseal-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Generate the unseal key
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-seed-the-key-as-a-cluster-secret" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Seed the key as a cluster secret
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-select-the-method-in-your-environment-config" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Select the method in your environment config
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-install-and-verify" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: Install and verify
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rotating-a-static-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rotating a static key
       
     </span>
   </a>
@@ -5840,43 +6007,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
-  <a href="#order-and-group-fields" class="md-nav__link">
+  <a href="#changing-methods-on-a-running-platform" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Order and Group Fields
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#choose-the-input" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Choose the Input
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#hide-a-field-or-mark-it-advanced" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Hide a Field or Mark It Advanced
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#tailor-the-detail-page" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Tailor the Detail Page
+        Changing methods on a running platform
       
     </span>
   </a>
@@ -5911,61 +6045,234 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 
 
 
-<h1 id="how-to-control-console-ui-rendering">How to Control Console UI Rendering<a class="headerlink" href="#how-to-control-console-ui-rendering" title="Permanent link">#</a></h1>
-<p>Shape how your resources appear in the SCO console — labels, inputs, ordering, grouping, visibility, and detail pages — by annotating your Crossplane Composition's OpenAPI schema.</p>
-<p>Sam, a platform provider at ACME Corp, has published a new resource API. It works, but in the console it renders with raw field names in schema order. Sam wants a polished form and detail page without changing any console code.</p>
-<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">#</a></h2>
-<ul>
-<li>A resource whose schema the platform serves to the console</li>
-<li>The ability to edit the properties in that schema</li>
-</ul>
-<h2 id="how-it-works">How It Works<a class="headerlink" href="#how-it-works" title="Permanent link">#</a></h2>
-<p>The console renders each resource from its schema. For every property it resolves the most specific hint first:</p>
-<div class="highlight"><pre><span></span><code>x-sco-ui-&lt;view&gt;-*   →   x-sco-ui-*   →   schema type inference
-</code></pre></div>
-<p>So you add <code>x-sco-ui-*</code> keys to your schema, and the console adjusts. Resources with no hints still render, using defaults inferred from the schema type. The full list of tags and values is in the <a href="../../service-provider-guide/console/ui-extensions-reference.html">Console UI Extensions Reference</a>.</p>
-<h2 id="rename-a-field">Rename a Field<a class="headerlink" href="#rename-a-field" title="Permanent link">#</a></h2>
-<p>Give a field a human-readable label instead of its property name:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">"replicas"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"integer"</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">"x-sco-ui-label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Node Count"</span>
-<span class="p">}</span>
-</code></pre></div>
-<h2 id="order-and-group-fields">Order and Group Fields<a class="headerlink" href="#order-and-group-fields" title="Permanent link">#</a></h2>
-<p>Put related fields into sections and control their order (lower <code>x-sco-ui-order</code> first):</p>
-<div class="highlight"><pre><span></span><code><span class="nt">"network"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w"> </span><span class="nt">"x-sco-ui-group"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Networking"</span><span class="p">,</span><span class="w"> </span><span class="nt">"x-sco-ui-order"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="w"> </span><span class="p">},</span>
-<span class="nt">"subnet"</span><span class="p">:</span><span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w"> </span><span class="nt">"x-sco-ui-group"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Networking"</span><span class="p">,</span><span class="w"> </span><span class="nt">"x-sco-ui-order"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="w"> </span><span class="p">}</span>
-</code></pre></div>
-<p>Fields without a group fall into a default <code>General</code> section on forms.</p>
-<h2 id="choose-the-input">Choose the Input<a class="headerlink" href="#choose-the-input" title="Permanent link">#</a></h2>
-<p>Override the inferred input with <code>x-sco-ui-component</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">"tier"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">"enum"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"small"</span><span class="p">,</span><span class="w"> </span><span class="s2">"medium"</span><span class="p">,</span><span class="w"> </span><span class="s2">"large"</span><span class="p">],</span>
-<span class="w">  </span><span class="nt">"x-sco-ui-component"</span><span class="p">:</span><span class="w"> </span><span class="s2">"radio"</span>
-<span class="p">}</span>
-</code></pre></div>
-<p>See the reference for the full set of form and detail components.</p>
-<h2 id="hide-a-field-or-mark-it-advanced">Hide a Field or Mark It Advanced<a class="headerlink" href="#hide-a-field-or-mark-it-advanced" title="Permanent link">#</a></h2>
-<div class="highlight"><pre><span></span><code><span class="nt">"internalId"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w"> </span><span class="nt">"x-sco-ui-visibility"</span><span class="p">:</span><span class="w"> </span><span class="s2">"hidden"</span><span class="w"> </span><span class="p">},</span>
-<span class="nt">"tuning"</span><span class="p">:</span><span class="w">     </span><span class="p">{</span><span class="w"> </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"object"</span><span class="p">,</span><span class="w"> </span><span class="nt">"x-sco-ui-complexity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"advanced"</span><span class="w"> </span><span class="p">}</span>
-</code></pre></div>
-<p><code>hidden</code> removes the field entirely; <code>x-sco-ui-complexity: "advanced"</code> keeps it out of <strong>Standard</strong> mode but shows it in <strong>Advanced</strong> mode.</p>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p>The Kubernetes envelope (<code>apiVersion</code>, <code>kind</code>, <code>metadata</code>, <code>status</code>) and standard Crossplane plumbing fields are hidden automatically — you only need to hide your own internal fields.</p>
+<h1 id="choosing-the-platform-secret-store-unseal-method">Choosing the Platform Secret Store Unseal Method<a class="headerlink" href="#choosing-the-platform-secret-store-unseal-method" title="Permanent link">#</a></h1>
+<p>The platform's hub secret store (OpenBao) keeps its data encrypted at rest. On every start it must <strong>unseal</strong> — obtain the key that decrypts its storage — before it can serve any secret. Until it does, no platform component that depends on it can start.</p>
+<p>SCO supports two unseal methods, chosen at install time:</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Where the unseal key lives</th>
+<th style="text-align: center;">Requires a cloud account</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>awskms</code></strong> (default)</td>
+<td>An AWS KMS key; the platform holds only the credentials to call KMS</td>
+<td style="text-align: center;">✅</td>
+</tr>
+<tr>
+<td><strong><code>static</code></strong></td>
+<td>A key you generate, stored as a Kubernetes Secret in the cluster</td>
+<td style="text-align: center;">—</td>
+</tr>
+</tbody>
+</table>
+<p>Both unseal automatically on restart. Neither requires an operator to type anything when a pod cycles — which matters, because a sealed hub blocks the platform's other components.</p>
+<div class="admonition warning">
+<p class="admonition-title">This is a one-time, irreversible choice</p>
+<p>The secret store records its unseal method inside its own encrypted storage the first time it is initialised, and afterwards <strong>refuses to start</strong> if the configuration disagrees. Changing the method later is a deliberate migration procedure, not a configuration edit — plan to get it right on the first install.</p>
 </div>
-<h2 id="tailor-the-detail-page">Tailor the Detail Page<a class="headerlink" href="#tailor-the-detail-page" title="Permanent link">#</a></h2>
-<p>Detail-page tags shadow the shared ones, so a field can look different on the form and the detail view:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">"phase"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">"x-sco-ui-detail-component"</span><span class="p">:</span><span class="w"> </span><span class="s2">"status"</span>
-<span class="p">}</span>
+<hr>
+<h2 id="which-one-should-you-choose">Which one should you choose?<a class="headerlink" href="#which-one-should-you-choose" title="Permanent link">#</a></h2>
+<p>Choose <strong><code>awskms</code></strong> (the default) when the platform has an AWS account available. It is the better option whenever it is an option.</p>
+<p>Choose <strong><code>static</code></strong> when the environment genuinely cannot reach a cloud KMS:</p>
+<ul>
+<li>Air-gapped or disconnected installations</li>
+<li>On-premises or sovereign deployments with no permitted cloud egress</li>
+<li>Customer policy that forbids a dependency on a third-party cloud service</li>
+</ul>
+<hr>
+<h2 id="how-they-compare">How they compare<a class="headerlink" href="#how-they-compare" title="Permanent link">#</a></h2>
+<h3 id="security">Security<a class="headerlink" href="#security" title="Permanent link">#</a></h3>
+<p>The honest summary is that <code>static</code> is <strong>weaker in one specific, important way</strong>, and equivalent in most others.</p>
+<p>With <code>awskms</code>, the key that decrypts the platform's secret store never exists inside the cluster. The cluster holds only credentials to <em>ask</em> AWS to unwrap it. An attacker who obtains a copy of the cluster's storage — an etcd backup, a stolen disk, a snapshot of a volume — still cannot read the secret store's contents, because the material that would decrypt it is not in what they took. They would also need working access to your AWS account.</p>
+<p>With <code>static</code>, the unseal key is stored in the cluster alongside the data it protects. That means:</p>
+<ul>
+<li><strong>A single boundary protects both.</strong> Anyone who can read cluster secrets at the highest privilege level, or who obtains a copy of cluster storage, holds everything needed to decrypt the secret store offline. There is no second system to defeat.</li>
+<li><strong>Backups become as sensitive as the live cluster.</strong> Any backup of the cluster's underlying key-value store must be treated as if it were the secret store itself.</li>
+<li><strong>There is no external audit trail of unseal events</strong>, and no way to cut off access from outside the cluster. With <code>awskms</code>, revoking the KMS grant instantly denies unsealing everywhere, and every unwrap attempt is recorded in your cloud audit log — independently of the cluster, so it survives a cluster compromise.</li>
+</ul>
+<p>What <code>static</code> does <strong>not</strong> do is lower the bar for reaching the platform in the first place. Both methods store their material in the same place at rest, protect it with the same cluster access controls, and neither exposes the secret store to the network any differently. <code>static</code> removes a defence-in-depth layer against offline attack on stolen storage; it does not create a new way in.</p>
+<div class="admonition important">
+<p class="admonition-title">If you deploy <code>static</code>, protect these two things</p>
+<p>Everything rests on them: the access controls governing who can read secrets in the platform's namespaces, and every copy of cluster storage — etcd backups, volume snapshots, disaster-recovery archives. Treat those backups with the same handling rules as the secret store's own contents, including encryption at rest and restricted retrieval.</p>
+</div>
+<h3 id="operations">Operations<a class="headerlink" href="#operations" title="Permanent link">#</a></h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th><code>awskms</code></th>
+<th><code>static</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>External dependency at boot</td>
+<td>AWS KMS must be reachable</td>
+<td>None</td>
+</tr>
+<tr>
+<td>Network egress required</td>
+<td>✅</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Behaviour if the dependency is unavailable</td>
+<td>Stays sealed until KMS is reachable</td>
+<td>Not applicable</td>
+</tr>
+<tr>
+<td>Key custody</td>
+<td>AWS stores and durably retains the key material</td>
+<td>You generate it, and you alone hold it — an offline copy outside the cluster is mandatory</td>
+</tr>
+<tr>
+<td>Rotation</td>
+<td>Managed through AWS KMS</td>
+<td>Manual, with a documented n-1 window</td>
+</tr>
+<tr>
+<td>Audit trail of unseal events</td>
+<td>External, in the cloud audit log</td>
+<td>Cluster events only</td>
+</tr>
+</tbody>
+</table>
+<p><code>static</code> trades an external dependency for custody responsibility. It removes a boot-time network dependency and everything that can go wrong with one — expired credentials, revoked permissions, a regional outage leaving the platform sealed — and hands you the job of never losing a 32-byte key.</p>
+<p>That last part is not a formality. With <code>awskms</code>, AWS keeps the key durable for you and a deleted key has a recovery window. With <code>static</code> there is no such safety net: if the cluster's copy is lost and you have no copy elsewhere, nothing can rebuild it. Decide where that offline copy lives, and who holds it, before you install — the procedure is in <a href="#step-1-generate-the-unseal-key">step 1</a> below.</p>
+<hr>
+<h2 id="risks-common-to-both-methods">Risks common to both methods<a class="headerlink" href="#risks-common-to-both-methods" title="Permanent link">#</a></h2>
+<p>These apply whichever method you choose, and are worth understanding before you install.</p>
+<div class="admonition warning">
+<p class="admonition-title">Losing the unseal key means losing the data — backups will not save you</p>
+<p>The recovery keys issued at initialisation <strong>cannot</strong> unseal an automatically-unsealed secret store. They exist for break-glass operations such as generating a root token or performing a seal migration. If the unseal key is destroyed — a deleted KMS key, or a lost static key — the secret store's contents are unrecoverable, and restoring a backup does not help, because the backup is encrypted with the same key.</p>
+</div>
+<p><strong>Keep custody of the recovery keys.</strong> They are issued once, at initialisation, and cannot be regenerated afterwards. Distribute them to their holders and store them offline. They are never used during a normal restart, so offline custody costs nothing operationally.</p>
+<p><strong>Never point an initialised secret store at a different key.</strong> With either method, presenting a key that is not the one used at initialisation leaves it sealed. With <code>static</code> the failure names the key it expected and can be corrected by restoring that key, or by declaring it as the previous key during a rotation. Either way, the fix is to produce the original key — there is no way around it.</p>
+<hr>
+<h2 id="configuring-the-static-method">Configuring the static method<a class="headerlink" href="#configuring-the-static-method" title="Permanent link">#</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Version requirement</p>
+<p>Static unseal requires <strong><code>ksp</code> v2.3.4 or later</strong>. Earlier versions accept the setting and then ignore it, and because the method is fixed at initialisation, the resulting install cannot be corrected in place. Check with <code>ksp version</code> before you begin.</p>
+</div>
+<p>Static unseal is configured entirely at install time, through two of the <code>ksp up</code> inputs described in <a href="openshift.html">OpenShift Installation</a>.</p>
+<h3 id="step-1-generate-the-unseal-key">Step 1: Generate the unseal key<a class="headerlink" href="#step-1-generate-the-unseal-key" title="Permanent link">#</a></h3>
+<p>The key is 32 random bytes, base64-encoded:</p>
+<div class="highlight"><pre><span></span><code>openssl<span class="w"> </span>rand<span class="w"> </span><span class="m">32</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64<span class="w"> </span>-w0
 </code></pre></div>
-<p>At the schema <strong>root</strong>, <code>x-sco-ui</code> adds a summary strip, extra tabs, and actions to the detail page. See <a href="../../service-provider-guide/console/ui-extensions-reference.html#schema-level-extension-x-sco-ui">Schema-Level Extension</a> in the reference.</p>
+<div class="admonition warning">
+<p class="admonition-title">Store this key outside the cluster before you install</p>
+<p><strong>The copy in the cluster is a working copy, not a backup.</strong> It can be deleted by accident, lost with the namespace, or missing from a restore — and the platform's secret store cannot be recovered without it. Put the key in an offline store <em>before</em> you run the installer: an enterprise password manager or secrets-management system that does not depend on this cluster, or sealed offline custody such as a printed copy in a safe. At least two holders, following whatever your organisation already does for root credentials.</p>
+</div>
+<p>Nothing in the platform can regenerate this key or recover it from the running secret store. If the in-cluster copy is lost and there is no external copy, every secret the platform holds is gone permanently — see the data-loss warning above. Re-running the installer later with a <em>different</em> key does not repair it; it permanently seals the platform.</p>
+<p>Treat that external copy with the same care as the key itself: it decrypts the platform's entire secret store, so it belongs under the same access controls, approval, and audit as your most privileged credentials.</p>
+<h3 id="step-2-seed-the-key-as-a-cluster-secret">Step 2: Seed the key as a cluster secret<a class="headerlink" href="#step-2-seed-the-key-as-a-cluster-secret" title="Permanent link">#</a></h3>
+<p>Put the key in an extra-secrets file, applied by <code>ksp up --extra-secrets</code> before the secret store starts:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">secrets</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openbao-unseal-key</span>
+<span class="w">    </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stakater-openbao</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Opaque</span>
+<span class="w">    </span><span class="nt">data</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">current</span><span class="p">:</span><span class="w"> </span><span class="s">"&lt;paste</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">step</span><span class="nv"> </span><span class="s">1</span><span class="nv"> </span><span class="s">output</span><span class="nv"> </span><span class="s">verbatim&gt;"</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Paste the output of step 1 exactly as it was printed — do <strong>not</strong> encode it again. The installer handles Kubernetes' own base64 encoding for you; the value in this file is the key as generated. The installer also creates the namespace if it does not yet exist.</p>
+</div>
+<h3 id="step-3-select-the-method-in-your-environment-config">Step 3: Select the method in your environment config<a class="headerlink" href="#step-3-select-the-method-in-your-environment-config" title="Permanent link">#</a></h3>
+<p>In the values file you pass to <code>ksp up --environment-config</code>, add a <code>seal</code> block under <code>clusterDefaults</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cluster-defaults</span>
+
+<span class="nt">clusterDefaults</span><span class="p">:</span>
+<span class="w">  </span><span class="c1"># ... your other cluster defaults ...</span>
+
+<span class="w">  </span><span class="nt">seal</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">static</span>
+<span class="w">    </span><span class="nt">static</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">currentKeyId</span><span class="p">:</span><span class="w"> </span><span class="s">"k1"</span>
+<span class="w">      </span><span class="nt">secretName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openbao-unseal-key</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th style="text-align: center;">Required</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>seal.type</code></td>
+<td style="text-align: center;">—</td>
+<td><code>awskms</code></td>
+<td><code>awskms</code> or <code>static</code>. Any other value is rejected at render time.</td>
+</tr>
+<tr>
+<td><code>seal.static.currentKeyId</code></td>
+<td style="text-align: center;">✅ when <code>type: static</code></td>
+<td>—</td>
+<td>An opaque label for the current key. Change it whenever the key changes.</td>
+</tr>
+<tr>
+<td><code>seal.static.previousKeyId</code></td>
+<td style="text-align: center;">—</td>
+<td>—</td>
+<td>Set only during a rotation, alongside the previous key.</td>
+</tr>
+<tr>
+<td><code>seal.static.secretName</code></td>
+<td style="text-align: center;">—</td>
+<td><code>openbao-unseal-key</code></td>
+<td>Name of the secret seeded in step 2.</td>
+</tr>
+</tbody>
+</table>
+<p><code>currentKeyId</code> is written into the secret store's storage at initialisation and identifies which key its data was encrypted with. It is a label, not a secret, and it is what makes a mismatched key produce a clear, self-describing error rather than an opaque failure.</p>
+<h3 id="step-4-install-and-verify">Step 4: Install and verify<a class="headerlink" href="#step-4-install-and-verify" title="Permanent link">#</a></h3>
+<p>Run <code>ksp up</code> as described in <a href="openshift.html">OpenShift Installation</a>, passing both files:</p>
+<div class="highlight"><pre><span></span><code>ksp<span class="w"> </span>up<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-c<span class="w"> </span>kubestack-config-claim.yaml<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-f<span class="w"> </span>kubestack-plus-claim.yaml<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--environment-config<span class="w"> </span>env-config.yaml<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--extra-secrets<span class="w"> </span>extra-secrets.yaml<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--registry-secret<span class="w"> </span>registry-secret.yaml
+</code></pre></div>
+<p>Once the platform is up, confirm the secret store came up unsealed with the method you chose:</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-n<span class="w"> </span>stakater-openbao<span class="w"> </span>openbao-0<span class="w"> </span>--<span class="w"> </span>bao<span class="w"> </span>status
+</code></pre></div>
+<p>Expect <code>Seal Type</code> to read <code>static</code> and <code>Sealed</code> to read <code>false</code>. In a highly-available deployment, check each replica — every one should report <code>Sealed false</code>, with one active and the rest standby.</p>
+<div class="admonition warning">
+<p class="admonition-title">Verify before you continue</p>
+<p>If <code>Seal Type</code> reads <code>awskms</code> on an install you intended to be static, stop. The method is now fixed in storage and cannot be corrected by editing configuration. The usual cause is a <code>ksp</code> version below v2.3.4, or the <code>seal</code> block missing from the file passed to <code>--environment-config</code>.</p>
+</div>
+<hr>
+<h2 id="rotating-a-static-key">Rotating a static key<a class="headerlink" href="#rotating-a-static-key" title="Permanent link">#</a></h2>
+<p>Rotation keeps the previous key available while the platform re-encrypts under the new one:</p>
+<ol>
+<li>Generate a new key as in step 1 above.</li>
+<li>In the seeded secret, move the existing value to a <code>previous</code> entry and put the new key in <code>current</code>.</li>
+<li>Set <code>seal.static.previousKeyId</code> to the outgoing <code>currentKeyId</code>, and <code>currentKeyId</code> to a new label.</li>
+<li>Let the platform reconcile, then restart the secret store's pods so they read the new configuration.</li>
+<li>Once every replica reports unsealed, remove the <code>previous</code> entry and <code>previousKeyId</code>.</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Configuration is read at process start, so a rotation mistake stays invisible until the next restart. Restart one replica deliberately and confirm it comes back unsealed before you remove the previous key.</p>
+</div>
+<hr>
+<h2 id="changing-methods-on-a-running-platform">Changing methods on a running platform<a class="headerlink" href="#changing-methods-on-a-running-platform" title="Permanent link">#</a></h2>
+<p>Switching an already-initialised secret store between <code>awskms</code> and <code>static</code> is a <strong>seal migration</strong> — an explicit, planned procedure with downtime, not a configuration change. Editing the configuration on a running platform does not migrate it; it makes the secret store refuse to start on its next restart, which may not be noticed until hours or days later.</p>
+<p>Contact Stakater support before attempting a migration.</p>
+<hr>
 <h2 id="whats-next">What's Next?<a class="headerlink" href="#whats-next" title="Permanent link">#</a></h2>
 <ul>
-<li><a href="../../service-provider-guide/console/ui-extensions-reference.html">Console UI Extensions Reference</a> — Every tag, value, and rule</li>
+<li><a href="openshift.html">OpenShift Installation</a> — Step-by-step installation guide</li>
+<li><a href="configuration.html">Platform Configuration</a> — How platform configuration is applied after install</li>
+<li><a href="../architecture/components.html">Components</a> — The platform's secret management architecture</li>
 </ul>
 
 
@@ -6260,27 +6567,27 @@ This documentation is for a pull request deployment and is unreleased, it is onl
                 <div class="flex-2">
                     <div class="logo-footer-container">
                         
-                        <img class="md-header__logo_light" src="../../assets/images/footer-logo-light.png#only-light" alt="logo">
+                        <img class="md-header__logo_light" src="../assets/images/footer-logo-light.png#only-light" alt="logo">
                         
                         
-                        <img src="../../assets/images/footer-logo-dark.png#only-dark" alt="logo">
+                        <img src="../assets/images/footer-logo-dark.png#only-dark" alt="logo">
                         
                     </div>
 
                     <div class="collaborations-img-container">
                         <div class="display-flex">
                             
-                            <img class="csa-logo-dark" src="../../assets/images/CSA_dark.png#only-dark" alt="CSA">
+                            <img class="csa-logo-dark" src="../assets/images/CSA_dark.png#only-dark" alt="CSA">
                             
                             
-                            <img class="csa-logo-light" src="../../assets/images/CSA_light.png#only-light" alt="CSA">
+                            <img class="csa-logo-light" src="../assets/images/CSA_light.png#only-light" alt="CSA">
                             
 
                             
-                            <img class="hc-logo-dark" src="../../assets/images/HC_dark.png#only-dark" alt="HC">
+                            <img class="hc-logo-dark" src="../assets/images/HC_dark.png#only-dark" alt="HC">
                             
                             
-                            <img class="hc-logo-light" src="../../assets/images/HC_light.png#only-light" alt="HC">
+                            <img class="hc-logo-light" src="../assets/images/HC_light.png#only-light" alt="HC">
                             
                         </div>
                     </div>
@@ -6657,10 +6964,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.code.copy", "navigation.tracking", "toc.follow", "navigation.top"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["content.code.copy", "navigation.tracking", "toc.follow", "navigation.top"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
       
     
   

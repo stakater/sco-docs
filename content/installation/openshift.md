@@ -166,7 +166,7 @@ registry:
   profile: distribution
 ```
 
-!!! warning "profile: distribution is required for customer installs"
+!!! important "profile: distribution is required for customer installs"
     Your credentials open Stakater's **customer distribution registry**, which
     carries the released versions of every platform component. The
     `profile: distribution` line points the whole installation — charts,

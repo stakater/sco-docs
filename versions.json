@@ -75,13 +75,6 @@
     "aliases": []
   },
   {
-    "version": "docs-openbao-unseal-options",
-    "title": "docs-openbao-unseal-options",
-    "aliases": [
-      "latest"
-    ]
-  },
-  {
     "version": "docs-installation",
     "title": "docs-installation",
     "aliases": []

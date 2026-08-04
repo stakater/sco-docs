@@ -11,7 +11,7 @@
         <link rel="prev" href="prerequisites.html">
       
       
-        <link rel="next" href="configuration.html">
+        <link rel="next" href="openbao-unseal.html">
       
       
         
@@ -3849,6 +3849,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
+      <a href="openbao-unseal.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Choosing the Platform Secret Store Unseal Method
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="configuration.html" class="md-nav__link">
         
   
@@ -6554,6 +6582,10 @@ oc<span class="w"> </span>get<span class="w"> </span>nodes
 </tr>
 </tbody>
 </table>
+<div class="admonition warning">
+<p class="admonition-title">Air-gapped or no-cloud installs: decide the unseal method now</p>
+<p>The platform's secret store unseals via AWS KMS by default, which requires cloud egress. If this cluster cannot reach a cloud KMS, you must select the static unseal method <strong>on this first install</strong> — it is fixed at initialisation and cannot be changed afterwards by editing configuration. See <a href="openbao-unseal.html">Secret Store Unseal Method</a>.</p>
+</div>
 <h2 id="step-5-monitor-installation">Step 5: Monitor Installation<a class="headerlink" href="#step-5-monitor-installation" title="Permanent link">#</a></h2>
 <p>The command outputs progress as it runs:</p>
 <div class="highlight"><pre><span></span><code>✓ Checking cluster capabilities...
@@ -6693,6 +6725,7 @@ oc<span class="w"> </span>delete<span class="w"> </span>namespace<span class="w"
 <h2 id="whats-next">What's Next?<a class="headerlink" href="#whats-next" title="Permanent link">#</a></h2>
 <ul>
 <li><a href="configuration.html">Configuration</a> - Configure SCO for your environment</li>
+<li><a href="openbao-unseal.html">Secret Store Unseal Method</a> - Choose how the platform secret store unseals</li>
 <li><a href="../console/overview.html">Console Overview</a> - Access the SCO console</li>
 <li><a href="../service-provider-guide/getting-started.html">Service Provider Guide</a> - Start creating solutions</li>
 </ul>

@@ -6503,15 +6503,24 @@ oc<span class="w"> </span>get<span class="w"> </span>nodes
 <p>Example claim files are available in the <code>examples/</code> directory of the KubeStack+ CLI repository.</p>
 </div>
 <h2 id="step-3-prepare-registry-credentials">Step 3: Prepare Registry Credentials<a class="headerlink" href="#step-3-prepare-registry-credentials" title="Permanent link">#</a></h2>
-<p>SCO components are pulled from Stakater's private registry, so a registry-secret file is <strong>required</strong>. Use the username and token Stakater provided — request them from <code>sales@stakater.com</code> if you don't have them yet (see <a href="prerequisites.html#registry-access">Prerequisites</a>).</p>
+<p>SCO components are pulled from Stakater's customer distribution registry, so a registry-secret file is <strong>required</strong>. Use the username and token Stakater provided — request them from <code>sales@stakater.com</code> if you don't have them yet (see <a href="prerequisites.html#registry-access">Prerequisites</a>).</p>
 <p>Create <code>registry-secret.yaml</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">registry</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="s">"ghcr.io"</span>
 <span class="w">  </span><span class="nt">gitopsChartsUrl</span><span class="p">:</span><span class="w"> </span><span class="s">"ghcr.io/stakater"</span>
 <span class="w">  </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="s">"&lt;your-username&gt;"</span>
 <span class="w">  </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="s">"&lt;your-token&gt;"</span><span class="w">     </span><span class="c1"># use either password or token; token wins if both are set</span>
+<span class="w">  </span><span class="nt">profile</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">distribution</span>
 </code></pre></div>
-<p><code>ksp up</code> uses this file to log in to the registry and to create the in-cluster pull secrets that Crossplane and the composition functions need. It is <strong>not</strong> referenced from the claim files — it is passed on the command line via <code>--registry-secret</code> (Step 4).</p>
+<div class="admonition important">
+<p class="admonition-title">profile: distribution is required for customer installs</p>
+<p>Your credentials open Stakater's <strong>customer distribution registry</strong>, which
+carries the released versions of every platform component. The
+<code>profile: distribution</code> line points the whole installation — charts,
+packages, and images — at that registry. Without it the installer
+assumes Stakater's internal environment and every pull will be denied.</p>
+</div>
+<p><code>ksp up</code> uses this file to log in to the registry and to create the in-cluster pull secrets the platform needs. It is <strong>not</strong> referenced from the claim files — it is passed on the command line via <code>--registry-secret</code> (Step 4).</p>
 <h2 id="step-4-run-installation">Step 4: Run Installation<a class="headerlink" href="#step-4-run-installation" title="Permanent link">#</a></h2>
 <p><code>ksp up</code> operates on your <strong>current <code>oc</code>/<code>kubectl</code> context</strong>, so confirm it points at the target cluster first (<code>oc whoami --show-server</code>). Then run it with both claim files and your registry secret — <code>-c</code> (KubeStackConfig) is applied first, then <code>-f</code> (KubeStackPlus):</p>
 <div class="highlight"><pre><span></span><code>ksp<span class="w"> </span>up<span class="w"> </span><span class="se">\</span>

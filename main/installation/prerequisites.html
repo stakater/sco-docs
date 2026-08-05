@@ -6078,10 +6078,10 @@ oc<span class="w"> </span>whoami
 <li><strong>Connectivity</strong>: Outbound access to container registries (docker.io, Quay.io, ghcr.io)</li>
 </ul>
 <h2 id="registry-access">Registry Access<a class="headerlink" href="#registry-access" title="Permanent link">#</a></h2>
-<p>SCO platform components — Crossplane configuration packages, composition functions, and Helm charts — are published to <strong>Stakater's private registry</strong> (<code>ghcr.io/stakater</code>). Installing SCO therefore <strong>requires Stakater registry credentials</strong>.</p>
+<p>SCO platform components — packages, functions, Helm charts, and container images — are published to <strong>Stakater's customer distribution registry</strong> (<code>ghcr.io/stakater/registry</code>). It carries only released versions blessed for customer use. Installing SCO therefore <strong>requires Stakater registry credentials</strong>.</p>
 <div class="admonition important">
 <p class="admonition-title">Request your registry credentials</p>
-<p>Email <code>sales@stakater.com</code> to request access. You will receive a username and a token with read access to <code>ghcr.io/stakater</code>. You supply these to <code>ksp up</code> through a registry-secret file (<code>--registry-secret</code>) — see <a href="openshift.html">OpenShift Installation</a>.</p>
+<p>Email <code>sales@stakater.com</code> to request access. You will receive a username and a token with read access to the distribution registry. You supply these to <code>ksp up</code> through a registry-secret file with <code>profile: distribution</code> set (<code>--registry-secret</code>) — see <a href="openshift.html">OpenShift Installation</a>.</p>
 </div>
 <p>The cluster also needs outbound connectivity to the public registries SCO depends on: docker.io, Quay.io, ghcr.io, and the Red Hat registry (for OpenShift platform components).</p>
 <h2 id="configuration-claim-files">Configuration Claim Files<a class="headerlink" href="#configuration-claim-files" title="Permanent link">#</a></h2>

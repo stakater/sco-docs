@@ -80,13 +80,6 @@
     "aliases": []
   },
   {
-    "version": "docs-distribution-profile-install",
-    "title": "docs-distribution-profile-install",
-    "aliases": [
-      "latest"
-    ]
-  },
-  {
     "version": "architecture",
     "title": "architecture",
     "aliases": []

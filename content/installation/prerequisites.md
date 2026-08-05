@@ -75,10 +75,10 @@ oc whoami
 
 ## Registry Access
 
-SCO platform components — Crossplane configuration packages, composition functions, and Helm charts — are published to **Stakater's private registry** (`ghcr.io/stakater`). Installing SCO therefore **requires Stakater registry credentials**.
+SCO platform components — packages, functions, Helm charts, and container images — are published to **Stakater's customer distribution registry** (`ghcr.io/stakater/registry`). It carries only released versions blessed for customer use. Installing SCO therefore **requires Stakater registry credentials**.
 
 !!! important "Request your registry credentials"
-    Email `sales@stakater.com` to request access. You will receive a username and a token with read access to `ghcr.io/stakater`. You supply these to `ksp up` through a registry-secret file (`--registry-secret`) — see [OpenShift Installation](openshift.md).
+    Email `sales@stakater.com` to request access. You will receive a username and a token with read access to the distribution registry. You supply these to `ksp up` through a registry-secret file with `profile: distribution` set (`--registry-secret`) — see [OpenShift Installation](openshift.md).
 
 The cluster also needs outbound connectivity to the public registries SCO depends on: docker.io, Quay.io, ghcr.io, and the Red Hat registry (for OpenShift platform components).
 

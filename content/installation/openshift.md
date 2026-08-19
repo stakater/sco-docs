@@ -175,6 +175,13 @@ registry:
 
 `ksp up` uses this file to log in to the registry and to create the in-cluster pull secrets the platform needs. It is **not** referenced from the claim files — it is passed on the command line via `--registry-secret` (Step 4).
 
+!!! warning "`gitopsChartsUrl` is the registry, not the chart path"
+    It must be exactly `ghcr.io/stakater`. Do not extend it towards the charts — neither `ghcr.io/stakater/registry` nor `ghcr.io/stakater/registry/charts` will work.
+
+`ksp up` turns `gitopsChartsUrl` into an Argo CD *repository* credential, and Argo CD matches those against the repository URL an Application declares — not against the path of the chart inside it. The platform's Applications declare `ghcr.io/stakater` and locate charts below it, so a credential registered for a longer path matches no Application and authenticates nothing.
+
+The symptom is unhelpful: every platform Application fails to sync with a `401`, which reads as though your credentials lack access to the distribution registry. The credentials are fine — nothing is using them. See [Argo CD Applications fail with 401](#argo-cd-applications-fail-with-401).
+
 ## Step 4: Run Installation
 
 `ksp up` operates on your **current `oc`/`kubectl` context**, so confirm it points at the target cluster first (`oc whoami --show-server`). Then run it with both claim files and your registry secret — `-c` (KubeStackConfig) is applied first, then `-f` (KubeStackPlus):
@@ -305,11 +312,39 @@ If Helm charts fail to pull from the OCI registry:
 # Verify credentials locally
 helm registry login ghcr.io -u <username> -p <token>
 
-# Check if the chart is accessible
-helm pull oci://ghcr.io/stakater/saap-catalog/charts/crossplane-operator --version <version>
+# Check if a chart is accessible
+helm pull oci://ghcr.io/stakater/registry/charts/crossplane-operator --version <version>
 ```
 
-Ensure the token has read access to `ghcr.io/stakater/saap-catalog`. If using `--registry-secret`, verify the file format matches the expected structure (see [Step 3](#step-3-prepare-registry-credentials)).
+If that pull succeeds, your credentials are working and the problem is in how they were registered in the cluster — not in your access. If using `--registry-secret`, verify the file format matches the expected structure (see [Step 3](#step-3-prepare-registry-credentials)).
+
+### Argo CD Applications fail with 401
+
+Many or all platform Applications fail to sync with a `401` from `ghcr.io`, while `helm pull` of the same chart succeeds from your workstation.
+
+This is almost always the Argo CD repository credential being registered for the wrong URL. Argo CD matches repository credentials against the repository URL an Application declares, not the path of the chart inside it — so the credential has to be registered for `ghcr.io/stakater` even though the charts live further down under `/registry/charts/`. A credential registered for the chart path matches nothing, and every pull is then anonymous.
+
+Compare the two:
+
+```bash
+# What the Applications ask for
+oc get application -n openshift-gitops -o jsonpath='{.items[*].spec.source.repoURL}{"\n"}' | tr ' ' '\n' | sort -u
+
+# What the credential covers
+oc get secret -n openshift-gitops -l argocd.argoproj.io/secret-type=repository \
+  -o jsonpath='{range .items[*]}{.metadata.name}{"\t"}{.data.url}{"\n"}{end}' \
+  | while read -r name url; do echo "$name $(echo "$url" | base64 -d)"; done
+```
+
+The URLs must match exactly. Correct the secret's `url` if they do not — then restart the repository server. It is named after the Argo CD instance, so confirm the name before restarting it:
+
+```bash
+oc get deployment -n openshift-gitops -o name | grep repo-server
+oc rollout restart deployment/argocd-repo-server -n openshift-gitops
+```
+
+!!! important "The restart is required, not optional"
+    Argo CD's repository server caches registry credentials, so it keeps using the old ones after you fix the secret. Without the restart the `401`s continue unchanged and the fix looks like it did not work.
 
 ### Helm chart readiness timeout
 

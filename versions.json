@@ -77,7 +77,9 @@
   {
     "version": "docs-sa8748-cluster-access-roles",
     "title": "docs-sa8748-cluster-access-roles",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "docs-installation",
@@ -92,9 +94,7 @@
   {
     "version": "docs-channel-credential-matching",
     "title": "docs-channel-credential-matching",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "architecture",

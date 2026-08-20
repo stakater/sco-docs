@@ -38,9 +38,9 @@ All parameters are nested under `spec.parameters`.
 | Field | Type | Constraints | Description |
 |-------|------|-------------|-------------|
 | `name` | `string` | 1–253 characters, RFC 1123 subdomain | Organisation group name, exactly as it appears in your single sign-on. Cannot be a name reserved for platform access (e.g. names ending in `-cluster-admin`). |
-| `role` | `string` | `view`, `edit`, `admin`, or `customer-admin` | Access level to grant the group. `view`/`edit`/`admin` apply within your own projects; `customer-admin` additionally grants cluster-wide administrative access (including the marketplace). See [what each role grants](#access-roles). |
+| `role` | `string` | `view`, `edit`, `admin`, or `customer-admin` | Access level to grant the group. `view`/`edit`/`admin` apply within your own projects; `customer-admin` additionally grants cluster-wide administrative access (including the marketplace). See the roles table below. |
 
-#### Access roles {#access-roles}
+#### Access roles
 
 | Role | Scope | Grants |
 |------|-------|--------|

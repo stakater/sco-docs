@@ -67,9 +67,9 @@ spec:
     access:
       groups:
         - name: platform-admins
-          role: customer-edit
+          role: customer-admin
         - name: developers
-          role: customer-view
+          role: edit
     bootstrap:
       enabled: true
 ```
@@ -83,17 +83,28 @@ spec:
 | `parameters.defaultNodepool.size` | `medium` | T-shirt size for default node pool nodes: `small`, `medium`, `large`, or `xlarge`. Each size maps to a predefined CPU, memory, and root volume configuration at the platform level. |
 | `parameters.defaultNodepool.replicas` | `3` | Number of nodes in the default node pool (1–10) |
 | `parameters.networking.mode` | `public` | Network access mode for the cluster API and console: `public` or `private` |
-| `parameters.access.groups` | — | List of Keycloak group → ClusterRole bindings (see below) |
+| `parameters.access.groups` | — | Grants organisation groups a role on the cluster (see below) |
 | `parameters.bootstrap.enabled` | `false` | When `true`, the hosting cluster auto-installs core add-ons (Crossplane, ArgoCD, ksp-system). Enable for new clusters; leave disabled for clusters that were bootstrapped manually. |
 
 ### Access Grants
 
-Each entry under `access.groups` binds a Keycloak group to a ClusterRole. Members of that group receive the role across customer-eligible namespaces on the cluster (platform namespaces are excluded centrally).
+Each entry under `access.groups` grants an organisation group a role on the cluster. Members of that group receive the role once they log in. Access is limited to your own projects; platform-managed namespaces are excluded.
 
 | Field | Description |
 |-------|-------------|
-| `name` | Keycloak group name exactly as it appears in the `groups` claim of the OIDC token. Must be a valid Kubernetes name (RFC 1123 subdomain). |
-| `role` | ClusterRole to bind. Typically, `customer-edit` or `customer-view` (managed by the RBAC Permissions Operator), or a built-in such as `view`, `edit`, or `admin`. |
+| `name` | Organisation group name, exactly as it appears in your single sign-on. Must be a valid Kubernetes name (RFC 1123 subdomain), and cannot be a name reserved for platform access (for example, names ending in `-cluster-admin`). |
+| `role` | Access level to grant: `view`, `edit`, `admin`, or `customer-admin`. |
+
+**What each role grants:**
+
+| Role | Scope | Grants |
+|------|-------|--------|
+| `view` | your projects | read-only access to resources in your own projects |
+| `edit` | your projects | create and modify resources in your own projects |
+| `admin` | your projects | full administration of your own projects, including managing access within them |
+| `customer-admin` | the cluster | cluster-wide administration of your cluster and the ability to browse and install from the marketplace, while platform-managed namespaces and host-level (node) access remain off-limits |
+
+Members must log out and back in after a grant is added for it to take effect. `cluster-admin` and other arbitrary roles are not accepted — only the roles above.
 
 ## Step 3: Apply the Claim
 

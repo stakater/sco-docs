@@ -82,14 +82,14 @@
   {
     "version": "docs-console-screenshots-automation",
     "title": "docs-console-screenshots-automation",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "docs-channel-credential-matching",
     "title": "docs-channel-credential-matching",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "architecture",

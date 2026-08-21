@@ -2,366 +2,366 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/index.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/changelog.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/eula.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/about/benefits.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/about/key-features.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/about/overview.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/about/use-cases.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/api-reference/overview.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/api-reference/private-apis/hypershift-hosted-cluster.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/api-reference/private-apis/postgres-cluster-infrastructure.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/api-reference/private-apis/s3-bucket-infrastructure.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/api-reference/private-apis/virtual-machine-infrastructure.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/api-reference/public-apis/iam-group.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/api-reference/public-apis/iam-user.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/api-reference/public-apis/mesh-router.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/api-reference/public-apis/mesh.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/api-reference/public-apis/openshift-cluster.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/api-reference/public-apis/postgres.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/api-reference/public-apis/project.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/api-reference/public-apis/s3-bucket.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/api-reference/public-apis/vault.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/api-reference/public-apis/virtual-machine.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/architecture/architecture.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/architecture/components.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/architecture/concepts.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/architecture/virtual-api-layer.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/audience/cloud-consumers.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/audience/platform-providers.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/cloud-user-guide/getting-started.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/cloud-user-guide/overview.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/cloud-user-guide/authentication/logging-in.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/cloud-user-guide/authentication/managing-users.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/cloud-user-guide/authentication/organisation-identity.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/cloud-user-guide/gitops-access/argocd-setup.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/cloud-user-guide/gitops-access/flux-setup.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/cloud-user-guide/kubectl-access/kubeconfig-generation.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/cloud-user-guide/kubectl-access/setup-kubectl.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/cloud-user-guide/projects/creating-projects.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/cloud-user-guide/projects/project-structure.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/cloud-user-guide/solutions/browsing-marketplace.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/cloud-user-guide/solutions/provisioning-solutions.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/cloud-user-guide/terraform-access/kubernetes-provider.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/cloud-user-guide/terraform-access/setup-terraform.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/console/accessing-the-console.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/console/dashboard.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/console/marketplace.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/console/overview.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/console/projects.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/console/resources.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/console/solutions.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/how-to-guides/provider/control-ui-rendering.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/how-to-guides/provider/create-postgresql-solution.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/how-to-guides/user/create-iam-group.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/how-to-guides/user/create-iam-user.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/how-to-guides/user/create-mesh.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/how-to-guides/user/create-postgres.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/how-to-guides/user/create-project.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/how-to-guides/user/create-s3-bucket.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/how-to-guides/user/create-vault.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/how-to-guides/user/deploy-first-app.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/how-to-guides/user/expose-service-via-mesh.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/how-to-guides/user/provision-openshift-cluster.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/how-to-guides/user/provision-virtual-machine.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/installation/configuration.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/installation/openbao-unseal.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/installation/openshift.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/installation/overview.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/installation/prerequisites.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/integrations/crossplane.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/integrations/kcp.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/integrations/keycloak.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/integrations/mto.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/marketplace/browsing.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/marketplace/overview.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/marketplace/solution-catalog.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/service-provider-guide/getting-started.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/service-provider-guide/overview.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/service-provider-guide/api-publishing/kcp-overview.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/service-provider-guide/api-publishing/publishing-apis.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/service-provider-guide/console/ui-extensions-reference.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/service-provider-guide/marketplace/marketplace-configuration.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/service-provider-guide/marketplace/publishing-solutions.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/service-provider-guide/organizations/creating-organizations.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/service-provider-guide/organizations/keycloak-realms.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/service-provider-guide/projects/project-architecture.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/service-provider-guide/projects/workspace-mapping.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/service-provider-guide/solutions/creating-solutions.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/service-provider-guide/solutions/crossplane-compositions.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/service-provider-guide/solutions/solution-overview.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/troubleshooting/common-issues.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
     <url>
          <loc>https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/troubleshooting/overview.html</loc>
-         <lastmod>2026-08-05</lastmod>
+         <lastmod>2026-08-21</lastmod>
     </url>
 </urlset>

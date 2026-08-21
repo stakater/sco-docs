@@ -3773,6 +3773,17 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 </li>
         
           <li class="md-nav__item">
+  <a href="#argo-cd-applications-fail-with-401" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Argo CD Applications fail with 401
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#helm-chart-readiness-timeout" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -6212,6 +6223,17 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 </li>
         
           <li class="md-nav__item">
+  <a href="#argo-cd-applications-fail-with-401" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Argo CD Applications fail with 401
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#helm-chart-readiness-timeout" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -6521,6 +6543,12 @@ packages, and images — at that registry. Without it the installer
 assumes Stakater's internal environment and every pull will be denied.</p>
 </div>
 <p><code>ksp up</code> uses this file to log in to the registry and to create the in-cluster pull secrets the platform needs. It is <strong>not</strong> referenced from the claim files — it is passed on the command line via <code>--registry-secret</code> (Step 4).</p>
+<div class="admonition warning">
+<p class="admonition-title"><code>gitopsChartsUrl</code> is the registry, not the chart path</p>
+<p>It must be exactly <code>ghcr.io/stakater</code>. Do not extend it towards the charts — neither <code>ghcr.io/stakater/registry</code> nor <code>ghcr.io/stakater/registry/charts</code> will work.</p>
+</div>
+<p><code>ksp up</code> turns <code>gitopsChartsUrl</code> into an Argo CD <em>repository</em> credential, and Argo CD matches those against the repository URL an Application declares — not against the path of the chart inside it. The platform's Applications declare <code>ghcr.io/stakater</code> and locate charts below it, so a credential registered for a longer path matches no Application and authenticates nothing.</p>
+<p>The symptom is unhelpful: every platform Application fails to sync with a <code>401</code>, which reads as though your credentials lack access to the distribution registry. The credentials are fine — nothing is using them. See <a href="#argo-cd-applications-fail-with-401">Argo CD Applications fail with 401</a>.</p>
 <h2 id="step-4-run-installation">Step 4: Run Installation<a class="headerlink" href="#step-4-run-installation" title="Permanent link">#</a></h2>
 <p><code>ksp up</code> operates on your <strong>current <code>oc</code>/<code>kubectl</code> context</strong>, so confirm it points at the target cluster first (<code>oc whoami --show-server</code>). Then run it with both claim files and your registry secret — <code>-c</code> (KubeStackConfig) is applied first, then <code>-f</code> (KubeStackPlus):</p>
 <div class="highlight"><pre><span></span><code>ksp<span class="w"> </span>up<span class="w"> </span><span class="se">\</span>
@@ -6682,10 +6710,31 @@ oc<span class="w"> </span>get<span class="w"> </span>sc
 <div class="highlight"><pre><span></span><code><span class="c1"># Verify credentials locally</span>
 helm<span class="w"> </span>registry<span class="w"> </span>login<span class="w"> </span>ghcr.io<span class="w"> </span>-u<span class="w"> </span>&lt;username&gt;<span class="w"> </span>-p<span class="w"> </span>&lt;token&gt;
 
-<span class="c1"># Check if the chart is accessible</span>
-helm<span class="w"> </span>pull<span class="w"> </span>oci://ghcr.io/stakater/saap-catalog/charts/crossplane-operator<span class="w"> </span>--version<span class="w"> </span>&lt;version&gt;
+<span class="c1"># Check if a chart is accessible</span>
+helm<span class="w"> </span>pull<span class="w"> </span>oci://ghcr.io/stakater/registry/charts/crossplane-operator<span class="w"> </span>--version<span class="w"> </span>&lt;version&gt;
 </code></pre></div>
-<p>Ensure the token has read access to <code>ghcr.io/stakater/saap-catalog</code>. If using <code>--registry-secret</code>, verify the file format matches the expected structure (see <a href="#step-3-prepare-registry-credentials">Step 3</a>).</p>
+<p>If that pull succeeds, your credentials are working and the problem is in how they were registered in the cluster — not in your access. If using <code>--registry-secret</code>, verify the file format matches the expected structure (see <a href="#step-3-prepare-registry-credentials">Step 3</a>).</p>
+<h3 id="argo-cd-applications-fail-with-401">Argo CD Applications fail with 401<a class="headerlink" href="#argo-cd-applications-fail-with-401" title="Permanent link">#</a></h3>
+<p>Many or all platform Applications fail to sync with a <code>401</code> from <code>ghcr.io</code>, while <code>helm pull</code> of the same chart succeeds from your workstation.</p>
+<p>This is almost always the Argo CD repository credential being registered for the wrong URL. Argo CD matches repository credentials against the repository URL an Application declares, not the path of the chart inside it — so the credential has to be registered for <code>ghcr.io/stakater</code> even though the charts live further down under <code>/registry/charts/</code>. A credential registered for the chart path matches nothing, and every pull is then anonymous.</p>
+<p>Compare the two:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># What the Applications ask for</span>
+oc<span class="w"> </span>get<span class="w"> </span>application<span class="w"> </span>-n<span class="w"> </span>openshift-gitops<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.items[*].spec.source.repoURL}{"\n"}'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span><span class="s1">' '</span><span class="w"> </span><span class="s1">'\n'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span>-u
+
+<span class="c1"># What the credential covers</span>
+oc<span class="w"> </span>get<span class="w"> </span>secret<span class="w"> </span>-n<span class="w"> </span>openshift-gitops<span class="w"> </span>-l<span class="w"> </span>argocd.argoproj.io/secret-type<span class="o">=</span>repository<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{range .items[*]}{.metadata.name}{"\t"}{.data.url}{"\n"}{end}'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="p">|</span><span class="w"> </span><span class="k">while</span><span class="w"> </span><span class="nb">read</span><span class="w"> </span>-r<span class="w"> </span>name<span class="w"> </span>url<span class="p">;</span><span class="w"> </span><span class="k">do</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"</span><span class="nv">$name</span><span class="s2"> </span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="s2">"</span><span class="nv">$url</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64<span class="w"> </span>-d<span class="k">)</span><span class="s2">"</span><span class="p">;</span><span class="w"> </span><span class="k">done</span>
+</code></pre></div>
+<p>The URLs must match exactly. Correct the secret's <code>url</code> if they do not — then restart the repository server. It is named after your Argo CD instance, so find it rather than assume the name:</p>
+<div class="highlight"><pre><span></span><code><span class="nv">repo_server</span><span class="o">=</span><span class="k">$(</span>oc<span class="w"> </span>get<span class="w"> </span>deployment<span class="w"> </span>-n<span class="w"> </span>openshift-gitops<span class="w"> </span>-o<span class="w"> </span>name<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>repo-server<span class="k">)</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"restarting: </span><span class="nv">$repo_server</span><span class="s2">"</span>
+oc<span class="w"> </span>rollout<span class="w"> </span>restart<span class="w"> </span>-n<span class="w"> </span>openshift-gitops<span class="w"> </span><span class="nv">$repo_server</span>
+</code></pre></div>
+<div class="admonition important">
+<p class="admonition-title">The restart is required, not optional</p>
+<p>Argo CD's repository server caches registry credentials, so it keeps using the old ones after you fix the secret. Without the restart the <code>401</code>s continue unchanged and the fix looks like it did not work.</p>
+</div>
 <h3 id="helm-chart-readiness-timeout">Helm chart readiness timeout<a class="headerlink" href="#helm-chart-readiness-timeout" title="Permanent link">#</a></h3>
 <p>If a chart times out during installation:</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># Check Helm release status</span>

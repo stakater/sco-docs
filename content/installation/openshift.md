@@ -336,11 +336,12 @@ oc get secret -n openshift-gitops -l argocd.argoproj.io/secret-type=repository \
   | while read -r name url; do echo "$name $(echo "$url" | base64 -d)"; done
 ```
 
-The URLs must match exactly. Correct the secret's `url` if they do not — then restart the repository server. It is named after the Argo CD instance, so confirm the name before restarting it:
+The URLs must match exactly. Correct the secret's `url` if they do not — then restart the repository server. It is named after your Argo CD instance, so find it rather than assume the name:
 
 ```bash
-oc get deployment -n openshift-gitops -o name | grep repo-server
-oc rollout restart deployment/argocd-repo-server -n openshift-gitops
+repo_server=$(oc get deployment -n openshift-gitops -o name | grep repo-server)
+echo "restarting: $repo_server"
+oc rollout restart -n openshift-gitops $repo_server
 ```
 
 !!! important "The restart is required, not optional"

@@ -90,13 +90,6 @@
     "aliases": []
   },
   {
-    "version": "docs-channel-credential-matching",
-    "title": "docs-channel-credential-matching",
-    "aliases": [
-      "latest"
-    ]
-  },
-  {
     "version": "architecture",
     "title": "architecture",
     "aliases": []

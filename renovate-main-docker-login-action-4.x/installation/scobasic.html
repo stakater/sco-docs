@@ -5,31 +5,31 @@
       
       
       
-        <link rel="canonical" href="https://docs.stakater.com/cloud-orchestrator/renovate-main-docker-login-action-4.x/how-to-guides/user/expose-service-via-mesh.html">
+        <link rel="canonical" href="https://docs.stakater.com/cloud-orchestrator/renovate-main-docker-login-action-4.x/installation/scobasic.html">
       
       
-        <link rel="prev" href="create-mesh.html">
+        <link rel="prev" href="openshift.html">
       
       
-        <link rel="next" href="../../audience/platform-providers.html">
+        <link rel="next" href="openbao-unseal.html">
       
       
         
       
       
-      <link rel="icon" href="../../assets/images/favicon.svg">
+      <link rel="icon" href="../assets/images/favicon.svg">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
-        <title>How to Expose an Internal Service via the Mesh - Stakater Cloud Orchestrator</title>
+        <title>scobasic Installation - Stakater Cloud Orchestrator</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
       
       
 
@@ -48,9 +48,9 @@
       
     
     
-      <link rel="stylesheet" href="../../stylesheets/extra.css">
+      <link rel="stylesheet" href="../stylesheets/extra.css">
     
-    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
   
@@ -66,7 +66,7 @@
 
     
     
-  <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+  <link href="../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
             html.glightbox-open { overflow: initial; height: 100%; }
             .gslide-title { margin-top: 0px; user-select: text; }
             .gslide-desc { color: #666; user-select: text; }
@@ -95,7 +95,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#how-to-expose-an-internal-service-via-the-mesh" class="md-skip">
+        <a href="#scobasic-installation" class="md-skip">
           Skip to content
         </a>
       
@@ -340,7 +340,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <nav class="md-header__inner md-grid" aria-label="Header">
 
     <!-- Link to home -->
-    <a href="../../index.html" title="Stakater Cloud Orchestrator" class="md-header__button md-logo" aria-label="Stakater Cloud Orchestrator" data-md-component="logo">
+    <a href="../index.html" title="Stakater Cloud Orchestrator" class="md-header__button md-logo" aria-label="Stakater Cloud Orchestrator" data-md-component="logo">
       <!-- 
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -361,10 +361,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
         <!-- Logo -->
         <div class="md-header__topic">
           
-          <img class="md-header__logo_light" src="../../assets/images/logo-light.png#only-light" alt="logo">
+          <img class="md-header__logo_light" src="../assets/images/logo-light.png#only-light" alt="logo">
           
           
-          <img class="md-header__logo_dark" src="../../assets/images/logo-dark.png#only-dark" alt="logo">
+          <img class="md-header__logo_dark" src="../assets/images/logo-dark.png#only-dark" alt="logo">
           
           
           <div class="header-site-name">
@@ -1988,7 +1988,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../../index.html" title="Stakater Cloud Orchestrator" class="md-nav__button md-logo" aria-label="Stakater Cloud Orchestrator" data-md-component="logo">
+    <a href="../index.html" title="Stakater Cloud Orchestrator" class="md-nav__button md-logo" aria-label="Stakater Cloud Orchestrator" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
@@ -2006,7 +2006,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../index.html" class="md-nav__link">
+      <a href="../index.html" class="md-nav__link">
         
   
   
@@ -2030,20 +2030,18 @@ This documentation is for a pull request deployment and is unreleased, it is onl
       
   
   
-    
   
   
-  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked="">
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2">
         
           
           <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
@@ -2064,7 +2062,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             
@@ -2082,7 +2080,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../audience/cloud-consumers.html" class="md-nav__link">
+      <a href="../audience/cloud-consumers.html" class="md-nav__link">
         
   
   
@@ -2157,7 +2155,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../cloud-user-guide/overview.html" class="md-nav__link">
+      <a href="../cloud-user-guide/overview.html" class="md-nav__link">
         
   
   
@@ -2185,7 +2183,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../cloud-user-guide/getting-started.html" class="md-nav__link">
+      <a href="../cloud-user-guide/getting-started.html" class="md-nav__link">
         
   
   
@@ -2268,7 +2266,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../cloud-user-guide/authentication/logging-in.html" class="md-nav__link">
+      <a href="../cloud-user-guide/authentication/logging-in.html" class="md-nav__link">
         
   
   
@@ -2296,7 +2294,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../cloud-user-guide/authentication/organisation-identity.html" class="md-nav__link">
+      <a href="../cloud-user-guide/authentication/organisation-identity.html" class="md-nav__link">
         
   
   
@@ -2324,7 +2322,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../cloud-user-guide/authentication/managing-users.html" class="md-nav__link">
+      <a href="../cloud-user-guide/authentication/managing-users.html" class="md-nav__link">
         
   
   
@@ -2352,7 +2350,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../cloud-user-guide/kubectl-access/setup-kubectl.html" class="md-nav__link">
+      <a href="../cloud-user-guide/kubectl-access/setup-kubectl.html" class="md-nav__link">
         
   
   
@@ -2380,7 +2378,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../cloud-user-guide/kubectl-access/kubeconfig-generation.html" class="md-nav__link">
+      <a href="../cloud-user-guide/kubectl-access/kubeconfig-generation.html" class="md-nav__link">
         
   
   
@@ -2408,7 +2406,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../cloud-user-guide/terraform-access/setup-terraform.html" class="md-nav__link">
+      <a href="../cloud-user-guide/terraform-access/setup-terraform.html" class="md-nav__link">
         
   
   
@@ -2436,7 +2434,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../cloud-user-guide/terraform-access/kubernetes-provider.html" class="md-nav__link">
+      <a href="../cloud-user-guide/terraform-access/kubernetes-provider.html" class="md-nav__link">
         
   
   
@@ -2464,7 +2462,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../cloud-user-guide/gitops-access/argocd-setup.html" class="md-nav__link">
+      <a href="../cloud-user-guide/gitops-access/argocd-setup.html" class="md-nav__link">
         
   
   
@@ -2492,7 +2490,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../cloud-user-guide/gitops-access/flux-setup.html" class="md-nav__link">
+      <a href="../cloud-user-guide/gitops-access/flux-setup.html" class="md-nav__link">
         
   
   
@@ -2575,7 +2573,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../cloud-user-guide/projects/creating-projects.html" class="md-nav__link">
+      <a href="../cloud-user-guide/projects/creating-projects.html" class="md-nav__link">
         
   
   
@@ -2603,7 +2601,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../cloud-user-guide/projects/project-structure.html" class="md-nav__link">
+      <a href="../cloud-user-guide/projects/project-structure.html" class="md-nav__link">
         
   
   
@@ -2686,7 +2684,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../cloud-user-guide/solutions/browsing-marketplace.html" class="md-nav__link">
+      <a href="../cloud-user-guide/solutions/browsing-marketplace.html" class="md-nav__link">
         
   
   
@@ -2714,7 +2712,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../cloud-user-guide/solutions/provisioning-solutions.html" class="md-nav__link">
+      <a href="../cloud-user-guide/solutions/provisioning-solutions.html" class="md-nav__link">
         
   
   
@@ -2742,7 +2740,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../marketplace/overview.html" class="md-nav__link">
+      <a href="../marketplace/overview.html" class="md-nav__link">
         
   
   
@@ -2770,7 +2768,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../marketplace/browsing.html" class="md-nav__link">
+      <a href="../marketplace/browsing.html" class="md-nav__link">
         
   
   
@@ -2798,7 +2796,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../marketplace/solution-catalog.html" class="md-nav__link">
+      <a href="../marketplace/solution-catalog.html" class="md-nav__link">
         
   
   
@@ -2831,20 +2829,18 @@ This documentation is for a pull request deployment and is unreleased, it is onl
                 
   
   
-    
   
   
-  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6" checked="">
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6">
         
           
           <label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="0">
@@ -2865,7 +2861,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2_6">
             <span class="md-nav__icon md-icon"></span>
             
@@ -2883,7 +2879,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="deploy-first-app.html" class="md-nav__link">
+      <a href="../how-to-guides/user/deploy-first-app.html" class="md-nav__link">
         
   
   
@@ -2911,7 +2907,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="create-project.html" class="md-nav__link">
+      <a href="../how-to-guides/user/create-project.html" class="md-nav__link">
         
   
   
@@ -2939,7 +2935,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="create-iam-user.html" class="md-nav__link">
+      <a href="../how-to-guides/user/create-iam-user.html" class="md-nav__link">
         
   
   
@@ -2967,7 +2963,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="create-iam-group.html" class="md-nav__link">
+      <a href="../how-to-guides/user/create-iam-group.html" class="md-nav__link">
         
   
   
@@ -2995,7 +2991,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="provision-openshift-cluster.html" class="md-nav__link">
+      <a href="../how-to-guides/user/provision-openshift-cluster.html" class="md-nav__link">
         
   
   
@@ -3023,7 +3019,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="provision-virtual-machine.html" class="md-nav__link">
+      <a href="../how-to-guides/user/provision-virtual-machine.html" class="md-nav__link">
         
   
   
@@ -3051,7 +3047,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="create-s3-bucket.html" class="md-nav__link">
+      <a href="../how-to-guides/user/create-s3-bucket.html" class="md-nav__link">
         
   
   
@@ -3079,7 +3075,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="create-postgres.html" class="md-nav__link">
+      <a href="../how-to-guides/user/create-postgres.html" class="md-nav__link">
         
   
   
@@ -3107,7 +3103,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="create-vault.html" class="md-nav__link">
+      <a href="../how-to-guides/user/create-vault.html" class="md-nav__link">
         
   
   
@@ -3135,7 +3131,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="create-mesh.html" class="md-nav__link">
+      <a href="../how-to-guides/user/create-mesh.html" class="md-nav__link">
         
   
   
@@ -3160,37 +3156,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    How to Expose an Internal Service via the Mesh
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="expose-service-via-mesh.html" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../how-to-guides/user/expose-service-via-mesh.html" class="md-nav__link">
         
   
   
@@ -3206,127 +3175,6 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
 
       </a>
-      
-        
-
-  
-
-<nav class="md-nav md-nav--secondary" aria-label="On this page">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      On this page
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
-      
-        <li class="md-nav__item">
-  <a href="#prerequisites" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Prerequisites
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#what-gets-created" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        What Gets Created
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#step-1-find-the-service-address" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 1: Find the Service Address
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#step-2-define-a-meshrouter-claim" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 2: Define a MeshRouter Claim
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#step-3-apply-the-claim" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 3: Apply the Claim
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#step-4-verify-the-router" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 4: Verify the Router
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#step-5-grant-access-with-a-meshpolicy" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 5: Grant Access with a MeshPolicy
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#step-6-test" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 6: Test
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#related" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Related
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -3351,18 +3199,20 @@ This documentation is for a pull request deployment and is unreleased, it is onl
       
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3">
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked="">
         
           
           <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
@@ -3383,7 +3233,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -3401,7 +3251,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../audience/platform-providers.html" class="md-nav__link">
+      <a href="../audience/platform-providers.html" class="md-nav__link">
         
   
   
@@ -3476,7 +3326,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../service-provider-guide/overview.html" class="md-nav__link">
+      <a href="../service-provider-guide/overview.html" class="md-nav__link">
         
   
   
@@ -3504,7 +3354,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../service-provider-guide/getting-started.html" class="md-nav__link">
+      <a href="../service-provider-guide/getting-started.html" class="md-nav__link">
         
   
   
@@ -3537,18 +3387,20 @@ This documentation is for a pull request deployment and is unreleased, it is onl
                 
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3">
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" checked="">
         
           
           <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
@@ -3569,7 +3421,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -3587,7 +3439,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../installation/overview.html" class="md-nav__link">
+      <a href="overview.html" class="md-nav__link">
         
   
   
@@ -3615,7 +3467,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../installation/prerequisites.html" class="md-nav__link">
+      <a href="prerequisites.html" class="md-nav__link">
         
   
   
@@ -3643,7 +3495,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../installation/openshift.html" class="md-nav__link">
+      <a href="openshift.html" class="md-nav__link">
         
   
   
@@ -3668,10 +3520,37 @@ This documentation is for a pull request deployment and is unreleased, it is onl
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../installation/scobasic.html" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    scobasic Installation
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="scobasic.html" class="md-nav__link md-nav__link--active">
         
   
   
@@ -3687,6 +3566,272 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
 
       </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#when-to-use-this-variant" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to use this variant
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prerequisites
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Prerequisites">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Storage
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#load-balancing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Load balancing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#address-budget" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Address budget
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#capacity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Capacity
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#preparing-the-claim-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Preparing the claim files
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Preparing the claim files">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#kubestackconfig-claim" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        KubeStackConfig claim
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kubestackplus-claim" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        KubeStackPlus claim
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#environment-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Environment configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#where-each-value-comes-from" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Where each value comes from
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#choosing-how-the-secret-store-unseals" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Choosing how the secret store unseals
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verifying" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verifying
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Verifying">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#components-that-need-input-before-they-can-become-healthy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Components that need input before they can become healthy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verify-single-sign-on-explicitly" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verify single sign-on explicitly
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#loadbalancer-services-stay-pending" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LoadBalancer Services stay pending
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#components-are-absent-rather-than-unhealthy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Components are absent rather than unhealthy
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#whats-next" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What's Next?
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -3699,7 +3844,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../installation/openbao-unseal.html" class="md-nav__link">
+      <a href="openbao-unseal.html" class="md-nav__link">
         
   
   
@@ -3727,7 +3872,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../installation/configuration.html" class="md-nav__link">
+      <a href="configuration.html" class="md-nav__link">
         
   
   
@@ -3810,7 +3955,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../service-provider-guide/solutions/solution-overview.html" class="md-nav__link">
+      <a href="../service-provider-guide/solutions/solution-overview.html" class="md-nav__link">
         
   
   
@@ -3838,7 +3983,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../service-provider-guide/solutions/creating-solutions.html" class="md-nav__link">
+      <a href="../service-provider-guide/solutions/creating-solutions.html" class="md-nav__link">
         
   
   
@@ -3866,7 +4011,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../service-provider-guide/solutions/crossplane-compositions.html" class="md-nav__link">
+      <a href="../service-provider-guide/solutions/crossplane-compositions.html" class="md-nav__link">
         
   
   
@@ -3894,7 +4039,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../service-provider-guide/marketplace/publishing-solutions.html" class="md-nav__link">
+      <a href="../service-provider-guide/marketplace/publishing-solutions.html" class="md-nav__link">
         
   
   
@@ -3922,7 +4067,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../service-provider-guide/marketplace/marketplace-configuration.html" class="md-nav__link">
+      <a href="../service-provider-guide/marketplace/marketplace-configuration.html" class="md-nav__link">
         
   
   
@@ -3950,7 +4095,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../provider/create-postgresql-solution.html" class="md-nav__link">
+      <a href="../how-to-guides/provider/create-postgresql-solution.html" class="md-nav__link">
         
   
   
@@ -4033,7 +4178,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../service-provider-guide/organizations/creating-organizations.html" class="md-nav__link">
+      <a href="../service-provider-guide/organizations/creating-organizations.html" class="md-nav__link">
         
   
   
@@ -4061,7 +4206,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../service-provider-guide/organizations/keycloak-realms.html" class="md-nav__link">
+      <a href="../service-provider-guide/organizations/keycloak-realms.html" class="md-nav__link">
         
   
   
@@ -4089,7 +4234,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../service-provider-guide/projects/project-architecture.html" class="md-nav__link">
+      <a href="../service-provider-guide/projects/project-architecture.html" class="md-nav__link">
         
   
   
@@ -4117,7 +4262,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../service-provider-guide/projects/workspace-mapping.html" class="md-nav__link">
+      <a href="../service-provider-guide/projects/workspace-mapping.html" class="md-nav__link">
         
   
   
@@ -4200,7 +4345,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../service-provider-guide/api-publishing/kcp-overview.html" class="md-nav__link">
+      <a href="../service-provider-guide/api-publishing/kcp-overview.html" class="md-nav__link">
         
   
   
@@ -4228,7 +4373,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../service-provider-guide/api-publishing/publishing-apis.html" class="md-nav__link">
+      <a href="../service-provider-guide/api-publishing/publishing-apis.html" class="md-nav__link">
         
   
   
@@ -4311,7 +4456,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../provider/control-ui-rendering.html" class="md-nav__link">
+      <a href="../how-to-guides/provider/control-ui-rendering.html" class="md-nav__link">
         
   
   
@@ -4339,7 +4484,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../service-provider-guide/console/ui-extensions-reference.html" class="md-nav__link">
+      <a href="../service-provider-guide/console/ui-extensions-reference.html" class="md-nav__link">
         
   
   
@@ -4429,7 +4574,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../about/overview.html" class="md-nav__link">
+      <a href="../about/overview.html" class="md-nav__link">
         
   
   
@@ -4457,7 +4602,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../about/key-features.html" class="md-nav__link">
+      <a href="../about/key-features.html" class="md-nav__link">
         
   
   
@@ -4485,7 +4630,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../about/use-cases.html" class="md-nav__link">
+      <a href="../about/use-cases.html" class="md-nav__link">
         
   
   
@@ -4513,7 +4658,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../about/benefits.html" class="md-nav__link">
+      <a href="../about/benefits.html" class="md-nav__link">
         
   
   
@@ -4541,7 +4686,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../architecture/architecture.html" class="md-nav__link">
+      <a href="../architecture/architecture.html" class="md-nav__link">
         
   
   
@@ -4569,7 +4714,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../architecture/concepts.html" class="md-nav__link">
+      <a href="../architecture/concepts.html" class="md-nav__link">
         
   
   
@@ -4597,7 +4742,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../architecture/components.html" class="md-nav__link">
+      <a href="../architecture/components.html" class="md-nav__link">
         
   
   
@@ -4625,7 +4770,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../architecture/virtual-api-layer.html" class="md-nav__link">
+      <a href="../architecture/virtual-api-layer.html" class="md-nav__link">
         
   
   
@@ -4707,7 +4852,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../console/overview.html" class="md-nav__link">
+      <a href="../console/overview.html" class="md-nav__link">
         
   
   
@@ -4735,7 +4880,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../console/accessing-the-console.html" class="md-nav__link">
+      <a href="../console/accessing-the-console.html" class="md-nav__link">
         
   
   
@@ -4763,7 +4908,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../console/dashboard.html" class="md-nav__link">
+      <a href="../console/dashboard.html" class="md-nav__link">
         
   
   
@@ -4791,7 +4936,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../console/projects.html" class="md-nav__link">
+      <a href="../console/projects.html" class="md-nav__link">
         
   
   
@@ -4819,7 +4964,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../console/resources.html" class="md-nav__link">
+      <a href="../console/resources.html" class="md-nav__link">
         
   
   
@@ -4847,7 +4992,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../console/marketplace.html" class="md-nav__link">
+      <a href="../console/marketplace.html" class="md-nav__link">
         
   
   
@@ -4875,7 +5020,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../console/solutions.html" class="md-nav__link">
+      <a href="../console/solutions.html" class="md-nav__link">
         
   
   
@@ -4957,7 +5102,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../api-reference/overview.html" class="md-nav__link">
+      <a href="../api-reference/overview.html" class="md-nav__link">
         
   
   
@@ -5032,7 +5177,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../api-reference/public-apis/project.html" class="md-nav__link">
+      <a href="../api-reference/public-apis/project.html" class="md-nav__link">
         
   
   
@@ -5060,7 +5205,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../api-reference/public-apis/iam-user.html" class="md-nav__link">
+      <a href="../api-reference/public-apis/iam-user.html" class="md-nav__link">
         
   
   
@@ -5088,7 +5233,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../api-reference/public-apis/iam-group.html" class="md-nav__link">
+      <a href="../api-reference/public-apis/iam-group.html" class="md-nav__link">
         
   
   
@@ -5116,7 +5261,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../api-reference/public-apis/openshift-cluster.html" class="md-nav__link">
+      <a href="../api-reference/public-apis/openshift-cluster.html" class="md-nav__link">
         
   
   
@@ -5144,7 +5289,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../api-reference/public-apis/virtual-machine.html" class="md-nav__link">
+      <a href="../api-reference/public-apis/virtual-machine.html" class="md-nav__link">
         
   
   
@@ -5172,7 +5317,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../api-reference/public-apis/s3-bucket.html" class="md-nav__link">
+      <a href="../api-reference/public-apis/s3-bucket.html" class="md-nav__link">
         
   
   
@@ -5200,7 +5345,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../api-reference/public-apis/postgres.html" class="md-nav__link">
+      <a href="../api-reference/public-apis/postgres.html" class="md-nav__link">
         
   
   
@@ -5228,7 +5373,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../api-reference/public-apis/vault.html" class="md-nav__link">
+      <a href="../api-reference/public-apis/vault.html" class="md-nav__link">
         
   
   
@@ -5256,7 +5401,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../api-reference/public-apis/mesh.html" class="md-nav__link">
+      <a href="../api-reference/public-apis/mesh.html" class="md-nav__link">
         
   
   
@@ -5284,7 +5429,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../api-reference/public-apis/mesh-router.html" class="md-nav__link">
+      <a href="../api-reference/public-apis/mesh-router.html" class="md-nav__link">
         
   
   
@@ -5367,7 +5512,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../api-reference/private-apis/hypershift-hosted-cluster.html" class="md-nav__link">
+      <a href="../api-reference/private-apis/hypershift-hosted-cluster.html" class="md-nav__link">
         
   
   
@@ -5395,7 +5540,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../api-reference/private-apis/virtual-machine-infrastructure.html" class="md-nav__link">
+      <a href="../api-reference/private-apis/virtual-machine-infrastructure.html" class="md-nav__link">
         
   
   
@@ -5423,7 +5568,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../api-reference/private-apis/s3-bucket-infrastructure.html" class="md-nav__link">
+      <a href="../api-reference/private-apis/s3-bucket-infrastructure.html" class="md-nav__link">
         
   
   
@@ -5451,7 +5596,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../api-reference/private-apis/postgres-cluster-infrastructure.html" class="md-nav__link">
+      <a href="../api-reference/private-apis/postgres-cluster-infrastructure.html" class="md-nav__link">
         
   
   
@@ -5541,7 +5686,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../integrations/keycloak.html" class="md-nav__link">
+      <a href="../integrations/keycloak.html" class="md-nav__link">
         
   
   
@@ -5569,7 +5714,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../integrations/kcp.html" class="md-nav__link">
+      <a href="../integrations/kcp.html" class="md-nav__link">
         
   
   
@@ -5597,7 +5742,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../integrations/mto.html" class="md-nav__link">
+      <a href="../integrations/mto.html" class="md-nav__link">
         
   
   
@@ -5625,7 +5770,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../integrations/crossplane.html" class="md-nav__link">
+      <a href="../integrations/crossplane.html" class="md-nav__link">
         
   
   
@@ -5707,7 +5852,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../troubleshooting/overview.html" class="md-nav__link">
+      <a href="../troubleshooting/overview.html" class="md-nav__link">
         
   
   
@@ -5735,7 +5880,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../troubleshooting/common-issues.html" class="md-nav__link">
+      <a href="../troubleshooting/common-issues.html" class="md-nav__link">
         
   
   
@@ -5770,7 +5915,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../changelog.html" class="md-nav__link">
+      <a href="../changelog.html" class="md-nav__link">
         
   
   
@@ -5797,7 +5942,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../eula.html" class="md-nav__link">
+      <a href="../eula.html" class="md-nav__link">
         
   
   
@@ -5846,6 +5991,17 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
       
         <li class="md-nav__item">
+  <a href="#when-to-use-this-variant" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to use this variant
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#prerequisites" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -5854,13 +6010,124 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Prerequisites">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Storage
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#load-balancing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Load balancing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#address-budget" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Address budget
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#capacity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Capacity
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
-  <a href="#what-gets-created" class="md-nav__link">
+  <a href="#preparing-the-claim-files" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What Gets Created
+        Preparing the claim files
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Preparing the claim files">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#kubestackconfig-claim" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        KubeStackConfig claim
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kubestackplus-claim" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        KubeStackPlus claim
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#environment-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Environment configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#where-each-value-comes-from" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Where each value comes from
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#choosing-how-the-secret-store-unseals" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Choosing how the secret store unseals
       
     </span>
   </a>
@@ -5868,10 +6135,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-1-find-the-service-address" class="md-nav__link">
+  <a href="#installing" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 1: Find the Service Address
+        Installing
       
     </span>
   </a>
@@ -5879,65 +6146,88 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-2-define-a-meshrouter-claim" class="md-nav__link">
+  <a href="#verifying" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 2: Define a MeshRouter Claim
+        Verifying
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Verifying">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#components-that-need-input-before-they-can-become-healthy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Components that need input before they can become healthy
       
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#step-3-apply-the-claim" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#verify-single-sign-on-explicitly" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 3: Apply the Claim
+        Verify single sign-on explicitly
       
     </span>
   </a>
   
 </li>
+        
+      </ul>
+    </nav>
+  
+</li>
       
         <li class="md-nav__item">
-  <a href="#step-4-verify-the-router" class="md-nav__link">
+  <a href="#troubleshooting" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 4: Verify the Router
+        Troubleshooting
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#loadbalancer-services-stay-pending" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LoadBalancer Services stay pending
       
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#step-5-grant-access-with-a-meshpolicy" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#components-are-absent-rather-than-unhealthy" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 5: Grant Access with a MeshPolicy
+        Components are absent rather than unhealthy
       
     </span>
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#step-6-test" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 6: Test
-      
-    </span>
-  </a>
+        
+      </ul>
+    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#related" class="md-nav__link">
+  <a href="#whats-next" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Related
+        What's Next?
       
     </span>
   </a>
@@ -5961,78 +6251,354 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 
 
 
-<h1 id="how-to-expose-an-internal-service-via-the-mesh">How to Expose an Internal Service via the Mesh<a class="headerlink" href="#how-to-expose-an-internal-service-via-the-mesh" title="Permanent link">#</a></h1>
-<p>Learn how to make an in-cluster service reachable from laptops and VMs on your organisation's Mesh — without a public endpoint.</p>
-<p>Emma, a developer at ACME Corp, runs an internal admin API in her project. Her team needs to reach it from their laptops, but it must not be exposed to the internet. A MeshRouter advertises the service's address to Mesh peers, and a MeshPolicy grants her team's group access — enrolled devices then reach it directly over the encrypted mesh.</p>
-<blockquote>
-<p>Platform services such as a <a href="create-vault.html">Vault</a> are published to Mesh peers automatically — you only need a MeshRouter for your <strong>own</strong> services.</p>
-</blockquote>
+<h1 id="scobasic-installation"><code>scobasic</code> Installation<a class="headerlink" href="#scobasic-installation" title="Permanent link">#</a></h1>
+<p>Install Stakater Cloud Orchestrator onto a cluster you already run.</p>
+<h2 id="when-to-use-this-variant">When to use this variant<a class="headerlink" href="#when-to-use-this-variant" title="Permanent link">#</a></h2>
+<p><code>scobasic</code> adds SCO to an <strong>existing</strong> OpenShift cluster. Unlike
+<a href="openshift.html"><code>hosting</code></a>, it does not bring up the underlying platform layer —
+it expects your cluster to already provide storage and load balancing, and it
+installs a smaller set of components on top.</p>
+<p>Choose <code>scobasic</code> when the cluster is yours, already in use, and you want SCO
+alongside what is there. Choose <code>hosting</code> when you are dedicating a cluster to
+SCO and want it built from scratch.</p>
+<div class="admonition warning">
+<p class="admonition-title">This variant installs neither storage nor load balancing</p>
+<p>The <code>hosting</code> variant deploys ODF and the platform networking layer for you.
+<strong><code>scobasic</code> does neither.</strong> A working RWO StorageClass and working
+<code>LoadBalancer</code> Services must already exist before you begin. This is the
+single most common reason a <code>scobasic</code> installation fails.</p>
+</div>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">#</a></h2>
-<ul>
-<li>A <a href="create-mesh.html">Mesh</a> in your organisation, already Ready</li>
-<li>The <code>meshrouter.network.cloud.stakater.com</code> API available</li>
-<li><code>kubectl</code> configured with your project kubeconfig</li>
-<li>The in-cluster Service you want to expose (note its ClusterIP)</li>
-</ul>
-<h2 id="what-gets-created">What Gets Created<a class="headerlink" href="#what-gets-created" title="Permanent link">#</a></h2>
-<p>When you create a MeshRouter claim, the platform provisions:</p>
-<ul>
-<li>A <strong>routing peer</strong> joined to your organisation's Mesh that advertises your routes</li>
-<li>A <strong>peer group</strong> named <code>&lt;claim-name&gt;-routers</code> holding the routing peer — the destination group for your access policies</li>
-</ul>
-<p>Access is granted separately with a MeshPolicy (Step 5); devices authenticate to the Mesh with your organisation's single sign-on, so there are no keys to distribute.</p>
-<h2 id="step-1-find-the-service-address">Step 1: Find the Service Address<a class="headerlink" href="#step-1-find-the-service-address" title="Permanent link">#</a></h2>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>svc<span class="w"> </span>my-admin-api<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.spec.clusterIP}'</span>
+<p>In addition to the <a href="prerequisites.html">general prerequisites</a>:</p>
+<table>
+<thead>
+<tr>
+<th>Requirement</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OpenShift 4.18+</td>
+<td>4.20 and 4.21 are the tested versions</td>
+</tr>
+<tr>
+<td><code>cluster-admin</code></td>
+<td>the installation creates namespaces, custom resources, operators and role bindings</td>
+</tr>
+<tr>
+<td>A working RWO StorageClass</td>
+<td><strong>you provide this</strong></td>
+</tr>
+<tr>
+<td>Working <code>LoadBalancer</code> Services</td>
+<td><strong>you provide this</strong></td>
+</tr>
+<tr>
+<td>Wildcard DNS for <code>*.&lt;apps-domain&gt;</code></td>
+<td>platform routes are templated from it</td>
+</tr>
+<tr>
+<td>Outbound access to the Stakater registry</td>
+<td>charts and packages are pulled during installation</td>
+</tr>
+</tbody>
+</table>
+<h3 id="storage">Storage<a class="headerlink" href="#storage" title="Permanent link">#</a></h3>
+<p>Check before installing, not after:</p>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>storageclass
+oc<span class="w"> </span>get<span class="w"> </span>pvc<span class="w"> </span>-A<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-v<span class="w"> </span>Bound<span class="w">     </span><span class="c1"># anything here is a warning sign</span>
 </code></pre></div>
-<h2 id="step-2-define-a-meshrouter-claim">Step 2: Define a MeshRouter Claim<a class="headerlink" href="#step-2-define-a-meshrouter-claim" title="Permanent link">#</a></h2>
-<p>Create a file named <code>router.yaml</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">network.cloud.stakater.com/v1</span>
-<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MeshRouter</span>
+<p>Several components are held back until storage is confirmed healthy. A degraded
+storage backend does not produce loud errors — it produces <strong>absent</strong>
+components, which reads as "the installation did nothing".</p>
+<h3 id="load-balancing">Load balancing<a class="headerlink" href="#load-balancing" title="Permanent link">#</a></h3>
+<p>The platform needs <code>LoadBalancer</code> Services to be assignable. On a cloud
+provider this is usually already true. <strong>On bare metal it is not</strong> — install and
+configure MetalLB, with an address pool, before you begin:</p>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>svc<span class="w"> </span>-A<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span>pending<span class="w">          </span><span class="c1"># should be empty before you start</span>
+oc<span class="w"> </span>get<span class="w"> </span>ipaddresspools.metallb.io<span class="w"> </span>-A<span class="w">      </span><span class="c1"># if using MetalLB</span>
+</code></pre></div>
+<h3 id="address-budget">Address budget<a class="headerlink" href="#address-budget" title="Permanent link">#</a></h3>
+<p>A full installation needs roughly <strong>seven</strong> load balancer addresses. If the platform
+mesh is disabled it needs about <strong>three</strong>.</p>
+<p>If addresses are scarce, disable the mesh in the <code>KubeStackPlus</code> claim:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">meshPlatform</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+</code></pre></div>
+<p>The mesh provides connectivity to clusters that are not directly reachable. If
+your cluster's API and applications are already reachable by the people and
+systems that need them, you do not need it.</p>
+<h3 id="capacity">Capacity<a class="headerlink" href="#capacity" title="Permanent link">#</a></h3>
+<p>Measured on a three-node OpenShift 4.21 cluster, as requested resources:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>CPU</th>
+<th>Memory</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OpenShift itself</td>
+<td>9</td>
+<td>30 GB</td>
+</tr>
+<tr>
+<td>Storage layer (ODF, <code>lean</code> profile)</td>
+<td>18</td>
+<td>43 GB</td>
+</tr>
+<tr>
+<td>SCO platform</td>
+<td>15</td>
+<td>39 GB</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td><strong>~42</strong></td>
+<td><strong>~111 GB</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Practical sizing:</p>
+<ul>
+<li><strong>If you run ODF on the same cluster</strong>, 3 × 16 vCPU / 64 GB is the floor and
+    leaves very little headroom. 3 × 24 vCPU is comfortable. Set the ODF
+    <code>resourceProfile</code> to <code>lean</code> — the default profile requests substantially
+    more and will leave pods unscheduled on a three-node cluster.</li>
+<li><strong>If your storage is provided elsewhere</strong>, budget roughly 24 vCPU / 68 GB for
+    OpenShift plus SCO.</li>
+<li><strong>Size memory from observed usage, not from requests.</strong> Actual consumption
+    runs well above the requested figure.</li>
+</ul>
+<h2 id="preparing-the-claim-files">Preparing the claim files<a class="headerlink" href="#preparing-the-claim-files" title="Permanent link">#</a></h2>
+<p><code>ksp up</code> applies three files. The structure matches the
+<a href="openshift.html#step-2-prepare-claim-files">hosting installation</a>; the values
+below are what differ for <code>scobasic</code>.</p>
+<h3 id="kubestackconfig-claim">KubeStackConfig claim<a class="headerlink" href="#kubestackconfig-claim" title="Permanent link">#</a></h3>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cloud.stakater.com/v1alpha1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">KubeStackConfig</span>
 <span class="nt">metadata</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-router</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;cluster-name&gt;</span>
+<span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ksp-system</span>
 <span class="nt">spec</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">routes</span><span class="p">:</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">admin-api</span>
-<span class="w">        </span><span class="nt">address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">172.30.52.51/32</span><span class="w">        </span><span class="c1"># the Service ClusterIP, as a /32</span>
-<span class="w">        </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">"Internal</span><span class="nv"> </span><span class="s">admin</span><span class="nv"> </span><span class="s">API"</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;cluster-name&gt;</span>
+<span class="w">    </span><span class="nt">variant</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">scobasic</span><span class="w">          </span><span class="c1"># &lt;- the variant</span>
+<span class="w">    </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ocp</span>
+<span class="w">    </span><span class="nt">domain</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;apps-domain&gt;</span>
+
+<span class="w">    </span><span class="nt">namespaces</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">logging</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">logging</span>
+<span class="w">      </span><span class="nt">monitoring</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">monitoring</span>
+<span class="w">      </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">platform-system</span>
+
+<span class="w">    </span><span class="nt">network</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">clusterDomain</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cluster.local</span>
+<span class="w">      </span><span class="nt">podCIDR</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;pod-cidr&gt;</span>
+<span class="w">      </span><span class="nt">serviceCIDR</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;service-cidr&gt;</span>
 </code></pre></div>
-<p>A router can advertise multiple routes — CIDRs, single hosts, or domains. See the <a href="../../api-reference/public-apis/mesh-router.html">API reference</a> for all fields.</p>
-<h2 id="step-3-apply-the-claim">Step 3: Apply the Claim<a class="headerlink" href="#step-3-apply-the-claim" title="Permanent link">#</a></h2>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>router.yaml
-</code></pre></div>
-<h2 id="step-4-verify-the-router">Step 4: Verify the Router<a class="headerlink" href="#step-4-verify-the-router" title="Permanent link">#</a></h2>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>meshrouter<span class="w"> </span>my-router
-</code></pre></div>
-<p>Wait for <code>READY: True</code>. The routing peer also appears in your Mesh dashboard.</p>
-<h2 id="step-5-grant-access-with-a-meshpolicy">Step 5: Grant Access with a MeshPolicy<a class="headerlink" href="#step-5-grant-access-with-a-meshpolicy" title="Permanent link">#</a></h2>
-<p>Allow the Mesh groups that should reach the routes. The router's destination group is named after the claim (<code>my-router-routers</code>):</p>
-<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">network.cloud.stakater.com/v1</span>
-<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MeshPolicy</span>
+<h3 id="kubestackplus-claim">KubeStackPlus claim<a class="headerlink" href="#kubestackplus-claim" title="Permanent link">#</a></h3>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cloud.stakater.com/v1alpha1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">KubeStackPlus</span>
 <span class="nt">metadata</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">allow-devs-to-my-router</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;cluster-name&gt;-ocp-scobasic</span>
+<span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ksp-system</span>
 <span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">providerConfigRef</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kubernetes-provider</span>
 <span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">allow-devs-to-my-router</span>
-<span class="w">    </span><span class="nt">rules</span><span class="p">:</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">devs-to-routes</span>
-<span class="w">        </span><span class="nt">sourceGroupNames</span><span class="p">:</span>
-<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">developers</span><span class="w">            </span><span class="c1"># your users' Mesh group</span>
-<span class="w">        </span><span class="nt">destinationGroupNames</span><span class="p">:</span>
-<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-router-routers</span>
+<span class="w">    </span><span class="nt">variant</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">scobasic</span>
+<span class="w">    </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ocp</span>
+<span class="w">    </span><span class="nt">excludedAddons</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>policy.yaml
+<h3 id="environment-configuration">Environment configuration<a class="headerlink" href="#environment-configuration" title="Permanent link">#</a></h3>
+<p>Passed with <code>--environment-config</code>. For <code>scobasic</code> this is where you tell the
+platform which storage class to use and, if applicable, your load balancer
+address range:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cluster-defaults</span>
+
+<span class="nt">clusterDefaults</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">baseDomain</span><span class="p">:</span><span class="w"> </span><span class="s">"&lt;apps-domain&gt;"</span>
+<span class="w">  </span><span class="nt">variant</span><span class="p">:</span><span class="w"> </span><span class="s">"scobasic"</span>
+<span class="w">  </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="s">"ocp"</span>
+
+<span class="w">  </span><span class="nt">storage</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">persistentStorageClassName</span><span class="p">:</span><span class="w"> </span><span class="s">"&lt;your-storage-class&gt;"</span>
+
+<span class="w">  </span><span class="nt">metallb</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">l2Advertisement</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">addressRanges</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"&lt;range-start&gt;-&lt;range-end&gt;"</span>
+<span class="w">    </span><span class="nt">bgp</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
 </code></pre></div>
-<h2 id="step-6-test">Step 6: Test<a class="headerlink" href="#step-6-test" title="Permanent link">#</a></h2>
-<p>From a device enrolled on the Mesh (see <a href="create-mesh.html">Create a Mesh</a> for enrolment) and in an allowed group:</p>
-<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>http://172.30.52.51/healthz
+<h3 id="where-each-value-comes-from">Where each value comes from<a class="headerlink" href="#where-each-value-comes-from" title="Permanent link">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>How to obtain it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;cluster-name&gt;</code></td>
+<td>Yours to choose. Short and stable — it names the identity realm and appears in generated resources.</td>
+</tr>
+<tr>
+<td><code>&lt;apps-domain&gt;</code></td>
+<td><code>oc get ingresses.config cluster -o jsonpath='{.spec.domain}'</code></td>
+</tr>
+<tr>
+<td><code>&lt;pod-cidr&gt;</code></td>
+<td><code>oc get network.config cluster -o jsonpath='{.spec.clusterNetwork[*].cidr}'</code></td>
+</tr>
+<tr>
+<td><code>&lt;service-cidr&gt;</code></td>
+<td><code>oc get network.config cluster -o jsonpath='{.spec.serviceNetwork[*]}'</code></td>
+</tr>
+<tr>
+<td><code>&lt;your-storage-class&gt;</code></td>
+<td><code>oc get storageclass</code> — an RWO class</td>
+</tr>
+<tr>
+<td><code>&lt;range-start&gt;</code> / <code>&lt;range-end&gt;</code></td>
+<td>A free address range you own</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">The network values must match the cluster</p>
+<p>Placeholder CIDRs that look plausible are not good enough. Incorrect values
+produce components that start but cannot reach each other, and nothing
+reports an error.</p>
+</div>
+<h2 id="choosing-how-the-secret-store-unseals">Choosing how the secret store unseals<a class="headerlink" href="#choosing-how-the-secret-store-unseals" title="Permanent link">#</a></h2>
+<p>Decide this <strong>before</strong> the first installation — the choice is recorded permanently
+the first time the secret store initialises.</p>
+<p>See <a href="openbao-unseal.html">Choosing the Platform Secret Store Unseal Method</a>. For a
+self-hosted or disconnected installation, the <code>static</code> method requires no cloud
+account.</p>
+<h2 id="installing">Installing<a class="headerlink" href="#installing" title="Permanent link">#</a></h2>
+<div class="highlight"><pre><span></span><code>ksp<span class="w"> </span>prerequisites<span class="w"> </span>--variant<span class="w"> </span>scobasic
+
+ksp<span class="w"> </span>up<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-c<span class="w">   </span>kubestack-config-claim.yaml<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-f<span class="w">   </span>kubestack-plus-claim.yaml<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--environment-config<span class="w"> </span>env-config.yaml<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--extra-secrets<span class="w">      </span>extra-secrets.yaml<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--registry-secret<span class="w">    </span>registry-secret.yaml<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--timeout<span class="w"> </span>15m
 </code></pre></div>
-<p>The request travels over the encrypted mesh to the routing peer, which forwards it to the in-cluster Service.</p>
-<h2 id="related">Related<a class="headerlink" href="#related" title="Permanent link">#</a></h2>
+<p>Add <code>--brownfield</code> if the cluster already has Argo CD or Crossplane. Without it
+the command stops rather than installing over an existing partial stack — which
+is the common case for <code>scobasic</code>, since the variant exists for clusters that
+are already in use.</p>
+<h2 id="verifying">Verifying<a class="headerlink" href="#verifying" title="Permanent link">#</a></h2>
+<div class="highlight"><pre><span></span><code>ksp<span class="w"> </span>status
+oc<span class="w"> </span>get<span class="w"> </span>kubestackconfig,kubestackplus<span class="w"> </span>-A
+oc<span class="w"> </span>get<span class="w"> </span>co<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-v<span class="w"> </span><span class="s2">"True.*False.*False"</span><span class="w">     </span><span class="c1"># any output = a degraded cluster operator</span>
+</code></pre></div>
+<p>Installation is staged — operators, then their instances, then configuration —
+so allow several minutes before drawing conclusions.</p>
+<table>
+<thead>
+<tr>
+<th>Check</th>
+<th>Expected</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>KubeStackConfig</code> / <code>KubeStackPlus</code></td>
+<td>both ready</td>
+</tr>
+<tr>
+<td>Cluster operators</td>
+<td>none degraded</td>
+</tr>
+<tr>
+<td>Secret store</td>
+<td>unsealed</td>
+</tr>
+<tr>
+<td>Platform components</td>
+<td>the large majority healthy</td>
+</tr>
+</tbody>
+</table>
+<h3 id="components-that-need-input-before-they-can-become-healthy">Components that need input before they can become healthy<a class="headerlink" href="#components-that-need-input-before-they-can-become-healthy" title="Permanent link">#</a></h3>
+<p>Some components integrate with services <strong>you</strong> provide, and stay unhealthy
+until you supply them. This is expected, and is not a failed installation.</p>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Needs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Source control integration</td>
+<td>A token for your source control provider</td>
+</tr>
+<tr>
+<td>Uptime monitoring</td>
+<td>Configuration for your monitoring service</td>
+</tr>
+<tr>
+<td>Backup</td>
+<td>Object storage credentials and a bucket</td>
+</tr>
+</tbody>
+</table>
+<p>If you do not intend to use one, exclude it rather than leaving it unhealthy —
+a permanently unhealthy component is indistinguishable at a glance from a broken
+one:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">excludedAddons</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;component-name&gt;</span>
+</code></pre></div>
+<p>Start with <code>excludedAddons: []</code> and let the installation tell you what your
+cluster cannot satisfy. Copying an exclusion list from elsewhere hides real
+problems.</p>
+<h3 id="verify-single-sign-on-explicitly">Verify single sign-on explicitly<a class="headerlink" href="#verify-single-sign-on-explicitly" title="Permanent link">#</a></h3>
+<p>Single sign-on spans several components, and a partial result is easy to miss —
+the components can look healthy while logging in does not work:</p>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>co<span class="w"> </span>authentication
+oc<span class="w"> </span>get<span class="w"> </span>oauth<span class="w"> </span>cluster<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.spec.identityProviders[*].name}{"\n"}'</span>
+</code></pre></div>
+<p>An empty result means OpenShift has no identity provider configured, whatever
+else reports healthy. Confirm you can log in to the console before considering
+the installation complete.</p>
+<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">#</a></h2>
+<p>The <a href="openshift.html#troubleshooting">OpenShift installation troubleshooting</a>
+section applies here too. Two failure modes are specific to <code>scobasic</code>:</p>
+<h3 id="loadbalancer-services-stay-pending">LoadBalancer Services stay pending<a class="headerlink" href="#loadbalancer-services-stay-pending" title="Permanent link">#</a></h3>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>svc<span class="w"> </span>-A<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span>pending
+</code></pre></div>
+<p><code>scobasic</code> does not install load balancing. On bare metal this means MetalLB is
+missing, has no address pool, or the pool is exhausted. Check the pool has free
+addresses — the platform needs about seven, or three with the mesh disabled.</p>
+<h3 id="components-are-absent-rather-than-unhealthy">Components are absent rather than unhealthy<a class="headerlink" href="#components-are-absent-rather-than-unhealthy" title="Permanent link">#</a></h3>
+<p>If parts of the platform are missing entirely rather than showing as unhealthy,
+a dependency is being withheld. The usual cause is the secret store not having
+unsealed: components that depend on it are never created, and their absence is
+silent.</p>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>stakater-openbao
+</code></pre></div>
+<p>See <a href="openbao-unseal.html">the unseal guide</a> if it has not come up.</p>
+<h2 id="whats-next">What's Next?<a class="headerlink" href="#whats-next" title="Permanent link">#</a></h2>
 <ul>
-<li><a href="../../api-reference/public-apis/mesh-router.html">MeshRouter API reference</a></li>
-<li><a href="create-mesh.html">Create a Mesh</a></li>
-<li><a href="create-vault.html">Create a Vault</a> — published over the Mesh automatically</li>
+<li><a href="configuration.html">Configuration</a> - Post-installation configuration</li>
+<li><a href="openbao-unseal.html">Choosing the Platform Secret Store Unseal Method</a></li>
 </ul>
 
 
@@ -6327,27 +6893,27 @@ This documentation is for a pull request deployment and is unreleased, it is onl
                 <div class="flex-2">
                     <div class="logo-footer-container">
                         
-                        <img class="md-header__logo_light" src="../../assets/images/footer-logo-light.png#only-light" alt="logo">
+                        <img class="md-header__logo_light" src="../assets/images/footer-logo-light.png#only-light" alt="logo">
                         
                         
-                        <img src="../../assets/images/footer-logo-dark.png#only-dark" alt="logo">
+                        <img src="../assets/images/footer-logo-dark.png#only-dark" alt="logo">
                         
                     </div>
 
                     <div class="collaborations-img-container">
                         <div class="display-flex">
                             
-                            <img class="csa-logo-dark" src="../../assets/images/CSA_dark.png#only-dark" alt="CSA">
+                            <img class="csa-logo-dark" src="../assets/images/CSA_dark.png#only-dark" alt="CSA">
                             
                             
-                            <img class="csa-logo-light" src="../../assets/images/CSA_light.png#only-light" alt="CSA">
+                            <img class="csa-logo-light" src="../assets/images/CSA_light.png#only-light" alt="CSA">
                             
 
                             
-                            <img class="hc-logo-dark" src="../../assets/images/HC_dark.png#only-dark" alt="HC">
+                            <img class="hc-logo-dark" src="../assets/images/HC_dark.png#only-dark" alt="HC">
                             
                             
-                            <img class="hc-logo-light" src="../../assets/images/HC_light.png#only-light" alt="HC">
+                            <img class="hc-logo-light" src="../assets/images/HC_light.png#only-light" alt="HC">
                             
                         </div>
                     </div>
@@ -6724,10 +7290,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.code.copy", "navigation.tracking", "toc.follow", "navigation.top"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["content.code.copy", "navigation.tracking", "toc.follow", "navigation.top"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
       
     
   

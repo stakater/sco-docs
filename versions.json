@@ -75,13 +75,6 @@
     "aliases": []
   },
   {
-    "version": "docs-scobasic-installation",
-    "title": "docs-scobasic-installation",
-    "aliases": [
-      "latest"
-    ]
-  },
-  {
     "version": "docs-sa8748-cluster-access-roles",
     "title": "docs-sa8748-cluster-access-roles",
     "aliases": []

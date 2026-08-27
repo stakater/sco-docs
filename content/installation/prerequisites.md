@@ -8,11 +8,30 @@ Requirements for installing Stakater Cloud Orchestrator on OpenShift.
 - **Deployment**: Bare metal (production-supported)
 - **Access**: Cluster administrator privileges
 - **Nodes**: Minimum 6 worker nodes recommended for production
-- **Storage**: Worker nodes with unused raw disks — the hosting variant deploys ODF as the cluster storage layer (you do not pre-configure a CSI provisioner)
+- **Storage**: Depends on the variant — see [Which variant are you installing?](#which-variant-are-you-installing) below
+
+### Which variant are you installing?
+
+The two supported variants make **opposite assumptions about storage and load balancing**, and getting this backwards is the most common cause of a failed install.
+
+| | `hosting` | `scobasic` |
+|---|---|---|
+| Intended for | A cluster you dedicate to SCO, installed from scratch | An existing cluster of yours, which SCO joins |
+| Storage | **SCO installs it** (ODF). Provide worker nodes with unused raw disks. | **You provide it.** SCO installs no storage layer — an RWO StorageClass must already work. |
+| Load balancing | Provided by the platform layer SCO installs | **You provide it.** On bare metal, install and configure MetalLB *before* installing SCO. |
+| Cluster management, Hypershift | Installed | Not installed |
+
+!!! warning "`scobasic` does not install storage or load balancing"
+    If you are installing `scobasic`, the requirements below that describe SCO
+    deploying ODF do **not** apply to you. Your cluster must already provide a
+    working RWO StorageClass and working `LoadBalancer` Services. See
+    [scobasic Installation](scobasic.md) for the full requirements.
 
 ### Compute Resources
 
-Recommended minimum capacity for the SCO platform:
+Recommended minimum capacity for the SCO platform on the **`hosting`** variant
+(for `scobasic`, see [its own sizing](scobasic.md#capacity) — it is
+considerably smaller):
 
 | Role | Count | vCPU | RAM |
 |------|-------|------|-----|

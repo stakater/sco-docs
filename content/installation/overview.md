@@ -9,8 +9,10 @@ SCO is installed using the **`ksp up`** command from the KubeStack+ CLI. Running
 !!! note "Get the CLI and credentials first"
     The `ksp` CLI and the registry credentials for SCO components are both provided by Stakater — request them from `sales@stakater.com`. Complete the [Prerequisites](prerequisites.md) before you begin.
 
-!!! info "Variant scope"
-    This guide installs the **`hosting`** variant — the full greenfield deployment that brings up the entire platform foundation (storage, GitOps, Hypershift, cluster management, …) and the SCO layer on a base OpenShift cluster. Other variants (`scosmart`, `scobasic`, `hosted`, `dev`) install different subsets.
+!!! info "Which variant?"
+    This guide installs the **`hosting`** variant — the full greenfield deployment that brings up the entire platform foundation (storage, GitOps, Hypershift, cluster management, …) and the SCO layer on a base OpenShift cluster.
+
+    If you are adding SCO to a cluster you already run, you want **`scobasic`** instead — see [scobasic Installation](scobasic.md). It installs a smaller set and expects your cluster to already provide storage and load balancing.
 
 The command takes two claim files plus your registry secret:
 

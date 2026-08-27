@@ -25,7 +25,7 @@ The two supported variants make **opposite assumptions about storage and load ba
     If you are installing `scobasic`, the requirements below that describe SCO
     deploying ODF do **not** apply to you. Your cluster must already provide a
     working RWO StorageClass and working `LoadBalancer` Services. See
-    [scobasic Installation](scobasic.md) for the full requirements.
+    [`scobasic` Installation](scobasic.md) for the full requirements.
 
 ### Compute Resources
 

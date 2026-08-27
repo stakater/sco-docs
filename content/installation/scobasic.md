@@ -1,4 +1,4 @@
-# scobasic Installation
+# `scobasic` Installation
 
 Install Stakater Cloud Orchestrator onto a cluster you already run.
 
@@ -88,7 +88,7 @@ Measured on a three-node OpenShift 4.21 cluster, as requested resources:
 Practical sizing:
 
 - **If you run ODF on the same cluster**, 3 × 16 vCPU / 64 GB is the floor and
-    leaves very little headroom. 3 × 24 vCPU is comfortable. Set ODF's
+    leaves very little headroom. 3 × 24 vCPU is comfortable. Set the ODF
     `resourceProfile` to `lean` — the default profile requests substantially
     more and will leave pods unscheduled on a three-node cluster.
 - **If your storage is provided elsewhere**, budget roughly 24 vCPU / 68 GB for

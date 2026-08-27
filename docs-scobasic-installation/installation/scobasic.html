@@ -6266,7 +6266,7 @@ SCO and want it built from scratch.</p>
 <p>The <code>hosting</code> variant deploys ODF and the platform networking layer for you.
 <strong><code>scobasic</code> does neither.</strong> A working RWO StorageClass and working
 <code>LoadBalancer</code> Services must already exist before you begin. This is the
-single most common reason a <code>scobasic</code> install fails.</p>
+single most common reason a <code>scobasic</code> installation fails.</p>
 </div>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">#</a></h2>
 <p>In addition to the <a href="prerequisites.html">general prerequisites</a>:</p>
@@ -6284,7 +6284,7 @@ single most common reason a <code>scobasic</code> install fails.</p>
 </tr>
 <tr>
 <td><code>cluster-admin</code></td>
-<td>the install creates namespaces, custom resources, operators and role bindings</td>
+<td>the installation creates namespaces, custom resources, operators and role bindings</td>
 </tr>
 <tr>
 <td>A working RWO StorageClass</td>
@@ -6311,7 +6311,7 @@ oc<span class="w"> </span>get<span class="w"> </span>pvc<span class="w"> </span>
 </code></pre></div>
 <p>Several components are held back until storage is confirmed healthy. A degraded
 storage backend does not produce loud errors — it produces <strong>absent</strong>
-components, which reads as "the install did nothing".</p>
+components, which reads as "the installation did nothing".</p>
 <h3 id="load-balancing">Load balancing<a class="headerlink" href="#load-balancing" title="Permanent link">#</a></h3>
 <p>The platform needs <code>LoadBalancer</code> Services to be assignable. On a cloud
 provider this is usually already true. <strong>On bare metal it is not</strong> — install and
@@ -6320,7 +6320,7 @@ configure MetalLB, with an address pool, before you begin:</p>
 oc<span class="w"> </span>get<span class="w"> </span>ipaddresspools.metallb.io<span class="w"> </span>-A<span class="w">      </span><span class="c1"># if using MetalLB</span>
 </code></pre></div>
 <h3 id="address-budget">Address budget<a class="headerlink" href="#address-budget" title="Permanent link">#</a></h3>
-<p>A full install wants roughly <strong>seven</strong> load balancer addresses. If the platform
+<p>A full installation needs roughly <strong>seven</strong> load balancer addresses. If the platform
 mesh is disabled it needs about <strong>three</strong>.</p>
 <p>If addresses are scarce, disable the mesh in the <code>KubeStackPlus</code> claim:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">spec</span><span class="p">:</span>
@@ -6480,7 +6480,7 @@ produce components that start but cannot reach each other, and nothing
 reports an error.</p>
 </div>
 <h2 id="choosing-how-the-secret-store-unseals">Choosing how the secret store unseals<a class="headerlink" href="#choosing-how-the-secret-store-unseals" title="Permanent link">#</a></h2>
-<p>Decide this <strong>before</strong> the first install — the choice is recorded permanently
+<p>Decide this <strong>before</strong> the first installation — the choice is recorded permanently
 the first time the secret store initialises.</p>
 <p>See <a href="openbao-unseal.html">Choosing the Platform Secret Store Unseal Method</a>. For a
 self-hosted or disconnected installation, the <code>static</code> method requires no cloud

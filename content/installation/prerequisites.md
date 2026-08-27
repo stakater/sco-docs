@@ -12,7 +12,7 @@ Requirements for installing Stakater Cloud Orchestrator on OpenShift.
 
 ### Which variant are you installing?
 
-The two supported variants make **opposite assumptions about storage and load balancing**, and getting this backwards is the most common cause of a failed install.
+The two supported variants make **opposite assumptions about storage and load balancing**, and getting this backwards is the most common cause of a failed installation.
 
 | | `hosting` | `scobasic` |
 |---|---|---|

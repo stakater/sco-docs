@@ -17,7 +17,7 @@ SCO and want it built from scratch.
     The `hosting` variant deploys ODF and the platform networking layer for you.
     **`scobasic` does neither.** A working RWO StorageClass and working
     `LoadBalancer` Services must already exist before you begin. This is the
-    single most common reason a `scobasic` install fails.
+    single most common reason a `scobasic` installation fails.
 
 ## Prerequisites
 
@@ -26,7 +26,7 @@ In addition to the [general prerequisites](prerequisites.md):
 | Requirement | Notes |
 |---|---|
 | OpenShift 4.18+ | 4.20 and 4.21 are the tested versions |
-| `cluster-admin` | the install creates namespaces, custom resources, operators and role bindings |
+| `cluster-admin` | the installation creates namespaces, custom resources, operators and role bindings |
 | A working RWO StorageClass | **you provide this** |
 | Working `LoadBalancer` Services | **you provide this** |
 | Wildcard DNS for `*.<apps-domain>` | platform routes are templated from it |
@@ -43,7 +43,7 @@ oc get pvc -A | grep -v Bound     # anything here is a warning sign
 
 Several components are held back until storage is confirmed healthy. A degraded
 storage backend does not produce loud errors — it produces **absent**
-components, which reads as "the install did nothing".
+components, which reads as "the installation did nothing".
 
 ### Load balancing
 
@@ -58,7 +58,7 @@ oc get ipaddresspools.metallb.io -A      # if using MetalLB
 
 ### Address budget
 
-A full install wants roughly **seven** load balancer addresses. If the platform
+A full installation needs roughly **seven** load balancer addresses. If the platform
 mesh is disabled it needs about **three**.
 
 If addresses are scarce, disable the mesh in the `KubeStackPlus` claim:
@@ -189,7 +189,7 @@ clusterDefaults:
 
 ## Choosing how the secret store unseals
 
-Decide this **before** the first install — the choice is recorded permanently
+Decide this **before** the first installation — the choice is recorded permanently
 the first time the secret store initialises.
 
 See [Choosing the Platform Secret Store Unseal Method](openbao-unseal.md). For a

@@ -5,13 +5,13 @@
       
       
       
-        <link rel="canonical" href="https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/console/dashboard.html">
+        <link rel="canonical" href="https://docs.stakater.com/cloud-orchestrator/renovate-main-node-24.x-lockfile/installation/scobasic.html">
       
       
-        <link rel="prev" href="accessing-the-console.html">
+        <link rel="prev" href="openshift.html">
       
       
-        <link rel="next" href="projects.html">
+        <link rel="next" href="openbao-unseal.html">
       
       
         
@@ -22,7 +22,7 @@
     
     
       
-        <title>Dashboard - Stakater Cloud Orchestrator</title>
+        <title>scobasic Installation - Stakater Cloud Orchestrator</title>
       
     
     
@@ -95,7 +95,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#dashboard" class="md-skip">
+        <a href="#scobasic-installation" class="md-skip">
           Skip to content
         </a>
       
@@ -3199,18 +3199,20 @@ This documentation is for a pull request deployment and is unreleased, it is onl
       
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3">
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked="">
         
           
           <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
@@ -3231,7 +3233,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -3385,18 +3387,20 @@ This documentation is for a pull request deployment and is unreleased, it is onl
                 
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3">
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" checked="">
         
           
           <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
@@ -3417,7 +3421,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -3435,7 +3439,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../installation/overview.html" class="md-nav__link">
+      <a href="overview.html" class="md-nav__link">
         
   
   
@@ -3463,7 +3467,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../installation/prerequisites.html" class="md-nav__link">
+      <a href="prerequisites.html" class="md-nav__link">
         
   
   
@@ -3491,7 +3495,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../installation/openshift.html" class="md-nav__link">
+      <a href="openshift.html" class="md-nav__link">
         
   
   
@@ -3516,10 +3520,37 @@ This documentation is for a pull request deployment and is unreleased, it is onl
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../installation/scobasic.html" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    scobasic Installation
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="scobasic.html" class="md-nav__link md-nav__link--active">
         
   
   
@@ -3535,6 +3566,272 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
 
       </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#when-to-use-this-variant" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to use this variant
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prerequisites
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Prerequisites">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Storage
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#load-balancing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Load balancing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#address-budget" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Address budget
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#capacity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Capacity
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#preparing-the-claim-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Preparing the claim files
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Preparing the claim files">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#kubestackconfig-claim" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        KubeStackConfig claim
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kubestackplus-claim" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        KubeStackPlus claim
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#environment-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Environment configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#where-each-value-comes-from" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Where each value comes from
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#choosing-how-the-secret-store-unseals" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Choosing how the secret store unseals
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verifying" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verifying
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Verifying">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#components-that-need-input-before-they-can-become-healthy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Components that need input before they can become healthy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verify-single-sign-on-explicitly" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verify single sign-on explicitly
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#loadbalancer-services-stay-pending" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LoadBalancer Services stay pending
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#components-are-absent-rather-than-unhealthy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Components are absent rather than unhealthy
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#whats-next" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What's Next?
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -3547,7 +3844,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../installation/openbao-unseal.html" class="md-nav__link">
+      <a href="openbao-unseal.html" class="md-nav__link">
         
   
   
@@ -3575,7 +3872,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../installation/configuration.html" class="md-nav__link">
+      <a href="configuration.html" class="md-nav__link">
         
   
   
@@ -4505,20 +4802,18 @@ This documentation is for a pull request deployment and is unreleased, it is onl
       
   
   
-    
   
   
-  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked="">
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5">
         
           
           <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
@@ -4539,7 +4834,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             
@@ -4557,7 +4852,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="overview.html" class="md-nav__link">
+      <a href="../console/overview.html" class="md-nav__link">
         
   
   
@@ -4585,7 +4880,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="accessing-the-console.html" class="md-nav__link">
+      <a href="../console/accessing-the-console.html" class="md-nav__link">
         
   
   
@@ -4610,37 +4905,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Dashboard
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="dashboard.html" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../console/dashboard.html" class="md-nav__link">
         
   
   
@@ -4656,50 +4924,6 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
 
       </a>
-      
-        
-
-  
-
-<nav class="md-nav md-nav--secondary" aria-label="On this page">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      On this page
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
-      
-        <li class="md-nav__item">
-  <a href="#your-organisation-at-a-glance" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Your Organisation at a Glance
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#whats-next" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        What's Next?
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -4712,7 +4936,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="projects.html" class="md-nav__link">
+      <a href="../console/projects.html" class="md-nav__link">
         
   
   
@@ -4740,7 +4964,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="resources.html" class="md-nav__link">
+      <a href="../console/resources.html" class="md-nav__link">
         
   
   
@@ -4768,7 +4992,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="marketplace.html" class="md-nav__link">
+      <a href="../console/marketplace.html" class="md-nav__link">
         
   
   
@@ -4796,7 +5020,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="solutions.html" class="md-nav__link">
+      <a href="../console/solutions.html" class="md-nav__link">
         
   
   
@@ -5767,13 +5991,235 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
       
         <li class="md-nav__item">
-  <a href="#your-organisation-at-a-glance" class="md-nav__link">
+  <a href="#when-to-use-this-variant" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Your Organisation at a Glance
+        When to use this variant
       
     </span>
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prerequisites
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Prerequisites">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Storage
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#load-balancing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Load balancing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#address-budget" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Address budget
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#capacity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Capacity
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#preparing-the-claim-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Preparing the claim files
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Preparing the claim files">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#kubestackconfig-claim" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        KubeStackConfig claim
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kubestackplus-claim" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        KubeStackPlus claim
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#environment-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Environment configuration
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#where-each-value-comes-from" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Where each value comes from
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#choosing-how-the-secret-store-unseals" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Choosing how the secret store unseals
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#installing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installing
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verifying" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verifying
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Verifying">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#components-that-need-input-before-they-can-become-healthy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Components that need input before they can become healthy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verify-single-sign-on-explicitly" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verify single sign-on explicitly
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#loadbalancer-services-stay-pending" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LoadBalancer Services stay pending
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#components-are-absent-rather-than-unhealthy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Components are absent rather than unhealthy
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -5805,29 +6251,354 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 
 
 
-<h1 id="dashboard">Dashboard<a class="headerlink" href="#dashboard" title="Permanent link">#</a></h1>
-<p>The dashboard is the landing page after you sign in. It gives you a quick view of your organisation before you drill into individual resources.</p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../images/console/dashboard-org-stats.png" data-desc-position="bottom"><img alt="The dashboard showing the organisation summary" src="../images/console/dashboard-org-stats.png"></a></p>
-<hr>
-<h2 id="your-organisation-at-a-glance">Your Organisation at a Glance<a class="headerlink" href="#your-organisation-at-a-glance" title="Permanent link">#</a></h2>
-<p>The dashboard summarises your organisation with live counts drawn from the platform, such as the number of:</p>
-<ul>
-<li>Projects</li>
-<li>Organisation users and groups</li>
-<li>Virtual machines</li>
-<li>Clusters</li>
-</ul>
-<p>These figures reflect what currently exists in your organisation and what you have access to. Use them as a starting point, then open the matching section in the sidebar to see the details — see <a href="resources.html">Working with Resources</a>.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The dashboard will grow over time with additional views. This page documents what is available today.</p>
+<h1 id="scobasic-installation"><code>scobasic</code> Installation<a class="headerlink" href="#scobasic-installation" title="Permanent link">#</a></h1>
+<p>Install Stakater Cloud Orchestrator onto a cluster you already run.</p>
+<h2 id="when-to-use-this-variant">When to use this variant<a class="headerlink" href="#when-to-use-this-variant" title="Permanent link">#</a></h2>
+<p><code>scobasic</code> adds SCO to an <strong>existing</strong> OpenShift cluster. Unlike
+<a href="openshift.html"><code>hosting</code></a>, it does not bring up the underlying platform layer —
+it expects your cluster to already provide storage and load balancing, and it
+installs a smaller set of components on top.</p>
+<p>Choose <code>scobasic</code> when the cluster is yours, already in use, and you want SCO
+alongside what is there. Choose <code>hosting</code> when you are dedicating a cluster to
+SCO and want it built from scratch.</p>
+<div class="admonition warning">
+<p class="admonition-title">This variant installs neither storage nor load balancing</p>
+<p>The <code>hosting</code> variant deploys ODF and the platform networking layer for you.
+<strong><code>scobasic</code> does neither.</strong> A working RWO StorageClass and working
+<code>LoadBalancer</code> Services must already exist before you begin. This is the
+single most common reason a <code>scobasic</code> installation fails.</p>
 </div>
-<hr>
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">#</a></h2>
+<p>In addition to the <a href="prerequisites.html">general prerequisites</a>:</p>
+<table>
+<thead>
+<tr>
+<th>Requirement</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OpenShift 4.18+</td>
+<td>4.20 and 4.21 are the tested versions</td>
+</tr>
+<tr>
+<td><code>cluster-admin</code></td>
+<td>the installation creates namespaces, custom resources, operators and role bindings</td>
+</tr>
+<tr>
+<td>A working RWO StorageClass</td>
+<td><strong>you provide this</strong></td>
+</tr>
+<tr>
+<td>Working <code>LoadBalancer</code> Services</td>
+<td><strong>you provide this</strong></td>
+</tr>
+<tr>
+<td>Wildcard DNS for <code>*.&lt;apps-domain&gt;</code></td>
+<td>platform routes are templated from it</td>
+</tr>
+<tr>
+<td>Outbound access to the Stakater registry</td>
+<td>charts and packages are pulled during installation</td>
+</tr>
+</tbody>
+</table>
+<h3 id="storage">Storage<a class="headerlink" href="#storage" title="Permanent link">#</a></h3>
+<p>Check before installing, not after:</p>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>storageclass
+oc<span class="w"> </span>get<span class="w"> </span>pvc<span class="w"> </span>-A<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-v<span class="w"> </span>Bound<span class="w">     </span><span class="c1"># anything here is a warning sign</span>
+</code></pre></div>
+<p>Several components are held back until storage is confirmed healthy. A degraded
+storage backend does not produce loud errors — it produces <strong>absent</strong>
+components, which reads as "the installation did nothing".</p>
+<h3 id="load-balancing">Load balancing<a class="headerlink" href="#load-balancing" title="Permanent link">#</a></h3>
+<p>The platform needs <code>LoadBalancer</code> Services to be assignable. On a cloud
+provider this is usually already true. <strong>On bare metal it is not</strong> — install and
+configure MetalLB, with an address pool, before you begin:</p>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>svc<span class="w"> </span>-A<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span>pending<span class="w">          </span><span class="c1"># should be empty before you start</span>
+oc<span class="w"> </span>get<span class="w"> </span>ipaddresspools.metallb.io<span class="w"> </span>-A<span class="w">      </span><span class="c1"># if using MetalLB</span>
+</code></pre></div>
+<h3 id="address-budget">Address budget<a class="headerlink" href="#address-budget" title="Permanent link">#</a></h3>
+<p>A full installation needs roughly <strong>seven</strong> load balancer addresses. If the platform
+mesh is disabled it needs about <strong>three</strong>.</p>
+<p>If addresses are scarce, disable the mesh in the <code>KubeStackPlus</code> claim:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">meshPlatform</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+</code></pre></div>
+<p>The mesh provides connectivity to clusters that are not directly reachable. If
+your cluster's API and applications are already reachable by the people and
+systems that need them, you do not need it.</p>
+<h3 id="capacity">Capacity<a class="headerlink" href="#capacity" title="Permanent link">#</a></h3>
+<p>Measured on a three-node OpenShift 4.21 cluster, as requested resources:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>CPU</th>
+<th>Memory</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OpenShift itself</td>
+<td>9</td>
+<td>30 GB</td>
+</tr>
+<tr>
+<td>Storage layer (ODF, <code>lean</code> profile)</td>
+<td>18</td>
+<td>43 GB</td>
+</tr>
+<tr>
+<td>SCO platform</td>
+<td>15</td>
+<td>39 GB</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td><strong>~42</strong></td>
+<td><strong>~111 GB</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Practical sizing:</p>
+<ul>
+<li><strong>If you run ODF on the same cluster</strong>, 3 × 16 vCPU / 64 GB is the floor and
+    leaves very little headroom. 3 × 24 vCPU is comfortable. Set the ODF
+    <code>resourceProfile</code> to <code>lean</code> — the default profile requests substantially
+    more and will leave pods unscheduled on a three-node cluster.</li>
+<li><strong>If your storage is provided elsewhere</strong>, budget roughly 24 vCPU / 68 GB for
+    OpenShift plus SCO.</li>
+<li><strong>Size memory from observed usage, not from requests.</strong> Actual consumption
+    runs well above the requested figure.</li>
+</ul>
+<h2 id="preparing-the-claim-files">Preparing the claim files<a class="headerlink" href="#preparing-the-claim-files" title="Permanent link">#</a></h2>
+<p><code>ksp up</code> applies three files. The structure matches the
+<a href="openshift.html#step-2-prepare-claim-files">hosting installation</a>; the values
+below are what differ for <code>scobasic</code>.</p>
+<h3 id="kubestackconfig-claim">KubeStackConfig claim<a class="headerlink" href="#kubestackconfig-claim" title="Permanent link">#</a></h3>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cloud.stakater.com/v1alpha1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">KubeStackConfig</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;cluster-name&gt;</span>
+<span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ksp-system</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;cluster-name&gt;</span>
+<span class="w">    </span><span class="nt">variant</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">scobasic</span><span class="w">          </span><span class="c1"># &lt;- the variant</span>
+<span class="w">    </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ocp</span>
+<span class="w">    </span><span class="nt">domain</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;apps-domain&gt;</span>
+
+<span class="w">    </span><span class="nt">namespaces</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">logging</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">logging</span>
+<span class="w">      </span><span class="nt">monitoring</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">monitoring</span>
+<span class="w">      </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">platform-system</span>
+
+<span class="w">    </span><span class="nt">network</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">clusterDomain</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cluster.local</span>
+<span class="w">      </span><span class="nt">podCIDR</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;pod-cidr&gt;</span>
+<span class="w">      </span><span class="nt">serviceCIDR</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;service-cidr&gt;</span>
+</code></pre></div>
+<h3 id="kubestackplus-claim">KubeStackPlus claim<a class="headerlink" href="#kubestackplus-claim" title="Permanent link">#</a></h3>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cloud.stakater.com/v1alpha1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">KubeStackPlus</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;cluster-name&gt;-ocp-scobasic</span>
+<span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ksp-system</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">providerConfigRef</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kubernetes-provider</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">variant</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">scobasic</span>
+<span class="w">    </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ocp</span>
+<span class="w">    </span><span class="nt">excludedAddons</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[]</span>
+</code></pre></div>
+<h3 id="environment-configuration">Environment configuration<a class="headerlink" href="#environment-configuration" title="Permanent link">#</a></h3>
+<p>Passed with <code>--environment-config</code>. For <code>scobasic</code> this is where you tell the
+platform which storage class to use and, if applicable, your load balancer
+address range:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cluster-defaults</span>
+
+<span class="nt">clusterDefaults</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">baseDomain</span><span class="p">:</span><span class="w"> </span><span class="s">"&lt;apps-domain&gt;"</span>
+<span class="w">  </span><span class="nt">variant</span><span class="p">:</span><span class="w"> </span><span class="s">"scobasic"</span>
+<span class="w">  </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="s">"ocp"</span>
+
+<span class="w">  </span><span class="nt">storage</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">persistentStorageClassName</span><span class="p">:</span><span class="w"> </span><span class="s">"&lt;your-storage-class&gt;"</span>
+
+<span class="w">  </span><span class="nt">metallb</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">l2Advertisement</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">addressRanges</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">"&lt;range-start&gt;-&lt;range-end&gt;"</span>
+<span class="w">    </span><span class="nt">bgp</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+</code></pre></div>
+<h3 id="where-each-value-comes-from">Where each value comes from<a class="headerlink" href="#where-each-value-comes-from" title="Permanent link">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>How to obtain it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;cluster-name&gt;</code></td>
+<td>Yours to choose. Short and stable — it names the identity realm and appears in generated resources.</td>
+</tr>
+<tr>
+<td><code>&lt;apps-domain&gt;</code></td>
+<td><code>oc get ingresses.config cluster -o jsonpath='{.spec.domain}'</code></td>
+</tr>
+<tr>
+<td><code>&lt;pod-cidr&gt;</code></td>
+<td><code>oc get network.config cluster -o jsonpath='{.spec.clusterNetwork[*].cidr}'</code></td>
+</tr>
+<tr>
+<td><code>&lt;service-cidr&gt;</code></td>
+<td><code>oc get network.config cluster -o jsonpath='{.spec.serviceNetwork[*]}'</code></td>
+</tr>
+<tr>
+<td><code>&lt;your-storage-class&gt;</code></td>
+<td><code>oc get storageclass</code> — an RWO class</td>
+</tr>
+<tr>
+<td><code>&lt;range-start&gt;</code> / <code>&lt;range-end&gt;</code></td>
+<td>A free address range you own</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">The network values must match the cluster</p>
+<p>Placeholder CIDRs that look plausible are not good enough. Incorrect values
+produce components that start but cannot reach each other, and nothing
+reports an error.</p>
+</div>
+<h2 id="choosing-how-the-secret-store-unseals">Choosing how the secret store unseals<a class="headerlink" href="#choosing-how-the-secret-store-unseals" title="Permanent link">#</a></h2>
+<p>Decide this <strong>before</strong> the first installation — the choice is recorded permanently
+the first time the secret store initialises.</p>
+<p>See <a href="openbao-unseal.html">Choosing the Platform Secret Store Unseal Method</a>. For a
+self-hosted or disconnected installation, the <code>static</code> method requires no cloud
+account.</p>
+<h2 id="installing">Installing<a class="headerlink" href="#installing" title="Permanent link">#</a></h2>
+<div class="highlight"><pre><span></span><code>ksp<span class="w"> </span>prerequisites<span class="w"> </span>--variant<span class="w"> </span>scobasic
+
+ksp<span class="w"> </span>up<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-c<span class="w">   </span>kubestack-config-claim.yaml<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-f<span class="w">   </span>kubestack-plus-claim.yaml<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--environment-config<span class="w"> </span>env-config.yaml<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--extra-secrets<span class="w">      </span>extra-secrets.yaml<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--registry-secret<span class="w">    </span>registry-secret.yaml<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--timeout<span class="w"> </span>15m
+</code></pre></div>
+<p>Add <code>--brownfield</code> if the cluster already has Argo CD or Crossplane. Without it
+the command stops rather than installing over an existing partial stack — which
+is the common case for <code>scobasic</code>, since the variant exists for clusters that
+are already in use.</p>
+<h2 id="verifying">Verifying<a class="headerlink" href="#verifying" title="Permanent link">#</a></h2>
+<div class="highlight"><pre><span></span><code>ksp<span class="w"> </span>status
+oc<span class="w"> </span>get<span class="w"> </span>kubestackconfig,kubestackplus<span class="w"> </span>-A
+oc<span class="w"> </span>get<span class="w"> </span>co<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-v<span class="w"> </span><span class="s2">"True.*False.*False"</span><span class="w">     </span><span class="c1"># any output = a degraded cluster operator</span>
+</code></pre></div>
+<p>Installation is staged — operators, then their instances, then configuration —
+so allow several minutes before drawing conclusions.</p>
+<table>
+<thead>
+<tr>
+<th>Check</th>
+<th>Expected</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>KubeStackConfig</code> / <code>KubeStackPlus</code></td>
+<td>both ready</td>
+</tr>
+<tr>
+<td>Cluster operators</td>
+<td>none degraded</td>
+</tr>
+<tr>
+<td>Secret store</td>
+<td>unsealed</td>
+</tr>
+<tr>
+<td>Platform components</td>
+<td>the large majority healthy</td>
+</tr>
+</tbody>
+</table>
+<h3 id="components-that-need-input-before-they-can-become-healthy">Components that need input before they can become healthy<a class="headerlink" href="#components-that-need-input-before-they-can-become-healthy" title="Permanent link">#</a></h3>
+<p>Some components integrate with services <strong>you</strong> provide, and stay unhealthy
+until you supply them. This is expected, and is not a failed installation.</p>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Needs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Source control integration</td>
+<td>A token for your source control provider</td>
+</tr>
+<tr>
+<td>Uptime monitoring</td>
+<td>Configuration for your monitoring service</td>
+</tr>
+<tr>
+<td>Backup</td>
+<td>Object storage credentials and a bucket</td>
+</tr>
+</tbody>
+</table>
+<p>If you do not intend to use one, exclude it rather than leaving it unhealthy —
+a permanently unhealthy component is indistinguishable at a glance from a broken
+one:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">excludedAddons</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;component-name&gt;</span>
+</code></pre></div>
+<p>Start with <code>excludedAddons: []</code> and let the installation tell you what your
+cluster cannot satisfy. Copying an exclusion list from elsewhere hides real
+problems.</p>
+<h3 id="verify-single-sign-on-explicitly">Verify single sign-on explicitly<a class="headerlink" href="#verify-single-sign-on-explicitly" title="Permanent link">#</a></h3>
+<p>Single sign-on spans several components, and a partial result is easy to miss —
+the components can look healthy while logging in does not work:</p>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>co<span class="w"> </span>authentication
+oc<span class="w"> </span>get<span class="w"> </span>oauth<span class="w"> </span>cluster<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.spec.identityProviders[*].name}{"\n"}'</span>
+</code></pre></div>
+<p>An empty result means OpenShift has no identity provider configured, whatever
+else reports healthy. Confirm you can log in to the console before considering
+the installation complete.</p>
+<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">#</a></h2>
+<p>The <a href="openshift.html#troubleshooting">OpenShift installation troubleshooting</a>
+section applies here too. Two failure modes are specific to <code>scobasic</code>:</p>
+<h3 id="loadbalancer-services-stay-pending">LoadBalancer Services stay pending<a class="headerlink" href="#loadbalancer-services-stay-pending" title="Permanent link">#</a></h3>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>svc<span class="w"> </span>-A<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span>pending
+</code></pre></div>
+<p><code>scobasic</code> does not install load balancing. On bare metal this means MetalLB is
+missing, has no address pool, or the pool is exhausted. Check the pool has free
+addresses — the platform needs about seven, or three with the mesh disabled.</p>
+<h3 id="components-are-absent-rather-than-unhealthy">Components are absent rather than unhealthy<a class="headerlink" href="#components-are-absent-rather-than-unhealthy" title="Permanent link">#</a></h3>
+<p>If parts of the platform are missing entirely rather than showing as unhealthy,
+a dependency is being withheld. The usual cause is the secret store not having
+unsealed: components that depend on it are never created, and their absence is
+silent.</p>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>stakater-openbao
+</code></pre></div>
+<p>See <a href="openbao-unseal.html">the unseal guide</a> if it has not come up.</p>
 <h2 id="whats-next">What's Next?<a class="headerlink" href="#whats-next" title="Permanent link">#</a></h2>
 <ul>
-<li><a href="overview.html">Console Overview</a> — Find your way around the console</li>
-<li><a href="projects.html">Projects</a> — Work with projects</li>
-<li><a href="resources.html">Working with Resources</a> — Browse, provision, and manage services</li>
+<li><a href="configuration.html">Configuration</a> - Post-installation configuration</li>
+<li><a href="openbao-unseal.html">Choosing the Platform Secret Store Unseal Method</a></li>
 </ul>
 
 

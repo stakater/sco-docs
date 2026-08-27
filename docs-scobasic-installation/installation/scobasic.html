@@ -6251,7 +6251,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 
 
 
-<h1 id="scobasic-installation">scobasic Installation<a class="headerlink" href="#scobasic-installation" title="Permanent link">#</a></h1>
+<h1 id="scobasic-installation"><code>scobasic</code> Installation<a class="headerlink" href="#scobasic-installation" title="Permanent link">#</a></h1>
 <p>Install Stakater Cloud Orchestrator onto a cluster you already run.</p>
 <h2 id="when-to-use-this-variant">When to use this variant<a class="headerlink" href="#when-to-use-this-variant" title="Permanent link">#</a></h2>
 <p><code>scobasic</code> adds SCO to an <strong>existing</strong> OpenShift cluster. Unlike
@@ -6367,7 +6367,7 @@ systems that need them, you do not need it.</p>
 <p>Practical sizing:</p>
 <ul>
 <li><strong>If you run ODF on the same cluster</strong>, 3 × 16 vCPU / 64 GB is the floor and
-    leaves very little headroom. 3 × 24 vCPU is comfortable. Set ODF's
+    leaves very little headroom. 3 × 24 vCPU is comfortable. Set the ODF
     <code>resourceProfile</code> to <code>lean</code> — the default profile requests substantially
     more and will leave pods unscheduled on a three-node cluster.</li>
 <li><strong>If your storage is provided elsewhere</strong>, budget roughly 24 vCPU / 68 GB for

@@ -3626,6 +3626,34 @@ This documentation is either for an old version, or for the unreleased 'main' ve
   
   
     <li class="md-nav__item">
+      <a href="scobasic.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    scobasic Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="openbao-unseal.html" class="md-nav__link">
         
   
@@ -5853,8 +5881,8 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 <p>The <code>ksp</code> CLI and the registry credentials for SCO components are both provided by Stakater — request them from <code>sales@stakater.com</code>. Complete the <a href="prerequisites.html">Prerequisites</a> before you begin.</p>
 </div>
 <div class="admonition info">
-<p class="admonition-title">Variant scope</p>
-<p>This guide installs the <strong><code>hosting</code></strong> variant — the full greenfield deployment that brings up the entire platform foundation (storage, GitOps, Hypershift, cluster management, …) and the SCO layer on a base OpenShift cluster. Other variants (<code>scosmart</code>, <code>scobasic</code>, <code>hosted</code>, <code>dev</code>) install different subsets.</p>
+<p class="admonition-title">Which variant?</p>
+<p>This guide installs the <strong><code>hosting</code></strong> variant — the full greenfield deployment that brings up the entire platform foundation (storage, GitOps, Hypershift, cluster management, …) and the SCO layer on a base OpenShift cluster. If you are adding SCO to a cluster you already run, you want <strong><code>scobasic</code></strong> instead — see <a href="scobasic.html"><code>scobasic</code> Installation</a>. It installs a smaller set and expects your cluster to already provide storage and load balancing.</p>
 </div>
 <p>The command takes two claim files plus your registry secret:</p>
 <ul>

@@ -67,7 +67,9 @@ nav:
           - installation/configuration.md
       - Solutions and Marketplace:
           - service-provider-guide/solutions/solution-overview.md
-          - service-provider-guide/solutions/creating-solutions.md
+          - Creating Solutions:
+              - service-provider-guide/solutions/creating-solutions.md
+              - service-provider-guide/solutions/modeling-child-resources.md
           - service-provider-guide/solutions/crossplane-compositions.md
           - service-provider-guide/marketplace/publishing-solutions.md
           - service-provider-guide/marketplace/marketplace-configuration.md

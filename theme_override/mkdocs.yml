@@ -67,6 +67,7 @@ nav:
           - installation/overview.md
           - installation/prerequisites.md
           - installation/openshift.md
+          - installation/scobasic.md
           - installation/openbao-unseal.md
           - installation/configuration.md
       - Solutions and Marketplace:

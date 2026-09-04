@@ -3541,6 +3541,17 @@ This documentation is for a pull request deployment and is unreleased, it is onl
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#which-variant-are-you-installing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Which variant are you installing?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#compute-resources" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3685,6 +3696,62 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     
   
     OpenShift Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="scobasic.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    scobasic Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="openbao-unseal.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Choosing the Platform Secret Store Unseal Method
   
 
     
@@ -5836,6 +5903,17 @@ This documentation is for a pull request deployment and is unreleased, it is onl
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#which-variant-are-you-installing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Which variant are you installing?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#compute-resources" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -5981,10 +6059,52 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <li><strong>Deployment</strong>: Bare metal (production-supported)</li>
 <li><strong>Access</strong>: Cluster administrator privileges</li>
 <li><strong>Nodes</strong>: Minimum 6 worker nodes recommended for production</li>
-<li><strong>Storage</strong>: Worker nodes with unused raw disks — the hosting variant deploys ODF as the cluster storage layer (you do not pre-configure a CSI provisioner)</li>
+<li><strong>Storage</strong>: Depends on the variant — see <a href="#which-variant-are-you-installing">Which variant are you installing?</a> below</li>
 </ul>
+<h3 id="which-variant-are-you-installing">Which variant are you installing?<a class="headerlink" href="#which-variant-are-you-installing" title="Permanent link">#</a></h3>
+<p>The two supported variants make <strong>opposite assumptions about storage and load balancing</strong>, and getting this backwards is the most common cause of a failed installation.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th><code>hosting</code></th>
+<th><code>scobasic</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Intended for</td>
+<td>A cluster you dedicate to SCO, installed from scratch</td>
+<td>An existing cluster of yours, which SCO joins</td>
+</tr>
+<tr>
+<td>Storage</td>
+<td><strong>SCO installs it</strong> (ODF). Provide worker nodes with unused raw disks.</td>
+<td><strong>You provide it.</strong> SCO installs no storage layer — an RWO StorageClass must already work.</td>
+</tr>
+<tr>
+<td>Load balancing</td>
+<td>Provided by the platform layer SCO installs</td>
+<td><strong>You provide it.</strong> On bare metal, install and configure MetalLB <em>before</em> installing SCO.</td>
+</tr>
+<tr>
+<td>Cluster management, Hypershift</td>
+<td>Installed</td>
+<td>Not installed</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title"><code>scobasic</code> does not install storage or load balancing</p>
+<p>If you are installing <code>scobasic</code>, the requirements below that describe SCO
+deploying ODF do <strong>not</strong> apply to you. Your cluster must already provide a
+working RWO StorageClass and working <code>LoadBalancer</code> Services. See
+<a href="scobasic.html"><code>scobasic</code> Installation</a> for the full requirements.</p>
+</div>
 <h3 id="compute-resources">Compute Resources<a class="headerlink" href="#compute-resources" title="Permanent link">#</a></h3>
-<p>Recommended minimum capacity for the SCO platform:</p>
+<p>Recommended minimum capacity for the SCO platform on the <strong><code>hosting</code></strong> variant
+(for <code>scobasic</code>, see <a href="scobasic.html#capacity">its own sizing</a> — it is
+considerably smaller):</p>
 <table>
 <thead>
 <tr>
@@ -6051,10 +6171,10 @@ oc<span class="w"> </span>whoami
 <li><strong>Connectivity</strong>: Outbound access to container registries (docker.io, Quay.io, ghcr.io)</li>
 </ul>
 <h2 id="registry-access">Registry Access<a class="headerlink" href="#registry-access" title="Permanent link">#</a></h2>
-<p>SCO platform components — Crossplane configuration packages, composition functions, and Helm charts — are published to <strong>Stakater's private registry</strong> (<code>ghcr.io/stakater</code>). Installing SCO therefore <strong>requires Stakater registry credentials</strong>.</p>
+<p>SCO platform components — packages, functions, Helm charts, and container images — are published to <strong>Stakater's customer distribution registry</strong> (<code>ghcr.io/stakater/registry</code>). It carries only released versions blessed for customer use. Installing SCO therefore <strong>requires Stakater registry credentials</strong>.</p>
 <div class="admonition important">
 <p class="admonition-title">Request your registry credentials</p>
-<p>Email <code>sales@stakater.com</code> to request access. You will receive a username and a token with read access to <code>ghcr.io/stakater</code>. You supply these to <code>ksp up</code> through a registry-secret file (<code>--registry-secret</code>) — see <a href="openshift.html">OpenShift Installation</a>.</p>
+<p>Email <code>sales@stakater.com</code> to request access. You will receive a username and a token with read access to the distribution registry. You supply these to <code>ksp up</code> through a registry-secret file with <code>profile: distribution</code> set (<code>--registry-secret</code>) — see <a href="openshift.html">OpenShift Installation</a>.</p>
 </div>
 <p>The cluster also needs outbound connectivity to the public registries SCO depends on: docker.io, Quay.io, ghcr.io, and the Red Hat registry (for OpenShift platform components).</p>
 <h2 id="configuration-claim-files">Configuration Claim Files<a class="headerlink" href="#configuration-claim-files" title="Permanent link">#</a></h2>

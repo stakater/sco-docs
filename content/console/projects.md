@@ -10,7 +10,7 @@ In the console, **Projects** appears in the sidebar alongside your other resourc
 
 Select **Projects** in the sidebar to open the list of projects you have access to. Each row shows the project and its status. Select a project to open its detail page.
 
-![The Projects list](../images/console/project-list.png)
+![The Projects list]({{ screenshot: project-list }})
 
 ---
 
@@ -23,7 +23,7 @@ If you have permission to create projects, the Projects section shows a **Create
 1. Set the project's network and quota, and grant access to users or groups.
 1. Submit. The platform provisions the project, and you are taken to its detail page.
 
-![The Create Project form](../images/console/project-create.png)
+![The Create Project form]({{ screenshot: project-create }})
 
 !!! note
     Creating projects is typically reserved for organisation administrators. If you do not see the **Create Project** action, you do not have permission — contact your organisation administrator.

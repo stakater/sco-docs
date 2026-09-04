@@ -1,0 +1,74 @@
+# console/resources.md -> 5 images, one of which overview.md also uses.
+# Read-only, so there is nothing to tear down. The complexity mode persists in
+# localStorage, so every Standard shot must come before the Advanced one at the end.
+name: sco-docs-resources
+
+requires:
+  env:
+    - CONSOLE_URL
+    - CONSOLE_ORG
+    - CONSOLE_USER
+    - CONSOLE_PASSWORD
+    - DOCS_VM_PLURAL
+    - DOCS_VM_NAME
+    - DOCS_SIDEBAR_GROUP
+  reachable: ["${CONSOLE_URL}"]
+
+viewport:
+  width: 1280
+  height: 800
+  deviceScaleFactor: 2
+  colorScheme: light
+
+steps:
+  - use: cloud-orchestrator-console-login
+    with:
+      portal: "${CONSOLE_URL}"
+      org: "${CONSOLE_ORG}"
+      username: "${CONSOLE_USER}"
+      password: "${CONSOLE_PASSWORD}"
+
+  - use: cloud-orchestrator-console-open-resource-list
+    with:
+      portal: "${CONSOLE_URL}"
+      plural: "${DOCS_VM_PLURAL}"
+  # The pack navigates by URL, which leaves every sidebar group collapsed.
+  - { step: click, selector: '[data-slot="collapsible-trigger"]:has(span:text-is("${DOCS_SIDEBAR_GROUP}"))' }
+  - { step: wait-for, selector: '[data-slot="collapsible-trigger"][aria-expanded="true"]:has(span:text-is("${DOCS_SIDEBAR_GROUP}"))', timeout: 10s }
+  - { step: screenshot, path: resource-list.png, fullPage: false }
+
+  # Named, not first-row, so this and detail-advanced.png are the same resource.
+  - use: cloud-orchestrator-console-open-resource-detail
+    with:
+      portal: "${CONSOLE_URL}"
+      plural: "${DOCS_VM_PLURAL}"
+      name: "${DOCS_VM_NAME}"
+  - { step: screenshot, path: resource-detail.png, fullPage: false }
+
+  - use: cloud-orchestrator-console-open-resource-create
+    with:
+      portal: "${CONSOLE_URL}"
+      plural: "${DOCS_VM_PLURAL}"
+  - { step: screenshot, path: create-form-standard.png, fullPage: false }
+
+  # Back to detail: the delete panel is at the bottom of that page.
+  - use: cloud-orchestrator-console-open-resource-detail
+    with:
+      portal: "${CONSOLE_URL}"
+      plural: "${DOCS_VM_PLURAL}"
+      name: "${DOCS_VM_NAME}"
+  # The panel, not its button -- the button sits above the panel's padding, so aligning
+  # it to the viewport bottom clips the panel.
+  - { step: scroll-to, selector: ".danger-zone-stripes", block: end }
+  - { step: wait, ms: 500 }
+  - { step: screenshot, path: resource-detail-1.png, fullPage: false }
+
+  # Clicking the toggle scrolls back to the header, so drop to the panel again.
+  - { step: click, selector: '[role="group"][aria-label="Complexity mode"] button:text-is("Advanced")' }
+  - { step: wait-for, selector: '[role="group"][aria-label="Complexity mode"] button[aria-pressed="true"]:text-is("Advanced")', timeout: 10s }
+  - { step: scroll-to, selector: ".danger-zone-stripes", block: end }
+  - { step: wait, ms: 500 }
+  - { step: screenshot, path: detail-advanced.png, fullPage: false }
+
+after:
+  - { step: screenshot, when: on-failure, path: _failure-resources.png }

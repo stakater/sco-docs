@@ -2,7 +2,7 @@
 
 The Stakater Cloud Orchestrator (SCO) console is the web interface for your organisation. It is where cloud consumers sign in, browse the services available to them, provision resources, and manage what they have created.
 
-![The SCO console after sign-in](../images/console/dashboard-org-stats.png)
+![The SCO console after sign-in]({{ screenshot: dashboard-org-stats }})
 
 ---
 
@@ -27,13 +27,13 @@ Each resource entry expands to show **All `<resources>`** (the list view) and, w
 
 The sidebar adapts to you: a resource only appears if your organisation exposes it **and** you have access to it. If you cannot see something you expect, you may not have been granted access — contact your organisation administrator.
 
-![The sidebar with resource groups expanded to show All and Create entries](../images/console/sidebar-resources.png)
+![The sidebar with resource groups expanded to show All and Create entries]({{ screenshot: sidebar-resources }})
 
 ### Top Bar
 
 The top bar shows your organisation's branding and a button to collapse or expand the sidebar. On the right is your **account menu**, where you can open your account settings, switch the colour theme (light, dark, or system), and log out.
 
-![The account menu in the top bar](../images/console/user-menu.png)
+![The account menu in the top bar]({{ screenshot: user-menu }})
 
 ### Content Area
 
@@ -50,7 +50,7 @@ Create, edit, and detail pages offer a **Standard / Advanced** toggle.
 
 Your choice is remembered in your browser, so it persists across pages and sessions. Start in Standard mode and switch to Advanced only when you need a field that is hidden.
 
-![A create form in Standard mode, with the Standard and Advanced toggle](../images/console/create-form-standard.png)
+![A create form in Standard mode, with the Standard and Advanced toggle]({{ screenshot: create-form-standard }})
 
 ---
 

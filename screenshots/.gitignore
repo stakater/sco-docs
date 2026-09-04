@@ -1,0 +1,5 @@
+# Diagnostics, not docs images: failure shots from a failed run.
+captured/_*.png
+
+# Login credentials for screenshot generation
+.env

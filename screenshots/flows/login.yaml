@@ -1,0 +1,52 @@
+# console/accessing-the-console.md, console/dashboard.md, console/overview.md -> 4 images.
+# Read-only: this flow creates nothing, so there is no teardown.
+name: sco-docs-login
+
+requires:
+  env:
+    - CONSOLE_URL
+    - CONSOLE_ORG
+    - CONSOLE_USER
+    - CONSOLE_PASSWORD
+    - DOCS_SIDEBAR_GROUP
+  reachable: ["${CONSOLE_URL}"]
+
+viewport:
+  width: 1280
+  height: 800
+  deviceScaleFactor: 2
+  colorScheme: light
+
+steps:
+  # accessing-the-console.md -- the org form, before Keycloak. Shot first because the
+  # login pack navigates straight past it.
+  - { step: open, url: "${CONSOLE_URL}" }
+  - { step: wait-for, selector: "#org", timeout: 30s }
+  - { step: screenshot, path: login-org-slug.png, fullPage: false }
+
+  # The pack re-opens the portal, which is harmless. It returns once the dashboard has
+  # painted, so no extra wait is needed before shooting.
+  - use: cloud-orchestrator-console-login
+    with:
+      portal: "${CONSOLE_URL}"
+      org: "${CONSOLE_ORG}"
+      username: "${CONSOLE_USER}"
+      password: "${CONSOLE_PASSWORD}"
+
+  # dashboard.md and overview.md both reference this one.
+  - { step: screenshot, path: dashboard-org-stats.png, fullPage: false }
+
+  # overview.md -- a resource group expanded to show its All/Create entries. Groups
+  # start collapsed on every page load, so this click always expands.
+  - { step: click, selector: '[data-slot="collapsible-trigger"]:has(span:text-is("${DOCS_SIDEBAR_GROUP}"))' }
+  - { step: wait-for, selector: '[data-slot="collapsible-trigger"][aria-expanded="true"]:has(span:text-is("${DOCS_SIDEBAR_GROUP}"))', timeout: 10s }
+  - { step: screenshot, path: sidebar-resources.png, fullPage: false }
+
+  # overview.md -- the account menu. The region selector is also a header menu, so
+  # match the trigger wrapping the avatar.
+  - { step: click, selector: 'header button[aria-haspopup="menu"]:has([data-slot="avatar"])' }
+  - { step: wait-for, selector: '[role="menu"]', timeout: 10s }
+  - { step: screenshot, path: user-menu.png, fullPage: false }
+
+after:
+  - { step: screenshot, when: on-failure, path: _failure-login.png }

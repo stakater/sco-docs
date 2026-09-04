@@ -85,13 +85,6 @@
     "aliases": []
   },
   {
-    "version": "docs-console-screenshots-automation",
-    "title": "docs-console-screenshots-automation",
-    "aliases": [
-      "latest"
-    ]
-  },
-  {
     "version": "architecture",
     "title": "architecture",
     "aliases": []

@@ -72,7 +72,9 @@
   {
     "version": "feat-shared-capture-script",
     "title": "feat-shared-capture-script",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "feat-api-reference-s3-postgres",
@@ -82,9 +84,7 @@
   {
     "version": "docs-sa8938-vm-ssh-port",
     "title": "docs-sa8938-vm-ssh-port",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "docs-sa8748-cluster-access-roles",

@@ -32,3 +32,6 @@ styles
 
 my-venv/
 test/
+
+# Shared makefile fragments downloaded from stakater/.github
+makefiles/

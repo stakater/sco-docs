@@ -26,7 +26,7 @@ jobs:
             echo "pre_build=" >> "$GITHUB_OUTPUT"
           else
             echo "no capture on the PR, capturing here"
-            echo 'pre_build=CONSOLE_USER="$PRE_BUILD_USER" CONSOLE_PASSWORD="$PRE_BUILD_PASSWORD" bash screenshots/capture.sh' >> "$GITHUB_OUTPUT"
+            echo 'pre_build=CONSOLE_USER="$PRE_BUILD_USER" CONSOLE_PASSWORD="$PRE_BUILD_PASSWORD" make screenshots' >> "$GITHUB_OUTPUT"
           fi
 
   push:

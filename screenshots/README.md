@@ -20,7 +20,6 @@ screenshots/
   flows/             # one browser-runner YAML per docs page
   captured/          # capture output, committed — what the directives resolve to
   baseline/          # the previous hand-taken images, kept for diffing only
-  capture.sh         # runs all flows (or one) via docker
   config.env         # checked-in config: console URL, org, resource plurals
   .env.example       # template for .env — credentials only
   inject.py          # --check gate; can also resolve directives on disk
@@ -35,9 +34,12 @@ back would publish a stale screenshot — the failure this exists to prevent.
 Copy `.env.example` to `.env` and fill in the credentials, then:
 
 ```sh
-./screenshots/capture.sh            # every flow
-./screenshots/capture.sh resources  # just flows/resources.yaml
+make screenshots                       # every flow
+make screenshots-one FLOW=resources    # just flows/resources.yaml
 ```
+
+The capture script itself comes from `stakater/.github`. `make` downloads it into
+`makefiles/`, which is gitignored, at the ref pinned in the Makefile.
 
 The flows are read-only: they open list, detail and create views but never submit, so
 there is nothing to seed or tear down.

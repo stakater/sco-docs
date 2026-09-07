@@ -42,7 +42,13 @@ All parameters are nested under `spec.parameters`.
 | `status.vm.memory` | `string` | Memory size (e.g., `4Gi`) |
 | `status.vm.serviceIP` | `string` | LoadBalancer IP address (if `connection: public`) |
 | `status.vm.serviceHostname` | `string` | LoadBalancer hostname (if `connection: public`) |
+| `status.vm.servicePort` | `integer` | SSH port the LoadBalancer listens on (if `connection: public`) |
 | `status.vm.conditions` | `array` | Conditions representing the VM state |
+
+!!! note
+    Always take the SSH port from `status.vm.servicePort` rather than assuming `22`.
+    New public VMs are exposed on port `22`, but VMs created before that became the
+    default are still exposed on port `22000`.
 
 ## Supported Flavours
 

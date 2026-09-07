@@ -85,13 +85,23 @@ If stuck for more than 15 minutes, contact your platform administrator.
 
 ### VM Ready but SSH connection refused
 
-**Cause:** Cloud-init still running, wrong IP, or firewall issue.
+**Cause:** Wrong SSH port, cloud-init still running, wrong IP, or firewall issue.
 
-**Fix:** Wait 2–3 minutes after `Ready` for cloud-init to complete, then retry.
+**Fix:** First check the port. A `connection: public` VM is reached on the port in
+`status.vm.servicePort`, which is **not always 22** — VMs created before `22`
+became the default are exposed on `22000`, and connecting on `22` to one of those
+fails with nothing to explain why.
+
+```bash
+kubectl get virtualmachine my-vm -o jsonpath='{.status.vm.servicePort}{"\n"}'
+ssh -i ~/.ssh/my-key -p <servicePort> cloud-user@<vm-ip>
+```
+
+If the port is right, wait 2–3 minutes after `Ready` for cloud-init to complete,
+then retry:
 
 ```bash
 kubectl get virtualmachine my-vm -o jsonpath='{.status}'
-ssh -i ~/.ssh/my-key user@<vm-ip>
 ```
 
 If using `connection: private`, the VM IP is only reachable from within the cluster. Use `connection: public` for external access.

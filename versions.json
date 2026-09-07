@@ -70,13 +70,6 @@
     "aliases": []
   },
   {
-    "version": "feat-shared-screenshots-workflow",
-    "title": "feat-shared-screenshots-workflow",
-    "aliases": [
-      "latest"
-    ]
-  },
-  {
     "version": "feat-api-reference-s3-postgres",
     "title": "feat-api-reference-s3-postgres",
     "aliases": []

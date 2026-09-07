@@ -12,9 +12,7 @@
   {
     "version": "renovate-main-stakater-.github-0.x",
     "title": "renovate-main-stakater-.github-0.x",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "renovate-main-playwright-monorepo",
@@ -74,7 +72,9 @@
   {
     "version": "feat-shared-screenshots-workflow",
     "title": "feat-shared-screenshots-workflow",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "feat-api-reference-s3-postgres",

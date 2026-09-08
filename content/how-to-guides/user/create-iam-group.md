@@ -18,6 +18,20 @@ When you create a Group claim, the platform provisions:
 - An **organisation group** in your organisation's IdP at the specified path
 - **Group memberships** if `members` are provided (adds existing organisation users to the group)
 
+## In the Console
+
+Groups sit next to Users under **Identity & Access**. The create form takes the same name and path as the claim:
+
+![The Create Group form]({{ screenshot: iam-group-create }})
+
+Members are added one at a time: type a username in the **Members** field and press Enter to commit it. A value left as draft text is not part of the group. If the field is not on the form, switch it to **Advanced** — members are optional, so Standard mode may hide them:
+
+![The Create Group form with three members added]({{ screenshot: iam-group-create-members }})
+
+The group's detail page then shows the memberships the platform actually applied, which is the console equivalent of the `status.memberships` check in [Step 4](#step-4-verify-the-group):
+
+![A group detail page showing its members]({{ screenshot: iam-group-detail }})
+
 ## Step 1: Define Your Group Claim
 
 Create a file named `group.yaml`:

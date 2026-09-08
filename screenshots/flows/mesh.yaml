@@ -1,0 +1,63 @@
+# how-to-guides/user/create-mesh.md -> 3 images.
+#
+# Read-only: the create form is opened, never submitted. A Mesh is an organisation-wide
+# singleton in practice, so a capture run must never be able to make a second one.
+name: sco-docs-mesh
+
+requires:
+  env:
+    - CONSOLE_URL
+    - CONSOLE_ORG
+    - CONSOLE_USER
+    - CONSOLE_PASSWORD
+    - DOCS_NETWORK_SIDEBAR_GROUP
+    - DOCS_MESH_PLURAL
+    - DOCS_MESH_NAME
+  reachable: ["${CONSOLE_URL}"]
+
+viewport:
+  width: 1280
+  height: 800
+  deviceScaleFactor: 2
+  colorScheme: light
+
+steps:
+  - use: cloud-orchestrator-console-login
+    with:
+      portal: "${CONSOLE_URL}"
+      org: "${CONSOLE_ORG}"
+      username: "${CONSOLE_USER}"
+      password: "${CONSOLE_PASSWORD}"
+
+  # Step 3 of the guide, "Verify the Mesh" -- the list is where a reader confirms one
+  # already exists, which the guide tells them to check before creating another.
+  - use: cloud-orchestrator-console-open-resource-list
+    with:
+      portal: "${CONSOLE_URL}"
+      plural: "${DOCS_MESH_PLURAL}"
+  - use: cloud-orchestrator-console-expand-sidebar-group
+    with:
+      group: "${DOCS_NETWORK_SIDEBAR_GROUP}"
+  - { step: screenshot, path: mesh-list.png, fullPage: false }
+
+  # Step 1, "Define a Mesh Claim". The guide's point is that `parameters: {}` is the
+  # whole claim; the console form is the same statement in the other medium, so this
+  # image is worth having precisely because there is nothing on it.
+  - use: cloud-orchestrator-console-open-resource-create
+    with:
+      portal: "${CONSOLE_URL}"
+      plural: "${DOCS_MESH_PLURAL}"
+  - { step: screenshot, path: mesh-create.png, fullPage: false }
+
+  # Step 4, "Open the Dashboard" -- the guide says to open it "from the SCO console"
+  # without saying where from. The detail page is that where. Needs the seeded mesh
+  # named in DOCS_MESH_NAME.
+  - use: cloud-orchestrator-console-open-resource-detail
+    with:
+      portal: "${CONSOLE_URL}"
+      plural: "${DOCS_MESH_PLURAL}"
+      name: "${DOCS_MESH_NAME}"
+  - { step: screenshot, path: mesh-detail.png, fullPage: false }
+
+after:
+  - { step: screenshot, when: on-failure, path: _failure-mesh.png }

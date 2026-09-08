@@ -36,10 +36,10 @@ steps:
   # dashboard.md and overview.md both reference this one.
   - { step: screenshot, path: dashboard-org-stats.png, fullPage: false }
 
-  # overview.md -- a resource group expanded to show its All/Create entries. Groups
-  # start collapsed on every page load, so this click always expands.
-  - { step: click, selector: '[data-slot="collapsible-trigger"]:has(span:text-is("${DOCS_SIDEBAR_GROUP}"))' }
-  - { step: wait-for, selector: '[data-slot="collapsible-trigger"][aria-expanded="true"]:has(span:text-is("${DOCS_SIDEBAR_GROUP}"))', timeout: 10s }
+  # overview.md -- a resource group expanded to show its All/Create entries.
+  - use: cloud-orchestrator-console-expand-sidebar-group
+    with:
+      group: "${DOCS_SIDEBAR_GROUP}"
   - { step: screenshot, path: sidebar-resources.png, fullPage: false }
 
   # overview.md -- the account menu. The region selector is also a header menu, so

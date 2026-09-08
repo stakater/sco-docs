@@ -33,8 +33,9 @@ steps:
       portal: "${CONSOLE_URL}"
       plural: "${DOCS_VM_PLURAL}"
   # The pack navigates by URL, which leaves every sidebar group collapsed.
-  - { step: click, selector: '[data-slot="collapsible-trigger"]:has(span:text-is("${DOCS_SIDEBAR_GROUP}"))' }
-  - { step: wait-for, selector: '[data-slot="collapsible-trigger"][aria-expanded="true"]:has(span:text-is("${DOCS_SIDEBAR_GROUP}"))', timeout: 10s }
+  - use: cloud-orchestrator-console-expand-sidebar-group
+    with:
+      group: "${DOCS_SIDEBAR_GROUP}"
   - { step: screenshot, path: resource-list.png, fullPage: false }
 
   # Named, not first-row, so this and detail-advanced.png are the same resource.
@@ -64,8 +65,9 @@ steps:
   - { step: screenshot, path: resource-detail-1.png, fullPage: false }
 
   # Clicking the toggle scrolls back to the header, so drop to the panel again.
-  - { step: click, selector: '[role="group"][aria-label="Complexity mode"] button:text-is("Advanced")' }
-  - { step: wait-for, selector: '[role="group"][aria-label="Complexity mode"] button[aria-pressed="true"]:text-is("Advanced")', timeout: 10s }
+  - use: cloud-orchestrator-console-set-complexity-mode
+    with:
+      mode: Advanced
   - { step: scroll-to, selector: ".danger-zone-stripes", block: end }
   - { step: wait, ms: 500 }
   - { step: screenshot, path: detail-advanced.png, fullPage: false }

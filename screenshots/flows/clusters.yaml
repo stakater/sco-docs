@@ -1,0 +1,81 @@
+# how-to-guides/user/provision-openshift-cluster.md -> 4 images.
+#
+# Read-only, and deliberately so: submitting this form provisions a hosted OpenShift
+# cluster that takes tens of minutes and real capacity. The form is filled and shot, not
+# submitted; the detail image comes from a long-lived cluster the environment already
+# has (DOCS_CLUSTER_NAME), never from one this flow made.
+name: sco-docs-clusters
+
+requires:
+  env:
+    - CONSOLE_URL
+    - CONSOLE_ORG
+    - CONSOLE_USER
+    - CONSOLE_PASSWORD
+    - DOCS_CLUSTER_SIDEBAR_GROUP
+    - DOCS_CLUSTER_PLURAL
+    - DOCS_CLUSTER_NAME
+    - DOCS_CLUSTER_GROUPS_LABEL
+  reachable: ["${CONSOLE_URL}"]
+
+viewport:
+  width: 1280
+  height: 800
+  deviceScaleFactor: 2
+  colorScheme: light
+
+steps:
+  - use: cloud-orchestrator-console-login
+    with:
+      portal: "${CONSOLE_URL}"
+      org: "${CONSOLE_ORG}"
+      username: "${CONSOLE_USER}"
+      password: "${CONSOLE_PASSWORD}"
+
+  - use: cloud-orchestrator-console-open-resource-list
+    with:
+      portal: "${CONSOLE_URL}"
+      plural: "${DOCS_CLUSTER_PLURAL}"
+  - use: cloud-orchestrator-console-expand-sidebar-group
+    with:
+      group: "${DOCS_CLUSTER_SIDEBAR_GROUP}"
+  - { step: screenshot, path: cluster-list.png, fullPage: false }
+
+  # The create form as it opens. Standard is the default in a fresh browser context and
+  # nothing has toggled it yet, so this is a Standard shot without asserting it -- the
+  # same assumption resources.yaml makes.
+  - use: cloud-orchestrator-console-open-resource-create
+    with:
+      portal: "${CONSOLE_URL}"
+      plural: "${DOCS_CLUSTER_PLURAL}"
+  - { step: fill, selector: "input#name", value: "my-cluster" }
+  - { step: screenshot, path: cluster-create-standard.png, fullPage: false }
+
+  # Advanced, framed on the access section -- the guide's step 2 is mostly about
+  # networking mode and access.groups, and both live below the fold on a 800px viewport.
+  # Order matters: the mode persists in localStorage, so Standard had to be shot first.
+  - use: cloud-orchestrator-console-set-complexity-mode
+    with:
+      mode: Advanced
+  # access.groups is an array of {name, role} objects, so it renders as an "Add <label>"
+  # button over per-item cards, not as the pill input the members field uses. The button
+  # is the anchor: it is the last thing in the section, so ending the scroll on it puts
+  # the whole section in frame, and it fails by name if the label moves with the spec.
+  - { step: scroll-to, selector: 'button:has-text("Add ${DOCS_CLUSTER_GROUPS_LABEL}")', block: end }
+  - { step: wait, ms: 500 }
+  - { step: screenshot, path: cluster-create-advanced.png, fullPage: false }
+
+  # The provisioned cluster: status, console URL and API endpoint, which is what the
+  # guide's verification section asks the reader to look for.
+  - use: cloud-orchestrator-console-open-resource-detail
+    with:
+      portal: "${CONSOLE_URL}"
+      plural: "${DOCS_CLUSTER_PLURAL}"
+      name: "${DOCS_CLUSTER_NAME}"
+  - use: cloud-orchestrator-console-set-complexity-mode
+    with:
+      mode: Standard
+  - { step: screenshot, path: cluster-detail.png, fullPage: false }
+
+after:
+  - { step: screenshot, when: on-failure, path: _failure-clusters.png }

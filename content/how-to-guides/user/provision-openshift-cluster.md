@@ -21,6 +21,20 @@ When you create an OpenShiftCluster claim, the platform provisions:
 - **Group-to-role bindings** for cluster access (optional)
 - **Bootstrap credentials**, console URL, and API endpoint exposed on the claim status
 
+## In the Console
+
+Clusters are under **Containers** in the sidebar:
+
+![The OpenShift cluster list in the console]({{ screenshot: cluster-list }})
+
+The create form opens in **Standard** mode, which asks for the same one field the minimal claim below does — everything else falls back to a platform default:
+
+![The Create OpenShift Cluster form in Standard mode]({{ screenshot: cluster-create-standard }})
+
+**Advanced** reveals the rest: version, node pool sizing, networking mode, and the access groups. Each entry under **Groups** pairs a group name with a role, so add one row per group rather than listing names:
+
+![The create form in Advanced mode, showing networking mode and access groups]({{ screenshot: cluster-create-advanced }})
+
 ## Step 1: Minimal Configuration
 
 Create a file named `cluster.yaml` with only the required parameter:
@@ -127,6 +141,10 @@ For a more granular view, read `status.phase` directly. It moves through `Initia
 ```bash
 kubectl get openshiftcluster my-cluster -n my-tenant -o jsonpath="{.status.phase}"
 ```
+
+The cluster's detail page in the console shows the same phase, alongside the console URL and API endpoint that [Step 5](#step-5-access-the-cluster) reads out of the status:
+
+![An OpenShift cluster detail page]({{ screenshot: cluster-detail }})
 
 ## Step 5: Access the Cluster
 

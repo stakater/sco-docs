@@ -10,7 +10,7 @@ requires:
     - CONSOLE_ORG
     - CONSOLE_USER
     - CONSOLE_PASSWORD
-    - DOCS_NETWORK_SIDEBAR_GROUP
+    - DOCS_MESH_SIDEBAR_GROUP
     - DOCS_MESH_PLURAL
     - DOCS_MESH_NAME
   reachable: ["${CONSOLE_URL}"]
@@ -37,7 +37,7 @@ steps:
       plural: "${DOCS_MESH_PLURAL}"
   - use: cloud-orchestrator-console-expand-sidebar-group
     with:
-      group: "${DOCS_NETWORK_SIDEBAR_GROUP}"
+      group: "${DOCS_MESH_SIDEBAR_GROUP}"
   - { step: screenshot, path: mesh-list.png, fullPage: false }
 
   # Step 1, "Define a Mesh Claim". The guide's point is that `parameters: {}` is the

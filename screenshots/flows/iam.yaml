@@ -1,4 +1,4 @@
-# how-to-guides/user/create-iam-user.md, create-iam-group.md -> 4 images.
+# how-to-guides/user/create-iam-user.md, create-iam-group.md -> 5 images.
 #
 # Read-only, like every other flow here: the create forms are OPENED and FILLED, never
 # submitted, so no user and no group is created and there is nothing to tear down. The
@@ -12,7 +12,7 @@ requires:
     - CONSOLE_ORG
     - CONSOLE_USER
     - CONSOLE_PASSWORD
-    - DOCS_IAM_SIDEBAR_GROUP
+    - DOCS_USER_SIDEBAR_GROUP
     - DOCS_USER_PLURAL
     - DOCS_GROUP_PLURAL
     - DOCS_GROUP_NAME
@@ -41,7 +41,7 @@ steps:
       plural: "${DOCS_USER_PLURAL}"
   - use: cloud-orchestrator-console-expand-sidebar-group
     with:
-      group: "${DOCS_IAM_SIDEBAR_GROUP}"
+      group: "${DOCS_USER_SIDEBAR_GROUP}"
   - { step: screenshot, path: iam-users-list.png, fullPage: false }
 
   # create-iam-user.md -- the create form. Name only: username, email and the rest are

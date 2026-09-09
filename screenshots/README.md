@@ -90,7 +90,7 @@ rely on that ordering; `iam` and `clusters` toggle back to Standard before their
 shots rather than assume it.
 
 Adding a pack means an image rebuild, since packs are baked into `browser-runner`. To
-test one before it merges, point `RUNNER_PACKS` at a browser-runner checkout and it is
+test one before it merges, point `RUNNER_PACKS` at a browser-runner checkout, and it is
 mounted over the image's copy:
 
 ```sh

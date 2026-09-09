@@ -61,7 +61,7 @@ the `viewport:` block of every flow so all captures come out the same size.
 | `resources` | `resources.md`, `overview.md` | `resource-list`, `resource-detail`, `create-form-standard`, `resource-detail-1`, `detail-advanced` |
 | `iam` | `create-iam-user.md`, `create-iam-group.md` | `iam-users-list`, `iam-user-create`, `iam-group-create`, `iam-group-create-members`, `iam-group-detail` |
 | `mesh` | `create-mesh.md` | `mesh-list`, `mesh-create`, `mesh-detail` |
-| `clusters` | `provision-openshift-cluster.md` | `cluster-list`, `cluster-create-standard`, `cluster-create-advanced`, `cluster-detail` |
+| `clusters` | `provision-openshift-cluster.md` | `cluster-create-standard`, `cluster-create-advanced` |
 
 `dashboard-org-stats` and `create-form-standard` are each referenced by two pages.
 
@@ -111,15 +111,20 @@ The flows create nothing, but they do need somewhere to point and something to s
   pages document.
 - an organisation with at least one project
 - at least one row in each resource list they open (`DOCS_VM_PLURAL`,
-  `DOCS_PROJECT_PLURAL`, `DOCS_USER_PLURAL`, `DOCS_GROUP_PLURAL`, `DOCS_MESH_PLURAL`,
-  `DOCS_CLUSTER_PLURAL`) — an empty list renders an empty state and no table, which
-  fails the capture rather than publishing a screenshot of "No <resources>"
+  `DOCS_PROJECT_PLURAL`, `DOCS_USER_PLURAL`, `DOCS_MESH_PLURAL`) — an empty list renders
+  an empty state and no table, which fails the capture rather than publishing a
+  screenshot of "No <resources>"
 - the resource named in `DOCS_VM_NAME`, used for the detail, delete-panel and
   Advanced shots so all three agree
-- the same for `DOCS_GROUP_NAME`, `DOCS_MESH_NAME` and `DOCS_CLUSTER_NAME`. All three are
-  provisioned out of band and long-lived; no flow creates them. That matters most for the
-  cluster, where submitting the form would provision a hosted control plane and real
-  capacity — which is why the `clusters` flow fills its form and never submits it.
+- the same for `DOCS_GROUP_NAME` and `DOCS_MESH_NAME`, both provisioned out of band and
+  long-lived; no flow creates them. The group must have members, and those members must
+  exist as users — which is also what puts rows in the Users list. Both are named after
+  the examples in the guides they illustrate, so the images and the snippets agree.
+
+No cluster is required. The `clusters` flow captures the create form only, because a list
+or detail shot would mean keeping a hosted OpenShift control plane alive for two images.
+That is the one place a capture requirement was traded away rather than met; the note at
+the top of `flows/clusters.yaml` says what to add back if a long-lived cluster appears.
 
 If a future flow does need to create something, `capture.sh` runs `flows/_seed.yaml`
 first and `flows/_teardown.yaml` last, ahead of and after everything else. There is no

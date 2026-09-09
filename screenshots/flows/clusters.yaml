@@ -1,9 +1,15 @@
-# how-to-guides/user/provision-openshift-cluster.md -> 4 images.
+# how-to-guides/user/provision-openshift-cluster.md -> 2 images.
 #
-# Read-only, and deliberately so: submitting this form provisions a hosted OpenShift
-# cluster that takes tens of minutes and real capacity. The form is filled and shot, not
-# submitted; the detail image comes from a long-lived cluster the environment already
-# has (DOCS_CLUSTER_NAME), never from one this flow made.
+# Create-form only, and that is a cost decision rather than a design one: a list or
+# detail shot needs a real cluster to exist in the capture org, and a hosted OpenShift
+# cluster kept alive for two screenshots is not worth a control plane. The forms need
+# nothing seeded, so this flow runs against any org.
+#
+# Read-only like the rest: the form is filled and shot, never submitted. Submitting it
+# is what would provision the cluster this flow declines to require.
+#
+# `cluster-list` and `cluster-detail` are the images this leaves out. Add them here, and
+# their directives back to the guide, if a long-lived cluster ever exists to point at.
 name: sco-docs-clusters
 
 requires:
@@ -12,9 +18,7 @@ requires:
     - CONSOLE_ORG
     - CONSOLE_USER
     - CONSOLE_PASSWORD
-    - DOCS_CLUSTER_SIDEBAR_GROUP
     - DOCS_CLUSTER_PLURAL
-    - DOCS_CLUSTER_NAME
     - DOCS_CLUSTER_GROUPS_LABEL
   reachable: ["${CONSOLE_URL}"]
 
@@ -31,15 +35,6 @@ steps:
       org: "${CONSOLE_ORG}"
       username: "${CONSOLE_USER}"
       password: "${CONSOLE_PASSWORD}"
-
-  - use: cloud-orchestrator-console-open-resource-list
-    with:
-      portal: "${CONSOLE_URL}"
-      plural: "${DOCS_CLUSTER_PLURAL}"
-  - use: cloud-orchestrator-console-expand-sidebar-group
-    with:
-      group: "${DOCS_CLUSTER_SIDEBAR_GROUP}"
-  - { step: screenshot, path: cluster-list.png, fullPage: false }
 
   # The create form as it opens. Standard is the default in a fresh browser context and
   # nothing has toggled it yet, so this is a Standard shot without asserting it -- the
@@ -64,18 +59,6 @@ steps:
   - { step: scroll-to, selector: 'button:has-text("Add ${DOCS_CLUSTER_GROUPS_LABEL}")', block: end }
   - { step: wait, ms: 500 }
   - { step: screenshot, path: cluster-create-advanced.png, fullPage: false }
-
-  # The provisioned cluster: status, console URL and API endpoint, which is what the
-  # guide's verification section asks the reader to look for.
-  - use: cloud-orchestrator-console-open-resource-detail
-    with:
-      portal: "${CONSOLE_URL}"
-      plural: "${DOCS_CLUSTER_PLURAL}"
-      name: "${DOCS_CLUSTER_NAME}"
-  - use: cloud-orchestrator-console-set-complexity-mode
-    with:
-      mode: Standard
-  - { step: screenshot, path: cluster-detail.png, fullPage: false }
 
 after:
   - { step: screenshot, when: on-failure, path: _failure-clusters.png }

@@ -23,11 +23,7 @@ When you create an OpenShiftCluster claim, the platform provisions:
 
 ## In the Console
 
-Clusters are under **Containers** in the sidebar:
-
-![The OpenShift cluster list in the console]({{ screenshot: cluster-list }})
-
-The create form opens in **Standard** mode, which asks for the same one field the minimal claim below does — everything else falls back to a platform default:
+Clusters are under **Containers** in the sidebar. The create form opens in **Standard** mode, which asks for the same one field the minimal claim below does — everything else falls back to a platform default:
 
 ![The Create OpenShift Cluster form in Standard mode]({{ screenshot: cluster-create-standard }})
 
@@ -142,9 +138,7 @@ For a more granular view, read `status.phase` directly. It moves through `Initia
 kubectl get openshiftcluster my-cluster -n my-tenant -o jsonpath="{.status.phase}"
 ```
 
-The cluster's detail page in the console shows the same phase, alongside the console URL and API endpoint that [Step 5](#step-5-access-the-cluster) reads out of the status:
-
-![An OpenShift cluster detail page]({{ screenshot: cluster-detail }})
+The cluster's detail page in the console shows the same phase, alongside the console URL and API endpoint that [Step 5](#step-5-access-the-cluster) reads out of the status.
 
 ## Step 5: Access the Cluster
 

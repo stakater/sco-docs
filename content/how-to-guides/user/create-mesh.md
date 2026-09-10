@@ -62,7 +62,7 @@ Wait for `READY: True`.
 
 ## Step 4: Open the Dashboard
 
-Open the Mesh in the console. Its detail page shows the **Dashboard URL**, and next to it the **Mgmt URL** you will need in [Step 5](#step-5-enrol-a-device):
+Open the Mesh in the console. Its detail page shows the **Dashboard URL**, and next to it the management URL you will need in [Step 5](#step-5-enrol-a-device):
 
 ![A Mesh detail page, showing the dashboard and management URLs]({{ screenshot: mesh-detail }})
 

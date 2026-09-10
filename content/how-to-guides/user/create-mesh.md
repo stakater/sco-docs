@@ -62,11 +62,11 @@ Wait for `READY: True`.
 
 ## Step 4: Open the Dashboard
 
-Open the Mesh in the console — its detail page is where the platform surfaces the mesh's status and endpoints:
+Open the Mesh in the console. Its detail page shows the **Dashboard URL**, and next to it the **Mgmt URL** you will need in [Step 5](#step-5-enrol-a-device):
 
-![A Mesh detail page]({{ screenshot: mesh-detail }})
+![A Mesh detail page, showing the dashboard and management URLs]({{ screenshot: mesh-detail }})
 
-From there, open your organisation's Mesh dashboard and sign in with your organisation account. From here you manage peers, define groups, and write access policies — or manage groups and policies declaratively with `MeshGroup` / `MeshPolicy` claims.
+Follow the Dashboard URL and sign in with your organisation account. From here you manage peers, define groups, and write access policies — or manage groups and policies declaratively with `MeshGroup` / `MeshPolicy` claims.
 
 ## Step 5: Enrol a Device
 

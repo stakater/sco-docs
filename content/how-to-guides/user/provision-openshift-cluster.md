@@ -27,9 +27,9 @@ Clusters are under **Containers** in the sidebar. The create form opens in **Sta
 
 ![The Create OpenShift Cluster form in Standard mode]({{ screenshot: cluster-create-standard }})
 
-**Advanced** reveals the rest: access groups, the default node pool, networking mode and version. Each entry under **Access › Groups** pairs a group name with a role, so add one row per group rather than listing names:
+**Advanced** reveals the rest of the claim further down the form — node pool sizing, the networking **Mode** as a Public / Private choice with what each one exposes, and the OpenShift **Version**:
 
-![The create form in Advanced mode, showing the Access groups and Default Nodepool sections]({{ screenshot: cluster-create-advanced }})
+![The lower part of the create form in Advanced mode, showing the networking mode choice and the version selector]({{ screenshot: cluster-create-advanced }})
 
 ## Step 1: Minimal Configuration
 

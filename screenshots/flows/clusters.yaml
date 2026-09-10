@@ -19,7 +19,6 @@ requires:
     - CONSOLE_USER
     - CONSOLE_PASSWORD
     - DOCS_CLUSTER_PLURAL
-    - DOCS_CLUSTER_GROUPS_LABEL
   reachable: ["${CONSOLE_URL}"]
 
 viewport:
@@ -46,17 +45,21 @@ steps:
   - { step: fill, selector: "input#name", value: "my-cluster" }
   - { step: screenshot, path: cluster-create-standard.png, fullPage: false }
 
-  # Advanced, framed on the access section -- the guide's step 2 is mostly about
-  # networking mode and access.groups, and both live below the fold on a 800px viewport.
+  # Advanced, framed on the END of the form. The top of the form is the same in both
+  # modes -- Access and the default node pool are Standard fields -- so a shot taken
+  # where the Standard one was shows nothing but a different toggle highlight. The
+  # Advanced-only fields render further down, and the submit button is the one anchor
+  # that is always last, whatever the spec adds above it.
   # Order matters: the mode persists in localStorage, so Standard had to be shot first.
   - use: cloud-orchestrator-console-set-complexity-mode
     with:
       mode: Advanced
-  # access.groups is an array of {name, role} objects, so it renders as an "Add <label>"
-  # button over per-item cards, not as the pill input the members field uses. The button
-  # is the anchor: it is the last thing in the section, so ending the scroll on it puts
-  # the whole section in frame, and it fails by name if the label moves with the spec.
-  - { step: scroll-to, selector: 'button:has-text("Add ${DOCS_CLUSTER_GROUPS_LABEL}")', block: end }
+  # Settle BEFORE scrolling, not after: aria-pressed flips first and the form re-renders
+  # its fields a beat later, which resets the scroll position. A scroll issued in that
+  # gap is undone before the screenshot, and the result is a second copy of the
+  # Standard shot -- which is exactly what the first capture of this flow produced.
+  - { step: wait, ms: 750 }
+  - { step: scroll-to, selector: 'form button[type="submit"]', block: end }
   - { step: wait, ms: 500 }
   - { step: screenshot, path: cluster-create-advanced.png, fullPage: false }
 

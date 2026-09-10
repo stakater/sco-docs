@@ -20,7 +20,7 @@ When you create a Group claim, the platform provisions:
 
 ## In the Console
 
-Groups sit next to Users under **Identity & Access**. The create form takes the same name and path as the claim:
+Groups sit next to Users under **Identity & Access**. The create form asks for the project the group belongs to, then the same name and path as the claim:
 
 ![The Create Group form]({{ screenshot: iam-group-create }})
 

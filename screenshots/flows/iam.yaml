@@ -1,0 +1,100 @@
+# how-to-guides/user/create-iam-user.md, create-iam-group.md -> 5 images.
+#
+# Read-only, like every other flow here: the create forms are OPENED and FILLED, never
+# submitted, so no user and no group is created and there is nothing to tear down. The
+# filled shots exist because an empty form documents the fields but not the shape of a
+# real value -- a members list with three pills in it is the thing the page is about.
+name: sco-docs-iam
+
+requires:
+  env:
+    - CONSOLE_URL
+    - CONSOLE_ORG
+    - CONSOLE_USER
+    - CONSOLE_PASSWORD
+    - DOCS_USER_SIDEBAR_GROUP
+    - DOCS_USER_PLURAL
+    - DOCS_GROUP_PLURAL
+    - DOCS_GROUP_NAME
+    - DOCS_GROUP_MEMBERS_LABEL
+  reachable: ["${CONSOLE_URL}"]
+
+viewport:
+  width: 1280
+  height: 800
+  deviceScaleFactor: 2
+  colorScheme: light
+
+steps:
+  - use: cloud-orchestrator-console-login
+    with:
+      portal: "${CONSOLE_URL}"
+      org: "${CONSOLE_ORG}"
+      username: "${CONSOLE_USER}"
+      password: "${CONSOLE_PASSWORD}"
+
+  # create-iam-user.md -- the Users list, with its sidebar group open so the reader can
+  # see where it lives. The packs navigate by URL, which leaves every group collapsed.
+  - use: cloud-orchestrator-console-open-resource-list
+    with:
+      portal: "${CONSOLE_URL}"
+      plural: "${DOCS_USER_PLURAL}"
+  - use: cloud-orchestrator-console-expand-sidebar-group
+    with:
+      group: "${DOCS_USER_SIDEBAR_GROUP}"
+  - { step: screenshot, path: iam-users-list.png, fullPage: false }
+
+  # create-iam-user.md -- the create form. Name only: username, email and the rest are
+  # spec-driven and change with the API version, so the doc's YAML stays authoritative.
+  - use: cloud-orchestrator-console-open-resource-create
+    with:
+      portal: "${CONSOLE_URL}"
+      plural: "${DOCS_USER_PLURAL}"
+  - { step: screenshot, path: iam-user-create.png, fullPage: false }
+
+  # create-iam-group.md step 1 -- the group form in Standard mode. The name mirrors the
+  # YAML example on that page, so the screenshot and the snippet describe one group.
+  - use: cloud-orchestrator-console-open-resource-create
+    with:
+      portal: "${CONSOLE_URL}"
+      plural: "${DOCS_GROUP_PLURAL}"
+  - { step: fill, selector: "input#name", value: "engineering-team" }
+  - { step: screenshot, path: iam-group-create.png, fullPage: false }
+
+  # create-iam-group.md step 2 -- adding members. Advanced first: `members` is optional
+  # in the schema, so whether Standard renders it is a spec decision we should not bet a
+  # capture on. The mode persists in localStorage, so this must come after the Standard
+  # shot above -- there is no going back within one run without another toggle.
+  - use: cloud-orchestrator-console-set-complexity-mode
+    with:
+      mode: Advanced
+  - use: cloud-orchestrator-console-fill-array-field
+    with:
+      label: "${DOCS_GROUP_MEMBERS_LABEL}"
+      value: alice
+  - use: cloud-orchestrator-console-fill-array-field
+    with:
+      label: "${DOCS_GROUP_MEMBERS_LABEL}"
+      value: bob
+  - use: cloud-orchestrator-console-fill-array-field
+    with:
+      label: "${DOCS_GROUP_MEMBERS_LABEL}"
+      value: charlie
+  - { step: screenshot, path: iam-group-create-members.png, fullPage: false }
+
+  # create-iam-group.md step 4 -- verification, as the console shows it rather than as
+  # `kubectl get group` prints it. Needs the seeded group named in DOCS_GROUP_NAME.
+  - use: cloud-orchestrator-console-open-resource-detail
+    with:
+      portal: "${CONSOLE_URL}"
+      plural: "${DOCS_GROUP_PLURAL}"
+      name: "${DOCS_GROUP_NAME}"
+  # Back to Standard: the mode set for the members shot is still in localStorage, and
+  # this is the plain "did it work" view, not a tour of the lower-level fields.
+  - use: cloud-orchestrator-console-set-complexity-mode
+    with:
+      mode: Standard
+  - { step: screenshot, path: iam-group-detail.png, fullPage: false }
+
+after:
+  - { step: screenshot, when: on-failure, path: _failure-iam.png }

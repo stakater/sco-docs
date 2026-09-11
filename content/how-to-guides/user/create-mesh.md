@@ -21,6 +21,16 @@ When you create a Mesh claim, the platform provisions:
 - A **web dashboard** for managing peers, groups, and access policies, behind your organisation's single sign-on
 - Automatic publishing of platform services (such as a [Vault](create-vault.md)) to Mesh peers, with publicly-trusted TLS
 
+## In the Console
+
+Meshes are under **Networking** in the sidebar. Check the list before you create anything — your organisation may already have one:
+
+![The Mesh list in the console]({{ screenshot: mesh-list }})
+
+The create form is as short as the claim, because a Mesh has no user-tunable fields. A name is all it asks for:
+
+![The Create Mesh form]({{ screenshot: mesh-create }})
+
 ## Step 1: Define a Mesh Claim
 
 Create a file named `mesh.yaml`:
@@ -52,7 +62,11 @@ Wait for `READY: True`.
 
 ## Step 4: Open the Dashboard
 
-Open your organisation's Mesh dashboard from the SCO console and sign in with your organisation account. From here you manage peers, define groups, and write access policies — or manage groups and policies declaratively with `MeshGroup` / `MeshPolicy` claims.
+Open the Mesh in the console. Its detail page shows the **Dashboard URL**, and next to it the management URL you will need in [Step 5](#step-5-enrol-a-device):
+
+![A Mesh detail page, showing the dashboard and management URLs]({{ screenshot: mesh-detail }})
+
+Follow the Dashboard URL and sign in with your organisation account. From here you manage peers, define groups, and write access policies — or manage groups and policies declaratively with `MeshGroup` / `MeshPolicy` claims.
 
 ## Step 5: Enrol a Device
 

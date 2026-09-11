@@ -75,13 +75,6 @@
     "aliases": []
   },
   {
-    "version": "docs-screenshots-iam-mesh-clusters",
-    "title": "docs-screenshots-iam-mesh-clusters",
-    "aliases": [
-      "latest"
-    ]
-  },
-  {
     "version": "docs-sa8938-vm-ssh-port",
     "title": "docs-sa8938-vm-ssh-port",
     "aliases": []

@@ -18,7 +18,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
     
     
       
@@ -26,7 +26,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -3079,6 +3079,17 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
+  <a href="#in-the-console" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        In the Console
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#step-1-minimal-configuration" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3345,7 +3356,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="expose-service-via-netbird.html" class="md-nav__link">
+      <a href="expose-service-via-mesh.html" class="md-nav__link">
         
   
   
@@ -3685,6 +3696,62 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     
   
     OpenShift Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/scobasic.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    scobasic Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/openbao-unseal.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Choosing the Platform Secret Store Unseal Method
   
 
     
@@ -5345,14 +5412,14 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../api-reference/public-apis/netbird-router.html" class="md-nav__link">
+      <a href="../../api-reference/public-apis/mesh-router.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    NetbirdRouter
+    MeshRouter
   
 
     
@@ -5929,6 +5996,17 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
+  <a href="#in-the-console" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        In the Console
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#step-1-minimal-configuration" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -6075,6 +6153,11 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <li><strong>Group-to-role bindings</strong> for cluster access (optional)</li>
 <li><strong>Bootstrap credentials</strong>, console URL, and API endpoint exposed on the claim status</li>
 </ul>
+<h2 id="in-the-console">In the Console<a class="headerlink" href="#in-the-console" title="Permanent link">#</a></h2>
+<p>Clusters are under <strong>Containers</strong> in the sidebar. The create form opens in <strong>Standard</strong> mode, which asks for the same one field the minimal claim below does — everything else falls back to a platform default:</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/generated/cluster-create-standard.png" data-desc-position="bottom"><img alt="The Create OpenShift Cluster form in Standard mode" src="../../images/generated/cluster-create-standard.png"></a></p>
+<p><strong>Advanced</strong> reveals the rest of the claim further down the form — node pool sizing, the networking <strong>Mode</strong> as a Public / Private choice with what each one exposes, and the OpenShift <strong>Version</strong>:</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/generated/cluster-create-advanced.png" data-desc-position="bottom"><img alt="The lower part of the create form in Advanced mode, showing the networking mode choice and the version selector" src="../../images/generated/cluster-create-advanced.png"></a></p>
 <h2 id="step-1-minimal-configuration">Step 1: Minimal Configuration<a class="headerlink" href="#step-1-minimal-configuration" title="Permanent link">#</a></h2>
 <p>Create a file named <code>cluster.yaml</code> with only the required parameter:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kubernetes.cloud.stakater.com/v1</span>
@@ -6212,6 +6295,7 @@ my-cluster   True    True     15m
 <p>For a more granular view, read <code>status.phase</code> directly. It moves through <code>Initializing</code> → <code>RegistrationPending</code> → <code>Ready</code>:</p>
 <div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>openshiftcluster<span class="w"> </span>my-cluster<span class="w"> </span>-n<span class="w"> </span>my-tenant<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s2">"{.status.phase}"</span>
 </code></pre></div>
+<p>The cluster's detail page in the console shows the same phase, alongside the console URL and API endpoint that <a href="#step-5-access-the-cluster">Step 5</a> reads out of the status.</p>
 <h2 id="step-5-access-the-cluster">Step 5: Access the Cluster<a class="headerlink" href="#step-5-access-the-cluster" title="Permanent link">#</a></h2>
 <p>Once the cluster is ready, the claim status exposes the console URL, API endpoint, and bootstrap credentials:</p>
 <div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>openshiftcluster<span class="w"> </span>my-cluster<span class="w"> </span>-n<span class="w"> </span>my-tenant<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s2">"{.status.consoleUrl}"</span>
@@ -6921,7 +7005,7 @@ kubectl<span class="w"> </span>get<span class="w"> </span>openshiftcluster<span 
       <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.code.copy", "navigation.tracking", "toc.follow", "navigation.top"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
     
   

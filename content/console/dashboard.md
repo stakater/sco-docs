@@ -2,7 +2,7 @@
 
 The dashboard is the landing page after you sign in. It gives you a quick view of your organisation before you drill into individual resources.
 
-![The dashboard showing the organisation summary](../images/console/dashboard-org-stats.png)
+![The dashboard showing the organisation summary]({{ screenshot: dashboard-org-stats }})
 
 ---
 

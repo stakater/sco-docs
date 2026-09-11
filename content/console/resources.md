@@ -10,7 +10,7 @@ Each resource type has four views: a **list**, a **detail** page, a **create** f
 
 Select a resource in the sidebar and choose **All `<resources>`** to open its list. The list is a table showing each resource with its key columns and a **status** badge. Use **Refresh** to re-fetch the latest state.
 
-![A virtual machine list with status and a Create button](../images/console/resource-list.png)
+![A virtual machine list with status and a Create button]({{ screenshot: resource-list }})
 
 ---
 
@@ -23,7 +23,7 @@ Select a row to open the resource's detail page. It shows:
 - The resource's details, organised into sections
 - A **Delete** button at the bottom of the page
 
-![A virtual machine detail page in Standard mode](../images/console/resource-detail.png)
+![A virtual machine detail page in Standard mode]({{ screenshot: resource-detail }})
 
 ---
 
@@ -38,7 +38,7 @@ Creating a resource in the console is how you provision a service.
 1. Switch to **Advanced** mode if you need a field that is hidden in Standard mode.
 1. Submit. The console validates your input, the platform provisions the resource, and you are taken to its detail page.
 
-![The create form, with the Standard and Advanced toggle](../images/console/create-form-standard.png)
+![The create form, with the Standard and Advanced toggle]({{ screenshot: create-form-standard }})
 
 !!! tip
     Start in **Standard** mode. It shows the fields most people need; the defaults handle the rest. Switch to **Advanced** only when you need finer control.
@@ -54,7 +54,7 @@ From a resource's detail page:
 - Select **Edit** to open the edit form. It works like the create form and is pre-filled with the resource's current configuration.
 - Use the resource's **Delete** action to remove it. You are asked to confirm before anything is deleted.
 
-![The delete panel at the bottom of a resource detail page](../images/console/resource-detail-1.png)
+![The delete panel at the bottom of a resource detail page]({{ screenshot: resource-detail-1 }})
 
 ---
 
@@ -64,7 +64,7 @@ The **Standard / Advanced** toggle on create, edit, and detail pages controls ho
 
 The screenshot below is the same virtual machine detail page shown in [Viewing a Resource](#viewing-a-resource), switched to **Advanced** — it now includes the lower-level fields that Standard hides.
 
-![A detail page in Advanced mode, showing additional lower-level fields](../images/console/detail-advanced.png)
+![A detail page in Advanced mode, showing additional lower-level fields]({{ screenshot: detail-advanced }})
 
 ---
 

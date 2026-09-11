@@ -180,7 +180,7 @@ OpenBao is the open-source secrets management platform (community fork of HashiC
 - The **platform hub** issues dynamic credentials for platform services (database passwords, cloud provider keys) that expire automatically and are rotated without manual intervention, provides a PKI engine for TLS certificate issuance used by platform components and hosted clusters, and stores platform secrets in encrypted, auditable storage.
 - **Per-organisation Vaults** are provisioned via the `Vault` claim. Each is independent of the others and uses single sign-on against the organisation's identity provider — operators log in via SSO (`bao login -method=oidc`); there is no static root token to manage.
 
-**Consumer access:** Per-organisation Vaults are reachable from inside the organisation's projects and from peers on the organisation's [Mesh](../api-reference/public-apis/mesh.md) via a [NetbirdRouter](../api-reference/public-apis/netbird-router.md). They are not exposed on the public internet.
+**Consumer access:** Per-organisation Vaults are reachable from inside the organisation's projects and from peers on the organisation's [Mesh](../api-reference/public-apis/mesh.md) via a [MeshRouter](../api-reference/public-apis/mesh-router.md). They are not exposed on the public internet.
 
 ---
 

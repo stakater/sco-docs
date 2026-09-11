@@ -10,6 +10,11 @@ validation:
   links:
     anchors: warn
 
+# Resolves {{ screenshot: <name> }} to a captured image at build time. Our module,
+# loaded by mkdocs' built-in hooks support -- no plugin to install.
+hooks:
+  - screenshots/mkdocs_hook.py
+
 extra:
   version:
     provider: mike
@@ -52,7 +57,7 @@ nav:
           - how-to-guides/user/create-postgres.md
           - how-to-guides/user/create-vault.md
           - how-to-guides/user/create-mesh.md
-          - how-to-guides/user/expose-service-via-netbird.md
+          - how-to-guides/user/expose-service-via-mesh.md
   - For Platform Providers:
       - audience/platform-providers.md
       - Getting Started:
@@ -62,6 +67,8 @@ nav:
           - installation/overview.md
           - installation/prerequisites.md
           - installation/openshift.md
+          - installation/scobasic.md
+          - installation/openbao-unseal.md
           - installation/configuration.md
       - Solutions and Marketplace:
           - service-provider-guide/solutions/solution-overview.md
@@ -112,7 +119,7 @@ nav:
           - api-reference/public-apis/postgres.md
           - api-reference/public-apis/vault.md
           - api-reference/public-apis/mesh.md
-          - api-reference/public-apis/netbird-router.md
+          - api-reference/public-apis/mesh-router.md
       - Platform APIs:
           - api-reference/private-apis/hypershift-hosted-cluster.md
           - api-reference/private-apis/virtual-machine-infrastructure.md

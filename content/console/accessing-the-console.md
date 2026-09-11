@@ -2,7 +2,7 @@
 
 Access to the console is scoped per organisation. Each organisation has its own identity provider, and you sign in to one organisation at a time.
 
-![The console sign-in screen with the organisation field](../images/console/login-org-slug.png)
+![The console sign-in screen with the organisation field]({{ screenshot: login-org-slug }})
 
 ---
 

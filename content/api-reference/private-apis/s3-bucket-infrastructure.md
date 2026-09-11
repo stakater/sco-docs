@@ -32,6 +32,14 @@ All parameters are nested under `spec.parameters`.
 | `kubernetesProviderConfigName` | `string` | `kubernetes-provider` | Name of the Kubernetes provider config to use for creating the ObjectBucketClaim and reading back the OBC-generated Secret. |
 | `publicRouteName` | `string` | `""` | Name of an additional NooBaa S3 Route exposing the bucket via a publicly-routable ingress shard (e.g. `s3-public`, created by the `odf-instance` chart). When set, the composition observes that Route and surfaces its externally-reachable host in `status.bucket.endpoint`. Leave empty on clusters where NooBaa's default internal Route is the only S3 endpoint. |
 
+### Credential delivery
+
+| Field | Type | Default | Description |
+|-------|------|---------|-------------|
+| `credentialsStore.providerConfigName` | `string` | — | Name of the per-tenant `vault.upbound.io` ProviderConfig pointing at the target OpenBao (created by `openbao-infrastructure`, `<tenant>-bao`). Set by the cloud tier; leave the whole block unset to skip credential delivery (infra-only use). |
+| `credentialsStore.mount` | `string` | `services` | kv-v2 mount to write into. |
+| `credentialsStore.path` | `string` | — | Full secret path within the mount, e.g. `<project>/s3bucket/<claim-name>`. |
+
 ### Top-level fields
 
 | Field | Type | Description |
@@ -41,7 +49,7 @@ All parameters are nested under `spec.parameters`.
 
 ## Status Fields
 
-`status.bucket` carries non-sensitive bucket metadata only. Credentials live in the OBC-generated `<claim-name>` Secret in the target namespace; they are surfaced to cloud-tier consumers via the `api-syncagent` related resources on the cloud-tier `PublishedResource` — not here.
+`status.bucket` carries non-sensitive bucket metadata only. Credentials live in the OBC-generated `<claim-name>` Secret in the target namespace; the composition writes them (merged with the bucket metadata) into the tenant's OpenBao (kv-v2 `SecretV2` via the `credentialsStore` parameters) for cloud-tier consumers — not here.
 
 | Field | Type | Description |
 |-------|------|-------------|

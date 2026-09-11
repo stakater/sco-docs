@@ -24,8 +24,14 @@ site/
 mkdocs.yml
 !theme_override/mkdocs.yml
 
+# Screenshot injection output (staged from screenshots/captured/ at build time)
+content/images/generated/
+
 .idea
 styles
 
 my-venv/
 test/
+
+# Shared makefile fragments downloaded from stakater/.github
+makefiles/

@@ -18,6 +18,18 @@ When you create a User claim, the platform provisions:
 - An **organisation user** in your organisation's IdP with the specified username and email
 - An **auto-generated initial password** (base64 encoded, available in the resource status)
 
+## In the Console
+
+Users live under **Identity & Access** in the sidebar. The list shows every user in your organisation:
+
+![The Users list in the console]({{ screenshot: iam-users-list }})
+
+**Create** opens a form with the same fields as the claim below — it is generated from the same API schema, so the two are never out of step:
+
+![The Create User form]({{ screenshot: iam-user-create }})
+
+The rest of this guide uses `kubectl`, which is the path to take when the user should live in version control alongside the rest of your configuration.
+
 ## Step 1: Define Your User Claim
 
 Create a file named `user.yaml`:

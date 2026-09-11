@@ -20,8 +20,8 @@ User-facing APIs designed for cloud users — developers, team leads, and organi
 | [S3 Bucket](public-apis/s3-bucket.md) | `storage.cloud.stakater.com/v1` | `S3Bucket` | S3-compatible object storage bucket backed by NooBaa |
 | [Postgres](public-apis/postgres.md) | `database.cloud.stakater.com/v1` | `Postgres` | PostgreSQL database backed by CloudNativePG |
 | [Vault](public-apis/vault.md) | `secrets.cloud.stakater.com/v1` | `Vault` | Per-tenant OpenBao instance with OIDC auth and HA Raft storage |
-| [Mesh](public-apis/mesh.md) | `network.cloud.stakater.com/v1` | `Mesh` | Per-tenant NetBird control plane (management + signal + dashboard) |
-| [NetbirdRouter](public-apis/netbird-router.md) | `netbird.cloud.stakater.com/v1` | `NetbirdRouter` | Router pod that advertises in-cluster CIDRs to peers on a Mesh |
+| [Mesh](public-apis/mesh.md) | `network.cloud.stakater.com/v1` | `Mesh` | Per-tenant private mesh network (management + signal + dashboard) |
+| [MeshRouter](public-apis/mesh-router.md) | `network.cloud.stakater.com/v1` | `MeshRouter` | Router that advertises in-cluster CIDRs to peers on a Mesh |
 
 ### Private APIs (`infrastructure.stakater.com`)
 

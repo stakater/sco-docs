@@ -3051,6 +3051,17 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
+  <a href="#in-the-console" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        In the Console
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#step-1-define-your-group-claim" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -5924,6 +5935,17 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
+  <a href="#in-the-console" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        In the Console
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#step-1-define-your-group-claim" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -6089,6 +6111,13 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <li>An <strong>organisation group</strong> in your organisation's IdP at the specified path</li>
 <li><strong>Group memberships</strong> if <code>members</code> are provided (adds existing organisation users to the group)</li>
 </ul>
+<h2 id="in-the-console">In the Console<a class="headerlink" href="#in-the-console" title="Permanent link">#</a></h2>
+<p>Groups sit next to Users under <strong>Identity &amp; Access</strong>. The create form asks for the project the group belongs to, then the same name and path as the claim:</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/generated/iam-group-create.png" data-desc-position="bottom"><img alt="The Create Group form" src="../../images/generated/iam-group-create.png"></a></p>
+<p>Members are added one at a time: type a username in the <strong>Members</strong> field and press Enter to commit it. A value left as draft text is not part of the group. If the field is not on the form, switch it to <strong>Advanced</strong> — members are optional, so Standard mode may hide them:</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/generated/iam-group-create-members.png" data-desc-position="bottom"><img alt="The Create Group form with three members added" src="../../images/generated/iam-group-create-members.png"></a></p>
+<p>The group's detail page then shows the memberships the platform actually applied, which is the console equivalent of the <code>status.memberships</code> check in <a href="#step-4-verify-the-group">Step 4</a>:</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/generated/iam-group-detail.png" data-desc-position="bottom"><img alt="A group detail page showing its members" src="../../images/generated/iam-group-detail.png"></a></p>
 <h2 id="step-1-define-your-group-claim">Step 1: Define Your Group Claim<a class="headerlink" href="#step-1-define-your-group-claim" title="Permanent link">#</a></h2>
 <p>Create a file named <code>group.yaml</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">iam.cloud.stakater.com/v1</span>

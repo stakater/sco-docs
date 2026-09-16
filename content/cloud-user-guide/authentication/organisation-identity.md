@@ -67,8 +67,15 @@ With a device enrolled, the organisation's published services resolve and authen
 
 - **Private OpenShift clusters** — the cluster console and API are published to Mesh peers. On the console login page, click your organisation's identity provider button (do **not** type your credentials into the cluster's native username/password prompt — that prompt is for local cluster accounts and your organisation credentials will be rejected there). For the CLI, use `oc login --web`, which runs the same browser flow.
 
+    A private cluster's hostnames resolve from anywhere, but they point at addresses routable only from inside the Mesh — so without the Mesh connected the name resolves and the connection then hangs. That is the expected behaviour, not a broken cluster.
+
+    Reaching a private cluster and having a role on it are **two separate grants**, and both come from the same `access.groups` entry on the cluster. If you can open the console but land on an empty "Hello, world" page, you have network access and no role yet. If the console will not load at all, the Mesh is the part to check. See [the OpenShift Cluster guide](../../how-to-guides/user/provision-openshift-cluster.md#access-grants).
+
 !!! tip
     If a cluster's login page shows **no** identity provider button at all, the cluster cannot reach your organisation's identity realm — contact your platform administrator rather than retrying credentials.
+
+!!! note "A new access group works only after its first member signs in"
+    An access group becomes usable on the Mesh the first time one of its members completes an interactive sign-in — the group is created from your sign-in token rather than from configuration. So on a newly granted group, or a newly created private cluster, the first sign-in can take up to a minute to take effect and the cluster appears unreachable until it does. Everyone after the first is unaffected. Nothing needs requesting; just sign in once and retry.
 
 ---
 
@@ -80,6 +87,8 @@ With a device enrolled, the organisation's published services resolve and authen
 | Device enrolled as the wrong user | The browser reused an existing session | Re-enrol using the printed URL in a private window |
 | *Incorrect username or password* on a cluster console | Credentials typed into the cluster's native prompt instead of the organisation's identity provider button | Use the identity provider button; native prompts are for local cluster accounts |
 | Initial password rejected | It was already consumed by the forced first-login change | Use the password set at first login, or ask an administrator to reset |
+| Private cluster console never loads; the hostname resolves | The Mesh is not connected, or your group has not been granted access to that cluster | Connect the Mesh (`netbird status`), then check your group is listed under the cluster's `access.groups` |
+| Signed in to a private cluster but the console is an empty *"Hello, world"* | Network access without a role — the two are separate grants | Ask for your group to be added to the cluster's `access.groups` with a role |
 
 ## Related
 

@@ -1,0 +1,67 @@
+# how-to-guides/user/provision-openshift-cluster.md -> 2 images.
+#
+# Create-form only, and that is a cost decision rather than a design one: a list or
+# detail shot needs a real cluster to exist in the capture org, and a hosted OpenShift
+# cluster kept alive for two screenshots is not worth a control plane. The forms need
+# nothing seeded, so this flow runs against any org.
+#
+# Read-only like the rest: the form is filled and shot, never submitted. Submitting it
+# is what would provision the cluster this flow declines to require.
+#
+# `cluster-list` and `cluster-detail` are the images this leaves out. Add them here, and
+# their directives back to the guide, if a long-lived cluster ever exists to point at.
+name: sco-docs-clusters
+
+requires:
+  env:
+    - CONSOLE_URL
+    - CONSOLE_ORG
+    - CONSOLE_USER
+    - CONSOLE_PASSWORD
+    - DOCS_CLUSTER_PLURAL
+  reachable: ["${CONSOLE_URL}"]
+
+viewport:
+  width: 1280
+  height: 800
+  deviceScaleFactor: 2
+  colorScheme: light
+
+steps:
+  - use: cloud-orchestrator-console-login
+    with:
+      portal: "${CONSOLE_URL}"
+      org: "${CONSOLE_ORG}"
+      username: "${CONSOLE_USER}"
+      password: "${CONSOLE_PASSWORD}"
+
+  # The create form as it opens. Standard is the default in a fresh browser context and
+  # nothing has toggled it yet, so this is a Standard shot without asserting it -- the
+  # same assumption resources.yaml makes.
+  - use: cloud-orchestrator-console-open-resource-create
+    with:
+      portal: "${CONSOLE_URL}"
+      plural: "${DOCS_CLUSTER_PLURAL}"
+  - { step: fill, selector: "input#name", value: "my-cluster" }
+  - { step: screenshot, path: cluster-create-standard.png, fullPage: false }
+
+  # Advanced, framed on the END of the form. The top of the form is the same in both
+  # modes -- Access and the default node pool are Standard fields -- so a shot taken
+  # where the Standard one was shows nothing but a different toggle highlight. The
+  # Advanced-only fields render further down, and the submit button is the one anchor
+  # that is always last, whatever the spec adds above it.
+  # Order matters: the mode persists in localStorage, so Standard had to be shot first.
+  - use: cloud-orchestrator-console-set-complexity-mode
+    with:
+      mode: Advanced
+  # Settle BEFORE scrolling, not after: aria-pressed flips first and the form re-renders
+  # its fields a beat later, which resets the scroll position. A scroll issued in that
+  # gap is undone before the screenshot, and the result is a second copy of the
+  # Standard shot -- which is exactly what the first capture of this flow produced.
+  - { step: wait, ms: 750 }
+  - { step: scroll-to, selector: 'form button[type="submit"]', block: end }
+  - { step: wait, ms: 500 }
+  - { step: screenshot, path: cluster-create-advanced.png, fullPage: false }
+
+after:
+  - { step: screenshot, when: on-failure, path: _failure-clusters.png }

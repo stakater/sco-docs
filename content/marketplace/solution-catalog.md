@@ -87,25 +87,25 @@ Full reference: [Vault API](../api-reference/public-apis/vault.md)
 
 **API:** `network.cloud.stakater.com/v1 Mesh`
 
-Per-tenant NetBird control plane (management + signal + dashboard). Lets your organisation build a private mesh network covering laptops, VMs, and in-cluster services with SSO-driven peer registration.
+Per-tenant private mesh network (management + signal + dashboard). Lets your organisation securely connect laptops, VMs, and in-cluster services with SSO-driven peer registration.
 
-`spec.parameters` is empty in v1 — everything is platform-derived. The Mesh exposes URLs and a per-org Crossplane ProviderConfig for declarative Groups + Policies.
+`spec.parameters` is empty in v1 — everything is platform-derived. The Mesh exposes its URLs in status, and groups, policies, routes and setup keys are manageable declaratively with `MeshGroup` / `MeshPolicy` / `MeshRoute` / `MeshSetupKey` claims.
 
 Full reference: [Mesh API](../api-reference/public-apis/mesh.md)
 
 ---
 
-### NetbirdRouter
+### MeshRouter
 
-**API:** `netbird.cloud.stakater.com/v1 NetbirdRouter`
+**API:** `network.cloud.stakater.com/v1 MeshRouter`
 
-Per-tenant router pod that joins the Mesh and advertises in-cluster CIDRs / hosts to peers. Use it to give laptops access to internal-only Services (Vault, kube-apiserver Service IPs, etc.) without exposing them to the internet.
+Per-tenant router that joins the Mesh and advertises in-cluster CIDRs / hosts to peers. Use it to give laptops access to internal-only Services (Vault, kube-apiserver Service IPs, etc.) without exposing them to the internet.
 
 | Parameter | Required | Description |
 |-----------|----------|-------------|
 | `routes[]` | Yes | One or more CIDRs / hosts to advertise (e.g. a Vault Service ClusterIP) |
 
-Full reference: [NetbirdRouter API](../api-reference/public-apis/netbird-router.md)
+Full reference: [MeshRouter API](../api-reference/public-apis/mesh-router.md)
 
 ---
 

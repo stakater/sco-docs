@@ -88,4 +88,4 @@ spec:
 ## Related
 
 - [Mesh](./mesh.md) — provisions your organisation's private VPN mesh. With a Mesh present, this Vault is published to Mesh peers automatically (see [Access over the Mesh](#access-over-the-mesh)).
-- [NetbirdRouter](./netbird-router.md) — expose your **own** in-cluster services to Mesh peers the same way the platform exposes this Vault.
+- [MeshRouter](./mesh-router.md) — expose your **own** in-cluster services to Mesh peers the same way the platform exposes this Vault.

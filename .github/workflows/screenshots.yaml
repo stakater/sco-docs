@@ -1,0 +1,22 @@
+name: Screenshots
+
+# The capture job comes from the shared workflow. The triggers stay here, because a
+# reusable workflow cannot declare its own.
+on:
+  pull_request:
+    types: [labeled]
+  pull_request_review:
+    types: [submitted]
+  workflow_dispatch:
+
+concurrency:
+  group: screenshots-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  capture:
+    uses: stakater/.github/.github/workflows/docs-screenshots.yaml@v0.0.199
+    with:
+      # The capture script is downloaded by the Makefile, at the ref pinned there.
+      CAPTURE_COMMAND: make screenshots
+    secrets: inherit

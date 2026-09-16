@@ -25,7 +25,7 @@ All parameters are nested under `spec.parameters`.
 
 ## Status Fields
 
-`status.connection` carries non-sensitive endpoint metadata only. Credentials (username, password, URI) are **not** placed here — they are delivered to the project as a Secret (see [Credentials](#credentials)).
+`status.connection` carries non-sensitive endpoint metadata plus a pointer to the credentials. Credentials (username, password, URI) are **not** placed here — they are stored in your organisation's Vault (see [Credentials](#credentials)).
 
 | Field | Type | Description |
 |-------|------|-------------|
@@ -33,13 +33,24 @@ All parameters are nested under `spec.parameters`.
 | `status.connection.port` | `string` | PostgreSQL service port (typically `5432`) |
 | `status.connection.database` | `string` | Database name |
 | `status.connection.externalHost` | `string` | Externally-reachable hostname or IP of the database. Populated only when `parameters.exposeLoadBalancer` is `true`. |
+| `status.connection.credentialsRef.vault` | `string` | URL of the Vault holding the credentials, reachable over your organisation's [Mesh](./mesh.md) |
+| `status.connection.credentialsRef.mount` | `string` | Secret engine the credentials are under (`services`) |
+| `status.connection.credentialsRef.path` | `string` | Path of the credentials within the mount (`<project>/postgres/<claim-name>`) |
 
 ## Credentials
 
-When the database is ready, the platform delivers a Secret named after the claim (`<metadata.name>`) into the project. The keys cover the most common client conventions:
+When the database is ready, the platform writes the credentials into your organisation's [Vault](./vault.md) at the location given by `status.connection.credentialsRef`. Read them in the Vault web UI, or with the CLI from a device enrolled on your organisation's Mesh:
 
-| Secret key | Description |
-|------------|-------------|
+```bash
+export BAO_ADDR=$(kubectl get postgres my-db -o jsonpath='{.status.connection.credentialsRef.vault}')
+bao login -method=oidc
+bao kv get -mount=services $(kubectl get postgres my-db -o jsonpath='{.status.connection.credentialsRef.path}')
+```
+
+The keys cover the most common client conventions:
+
+| Key | Description |
+|-----|-------------|
 | `username` / `user` | Application user (both keys carry the same value) |
 | `password` | Password for the application user |
 | `host` | Read-write service hostname (matches `status.connection.host`) |
@@ -90,9 +101,16 @@ spec:
     exposeLoadBalancer: true
 ```
 
-### Consuming the credentials
+### Consuming the credentials from a workload
 
-Mount the delivered Secret as environment variables on a workload:
+Fetch the credentials from the Vault and create a Secret next to your workload, then mount it as environment variables:
+
+```bash
+bao kv get -mount=services -format=json <project>/postgres/my-db \
+  | jq -r '.data.data' > creds.json
+kubectl create secret generic my-db --from-env-file=<(jq -r 'to_entries[] | "\(.key)=\(.value)"' creds.json)
+rm creds.json
+```
 
 ```yaml
 apiVersion: apps/v1
@@ -123,4 +141,5 @@ spec:
 
 ## Related
 
+- [Vault](./vault.md) — where your database credentials live
 - Platform-tier API: [Postgres Cluster (Infrastructure)](../private-apis/postgres-cluster-infrastructure.md)

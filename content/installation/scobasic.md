@@ -273,6 +273,93 @@ An empty result means OpenShift has no identity provider configured, whatever
 else reports healthy. Confirm you can log in to the console before considering
 the installation complete.
 
+## Onboarding your first organization
+
+A healthy installation is not yet able to create an organization. Two objects are
+platform-level prerequisites, they are not created for you, and an organization
+claim cannot reconcile without them. Create both once, before the first
+`Organization`.
+
+### The organization namespace
+
+Organization claims live in a namespace, and the platform expects them in
+`kcp-sco-orgs`:
+
+```bash
+oc create namespace kcp-sco-orgs
+```
+
+### The platform configuration
+
+The organization composition reads an `EnvironmentConfig` named
+`organization-platform-config` for its AWS and identity-provider integrations.
+
+Every feature it carries is opt-in and defaults to off, but **the object itself is
+not optional** — the composition references it by name, and a missing reference is
+a fatal composition error rather than a skipped feature. Create it with everything
+disabled if you do not use those integrations:
+
+```yaml
+apiVersion: apiextensions.crossplane.io/v1beta1
+kind: EnvironmentConfig
+metadata:
+  name: organization-platform-config
+data:
+  aws:
+    enabled: false
+  azuread:
+    enabled: false
+  providerConfigs:
+    aws: stakater-aws
+    azuread: stakater-azuread
+```
+
+Enable `aws` or `azuread` only if you intend to use them — each needs further
+values, and enabling one without them fails the same way.
+
+### Verifying the organization
+
+```bash
+oc get organizations.infrastructure.stakater.com -n kcp-sco-orgs
+```
+
+A ready organization creates its own namespaces (`<org>-system`, `-projects`,
+`-users`, `-groups` and others), a realm in the identity provider, and a
+workspace. Expect five to ten minutes.
+
+!!! warning "Check the composite, not just the claim"
+    The claim can report `Synced: True` while the underlying composite is failing,
+    so a green claim alone does not mean the organization is being built. If an
+    organization is not progressing, read the composite — it carries the real error.
+
+```bash
+oc get xorganizations.infrastructure.stakater.com
+oc describe xorganizations.infrastructure.stakater.com <name>
+```
+
+### Creating a project
+
+Projects live in the organization's workspace namespace (`ws-<id>`), not in
+`<org>-projects`. The console selects it for you; if you create the claim
+directly, use the workspace namespace or the claim cannot find its organization
+configuration.
+
+!!! important "Set the network CIDR explicitly"
+    A project's network mode defaults to `udn`, which **requires** a CIDR. The
+    field is not currently enforced at creation, so a project created without one
+    is accepted and then fails to build, leaving a project that exists but has no
+    namespaces. If a project has no namespaces after a few minutes, an unset or
+    overlapping CIDR is the first thing to check.
+
+Always set a CIDR, and choose a range that does not overlap your cluster network,
+your service network, or any other project in the same organization — overlapping
+ranges are not detected and break networking for every project in the
+organization. Check the cluster's own ranges first:
+
+```bash
+oc get network.config/cluster -o jsonpath='{.spec.clusterNetwork[*].cidr}{"\n"}{.spec.serviceNetwork}{"\n"}'
+```
+
 ## Troubleshooting
 
 The [OpenShift installation troubleshooting](openshift.md#troubleshooting)

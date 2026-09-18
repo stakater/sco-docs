@@ -10,6 +10,11 @@ validation:
   links:
     anchors: warn
 
+# Resolves {{ screenshot: <name> }} to a captured image at build time. Our module,
+# loaded by mkdocs' built-in hooks support -- no plugin to install.
+hooks:
+  - screenshots/mkdocs_hook.py
+
 extra:
   version:
     provider: mike
@@ -62,6 +67,7 @@ nav:
           - installation/overview.md
           - installation/prerequisites.md
           - installation/openshift.md
+          - installation/scobasic.md
           - installation/openbao-unseal.md
           - installation/configuration.md
       - Solutions and Marketplace:

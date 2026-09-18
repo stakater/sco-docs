@@ -1,0 +1,42 @@
+# console/projects.md -> 2 images.
+# Projects are an ordinary resource, so the same two packs the resources flow uses
+# cover this page with nothing but a different plural.
+name: sco-docs-projects
+
+requires:
+  env:
+    - CONSOLE_URL
+    - CONSOLE_ORG
+    - CONSOLE_USER
+    - CONSOLE_PASSWORD
+    - DOCS_PROJECT_PLURAL
+  reachable: ["${CONSOLE_URL}"]
+
+viewport:
+  width: 1280
+  height: 800
+  deviceScaleFactor: 2
+  colorScheme: light
+
+steps:
+  - use: cloud-orchestrator-console-login
+    with:
+      portal: "${CONSOLE_URL}"
+      org: "${CONSOLE_ORG}"
+      username: "${CONSOLE_USER}"
+      password: "${CONSOLE_PASSWORD}"
+
+  - use: cloud-orchestrator-console-open-resource-list
+    with:
+      portal: "${CONSOLE_URL}"
+      plural: "${DOCS_PROJECT_PLURAL}"
+  - { step: screenshot, path: project-list.png, fullPage: false }
+
+  - use: cloud-orchestrator-console-open-resource-create
+    with:
+      portal: "${CONSOLE_URL}"
+      plural: "${DOCS_PROJECT_PLURAL}"
+  - { step: screenshot, path: project-create.png, fullPage: false }
+
+after:
+  - { step: screenshot, when: on-failure, path: _failure-projects.png }

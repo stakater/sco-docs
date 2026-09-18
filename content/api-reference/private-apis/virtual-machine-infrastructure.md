@@ -109,7 +109,7 @@ All parameters are nested under `spec.parameters`.
 | Field | Type | Default | Description |
 |-------|------|---------|-------------|
 | `service.enabled` | `boolean` | `false` | Create a LoadBalancer Service for external VM access |
-| `service.port` | `integer` | `22000` | External port for the Service |
+| `service.port` | `integer` | `22` | External port for the Service |
 | `service.targetPort` | `integer` | `22` | Target port on the VM |
 
 ### Scheduling
@@ -131,6 +131,7 @@ All parameters are nested under `spec.parameters`.
 | `status.vm.memory` | `string` | Memory size |
 | `status.vm.serviceIP` | `string` | LoadBalancer IP (if Service enabled) |
 | `status.vm.serviceHostname` | `string` | LoadBalancer hostname (if Service enabled) |
+| `status.vm.servicePort` | `integer` | Port the LoadBalancer actually listens on, read back off the live Service (if Service enabled) |
 | `status.vm.conditions` | `array` | VM conditions |
 
 ## Examples
@@ -212,7 +213,7 @@ spec:
       secureBoot: true
     service:
       enabled: true
-      port: 22000
+      port: 22
       targetPort: 22
     nodeSelector:
       node-role.kubernetes.io/worker: ""

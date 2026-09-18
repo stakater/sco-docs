@@ -116,6 +116,8 @@ Each entry under `access.groups` grants an organisation group a role on the clus
 
 Members must log out and back in after a grant is added for it to take effect. `cluster-admin` and other arbitrary roles are not accepted — only the roles above.
 
+On a **private** cluster these same groups also grant **network access** over your organisation's Mesh — see [Access a private cluster](#access-a-private-cluster). One entry therefore grants both the role and the means to reach the cluster, which is deliberate: on a private cluster a role you cannot connect to is of no use.
+
 ## Step 3: Apply the Claim
 
 ```bash
@@ -160,7 +162,13 @@ kubectl get openshiftcluster my-cluster -n my-tenant -o jsonpath="{.status.conso
 kubectl get openshiftcluster my-cluster -n my-tenant -o jsonpath="{.status.apiEndpoint}"
 ```
 
-Bootstrap credentials are available under `status.credentials` for initial access. After that, users should sign in through the configured Keycloak identity provider using the groups granted via `access.groups`.
+Bootstrap credentials are available under `status.credentials` for initial access. After that, users should sign in through the configured identity provider using the groups granted via `access.groups`.
+
+### Access a private cluster
+
+A cluster created with `networking.mode: private` is **not reachable from the internet**. Its hostnames still resolve publicly, but point at addresses routable only from inside your organisation's Mesh — so a browser resolves the name and then fails to connect. Enrol your device once, then use the console URL as normal.
+
+See [Signing in to Services over the Mesh](../../cloud-user-guide/authentication/organisation-identity.md#signing-in-to-services-over-the-mesh) for the sign-in details, and [How to Create a Mesh](create-mesh.md#step-5-enrol-a-device) for enrolment.
 
 !!! tip
     Contact your platform administrator for the list of validated OpenShift versions and the CPU/memory mappings backing each T-shirt size in your environment.

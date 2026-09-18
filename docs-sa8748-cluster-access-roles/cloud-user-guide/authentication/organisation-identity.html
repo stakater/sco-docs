@@ -2383,6 +2383,17 @@ This documentation is for a pull request deployment and is unreleased, it is onl
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#set-the-mtu-when-you-enrol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Set the MTU when you enrol
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#multiple-accounts-on-one-machine" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -5842,6 +5853,17 @@ This documentation is for a pull request deployment and is unreleased, it is onl
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#set-the-mtu-when-you-enrol" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Set the MTU when you enrol
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#multiple-accounts-on-one-machine" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -5959,20 +5981,35 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <hr>
 <h2 id="enrolling-a-device-into-the-mesh">Enrolling a Device into the Mesh<a class="headerlink" href="#enrolling-a-device-into-the-mesh" title="Permanent link">#</a></h2>
 <p>Device enrolment uses the same single sign-on. After <a href="../../how-to-guides/user/create-mesh.html">creating a Mesh</a> (or if your organisation includes one by default):</p>
-<div class="highlight"><pre><span></span><code>netbird<span class="w"> </span>up<span class="w"> </span>--management-url<span class="o">=</span>&lt;your<span class="w"> </span>organisation<span class="err">'</span>s<span class="w"> </span>management<span class="w"> </span>URL&gt;
+<div class="highlight"><pre><span></span><code>netbird<span class="w"> </span>up<span class="w"> </span>--management-url<span class="o">=</span>&lt;your<span class="w"> </span>organisation<span class="err">'</span>s<span class="w"> </span>management<span class="w"> </span>URL&gt;<span class="w"> </span>--mtu<span class="w"> </span><span class="m">1200</span>
 </code></pre></div>
-<p>The exact command — including your organisation's management URL — is shown in the Mesh dashboard under <strong>Add Peer</strong>. The command opens a browser window for single sign-on and <strong>waits for the result on a local callback port</strong>. Two things follow from that:</p>
+<p>The exact command — including your organisation's management URL — is shown in the Mesh dashboard under <strong>Add Peer</strong>. Add <code>--mtu 1200</code> to it; without it the connection comes up and then fails in a way that is easy to misread — see <a href="#set-the-mtu-when-you-enrol">Set the MTU when you enrol</a> below.</p>
+<p>The command opens a browser window for single sign-on and <strong>waits for the result on a local callback port</strong>. Two things follow from that:</p>
 <ul>
 <li><strong>Leave <code>netbird up</code> running in the foreground</strong> until the browser flow completes. If the process stops waiting — because it was interrupted, or because the sign-in took too long (a forced first-login password change can do this) — the browser's final redirect lands on a closed port and shows <em>"localhost refused to connect"</em>. The sign-in itself succeeded; simply run <code>netbird up</code> again and complete the (now faster) flow.</li>
 <li><strong>The browser that opens shares your existing session.</strong> If you are already signed in as a different user — common when testing with a second account — the enrolment silently registers the device to that user. Copy the printed URL into a private/incognito window to choose the identity explicitly.</li>
 </ul>
+<h3 id="set-the-mtu-when-you-enrol">Set the MTU when you enrol<a class="headerlink" href="#set-the-mtu-when-you-enrol" title="Permanent link">#</a></h3>
+<p>Pass <code>--mtu 1200</code> when you enrol. Without it the Mesh connects, the dashboard shows your device, and small requests succeed — but <strong>anything larger stops arriving</strong>. A TLS handshake sends a certificate chain of several kilobytes, so in practice web consoles and <code>kubectl</code>/<code>oc</code> hang and eventually time out, with no error to explain why. Bulk transfers such as <code>scp</code> behave the same way.</p>
+<p>The value is set once and stored against the profile, so later <code>netbird up</code> runs keep it. Two consequences worth knowing:</p>
+<ul>
+<li>
+<p>Changing it needs a disconnect first — <code>netbird up --mtu …</code> is ignored while the client is already connected:</p>
+<div class="highlight"><pre><span></span><code>netbird<span class="w"> </span>down<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>netbird<span class="w"> </span>up<span class="w"> </span>--mtu<span class="w"> </span><span class="m">1200</span>
+</code></pre></div>
+</li>
+<li>
+<p>A new machine, a fresh profile, or a reinstall starts from the default again, so each device needs this once.</p>
+</li>
+</ul>
+<p>You can confirm the setting took effect with <code>ip link show wt0</code>, which should report <code>mtu 1200</code>.</p>
 <h3 id="multiple-accounts-on-one-machine">Multiple accounts on one machine<a class="headerlink" href="#multiple-accounts-on-one-machine" title="Permanent link">#</a></h3>
 <p>The NetBird client supports profiles, so you never need to wipe state to switch identities:</p>
 <div class="highlight"><pre><span></span><code>netbird<span class="w"> </span>profile<span class="w"> </span>add<span class="w"> </span>alice-work
 netbird<span class="w"> </span>profile<span class="w"> </span><span class="k">select</span><span class="w"> </span>alice-work
-netbird<span class="w"> </span>up<span class="w"> </span>--management-url<span class="o">=</span>&lt;your<span class="w"> </span>organisation<span class="err">'</span>s<span class="w"> </span>management<span class="w"> </span>URL&gt;
+netbird<span class="w"> </span>up<span class="w"> </span>--management-url<span class="o">=</span>&lt;your<span class="w"> </span>organisation<span class="err">'</span>s<span class="w"> </span>management<span class="w"> </span>URL&gt;<span class="w"> </span>--mtu<span class="w"> </span><span class="m">1200</span>
 </code></pre></div>
-<p>Switch back with <code>netbird profile select default</code> (disconnect first with <code>netbird down</code>), and remove test profiles with <code>netbird profile remove &lt;name&gt;</code>.</p>
+<p>Switch back with <code>netbird profile select default</code> (disconnect first with <code>netbird down</code>), and remove test profiles with <code>netbird profile remove &lt;name&gt;</code>. The MTU is stored per profile, so set it on each one you create.</p>
 <hr>
 <h2 id="signing-in-to-services-over-the-mesh">Signing in to Services over the Mesh<a class="headerlink" href="#signing-in-to-services-over-the-mesh" title="Permanent link">#</a></h2>
 <p>With a device enrolled, the organisation's published services resolve and authenticate with the same account:</p>
@@ -5985,11 +6022,17 @@ bao<span class="w"> </span>login<span class="w"> </span>-method<span class="o">=
 </li>
 <li>
 <p><strong>Private OpenShift clusters</strong> — the cluster console and API are published to Mesh peers. On the console login page, click your organisation's identity provider button (do <strong>not</strong> type your credentials into the cluster's native username/password prompt — that prompt is for local cluster accounts and your organisation credentials will be rejected there). For the CLI, use <code>oc login --web</code>, which runs the same browser flow.</p>
+<p>A private cluster's hostnames resolve from anywhere, but they point at addresses routable only from inside the Mesh — so without the Mesh connected the name resolves and the connection then hangs. That is the expected behaviour, not a broken cluster.</p>
+<p>Reaching a private cluster and having a role on it are <strong>two separate grants</strong>, and both come from the same <code>access.groups</code> entry on the cluster. If you can open the console but land on an empty "Hello, world" page, you have network access and no role yet. If the console will not load at all, the Mesh is the part to check. See <a href="../../how-to-guides/user/provision-openshift-cluster.html#access-grants">the OpenShift Cluster guide</a>.</p>
 </li>
 </ul>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>If a cluster's login page shows <strong>no</strong> identity provider button at all, the cluster cannot reach your organisation's identity realm — contact your platform administrator rather than retrying credentials.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">A new access group works only after its first member signs in</p>
+<p>An access group becomes usable on the Mesh the first time one of its members completes an interactive sign-in — the group is created from your sign-in token rather than from configuration. So on a newly granted group, or a newly created private cluster, the first sign-in can take up to a minute to take effect and the cluster appears unreachable until it does. Everyone after the first is unaffected. Nothing needs requesting; just sign in once and retry.</p>
 </div>
 <hr>
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">#</a></h2>
@@ -6021,6 +6064,21 @@ bao<span class="w"> </span>login<span class="w"> </span>-method<span class="o">=
 <td>Initial password rejected</td>
 <td>It was already consumed by the forced first-login change</td>
 <td>Use the password set at first login, or ask an administrator to reset</td>
+</tr>
+<tr>
+<td>Private cluster console never loads; the hostname resolves</td>
+<td>The Mesh is not connected, or your group has not been granted access to that cluster</td>
+<td>Connect the Mesh (<code>netbird status</code>), then check your group is listed under the cluster's <code>access.groups</code></td>
+</tr>
+<tr>
+<td>Console or <code>oc</code> hangs and times out, but the Mesh is connected and <code>netbird status</code> looks healthy</td>
+<td>The MTU was not set at enrolment, so large responses never arrive</td>
+<td><code>netbird down &amp;&amp; netbird up --mtu 1200</code>, then retry — see <a href="#set-the-mtu-when-you-enrol">Set the MTU when you enrol</a></td>
+</tr>
+<tr>
+<td>Signed in to a private cluster but the console is an empty <em>"Hello, world"</em></td>
+<td>Network access without a role — the two are separate grants</td>
+<td>Ask for your group to be added to the cluster's <code>access.groups</code> with a role</td>
 </tr>
 </tbody>
 </table>

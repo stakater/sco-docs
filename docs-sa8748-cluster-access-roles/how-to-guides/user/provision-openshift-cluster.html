@@ -3187,6 +3187,23 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Step 5: Access the Cluster">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#access-a-private-cluster" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Access a private cluster
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -6021,6 +6038,23 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Step 5: Access the Cluster">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#access-a-private-cluster" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Access a private cluster
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -6228,6 +6262,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </tbody>
 </table>
 <p>Members must log out and back in after a grant is added for it to take effect. <code>cluster-admin</code> and other arbitrary roles are not accepted — only the roles above.</p>
+<p>On a <strong>private</strong> cluster these same groups also grant <strong>network access</strong> over your organisation's Mesh — see <a href="#access-a-private-cluster">Access a private cluster</a>. One entry therefore grants both the role and the means to reach the cluster, which is deliberate: on a private cluster a role you cannot connect to is of no use.</p>
 <h2 id="step-3-apply-the-claim">Step 3: Apply the Claim<a class="headerlink" href="#step-3-apply-the-claim" title="Permanent link">#</a></h2>
 <div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>cluster.yaml
 </code></pre></div>
@@ -6251,7 +6286,10 @@ my-cluster   True    True     15m
 <div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>openshiftcluster<span class="w"> </span>my-cluster<span class="w"> </span>-n<span class="w"> </span>my-tenant<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s2">"{.status.consoleUrl}"</span>
 kubectl<span class="w"> </span>get<span class="w"> </span>openshiftcluster<span class="w"> </span>my-cluster<span class="w"> </span>-n<span class="w"> </span>my-tenant<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s2">"{.status.apiEndpoint}"</span>
 </code></pre></div>
-<p>Bootstrap credentials are available under <code>status.credentials</code> for initial access. After that, users should sign in through the configured Keycloak identity provider using the groups granted via <code>access.groups</code>.</p>
+<p>Bootstrap credentials are available under <code>status.credentials</code> for initial access. After that, users should sign in through the configured identity provider using the groups granted via <code>access.groups</code>.</p>
+<h3 id="access-a-private-cluster">Access a private cluster<a class="headerlink" href="#access-a-private-cluster" title="Permanent link">#</a></h3>
+<p>A cluster created with <code>networking.mode: private</code> is <strong>not reachable from the internet</strong>. Its hostnames still resolve publicly, but point at addresses routable only from inside your organisation's Mesh — so a browser resolves the name and then fails to connect. Enrol your device once, then use the console URL as normal.</p>
+<p>See <a href="../../cloud-user-guide/authentication/organisation-identity.html#signing-in-to-services-over-the-mesh">Signing in to Services over the Mesh</a> for the sign-in details, and <a href="create-mesh.html#step-5-enrol-a-device">How to Create a Mesh</a> for enrolment.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>Contact your platform administrator for the list of validated OpenShift versions and the CPU/memory mappings backing each T-shirt size in your environment.</p>

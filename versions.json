@@ -72,9 +72,7 @@
   {
     "version": "docs-scobasic-org-onboarding",
     "title": "docs-scobasic-org-onboarding",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "docs-sa8938-vm-ssh-port",
@@ -94,7 +92,9 @@
   {
     "version": "chore-bump-theme-saap-link-fix",
     "title": "chore-bump-theme-saap-link-fix",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "architecture",

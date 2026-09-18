@@ -32,13 +32,31 @@ Credentials are scoped to the organisation: an account in one organisation canno
 Device enrolment uses the same single sign-on. After [creating a Mesh](../../how-to-guides/user/create-mesh.md) (or if your organisation includes one by default):
 
 ```bash
-netbird up --management-url=<your organisation's management URL>
+netbird up --management-url=<your organisation's management URL> --mtu 1200
 ```
 
-The exact command — including your organisation's management URL — is shown in the Mesh dashboard under **Add Peer**. The command opens a browser window for single sign-on and **waits for the result on a local callback port**. Two things follow from that:
+The exact command — including your organisation's management URL — is shown in the Mesh dashboard under **Add Peer**. Add `--mtu 1200` to it; without it the connection comes up and then fails in a way that is easy to misread — see [Set the MTU when you enrol](#set-the-mtu-when-you-enrol) below.
+
+The command opens a browser window for single sign-on and **waits for the result on a local callback port**. Two things follow from that:
 
 - **Leave `netbird up` running in the foreground** until the browser flow completes. If the process stops waiting — because it was interrupted, or because the sign-in took too long (a forced first-login password change can do this) — the browser's final redirect lands on a closed port and shows *"localhost refused to connect"*. The sign-in itself succeeded; simply run `netbird up` again and complete the (now faster) flow.
 - **The browser that opens shares your existing session.** If you are already signed in as a different user — common when testing with a second account — the enrolment silently registers the device to that user. Copy the printed URL into a private/incognito window to choose the identity explicitly.
+
+### Set the MTU when you enrol
+
+Pass `--mtu 1200` when you enrol. Without it the Mesh connects, the dashboard shows your device, and small requests succeed — but **anything larger stops arriving**. A TLS handshake sends a certificate chain of several kilobytes, so in practice web consoles and `kubectl`/`oc` hang and eventually time out, with no error to explain why. Bulk transfers such as `scp` behave the same way.
+
+The value is set once and stored against the profile, so later `netbird up` runs keep it. Two consequences worth knowing:
+
+- Changing it needs a disconnect first — `netbird up --mtu …` is ignored while the client is already connected:
+
+    ```bash
+    netbird down && netbird up --mtu 1200
+    ```
+
+- A new machine, a fresh profile, or a reinstall starts from the default again, so each device needs this once.
+
+You can confirm the setting took effect with `ip link show wt0`, which should report `mtu 1200`.
 
 ### Multiple accounts on one machine
 
@@ -47,10 +65,10 @@ The NetBird client supports profiles, so you never need to wipe state to switch 
 ```bash
 netbird profile add alice-work
 netbird profile select alice-work
-netbird up --management-url=<your organisation's management URL>
+netbird up --management-url=<your organisation's management URL> --mtu 1200
 ```
 
-Switch back with `netbird profile select default` (disconnect first with `netbird down`), and remove test profiles with `netbird profile remove <name>`.
+Switch back with `netbird profile select default` (disconnect first with `netbird down`), and remove test profiles with `netbird profile remove <name>`. The MTU is stored per profile, so set it on each one you create.
 
 ---
 
@@ -88,6 +106,7 @@ With a device enrolled, the organisation's published services resolve and authen
 | *Incorrect username or password* on a cluster console | Credentials typed into the cluster's native prompt instead of the organisation's identity provider button | Use the identity provider button; native prompts are for local cluster accounts |
 | Initial password rejected | It was already consumed by the forced first-login change | Use the password set at first login, or ask an administrator to reset |
 | Private cluster console never loads; the hostname resolves | The Mesh is not connected, or your group has not been granted access to that cluster | Connect the Mesh (`netbird status`), then check your group is listed under the cluster's `access.groups` |
+| Console or `oc` hangs and times out, but the Mesh is connected and `netbird status` looks healthy | The MTU was not set at enrolment, so large responses never arrive | `netbird down && netbird up --mtu 1200`, then retry — see [Set the MTU when you enrol](#set-the-mtu-when-you-enrol) |
 | Signed in to a private cluster but the console is an empty *"Hello, world"* | Network access without a role — the two are separate grants | Ask for your group to be added to the cluster's `access.groups` with a role |
 
 ## Related

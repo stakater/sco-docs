@@ -82,7 +82,9 @@
   {
     "version": "docs-sa8748-cluster-access-roles",
     "title": "docs-sa8748-cluster-access-roles",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "docs-installation",
@@ -92,9 +94,7 @@
   {
     "version": "chore-bump-theme-saap-link-fix",
     "title": "chore-bump-theme-saap-link-fix",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "architecture",

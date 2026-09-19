@@ -17,7 +17,9 @@
   {
     "version": "renovate-main-node-24.x-lockfile",
     "title": "renovate-main-node-24.x-lockfile",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "renovate-main-node-24.x",
@@ -82,9 +84,7 @@
   {
     "version": "docs-sa8748-cluster-access-roles",
     "title": "docs-sa8748-cluster-access-roles",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "docs-installation",

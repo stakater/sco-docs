@@ -90,13 +90,6 @@
     "aliases": []
   },
   {
-    "version": "chore-bump-theme-saap-link-fix",
-    "title": "chore-bump-theme-saap-link-fix",
-    "aliases": [
-      "latest"
-    ]
-  },
-  {
     "version": "architecture",
     "title": "architecture",
     "aliases": []

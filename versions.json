@@ -17,9 +17,7 @@
   {
     "version": "renovate-main-node-24.x-lockfile",
     "title": "renovate-main-node-24.x-lockfile",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "renovate-main-node-24.x",
@@ -94,7 +92,9 @@
   {
     "version": "chore-bump-theme-saap-link-fix",
     "title": "chore-bump-theme-saap-link-fix",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "architecture",

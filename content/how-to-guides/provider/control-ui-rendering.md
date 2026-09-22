@@ -2,7 +2,9 @@
 
 Shape how your resources appear in the SCO console — labels, inputs, ordering, grouping, visibility, and detail pages — by annotating your Crossplane Composition's OpenAPI schema.
 
-Sam, a platform provider at ACME Corp, has published a new resource API. It works, but in the console it renders with raw field names in schema order. Sam wants a polished form and detail page without changing any console code.
+Sam, a platform provider at ACME Corp, has published a new resource API. It works, but in the console it renders with raw field names in alphabetical order. Sam wants a polished form and detail page without changing any console code.
+
+This guide picks up where [Creating Solutions](../../service-provider-guide/solutions/creating-solutions.md) leaves off, and uses the same `PostgreSQLDatabase` solution throughout.
 
 ## Prerequisites
 
@@ -24,31 +26,49 @@ So you add `x-sco-ui-*` keys to your schema, and the console adjusts. Resources 
 Give a field a human-readable label instead of its property name:
 
 ```json
-"replicas": {
+"storageGb": {
   "type": "integer",
-  "x-sco-ui-label": "Node Count"
+  "x-sco-ui-label": "Storage (GiB)"
 }
 ```
 
-## Order and Group Fields
+## Order Fields
 
-Put related fields into sections and control their order (lower `x-sco-ui-order` first):
+Field order comes from `x-sco-ui-order` — lower values render first:
 
 ```json
-"network": { "type": "string", "x-sco-ui-group": "Networking", "x-sco-ui-order": "1" },
-"subnet":  { "type": "string", "x-sco-ui-group": "Networking", "x-sco-ui-order": "2" }
+"dbName":    { "type": "string",  "x-sco-ui-order": "10" },
+"version":   { "type": "string",  "x-sco-ui-order": "20" },
+"storageGb": { "type": "integer", "x-sco-ui-order": "30" },
+"instances": { "type": "integer", "x-sco-ui-order": "40" }
 ```
 
-Fields without a group fall into a default `General` section on forms.
+Count in tens rather than ones. The gaps let you slot a field in later — give it `"25"` — without renumbering every field after it.
+
+!!! important
+    A field with no `x-sco-ui-order` falls back to **alphabetical** order, *not* the order you wrote it in your schema file. Property order in a schema file is not carried through to the console, so writing `dbName` before `version` does not put it first. Tag every field whose position matters.
+
+Untagged fields sort after tagged ones, alphabetically among themselves. Within one group, tag all the fields or none — a half-tagged group reads as arbitrary.
+
+## Group Fields into Sections
+
+Add `x-sco-ui-group` to collect related fields:
+
+```json
+"dbName":  { "type": "string", "x-sco-ui-group": "Database", "x-sco-ui-order": "10" },
+"version": { "type": "string", "x-sco-ui-group": "Database", "x-sco-ui-order": "20" }
+```
+
+Fields without a group fall into a default `General` section on forms. A section takes its position from the lowest `x-sco-ui-order` among its fields, so number across groups, not within each one.
 
 ## Choose the Input
 
 Override the inferred input with `x-sco-ui-component`:
 
 ```json
-"tier": {
+"version": {
   "type": "string",
-  "enum": ["small", "medium", "large"],
+  "enum": ["14", "15", "16"],
   "x-sco-ui-component": "radio"
 }
 ```
@@ -58,8 +78,8 @@ See the reference for the full set of form and detail components.
 ## Hide a Field or Mark It Advanced
 
 ```json
-"internalId": { "type": "string", "x-sco-ui-visibility": "hidden" },
-"tuning":     { "type": "object", "x-sco-ui-complexity": "advanced" }
+"providerConfigsRef": { "type": "object",  "x-sco-ui-visibility": "hidden" },
+"instances":          { "type": "integer", "x-sco-ui-complexity": "advanced" }
 ```
 
 `hidden` removes the field entirely; `x-sco-ui-complexity: "advanced"` keeps it out of **Standard** mode but shows it in **Advanced** mode.
@@ -72,11 +92,13 @@ See the reference for the full set of form and detail components.
 Detail-page tags shadow the shared ones, so a field can look different on the form and the detail view:
 
 ```json
-"phase": {
+"endpoint": {
   "type": "string",
-  "x-sco-ui-detail-component": "status"
+  "x-sco-ui-detail-component": "code"
 }
 ```
+
+`status` is the component to reach for when a field holds a phase or health value — it renders as a coloured badge.
 
 At the schema **root**, `x-sco-ui` adds a summary strip, extra tabs, and actions to the detail page. See [Schema-Level Extension](../../service-provider-guide/console/ui-extensions-reference.md#schema-level-extension-x-sco-ui) in the reference.
 

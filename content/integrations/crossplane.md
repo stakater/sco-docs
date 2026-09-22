@@ -328,4 +328,5 @@ Key patterns:
 
 - [Creating Solutions](../service-provider-guide/solutions/creating-solutions.md) — End-to-end guide to publishing a solution to the catalogue
 - [Crossplane Compositions](../service-provider-guide/solutions/crossplane-compositions.md) — Advanced composition patterns
+- [Control Console UI Rendering](../how-to-guides/provider/control-ui-rendering.md) — Annotate the XRD schema to shape the console form and detail page
 - [KCP Integration](kcp.md) — How the virtual API layer publishes your compositions to consumers

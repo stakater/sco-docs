@@ -96,6 +96,41 @@ kubectl apply -f xrd.yaml
 
 Crossplane validates the XRD and makes the claim type available.
 
+### How these fields reach the console
+
+The schema above defines four parameters in a deliberate order — `dbName`, `version`, `storageGb`, `instances`. The console does **not** use that order. Without ordering tags it renders fields alphabetically, so a consumer would see `dbName`, `instances`, `storageGb`, `version`.
+
+Add `x-sco-ui-order` to fix the order, counting in tens so you can insert a field later without renumbering:
+
+```yaml
+parameters:
+  type: object
+  required: [dbName]
+  properties:
+    dbName:
+      type: string
+      description: Name of the database instance
+      x-sco-ui-order: "10"
+    version:
+      type: string
+      default: "16"
+      description: PostgreSQL major version
+      enum: ["14", "15", "16"]
+      x-sco-ui-order: "20"
+    storageGb:
+      type: integer
+      default: 20
+      description: Storage size in GiB
+      x-sco-ui-order: "30"
+    instances:
+      type: integer
+      default: 1
+      description: Number of PostgreSQL instances (1 = standalone, 3 = HA)
+      x-sco-ui-order: "40"
+```
+
+Ordering is one of several `x-sco-ui-*` tags — you can also set labels, input types, grouping and visibility from the same schema. See [Control Console UI Rendering](../../how-to-guides/provider/control-ui-rendering.md), which continues with this solution.
+
 ---
 
 ## Step 2: Write the Composition
@@ -394,6 +429,7 @@ The `PostgreSQLDatabase` claim type is now available in all consumer project wor
 
 ## What's Next?
 
+- [Control Console UI Rendering](../../how-to-guides/provider/control-ui-rendering.md) — Polish how this solution renders: field order, labels, inputs, grouping
 - [Crossplane Compositions](crossplane-compositions.md) — Advanced composition patterns and KCL functions
 - [Publishing APIs](../api-publishing/publishing-apis.md) — Detailed API publishing guide
 - [Create PostgreSQL Solution](../../how-to-guides/provider/create-postgresql-solution.md) — Full worked example

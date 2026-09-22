@@ -62,7 +62,7 @@ Every solution consists of:
 
 | Component | Role |
 |-----------|------|
-| `CompositeResourceDefinition` (XRD) | Defines the claim API: schema, validation, versioning |
+| `CompositeResourceDefinition` (XRD) | Defines the claim API: schema, validation, versioning. The same schema drives how the solution renders in the console |
 | `Composition` | Implements the claim: what resources to create, using which providers |
 | `ApiExport` claim | Publishes the API to consumer project workspaces |
 | Marketplace metadata | Display name, description, documentation — shown in the catalogue |
@@ -98,6 +98,7 @@ The composition engine handles the full lifecycle. Providers write the compositi
 ## What's Next?
 
 - [Creating Solutions](creating-solutions.md) — Write your first XRD and Composition
+- [Control Console UI Rendering](../../how-to-guides/provider/control-ui-rendering.md) — Shape how your solution renders in the console
 - [Crossplane Compositions](crossplane-compositions.md) — Composition patterns and KCL functions
 - [Publishing APIs](../api-publishing/publishing-apis.md) — Expose your solution to consumer projects
 - [Crossplane Integration](../../integrations/crossplane.md) — Provider setup and composition reference

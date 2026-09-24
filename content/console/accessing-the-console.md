@@ -28,6 +28,19 @@ After you continue, enter your credentials to sign in. Once you authenticate, yo
 
 ---
 
+## What Signing In Gives You
+
+Signing in to the console gives you the platform itself — browsing and provisioning resources, managing projects, and viewing the status of everything your organisation runs.
+
+It does **not**, on its own, give you network access to the resources it shows you. Some resources are deliberately not reachable from the internet:
+
+- A **private OpenShift cluster** publishes its console and API only to your organisation's Mesh. The console URL shown on its detail page resolves from anywhere but will not connect until your device is enrolled.
+- **Internal services** such as a Vault behave the same way.
+
+If a resource's link will not open even though you are signed in here, that is the Mesh to check rather than your console session. See [One Identity Across Your Organisation](../cloud-user-guide/authentication/organisation-identity.md#signing-in-to-services-over-the-mesh).
+
+---
+
 ## Logging Out
 
 Open the **account menu** in the top-right of the console and select **Log out**.

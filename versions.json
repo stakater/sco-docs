@@ -72,14 +72,14 @@
   {
     "version": "docs-scobasic-org-onboarding",
     "title": "docs-scobasic-org-onboarding",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "docs-scobasic-hosted-cluster-findings",
     "title": "docs-scobasic-hosted-cluster-findings",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "docs-sa9087-vault-project-access",

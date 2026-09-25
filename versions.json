@@ -77,7 +77,9 @@
   {
     "version": "docs-sa9087-vault-project-access",
     "title": "docs-sa9087-vault-project-access",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "docs-sa8938-vm-ssh-port",
@@ -97,9 +99,7 @@
   {
     "version": "docs-console-field-order",
     "title": "docs-console-field-order",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "architecture",

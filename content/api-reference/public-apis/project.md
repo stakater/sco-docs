@@ -53,6 +53,11 @@ Each entry in `spec.parameters.access` defines role bindings for the project:
 | `status.workspace.name` | `string` | Project workspace name |
 | `status.workspace.url` | `string` | Project workspace API server URL |
 | `status.workspace.kubeconfigBase64` | `string` | Base64-encoded kubeconfig for the project |
+| `status.openbao.available` | `boolean` | Whether your organisation's Vault is available to this project |
+| `status.openbao.address` | `string` | Vault address to sign in to |
+| `status.openbao.secretPath` | `string` | The project's folder in the Vault, e.g. `stakater/projects/<organisation>-<project>/` |
+| `status.openbao.roles` | `string[]` | Vault roles to sign in with, derived from `access` — see [Vault: Project access](./vault.md#project-access) |
+| `status.openbao.message` | `string` | Human-readable Vault access state |
 
 ## Examples
 

@@ -63,14 +63,30 @@ kubectl get vault my-vault -o jsonpath='{.status.endpoint.address}'
 
 ## Step 4: Log In
 
-Open the endpoint URL in a browser and sign in with your organisation account, or use the CLI:
+You sign in as your organisation user and choose a **role**; the role decides what you can reach. Signing in without one succeeds but grants nothing. Each project you have access to has its own roles. Look them up on the project:
+
+```bash
+kubectl get project my-project -o jsonpath='{.status.openbao.roles}'
+```
+
+```text
+["acme-my-project-rw-users"]
+```
+
+Open the endpoint URL in a browser, choose method **OIDC**, enter the role in **Role**, and sign in. Or use the CLI:
 
 ```bash
 export BAO_ADDR=$(kubectl get vault my-vault -o jsonpath='{.status.endpoint.address}')
-bao login -method=oidc
+bao login -method=oidc role=acme-my-project-rw-users
 ```
 
-This opens your browser, completes single sign-on, and writes a token to the local CLI. Access is scoped by your organisation group membership.
+This opens your browser, completes single sign-on, and writes a token to the local CLI. The role gives you your project's folder, `stakater/projects/<organisation>-<project>/`:
+
+```bash
+bao kv put -mount=stakater projects/acme-my-project/app/config user=app password=s3cret
+```
+
+Which roles you get follows the project's `access` entries — see [Project access](../../api-reference/public-apis/vault.md#project-access).
 
 ## Step 5 (Optional): Reach It over the Mesh
 
@@ -88,7 +104,7 @@ The name resolves from anywhere but is reachable only from enrolled Mesh peers, 
 
 ```bash
 export BAO_ADDR=$(kubectl get vault my-vault -o jsonpath='{.status.endpoint.meshAddress}')
-bao login -method=oidc
+bao login -method=oidc role=acme-my-project-rw-users
 ```
 
 ## Related

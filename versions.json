@@ -75,6 +75,11 @@
     "aliases": []
   },
   {
+    "version": "docs-scobasic-hosted-cluster-findings",
+    "title": "docs-scobasic-hosted-cluster-findings",
+    "aliases": []
+  },
+  {
     "version": "docs-sa9087-vault-project-access",
     "title": "docs-sa9087-vault-project-access",
     "aliases": [

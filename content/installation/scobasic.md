@@ -364,7 +364,7 @@ the installation complete.
 ## Troubleshooting
 
 The [OpenShift installation troubleshooting](openshift.md#troubleshooting)
-section applies here too. Three failure modes are specific to `scobasic`:
+section applies here too. Four failure modes are specific to `scobasic`:
 
 ### LoadBalancer Services stay pending
 
@@ -431,6 +431,51 @@ serve it. [If you will create hosted clusters](#if-you-will-create-hosted-cluste
 above gives the commands to find those addresses and what to check afterwards.
 The platform does not configure this for you, because what serves DNS to those
 machines is part of your environment rather than part of the cluster.
+
+### You joined the private network but nothing loads
+
+The mesh client reports that it is connected, the peer list looks healthy, and
+the routes for the cluster are listed against the peer that serves them — yet the
+hosted cluster's console and API time out, both in the browser and from `curl`.
+
+Confirm the shape of the failure first:
+
+```bash
+curl -sk -o /dev/null -m 20 \
+  -w 'status %{http_code}  connect %{time_connect}s  total %{time_total}s\n' \
+  https://<console-host>/
+```
+
+A connection that reaches the server and then stalls, rather than one that is
+refused, points at packet size rather than at access. Look at the connection
+while it is hanging:
+
+```bash
+ss -tin dst <address>
+```
+
+If the connection is established, `bytes_acked` is above zero, `rcv_ooopack` is
+above zero and the receive queue is empty, then your request arrived and was
+acknowledged but part of the reply never did. Small packets are getting through
+and large ones are being discarded silently.
+
+This happens when the size limit on the mesh interface is larger than what the
+path your traffic actually takes can carry. The connection opens, because the
+handshake is small. It then stops during the security negotiation, because the
+server's certificate is the first large reply. Lower the limit and reconnect:
+
+```bash
+netbird up --mtu 1180
+```
+
+Then repeat the request. It should now succeed in about a second.
+
+**Most networks are not affected.** The default suits ordinary connections. Paths
+that add their own wrapping — a relay, a corporate virtual private network, a
+tunnel between sites — leave less room, and the shortfall only shows up on large
+replies. If your environment differs from the one the cluster was built on, check
+this before investigating access rules or single sign-on. Nothing on the cluster
+needs to change, and the setting applies to the machine you are connecting from.
 
 ## What's Next?
 

@@ -6351,31 +6351,29 @@ oc<span class="w"> </span>get<span class="w"> </span>pvc<span class="w"> </span>
 storage backend does not produce loud errors — it produces <strong>absent</strong>
 components, which reads as "the installation did nothing".</p>
 <h3 id="if-your-storage-is-node-local">If your storage is node-local<a class="headerlink" href="#if-your-storage-is-node-local" title="Permanent link">#</a></h3>
-<p>Node-local storage — LVMS/TopoLVM, or any <code>ReadWriteOnce</code> class backed by disks
-on individual nodes — works, but it constrains two things you should know about
-before you rely on them.</p>
-<p><strong>Hosted cluster etcd must be single-replica.</strong> A three-replica etcd cannot be
-scheduled when the storage class is node-local and the volume group does not
-cover every node: the StatefulSet never completes, and because the control plane
-waits for a <em>complete</em> etcd rather than a quorate one, the kube-apiserver is
-never created. The hosted cluster stops with no obvious cause. Set it on the
-claim:</p>
+<p>Storage backed by disks on individual nodes — rather than a shared array — works,
+but it constrains two things you should know about before relying on them.</p>
+<p><strong>Hosted cluster control planes must be single-replica.</strong> A three-replica control
+plane database cannot be scheduled when the storage is node-local and is not
+present on every node. The volumes are never all bound, the platform waits for
+all of them rather than for a majority, and the hosted cluster's API server is
+never created. The cluster stops with no obvious cause. Set this on the claim:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">spec</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">openshiftCluster</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">internal</span><span class="p">:</span>
 <span class="w">        </span><span class="nt">controllerAvailabilityPolicy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">SingleReplica</span>
 </code></pre></div>
-<p>Check your coverage before assuming it is not needed — a volume group present on
-two of three nodes is enough to deadlock and not enough to notice:</p>
+<p>Check your coverage before assuming you do not need it — storage present on two
+of three nodes is enough to stall the cluster and not enough to be obvious:</p>
 <div class="highlight"><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>storageclass<span class="w"> </span>&lt;name&gt;<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.provisioner}{"\n"}'</span>
-oc<span class="w"> </span>get<span class="w"> </span>lvmvolumegroupnodestatus<span class="w"> </span>-A<span class="w">          </span><span class="c1"># if using LVMS</span>
+oc<span class="w"> </span>get<span class="w"> </span>pvc<span class="w"> </span>-A<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-v<span class="w"> </span>Bound<span class="w">        </span><span class="c1"># anything pending here is the symptom</span>
 </code></pre></div>
-<p><strong>Virtual machines cannot live migrate.</strong> <code>ReadWriteOnce</code> volumes are bound to
-one node, so a VM using them cannot move while running. Migration is rejected
-with <code>PVC &lt;name&gt; is not shared</code>. This is a property of the storage, not a
-configuration you can change — if live migration matters, use a <code>ReadWriteMany</code>
-class for the volumes that need it.</p>
+<p><strong>Virtual machines cannot move between nodes while running.</strong> RWO volumes are
+bound to one node, so a running machine using them cannot be migrated — the
+request is refused because the volume is not shared. This is a property of the
+storage rather than a setting you can change. If moving running machines matters,
+use a storage class that supports shared access for those volumes.</p>
 <h3 id="load-balancing">Load balancing<a class="headerlink" href="#load-balancing" title="Permanent link">#</a></h3>
 <p>The platform needs <code>LoadBalancer</code> Services to be assignable. On a cloud
 provider this is usually already true. <strong>On bare metal it is not</strong> — install and
@@ -6660,36 +6658,34 @@ silent.</p>
 </code></pre></div>
 <p>See <a href="openbao-unseal.html">the unseal guide</a> if it has not come up.</p>
 <h3 id="a-hosted-clusters-console-has-no-single-sign-on-button">A hosted cluster's console has no single sign-on button<a class="headerlink" href="#a-hosted-clusters-console-has-no-single-sign-on-button" title="Permanent link">#</a></h3>
-<p>The hosted cluster comes up healthy, the admin kubeconfig works, but its console
-offers only the built-in username and password form. Check the cluster's own
-view first:</p>
+<p>The hosted cluster is healthy and you can still reach it with the administrator
+credentials, but its console offers only the built-in username and password form.
+Check the cluster's own view first:</p>
 <div class="highlight"><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>hostedcluster<span class="w"> </span>&lt;name&gt;<span class="w"> </span>-n<span class="w"> </span>hypershift-&lt;name&gt;<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{range .status.conditions[?(@.type=="ValidIDPConfiguration")]}{.status} {.message}{"\n"}{end}'</span>
 </code></pre></div>
-<p>If that reports <code>False</code> with a message like <code>tls: first record does not look
-like a TLS handshake</code>, <strong>the problem is not TLS</strong>. The control plane validates
-the identity provider from inside the hosted cluster's own network, and that
-message is what a blocked or misrouted connection looks like by the time it
-reaches the error. The platform is fail-closed, so it removes the identity
-provider entirely rather than configuring one it could not verify — which is why
-the button disappears instead of failing at login.</p>
-<p>The usual cause is that the hosted cluster's workers cannot reach the identity
-provider at its published address, while everything else about the network
-works. Test it from inside the hosted cluster, not from your workstation:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># on the hosted cluster</span>
-oc<span class="w"> </span>run<span class="w"> </span>dnsprobe<span class="w"> </span>--image<span class="o">=</span>quay.io/curl/curl:latest<span class="w"> </span>--restart<span class="o">=</span>Never<span class="w"> </span>--<span class="w"> </span>sleep<span class="w"> </span><span class="m">300</span>
-oc<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>dnsprobe<span class="w"> </span>--<span class="w"> </span>curl<span class="w"> </span>-s<span class="w"> </span>-o<span class="w"> </span>/dev/null<span class="w"> </span>-m<span class="w"> </span><span class="m">15</span><span class="w"> </span>-w<span class="w"> </span><span class="s1">'%{http_code}\n'</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>https://&lt;issuer-host&gt;/realms/&lt;realm&gt;/.well-known/openid-configuration
+<p>If that reports <code>False</code> with a message about a TLS handshake, <strong>the problem is
+not TLS</strong>. The platform verifies the identity provider from inside the hosted
+cluster's own network, and that message is what a blocked or misdirected
+connection looks like by the time it surfaces. Verification is deliberately
+fail-closed: rather than configure a provider it could not reach, the platform
+configures none at all. That is why the button is missing instead of the login
+failing.</p>
+<p>The usual cause is that the hosted cluster's machines cannot reach the identity
+provider at its published address, while everything else about the network works.
+Test it from inside the hosted cluster, not from your own machine, by starting a
+short-lived pod there and making the request from it:</p>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-s<span class="w"> </span>-o<span class="w"> </span>/dev/null<span class="w"> </span>-m<span class="w"> </span><span class="m">15</span><span class="w"> </span>-w<span class="w"> </span><span class="s1">'%{http_code}\n'</span><span class="w"> </span>https://&lt;issuer-host&gt;/
 </code></pre></div>
-<p>A timeout here, while the same request succeeds from elsewhere, means the
-workers are being sent to an address they cannot use. This is most likely where
-the address published for the identity provider resolves to something in front
-of the cluster that cannot route back into it.</p>
-<p><strong>Most networks are not affected</strong> — if the workers can reach the published
-address, there is nothing to configure. Where they cannot, the fix is to make
-the identity provider's hostname resolve, <em>for the hosted cluster's workers
-only</em>, to an address they can reach. How you do that depends on what serves DNS
-for your environment; it is not something the platform configures for you.</p>
+<p>A timeout there, while the same request succeeds from elsewhere, means the
+machines are being sent to an address they cannot use — most often because the
+published address resolves to something in front of the cluster that cannot route
+back into it.</p>
+<p><strong>Most networks are not affected.</strong> If the machines can reach the published
+address, there is nothing to configure. Where they cannot, the identity
+provider's host name has to resolve — for the hosted cluster's machines only — to
+an address they can reach. How you achieve that depends on what serves DNS in
+your environment, and the platform does not configure it for you.</p>
 <h2 id="whats-next">What's Next?<a class="headerlink" href="#whats-next" title="Permanent link">#</a></h2>
 <ul>
 <li><a href="configuration.html">Configuration</a> - Post-installation configuration</li>

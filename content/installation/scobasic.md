@@ -47,16 +47,14 @@ components, which reads as "the installation did nothing".
 
 ### If your storage is node-local
 
-Node-local storage — LVMS/TopoLVM, or any `ReadWriteOnce` class backed by disks
-on individual nodes — works, but it constrains two things you should know about
-before you rely on them.
+Storage backed by disks on individual nodes — rather than a shared array — works,
+but it constrains two things you should know about before relying on them.
 
-**Hosted cluster etcd must be single-replica.** A three-replica etcd cannot be
-scheduled when the storage class is node-local and the volume group does not
-cover every node: the StatefulSet never completes, and because the control plane
-waits for a *complete* etcd rather than a quorate one, the kube-apiserver is
-never created. The hosted cluster stops with no obvious cause. Set it on the
-claim:
+**Hosted cluster control planes must be single-replica.** A three-replica control
+plane database cannot be scheduled when the storage is node-local and is not
+present on every node. The volumes are never all bound, the platform waits for
+all of them rather than for a majority, and the hosted cluster's API server is
+never created. The cluster stops with no obvious cause. Set this on the claim:
 
 ```yaml
 spec:
@@ -66,19 +64,19 @@ spec:
         controllerAvailabilityPolicy: SingleReplica
 ```
 
-Check your coverage before assuming it is not needed — a volume group present on
-two of three nodes is enough to deadlock and not enough to notice:
+Check your coverage before assuming you do not need it — storage present on two
+of three nodes is enough to stall the cluster and not enough to be obvious:
 
 ```bash
 oc get storageclass <name> -o jsonpath='{.provisioner}{"\n"}'
-oc get lvmvolumegroupnodestatus -A          # if using LVMS
+oc get pvc -A | grep -v Bound        # anything pending here is the symptom
 ```
 
-**Virtual machines cannot live migrate.** `ReadWriteOnce` volumes are bound to
-one node, so a VM using them cannot move while running. Migration is rejected
-with `PVC <name> is not shared`. This is a property of the storage, not a
-configuration you can change — if live migration matters, use a `ReadWriteMany`
-class for the volumes that need it.
+**Virtual machines cannot move between nodes while running.** RWO volumes are
+bound to one node, so a running machine using them cannot be migrated — the
+request is refused because the volume is not shared. This is a property of the
+storage rather than a setting you can change. If moving running machines matters,
+use a storage class that supports shared access for those volumes.
 
 ### Load balancing
 
@@ -338,44 +336,42 @@ See [the unseal guide](openbao-unseal.md) if it has not come up.
 
 ### A hosted cluster's console has no single sign-on button
 
-The hosted cluster comes up healthy, the admin kubeconfig works, but its console
-offers only the built-in username and password form. Check the cluster's own
-view first:
+The hosted cluster is healthy and you can still reach it with the administrator
+credentials, but its console offers only the built-in username and password form.
+Check the cluster's own view first:
 
 ```bash
 oc get hostedcluster <name> -n hypershift-<name> \
   -o jsonpath='{range .status.conditions[?(@.type=="ValidIDPConfiguration")]}{.status} {.message}{"\n"}{end}'
 ```
 
-If that reports `False` with a message like `tls: first record does not look
-like a TLS handshake`, **the problem is not TLS**. The control plane validates
-the identity provider from inside the hosted cluster's own network, and that
-message is what a blocked or misrouted connection looks like by the time it
-reaches the error. The platform is fail-closed, so it removes the identity
-provider entirely rather than configuring one it could not verify — which is why
-the button disappears instead of failing at login.
+If that reports `False` with a message about a TLS handshake, **the problem is
+not TLS**. The platform verifies the identity provider from inside the hosted
+cluster's own network, and that message is what a blocked or misdirected
+connection looks like by the time it surfaces. Verification is deliberately
+fail-closed: rather than configure a provider it could not reach, the platform
+configures none at all. That is why the button is missing instead of the login
+failing.
 
-The usual cause is that the hosted cluster's workers cannot reach the identity
-provider at its published address, while everything else about the network
-works. Test it from inside the hosted cluster, not from your workstation:
+The usual cause is that the hosted cluster's machines cannot reach the identity
+provider at its published address, while everything else about the network works.
+Test it from inside the hosted cluster, not from your own machine, by starting a
+short-lived pod there and making the request from it:
 
 ```bash
-# on the hosted cluster
-oc run dnsprobe --image=quay.io/curl/curl:latest --restart=Never -- sleep 300
-oc exec dnsprobe -- curl -s -o /dev/null -m 15 -w '%{http_code}\n' \
-  https://<issuer-host>/realms/<realm>/.well-known/openid-configuration
+curl -s -o /dev/null -m 15 -w '%{http_code}\n' https://<issuer-host>/
 ```
 
-A timeout here, while the same request succeeds from elsewhere, means the
-workers are being sent to an address they cannot use. This is most likely where
-the address published for the identity provider resolves to something in front
-of the cluster that cannot route back into it.
+A timeout there, while the same request succeeds from elsewhere, means the
+machines are being sent to an address they cannot use — most often because the
+published address resolves to something in front of the cluster that cannot route
+back into it.
 
-**Most networks are not affected** — if the workers can reach the published
-address, there is nothing to configure. Where they cannot, the fix is to make
-the identity provider's hostname resolve, *for the hosted cluster's workers
-only*, to an address they can reach. How you do that depends on what serves DNS
-for your environment; it is not something the platform configures for you.
+**Most networks are not affected.** If the machines can reach the published
+address, there is nothing to configure. Where they cannot, the identity
+provider's host name has to resolve — for the hosted cluster's machines only — to
+an address they can reach. How you achieve that depends on what serves DNS in
+your environment, and the platform does not configure it for you.
 
 ## What's Next?
 

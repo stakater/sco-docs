@@ -31,6 +31,7 @@ In addition to the [general prerequisites](prerequisites.md):
 | Working `LoadBalancer` Services | **you provide this** |
 | Wildcard DNS for `*.<apps-domain>` | platform routes are templated from it |
 | Outbound access to the Stakater registry | charts and packages are pulled during installation |
+| The single sign-on address reachable from inside the cluster | **only if you will create hosted clusters** — see below |
 
 ### Storage
 
@@ -44,6 +45,60 @@ oc get pvc -A | grep -v Bound     # anything here is a warning sign
 Several components are held back until storage is confirmed healthy. A degraded
 storage backend does not produce loud errors — it produces **absent**
 components, which reads as "the installation did nothing".
+
+### If you will create hosted clusters
+
+A hosted cluster verifies single sign-on **from inside its own network**, not from
+the cluster hosting it. So the address you publish for single sign-on has to be
+reachable from the machines that make up the hosted cluster.
+
+On most networks it already is, and there is nothing to do here. Check in advance
+if any of these are true, because the failure is quiet and its error message
+points somewhere unhelpful:
+
+- the address resolves to a load balancer in front of the cluster that does not
+    route traffic back into it
+- the hosted cluster's machines sit on a different network from the address they
+    are given
+- traffic leaving the cluster addressed to the cluster's own published address is
+    dropped rather than looped back
+
+**To check it, and to find the address to use if it is not reachable**, look at
+where single sign-on is actually served from inside the cluster:
+
+```bash
+# 1. find the route serving your single sign-on host name
+oc get route -A | grep <sso-host-name>
+
+# 2. find which nodes run the routers that serve it, and their addresses
+oc get pods -n openshift-ingress -o wide
+oc get nodes -o wide
+```
+
+The node addresses in step 2 are what the hosted cluster's machines can reach.
+If they cannot reach the published address, create a DNS record that resolves
+your single sign-on host name to **all** of those node addresses, visible to the
+hosted cluster's machines. Where that record lives depends on what serves DNS for
+them — a split view on an internal resolver and a private zone are both common.
+
+Two things to get right:
+
+- **Use every node address that runs a router, not just one.** If a router moves
+    to another node and the record names only the node it used to be on, single
+    sign-on breaks again with the same unhelpful message.
+- **Do not change the published address itself.** It has to keep matching what
+    the identity provider issues, or verification fails for a different reason.
+
+Verify it before creating a hosted cluster, by resolving the name against the
+resolver the hosted cluster's machines will use:
+
+```bash
+dig +short @<their-resolver> <sso-host-name>
+```
+
+If that returns the node addresses rather than the public one, you are done. If
+you skip this and it turns out to matter, the symptom is described under
+[Troubleshooting](#a-hosted-clusters-console-has-no-single-sign-on-button).
 
 ### If your storage is node-local
 
@@ -368,10 +423,14 @@ published address resolves to something in front of the cluster that cannot rout
 back into it.
 
 **Most networks are not affected.** If the machines can reach the published
-address, there is nothing to configure. Where they cannot, the identity
-provider's host name has to resolve — for the hosted cluster's machines only — to
-an address they can reach. How you achieve that depends on what serves DNS in
-your environment, and the platform does not configure it for you.
+address, there is nothing to configure.
+
+Where they cannot, resolve the single sign-on host name — for the hosted
+cluster's machines only — to the addresses of the nodes running the routers that
+serve it. [If you will create hosted clusters](#if-you-will-create-hosted-clusters)
+above gives the commands to find those addresses and what to check afterwards.
+The platform does not configure this for you, because what serves DNS to those
+machines is part of your environment rather than part of the cluster.
 
 ## What's Next?
 

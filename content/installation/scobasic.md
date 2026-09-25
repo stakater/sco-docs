@@ -31,6 +31,7 @@ In addition to the [general prerequisites](prerequisites.md):
 | Working `LoadBalancer` Services | **you provide this** |
 | Wildcard DNS for `*.<apps-domain>` | platform routes are templated from it |
 | Outbound access to the Stakater registry | charts and packages are pulled during installation |
+| The single sign-on address reachable from inside the cluster | **only if you will create hosted clusters** — see below |
 
 ### Storage
 
@@ -44,6 +45,93 @@ oc get pvc -A | grep -v Bound     # anything here is a warning sign
 Several components are held back until storage is confirmed healthy. A degraded
 storage backend does not produce loud errors — it produces **absent**
 components, which reads as "the installation did nothing".
+
+### If you will create hosted clusters
+
+A hosted cluster verifies single sign-on **from inside its own network**, not from
+the cluster hosting it. So the address you publish for single sign-on has to be
+reachable from the machines that make up the hosted cluster.
+
+On most networks it already is, and there is nothing to do here. Check in advance
+if any of these are true, because the failure is quiet and its error message
+points somewhere unhelpful:
+
+- the address resolves to a load balancer in front of the cluster that does not
+    route traffic back into it
+- the hosted cluster's machines sit on a different network from the address they
+    are given
+- traffic leaving the cluster addressed to the cluster's own published address is
+    dropped rather than looped back
+
+**To check it, and to find the address to use if it is not reachable**, look at
+where single sign-on is actually served from inside the cluster:
+
+```bash
+# 1. find the route serving your single sign-on host name
+oc get route -A | grep <sso-host-name>
+
+# 2. find which nodes run the routers that serve it, and their addresses
+oc get pods -n openshift-ingress -o wide
+oc get nodes -o wide
+```
+
+The node addresses in step 2 are what the hosted cluster's machines can reach.
+If they cannot reach the published address, create a DNS record that resolves
+your single sign-on host name to **all** of those node addresses, visible to the
+hosted cluster's machines. Where that record lives depends on what serves DNS for
+them — a split view on an internal resolver and a private zone are both common.
+
+Two things to get right:
+
+- **Use every node address that runs a router, not just one.** If a router moves
+    to another node and the record names only the node it used to be on, single
+    sign-on breaks again with the same unhelpful message.
+- **Do not change the published address itself.** It has to keep matching what
+    the identity provider issues, or verification fails for a different reason.
+
+Verify it before creating a hosted cluster, by resolving the name against the
+resolver the hosted cluster's machines will use:
+
+```bash
+dig +short @<their-resolver> <sso-host-name>
+```
+
+If that returns the node addresses rather than the public one, you are done. If
+you skip this and it turns out to matter, the symptom is described under
+[Troubleshooting](#a-hosted-clusters-console-has-no-single-sign-on-button).
+
+### If your storage is node-local
+
+Storage backed by disks on individual nodes — rather than a shared array — works,
+but it constrains two things you should know about before relying on them.
+
+**Hosted cluster control planes must be single-replica.** A three-replica control
+plane database cannot be scheduled when the storage is node-local and is not
+present on every node. The volumes are never all bound, the platform waits for
+all of them rather than for a majority, and the hosted cluster's API server is
+never created. The cluster stops with no obvious cause. Set this on the claim:
+
+```yaml
+spec:
+  parameters:
+    openshiftCluster:
+      internal:
+        controllerAvailabilityPolicy: SingleReplica
+```
+
+Check your coverage before assuming you do not need it — storage present on two
+of three nodes is enough to stall the cluster and not enough to be obvious:
+
+```bash
+oc get storageclass <name> -o jsonpath='{.provisioner}{"\n"}'
+oc get pvc -A | grep -v Bound        # anything pending here is the symptom
+```
+
+**Virtual machines cannot move between nodes while running.** RWO volumes are
+bound to one node, so a running machine using them cannot be migrated — the
+request is refused because the volume is not shared. This is a property of the
+storage rather than a setting you can change. If moving running machines matters,
+use a storage class that supports shared access for those volumes.
 
 ### Load balancing
 
@@ -276,7 +364,7 @@ the installation complete.
 ## Troubleshooting
 
 The [OpenShift installation troubleshooting](openshift.md#troubleshooting)
-section applies here too. Two failure modes are specific to `scobasic`:
+section applies here too. Four failure modes are specific to `scobasic`:
 
 ### LoadBalancer Services stay pending
 
@@ -300,6 +388,94 @@ oc get pods -n stakater-openbao
 ```
 
 See [the unseal guide](openbao-unseal.md) if it has not come up.
+
+### A hosted cluster's console has no single sign-on button
+
+The hosted cluster is healthy and you can still reach it with the administrator
+credentials, but its console offers only the built-in username and password form.
+Check the cluster's own view first:
+
+```bash
+oc get hostedcluster <name> -n hypershift-<name> \
+  -o jsonpath='{range .status.conditions[?(@.type=="ValidIDPConfiguration")]}{.status} {.message}{"\n"}{end}'
+```
+
+If that reports `False` with a message about a TLS handshake, **the problem is
+not TLS**. The platform verifies the identity provider from inside the hosted
+cluster's own network, and that message is what a blocked or misdirected
+connection looks like by the time it surfaces. Verification is deliberately
+fail-closed: rather than configure a provider it could not reach, the platform
+configures none at all. That is why the button is missing instead of the login
+failing.
+
+The usual cause is that the hosted cluster's machines cannot reach the identity
+provider at its published address, while everything else about the network works.
+Test it from inside the hosted cluster, not from your own machine, by starting a
+short-lived pod there and making the request from it:
+
+```bash
+curl -s -o /dev/null -m 15 -w '%{http_code}\n' https://<issuer-host>/
+```
+
+A timeout there, while the same request succeeds from elsewhere, means the
+machines are being sent to an address they cannot use — most often because the
+published address resolves to something in front of the cluster that cannot route
+back into it.
+
+**Most networks are not affected.** If the machines can reach the published
+address, there is nothing to configure.
+
+Where they cannot, resolve the single sign-on host name — for the hosted
+cluster's machines only — to the addresses of the nodes running the routers that
+serve it. [If you will create hosted clusters](#if-you-will-create-hosted-clusters)
+above gives the commands to find those addresses and what to check afterwards.
+The platform does not configure this for you, because what serves DNS to those
+machines is part of your environment rather than part of the cluster.
+
+### You joined the private network but nothing loads
+
+The mesh client reports that it is connected, the peer list looks healthy, and
+the routes for the cluster are listed against the peer that serves them — yet the
+hosted cluster's console and API time out, both in the browser and from `curl`.
+
+Confirm the shape of the failure first:
+
+```bash
+curl -sk -o /dev/null -m 20 \
+  -w 'status %{http_code}  connect %{time_connect}s  total %{time_total}s\n' \
+  https://<console-host>/
+```
+
+A connection that reaches the server and then stalls, rather than one that is
+refused, points at packet size rather than at access. Look at the connection
+while it is hanging:
+
+```bash
+ss -tin dst <address>
+```
+
+If the connection is established, `bytes_acked` is above zero, `rcv_ooopack` is
+above zero and the receive queue is empty, then your request arrived and was
+acknowledged but part of the reply never did. Small packets are getting through
+and large ones are being discarded silently.
+
+This happens when the size limit on the mesh interface is larger than what the
+path your traffic actually takes can carry. The connection opens, because the
+handshake is small. It then stops during the security negotiation, because the
+server's certificate is the first large reply. Lower the limit and reconnect:
+
+```bash
+netbird up --mtu 1180
+```
+
+Then repeat the request. It should now succeed in about a second.
+
+**Most networks are not affected.** The default suits ordinary connections. Paths
+that add their own wrapping — a relay, a corporate virtual private network, a
+tunnel between sites — leave less room, and the shortfall only shows up on large
+replies. If your environment differs from the one the cluster was built on, check
+this before investigating access rules or single sign-on. Nothing on the cluster
+needs to change, and the setting applies to the machine you are connecting from.
 
 ## What's Next?
 

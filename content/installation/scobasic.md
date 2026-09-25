@@ -45,6 +45,41 @@ Several components are held back until storage is confirmed healthy. A degraded
 storage backend does not produce loud errors — it produces **absent**
 components, which reads as "the installation did nothing".
 
+### If your storage is node-local
+
+Node-local storage — LVMS/TopoLVM, or any `ReadWriteOnce` class backed by disks
+on individual nodes — works, but it constrains two things you should know about
+before you rely on them.
+
+**Hosted cluster etcd must be single-replica.** A three-replica etcd cannot be
+scheduled when the storage class is node-local and the volume group does not
+cover every node: the StatefulSet never completes, and because the control plane
+waits for a *complete* etcd rather than a quorate one, the kube-apiserver is
+never created. The hosted cluster stops with no obvious cause. Set it on the
+claim:
+
+```yaml
+spec:
+  parameters:
+    openshiftCluster:
+      internal:
+        controllerAvailabilityPolicy: SingleReplica
+```
+
+Check your coverage before assuming it is not needed — a volume group present on
+two of three nodes is enough to deadlock and not enough to notice:
+
+```bash
+oc get storageclass <name> -o jsonpath='{.provisioner}{"\n"}'
+oc get lvmvolumegroupnodestatus -A          # if using LVMS
+```
+
+**Virtual machines cannot live migrate.** `ReadWriteOnce` volumes are bound to
+one node, so a VM using them cannot move while running. Migration is rejected
+with `PVC <name> is not shared`. This is a property of the storage, not a
+configuration you can change — if live migration matters, use a `ReadWriteMany`
+class for the volumes that need it.
+
 ### Load balancing
 
 The platform needs `LoadBalancer` Services to be assignable. On a cloud
@@ -276,7 +311,7 @@ the installation complete.
 ## Troubleshooting
 
 The [OpenShift installation troubleshooting](openshift.md#troubleshooting)
-section applies here too. Two failure modes are specific to `scobasic`:
+section applies here too. Three failure modes are specific to `scobasic`:
 
 ### LoadBalancer Services stay pending
 
@@ -300,6 +335,47 @@ oc get pods -n stakater-openbao
 ```
 
 See [the unseal guide](openbao-unseal.md) if it has not come up.
+
+### A hosted cluster's console has no single sign-on button
+
+The hosted cluster comes up healthy, the admin kubeconfig works, but its console
+offers only the built-in username and password form. Check the cluster's own
+view first:
+
+```bash
+oc get hostedcluster <name> -n hypershift-<name> \
+  -o jsonpath='{range .status.conditions[?(@.type=="ValidIDPConfiguration")]}{.status} {.message}{"\n"}{end}'
+```
+
+If that reports `False` with a message like `tls: first record does not look
+like a TLS handshake`, **the problem is not TLS**. The control plane validates
+the identity provider from inside the hosted cluster's own network, and that
+message is what a blocked or misrouted connection looks like by the time it
+reaches the error. The platform is fail-closed, so it removes the identity
+provider entirely rather than configuring one it could not verify — which is why
+the button disappears instead of failing at login.
+
+The usual cause is that the hosted cluster's workers cannot reach the identity
+provider at its published address, while everything else about the network
+works. Test it from inside the hosted cluster, not from your workstation:
+
+```bash
+# on the hosted cluster
+oc run dnsprobe --image=quay.io/curl/curl:latest --restart=Never -- sleep 300
+oc exec dnsprobe -- curl -s -o /dev/null -m 15 -w '%{http_code}\n' \
+  https://<issuer-host>/realms/<realm>/.well-known/openid-configuration
+```
+
+A timeout here, while the same request succeeds from elsewhere, means the
+workers are being sent to an address they cannot use. This is most likely where
+the address published for the identity provider resolves to something in front
+of the cluster that cannot route back into it.
+
+**Most networks are not affected** — if the workers can reach the published
+address, there is nothing to configure. Where they cannot, the fix is to make
+the identity provider's hostname resolve, *for the hosted cluster's workers
+only*, to an address they can reach. How you do that depends on what serves DNS
+for your environment; it is not something the platform configures for you.
 
 ## What's Next?
 

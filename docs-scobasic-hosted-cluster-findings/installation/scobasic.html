@@ -3613,6 +3613,17 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
         
           <li class="md-nav__item">
+  <a href="#if-you-will-create-hosted-clusters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        If you will create hosted clusters
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#if-your-storage-is-node-local" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -6041,6 +6052,17 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
         
           <li class="md-nav__item">
+  <a href="#if-you-will-create-hosted-clusters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        If you will create hosted clusters
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#if-your-storage-is-node-local" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -6340,6 +6362,10 @@ single most common reason a <code>scobasic</code> installation fails.</p>
 <td>Outbound access to the Stakater registry</td>
 <td>charts and packages are pulled during installation</td>
 </tr>
+<tr>
+<td>The single sign-on address reachable from inside the cluster</td>
+<td><strong>only if you will create hosted clusters</strong> — see below</td>
+</tr>
 </tbody>
 </table>
 <h3 id="storage">Storage<a class="headerlink" href="#storage" title="Permanent link">#</a></h3>
@@ -6350,6 +6376,50 @@ oc<span class="w"> </span>get<span class="w"> </span>pvc<span class="w"> </span>
 <p>Several components are held back until storage is confirmed healthy. A degraded
 storage backend does not produce loud errors — it produces <strong>absent</strong>
 components, which reads as "the installation did nothing".</p>
+<h3 id="if-you-will-create-hosted-clusters">If you will create hosted clusters<a class="headerlink" href="#if-you-will-create-hosted-clusters" title="Permanent link">#</a></h3>
+<p>A hosted cluster verifies single sign-on <strong>from inside its own network</strong>, not from
+the cluster hosting it. So the address you publish for single sign-on has to be
+reachable from the machines that make up the hosted cluster.</p>
+<p>On most networks it already is, and there is nothing to do here. Check in advance
+if any of these are true, because the failure is quiet and its error message
+points somewhere unhelpful:</p>
+<ul>
+<li>the address resolves to a load balancer in front of the cluster that does not
+    route traffic back into it</li>
+<li>the hosted cluster's machines sit on a different network from the address they
+    are given</li>
+<li>traffic leaving the cluster addressed to the cluster's own published address is
+    dropped rather than looped back</li>
+</ul>
+<p><strong>To check it, and to find the address to use if it is not reachable</strong>, look at
+where single sign-on is actually served from inside the cluster:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 1. find the route serving your single sign-on host name</span>
+oc<span class="w"> </span>get<span class="w"> </span>route<span class="w"> </span>-A<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>&lt;sso-host-name&gt;
+
+<span class="c1"># 2. find which nodes run the routers that serve it, and their addresses</span>
+oc<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>openshift-ingress<span class="w"> </span>-o<span class="w"> </span>wide
+oc<span class="w"> </span>get<span class="w"> </span>nodes<span class="w"> </span>-o<span class="w"> </span>wide
+</code></pre></div>
+<p>The node addresses in step 2 are what the hosted cluster's machines can reach.
+If they cannot reach the published address, create a DNS record that resolves
+your single sign-on host name to <strong>all</strong> of those node addresses, visible to the
+hosted cluster's machines. Where that record lives depends on what serves DNS for
+them — a split view on an internal resolver and a private zone are both common.</p>
+<p>Two things to get right:</p>
+<ul>
+<li><strong>Use every node address that runs a router, not just one.</strong> If a router moves
+    to another node and the record names only the node it used to be on, single
+    sign-on breaks again with the same unhelpful message.</li>
+<li><strong>Do not change the published address itself.</strong> It has to keep matching what
+    the identity provider issues, or verification fails for a different reason.</li>
+</ul>
+<p>Verify it before creating a hosted cluster, by resolving the name against the
+resolver the hosted cluster's machines will use:</p>
+<div class="highlight"><pre><span></span><code>dig<span class="w"> </span>+short<span class="w"> </span>@&lt;their-resolver&gt;<span class="w"> </span>&lt;sso-host-name&gt;
+</code></pre></div>
+<p>If that returns the node addresses rather than the public one, you are done. If
+you skip this and it turns out to matter, the symptom is described under
+<a href="#a-hosted-clusters-console-has-no-single-sign-on-button">Troubleshooting</a>.</p>
 <h3 id="if-your-storage-is-node-local">If your storage is node-local<a class="headerlink" href="#if-your-storage-is-node-local" title="Permanent link">#</a></h3>
 <p>Storage backed by disks on individual nodes — rather than a shared array — works,
 but it constrains two things you should know about before relying on them.</p>
@@ -6682,10 +6752,13 @@ machines are being sent to an address they cannot use — most often because the
 published address resolves to something in front of the cluster that cannot route
 back into it.</p>
 <p><strong>Most networks are not affected.</strong> If the machines can reach the published
-address, there is nothing to configure. Where they cannot, the identity
-provider's host name has to resolve — for the hosted cluster's machines only — to
-an address they can reach. How you achieve that depends on what serves DNS in
-your environment, and the platform does not configure it for you.</p>
+address, there is nothing to configure.</p>
+<p>Where they cannot, resolve the single sign-on host name — for the hosted
+cluster's machines only — to the addresses of the nodes running the routers that
+serve it. <a href="#if-you-will-create-hosted-clusters">If you will create hosted clusters</a>
+above gives the commands to find those addresses and what to check afterwards.
+The platform does not configure this for you, because what serves DNS to those
+machines is part of your environment rather than part of the cluster.</p>
 <h2 id="whats-next">What's Next?<a class="headerlink" href="#whats-next" title="Permanent link">#</a></h2>
 <ul>
 <li><a href="configuration.html">Configuration</a> - Post-installation configuration</li>

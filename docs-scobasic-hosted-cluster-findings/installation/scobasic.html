@@ -3839,6 +3839,17 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#you-joined-the-private-network-but-nothing-loads" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        You joined the private network but nothing loads
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -6278,6 +6289,17 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#you-joined-the-private-network-but-nothing-loads" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        You joined the private network but nothing loads
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -6712,7 +6734,7 @@ else reports healthy. Confirm you can log in to the console before considering
 the installation complete.</p>
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">#</a></h2>
 <p>The <a href="openshift.html#troubleshooting">OpenShift installation troubleshooting</a>
-section applies here too. Three failure modes are specific to <code>scobasic</code>:</p>
+section applies here too. Four failure modes are specific to <code>scobasic</code>:</p>
 <h3 id="loadbalancer-services-stay-pending">LoadBalancer Services stay pending<a class="headerlink" href="#loadbalancer-services-stay-pending" title="Permanent link">#</a></h3>
 <div class="highlight"><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>svc<span class="w"> </span>-A<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span>pending
 </code></pre></div>
@@ -6759,6 +6781,37 @@ serve it. <a href="#if-you-will-create-hosted-clusters">If you will create hoste
 above gives the commands to find those addresses and what to check afterwards.
 The platform does not configure this for you, because what serves DNS to those
 machines is part of your environment rather than part of the cluster.</p>
+<h3 id="you-joined-the-private-network-but-nothing-loads">You joined the private network but nothing loads<a class="headerlink" href="#you-joined-the-private-network-but-nothing-loads" title="Permanent link">#</a></h3>
+<p>The mesh client reports that it is connected, the peer list looks healthy, and
+the routes for the cluster are listed against the peer that serves them — yet the
+hosted cluster's console and API time out, both in the browser and from <code>curl</code>.</p>
+<p>Confirm the shape of the failure first:</p>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-sk<span class="w"> </span>-o<span class="w"> </span>/dev/null<span class="w"> </span>-m<span class="w"> </span><span class="m">20</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-w<span class="w"> </span><span class="s1">'status %{http_code}  connect %{time_connect}s  total %{time_total}s\n'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>https://&lt;console-host&gt;/
+</code></pre></div>
+<p>A connection that reaches the server and then stalls, rather than one that is
+refused, points at packet size rather than at access. Look at the connection
+while it is hanging:</p>
+<div class="highlight"><pre><span></span><code>ss<span class="w"> </span>-tin<span class="w"> </span>dst<span class="w"> </span>&lt;address&gt;
+</code></pre></div>
+<p>If the connection is established, <code>bytes_acked</code> is above zero, <code>rcv_ooopack</code> is
+above zero and the receive queue is empty, then your request arrived and was
+acknowledged but part of the reply never did. Small packets are getting through
+and large ones are being discarded silently.</p>
+<p>This happens when the size limit on the mesh interface is larger than what the
+path your traffic actually takes can carry. The connection opens, because the
+handshake is small. It then stops during the security negotiation, because the
+server's certificate is the first large reply. Lower the limit and reconnect:</p>
+<div class="highlight"><pre><span></span><code>netbird<span class="w"> </span>up<span class="w"> </span>--mtu<span class="w"> </span><span class="m">1180</span>
+</code></pre></div>
+<p>Then repeat the request. It should now succeed in about a second.</p>
+<p><strong>Most networks are not affected.</strong> The default suits ordinary connections. Paths
+that add their own wrapping — a relay, a corporate virtual private network, a
+tunnel between sites — leave less room, and the shortfall only shows up on large
+replies. If your environment differs from the one the cluster was built on, check
+this before investigating access rules or single sign-on. Nothing on the cluster
+needs to change, and the setting applies to the machine you are connecting from.</p>
 <h2 id="whats-next">What's Next?<a class="headerlink" href="#whats-next" title="Permanent link">#</a></h2>
 <ul>
 <li><a href="configuration.html">Configuration</a> - Post-installation configuration</li>

@@ -17,7 +17,9 @@
   {
     "version": "renovate-main-node-24.x-lockfile",
     "title": "renovate-main-node-24.x-lockfile",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "renovate-main-node-24.x",
@@ -77,9 +79,7 @@
   {
     "version": "docs-scobasic-hosted-cluster-findings",
     "title": "docs-scobasic-hosted-cluster-findings",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "docs-sa9087-vault-project-access",

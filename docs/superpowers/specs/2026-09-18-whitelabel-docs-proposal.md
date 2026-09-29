@@ -1,6 +1,7 @@
 # White-label docs pipeline
 
-Status: proposal. 2026-09-18.
+Status: proposal. 2026-09-18. Short form for review, including the task split:
+[2026-09-29-whitelabel-docs-design.md](2026-09-29-whitelabel-docs-design.md).
 
 ## Problem
 
@@ -13,7 +14,8 @@ actually deploy.
 
 One image, one Job, in the customer's cluster. `sco-docs-builder` is `FROM ghcr.io/stakater/browser-runner:<tag>`
 plus python3 and mkdocs, carrying baseline content, baseline flows and the prepared theme. It clones the
-customer's overlay repo, builds, and writes `/site` to a PVC that an nginx Deployment serves.
+customer's overlay repo, builds into a new release directory on a PVC, and swaps a `current` symlink that an
+nginx Deployment serves.
 
 Only two steps need the cluster: capturing the console and fetching the gateway OpenAPI. Both become local
 Service calls, so no credential leaves the cluster and the console needs no public route.
@@ -138,7 +140,9 @@ unreachable console costs seconds, not a browser launch.
 - The generator owns the whole `api-reference` subtree. Nav operations may rename that section but may not place
   pages inside it.
 
-Replaces the 14 hand written pages under `content/api-reference/`.
+Generation produces the **field reference tables**. The hand written prose around them stays: the existing pages
+carry things no schema holds, such as how to read credentials out of Vault, and the spec leaks `spec.crossplane`
+in 16 of 50 schemas, which `AGENTS.md` forbids showing users. Filter that out.
 
 ### 5. Patch the nav
 
@@ -177,8 +181,11 @@ mkdocs is Material; partial fidelity beyond this reads as broken.
 
 ### 7. Build
 
-`mkdocs build -d /site`, strict. The existing hook (`theme_override/mkdocs.yml:15-16`) resolves
+`mkdocs build -d /data/releases/$BUILD_ID`, strict. The existing hook (`theme_override/mkdocs.yml:15-16`) resolves
 `{{ screenshot: X }}` to `captured/X.png`; an unresolved directive fails.
+
+Then `ln -sfn /data/releases/$BUILD_ID /data/current`. The rename is atomic and mkdocs writes progressively, so
+nginx never serves a half built tree. Keeping the last few releases makes a rollback a re-point.
 
 ### Failure modes
 
@@ -212,7 +219,8 @@ mkdocs is Material; partial fidelity beyond this reads as broken.
 
 1. Stop committing `screenshots/captured/`; it becomes build output.
 2. `screenshots/config.env` dissolves into `docs.yaml` under `capture.vars`.
-3. Delete the 14 hand written pages under `content/api-reference/`.
+3. The 14 pages under `content/api-reference/` lose their hand maintained parameter tables to generation. The
+   prose stays.
 4. `Makefile:24-30` and `.github/workflows/screenshots.yaml` are superseded by the builder.
 5. `sco-docs` becomes customer zero: `docs.stakater.com` is produced by this pipeline against a Stakater demo
    org, so the pipeline cannot rot unnoticed.
@@ -221,14 +229,25 @@ mkdocs is Material; partial fidelity beyond this reads as broken.
 
 ## Open questions
 
-1. Does the gateway merged OpenAPI carry description text good enough to replace the hand written API reference?
-   If not, step 4 deletes better docs than it generates. Spike before building it.
+1. **Renderer for step 4.** Valid CRD YAML is derivable from the merged spec in about 25 lines, proven against a
+   captured response: `x-kubernetes-group-version-kind` gives group, version and kind; the paths give plural and
+   scope. That makes `crdoc` usable. `gen-apidocs` also consumes OpenAPI but wants swagger 2.0 and is wired to the
+   Kubernetes release process. Go-source generators (`crd-ref-docs`, `gen-crd-api-reference-docs`) cannot see our
+   APIs at all, since they come from KCL packages. Needs a short bake off against
+   `content/api-reference/public-apis/s3-bucket.md`.
 2. Which endpoint serves the merged OpenAPI, and does a user token suffice?
-3. Generated API pages lose the "when would I use this" prose. Move it to how-to guides, or let the overlay
-   supply a per API preamble?
+3. **Storage.** The release swap handles atomicity and rollback, but the Job and nginx still share the volume. On
+   `ReadWriteOnce` that needs both on one node. Confirm an RWX storage class, or pin with node affinity.
 4. Every customer needs a seeded demo org before their first green build. Whose runbook?
 5. A `run-all <dir>` subcommand upstream could share one browser across flows, saving the 10 to 15s login each.
-   Not worth it at three flows.
+   At six flows (`login`, `projects`, `resources`, `clusters`, `iam`, `mesh`) that is a minute or more per build.
+6. **Portable image.** A PVC cannot produce an image the customer runs elsewhere. If that is wanted, build it in CI
+   from a captured artifact rather than inside the customer cluster.
+
+**Resolved.** Description coverage in the merged spec is 37% of `spec.*` fields and 23% of required ones, best
+schema 67%, worst 7%. Generation therefore produces field tables and the prose stays. Improving this means richer
+descriptions in the KCL packages, which would also improve the console's form hints, since both render from the
+same spec.
 
 ## Related
 

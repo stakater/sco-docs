@@ -3795,6 +3795,45 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
+  <a href="#service-apis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Service APIs
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Service APIs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#postgres" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Postgres
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#s3bucket" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        S3Bucket
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#troubleshooting" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -6245,6 +6284,45 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
+  <a href="#service-apis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Service APIs
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Service APIs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#postgres" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Postgres
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#s3bucket" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        S3Bucket
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#troubleshooting" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -6732,6 +6810,87 @@ oc<span class="w"> </span>get<span class="w"> </span>oauth<span class="w"> </spa
 <p>An empty result means OpenShift has no identity provider configured, whatever
 else reports healthy. Confirm you can log in to the console before considering
 the installation complete.</p>
+<h2 id="service-apis">Service APIs<a class="headerlink" href="#service-apis" title="Permanent link">#</a></h2>
+<p>A <code>scobasic</code> cluster serves the platform's service APIs, but a few of them depend
+on infrastructure this variant does not install, and one needs a recent package.
+Check this table before promising a capability to a tenant.</p>
+<table>
+<thead>
+<tr>
+<th>API</th>
+<th>On <code>scobasic</code></th>
+<th>What it needs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Organization</code>, <code>Project</code>, <code>User</code>, <code>Group</code></td>
+<td>Works</td>
+<td>Nothing extra</td>
+</tr>
+<tr>
+<td><code>Mesh</code></td>
+<td>Works</td>
+<td>Nothing extra</td>
+</tr>
+<tr>
+<td><code>OpenShiftCluster</code></td>
+<td>Works</td>
+<td>Virtualization, as described under Prerequisites</td>
+</tr>
+<tr>
+<td><code>VirtualMachine</code></td>
+<td>Works</td>
+<td>Virtualization, as described under Prerequisites</td>
+</tr>
+<tr>
+<td><code>Postgres</code></td>
+<td>Works from a recent package</td>
+<td>See below</td>
+</tr>
+<tr>
+<td><code>S3Bucket</code></td>
+<td>Does not provision</td>
+<td>An object storage provider</td>
+</tr>
+<tr>
+<td><code>Vault</code>, <code>MeshRouter</code></td>
+<td>Not yet validated</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<h3 id="postgres"><code>Postgres</code><a class="headerlink" href="#postgres" title="Permanent link">#</a></h3>
+<p>The claim needs <code>sco-package-database</code> chart <code>0.0.6</code> or later, which carries
+<code>postgres-database</code> <code>0.0.13</code>. On earlier packages the claim is accepted and then
+silently provisions nothing: it produces an empty namespace with no database, no
+credentials and no connection details. Check what the cluster runs before filing a
+fault:</p>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>configuration.pkg.crossplane.io<span class="w"> </span>package-postgres-database<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.spec.package}'</span>
+</code></pre></div>
+<p>Two things to expect even on a working package:</p>
+<ul>
+<li><strong>The claim stays <code>Ready=False</code> while the database is healthy.</strong> It reports
+  <code>Unready resources: &lt;name&gt;-access-map</code>. Read the database itself rather than the
+  claim's condition — if the pods are running and the <code>&lt;name&gt;-app</code> secret exists,
+  the database is usable.</li>
+<li><strong>The managing operator cannot report instance status when the project network is
+  isolated.</strong> The cluster's status then reads as a status-extraction error even
+  though the database is serving. Treat backup, failover and switchover as unproven
+  in that configuration until the status probe can reach the pods.</li>
+</ul>
+<p>Confirm the database directly:</p>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>clusters.postgresql.cnpg.io<span class="w"> </span>&lt;name&gt;<span class="w"> </span>-n<span class="w"> </span>&lt;namespace&gt;
+oc<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>&lt;namespace&gt;
+</code></pre></div>
+<p>The claim publishes its connection details under <code>status.connection</code> once the
+database is up.</p>
+<h3 id="s3bucket"><code>S3Bucket</code><a class="headerlink" href="#s3bucket" title="Permanent link">#</a></h3>
+<p><code>scobasic</code> does not install an object storage provider, and the bucket claim targets
+a storage class that therefore does not exist. The claim may report success while no
+bucket was ever created. Either install an object storage provider on the cluster, or
+do not offer this API to tenants on a <code>scobasic</code> install.</p>
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">#</a></h2>
 <p>The <a href="openshift.html#troubleshooting">OpenShift installation troubleshooting</a>
 section applies here too. Four failure modes are specific to <code>scobasic</code>:</p>

@@ -361,6 +361,63 @@ An empty result means OpenShift has no identity provider configured, whatever
 else reports healthy. Confirm you can log in to the console before considering
 the installation complete.
 
+## Service APIs
+
+A `scobasic` cluster serves the platform's service APIs, but a few of them depend
+on infrastructure this variant does not install, and one needs a recent package.
+Check this table before promising a capability to a tenant.
+
+| API | On `scobasic` | What it needs |
+|---|---|---|
+| `Organization`, `Project`, `User`, `Group` | Works | Nothing extra |
+| `Mesh` | Works | Nothing extra |
+| `OpenShiftCluster` | Works | Virtualization, as described under Prerequisites |
+| `VirtualMachine` | Works | Virtualization, as described under Prerequisites |
+| `Postgres` | Works from a recent package | See below |
+| `S3Bucket` | Does not provision | An object storage provider |
+| `Vault`, `MeshRouter` | Not yet validated | — |
+
+### `Postgres`
+
+The claim needs `sco-package-database` chart `0.0.6` or later, which carries
+`postgres-database` `0.0.13`. On earlier packages the claim is accepted and then
+silently provisions nothing: it produces an empty namespace with no database, no
+credentials and no connection details. Check what the cluster runs before filing a
+fault:
+
+```bash
+oc get configuration.pkg.crossplane.io package-postgres-database \
+  -o jsonpath='{.spec.package}'
+```
+
+Two things to expect even on a working package:
+
+- **The claim stays `Ready=False` while the database is healthy.** It reports
+  `Unready resources: <name>-access-map`. Read the database itself rather than the
+  claim's condition — if the pods are running and the `<name>-app` secret exists,
+  the database is usable.
+- **The managing operator cannot report instance status when the project network is
+  isolated.** The cluster's status then reads as a status-extraction error even
+  though the database is serving. Treat backup, failover and switchover as unproven
+  in that configuration until the status probe can reach the pods.
+
+Confirm the database directly:
+
+```bash
+oc get clusters.postgresql.cnpg.io <name> -n <namespace>
+oc get pods -n <namespace>
+```
+
+The claim publishes its connection details under `status.connection` once the
+database is up.
+
+### `S3Bucket`
+
+`scobasic` does not install an object storage provider, and the bucket claim targets
+a storage class that therefore does not exist. The claim may report success while no
+bucket was ever created. Either install an object storage provider on the cluster, or
+do not offer this API to tenants on a `scobasic` install.
+
 ## Troubleshooting
 
 The [OpenShift installation troubleshooting](openshift.md#troubleshooting)

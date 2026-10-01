@@ -5976,11 +5976,19 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 <div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>vault<span class="w"> </span>my-vault<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.status.endpoint.address}'</span>
 </code></pre></div>
 <h2 id="step-4-log-in">Step 4: Log In<a class="headerlink" href="#step-4-log-in" title="Permanent link">#</a></h2>
-<p>Open the endpoint URL in a browser and sign in with your organisation account, or use the CLI:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">BAO_ADDR</span><span class="o">=</span><span class="k">$(</span>kubectl<span class="w"> </span>get<span class="w"> </span>vault<span class="w"> </span>my-vault<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.status.endpoint.address}'</span><span class="k">)</span>
-bao<span class="w"> </span>login<span class="w"> </span>-method<span class="o">=</span>oidc
+<p>You sign in as your organisation user and choose a <strong>role</strong>; the role decides what you can reach. Signing in without one succeeds but grants nothing. Each project you have access to has its own roles. Look them up on the project:</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>project<span class="w"> </span>my-project<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.status.openbao.roles}'</span>
 </code></pre></div>
-<p>This opens your browser, completes single sign-on, and writes a token to the local CLI. Access is scoped by your organisation group membership.</p>
+<div class="highlight"><pre><span></span><code>["acme-my-project-rw-users"]
+</code></pre></div>
+<p>Open the endpoint URL in a browser, choose method <strong>OIDC</strong>, enter the role in <strong>Role</strong>, and sign in. Or use the CLI:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">BAO_ADDR</span><span class="o">=</span><span class="k">$(</span>kubectl<span class="w"> </span>get<span class="w"> </span>vault<span class="w"> </span>my-vault<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.status.endpoint.address}'</span><span class="k">)</span>
+bao<span class="w"> </span>login<span class="w"> </span>-method<span class="o">=</span>oidc<span class="w"> </span><span class="nv">role</span><span class="o">=</span>acme-my-project-rw-users
+</code></pre></div>
+<p>This opens your browser, completes single sign-on, and writes a token to the local CLI. The role gives you your project's folder, <code>stakater/projects/&lt;organisation&gt;-&lt;project&gt;/</code>:</p>
+<div class="highlight"><pre><span></span><code>bao<span class="w"> </span>kv<span class="w"> </span>put<span class="w"> </span>-mount<span class="o">=</span>stakater<span class="w"> </span>projects/acme-my-project/app/config<span class="w"> </span><span class="nv">user</span><span class="o">=</span>app<span class="w"> </span><span class="nv">password</span><span class="o">=</span>s3cret
+</code></pre></div>
+<p>Which roles you get follows the project's <code>access</code> entries — see <a href="../../api-reference/public-apis/vault.html#project-access">Project access</a>.</p>
 <h2 id="step-5-optional-reach-it-over-the-mesh">Step 5 (Optional): Reach It over the Mesh<a class="headerlink" href="#step-5-optional-reach-it-over-the-mesh" title="Permanent link">#</a></h2>
 <p>If your organisation runs a <a href="create-mesh.html">Mesh</a>, the Vault is also published to Mesh peers automatically. The Mesh endpoint appears in the claim status once it is live:</p>
 <div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>vault<span class="w"> </span>my-vault<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.status.endpoint.meshAddress}'</span>
@@ -5989,7 +5997,7 @@ bao<span class="w"> </span>login<span class="w"> </span>-method<span class="o">=
 </code></pre></div>
 <p>The name resolves from anywhere but is reachable only from enrolled Mesh peers, and the certificate is publicly trusted — clients need no custom CA bundle and no <code>-tls-skip-verify</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">BAO_ADDR</span><span class="o">=</span><span class="k">$(</span>kubectl<span class="w"> </span>get<span class="w"> </span>vault<span class="w"> </span>my-vault<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.status.endpoint.meshAddress}'</span><span class="k">)</span>
-bao<span class="w"> </span>login<span class="w"> </span>-method<span class="o">=</span>oidc
+bao<span class="w"> </span>login<span class="w"> </span>-method<span class="o">=</span>oidc<span class="w"> </span><span class="nv">role</span><span class="o">=</span>acme-my-project-rw-users
 </code></pre></div>
 <h2 id="related">Related<a class="headerlink" href="#related" title="Permanent link">#</a></h2>
 <ul>

@@ -82,7 +82,9 @@
   {
     "version": "docs-sa9087-vault-project-access",
     "title": "docs-sa9087-vault-project-access",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "docs-sa8938-vm-ssh-port",
@@ -92,9 +94,7 @@
   {
     "version": "docs-sa8748-cluster-access-roles",
     "title": "docs-sa8748-cluster-access-roles",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "docs-networking-mode-not-self-service",

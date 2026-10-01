@@ -80,13 +80,6 @@
     "aliases": []
   },
   {
-    "version": "docs-sa9087-vault-project-access",
-    "title": "docs-sa9087-vault-project-access",
-    "aliases": [
-      "latest"
-    ]
-  },
-  {
     "version": "docs-sa8938-vm-ssh-port",
     "title": "docs-sa8938-vm-ssh-port",
     "aliases": []

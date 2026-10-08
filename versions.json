@@ -12,9 +12,7 @@
   {
     "version": "renovate-main-playwright-monorepo",
     "title": "renovate-main-playwright-monorepo",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "renovate-main-node-24.x-lockfile",
@@ -74,7 +72,9 @@
   {
     "version": "docs-windows-vm-rdp",
     "title": "docs-windows-vm-rdp",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "docs-scobasic-org-onboarding",

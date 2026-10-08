@@ -6167,6 +6167,31 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <td><code>string</code></td>
 <td>Base64-encoded kubeconfig for the project</td>
 </tr>
+<tr>
+<td><code>status.openbao.available</code></td>
+<td><code>boolean</code></td>
+<td>Whether your organisation's Vault is available to this project</td>
+</tr>
+<tr>
+<td><code>status.openbao.address</code></td>
+<td><code>string</code></td>
+<td>Vault address to sign in to</td>
+</tr>
+<tr>
+<td><code>status.openbao.secretPath</code></td>
+<td><code>string</code></td>
+<td>The project's folder in the Vault, e.g. <code>stakater/projects/&lt;organisation&gt;-&lt;project&gt;/</code></td>
+</tr>
+<tr>
+<td><code>status.openbao.roles</code></td>
+<td><code>string[]</code></td>
+<td>Vault roles to sign in with, derived from <code>access</code> — see <a href="vault.html#project-access">Vault: Project access</a></td>
+</tr>
+<tr>
+<td><code>status.openbao.message</code></td>
+<td><code>string</code></td>
+<td>Human-readable Vault access state</td>
+</tr>
 </tbody>
 </table>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">#</a></h2>

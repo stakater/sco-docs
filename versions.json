@@ -72,9 +72,7 @@
   {
     "version": "docs-windows-vm-rdp",
     "title": "docs-windows-vm-rdp",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "docs-scobasic-org-onboarding",
@@ -109,7 +107,9 @@
   {
     "version": "docs-console-field-order",
     "title": "docs-console-field-order",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "architecture",

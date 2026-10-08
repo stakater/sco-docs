@@ -178,4 +178,5 @@ Common instance types (contact your administrator for the full list):
 
 - [Create a Project](create-project.md) - Create the project where VMs are deployed
 - [Create an IAM User](create-iam-user.md) - Add users who need VM access
+- [Provision a Windows Virtual Machine](provision-windows-virtual-machine.md) - Provision a Windows VM and connect with Remote Desktop
 - [Provision an OpenShift Cluster](provision-openshift-cluster.md) - Provision an OpenShift cluster

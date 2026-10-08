@@ -53,6 +53,7 @@ nav:
           - how-to-guides/user/create-iam-group.md
           - how-to-guides/user/provision-openshift-cluster.md
           - how-to-guides/user/provision-virtual-machine.md
+          - how-to-guides/user/provision-windows-virtual-machine.md
           - how-to-guides/user/create-s3-bucket.md
           - how-to-guides/user/create-postgres.md
           - how-to-guides/user/create-vault.md

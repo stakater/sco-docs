@@ -6171,7 +6171,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <li>A <a href="create-mesh.html">Mesh</a> in your organisation, already Ready, with your laptop <a href="create-mesh.html#step-5-enrol-a-device">enrolled</a></li>
 <li><code>kubectl</code> configured with your project kubeconfig</li>
 <li>A Windows installation ISO that you are licensed to use, reachable over HTTP(S) — for example a Windows Server evaluation ISO</li>
-<li>An RDP client (Windows App, Remmina, <code>xfreerdp</code>, or the built-in Remote Desktop Connection)</li>
+<li>An RDP client (Windows App, <code>xfreerdp</code>, or the built-in Remote Desktop Connection)</li>
 <li>A <a href="create-vault.html">Vault</a> in your organisation, if you want the platform to generate and store the Administrator password (see <a href="#step-3-define-a-windowsvirtualmachine-claim">Step 3</a>)</li>
 </ul>
 <h2 id="what-gets-created">What Gets Created<a class="headerlink" href="#what-gets-created" title="Permanent link">#</a></h2>
@@ -6246,7 +6246,7 @@ kubectl<span class="w"> </span>get<span class="w"> </span>virtualmachinevolume<s
 </code></pre></div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Microsoft's installation ISOs normally show <em>"Press any key to boot from CD or DVD…"</em> for a few seconds. A VM nobody is watching times out of that prompt and sits at an idle firmware screen even though the claim reports <code>Running</code>. For a hands-off install, use media that has the prompt removed. If you use an unmodified ISO, open the VM console as soon as the VM starts and press a key (see <a href="#troubleshooting">Troubleshooting</a>).</p>
+<p>Microsoft's installation media normally show <em>"Press any key to boot from CD or DVD…"</em> for a few seconds. A VM nobody is watching times out of that prompt and sits at an idle firmware screen even though the claim reports <code>Running</code>. For a hands-off install, use media that has the prompt removed. If you use an unmodified ISO, open the VM console as soon as the VM starts and press a key (see <a href="#troubleshooting">Troubleshooting</a>).</p>
 </div>
 <h2 id="step-3-define-a-windowsvirtualmachine-claim">Step 3: Define a WindowsVirtualMachine Claim<a class="headerlink" href="#step-3-define-a-windowsvirtualmachine-claim" title="Permanent link">#</a></h2>
 <p>Create a file named <code>windows-vm.yaml</code>:</p>
@@ -6348,7 +6348,7 @@ kubectl<span class="w"> </span>get<span class="w"> </span>virtualmachinevolume<s
 <ul>
 <li>Installs <strong>Standard (Desktop Experience)</strong></li>
 <li>Enables <strong>Remote Desktop</strong> with Network Level Authentication, and opens its firewall rule</li>
-<li>Installs the <strong>virtio guest drivers and guest agent</strong> (the VM's network adapter needs them)</li>
+<li>Installs the <strong><code>virtio</code> guest drivers and guest agent</strong> (the VM's network adapter needs them)</li>
 <li>Sets a <strong>random password</strong> for the local <code>Administrator</code> account</li>
 </ul>
 <p>When your organisation has a Vault, the password is stored there and the claim tells you where (Step 6). Without a Vault the VM still installs, but nobody is given the password — in that case supply your own answer file.</p>

@@ -62,6 +62,7 @@ the `viewport:` block of every flow so all captures come out the same size.
 | `iam` | `create-iam-user.md`, `create-iam-group.md` | `iam-users-list`, `iam-user-create`, `iam-group-create`, `iam-group-create-members`, `iam-group-detail` |
 | `mesh` | `create-mesh.md` | `mesh-list`, `mesh-create`, `mesh-detail` |
 | `clusters` | `provision-openshift-cluster.md` | `cluster-create-standard`, `cluster-create-advanced` |
+| `windows-vm` | `provision-windows-virtual-machine.md` | `windows-vm-create`, `windows-vm-list`, `windows-vm-detail` |
 
 `dashboard-org-stats` and `create-form-standard` are each referenced by two pages.
 

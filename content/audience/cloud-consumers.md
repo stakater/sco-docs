@@ -16,6 +16,7 @@ Use this path if you need to create projects, manage organisation users and grou
 - [Create an IAM User](../how-to-guides/user/create-iam-user.md) - Add an organisation user
 - [Create an IAM Group](../how-to-guides/user/create-iam-group.md) - Manage role-based access with organisation groups
 - [Provision a Virtual Machine](../how-to-guides/user/provision-virtual-machine.md) - Request compute capacity
+- [Provision a Windows Virtual Machine](../how-to-guides/user/provision-windows-virtual-machine.md) - Request a Windows VM and connect with Remote Desktop
 - [Provision an OpenShift Cluster](../how-to-guides/user/provision-openshift-cluster.md) - Request a managed cluster
 
 ## Access Methods

@@ -1,0 +1,67 @@
+# how-to-guides/user/provision-windows-virtual-machine.md -> 3 images.
+#
+# Read-only: the create form is opened, never submitted, so a capture run can never
+# provision a Windows machine (they are large, slow to install and licensed).
+#
+# The list and detail shots need a WindowsVirtualMachine that already exists in
+# CONSOLE_ORG, named DOCS_WINDOWS_VM_NAME. Seed it through the console, not from here --
+# see "What the environment needs" in screenshots/README.md.
+name: sco-docs-windows-vm
+
+requires:
+  env:
+    - CONSOLE_URL
+    - CONSOLE_ORG
+    - CONSOLE_USER
+    - CONSOLE_PASSWORD
+    - DOCS_WINDOWS_VM_SIDEBAR_GROUP
+    - DOCS_WINDOWS_VM_PLURAL
+    - DOCS_WINDOWS_VM_NAME
+  reachable: ["${CONSOLE_URL}"]
+
+viewport:
+  width: 1280
+  height: 800
+  deviceScaleFactor: 2
+  colorScheme: light
+
+steps:
+  - use: cloud-orchestrator-console-login
+    with:
+      portal: "${CONSOLE_URL}"
+      org: "${CONSOLE_ORG}"
+      username: "${CONSOLE_USER}"
+      password: "${CONSOLE_PASSWORD}"
+
+  # Step 3, "Define a WindowsVirtualMachine Claim" -- the console form is the same claim
+  # in the other medium: Windows release, size, storage, connection, mesh route and
+  # installation source. Taken first, in Standard mode, before anything else touches the
+  # complexity toggle.
+  - use: cloud-orchestrator-console-open-resource-create
+    with:
+      portal: "${CONSOLE_URL}"
+      plural: "${DOCS_WINDOWS_VM_PLURAL}"
+  - { step: screenshot, path: windows-vm-create.png, fullPage: false }
+
+  # Step 5, "Wait for the Installation" -- the list is where status moves from
+  # Provisioning to Running. Needs at least one row, or the flow fails on the empty state.
+  - use: cloud-orchestrator-console-open-resource-list
+    with:
+      portal: "${CONSOLE_URL}"
+      plural: "${DOCS_WINDOWS_VM_PLURAL}"
+  - use: cloud-orchestrator-console-expand-sidebar-group
+    with:
+      group: "${DOCS_WINDOWS_VM_SIDEBAR_GROUP}"
+  - { step: screenshot, path: windows-vm-list.png, fullPage: false }
+
+  # Step 7, "Connect with Remote Desktop" -- the detail page's summary strip carries the
+  # Internal IP the guide tells the reader to connect to. Needs the seeded VM.
+  - use: cloud-orchestrator-console-open-resource-detail
+    with:
+      portal: "${CONSOLE_URL}"
+      plural: "${DOCS_WINDOWS_VM_PLURAL}"
+      name: "${DOCS_WINDOWS_VM_NAME}"
+  - { step: screenshot, path: windows-vm-detail.png, fullPage: false }
+
+after:
+  - { step: screenshot, when: on-failure, path: _failure-windows-vm.png }

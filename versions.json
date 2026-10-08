@@ -72,6 +72,11 @@
     "aliases": []
   },
   {
+    "version": "docs-windows-vm-rdp",
+    "title": "docs-windows-vm-rdp",
+    "aliases": []
+  },
+  {
     "version": "docs-scobasic-org-onboarding",
     "title": "docs-scobasic-org-onboarding",
     "aliases": []

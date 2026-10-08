@@ -95,6 +95,10 @@ spec:
       name: win2k25-media
 ```
 
+You can also create the VM from the SCO console: open **Windows Virtual Machines** in the sidebar, choose **Create**, and fill in the same fields.
+
+![The Create Windows Virtual Machine form in Standard mode]({{ screenshot: windows-vm-create }})
+
 To download the ISO for this VM alone instead of using a shared volume, replace `installationSource` with:
 
 ```yaml
@@ -151,6 +155,10 @@ NAME             SYNCED   READY   AGE
 my-windows-vm    True     True    9m
 ```
 
+In the console, the Windows Virtual Machines list shows the same status:
+
+![The Windows Virtual Machines list with status and a Create button]({{ screenshot: windows-vm-list }})
+
 `READY: True` and a `Running` VM status mean only that the virtual machine has *started* — not that Windows has finished installing. Watch the disks and the guest address instead:
 
 ```bash
@@ -198,6 +206,10 @@ If `delivered` is `false`, the `message` field says why — most often, the orga
     ```bash
     kubectl get windowsvirtualmachine my-windows-vm -o jsonpath='{.status.vm.internalIP}'
     ```
+
+    The same address appears as **Internal IP** on the VM's detail page in the console:
+
+    ![A Windows Virtual Machine detail page, showing the Internal IP to connect to]({{ screenshot: windows-vm-detail }})
 
 1. Check that the RDP port is reachable:
 

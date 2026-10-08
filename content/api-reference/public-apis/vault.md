@@ -31,13 +31,55 @@ All parameters are nested under `spec.parameters`.
 
 ## Authentication
 
-The Vault uses your organisation's single sign-on — there is no static root token to manage. To log in as an operator with the OpenBao or Vault CLI:
+The Vault uses your organisation's single sign-on — there is no static root token to manage. You sign in as your **organisation user**, and you pick a **role** that decides what you can reach. Signing in without a role succeeds but grants nothing.
+
+### Project access
+
+Every project gets its own folder in the organisation's Vault, and the project's [`access`](./project.md#access) entries decide who can use it:
+
+| Project `access` role | Vault access to the project folder |
+|---|---|
+| `cluster-admin`, `admin`, `edit`, `platform-services-admin`, `secrets-user` | Read and write |
+| `view`, `platform-services-view`, `secrets-viewer` | Read only |
+
+Other roles grant no Vault access. The role you sign in with depends on how you were granted access:
+
+| Granted through | Read and write | Read only |
+|---|---|---|
+| an organisation group in `access[].groups` | `<organisation>-<project>-rw` | `<organisation>-<project>-ro` |
+| your user in `access[].users` | `<organisation>-<project>-rw-users` | `<organisation>-<project>-ro-users` |
+
+The project status lists the roles that apply to it, the Vault address and the folder:
 
 ```sh
-bao login -method=oidc
+kubectl get project my-project -o jsonpath='{.status.openbao}'
 ```
 
-This opens your browser, completes login against your organisation's identity provider, and writes a token to the local CLI. Access is scoped by group membership.
+```json
+{"available":true,"address":"https://bao-acme.apps.example.com","secretPath":"stakater/projects/acme-my-project/","roles":["acme-my-project-rw-users"],"message":"Log in to your organization's OpenBao with OIDC and one of the listed roles"}
+```
+
+**Web UI:** open the address, choose method **OIDC**, enter the role in **Role**, and sign in. Browse `stakater` → `projects/` → your project. You can see the other projects' folder names in the list, but not open them.
+
+**CLI:**
+
+```sh
+export BAO_ADDR=https://bao-acme.apps.example.com
+bao login -method=oidc role=acme-my-project-rw-users
+bao kv put -mount=stakater projects/acme-my-project/app/config user=app password=s3cret
+bao kv get -mount=stakater projects/acme-my-project/app/config
+```
+
+Changes to a project's `access` apply to new sign-ins: removing a user or group revokes their role.
+
+### What the platform keeps in your project folder
+
+| Path (under `stakater/projects/<organisation>-<project>/`) | Written by | Contents |
+|---|---|---|
+| `vms/<vm>` | the platform | `username` and `password` of the local Administrator it generates for a Windows virtual machine installed without an answer file of your own |
+| any path you choose | you | answer files a Windows virtual machine reads through `sysprep.secretPath` (property `autounattend.xml`), and credentials a virtual machine backup reads through `credentials.secretPath` |
+
+A path you give a claim is always **relative to your project folder**: `win/standard` means `stakater/projects/<organisation>-<project>/win/standard`. A claim cannot name a path outside it.
 
 ## Access over the Mesh
 
@@ -51,7 +93,7 @@ From an enrolled laptop:
 
 ```sh
 export BAO_ADDR=$(kubectl get vault my-vault -o jsonpath='{.status.endpoint.meshAddress}')
-bao login -method=oidc
+bao login -method=oidc role=<organisation>-<project>-rw-users
 ```
 
 ## Examples
@@ -87,5 +129,6 @@ spec:
 
 ## Related
 
+- [Project](./project.md) — its `access` entries grant Vault access to the project folder (see [Project access](#project-access)).
 - [Mesh](./mesh.md) — provisions your organisation's private VPN mesh. With a Mesh present, this Vault is published to Mesh peers automatically (see [Access over the Mesh](#access-over-the-mesh)).
 - [MeshRouter](./mesh-router.md) — expose your **own** in-cluster services to Mesh peers the same way the platform exposes this Vault.

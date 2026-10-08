@@ -11,7 +11,7 @@ Emma, a developer at ACME Corp, needs a Windows Server machine to test a legacy 
 - A [Mesh](create-mesh.md) in your organisation, already Ready, with your laptop [enrolled](create-mesh.md#step-5-enrol-a-device)
 - `kubectl` configured with your project kubeconfig
 - A Windows installation ISO that you are licensed to use, reachable over HTTP(S) — for example a Windows Server evaluation ISO
-- An RDP client (Windows App, Remmina, `xfreerdp`, or the built-in Remote Desktop Connection)
+- An RDP client (Windows App, `xfreerdp`, or the built-in Remote Desktop Connection)
 - A [Vault](create-vault.md) in your organisation, if you want the platform to generate and store the Administrator password (see [Step 3](#step-3-define-a-windowsvirtualmachine-claim))
 
 ## What Gets Created
@@ -71,7 +71,7 @@ kubectl get virtualmachinevolume win2k25-media
 ```
 
 !!! warning
-    Microsoft's installation ISOs normally show *"Press any key to boot from CD or DVD…"* for a few seconds. A VM nobody is watching times out of that prompt and sits at an idle firmware screen even though the claim reports `Running`. For a hands-off install, use media that has the prompt removed. If you use an unmodified ISO, open the VM console as soon as the VM starts and press a key (see [Troubleshooting](#troubleshooting)).
+    Microsoft's installation media normally show *"Press any key to boot from CD or DVD…"* for a few seconds. A VM nobody is watching times out of that prompt and sits at an idle firmware screen even though the claim reports `Running`. For a hands-off install, use media that has the prompt removed. If you use an unmodified ISO, open the VM console as soon as the VM starts and press a key (see [Troubleshooting](#troubleshooting)).
 
 ## Step 3: Define a WindowsVirtualMachine Claim
 
@@ -129,7 +129,7 @@ If you attach installation media and do not supply a `sysprep` of your own, the 
 
 - Installs **Standard (Desktop Experience)**
 - Enables **Remote Desktop** with Network Level Authentication, and opens its firewall rule
-- Installs the **virtio guest drivers and guest agent** (the VM's network adapter needs them)
+- Installs the **`virtio` guest drivers and guest agent** (the VM's network adapter needs them)
 - Sets a **random password** for the local `Administrator` account
 
 When your organisation has a Vault, the password is stored there and the claim tells you where (Step 6). Without a Vault the VM still installs, but nobody is given the password — in that case supply your own answer file.
@@ -159,8 +159,8 @@ kubectl get windowsvirtualmachine my-windows-vm \
 ```
 
 1. The ISO downloads first (the data volume phase moves through `ImportInProgress` to `Succeeded`).
-2. The VM boots the installer and installs Windows. Allow roughly **10–15 minutes** on `o1.small` or larger.
-3. When Windows has installed the guest tools and reports its address, `status.vm.internalIP` is populated. That is the address you connect to.
+1. The VM boots the installer and installs Windows. Allow roughly **10–15 minutes** on `o1.small` or larger.
+1. When Windows has installed the guest tools and reports its address, `status.vm.internalIP` is populated. That is the address you connect to.
 
 !!! note
     `status.vm.internalIP` stays empty until the guest reports an address, and it is never set when `meshRoute.enabled` is `false`. An empty value after 20 minutes means Windows has not finished installing — see [Troubleshooting](#troubleshooting).
@@ -193,19 +193,19 @@ If `delivered` is `false`, the `message` field says why — most often, the orga
     netbird status
     ```
 
-2. Get the VM's address:
+1. Get the VM's address:
 
     ```bash
     kubectl get windowsvirtualmachine my-windows-vm -o jsonpath='{.status.vm.internalIP}'
     ```
 
-3. Check that the RDP port is reachable:
+1. Check that the RDP port is reachable:
 
     ```bash
     nc -vz <internal-ip> 3389
     ```
 
-4. Open your RDP client, connect to `<internal-ip>`, and sign in as `Administrator` with the password from Step 6.
+1. Open your RDP client, connect to `<internal-ip>`, and sign in as `Administrator` with the password from Step 6.
 
 !!! note
     Don't use `ping` to test the connection. Windows Firewall blocks ping by default, so it times out even when RDP works. Test port 3389 instead.

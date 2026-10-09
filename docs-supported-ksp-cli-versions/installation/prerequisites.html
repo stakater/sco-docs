@@ -3593,23 +3593,6 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="KubeStack+ CLI (ksp)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#supported-cli-versions" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Supported CLI versions
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
         
           <li class="md-nav__item">
@@ -5972,23 +5955,6 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="KubeStack+ CLI (ksp)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#supported-cli-versions" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Supported CLI versions
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
         
           <li class="md-nav__item">
@@ -6167,36 +6133,10 @@ considerably smaller):</p>
 <p>The only things you provide up front are a base cluster with enough capacity (see above), wildcard DNS/TLS, and the <code>ksp</code> CLI plus registry credentials. <code>ksp up</code> installs and wires everything else.</p>
 <h2 id="tool-requirements">Tool Requirements<a class="headerlink" href="#tool-requirements" title="Permanent link">#</a></h2>
 <h3 id="kubestack-cli-ksp">KubeStack+ CLI (<code>ksp</code>)<a class="headerlink" href="#kubestack-cli-ksp" title="Permanent link">#</a></h3>
-<p>Stakater provides the <code>ksp</code> CLI release archives when you engage — request them
-from <code>sales@stakater.com</code> (see <a href="#registry-access">Registry Access</a> below). Builds
-are available for <strong>Linux x86_64</strong>, <strong>macOS arm64</strong> (Apple Silicon), and
-<strong>Windows x86_64</strong>.</p>
-<p>On Linux x86_64 you can also copy the binary out of the public CLI image, without
-waiting for the archive:</p>
-<div class="highlight"><pre><span></span><code>podman<span class="w"> </span>create<span class="w"> </span>--name<span class="w"> </span>ksp<span class="w"> </span>ghcr.io/stakater/kubestackplus-cli:v2.8.1
-podman<span class="w"> </span>cp<span class="w"> </span>ksp:/usr/local/bin/ksp<span class="w"> </span>./ksp
-podman<span class="w"> </span>rm<span class="w"> </span>ksp
-sudo<span class="w"> </span>mv<span class="w"> </span>./ksp<span class="w"> </span>/usr/local/bin/ksp
-</code></pre></div>
-<p>Once you have the release archive for your platform, extract the <code>ksp</code> binary and put
-it on your <code>PATH</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># Linux (x86_64)</span>
-tar<span class="w"> </span>-xzf<span class="w"> </span>ksp_linux_x86_64.tar.gz
-sudo<span class="w"> </span>mv<span class="w"> </span>ksp_linux_x86_64/bin/linux_amd64/ksp<span class="w"> </span>/usr/local/bin/ksp
-
-<span class="c1"># macOS (Apple Silicon)</span>
-tar<span class="w"> </span>-xzf<span class="w"> </span>ksp_darwin_arm64.tar.gz
-sudo<span class="w"> </span>mv<span class="w"> </span>ksp_darwin_arm64/bin/darwin_arm64/ksp<span class="w"> </span>/usr/local/bin/ksp
-xattr<span class="w"> </span>-d<span class="w"> </span>com.apple.quarantine<span class="w"> </span>/usr/local/bin/ksp<span class="w">   </span><span class="c1"># clear the Gatekeeper quarantine flag</span>
-
-<span class="c1"># Verify</span>
-ksp<span class="w"> </span>version
-</code></pre></div>
-<p>On Windows, extract the <code>ksp_windows_x86_64.zip</code> archive and add the folder containing
-<code>ksp.exe</code> to your <code>PATH</code>.</p>
-<h4 id="supported-cli-versions">Supported CLI versions<a class="headerlink" href="#supported-cli-versions" title="Permanent link">#</a></h4>
+<p>The <code>ksp</code> CLI is publicly downloadable. Builds are available for <strong>Linux x86_64</strong>,
+<strong>macOS arm64</strong> (Apple Silicon), and <strong>Windows x86_64</strong>.</p>
 <p>Each <code>ksp</code> release installs one specific platform release, and only some of those are
-available from the customer distribution registry. Use a supported version:</p>
+available from the customer distribution registry, so use a supported version:</p>
 <table>
 <thead>
 <tr>
@@ -6215,12 +6155,38 @@ available from the customer distribution registry. Use a supported version:</p>
 </tr>
 <tr>
 <td>v2.5.0 and earlier</td>
-<td>Install an older platform release. Use v2.8.1 for new installs</td>
+<td>Install an older platform release. Use the recommended version for new installs</td>
 </tr>
 </tbody>
 </table>
 <p>A newer <code>ksp</code> is not automatically supported: check this table, or ask Stakater, before
 you upgrade the CLI.</p>
+<p>Set <code>KSP_VERSION</code> to the recommended version from the table, then download the archive
+for your platform, verify it, and put <code>ksp</code> on your <code>PATH</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="nv">KSP_VERSION</span><span class="o">=</span>&lt;recommended<span class="w"> </span>version<span class="w"> </span>from<span class="w"> </span>the<span class="w"> </span>table&gt;<span class="w">   </span><span class="c1"># for example v2.8.1</span>
+<span class="nv">BASE</span><span class="o">=</span>https://kubestackspluscli.blob.core.windows.net/releases/<span class="nv">$KSP_VERSION</span>
+curl<span class="w"> </span>-fLO<span class="w"> </span><span class="s2">"</span><span class="nv">$BASE</span><span class="s2">/kubestackplus-cli_</span><span class="si">${</span><span class="nv">KSP_VERSION</span><span class="p">#v</span><span class="si">}</span><span class="s2">_checksums.txt"</span>
+
+<span class="c1"># Linux (x86_64)</span>
+curl<span class="w"> </span>-fLO<span class="w"> </span><span class="s2">"</span><span class="nv">$BASE</span><span class="s2">/ksp_linux_x86_64.tar.gz"</span>
+sha256sum<span class="w"> </span>--ignore-missing<span class="w"> </span>-c<span class="w"> </span><span class="s2">"kubestackplus-cli_</span><span class="si">${</span><span class="nv">KSP_VERSION</span><span class="p">#v</span><span class="si">}</span><span class="s2">_checksums.txt"</span>
+tar<span class="w"> </span>-xzf<span class="w"> </span>ksp_linux_x86_64.tar.gz
+sudo<span class="w"> </span>mv<span class="w"> </span>bin/linux_amd64/ksp<span class="w"> </span>/usr/local/bin/ksp
+
+<span class="c1"># macOS (Apple Silicon)</span>
+curl<span class="w"> </span>-fLO<span class="w"> </span><span class="s2">"</span><span class="nv">$BASE</span><span class="s2">/ksp_darwin_arm64.tar.gz"</span>
+shasum<span class="w"> </span>-a<span class="w"> </span><span class="m">256</span><span class="w"> </span>--ignore-missing<span class="w"> </span>-c<span class="w"> </span><span class="s2">"kubestackplus-cli_</span><span class="si">${</span><span class="nv">KSP_VERSION</span><span class="p">#v</span><span class="si">}</span><span class="s2">_checksums.txt"</span>
+tar<span class="w"> </span>-xzf<span class="w"> </span>ksp_darwin_arm64.tar.gz
+sudo<span class="w"> </span>mv<span class="w"> </span>bin/darwin_arm64/ksp<span class="w"> </span>/usr/local/bin/ksp
+xattr<span class="w"> </span>-d<span class="w"> </span>com.apple.quarantine<span class="w"> </span>/usr/local/bin/ksp<span class="w">   </span><span class="c1"># clear the Gatekeeper quarantine flag</span>
+
+<span class="c1"># Verify</span>
+ksp<span class="w"> </span>version
+</code></pre></div>
+<p>On Windows, download <code>$BASE/ksp_windows_x86_64.zip</code>, extract it, and add the
+<code>bin\windows_amd64</code> folder containing <code>ksp.exe</code> to your <code>PATH</code>.</p>
+<p>The same Linux binary is also published as a container image,
+<code>ghcr.io/stakater/kubestackplus-cli:&lt;version&gt;</code>, with <code>ksp</code> at <code>/usr/local/bin/ksp</code>.</p>
 <h3 id="oc-kubectl">oc / kubectl<a class="headerlink" href="#oc-kubectl" title="Permanent link">#</a></h3>
 <div class="highlight"><pre><span></span><code><span class="c1"># Verify oc is installed and authenticated</span>
 oc<span class="w"> </span>version

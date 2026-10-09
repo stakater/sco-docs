@@ -81,6 +81,8 @@ spec:
 
 Each entry in `access` specifies a `role` and lists `users` or `groups` to bind to that role within the project.
 
+The same entries also grant access to the project's folder in your organisation's Vault: `cluster-admin`, `admin` and `edit` can read and write it, `view` can read it. The Vault roles to sign in with appear in `status.openbao.roles`; see [Vault: Project access](../../api-reference/public-apis/vault.md#project-access).
+
 ## Step 3: Apply the Claim
 
 ```bash

@@ -62,14 +62,11 @@ On Linux x86_64 you can also copy the binary out of the public CLI image, withou
 waiting for the archive:
 
 ```bash
-podman create --name ksp ghcr.io/stakater/kubestackplus-cli:<version>
+podman create --name ksp ghcr.io/stakater/kubestackplus-cli:v2.8.1
 podman cp ksp:/usr/local/bin/ksp ./ksp
 podman rm ksp
 sudo mv ./ksp /usr/local/bin/ksp
 ```
-
-Use the CLI version Stakater gives you. The CLI decides which platform version it
-installs, so a newer CLI is not automatically a supported one.
 
 Once you have the release archive for your platform, extract the `ksp` binary and put
 it on your `PATH`:
@@ -90,6 +87,20 @@ ksp version
 
 On Windows, extract the `ksp_windows_x86_64.zip` archive and add the folder containing
 `ksp.exe` to your `PATH`.
+
+#### Supported CLI versions
+
+Each `ksp` release installs one specific platform release, and only some of those are
+available from the customer distribution registry. Use a supported version:
+
+| `ksp` version | Customer install |
+|---|---|
+| **v2.8.1** (recommended), v2.8.0, v2.7.1 | Supported for the brownfield (`scobasic`) variant |
+| v2.6.0, v2.7.0 | **Not supported** — the platform release they install is not in the distribution registry, and `ksp up` fails partway through |
+| v2.5.0 and earlier | Install an older platform release. Use v2.8.1 for new installs |
+
+A newer `ksp` is not automatically supported: check this table, or ask Stakater, before
+you upgrade the CLI.
 
 ### oc / kubectl
 

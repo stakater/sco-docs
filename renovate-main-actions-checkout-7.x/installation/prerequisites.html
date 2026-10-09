@@ -18,7 +18,7 @@
       
       
       <link rel="icon" href="../assets/images/favicon.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.7.7">
     
     
       
@@ -733,10 +733,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
                     <div class="dropdown-content-column">
                         <h3 class="dropdown-content-column-title">Products</h3>
                         <div class="dropdown-content-anchor-container">
-                            <a href="https://www.stakater.com/saap-kubernetes-openshift" class="dropdown-item-link-text hover-underline">Stakater
-                                App
-                                Agility
-                                Platform (SAAP)</a>
+                            <a href="https://docs.stakater.com/kubestackplus/" class="dropdown-item-link-text hover-underline">KubeStack+</a>
                         </div>
                         <div class="dropdown-content-anchor-container">
                             <a href="https://www.stakater.com/mto" class="dropdown-item-link-text hover-underline">Multi
@@ -1549,10 +1546,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
                     <div class="dropdown-content-column">
                         <h3 class="dropdown-content-column-title">Products</h3>
                         <div class="dropdown-content-anchor-container">
-                            <a href="https://www.stakater.com/saap-kubernetes-openshift" class="dropdown-item-link-text hover-underline">Stakater
-                                App
-                                Agility
-                                Platform (SAAP)</a>
+                            <a href="https://docs.stakater.com/kubestackplus/" class="dropdown-item-link-text hover-underline">KubeStack+</a>
                         </div>
                         <div class="dropdown-content-anchor-container">
                             <a href="https://www.stakater.com/mto" class="dropdown-item-link-text hover-underline">Multi
@@ -6139,26 +6133,60 @@ considerably smaller):</p>
 <p>The only things you provide up front are a base cluster with enough capacity (see above), wildcard DNS/TLS, and the <code>ksp</code> CLI plus registry credentials. <code>ksp up</code> installs and wires everything else.</p>
 <h2 id="tool-requirements">Tool Requirements<a class="headerlink" href="#tool-requirements" title="Permanent link">#</a></h2>
 <h3 id="kubestack-cli-ksp">KubeStack+ CLI (<code>ksp</code>)<a class="headerlink" href="#kubestack-cli-ksp" title="Permanent link">#</a></h3>
-<p>Stakater provides the <code>ksp</code> CLI together with your registry credentials when you
-engage — request both from <code>sales@stakater.com</code> (see
-<a href="#registry-access">Registry Access</a> below). Builds are available for
-<strong>Linux x86_64</strong>, <strong>macOS arm64</strong> (Apple Silicon), and <strong>Windows x86_64</strong>.</p>
-<p>Once you have the release archive for your platform, extract the <code>ksp</code> binary and put
-it on your <code>PATH</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># Linux (x86_64)</span>
+<p>The <code>ksp</code> CLI is publicly downloadable. Builds are available for <strong>Linux x86_64</strong>,
+<strong>macOS arm64</strong> (Apple Silicon), and <strong>Windows x86_64</strong>.</p>
+<p>Each <code>ksp</code> release installs one specific platform release, and only some of those are
+available from the customer distribution registry, so use a supported version:</p>
+<table>
+<thead>
+<tr>
+<th><code>ksp</code> version</th>
+<th>Customer install</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>v2.8.1</strong> (recommended), v2.8.0, v2.7.1</td>
+<td>Supported for the brownfield (<code>scobasic</code>) variant</td>
+</tr>
+<tr>
+<td>v2.6.0, v2.7.0</td>
+<td><strong>Not supported</strong> — the platform release they install is not in the distribution registry, and <code>ksp up</code> fails partway through</td>
+</tr>
+<tr>
+<td>v2.5.0 and earlier</td>
+<td>Install an older platform release. Use the recommended version for new installs</td>
+</tr>
+</tbody>
+</table>
+<p>A newer <code>ksp</code> is not automatically supported: check this table, or ask Stakater, before
+you upgrade the CLI.</p>
+<p>Set <code>KSP_VERSION</code> to the recommended version from the table, then download the archive
+for your platform, verify it, and put <code>ksp</code> on your <code>PATH</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="nv">KSP_VERSION</span><span class="o">=</span>&lt;recommended<span class="w"> </span>version<span class="w"> </span>from<span class="w"> </span>the<span class="w"> </span>table&gt;<span class="w">   </span><span class="c1"># for example v2.8.1</span>
+<span class="nv">BASE</span><span class="o">=</span>https://kubestackspluscli.blob.core.windows.net/releases/<span class="nv">$KSP_VERSION</span>
+curl<span class="w"> </span>-fLO<span class="w"> </span><span class="s2">"</span><span class="nv">$BASE</span><span class="s2">/kubestackplus-cli_</span><span class="si">${</span><span class="nv">KSP_VERSION</span><span class="p">#v</span><span class="si">}</span><span class="s2">_checksums.txt"</span>
+
+<span class="c1"># Linux (x86_64)</span>
+curl<span class="w"> </span>-fLO<span class="w"> </span><span class="s2">"</span><span class="nv">$BASE</span><span class="s2">/ksp_linux_x86_64.tar.gz"</span>
+sha256sum<span class="w"> </span>--ignore-missing<span class="w"> </span>-c<span class="w"> </span><span class="s2">"kubestackplus-cli_</span><span class="si">${</span><span class="nv">KSP_VERSION</span><span class="p">#v</span><span class="si">}</span><span class="s2">_checksums.txt"</span>
 tar<span class="w"> </span>-xzf<span class="w"> </span>ksp_linux_x86_64.tar.gz
-sudo<span class="w"> </span>mv<span class="w"> </span>ksp_linux_x86_64/bin/linux_amd64/ksp<span class="w"> </span>/usr/local/bin/ksp
+sudo<span class="w"> </span>mv<span class="w"> </span>bin/linux_amd64/ksp<span class="w"> </span>/usr/local/bin/ksp
 
 <span class="c1"># macOS (Apple Silicon)</span>
+curl<span class="w"> </span>-fLO<span class="w"> </span><span class="s2">"</span><span class="nv">$BASE</span><span class="s2">/ksp_darwin_arm64.tar.gz"</span>
+shasum<span class="w"> </span>-a<span class="w"> </span><span class="m">256</span><span class="w"> </span>--ignore-missing<span class="w"> </span>-c<span class="w"> </span><span class="s2">"kubestackplus-cli_</span><span class="si">${</span><span class="nv">KSP_VERSION</span><span class="p">#v</span><span class="si">}</span><span class="s2">_checksums.txt"</span>
 tar<span class="w"> </span>-xzf<span class="w"> </span>ksp_darwin_arm64.tar.gz
-sudo<span class="w"> </span>mv<span class="w"> </span>ksp_darwin_arm64/bin/darwin_arm64/ksp<span class="w"> </span>/usr/local/bin/ksp
+sudo<span class="w"> </span>mv<span class="w"> </span>bin/darwin_arm64/ksp<span class="w"> </span>/usr/local/bin/ksp
 xattr<span class="w"> </span>-d<span class="w"> </span>com.apple.quarantine<span class="w"> </span>/usr/local/bin/ksp<span class="w">   </span><span class="c1"># clear the Gatekeeper quarantine flag</span>
 
 <span class="c1"># Verify</span>
 ksp<span class="w"> </span>version
 </code></pre></div>
-<p>On Windows, extract the <code>ksp_windows_x86_64.zip</code> archive and add the folder containing
-<code>ksp.exe</code> to your <code>PATH</code>.</p>
+<p>On Windows, download <code>$BASE/ksp_windows_x86_64.zip</code>, extract it, and add the
+<code>bin\windows_amd64</code> folder containing <code>ksp.exe</code> to your <code>PATH</code>.</p>
+<p>The same Linux binary is also published as a container image,
+<code>ghcr.io/stakater/kubestackplus-cli:&lt;version&gt;</code>, with <code>ksp</code> at <code>/usr/local/bin/ksp</code>.</p>
 <h3 id="oc-kubectl">oc / kubectl<a class="headerlink" href="#oc-kubectl" title="Permanent link">#</a></h3>
 <div class="highlight"><pre><span></span><code><span class="c1"># Verify oc is installed and authenticated</span>
 oc<span class="w"> </span>version
@@ -6172,10 +6200,19 @@ oc<span class="w"> </span>whoami
 </ul>
 <h2 id="registry-access">Registry Access<a class="headerlink" href="#registry-access" title="Permanent link">#</a></h2>
 <p>SCO platform components — packages, functions, Helm charts, and container images — are published to <strong>Stakater's customer distribution registry</strong> (<code>ghcr.io/stakater/registry</code>). It carries only released versions blessed for customer use. Installing SCO therefore <strong>requires Stakater registry credentials</strong>.</p>
-<div class="admonition important">
-<p class="admonition-title">Request your registry credentials</p>
-<p>Email <code>sales@stakater.com</code> to request access. You will receive a username and a token with read access to the distribution registry. You supply these to <code>ksp up</code> through a registry-secret file with <code>profile: distribution</code> set (<code>--registry-secret</code>) — see <a href="openshift.html">OpenShift Installation</a>.</p>
-</div>
+<p>Access is tied to a GitHub account. You log in with your <strong>own</strong> GitHub username and a token you create yourself — Stakater does not issue a shared username or password.</p>
+<ol>
+<li>Email <code>sales@stakater.com</code> (or your Stakater contact) to request access, and include the <strong>GitHub username</strong> that will pull the platform.</li>
+<li>Accept the GitHub invitation you receive. Pull access starts once it is accepted.</li>
+<li>On that GitHub account, create a <strong>classic</strong> personal access token with only the <code>read:packages</code> scope (<strong>Settings → Developer settings → Personal access tokens → Tokens (classic)</strong>). Fine-grained tokens do not work for this registry.</li>
+<li>
+<p>Check that it works before you install:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">echo</span><span class="w"> </span><span class="s2">"</span><span class="nv">$TOKEN</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>helm<span class="w"> </span>registry<span class="w"> </span>login<span class="w"> </span>ghcr.io<span class="w"> </span>-u<span class="w"> </span>&lt;your-github-username&gt;<span class="w"> </span>--password-stdin
+helm<span class="w"> </span>pull<span class="w"> </span>oci://ghcr.io/stakater/registry/charts/crossplane-package-ksp-system<span class="w"> </span>--version<span class="w"> </span>&lt;version&gt;
+</code></pre></div>
+</li>
+</ol>
+<p>You supply the username and token to <code>ksp up</code> through a registry-secret file with <code>profile: distribution</code> set (<code>--registry-secret</code>) — see <a href="openshift.html">OpenShift Installation</a>. The token is yours: rotate or revoke it on GitHub whenever you need to.</p>
 <p>The cluster also needs outbound connectivity to the public registries SCO depends on: docker.io, Quay.io, ghcr.io, and the Red Hat registry (for OpenShift platform components).</p>
 <h2 id="configuration-claim-files">Configuration Claim Files<a class="headerlink" href="#configuration-claim-files" title="Permanent link">#</a></h2>
 <p>Before running <code>ksp up</code> you need two claim files prepared:</p>
@@ -6192,7 +6229,7 @@ oc<span class="w"> </span>whoami
 <li>[ ] <code>oc</code> authenticated to the cluster</li>
 <li>[ ] Wildcard DNS configured</li>
 <li>[ ] Wildcard TLS certificate ready</li>
-<li>[ ] Stakater registry credentials obtained (from <code>sales@stakater.com</code>)</li>
+<li>[ ] Registry access granted to your GitHub account, and a <code>read:packages</code> token created</li>
 <li>[ ] <code>KubeStackConfig</code> claim file prepared</li>
 <li>[ ] <code>KubeStackPlus</code> claim file prepared</li>
 <li>[ ] Minimum compute and storage capacity available</li>
@@ -6548,9 +6585,8 @@ oc<span class="w"> </span>whoami
                         </b>
                     </p>
                     <div class="margin-bottom-16">
-                        <a href="https://www.stakater.com/saap-kubernetes-openshift" class="md-footer-col-link">
-                            Stakater App Agility <br>
-                            Platform (SAAP)
+                        <a href="https://docs.stakater.com/kubestackplus/" class="md-footer-col-link">
+                            KubeStack+
                         </a>
                     </div>
                     <div class="margin-bottom-16">

@@ -18,7 +18,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.7.7">
     
     
       
@@ -733,10 +733,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
                     <div class="dropdown-content-column">
                         <h3 class="dropdown-content-column-title">Products</h3>
                         <div class="dropdown-content-anchor-container">
-                            <a href="https://www.stakater.com/saap-kubernetes-openshift" class="dropdown-item-link-text hover-underline">Stakater
-                                App
-                                Agility
-                                Platform (SAAP)</a>
+                            <a href="https://docs.stakater.com/kubestackplus/" class="dropdown-item-link-text hover-underline">KubeStack+</a>
                         </div>
                         <div class="dropdown-content-anchor-container">
                             <a href="https://www.stakater.com/mto" class="dropdown-item-link-text hover-underline">Multi
@@ -1549,10 +1546,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
                     <div class="dropdown-content-column">
                         <h3 class="dropdown-content-column-title">Products</h3>
                         <div class="dropdown-content-anchor-container">
-                            <a href="https://www.stakater.com/saap-kubernetes-openshift" class="dropdown-item-link-text hover-underline">Stakater
-                                App
-                                Agility
-                                Platform (SAAP)</a>
+                            <a href="https://docs.stakater.com/kubestackplus/" class="dropdown-item-link-text hover-underline">KubeStack+</a>
                         </div>
                         <div class="dropdown-content-anchor-container">
                             <a href="https://www.stakater.com/mto" class="dropdown-item-link-text hover-underline">Multi
@@ -6095,6 +6089,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">developers</span>
 </code></pre></div>
 <p>Each entry in <code>access</code> specifies a <code>role</code> and lists <code>users</code> or <code>groups</code> to bind to that role within the project.</p>
+<p>The same entries also grant access to the project's folder in your organisation's Vault: <code>cluster-admin</code>, <code>admin</code> and <code>edit</code> can read and write it, <code>view</code> can read it. The Vault roles to sign in with appear in <code>status.openbao.roles</code>; see <a href="../../api-reference/public-apis/vault.html#project-access">Vault: Project access</a>.</p>
 <h2 id="step-3-apply-the-claim">Step 3: Apply the Claim<a class="headerlink" href="#step-3-apply-the-claim" title="Permanent link">#</a></h2>
 <div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>project.yaml
 </code></pre></div>
@@ -6487,9 +6482,8 @@ my-project   True    True     2m
                         </b>
                     </p>
                     <div class="margin-bottom-16">
-                        <a href="https://www.stakater.com/saap-kubernetes-openshift" class="md-footer-col-link">
-                            Stakater App Agility <br>
-                            Platform (SAAP)
+                        <a href="https://docs.stakater.com/kubestackplus/" class="md-footer-col-link">
+                            KubeStack+
                         </a>
                     </div>
                     <div class="margin-bottom-16">

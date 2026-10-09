@@ -75,13 +75,6 @@
     "aliases": []
   },
   {
-    "version": "docs-supported-ksp-cli-versions",
-    "title": "docs-supported-ksp-cli-versions",
-    "aliases": [
-      "latest"
-    ]
-  },
-  {
     "version": "docs-scobasic-org-onboarding",
     "title": "docs-scobasic-org-onboarding",
     "aliases": []

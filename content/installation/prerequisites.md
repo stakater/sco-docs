@@ -53,10 +53,23 @@ The only things you provide up front are a base cluster with enough capacity (se
 
 ### KubeStack+ CLI (`ksp`)
 
-Stakater provides the `ksp` CLI together with your registry credentials when you
-engage — request both from `sales@stakater.com` (see
-[Registry Access](#registry-access) below). Builds are available for
-**Linux x86_64**, **macOS arm64** (Apple Silicon), and **Windows x86_64**.
+Stakater provides the `ksp` CLI release archives when you engage — request them
+from `sales@stakater.com` (see [Registry Access](#registry-access) below). Builds
+are available for **Linux x86_64**, **macOS arm64** (Apple Silicon), and
+**Windows x86_64**.
+
+On Linux x86_64 you can also copy the binary out of the public CLI image, without
+waiting for the archive:
+
+```bash
+podman create --name ksp ghcr.io/stakater/kubestackplus-cli:<version>
+podman cp ksp:/usr/local/bin/ksp ./ksp
+podman rm ksp
+sudo mv ./ksp /usr/local/bin/ksp
+```
+
+Use the CLI version Stakater gives you. The CLI decides which platform version it
+installs, so a newer CLI is not automatically a supported one.
 
 Once you have the release archive for your platform, extract the `ksp` binary and put
 it on your `PATH`:
@@ -96,8 +109,19 @@ oc whoami
 
 SCO platform components — packages, functions, Helm charts, and container images — are published to **Stakater's customer distribution registry** (`ghcr.io/stakater/registry`). It carries only released versions blessed for customer use. Installing SCO therefore **requires Stakater registry credentials**.
 
-!!! important "Request your registry credentials"
-    Email `sales@stakater.com` to request access. You will receive a username and a token with read access to the distribution registry. You supply these to `ksp up` through a registry-secret file with `profile: distribution` set (`--registry-secret`) — see [OpenShift Installation](openshift.md).
+Access is tied to a GitHub account. You log in with your **own** GitHub username and a token you create yourself — Stakater does not issue a shared username or password.
+
+1. Email `sales@stakater.com` (or your Stakater contact) to request access, and include the **GitHub username** that will pull the platform.
+1. Accept the GitHub invitation you receive. Pull access starts once it is accepted.
+1. On that GitHub account, create a **classic** personal access token with only the `read:packages` scope (**Settings → Developer settings → Personal access tokens → Tokens (classic)**). Fine-grained tokens do not work for this registry.
+1. Check that it works before you install:
+
+    ```bash
+    echo "$TOKEN" | helm registry login ghcr.io -u <your-github-username> --password-stdin
+    helm pull oci://ghcr.io/stakater/registry/charts/crossplane-package-ksp-system --version <version>
+    ```
+
+You supply the username and token to `ksp up` through a registry-secret file with `profile: distribution` set (`--registry-secret`) — see [OpenShift Installation](openshift.md). The token is yours: rotate or revoke it on GitHub whenever you need to.
 
 The cluster also needs outbound connectivity to the public registries SCO depends on: docker.io, Quay.io, ghcr.io, and the Red Hat registry (for OpenShift platform components).
 
@@ -118,7 +142,7 @@ See [OpenShift Installation](openshift.md) for example claim files.
 - [ ] `oc` authenticated to the cluster
 - [ ] Wildcard DNS configured
 - [ ] Wildcard TLS certificate ready
-- [ ] Stakater registry credentials obtained (from `sales@stakater.com`)
+- [ ] Registry access granted to your GitHub account, and a `read:packages` token created
 - [ ] `KubeStackConfig` claim file prepared
 - [ ] `KubeStackPlus` claim file prepared
 - [ ] Minimum compute and storage capacity available

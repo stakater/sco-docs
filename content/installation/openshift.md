@@ -153,7 +153,7 @@ spec:
 
 ## Step 3: Prepare Registry Credentials
 
-SCO components are pulled from Stakater's customer distribution registry, so a registry-secret file is **required**. Use the username and token Stakater provided — request them from `sales@stakater.com` if you don't have them yet (see [Prerequisites](prerequisites.md#registry-access)).
+SCO components are pulled from Stakater's customer distribution registry, so a registry-secret file is **required**. Use your GitHub username and the `read:packages` token you created for it (see [Prerequisites](prerequisites.md#registry-access)).
 
 Create `registry-secret.yaml`:
 
@@ -161,8 +161,8 @@ Create `registry-secret.yaml`:
 registry:
   url: "ghcr.io"
   gitopsChartsUrl: "ghcr.io/stakater"
-  username: "<your-username>"
-  password: "<your-token>"     # use either password or token; token wins if both are set
+  username: "<your-github-username>"
+  password: "<your-read-packages-token>"     # use either password or token; token wins if both are set
   profile: distribution
 ```
 

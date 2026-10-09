@@ -95,13 +95,6 @@
     "aliases": []
   },
   {
-    "version": "docs-registry-access-own-pat",
-    "title": "docs-registry-access-own-pat",
-    "aliases": [
-      "latest"
-    ]
-  },
-  {
     "version": "docs-networking-mode-not-self-service",
     "title": "docs-networking-mode-not-self-service",
     "aliases": []

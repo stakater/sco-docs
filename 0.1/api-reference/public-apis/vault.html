@@ -18,7 +18,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.7.7">
     
     
       
@@ -732,10 +732,7 @@ This documentation is either for an old version, or for the unreleased 'main' ve
                     <div class="dropdown-content-column">
                         <h3 class="dropdown-content-column-title">Products</h3>
                         <div class="dropdown-content-anchor-container">
-                            <a href="https://www.stakater.com/saap-kubernetes-openshift" class="dropdown-item-link-text hover-underline">Stakater
-                                App
-                                Agility
-                                Platform (SAAP)</a>
+                            <a href="https://docs.stakater.com/kubestackplus/" class="dropdown-item-link-text hover-underline">KubeStack+</a>
                         </div>
                         <div class="dropdown-content-anchor-container">
                             <a href="https://www.stakater.com/mto" class="dropdown-item-link-text hover-underline">Multi
@@ -1548,10 +1545,7 @@ This documentation is either for an old version, or for the unreleased 'main' ve
                     <div class="dropdown-content-column">
                         <h3 class="dropdown-content-column-title">Products</h3>
                         <div class="dropdown-content-anchor-container">
-                            <a href="https://www.stakater.com/saap-kubernetes-openshift" class="dropdown-item-link-text hover-underline">Stakater
-                                App
-                                Agility
-                                Platform (SAAP)</a>
+                            <a href="https://docs.stakater.com/kubestackplus/" class="dropdown-item-link-text hover-underline">KubeStack+</a>
                         </div>
                         <div class="dropdown-content-anchor-container">
                             <a href="https://www.stakater.com/mto" class="dropdown-item-link-text hover-underline">Multi
@@ -5199,6 +5193,34 @@ This documentation is either for an old version, or for the unreleased 'main' ve
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Authentication">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#project-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Project access
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-the-platform-keeps-in-your-project-folder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What the platform keeps in your project folder
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -5937,6 +5959,34 @@ This documentation is either for an old version, or for the unreleased 'main' ve
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Authentication">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#project-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Project access
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-the-platform-keeps-in-your-project-folder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What the platform keeps in your project folder
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -6107,10 +6157,85 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 </tbody>
 </table>
 <h2 id="authentication">Authentication<a class="headerlink" href="#authentication" title="Permanent link">#</a></h2>
-<p>The Vault uses your organisation's single sign-on — there is no static root token to manage. To log in as an operator with the OpenBao or Vault CLI:</p>
-<div class="highlight"><pre><span></span><code>bao<span class="w"> </span>login<span class="w"> </span>-method<span class="o">=</span>oidc
+<p>The Vault uses your organisation's single sign-on — there is no static root token to manage. You sign in as your <strong>organisation user</strong>, and you pick a <strong>role</strong> that decides what you can reach. Signing in without a role succeeds but grants nothing.</p>
+<h3 id="project-access">Project access<a class="headerlink" href="#project-access" title="Permanent link">#</a></h3>
+<p>Every project gets its own folder in the organisation's Vault, and the project's <a href="project.html#access"><code>access</code></a> entries decide who can use it:</p>
+<table>
+<thead>
+<tr>
+<th>Project <code>access</code> role</th>
+<th>Vault access to the project folder</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>cluster-admin</code>, <code>admin</code>, <code>edit</code>, <code>platform-services-admin</code>, <code>secrets-user</code></td>
+<td>Read and write</td>
+</tr>
+<tr>
+<td><code>view</code>, <code>platform-services-view</code>, <code>secrets-viewer</code></td>
+<td>Read only</td>
+</tr>
+</tbody>
+</table>
+<p>Other roles grant no Vault access. The role you sign in with depends on how you were granted access:</p>
+<table>
+<thead>
+<tr>
+<th>Granted through</th>
+<th>Read and write</th>
+<th>Read only</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>an organisation group in <code>access[].groups</code></td>
+<td><code>&lt;organisation&gt;-&lt;project&gt;-rw</code></td>
+<td><code>&lt;organisation&gt;-&lt;project&gt;-ro</code></td>
+</tr>
+<tr>
+<td>your user in <code>access[].users</code></td>
+<td><code>&lt;organisation&gt;-&lt;project&gt;-rw-users</code></td>
+<td><code>&lt;organisation&gt;-&lt;project&gt;-ro-users</code></td>
+</tr>
+</tbody>
+</table>
+<p>The project status lists the roles that apply to it, the Vault address and the folder:</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>project<span class="w"> </span>my-project<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.status.openbao}'</span>
 </code></pre></div>
-<p>This opens your browser, completes login against your organisation's identity provider, and writes a token to the local CLI. Access is scoped by group membership.</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">"available"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="nt">"address"</span><span class="p">:</span><span class="s2">"https://bao-acme.apps.example.com"</span><span class="p">,</span><span class="nt">"secretPath"</span><span class="p">:</span><span class="s2">"stakater/projects/acme-my-project/"</span><span class="p">,</span><span class="nt">"roles"</span><span class="p">:[</span><span class="s2">"acme-my-project-rw-users"</span><span class="p">],</span><span class="nt">"message"</span><span class="p">:</span><span class="s2">"Log in to your organization's OpenBao with OIDC and one of the listed roles"</span><span class="p">}</span>
+</code></pre></div>
+<p><strong>Web UI:</strong> open the address, choose method <strong>OIDC</strong>, enter the role in <strong>Role</strong>, and sign in. Browse <code>stakater</code> → <code>projects/</code> → your project. You can see the other projects' folder names in the list, but not open them.</p>
+<p><strong>CLI:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">BAO_ADDR</span><span class="o">=</span>https://bao-acme.apps.example.com
+bao<span class="w"> </span>login<span class="w"> </span>-method<span class="o">=</span>oidc<span class="w"> </span><span class="nv">role</span><span class="o">=</span>acme-my-project-rw-users
+bao<span class="w"> </span>kv<span class="w"> </span>put<span class="w"> </span>-mount<span class="o">=</span>stakater<span class="w"> </span>projects/acme-my-project/app/config<span class="w"> </span><span class="nv">user</span><span class="o">=</span>app<span class="w"> </span><span class="nv">password</span><span class="o">=</span>s3cret
+bao<span class="w"> </span>kv<span class="w"> </span>get<span class="w"> </span>-mount<span class="o">=</span>stakater<span class="w"> </span>projects/acme-my-project/app/config
+</code></pre></div>
+<p>Changes to a project's <code>access</code> apply to new sign-ins: removing a user or group revokes their role.</p>
+<h3 id="what-the-platform-keeps-in-your-project-folder">What the platform keeps in your project folder<a class="headerlink" href="#what-the-platform-keeps-in-your-project-folder" title="Permanent link">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>Path (under <code>stakater/projects/&lt;organisation&gt;-&lt;project&gt;/</code>)</th>
+<th>Written by</th>
+<th>Contents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>vms/&lt;vm&gt;</code></td>
+<td>the platform</td>
+<td><code>username</code> and <code>password</code> of the local Administrator it generates for a Windows virtual machine installed without an answer file of your own</td>
+</tr>
+<tr>
+<td>any path you choose</td>
+<td>you</td>
+<td>answer files a Windows virtual machine reads through <code>sysprep.secretPath</code> (property <code>autounattend.xml</code>), and credentials a virtual machine backup reads through <code>credentials.secretPath</code></td>
+</tr>
+</tbody>
+</table>
+<p>A path you give a claim is always <strong>relative to your project folder</strong>: <code>win/standard</code> means <code>stakater/projects/&lt;organisation&gt;-&lt;project&gt;/win/standard</code>. A claim cannot name a path outside it.</p>
 <h2 id="access-over-the-mesh">Access over the Mesh<a class="headerlink" href="#access-over-the-mesh" title="Permanent link">#</a></h2>
 <p>When your organisation runs a <a href="mesh.html">Mesh</a>, the platform automatically publishes the Vault to Mesh peers — no extra claim needed. The Mesh endpoint appears in the claim's status as <code>status.endpoint.meshAddress</code>:</p>
 <ul>
@@ -6120,7 +6245,7 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 </ul>
 <p>From an enrolled laptop:</p>
 <div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">BAO_ADDR</span><span class="o">=</span><span class="k">$(</span>kubectl<span class="w"> </span>get<span class="w"> </span>vault<span class="w"> </span>my-vault<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.status.endpoint.meshAddress}'</span><span class="k">)</span>
-bao<span class="w"> </span>login<span class="w"> </span>-method<span class="o">=</span>oidc
+bao<span class="w"> </span>login<span class="w"> </span>-method<span class="o">=</span>oidc<span class="w"> </span><span class="nv">role</span><span class="o">=</span>&lt;organisation&gt;-&lt;project&gt;-rw-users
 </code></pre></div>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">#</a></h2>
 <h3 id="minimal">Minimal<a class="headerlink" href="#minimal" title="Permanent link">#</a></h3>
@@ -6146,6 +6271,7 @@ bao<span class="w"> </span>login<span class="w"> </span>-method<span class="o">=
 <p><a href="../../how-to-guides/user/create-vault.html">Create a Vault</a></p>
 <h2 id="related">Related<a class="headerlink" href="#related" title="Permanent link">#</a></h2>
 <ul>
+<li><a href="project.html">Project</a> — its <code>access</code> entries grant Vault access to the project folder (see <a href="#project-access">Project access</a>).</li>
 <li><a href="mesh.html">Mesh</a> — provisions your organisation's private VPN mesh. With a Mesh present, this Vault is published to Mesh peers automatically (see <a href="#access-over-the-mesh">Access over the Mesh</a>).</li>
 <li><a href="mesh-router.html">MeshRouter</a> — expose your <strong>own</strong> in-cluster services to Mesh peers the same way the platform exposes this Vault.</li>
 </ul>
@@ -6496,9 +6622,8 @@ bao<span class="w"> </span>login<span class="w"> </span>-method<span class="o">=
                         </b>
                     </p>
                     <div class="margin-bottom-16">
-                        <a href="https://www.stakater.com/saap-kubernetes-openshift" class="md-footer-col-link">
-                            Stakater App Agility <br>
-                            Platform (SAAP)
+                        <a href="https://docs.stakater.com/kubestackplus/" class="md-footer-col-link">
+                            KubeStack+
                         </a>
                     </div>
                     <div class="margin-bottom-16">

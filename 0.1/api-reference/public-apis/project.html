@@ -18,7 +18,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.7.7">
     
     
       
@@ -732,10 +732,7 @@ This documentation is either for an old version, or for the unreleased 'main' ve
                     <div class="dropdown-content-column">
                         <h3 class="dropdown-content-column-title">Products</h3>
                         <div class="dropdown-content-anchor-container">
-                            <a href="https://www.stakater.com/saap-kubernetes-openshift" class="dropdown-item-link-text hover-underline">Stakater
-                                App
-                                Agility
-                                Platform (SAAP)</a>
+                            <a href="https://docs.stakater.com/kubestackplus/" class="dropdown-item-link-text hover-underline">KubeStack+</a>
                         </div>
                         <div class="dropdown-content-anchor-container">
                             <a href="https://www.stakater.com/mto" class="dropdown-item-link-text hover-underline">Multi
@@ -1548,10 +1545,7 @@ This documentation is either for an old version, or for the unreleased 'main' ve
                     <div class="dropdown-content-column">
                         <h3 class="dropdown-content-column-title">Products</h3>
                         <div class="dropdown-content-anchor-container">
-                            <a href="https://www.stakater.com/saap-kubernetes-openshift" class="dropdown-item-link-text hover-underline">Stakater
-                                App
-                                Agility
-                                Platform (SAAP)</a>
+                            <a href="https://docs.stakater.com/kubestackplus/" class="dropdown-item-link-text hover-underline">KubeStack+</a>
                         </div>
                         <div class="dropdown-content-anchor-container">
                             <a href="https://www.stakater.com/mto" class="dropdown-item-link-text hover-underline">Multi
@@ -6172,6 +6166,31 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 <td><code>string</code></td>
 <td>Base64-encoded kubeconfig for the project</td>
 </tr>
+<tr>
+<td><code>status.openbao.available</code></td>
+<td><code>boolean</code></td>
+<td>Whether your organisation's Vault is available to this project</td>
+</tr>
+<tr>
+<td><code>status.openbao.address</code></td>
+<td><code>string</code></td>
+<td>Vault address to sign in to</td>
+</tr>
+<tr>
+<td><code>status.openbao.secretPath</code></td>
+<td><code>string</code></td>
+<td>The project's folder in the Vault, e.g. <code>stakater/projects/&lt;organisation&gt;-&lt;project&gt;/</code></td>
+</tr>
+<tr>
+<td><code>status.openbao.roles</code></td>
+<td><code>string[]</code></td>
+<td>Vault roles to sign in with, derived from <code>access</code> — see <a href="vault.html#project-access">Vault: Project access</a></td>
+</tr>
+<tr>
+<td><code>status.openbao.message</code></td>
+<td><code>string</code></td>
+<td>Human-readable Vault access state</td>
+</tr>
 </tbody>
 </table>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">#</a></h2>
@@ -6559,9 +6578,8 @@ This documentation is either for an old version, or for the unreleased 'main' ve
                         </b>
                     </p>
                     <div class="margin-bottom-16">
-                        <a href="https://www.stakater.com/saap-kubernetes-openshift" class="md-footer-col-link">
-                            Stakater App Agility <br>
-                            Platform (SAAP)
+                        <a href="https://docs.stakater.com/kubestackplus/" class="md-footer-col-link">
+                            KubeStack+
                         </a>
                     </div>
                     <div class="margin-bottom-16">

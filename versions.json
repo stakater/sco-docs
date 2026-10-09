@@ -97,7 +97,9 @@
   {
     "version": "docs-registry-access-own-pat",
     "title": "docs-registry-access-own-pat",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "docs-networking-mode-not-self-service",
@@ -112,9 +114,7 @@
   {
     "version": "docs-console-field-order",
     "title": "docs-console-field-order",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "architecture",

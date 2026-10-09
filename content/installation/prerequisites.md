@@ -53,54 +53,51 @@ The only things you provide up front are a base cluster with enough capacity (se
 
 ### KubeStack+ CLI (`ksp`)
 
-Stakater provides the `ksp` CLI release archives when you engage — request them
-from `sales@stakater.com` (see [Registry Access](#registry-access) below). Builds
-are available for **Linux x86_64**, **macOS arm64** (Apple Silicon), and
-**Windows x86_64**.
+The `ksp` CLI is publicly downloadable. Builds are available for **Linux x86_64**,
+**macOS arm64** (Apple Silicon), and **Windows x86_64**.
 
-On Linux x86_64 you can also copy the binary out of the public CLI image, without
-waiting for the archive:
+Each `ksp` release installs one specific platform release, and only some of those are
+available from the customer distribution registry, so use a supported version:
+
+| `ksp` version | Customer install |
+|---|---|
+| **v2.8.1** (recommended), v2.8.0, v2.7.1 | Supported for the brownfield (`scobasic`) variant |
+| v2.6.0, v2.7.0 | **Not supported** — the platform release they install is not in the distribution registry, and `ksp up` fails partway through |
+| v2.5.0 and earlier | Install an older platform release. Use the recommended version for new installs |
+
+A newer `ksp` is not automatically supported: check this table, or ask Stakater, before
+you upgrade the CLI.
+
+Set `KSP_VERSION` to the recommended version from the table, then download the archive
+for your platform, verify it, and put `ksp` on your `PATH`:
 
 ```bash
-podman create --name ksp ghcr.io/stakater/kubestackplus-cli:v2.8.1
-podman cp ksp:/usr/local/bin/ksp ./ksp
-podman rm ksp
-sudo mv ./ksp /usr/local/bin/ksp
-```
+KSP_VERSION=<recommended version from the table>   # for example v2.8.1
+BASE=https://kubestackspluscli.blob.core.windows.net/releases/$KSP_VERSION
+curl -fLO "$BASE/kubestackplus-cli_${KSP_VERSION#v}_checksums.txt"
 
-Once you have the release archive for your platform, extract the `ksp` binary and put
-it on your `PATH`:
-
-```bash
 # Linux (x86_64)
+curl -fLO "$BASE/ksp_linux_x86_64.tar.gz"
+sha256sum --ignore-missing -c "kubestackplus-cli_${KSP_VERSION#v}_checksums.txt"
 tar -xzf ksp_linux_x86_64.tar.gz
-sudo mv ksp_linux_x86_64/bin/linux_amd64/ksp /usr/local/bin/ksp
+sudo mv bin/linux_amd64/ksp /usr/local/bin/ksp
 
 # macOS (Apple Silicon)
+curl -fLO "$BASE/ksp_darwin_arm64.tar.gz"
+shasum -a 256 --ignore-missing -c "kubestackplus-cli_${KSP_VERSION#v}_checksums.txt"
 tar -xzf ksp_darwin_arm64.tar.gz
-sudo mv ksp_darwin_arm64/bin/darwin_arm64/ksp /usr/local/bin/ksp
+sudo mv bin/darwin_arm64/ksp /usr/local/bin/ksp
 xattr -d com.apple.quarantine /usr/local/bin/ksp   # clear the Gatekeeper quarantine flag
 
 # Verify
 ksp version
 ```
 
-On Windows, extract the `ksp_windows_x86_64.zip` archive and add the folder containing
-`ksp.exe` to your `PATH`.
+On Windows, download `$BASE/ksp_windows_x86_64.zip`, extract it, and add the
+`bin\windows_amd64` folder containing `ksp.exe` to your `PATH`.
 
-#### Supported CLI versions
-
-Each `ksp` release installs one specific platform release, and only some of those are
-available from the customer distribution registry. Use a supported version:
-
-| `ksp` version | Customer install |
-|---|---|
-| **v2.8.1** (recommended), v2.8.0, v2.7.1 | Supported for the brownfield (`scobasic`) variant |
-| v2.6.0, v2.7.0 | **Not supported** — the platform release they install is not in the distribution registry, and `ksp up` fails partway through |
-| v2.5.0 and earlier | Install an older platform release. Use v2.8.1 for new installs |
-
-A newer `ksp` is not automatically supported: check this table, or ask Stakater, before
-you upgrade the CLI.
+The same Linux binary is also published as a container image,
+`ghcr.io/stakater/kubestackplus-cli:<version>`, with `ksp` at `/usr/local/bin/ksp`.
 
 ### oc / kubectl
 

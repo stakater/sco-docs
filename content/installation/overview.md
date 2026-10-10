@@ -7,7 +7,7 @@ Learn how to install Stakater Cloud Orchestrator on your OpenShift cluster.
 SCO is installed using the **`ksp up`** command from the KubeStack+ CLI. Running `ksp up` locally, against the cluster your `oc`/`kubectl` context points at, bootstraps your OpenShift cluster with all required components.
 
 !!! note "Get the CLI and credentials first"
-    The `ksp` CLI and the registry credentials for SCO components are both provided by Stakater — request them from `sales@stakater.com`. Complete the [Prerequisites](prerequisites.md) before you begin.
+    Request access from `sales@stakater.com` with the GitHub username that will pull the platform. Stakater grants that account access to the distribution registry. The `ksp` CLI is a public download. Complete the [Prerequisites](prerequisites.md) before you begin.
 
 !!! info "Which variant?"
     This guide installs the **`hosting`** variant — the full greenfield deployment that brings up the entire platform foundation (storage, GitOps, Hypershift, cluster management, …) and the SCO layer on a base OpenShift cluster. If you are adding SCO to a cluster you already run, you want **`scobasic`** instead — see [`scobasic` Installation](scobasic.md). It installs a smaller set and expects your cluster to already provide storage and load balancing.

@@ -53,30 +53,51 @@ The only things you provide up front are a base cluster with enough capacity (se
 
 ### KubeStack+ CLI (`ksp`)
 
-Stakater provides the `ksp` CLI together with your registry credentials when you
-engage — request both from `sales@stakater.com` (see
-[Registry Access](#registry-access) below). Builds are available for
-**Linux x86_64**, **macOS arm64** (Apple Silicon), and **Windows x86_64**.
+The `ksp` CLI is publicly downloadable. Builds are available for **Linux x86_64**,
+**macOS arm64** (Apple Silicon), and **Windows x86_64**.
 
-Once you have the release archive for your platform, extract the `ksp` binary and put
-it on your `PATH`:
+Each `ksp` release installs one specific platform release, and only some of those are
+available from the customer distribution registry, so use a supported version:
+
+| `ksp` version | Customer install |
+|---|---|
+| **v2.8.1** (recommended), v2.8.0, v2.7.1 | Supported for the brownfield (`scobasic`) variant |
+| v2.6.0, v2.7.0 | **Not supported** — the platform release they install is not in the distribution registry, and `ksp up` fails partway through |
+| v2.5.0 and earlier | Install an older platform release. Use the recommended version for new installs |
+
+A newer `ksp` is not automatically supported: check this table, or ask Stakater, before
+you upgrade the CLI.
+
+Set `KSP_VERSION` to the recommended version from the table, then download the archive
+for your platform, verify it, and put `ksp` on your `PATH`:
 
 ```bash
+KSP_VERSION=<recommended version from the table>   # for example v2.8.1
+BASE=https://kubestackspluscli.blob.core.windows.net/releases/$KSP_VERSION
+curl -fLO "$BASE/kubestackplus-cli_${KSP_VERSION#v}_checksums.txt"
+
 # Linux (x86_64)
+curl -fLO "$BASE/ksp_linux_x86_64.tar.gz"
+sha256sum --ignore-missing -c "kubestackplus-cli_${KSP_VERSION#v}_checksums.txt"
 tar -xzf ksp_linux_x86_64.tar.gz
-sudo mv ksp_linux_x86_64/bin/linux_amd64/ksp /usr/local/bin/ksp
+sudo mv bin/linux_amd64/ksp /usr/local/bin/ksp
 
 # macOS (Apple Silicon)
+curl -fLO "$BASE/ksp_darwin_arm64.tar.gz"
+shasum -a 256 --ignore-missing -c "kubestackplus-cli_${KSP_VERSION#v}_checksums.txt"
 tar -xzf ksp_darwin_arm64.tar.gz
-sudo mv ksp_darwin_arm64/bin/darwin_arm64/ksp /usr/local/bin/ksp
+sudo mv bin/darwin_arm64/ksp /usr/local/bin/ksp
 xattr -d com.apple.quarantine /usr/local/bin/ksp   # clear the Gatekeeper quarantine flag
 
 # Verify
 ksp version
 ```
 
-On Windows, extract the `ksp_windows_x86_64.zip` archive and add the folder containing
-`ksp.exe` to your `PATH`.
+On Windows, download `$BASE/ksp_windows_x86_64.zip`, extract it, and add the
+`bin\windows_amd64` folder containing `ksp.exe` to your `PATH`.
+
+The same Linux binary is also published as a container image,
+`ghcr.io/stakater/kubestackplus-cli:<version>`, with `ksp` at `/usr/local/bin/ksp`.
 
 ### oc / kubectl
 
@@ -96,8 +117,19 @@ oc whoami
 
 SCO platform components — packages, functions, Helm charts, and container images — are published to **Stakater's customer distribution registry** (`ghcr.io/stakater/registry`). It carries only released versions blessed for customer use. Installing SCO therefore **requires Stakater registry credentials**.
 
-!!! important "Request your registry credentials"
-    Email `sales@stakater.com` to request access. You will receive a username and a token with read access to the distribution registry. You supply these to `ksp up` through a registry-secret file with `profile: distribution` set (`--registry-secret`) — see [OpenShift Installation](openshift.md).
+Access is tied to a GitHub account. You log in with your **own** GitHub username and a token you create yourself — Stakater does not issue a shared username or password.
+
+1. Email `sales@stakater.com` (or your Stakater contact) to request access, and include the **GitHub username** that will pull the platform.
+1. Accept the GitHub invitation you receive. Pull access starts once it is accepted.
+1. On that GitHub account, create a **classic** personal access token with only the `read:packages` scope (**Settings → Developer settings → Personal access tokens → Tokens (classic)**). Fine-grained tokens do not work for this registry.
+1. Check that it works before you install:
+
+    ```bash
+    echo "$TOKEN" | helm registry login ghcr.io -u <your-github-username> --password-stdin
+    helm pull oci://ghcr.io/stakater/registry/charts/crossplane-package-ksp-system --version <version>
+    ```
+
+You supply the username and token to `ksp up` through a registry-secret file with `profile: distribution` set (`--registry-secret`) — see [OpenShift Installation](openshift.md). The token is yours: rotate or revoke it on GitHub whenever you need to.
 
 The cluster also needs outbound connectivity to the public registries SCO depends on: docker.io, Quay.io, ghcr.io, and the Red Hat registry (for OpenShift platform components).
 
@@ -118,7 +150,7 @@ See [OpenShift Installation](openshift.md) for example claim files.
 - [ ] `oc` authenticated to the cluster
 - [ ] Wildcard DNS configured
 - [ ] Wildcard TLS certificate ready
-- [ ] Stakater registry credentials obtained (from `sales@stakater.com`)
+- [ ] Registry access granted to your GitHub account, and a `read:packages` token created
 - [ ] `KubeStackConfig` claim file prepared
 - [ ] `KubeStackPlus` claim file prepared
 - [ ] Minimum compute and storage capacity available

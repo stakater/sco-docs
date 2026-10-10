@@ -129,6 +129,12 @@ parameters:
       x-sco-ui-order: "40"
 ```
 
+Add these to `xrd.yaml` and apply it again:
+
+```bash
+kubectl apply -f xrd.yaml
+```
+
 Ordering is one of several `x-sco-ui-*` tags — you can also set labels, input types, grouping and visibility from the same schema. See [Control Console UI Rendering](../../how-to-guides/provider/control-ui-rendering.md), which continues with this solution.
 
 ---

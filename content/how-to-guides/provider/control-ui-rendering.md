@@ -59,7 +59,14 @@ Add `x-sco-ui-group` to collect related fields:
 "version": { "type": "string", "x-sco-ui-group": "Database", "x-sco-ui-order": "20" }
 ```
 
-Fields without a group fall into a default `General` section on forms. A section takes its position from the lowest `x-sco-ui-order` among its fields, so number across groups, not within each one.
+Fields without a group fall into a default section — `General` on forms, `Details` on detail pages.
+
+Section position differs between the two views:
+
+- **On forms**, `General` always comes first, whatever its fields are numbered. Named sections follow it, ordered by their lowest-numbered field.
+- **On detail pages**, every section including `Details` is ordered by its lowest-numbered field.
+
+So number across groups rather than restarting within each one, and do not rely on `x-sco-ui-order` to move `General` on a form.
 
 ## Choose the Input
 
@@ -85,7 +92,7 @@ See the reference for the full set of form and detail components.
 `hidden` removes the field entirely; `x-sco-ui-complexity: "advanced"` keeps it out of **Standard** mode but shows it in **Advanced** mode.
 
 !!! tip
-    The Kubernetes envelope (`apiVersion`, `kind`, `metadata`, `status`) and standard Crossplane plumbing fields are hidden automatically — you only need to hide your own internal fields.
+    The Kubernetes envelope (`apiVersion`, `kind`, `metadata`, `status`) and standard Crossplane plumbing fields are hidden from **forms** automatically — you only need to hide your own internal fields. Detail pages still render `status`, which is where the example below reads from.
 
 ## Tailor the Detail Page
 

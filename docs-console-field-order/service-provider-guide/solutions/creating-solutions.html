@@ -6135,6 +6135,9 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <span class="w">      </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Number of PostgreSQL instances (1 = standalone, 3 = HA)</span>
 <span class="w">      </span><span class="nt">x-sco-ui-order</span><span class="p">:</span><span class="w"> </span><span class="s">"40"</span>
 </code></pre></div>
+<p>Add these to <code>xrd.yaml</code> and apply it again:</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>xrd.yaml
+</code></pre></div>
 <p>Ordering is one of several <code>x-sco-ui-*</code> tags — you can also set labels, input types, grouping and visibility from the same schema. See <a href="../../how-to-guides/provider/control-ui-rendering.html">Control Console UI Rendering</a>, which continues with this solution.</p>
 <hr>
 <h2 id="step-2-write-the-composition">Step 2: Write the Composition<a class="headerlink" href="#step-2-write-the-composition" title="Permanent link">#</a></h2>

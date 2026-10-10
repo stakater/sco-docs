@@ -5994,7 +5994,13 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <div class="highlight"><pre><span></span><code><span class="nt">"dbName"</span><span class="p">:</span><span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w"> </span><span class="nt">"x-sco-ui-group"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Database"</span><span class="p">,</span><span class="w"> </span><span class="nt">"x-sco-ui-order"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10"</span><span class="w"> </span><span class="p">},</span>
 <span class="nt">"version"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w"> </span><span class="nt">"x-sco-ui-group"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Database"</span><span class="p">,</span><span class="w"> </span><span class="nt">"x-sco-ui-order"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20"</span><span class="w"> </span><span class="p">}</span>
 </code></pre></div>
-<p>Fields without a group fall into a default <code>General</code> section on forms. A section takes its position from the lowest <code>x-sco-ui-order</code> among its fields, so number across groups, not within each one.</p>
+<p>Fields without a group fall into a default section — <code>General</code> on forms, <code>Details</code> on detail pages.</p>
+<p>Section position differs between the two views:</p>
+<ul>
+<li><strong>On forms</strong>, <code>General</code> always comes first, whatever its fields are numbered. Named sections follow it, ordered by their lowest-numbered field.</li>
+<li><strong>On detail pages</strong>, every section including <code>Details</code> is ordered by its lowest-numbered field.</li>
+</ul>
+<p>So number across groups rather than restarting within each one, and do not rely on <code>x-sco-ui-order</code> to move <code>General</code> on a form.</p>
 <h2 id="choose-the-input">Choose the Input<a class="headerlink" href="#choose-the-input" title="Permanent link">#</a></h2>
 <p>Override the inferred input with <code>x-sco-ui-component</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">"version"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
@@ -6011,7 +6017,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <p><code>hidden</code> removes the field entirely; <code>x-sco-ui-complexity: "advanced"</code> keeps it out of <strong>Standard</strong> mode but shows it in <strong>Advanced</strong> mode.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>The Kubernetes envelope (<code>apiVersion</code>, <code>kind</code>, <code>metadata</code>, <code>status</code>) and standard Crossplane plumbing fields are hidden automatically — you only need to hide your own internal fields.</p>
+<p>The Kubernetes envelope (<code>apiVersion</code>, <code>kind</code>, <code>metadata</code>, <code>status</code>) and standard Crossplane plumbing fields are hidden from <strong>forms</strong> automatically — you only need to hide your own internal fields. Detail pages still render <code>status</code>, which is where the example below reads from.</p>
 </div>
 <h2 id="tailor-the-detail-page">Tailor the Detail Page<a class="headerlink" href="#tailor-the-detail-page" title="Permanent link">#</a></h2>
 <p>Detail-page tags shadow the shared ones, so a field can look different on the form and the detail view:</p>

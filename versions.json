@@ -7,7 +7,9 @@
   {
     "version": "renovate-main-stakater-.github-0.x",
     "title": "renovate-main-stakater-.github-0.x",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "renovate-main-playwright-monorepo",
@@ -107,9 +109,7 @@
   {
     "version": "docs-console-field-order",
     "title": "docs-console-field-order",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "architecture",

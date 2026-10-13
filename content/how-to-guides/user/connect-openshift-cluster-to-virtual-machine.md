@@ -6,9 +6,9 @@ Sam, a platform engineer at ACME Corp, runs the team's applications on a private
 
 ## Prerequisites
 
-- The `project.tenant.cloud.stakater.com` api available
-- The `openshiftcluster.kubernetes.cloud.stakater.com` api available
-- The `windowsvirtualmachine.compute.cloud.stakater.com` or `virtualmachine.compute.cloud.stakater.com` api available
+- The `project.tenant.cloud.stakater.com` API available
+- The `openshiftcluster.kubernetes.cloud.stakater.com` API available
+- The `windowsvirtualmachine.compute.cloud.stakater.com` or `virtualmachine.compute.cloud.stakater.com` API available
 - `kubectl` configured with your organisation project kubeconfig
 
 !!! note

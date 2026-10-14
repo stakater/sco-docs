@@ -17,7 +17,9 @@
   {
     "version": "renovate-main-playwright-monorepo",
     "title": "renovate-main-playwright-monorepo",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "renovate-main-node-24.x-lockfile",
@@ -72,9 +74,7 @@
   {
     "version": "fix-screenshots-mesh-name",
     "title": "fix-screenshots-mesh-name",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "feat-api-reference-s3-postgres",

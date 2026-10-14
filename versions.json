@@ -72,7 +72,9 @@
   {
     "version": "fix-screenshots-mesh-name",
     "title": "fix-screenshots-mesh-name",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "feat-api-reference-s3-postgres",
@@ -112,9 +114,7 @@
   {
     "version": "docs-openshift-version-gate",
     "title": "docs-openshift-version-gate",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "docs-networking-mode-not-self-service",

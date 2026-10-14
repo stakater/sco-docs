@@ -4,11 +4,25 @@ Requirements for installing Stakater Cloud Orchestrator on OpenShift.
 
 ## Cluster Requirements
 
-- **Platform**: Red Hat OpenShift 4.14+ (`ocp` is the only currently supported platform)
+- **Platform**: Red Hat OpenShift **4.21 or 4.22** (`ocp` is the only currently supported platform) — see [OpenShift version](#openshift-version)
 - **Deployment**: Bare metal (production-supported)
 - **Access**: Cluster administrator privileges
 - **Nodes**: Minimum 6 worker nodes recommended for production
 - **Storage**: Depends on the variant — see [Which variant are you installing?](#which-variant-are-you-installing) below
+
+### OpenShift version
+
+Each platform release supports specific OpenShift minor versions. The release
+installed by the recommended `ksp` version (see [KubeStack+ CLI](#kubestack-cli-ksp))
+supports **OpenShift 4.21 and 4.22**.
+
+`ksp up` checks this before it applies anything and **stops on any other version**
+with an `OpenShift Version Mismatch` error. Upgrade the cluster to a supported version
+before you install. Check the version your cluster runs with:
+
+```bash
+oc get clusterversion version -o jsonpath='{.status.desired.version}{"\n"}'
+```
 
 ### Which variant are you installing?
 
@@ -144,7 +158,7 @@ See [OpenShift Installation](openshift.md) for example claim files.
 
 ## Pre-Installation Checklist
 
-- [ ] OpenShift 4.14+ cluster on bare metal
+- [ ] OpenShift 4.21 or 4.22 cluster on bare metal
 - [ ] Cluster administrator access
 - [ ] `ksp` CLI installed and on PATH
 - [ ] `oc` authenticated to the cluster

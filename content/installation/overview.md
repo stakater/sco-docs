@@ -44,7 +44,7 @@ When you run `ksp up`, the command classifies your cluster and determines the ap
 
 ## Supported Platform
 
-SCO is installed and supported on **Red Hat OpenShift 4.14+** on bare metal.
+SCO is installed and supported on **Red Hat OpenShift 4.21 and 4.22** on bare metal. `ksp up` stops on any other version — see [OpenShift version](prerequisites.md#openshift-version).
 
 ## What's Next?
 

@@ -102,7 +102,7 @@ flowchart LR
     Platform --> Infra[Infrastructure<br/>VMs, clusters, databases, storage]
 ```
 
-1. **SCO is installed** on your Kubernetes cluster using the `ksp up` CLI command (tested on OpenShift 4.14+)
+1. **SCO is installed** on your Kubernetes cluster using the `ksp up` CLI command (on OpenShift 4.21 or 4.22)
 1. **Platform providers** create solutions (e.g., VirtualMachine-as-a-Service, OpenShift-as-a-Service) using composition tools
 1. Solutions are published to the **marketplace** as Kubernetes custom resources
 1. **Organisations** are created with dedicated Keycloak realms for authentication isolation
@@ -114,7 +114,7 @@ flowchart LR
 
 SCO leverages proven, cloud-native technologies:
 
-- **Kubernetes**: Foundation for all orchestration (tested on OpenShift 4.14+)
+- **Kubernetes**: Foundation for all orchestration (OpenShift 4.21 or 4.22)
 - **Kubernetes CRDs**: Native extension mechanism for solutions and services
 - **Virtual Machine Management**: KubeVirt-based (OpenShift Virtualization on OpenShift)
 - **Hosted Control Planes**: hypershift for OpenShift-on-OpenShift

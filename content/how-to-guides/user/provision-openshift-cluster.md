@@ -92,9 +92,25 @@ spec:
 | `parameters.defaultNodepool.enabled` | `true` | Create a default node pool with the cluster. Set to `false` to manage node pools separately via `OpenShiftNodePool` claims. |
 | `parameters.defaultNodepool.size` | `medium` | T-shirt size for default node pool nodes: `small`, `medium`, `large`, or `xlarge`. Each size maps to a predefined CPU, memory, and root volume configuration at the platform level. |
 | `parameters.defaultNodepool.replicas` | `3` | Number of nodes in the default node pool (1–10) |
-| `parameters.networking.mode` | `public` | Network access mode for the cluster API and console: `public` or `private` |
+| `parameters.networking.mode` | `public` | Network access mode for the cluster API and console: `public` or `private`. **Choose this at creation** — see [Changing the networking mode later](#changing-the-networking-mode-later). |
 | `parameters.access.groups` | — | List of Keycloak group → ClusterRole bindings (see below) |
 | `parameters.bootstrap.enabled` | `false` | When `true`, the hosting cluster auto-installs core add-ons (Crossplane, ArgoCD, ksp-system). Enable for new clusters; leave disabled for clusters that were bootstrapped manually. |
+
+### Changing the Networking Mode Later
+
+`networking.mode` is chosen when the cluster is created. Changing it on an **existing** cluster is a scheduled migration carried out by Stakater, not a self-service edit — **contact support to arrange one** rather than changing the field yourself.
+
+Editing it on a running cluster starts a conversion that cannot complete on its own. Every node in the cluster is replaced, and several steps in between need platform-level access that is not available from your project:
+
+- Console and API sign-in stop working immediately, before anything else has moved.
+- Public DNS keeps pointing at the old addresses until the records are rebuilt by hand.
+- The first node replacement stalls indefinitely and has to be cleared manually.
+- Workloads using shared (NFS) storage lose their mounts silently and need restarting afterwards.
+- Any LoadBalancer service you expose on a public address can go dark for the length of the node replacement.
+
+A migration arranged with support covers all of that in one agreed window, including what you need to do on your side and roughly how long each part takes.
+
+Creating a new cluster in the mode you want, and moving workloads across, is often quicker and less disruptive than converting one — worth discussing when you get in touch.
 
 ### Access Grants
 

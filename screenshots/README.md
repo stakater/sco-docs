@@ -118,8 +118,10 @@ The flows create nothing, but they do need somewhere to point and something to s
   Advanced shots so all three agree
 - the same for `DOCS_GROUP_NAME` and `DOCS_MESH_NAME`, both provisioned out of band and
   long-lived; no flow creates them. The group must have members, and those members must
-  exist as users — which is also what puts rows in the Users list. Both are named after
-  the examples in the guides they illustrate, so the images and the snippets agree.
+  exist as users — which is also what puts rows in the Users list. The group is named
+  after the example in the guide it illustrates, so the image and the snippet agree. The
+  mesh is the organization's own default Mesh, `<org>-default-mesh`, so the detail image
+  shows a different name from the `my-mesh` in the guide's snippet.
 
 No cluster is required. The `clusters` flow captures the create form only, because a list
 or detail shot would mean keeping a hosted OpenShift control plane alive for two images.

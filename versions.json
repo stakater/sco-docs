@@ -70,13 +70,6 @@
     "aliases": []
   },
   {
-    "version": "fix-screenshots-mesh-name",
-    "title": "fix-screenshots-mesh-name",
-    "aliases": [
-      "latest"
-    ]
-  },
-  {
     "version": "feat-api-reference-s3-postgres",
     "title": "feat-api-reference-s3-postgres",
     "aliases": []

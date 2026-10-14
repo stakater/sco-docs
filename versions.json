@@ -75,13 +75,6 @@
     "aliases": []
   },
   {
-    "version": "docs-windows-vm-rdp",
-    "title": "docs-windows-vm-rdp",
-    "aliases": [
-      "latest"
-    ]
-  },
-  {
     "version": "docs-vm-peers-native-network",
     "title": "docs-vm-peers-native-network",
     "aliases": []

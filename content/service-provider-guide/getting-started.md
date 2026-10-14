@@ -8,7 +8,7 @@ Sarah is a platform engineer at CloudCo who needs to offer managed services to h
 
 Before you begin, ensure you have:
 
-- OpenShift 4.21 or 4.22 cluster on bare metal (see [OpenShift version](../installation/prerequisites.md#openshift-version))
+- OpenShift 4.19+ cluster on bare metal (4.21 or 4.22 for `hosting`; see [OpenShift version](../installation/prerequisites.md#openshift-version))
 - SCO installed using `ksp up` CLI
 - Access to the SCO admin console
 - `kubectl` or `oc` configured with admin access to the cluster

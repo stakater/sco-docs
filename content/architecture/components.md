@@ -17,7 +17,7 @@ With OpenShift as the management cluster on which SCO is deployed we can make us
 
 OpenShift also provides cluster networking (OVN-Kubernetes), persistent storage integration (OpenShift Data Foundation, CSI drivers), an internal image registry, and the `Route` API for exposing services externally.
 
-**Version requirement:** OpenShift 4.21 or 4.22 on bare-metal nodes. See [OpenShift version](../installation/prerequisites.md#openshift-version).
+**Version requirement:** OpenShift 4.19+ on bare-metal nodes (4.21 or 4.22 for the `hosting` variant). See [OpenShift version](../installation/prerequisites.md#openshift-version).
 
 ---
 

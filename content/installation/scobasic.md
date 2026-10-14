@@ -25,7 +25,7 @@ In addition to the [general prerequisites](prerequisites.md):
 
 | Requirement | Notes |
 |---|---|
-| OpenShift 4.21 or 4.22 | `ksp up` stops on any other version — see [OpenShift version](prerequisites.md#openshift-version) |
+| OpenShift 4.19+ | 4.20 and 4.21 are tested. On versions other than 4.21 and 4.22, run `ksp up` with `--skip-openshift-version-check` — see [OpenShift version](prerequisites.md#openshift-version) |
 | `cluster-admin` | the installation creates namespaces, custom resources, operators and role bindings |
 | A working RWO StorageClass | **you provide this** |
 | Working `LoadBalancer` Services | **you provide this** |

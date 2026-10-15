@@ -115,13 +115,6 @@
     "aliases": []
   },
   {
-    "version": "docs-hide-empty-changelog",
-    "title": "docs-hide-empty-changelog",
-    "aliases": [
-      "latest"
-    ]
-  },
-  {
     "version": "docs-console-field-order",
     "title": "docs-console-field-order",
     "aliases": []

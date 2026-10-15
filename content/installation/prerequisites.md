@@ -4,11 +4,30 @@ Requirements for installing Stakater Cloud Orchestrator on OpenShift.
 
 ## Cluster Requirements
 
-- **Platform**: Red Hat OpenShift 4.14+ (`ocp` is the only currently supported platform)
+- **Platform**: Red Hat OpenShift — **4.19+** for `scobasic`, **4.21 or 4.22** for `hosting` (`ocp` is the only currently supported platform). See [OpenShift version](#openshift-version)
 - **Deployment**: Bare metal (production-supported)
 - **Access**: Cluster administrator privileges
 - **Nodes**: Minimum 6 worker nodes recommended for production
 - **Storage**: Depends on the variant — see [Which variant are you installing?](#which-variant-are-you-installing) below
+
+### OpenShift version
+
+| Variant | OpenShift | Why |
+|---|---|---|
+| `hosting` | **4.21 or 4.22** | It installs ODF and OpenShift Virtualization, whose versions are pinned per OpenShift minor |
+| `scobasic` | **4.19+** (4.20 and 4.21 are tested) | It installs neither, so it does not depend on those pins |
+
+Check the version your cluster runs with:
+
+```bash
+oc get clusterversion version -o jsonpath='{.status.desired.version}{"\n"}'
+```
+
+!!! warning "`ksp up` currently checks for 4.21 or 4.22 on every variant"
+    The recommended `ksp` version (see [KubeStack+ CLI](#kubestack-cli-ksp)) stops
+    with an `OpenShift Version Mismatch` error on any other minor, including for
+    `scobasic`. On a `scobasic` cluster running an earlier supported version, add
+    `--skip-openshift-version-check` to `ksp up`.
 
 ### Which variant are you installing?
 
@@ -144,7 +163,7 @@ See [OpenShift Installation](openshift.md) for example claim files.
 
 ## Pre-Installation Checklist
 
-- [ ] OpenShift 4.14+ cluster on bare metal
+- [ ] OpenShift cluster on bare metal at a [supported version](#openshift-version) for your variant
 - [ ] Cluster administrator access
 - [ ] `ksp` CLI installed and on PATH
 - [ ] `oc` authenticated to the cluster

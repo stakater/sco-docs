@@ -25,8 +25,8 @@ Both capture a virtual machine and its disks, and both work for Linux and Window
 
 - A [Project](create-project.md) already created
 - A running virtual machine. See [How to Provision a Virtual Machine](provision-virtual-machine.md)
-- The `virtualmachinesnapshot.compute.cloud.stakater.com` and `virtualmachinesnapshotrestore.compute.cloud.stakater.com` apis available (for snapshots)
-- The `virtualmachinebackup.compute.cloud.stakater.com` and `virtualmachinebackuprestore.compute.cloud.stakater.com` apis available (for backups)
+- The `virtualmachinesnapshot.compute.cloud.stakater.com` and `virtualmachinesnapshotrestore.compute.cloud.stakater.com` APIs available (for snapshots)
+- The `virtualmachinebackup.compute.cloud.stakater.com` and `virtualmachinebackuprestore.compute.cloud.stakater.com` APIs available (for backups)
 - `kubectl` configured with your project kubeconfig
 
 ## Snapshots

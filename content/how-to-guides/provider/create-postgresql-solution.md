@@ -59,19 +59,24 @@ spec:
                     dbName:
                       type: string
                       description: Name of the database instance
+                      x-sco-ui-order: "10"
                     version:
                       type: string
                       default: "16"
                       enum: ["14", "15", "16"]
                       description: PostgreSQL major version
+                      x-sco-ui-order: "20"
                     storageGb:
                       type: integer
                       default: 20
                       description: Storage in GiB
+                      x-sco-ui-label: "Storage (GiB)"
+                      x-sco-ui-order: "30"
                     instances:
                       type: integer
                       default: 1
                       description: "1 = standalone, 3 = high availability"
+                      x-sco-ui-order: "40"
             status:
               type: object
               properties:
@@ -82,6 +87,8 @@ spec:
                 secretName:
                   type: string
 ```
+
+The `x-sco-ui-*` keys control how the console renders the claim form. Without `x-sco-ui-order` the fields sort alphabetically, so a consumer would see `dbName`, `instances`, `storageGb`, `version`. See [Control Console UI Rendering](control-ui-rendering.md) for labels, input types, grouping and visibility.
 
 ```bash
 kubectl apply -f xrd.yaml
@@ -269,6 +276,7 @@ spec:
 
 ## What's Next?
 
+- [Control Console UI Rendering](control-ui-rendering.md) — Polish how this solution renders: field order, labels, inputs, grouping
 - [Crossplane Compositions](../../service-provider-guide/solutions/crossplane-compositions.md) — Advanced composition patterns
 - [Publishing APIs](../../service-provider-guide/api-publishing/publishing-apis.md) — Full publishing guide
 - [Crossplane Integration](../../integrations/crossplane.md) — Provider setup and KCL function reference

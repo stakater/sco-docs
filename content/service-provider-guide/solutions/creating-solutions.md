@@ -436,6 +436,7 @@ The `PostgreSQLDatabase` claim type is now available in all consumer project wor
 ## What's Next?
 
 - [Control Console UI Rendering](../../how-to-guides/provider/control-ui-rendering.md) — Polish how this solution renders: field order, labels, inputs, grouping
+- [Modelling Child Resources](modeling-child-resources.md) — Model parent/child relationships between claim kinds
 - [Crossplane Compositions](crossplane-compositions.md) — Advanced composition patterns and KCL functions
 - [Publishing APIs](../api-publishing/publishing-apis.md) — Detailed API publishing guide
 - [Create PostgreSQL Solution](../../how-to-guides/provider/create-postgresql-solution.md) — Full worked example

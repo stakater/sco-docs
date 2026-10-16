@@ -3852,6 +3852,23 @@ This documentation is either for an old version, or for the unreleased 'main' ve
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Step 1: Define the XRD">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-these-fields-reach-the-console" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How these fields reach the console
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -5972,6 +5989,23 @@ This documentation is either for an old version, or for the unreleased 'main' ve
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Step 1: Define the XRD">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-these-fields-reach-the-console" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How these fields reach the console
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -6158,6 +6192,38 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 <div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>xrd.yaml
 </code></pre></div>
 <p>Crossplane validates the XRD and makes the claim type available.</p>
+<h3 id="how-these-fields-reach-the-console">How these fields reach the console<a class="headerlink" href="#how-these-fields-reach-the-console" title="Permanent link">#</a></h3>
+<p>The schema above defines four parameters in a deliberate order — <code>dbName</code>, <code>version</code>, <code>storageGb</code>, <code>instances</code>. The console does <strong>not</strong> use that order. Without ordering tags it renders fields alphabetically, so a consumer would see <code>dbName</code>, <code>instances</code>, <code>storageGb</code>, <code>version</code>.</p>
+<p>Add <code>x-sco-ui-order</code> to fix the order, counting in tens so you can insert a field later without renumbering:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">object</span>
+<span class="w">  </span><span class="nt">required</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">dbName</span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="nt">properties</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">dbName</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="w">      </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Name of the database instance</span>
+<span class="w">      </span><span class="nt">x-sco-ui-order</span><span class="p">:</span><span class="w"> </span><span class="s">"10"</span>
+<span class="w">    </span><span class="nt">version</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="w">      </span><span class="nt">default</span><span class="p">:</span><span class="w"> </span><span class="s">"16"</span>
+<span class="w">      </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PostgreSQL major version</span>
+<span class="w">      </span><span class="nt">enum</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">"14"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"15"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"16"</span><span class="p p-Indicator">]</span>
+<span class="w">      </span><span class="nt">x-sco-ui-order</span><span class="p">:</span><span class="w"> </span><span class="s">"20"</span>
+<span class="w">    </span><span class="nt">storageGb</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">integer</span>
+<span class="w">      </span><span class="nt">default</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">20</span>
+<span class="w">      </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Storage size in GiB</span>
+<span class="w">      </span><span class="nt">x-sco-ui-order</span><span class="p">:</span><span class="w"> </span><span class="s">"30"</span>
+<span class="w">    </span><span class="nt">instances</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">integer</span>
+<span class="w">      </span><span class="nt">default</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">      </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Number of PostgreSQL instances (1 = standalone, 3 = HA)</span>
+<span class="w">      </span><span class="nt">x-sco-ui-order</span><span class="p">:</span><span class="w"> </span><span class="s">"40"</span>
+</code></pre></div>
+<p>Add these to <code>xrd.yaml</code> and apply it again:</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>xrd.yaml
+</code></pre></div>
+<p>Ordering is one of several <code>x-sco-ui-*</code> tags — you can also set labels, input types, grouping and visibility from the same schema. See <a href="../../how-to-guides/provider/control-ui-rendering.html">Control Console UI Rendering</a>, which continues with this solution.</p>
 <hr>
 <h2 id="step-2-write-the-composition">Step 2: Write the Composition<a class="headerlink" href="#step-2-write-the-composition" title="Permanent link">#</a></h2>
 <p>The Composition implements the XRD — it defines what infrastructure to create when a consumer applies a <code>PostgreSQLDatabase</code> claim.</p>
@@ -6418,6 +6484,7 @@ kubectl<span class="w"> </span>describe<span class="w"> </span>postgresqldatabas
 <hr>
 <h2 id="whats-next">What's Next?<a class="headerlink" href="#whats-next" title="Permanent link">#</a></h2>
 <ul>
+<li><a href="../../how-to-guides/provider/control-ui-rendering.html">Control Console UI Rendering</a> — Polish how this solution renders: field order, labels, inputs, grouping</li>
 <li><a href="modeling-child-resources.html">Modelling Child Resources</a> — Model parent/child relationships between claim kinds</li>
 <li><a href="crossplane-compositions.html">Crossplane Compositions</a> — Advanced composition patterns and KCL functions</li>
 <li><a href="../api-publishing/publishing-apis.html">Publishing APIs</a> — Detailed API publishing guide</li>

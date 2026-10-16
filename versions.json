@@ -77,9 +77,7 @@
   {
     "version": "docs-vm-backup-vs-snapshot",
     "title": "docs-vm-backup-vs-snapshot",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "docs-scobasic-org-onboarding",
@@ -119,7 +117,9 @@
   {
     "version": "docs-console-field-order",
     "title": "docs-console-field-order",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "architecture",

@@ -54,6 +54,7 @@ nav:
           - how-to-guides/user/provision-openshift-cluster.md
           - how-to-guides/user/provision-virtual-machine.md
           - how-to-guides/user/connect-openshift-cluster-to-virtual-machine.md
+          - how-to-guides/user/provision-windows-virtual-machine.md
           - how-to-guides/user/create-s3-bucket.md
           - how-to-guides/user/create-postgres.md
           - how-to-guides/user/create-vault.md
@@ -73,7 +74,9 @@ nav:
           - installation/configuration.md
       - Solutions and Marketplace:
           - service-provider-guide/solutions/solution-overview.md
-          - service-provider-guide/solutions/creating-solutions.md
+          - Creating Solutions:
+              - service-provider-guide/solutions/creating-solutions.md
+              - service-provider-guide/solutions/modeling-child-resources.md
           - service-provider-guide/solutions/crossplane-compositions.md
           - service-provider-guide/marketplace/publishing-solutions.md
           - service-provider-guide/marketplace/marketplace-configuration.md
@@ -132,5 +135,4 @@ nav:
   - Troubleshooting:
       - troubleshooting/overview.md
       - troubleshooting/common-issues.md
-  - changelog.md
   - eula.md

@@ -27,8 +27,8 @@ Set these on individual schema **properties**.
 | Tag | Values | Effect |
 |-----|--------|--------|
 | `x-sco-ui-label` | Free text | Field label. Defaults to a title-cased property name. |
-| `x-sco-ui-order` | Integer string (e.g. `"10"`) | Sort order within a group; lower first. Unset sorts last. |
-| `x-sco-ui-group` | Free text | Groups fields into a named section. Fields without a group fall into `General` (forms) / `Details` (detail). |
+| `x-sco-ui-order` | Integer string (e.g. `"10"`) | Sort order within a group; lower first. Unset sorts last, alphabetically. |
+| `x-sco-ui-group` | Free text | Groups fields into a named section. Fields without a group fall into `General` (forms) / `Details` (detail). Section position: on forms `General` is always first and named sections follow by their lowest `x-sco-ui-order`; on detail pages every section, `Details` included, is ordered by its lowest `x-sco-ui-order`. |
 | `x-sco-ui-component` | See below | Overrides the input (forms) or display (detail) component. |
 | `x-sco-ui-visibility` | `hidden`, `inline`, `readonly`, `hide-if-null` | Controls whether and how the field shows. See [Visibility](#visibility). |
 | `x-sco-ui-complexity` | `advanced` | Hides the field in **Standard** mode; shows it in **Advanced** mode. |

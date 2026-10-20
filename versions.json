@@ -82,7 +82,9 @@
   {
     "version": "docs-supported-cli-v2.8.4",
     "title": "docs-supported-cli-v2.8.4",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "docs-scobasic-org-onboarding",
@@ -107,9 +109,7 @@
   {
     "version": "docs-openshift-version-gate",
     "title": "docs-openshift-version-gate",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "docs-networking-mode-not-self-service",

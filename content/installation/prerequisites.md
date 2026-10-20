@@ -61,7 +61,7 @@ available from the customer distribution registry, so use a supported version:
 
 | `ksp` version | Customer install |
 |---|---|
-| **v2.8.1** (recommended), v2.8.0, v2.7.1 | Supported for the brownfield (`scobasic`) variant |
+| **v2.8.1** (recommended), v2.8.4, v2.8.3, v2.8.2, v2.8.0, v2.7.1 | Supported for the brownfield (`scobasic`) variant |
 | v2.6.0, v2.7.0 | **Not supported** — the platform release they install is not in the distribution registry, and `ksp up` fails partway through |
 | v2.5.0 and earlier | Install an older platform release. Use the recommended version for new installs |
 

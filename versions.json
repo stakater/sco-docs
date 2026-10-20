@@ -72,9 +72,7 @@
   {
     "version": "docs-vm-peers-native-network",
     "title": "docs-vm-peers-native-network",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "docs-vm-backup-vs-snapshot",
@@ -119,7 +117,9 @@
   {
     "version": "docs-byo-identity-provider",
     "title": "docs-byo-identity-provider",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "architecture",

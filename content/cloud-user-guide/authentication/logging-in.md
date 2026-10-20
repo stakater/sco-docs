@@ -24,12 +24,17 @@ Navigate to your console URL in a browser. You will be presented with the login 
 
 Enter the username and password provided by your administrator or set during account creation.
 
-### Single Sign-On (SSO)
+### Company identity provider
 
-If your organisation has configured SSO (Azure AD, Google, `Okta`, LDAP, or another corporate provider), a **Sign in with [Provider]** button will appear. Click it and complete authentication with your corporate credentials.
+If your organisation has connected its company identity provider, such as `Okta` or Microsoft `Entra` ID, the login page asks for your email address first:
+
+- If your email domain belongs to the company identity provider, you go straight to its sign-in page. Sign in there with your company account.
+- Otherwise, you see the password field. Enter the password provided by your administrator or set during account creation.
+
+If your administrator has turned off the automatic redirect, the login page shows a button for the company identity provider instead. See [How to Connect Your Company Identity Provider](../../how-to-guides/user/connect-identity-provider.md).
 
 !!! note
-    If SSO is configured, your organisation administrator may require you to use SSO exclusively. Contact your administrator if you are unsure which login method to use.
+    If you had a password before your organisation connected its company identity provider, you keep signing in with that password until your administrator moves your account.
 
 ---
 

@@ -32,7 +32,7 @@ Credentials are scoped to the organisation: an account in one organisation canno
 An administrator can connect your company's own identity provider, such as `Okta` or Microsoft `Entra` ID, to the organisation. See [How to Connect Your Company Identity Provider](../../how-to-guides/user/connect-identity-provider.md). After that:
 
 - The organisation login page asks for your email address first.
-- If your email domain belongs to the company identity provider, you go straight to its sign-in page. Otherwise you see the password field, as before.
+- If your email domain belongs to the company identity provider, you go straight to its sign-in page. Otherwise, you see the password field, as before.
 - At your first sign-in, the platform creates your organisation account. It has no password and no forced password change: you always sign in through the company identity provider.
 - Every surface in the table above uses the same sign-in, so one company sign-in covers the console, the Mesh, Vault and the cluster consoles.
 - When your company disables you in its identity provider, you can no longer sign in. Sessions that are already open stay valid until they expire.

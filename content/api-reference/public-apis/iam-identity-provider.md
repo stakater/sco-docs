@@ -49,7 +49,7 @@ All parameters are nested under `spec.parameters`.
 | `status.organizationId` | `string` | ID that the platform gives to the set of domains of this identity provider |
 | `status.conditions` | `array` | Standard Kubernetes conditions |
 
-The console badge shows **ready**, **progressing** while the identity provider waits for its client credentials, **error** when a check fails, and **warning** when the identity provider works but its last change was not applied.
+The console badge shows **ready**, **progressing** while the identity provider waits for its client credentials, **error** when a check fails, and **warning** when the identity provider works, but its last change was not applied.
 
 ## Behaviour
 

@@ -2,7 +2,7 @@
 
 Let your people sign in to your organisation with the identity provider your company already uses, such as `Okta` or Microsoft `Entra` ID.
 
-Maria, an IT administrator at ACME Corp, wants her colleagues to sign in to SCO with their company `Okta` accounts. When someone leaves and she disables them in `Okta`, they must lose access to SCO too.
+Maria, an IT administrator at ACME Corp, wants her colleagues to sign in to SCO with their company `Okta` accounts. When she disables a leaver in `Okta`, that person must lose access to SCO too.
 
 !!! note
     In this guide, *company identity provider* means the system your company already uses for sign-in. *Organisation sign-in* means the SCO sign-in page of your organisation.
@@ -236,7 +236,7 @@ Ask your platform provider to move them. A moved user keeps the same organisatio
 | `refused the change: Domain … is already linked to another organization` | Another identity provider of your organisation owns one of the domains | Remove the domain from one of the two |
 | `change not applied: …` | The last change failed the check after the colon | Correct the change; the identity provider works as before |
 | Microsoft `AADSTS50011` | A redirect URI is missing in the application | Add every URI from the status |
-| *Email domain does not match any domain from the organization* | The user's email address is outside the listed domains | Add the domain, or correct the user's email address |
+| `Email domain does not match any domain from the organization` | The user's email address is outside the listed domains | Add the domain, or correct the user's email address |
 | A user of your domain sees the password field | The user had a password before, or `redirectOnEmailMatch` is off | Ask your platform provider to move the user, or set `redirectOnEmailMatch` to `true` |
 
 ## Full Examples

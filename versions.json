@@ -42,9 +42,7 @@
   {
     "version": "renovate-main-docker-login-action-4.x",
     "title": "renovate-main-docker-login-action-4.x",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "renovate-main-actions-setup-node-7.x",
@@ -104,7 +102,9 @@
   {
     "version": "docs-openshift-version-gate",
     "title": "docs-openshift-version-gate",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "docs-networking-mode-not-self-service",

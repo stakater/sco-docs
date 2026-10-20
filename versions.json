@@ -7,7 +7,9 @@
   {
     "version": "renovate-0.1-stakater-.github-0.x",
     "title": "renovate-0.1-stakater-.github-0.x",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "renovate-main-stakater-.github-0.x",
@@ -117,9 +119,7 @@
   {
     "version": "docs-byo-identity-provider",
     "title": "docs-byo-identity-provider",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "architecture",

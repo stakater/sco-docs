@@ -33,7 +33,7 @@ All parameters are nested under `spec.parameters`.
 |-------|------|---------|-------------|
 | `enabled` | `boolean` | `true` | `false` stops sign-in through this identity provider. Its users and their links stay, so `true` restores sign-in. |
 | `displayName` | `string` | the claim name | Name shown for the identity provider (up to 100 characters) |
-| `userInfoUrl` | `string` | - | Userinfo endpoint. Must use `https` and the issuer's host. Leave it empty for Microsoft `Entra` ID. |
+| `userInfoUrl` | `string` | - | User information endpoint. Must use `https` and the issuer's host. Leave it empty for Microsoft `Entra` ID. |
 | `logoutUrl` | `string` | - | End-session endpoint. Must use `https` and the issuer's host. |
 | `defaultScopes` | `string` | `openid profile email` | Space-separated scopes requested at sign-in. Keep `openid` and `email`: users are matched by their email address. |
 | `redirectOnEmailMatch` | `boolean` | `true` | Send users of the listed domains straight to this identity provider. When `false`, the sign-in page shows a button for it instead. |
@@ -66,17 +66,17 @@ The console badge shows **ready**, **progressing** while the identity provider w
 apiVersion: iam.cloud.stakater.com/v1
 kind: IdentityProvider
 metadata:
-  name: nordwind-okta
+  name: acme-okta
 spec:
   parameters:
-    displayName: Nordwind Okta
+    displayName: ACME Okta
     domains:
-      - nordwind.example
-    issuer: https://nordwind.okta.com
-    authorizationUrl: https://nordwind.okta.com/oauth2/v1/authorize
-    tokenUrl: https://nordwind.okta.com/oauth2/v1/token
-    jwksUrl: https://nordwind.okta.com/oauth2/v1/keys
-    userInfoUrl: https://nordwind.okta.com/oauth2/v1/userinfo
+      - acme.example
+    issuer: https://acme.okta.com
+    authorizationUrl: https://acme.okta.com/oauth2/v1/authorize
+    tokenUrl: https://acme.okta.com/oauth2/v1/token
+    jwksUrl: https://acme.okta.com/oauth2/v1/keys
+    userInfoUrl: https://acme.okta.com/oauth2/v1/userinfo
 ```
 
 ### Microsoft `Entra` ID
@@ -85,12 +85,12 @@ spec:
 apiVersion: iam.cloud.stakater.com/v1
 kind: IdentityProvider
 metadata:
-  name: nordwind-entra
+  name: acme-entra
 spec:
   parameters:
-    displayName: Nordwind Entra ID
+    displayName: ACME Entra ID
     domains:
-      - nordwind.example
+      - acme.example
     issuer: https://login.microsoftonline.com/<tenant-id>/v2.0
     authorizationUrl: https://login.microsoftonline.com/<tenant-id>/oauth2/v2.0/authorize
     tokenUrl: https://login.microsoftonline.com/<tenant-id>/oauth2/v2.0/token

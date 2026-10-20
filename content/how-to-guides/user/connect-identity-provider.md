@@ -2,14 +2,14 @@
 
 Let your people sign in to your organisation with the identity provider your company already uses, such as `Okta` or Microsoft `Entra` ID.
 
-Priya, an IT administrator at Nordwind Logistics, wants her colleagues to sign in to SCO with their company `Okta` accounts. When someone leaves and she disables them in `Okta`, they must lose access to SCO too.
+Maria, an IT administrator at ACME Corp, wants her colleagues to sign in to SCO with their company `Okta` accounts. When someone leaves and she disables them in `Okta`, they must lose access to SCO too.
 
 !!! note
     In this guide, *company identity provider* means the system your company already uses for sign-in. *Organisation sign-in* means the SCO sign-in page of your organisation.
 
 ## How It Works
 
-- You list the email domains that your company identity provider is responsible for, for example `nordwind.example`.
+- You list the email domains that your company identity provider is responsible for, for example `acme.example`.
 - On the organisation sign-in page, users type their email address first. Users whose domain you listed go straight to your company identity provider. Everyone else, including your platform provider's staff, keeps signing in as before.
 - At a user's first sign-in, the platform creates an organisation user for them. This user has no password: they always sign in through your company identity provider.
 - The same sign-in works everywhere your organisation reaches: the SCO console, the Mesh, Vault and cluster consoles. See [One Identity Across Your Organisation](../../cloud-user-guide/authentication/organisation-identity.md).
@@ -43,7 +43,7 @@ When you create an IdentityProvider claim, and your platform provider has stored
 
 **The domains** are the email domains of the users who sign in through this identity provider.
 
-- Write them in lower case, for example `nordwind.example`.
+- Write them in lower case, for example `acme.example`.
 - A domain can belong to only one identity provider in your organisation.
 - `stakater.com`, `stakater.cloud` and their subdomains are refused.
 
@@ -78,7 +78,7 @@ Every endpoint must use `https` and the same host as `issuer`. The platform send
 1. Click **Create**.
 
 !!! note
-    The form shows **Enabled** and **Redirect On Email Match** unticked, although both default to on. An unticked box can save `false`, so tick both yourself.
+    The form shows **Enabled** and **Redirect On Email Match** as empty checkboxes, although both default to on. An empty checkbox can save `false`, so tick both yourself.
 
 ### With kubectl
 
@@ -88,17 +88,17 @@ Create a file named `identity-provider.yaml`:
 apiVersion: iam.cloud.stakater.com/v1
 kind: IdentityProvider
 metadata:
-  name: nordwind-okta
+  name: acme-okta
 spec:
   parameters:
-    displayName: Nordwind Okta
+    displayName: ACME Okta
     domains:
-      - nordwind.example
-    issuer: https://nordwind.okta.com
-    authorizationUrl: https://nordwind.okta.com/oauth2/v1/authorize
-    tokenUrl: https://nordwind.okta.com/oauth2/v1/token
-    jwksUrl: https://nordwind.okta.com/oauth2/v1/keys
-    userInfoUrl: https://nordwind.okta.com/oauth2/v1/userinfo
+      - acme.example
+    issuer: https://acme.okta.com
+    authorizationUrl: https://acme.okta.com/oauth2/v1/authorize
+    tokenUrl: https://acme.okta.com/oauth2/v1/token
+    jwksUrl: https://acme.okta.com/oauth2/v1/keys
+    userInfoUrl: https://acme.okta.com/oauth2/v1/userinfo
 ```
 
 ```bash
@@ -114,7 +114,7 @@ kubectl apply -f identity-provider.yaml
 | `parameters.authorizationUrl` | Yes | - | Authorization endpoint, on the issuer's host |
 | `parameters.tokenUrl` | Yes | - | Token endpoint, on the issuer's host |
 | `parameters.jwksUrl` | Yes | - | JSON Web Key Set URL, on the issuer's host |
-| `parameters.userInfoUrl` | No | - | Userinfo endpoint, on the issuer's host |
+| `parameters.userInfoUrl` | No | - | User information endpoint, on the issuer's host |
 | `parameters.logoutUrl` | No | - | End-session endpoint, on the issuer's host |
 | `parameters.displayName` | No | the claim name | Name shown for the identity provider |
 | `parameters.enabled` | No | `true` | `false` stops sign-in through this identity provider and keeps its users |
@@ -128,7 +128,7 @@ The claim is not ready yet. Its status says that it waits for the client credent
 Read the redirect URIs from the claim's detail page in the console, or with `kubectl`:
 
 ```bash
-kubectl get identityprovider nordwind-okta \
+kubectl get identityprovider acme-okta \
   -o jsonpath='{range .status.redirectUris[*]}{@}{"\n"}{end}'
 ```
 
@@ -163,7 +163,7 @@ When the credentials are stored, the identity provider becomes ready within a mi
 Check the claim:
 
 ```bash
-kubectl get identityprovider nordwind-okta \
+kubectl get identityprovider acme-okta \
   -o jsonpath='{.status.ready}{" "}{.status.message}{"\n"}'
 ```
 
@@ -195,13 +195,13 @@ Users from your company identity provider have no `User` claim. You give them ac
 apiVersion: iam.cloud.stakater.com/v1
 kind: Group
 metadata:
-  name: nordwind-engineers
+  name: acme-engineers
 spec:
   parameters:
-    name: nordwind-engineers
+    name: acme-engineers
     members:
-      - priya@nordwind.example
-      - tom@nordwind.example
+      - maria@acme.example
+      - tom@acme.example
 ```
 
 !!! note
@@ -247,18 +247,18 @@ Ask your platform provider to move them. A moved user keeps the same organisatio
 apiVersion: iam.cloud.stakater.com/v1
 kind: IdentityProvider
 metadata:
-  name: nordwind-okta
+  name: acme-okta
 spec:
   parameters:
-    displayName: Nordwind Okta
+    displayName: ACME Okta
     domains:
-      - nordwind.example
-    issuer: https://nordwind.okta.com
-    authorizationUrl: https://nordwind.okta.com/oauth2/v1/authorize
-    tokenUrl: https://nordwind.okta.com/oauth2/v1/token
-    jwksUrl: https://nordwind.okta.com/oauth2/v1/keys
-    userInfoUrl: https://nordwind.okta.com/oauth2/v1/userinfo
-    logoutUrl: https://nordwind.okta.com/oauth2/v1/logout
+      - acme.example
+    issuer: https://acme.okta.com
+    authorizationUrl: https://acme.okta.com/oauth2/v1/authorize
+    tokenUrl: https://acme.okta.com/oauth2/v1/token
+    jwksUrl: https://acme.okta.com/oauth2/v1/keys
+    userInfoUrl: https://acme.okta.com/oauth2/v1/userinfo
+    logoutUrl: https://acme.okta.com/oauth2/v1/logout
 ```
 
 ### Microsoft `Entra` ID
@@ -267,12 +267,12 @@ spec:
 apiVersion: iam.cloud.stakater.com/v1
 kind: IdentityProvider
 metadata:
-  name: nordwind-entra
+  name: acme-entra
 spec:
   parameters:
-    displayName: Nordwind Entra ID
+    displayName: ACME Entra ID
     domains:
-      - nordwind.example
+      - acme.example
     issuer: https://login.microsoftonline.com/<tenant-id>/v2.0
     authorizationUrl: https://login.microsoftonline.com/<tenant-id>/oauth2/v2.0/authorize
     tokenUrl: https://login.microsoftonline.com/<tenant-id>/oauth2/v2.0/token

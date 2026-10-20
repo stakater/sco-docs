@@ -115,13 +115,6 @@
     "aliases": []
   },
   {
-    "version": "docs-byo-identity-provider",
-    "title": "docs-byo-identity-provider",
-    "aliases": [
-      "latest"
-    ]
-  },
-  {
     "version": "architecture",
     "title": "architecture",
     "aliases": []

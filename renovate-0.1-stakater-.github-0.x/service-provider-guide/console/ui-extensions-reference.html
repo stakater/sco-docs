@@ -3041,6 +3041,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
+      <a href="../../how-to-guides/user/provision-windows-virtual-machine.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Provision a Windows Virtual Machine
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../how-to-guides/user/create-s3-bucket.html" class="md-nav__link">
         
   
@@ -3681,6 +3709,53 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
   
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_2">
+        
+          
+          <label class="md-nav__link" for="__nav_3_4_2" id="__nav_3_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Creating Solutions
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Creating Solutions
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
     <li class="md-nav__item">
       <a href="../solutions/creating-solutions.html" class="md-nav__link">
         
@@ -3698,6 +3773,42 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
 
       </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../solutions/modeling-child-resources.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modelling Child Resources
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -5881,33 +5992,6 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../changelog.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Changelog
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../eula.html" class="md-nav__link">
         
   
@@ -6219,12 +6303,12 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <tr>
 <td><code>x-sco-ui-order</code></td>
 <td>Integer string (e.g. <code>"10"</code>)</td>
-<td>Sort order within a group; lower first. Unset sorts last.</td>
+<td>Sort order within a group; lower first. Unset sorts last, alphabetically.</td>
 </tr>
 <tr>
 <td><code>x-sco-ui-group</code></td>
 <td>Free text</td>
-<td>Groups fields into a named section. Fields without a group fall into <code>General</code> (forms) / <code>Details</code> (detail).</td>
+<td>Groups fields into a named section. Fields without a group fall into <code>General</code> (forms) / <code>Details</code> (detail). Section position: on forms <code>General</code> is always first and named sections follow by their lowest <code>x-sco-ui-order</code>; on detail pages every section, <code>Details</code> included, is ordered by its lowest <code>x-sco-ui-order</code>.</td>
 </tr>
 <tr>
 <td><code>x-sco-ui-component</code></td>

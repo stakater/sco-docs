@@ -72,7 +72,7 @@ Every endpoint must use `https` and the same host as `issuer`. The platform send
 
 ### In the Console
 
-1. Under **Identity & Access**, open **IdentityProvider** and click **Create**.
+1. Go to **All services > IAM > Identity Providers** and click **Create**.
 1. Fill in the name, the domains and the endpoints from Steps 1 and 2.
 1. Tick **Enabled** and **Redirect On Email Match**.
 1. Click **Create**.

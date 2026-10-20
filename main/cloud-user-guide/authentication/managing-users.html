@@ -2392,6 +2392,17 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 </li>
       
         <li class="md-nav__item">
+  <a href="#users-from-your-company-identity-provider" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Users from Your Company Identity Provider
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#creating-groups" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3083,6 +3094,34 @@ This documentation is either for an old version, or for the unreleased 'main' ve
     
   
     How to Create an IAM Group
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../how-to-guides/user/connect-identity-provider.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Connect Your Company Identity Provider
   
 
     
@@ -5187,6 +5226,34 @@ This documentation is either for an old version, or for the unreleased 'main' ve
   
   
     <li class="md-nav__item">
+      <a href="../../api-reference/public-apis/iam-identity-provider.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IAM IdentityProvider
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../api-reference/public-apis/openshift-cluster.html" class="md-nav__link">
         
   
@@ -5901,6 +5968,17 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 </li>
       
         <li class="md-nav__item">
+  <a href="#users-from-your-company-identity-provider" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Users from Your Company Identity Provider
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#creating-groups" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -5993,6 +6071,20 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 <div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>alice.yaml
 </code></pre></div>
 <p>See the <a href="../../how-to-guides/user/create-iam-user.html">Create IAM User</a> how-to guide for the full parameter reference.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If your organisation has connected a company identity provider, do not create a <code>User</code> claim for an email address in its domains. That user gets a password and signs in without the company identity provider. See <a href="#users-from-your-company-identity-provider">Users from Your Company Identity Provider</a>.</p>
+</div>
+<hr>
+<h2 id="users-from-your-company-identity-provider">Users from Your Company Identity Provider<a class="headerlink" href="#users-from-your-company-identity-provider" title="Permanent link">#</a></h2>
+<p>When your organisation has a <a href="../../how-to-guides/user/connect-identity-provider.html">company identity provider</a>, users of its email domains need no <code>User</code> claim:</p>
+<ul>
+<li>The platform creates their organisation user at their first sign-in. It has no password.</li>
+<li>They do not appear in the console's user list, because there is no <code>User</code> claim for them.</li>
+<li>You give them access by email address, as for other users: in the <code>members</code> of a group, or in the <code>users</code> of a project's <code>access</code> list.</li>
+<li>You can add someone to a group before their first sign-in. The membership applies after their first sign-in, within about 15 minutes. Until then, the group already lists them, but they do not have the group's access yet.</li>
+<li>To stop someone signing in, disable them in your company identity provider. Sessions that are already open stay valid until they expire.</li>
+</ul>
 <hr>
 <h2 id="creating-groups">Creating Groups<a class="headerlink" href="#creating-groups" title="Permanent link">#</a></h2>
 <p>Groups let you manage access for multiple users at once. A project can grant access to a group — adding someone to the group automatically grants them the project access configured for that group.</p>

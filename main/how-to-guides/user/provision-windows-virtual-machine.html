@@ -2988,6 +2988,34 @@ This documentation is either for an old version, or for the unreleased 'main' ve
   
   
     <li class="md-nav__item">
+      <a href="connect-identity-provider.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Connect Your Company Identity Provider
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="provision-openshift-cluster.html" class="md-nav__link">
         
   
@@ -5309,6 +5337,34 @@ This documentation is either for an old version, or for the unreleased 'main' ve
   
   
     <li class="md-nav__item">
+      <a href="../../api-reference/public-apis/iam-identity-provider.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IAM IdentityProvider
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../api-reference/public-apis/openshift-cluster.html" class="md-nav__link">
         
   
@@ -6322,7 +6378,7 @@ kubectl<span class="w"> </span>get<span class="w"> </span>virtualmachinevolume<s
 <span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">win2k25-media</span>
 </code></pre></div>
 <p>You can also create the VM from the SCO console: open <strong>Windows Virtual Machines</strong> in the sidebar, choose <strong>Create</strong>, and fill in the same fields.</p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/generated/windows-vm-create.png" data-desc-position="bottom"><img alt="The Create Windows Virtual Machine form in Standard mode" src="../../images/generated/windows-vm-create.png"></a></p>
+<p></p>
 <p>To download the ISO for this VM alone instead of using a shared volume, replace <code>installationSource</code> with:</p>
 <div class="highlight"><pre><span></span><code><span class="w">    </span><span class="nt">installationSource</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">http</span>
@@ -6419,7 +6475,7 @@ kubectl<span class="w"> </span>get<span class="w"> </span>virtualmachinevolume<s
 my-windows-vm    True     True    9m
 </code></pre></div>
 <p>In the console, the Windows Virtual Machines list shows the same status:</p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/generated/windows-vm-list.png" data-desc-position="bottom"><img alt="The Windows Virtual Machines list with status and a Create button" src="../../images/generated/windows-vm-list.png"></a></p>
+<p></p>
 <p><code>READY: True</code> and a <code>Running</code> VM status mean only that the virtual machine has <em>started</em> — not that Windows has finished installing. Watch the disks and the guest address instead:</p>
 <div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>windowsvirtualmachine<span class="w"> </span>my-windows-vm<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.status.vm.printableStatus}{"\n"}{.status.vm.dataVolumes}{"\n"}{.status.vm.internalIP}{"\n"}'</span>
@@ -6455,7 +6511,7 @@ my-windows-vm    True     True    9m
 <div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>windowsvirtualmachine<span class="w"> </span>my-windows-vm<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.status.vm.internalIP}'</span>
 </code></pre></div>
 <p>The same address appears as <strong>Internal IP</strong> on the VM's detail page in the console:</p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/generated/windows-vm-detail.png" data-desc-position="bottom"><img alt="A Windows Virtual Machine detail page, showing the Internal IP to connect to" src="../../images/generated/windows-vm-detail.png"></a></p>
+<p></p>
 </li>
 <li>
 <p>Check that the RDP port is reachable:</p>

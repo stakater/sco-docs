@@ -2365,6 +2365,17 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
+  <a href="#signing-in-with-your-company-identity-provider" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Signing In with Your Company Identity Provider
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#enrolling-a-device-into-the-mesh" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3110,6 +3121,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
+      <a href="../../how-to-guides/user/connect-identity-provider.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Connect Your Company Identity Provider
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../how-to-guides/user/provision-openshift-cluster.html" class="md-nav__link">
         
   
@@ -3832,6 +3871,53 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
   
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_2">
+        
+          
+          <label class="md-nav__link" for="__nav_3_4_2" id="__nav_3_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Creating Solutions
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Creating Solutions
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
     <li class="md-nav__item">
       <a href="../../service-provider-guide/solutions/creating-solutions.html" class="md-nav__link">
         
@@ -3849,6 +3935,42 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
 
       </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../service-provider-guide/solutions/modeling-child-resources.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modelling Child Resources
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -5111,6 +5233,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
+      <a href="../../api-reference/public-apis/iam-identity-provider.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IAM IdentityProvider
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../api-reference/public-apis/openshift-cluster.html" class="md-nav__link">
         
   
@@ -5825,6 +5975,17 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
+  <a href="#signing-in-with-your-company-identity-provider" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Signing In with Your Company Identity Provider
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#enrolling-a-device-into-the-mesh" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -5951,6 +6112,16 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <p class="admonition-title">Note</p>
 <p>Your username is the full email address (for example <code>alice@acmecorp.example.com</code>), not the short name.</p>
 </div>
+<hr>
+<h2 id="signing-in-with-your-company-identity-provider">Signing In with Your Company Identity Provider<a class="headerlink" href="#signing-in-with-your-company-identity-provider" title="Permanent link">#</a></h2>
+<p>An administrator can connect your company's own identity provider, such as <code>Okta</code> or Microsoft <code>Entra</code> ID, to the organisation. See <a href="../../how-to-guides/user/connect-identity-provider.html">How to Connect Your Company Identity Provider</a>. After that:</p>
+<ul>
+<li>The organisation login page asks for your email address first.</li>
+<li>If your email domain belongs to the company identity provider, you go straight to its sign-in page. Otherwise, you see the password field, as before.</li>
+<li>At your first sign-in, the platform creates your organisation account. It has no password and no forced password change: you always sign in through the company identity provider.</li>
+<li>Every surface in the table above uses the same sign-in, so one company sign-in covers the console, the Mesh, Vault and the cluster consoles.</li>
+<li>When your company disables you in its identity provider, you can no longer sign in. Sessions that are already open stay valid until they expire.</li>
+</ul>
 <hr>
 <h2 id="enrolling-a-device-into-the-mesh">Enrolling a Device into the Mesh<a class="headerlink" href="#enrolling-a-device-into-the-mesh" title="Permanent link">#</a></h2>
 <p>Device enrolment uses the same single sign-on. After <a href="../../how-to-guides/user/create-mesh.html">creating a Mesh</a> (or if your organisation includes one by default):</p>

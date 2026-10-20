@@ -2360,10 +2360,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
         
           <li class="md-nav__item">
-  <a href="#single-sign-on-sso" class="md-nav__link">
+  <a href="#company-identity-provider" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Single Sign-On (SSO)
+        Company identity provider
       
     </span>
   </a>
@@ -3143,6 +3143,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
+      <a href="../../how-to-guides/user/connect-identity-provider.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Connect Your Company Identity Provider
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../how-to-guides/user/provision-openshift-cluster.html" class="md-nav__link">
         
   
@@ -3179,6 +3207,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     
   
     How to Provision a Virtual Machine
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../how-to-guides/user/provision-windows-virtual-machine.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Provision a Windows Virtual Machine
   
 
     
@@ -3837,6 +3893,53 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
   
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_2">
+        
+          
+          <label class="md-nav__link" for="__nav_3_4_2" id="__nav_3_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Creating Solutions
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Creating Solutions
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
     <li class="md-nav__item">
       <a href="../../service-provider-guide/solutions/creating-solutions.html" class="md-nav__link">
         
@@ -3854,6 +3957,42 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
 
       </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../service-provider-guide/solutions/modeling-child-resources.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modelling Child Resources
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -5116,6 +5255,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
+      <a href="../../api-reference/public-apis/iam-identity-provider.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IAM IdentityProvider
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../api-reference/public-apis/openshift-cluster.html" class="md-nav__link">
         
   
@@ -5770,33 +5937,6 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../changelog.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Changelog
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../eula.html" class="md-nav__link">
         
   
@@ -5880,10 +6020,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
         
           <li class="md-nav__item">
-  <a href="#single-sign-on-sso" class="md-nav__link">
+  <a href="#company-identity-provider" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Single Sign-On (SSO)
+        Company identity provider
       
     </span>
   </a>
@@ -5980,11 +6120,16 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <p>Navigate to your console URL in a browser. You will be presented with the login page for your organisation.</p>
 <h3 id="standard-login">Standard login<a class="headerlink" href="#standard-login" title="Permanent link">#</a></h3>
 <p>Enter the username and password provided by your administrator or set during account creation.</p>
-<h3 id="single-sign-on-sso">Single Sign-On (SSO)<a class="headerlink" href="#single-sign-on-sso" title="Permanent link">#</a></h3>
-<p>If your organisation has configured SSO (Azure AD, Google, <code>Okta</code>, LDAP, or another corporate provider), a <strong>Sign in with [Provider]</strong> button will appear. Click it and complete authentication with your corporate credentials.</p>
+<h3 id="company-identity-provider">Company identity provider<a class="headerlink" href="#company-identity-provider" title="Permanent link">#</a></h3>
+<p>If your organisation has connected its company identity provider, such as <code>Okta</code> or Microsoft <code>Entra</code> ID, the login page asks for your email address first:</p>
+<ul>
+<li>If your email domain belongs to the company identity provider, you go straight to its sign-in page. Sign in there with your company account.</li>
+<li>Otherwise, you see the password field. Enter the password provided by your administrator or set during account creation.</li>
+</ul>
+<p>If your administrator has turned off the automatic redirect, the login page shows a button for the company identity provider instead. See <a href="../../how-to-guides/user/connect-identity-provider.html">How to Connect Your Company Identity Provider</a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>If SSO is configured, your organisation administrator may require you to use SSO exclusively. Contact your administrator if you are unsure which login method to use.</p>
+<p>If you had a password before your organisation connected its company identity provider, you keep signing in with that password until your administrator moves your account.</p>
 </div>
 <hr>
 <h2 id="step-3-set-your-password-first-login">Step 3: Set Your Password (First Login)<a class="headerlink" href="#step-3-set-your-password-first-login" title="Permanent link">#</a></h2>

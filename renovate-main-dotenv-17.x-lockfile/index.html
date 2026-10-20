@@ -3237,6 +3237,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
+      <a href="how-to-guides/user/connect-identity-provider.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Connect Your Company Identity Provider
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="how-to-guides/user/provision-openshift-cluster.html" class="md-nav__link">
         
   
@@ -3273,6 +3301,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     
   
     How to Provision a Virtual Machine
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="how-to-guides/user/provision-windows-virtual-machine.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Provision a Windows Virtual Machine
   
 
     
@@ -3931,6 +3987,53 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
   
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_2">
+        
+          
+          <label class="md-nav__link" for="__nav_3_4_2" id="__nav_3_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Creating Solutions
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Creating Solutions
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
     <li class="md-nav__item">
       <a href="service-provider-guide/solutions/creating-solutions.html" class="md-nav__link">
         
@@ -3948,6 +4051,42 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
 
       </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="service-provider-guide/solutions/modeling-child-resources.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modelling Child Resources
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
@@ -5210,6 +5349,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
+      <a href="api-reference/public-apis/iam-identity-provider.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IAM IdentityProvider
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="api-reference/public-apis/openshift-cluster.html" class="md-nav__link">
         
   
@@ -5864,33 +6031,6 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="changelog.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Changelog
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="eula.html" class="md-nav__link">
         
   
@@ -6237,7 +6377,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     Project --&gt; Platform[SCO Control Plane&lt;br/&gt;KCP, Crossplane, MTO, Keycloak]
     Platform --&gt; Infra[Infrastructure&lt;br/&gt;VMs, clusters, databases, storage]</code></pre>
 <ol>
-<li><strong>SCO is installed</strong> on your Kubernetes cluster using the <code>ksp up</code> CLI command (tested on OpenShift 4.14+)</li>
+<li><strong>SCO is installed</strong> on your Kubernetes cluster using the <code>ksp up</code> CLI command (on OpenShift 4.19+)</li>
 <li><strong>Platform providers</strong> create solutions (e.g., VirtualMachine-as-a-Service, OpenShift-as-a-Service) using composition tools</li>
 <li>Solutions are published to the <strong>marketplace</strong> as Kubernetes custom resources</li>
 <li><strong>Organisations</strong> are created with dedicated Keycloak realms for authentication isolation</li>
@@ -6248,7 +6388,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <h2 id="core-technologies">Core Technologies<a class="headerlink" href="#core-technologies" title="Permanent link">#</a></h2>
 <p>SCO leverages proven, cloud-native technologies:</p>
 <ul>
-<li><strong>Kubernetes</strong>: Foundation for all orchestration (tested on OpenShift 4.14+)</li>
+<li><strong>Kubernetes</strong>: Foundation for all orchestration (OpenShift 4.19+)</li>
 <li><strong>Kubernetes CRDs</strong>: Native extension mechanism for solutions and services</li>
 <li><strong>Virtual Machine Management</strong>: KubeVirt-based (OpenShift Virtualization on OpenShift)</li>
 <li><strong>Hosted Control Planes</strong>: hypershift for OpenShift-on-OpenShift</li>

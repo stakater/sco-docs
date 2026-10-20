@@ -6363,14 +6363,14 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 
 <h1 id="how-to-connect-your-company-identity-provider">How to Connect Your Company Identity Provider<a class="headerlink" href="#how-to-connect-your-company-identity-provider" title="Permanent link">#</a></h1>
 <p>Let your people sign in to your organisation with the identity provider your company already uses, such as <code>Okta</code> or Microsoft <code>Entra</code> ID.</p>
-<p>Priya, an IT administrator at Nordwind Logistics, wants her colleagues to sign in to SCO with their company <code>Okta</code> accounts. When someone leaves and she disables them in <code>Okta</code>, they must lose access to SCO too.</p>
+<p>Maria, an IT administrator at ACME Corp, wants her colleagues to sign in to SCO with their company <code>Okta</code> accounts. When someone leaves and she disables them in <code>Okta</code>, they must lose access to SCO too.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>In this guide, <em>company identity provider</em> means the system your company already uses for sign-in. <em>Organisation sign-in</em> means the SCO sign-in page of your organisation.</p>
 </div>
 <h2 id="how-it-works">How It Works<a class="headerlink" href="#how-it-works" title="Permanent link">#</a></h2>
 <ul>
-<li>You list the email domains that your company identity provider is responsible for, for example <code>nordwind.example</code>.</li>
+<li>You list the email domains that your company identity provider is responsible for, for example <code>acme.example</code>.</li>
 <li>On the organisation sign-in page, users type their email address first. Users whose domain you listed go straight to your company identity provider. Everyone else, including your platform provider's staff, keeps signing in as before.</li>
 <li>At a user's first sign-in, the platform creates an organisation user for them. This user has no password: they always sign in through your company identity provider.</li>
 <li>The same sign-in works everywhere your organisation reaches: the SCO console, the Mesh, Vault and cluster consoles. See <a href="../../cloud-user-guide/authentication/organisation-identity.html">One Identity Across Your Organisation</a>.</li>
@@ -6403,7 +6403,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </ul>
 <p><strong>The domains</strong> are the email domains of the users who sign in through this identity provider.</p>
 <ul>
-<li>Write them in lower case, for example <code>nordwind.example</code>.</li>
+<li>Write them in lower case, for example <code>acme.example</code>.</li>
 <li>A domain can belong to only one identity provider in your organisation.</li>
 <li><code>stakater.com</code>, <code>stakater.cloud</code> and their subdomains are refused.</li>
 </ul>
@@ -6462,24 +6462,24 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </ol>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The form shows <strong>Enabled</strong> and <strong>Redirect On Email Match</strong> unticked, although both default to on. An unticked box can save <code>false</code>, so tick both yourself.</p>
+<p>The form shows <strong>Enabled</strong> and <strong>Redirect On Email Match</strong> as empty checkboxes, although both default to on. An empty checkbox can save <code>false</code>, so tick both yourself.</p>
 </div>
 <h3 id="with-kubectl">With kubectl<a class="headerlink" href="#with-kubectl" title="Permanent link">#</a></h3>
 <p>Create a file named <code>identity-provider.yaml</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">iam.cloud.stakater.com/v1</span>
 <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">IdentityProvider</span>
 <span class="nt">metadata</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nordwind-okta</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">acme-okta</span>
 <span class="nt">spec</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">displayName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Nordwind Okta</span>
+<span class="w">    </span><span class="nt">displayName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ACME Okta</span>
 <span class="w">    </span><span class="nt">domains</span><span class="p">:</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nordwind.example</span>
-<span class="w">    </span><span class="nt">issuer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://nordwind.okta.com</span>
-<span class="w">    </span><span class="nt">authorizationUrl</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://nordwind.okta.com/oauth2/v1/authorize</span>
-<span class="w">    </span><span class="nt">tokenUrl</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://nordwind.okta.com/oauth2/v1/token</span>
-<span class="w">    </span><span class="nt">jwksUrl</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://nordwind.okta.com/oauth2/v1/keys</span>
-<span class="w">    </span><span class="nt">userInfoUrl</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://nordwind.okta.com/oauth2/v1/userinfo</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">acme.example</span>
+<span class="w">    </span><span class="nt">issuer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://acme.okta.com</span>
+<span class="w">    </span><span class="nt">authorizationUrl</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://acme.okta.com/oauth2/v1/authorize</span>
+<span class="w">    </span><span class="nt">tokenUrl</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://acme.okta.com/oauth2/v1/token</span>
+<span class="w">    </span><span class="nt">jwksUrl</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://acme.okta.com/oauth2/v1/keys</span>
+<span class="w">    </span><span class="nt">userInfoUrl</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://acme.okta.com/oauth2/v1/userinfo</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>identity-provider.yaml
 </code></pre></div>
@@ -6528,7 +6528,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <td><code>parameters.userInfoUrl</code></td>
 <td>No</td>
 <td>-</td>
-<td>Userinfo endpoint, on the issuer's host</td>
+<td>User information endpoint, on the issuer's host</td>
 </tr>
 <tr>
 <td><code>parameters.logoutUrl</code></td>
@@ -6565,7 +6565,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <p>The claim is not ready yet. Its status says that it waits for the client credentials, and it lists the redirect URIs for the next step.</p>
 <h2 id="step-4-create-the-application-in-your-company-identity-provider">Step 4: Create the Application in Your Company Identity Provider<a class="headerlink" href="#step-4-create-the-application-in-your-company-identity-provider" title="Permanent link">#</a></h2>
 <p>Read the redirect URIs from the claim's detail page in the console, or with <code>kubectl</code>:</p>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>identityprovider<span class="w"> </span>nordwind-okta<span class="w"> </span><span class="se">\</span>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>identityprovider<span class="w"> </span>acme-okta<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{range .status.redirectUris[*]}{@}{"\n"}{end}'</span>
 </code></pre></div>
 <p>In your company identity provider, create an OIDC web application with these settings:</p>
@@ -6617,7 +6617,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <p>When the credentials are stored, the identity provider becomes ready within a minute. The platform sends the client secret only to the issuer's host.</p>
 <h2 id="step-6-verify">Step 6: Verify<a class="headerlink" href="#step-6-verify" title="Permanent link">#</a></h2>
 <p>Check the claim:</p>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>identityprovider<span class="w"> </span>nordwind-okta<span class="w"> </span><span class="se">\</span>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>identityprovider<span class="w"> </span>acme-okta<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.status.ready}{" "}{.status.message}{"\n"}'</span>
 </code></pre></div>
 <p>Expected output once ready:</p>
@@ -6641,13 +6641,13 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">iam.cloud.stakater.com/v1</span>
 <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Group</span>
 <span class="nt">metadata</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nordwind-engineers</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">acme-engineers</span>
 <span class="nt">spec</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nordwind-engineers</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">acme-engineers</span>
 <span class="w">    </span><span class="nt">members</span><span class="p">:</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">priya@nordwind.example</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tom@nordwind.example</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">maria@acme.example</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tom@acme.example</span>
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -6729,29 +6729,29 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">iam.cloud.stakater.com/v1</span>
 <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">IdentityProvider</span>
 <span class="nt">metadata</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nordwind-okta</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">acme-okta</span>
 <span class="nt">spec</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">displayName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Nordwind Okta</span>
+<span class="w">    </span><span class="nt">displayName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ACME Okta</span>
 <span class="w">    </span><span class="nt">domains</span><span class="p">:</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nordwind.example</span>
-<span class="w">    </span><span class="nt">issuer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://nordwind.okta.com</span>
-<span class="w">    </span><span class="nt">authorizationUrl</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://nordwind.okta.com/oauth2/v1/authorize</span>
-<span class="w">    </span><span class="nt">tokenUrl</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://nordwind.okta.com/oauth2/v1/token</span>
-<span class="w">    </span><span class="nt">jwksUrl</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://nordwind.okta.com/oauth2/v1/keys</span>
-<span class="w">    </span><span class="nt">userInfoUrl</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://nordwind.okta.com/oauth2/v1/userinfo</span>
-<span class="w">    </span><span class="nt">logoutUrl</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://nordwind.okta.com/oauth2/v1/logout</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">acme.example</span>
+<span class="w">    </span><span class="nt">issuer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://acme.okta.com</span>
+<span class="w">    </span><span class="nt">authorizationUrl</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://acme.okta.com/oauth2/v1/authorize</span>
+<span class="w">    </span><span class="nt">tokenUrl</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://acme.okta.com/oauth2/v1/token</span>
+<span class="w">    </span><span class="nt">jwksUrl</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://acme.okta.com/oauth2/v1/keys</span>
+<span class="w">    </span><span class="nt">userInfoUrl</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://acme.okta.com/oauth2/v1/userinfo</span>
+<span class="w">    </span><span class="nt">logoutUrl</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://acme.okta.com/oauth2/v1/logout</span>
 </code></pre></div>
 <h3 id="microsoft-entra-id">Microsoft <code>Entra</code> ID<a class="headerlink" href="#microsoft-entra-id" title="Permanent link">#</a></h3>
 <div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">iam.cloud.stakater.com/v1</span>
 <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">IdentityProvider</span>
 <span class="nt">metadata</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nordwind-entra</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">acme-entra</span>
 <span class="nt">spec</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">displayName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Nordwind Entra ID</span>
+<span class="w">    </span><span class="nt">displayName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ACME Entra ID</span>
 <span class="w">    </span><span class="nt">domains</span><span class="p">:</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nordwind.example</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">acme.example</span>
 <span class="w">    </span><span class="nt">issuer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://login.microsoftonline.com/&lt;tenant-id&gt;/v2.0</span>
 <span class="w">    </span><span class="nt">authorizationUrl</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://login.microsoftonline.com/&lt;tenant-id&gt;/oauth2/v2.0/authorize</span>
 <span class="w">    </span><span class="nt">tokenUrl</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://login.microsoftonline.com/&lt;tenant-id&gt;/oauth2/v2.0/token</span>

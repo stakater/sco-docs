@@ -100,13 +100,6 @@
     "aliases": []
   },
   {
-    "version": "docs-openshift-version-gate",
-    "title": "docs-openshift-version-gate",
-    "aliases": [
-      "latest"
-    ]
-  },
-  {
     "version": "docs-networking-mode-not-self-service",
     "title": "docs-networking-mode-not-self-service",
     "aliases": []

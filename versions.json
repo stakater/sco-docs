@@ -70,13 +70,6 @@
     "aliases": []
   },
   {
-    "version": "docs-windows-vm-answer-file-in-vault",
-    "title": "docs-windows-vm-answer-file-in-vault",
-    "aliases": [
-      "latest"
-    ]
-  },
-  {
     "version": "docs-vm-peers-native-network",
     "title": "docs-vm-peers-native-network",
     "aliases": []

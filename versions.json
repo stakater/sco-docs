@@ -72,14 +72,14 @@
   {
     "version": "docs-windows-vm-answer-file-in-vault",
     "title": "docs-windows-vm-answer-file-in-vault",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "docs-vm-peers-native-network",
     "title": "docs-vm-peers-native-network",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "docs-vm-backup-vs-snapshot",

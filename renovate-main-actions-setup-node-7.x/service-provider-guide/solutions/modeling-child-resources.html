@@ -5,28 +5,28 @@
       
       
       
-        <link rel="canonical" href="https://docs.stakater.com/cloud-orchestrator/renovate-main-actions-setup-node-7.x/how-to-guides/user/expose-service-via-netbird.html">
+        <link rel="canonical" href="https://docs.stakater.com/cloud-orchestrator/renovate-main-actions-setup-node-7.x/service-provider-guide/solutions/modeling-child-resources.html">
       
       
-        <link rel="prev" href="create-mesh.html">
+        <link rel="prev" href="creating-solutions.html">
       
       
-        <link rel="next" href="../../audience/platform-providers.html">
+        <link rel="next" href="crossplane-compositions.html">
       
       
         
       
       
       <link rel="icon" href="../../assets/images/favicon.svg">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.7.7">
     
     
       
-        <title>How to Expose an Internal Service via the Mesh - Stakater Cloud Orchestrator</title>
+        <title>Modelling Child Resources - Stakater Cloud Orchestrator</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -95,7 +95,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#how-to-expose-an-internal-service-via-the-mesh" class="md-skip">
+        <a href="#modelling-child-resources" class="md-skip">
           Skip to content
         </a>
       
@@ -733,10 +733,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
                     <div class="dropdown-content-column">
                         <h3 class="dropdown-content-column-title">Products</h3>
                         <div class="dropdown-content-anchor-container">
-                            <a href="https://www.stakater.com/saap-kubernetes-openshift" class="dropdown-item-link-text hover-underline">Stakater
-                                App
-                                Agility
-                                Platform (SAAP)</a>
+                            <a href="https://docs.stakater.com/kubestackplus/" class="dropdown-item-link-text hover-underline">KubeStack+</a>
                         </div>
                         <div class="dropdown-content-anchor-container">
                             <a href="https://www.stakater.com/mto" class="dropdown-item-link-text hover-underline">Multi
@@ -1549,10 +1546,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
                     <div class="dropdown-content-column">
                         <h3 class="dropdown-content-column-title">Products</h3>
                         <div class="dropdown-content-anchor-container">
-                            <a href="https://www.stakater.com/saap-kubernetes-openshift" class="dropdown-item-link-text hover-underline">Stakater
-                                App
-                                Agility
-                                Platform (SAAP)</a>
+                            <a href="https://docs.stakater.com/kubestackplus/" class="dropdown-item-link-text hover-underline">KubeStack+</a>
                         </div>
                         <div class="dropdown-content-anchor-container">
                             <a href="https://www.stakater.com/mto" class="dropdown-item-link-text hover-underline">Multi
@@ -2030,20 +2024,18 @@ This documentation is for a pull request deployment and is unreleased, it is onl
       
   
   
-    
   
   
-  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked="">
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2">
         
           
           <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
@@ -2064,7 +2056,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             
@@ -2831,20 +2823,18 @@ This documentation is for a pull request deployment and is unreleased, it is onl
                 
   
   
-    
   
   
-  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6" checked="">
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6">
         
           
           <label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="0">
@@ -2865,7 +2855,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2_6">
             <span class="md-nav__icon md-icon"></span>
             
@@ -2883,7 +2873,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="deploy-first-app.html" class="md-nav__link">
+      <a href="../../how-to-guides/user/deploy-first-app.html" class="md-nav__link">
         
   
   
@@ -2911,7 +2901,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="create-project.html" class="md-nav__link">
+      <a href="../../how-to-guides/user/create-project.html" class="md-nav__link">
         
   
   
@@ -2939,7 +2929,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="create-iam-user.html" class="md-nav__link">
+      <a href="../../how-to-guides/user/create-iam-user.html" class="md-nav__link">
         
   
   
@@ -2967,7 +2957,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="create-iam-group.html" class="md-nav__link">
+      <a href="../../how-to-guides/user/create-iam-group.html" class="md-nav__link">
         
   
   
@@ -2995,7 +2985,35 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="provision-openshift-cluster.html" class="md-nav__link">
+      <a href="../../how-to-guides/user/connect-identity-provider.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Connect Your Company Identity Provider
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../how-to-guides/user/provision-openshift-cluster.html" class="md-nav__link">
         
   
   
@@ -3023,7 +3041,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="provision-virtual-machine.html" class="md-nav__link">
+      <a href="../../how-to-guides/user/provision-virtual-machine.html" class="md-nav__link">
         
   
   
@@ -3051,7 +3069,35 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="create-s3-bucket.html" class="md-nav__link">
+      <a href="../../how-to-guides/user/provision-windows-virtual-machine.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Provision a Windows Virtual Machine
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../how-to-guides/user/create-s3-bucket.html" class="md-nav__link">
         
   
   
@@ -3079,7 +3125,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="create-postgres.html" class="md-nav__link">
+      <a href="../../how-to-guides/user/create-postgres.html" class="md-nav__link">
         
   
   
@@ -3107,7 +3153,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="create-vault.html" class="md-nav__link">
+      <a href="../../how-to-guides/user/create-vault.html" class="md-nav__link">
         
   
   
@@ -3135,7 +3181,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="create-mesh.html" class="md-nav__link">
+      <a href="../../how-to-guides/user/create-mesh.html" class="md-nav__link">
         
   
   
@@ -3160,37 +3206,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    How to Expose an Internal Service via the Mesh
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="expose-service-via-netbird.html" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../how-to-guides/user/expose-service-via-mesh.html" class="md-nav__link">
         
   
   
@@ -3206,127 +3225,6 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
 
       </a>
-      
-        
-
-  
-
-<nav class="md-nav md-nav--secondary" aria-label="On this page">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      On this page
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
-      
-        <li class="md-nav__item">
-  <a href="#prerequisites" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Prerequisites
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#what-gets-created" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        What Gets Created
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#step-1-find-the-service-address" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 1: Find the Service Address
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#step-2-define-a-netbirdrouter-claim" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 2: Define a NetbirdRouter Claim
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#step-3-apply-the-claim" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 3: Apply the Claim
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#step-4-verify-the-router" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 4: Verify the Router
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#step-5-connect-a-device-with-the-setup-key" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 5: Connect a Device with the Setup Key
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#step-6-test" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 6: Test
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#related" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Related
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -3351,18 +3249,20 @@ This documentation is for a pull request deployment and is unreleased, it is onl
       
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3">
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked="">
         
           
           <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
@@ -3383,7 +3283,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -3476,7 +3376,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../service-provider-guide/overview.html" class="md-nav__link">
+      <a href="../overview.html" class="md-nav__link">
         
   
   
@@ -3504,7 +3404,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../service-provider-guide/getting-started.html" class="md-nav__link">
+      <a href="../getting-started.html" class="md-nav__link">
         
   
   
@@ -3671,6 +3571,62 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
+      <a href="../../installation/scobasic.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    scobasic Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/openbao-unseal.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Choosing the Platform Secret Store Unseal Method
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../installation/configuration.html" class="md-nav__link">
         
   
@@ -3704,18 +3660,20 @@ This documentation is for a pull request deployment and is unreleased, it is onl
                 
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4">
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" checked="">
         
           
           <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
@@ -3736,7 +3694,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3_4">
             <span class="md-nav__icon md-icon"></span>
             
@@ -3754,7 +3712,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../service-provider-guide/solutions/solution-overview.html" class="md-nav__link">
+      <a href="solution-overview.html" class="md-nav__link">
         
   
   
@@ -3779,10 +3737,59 @@ This documentation is for a pull request deployment and is unreleased, it is onl
                 
   
   
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_2" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_3_4_2" id="__nav_3_4_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Creating Solutions
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Creating Solutions
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
   
   
     <li class="md-nav__item">
-      <a href="../../service-provider-guide/solutions/creating-solutions.html" class="md-nav__link">
+      <a href="creating-solutions.html" class="md-nav__link">
         
   
   
@@ -3807,10 +3814,205 @@ This documentation is for a pull request deployment and is unreleased, it is onl
                 
   
   
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modelling Child Resources
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="modeling-child-resources.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modelling Child Resources
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prerequisites
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#when-to-model-a-child-resource" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        When to Model a Child Resource
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-parent-reference-contract" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Parent Reference Contract
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-1-add-the-reference-field-to-the-child-xrd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Add the Reference Field to the Child XRD
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-2-tag-the-field-for-marketplace-discovery" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Tag the Field for Marketplace Discovery
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-3-declare-the-verified-status-block" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Declare the Verified Status Block
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-4-add-printer-columns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: Add Printer Columns
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-5-implement-the-parent-watch-in-the-composition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5: Implement the Parent Watch in the Composition
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-6-verify" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 6: Verify
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#whats-next" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What's Next?
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
   
   
     <li class="md-nav__item">
-      <a href="../../service-provider-guide/solutions/crossplane-compositions.html" class="md-nav__link">
+      <a href="crossplane-compositions.html" class="md-nav__link">
         
   
   
@@ -3838,7 +4040,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../service-provider-guide/marketplace/publishing-solutions.html" class="md-nav__link">
+      <a href="../marketplace/publishing-solutions.html" class="md-nav__link">
         
   
   
@@ -3866,7 +4068,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../service-provider-guide/marketplace/marketplace-configuration.html" class="md-nav__link">
+      <a href="../marketplace/marketplace-configuration.html" class="md-nav__link">
         
   
   
@@ -3894,7 +4096,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../provider/create-postgresql-solution.html" class="md-nav__link">
+      <a href="../../how-to-guides/provider/create-postgresql-solution.html" class="md-nav__link">
         
   
   
@@ -3977,7 +4179,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../service-provider-guide/organizations/creating-organizations.html" class="md-nav__link">
+      <a href="../organizations/creating-organizations.html" class="md-nav__link">
         
   
   
@@ -4005,7 +4207,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../service-provider-guide/organizations/keycloak-realms.html" class="md-nav__link">
+      <a href="../organizations/keycloak-realms.html" class="md-nav__link">
         
   
   
@@ -4033,7 +4235,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../service-provider-guide/projects/project-architecture.html" class="md-nav__link">
+      <a href="../projects/project-architecture.html" class="md-nav__link">
         
   
   
@@ -4061,7 +4263,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../service-provider-guide/projects/workspace-mapping.html" class="md-nav__link">
+      <a href="../projects/workspace-mapping.html" class="md-nav__link">
         
   
   
@@ -4144,7 +4346,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../service-provider-guide/api-publishing/kcp-overview.html" class="md-nav__link">
+      <a href="../api-publishing/kcp-overview.html" class="md-nav__link">
         
   
   
@@ -4172,7 +4374,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../service-provider-guide/api-publishing/publishing-apis.html" class="md-nav__link">
+      <a href="../api-publishing/publishing-apis.html" class="md-nav__link">
         
   
   
@@ -4255,7 +4457,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../provider/control-ui-rendering.html" class="md-nav__link">
+      <a href="../../how-to-guides/provider/control-ui-rendering.html" class="md-nav__link">
         
   
   
@@ -4283,7 +4485,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../service-provider-guide/console/ui-extensions-reference.html" class="md-nav__link">
+      <a href="../console/ui-extensions-reference.html" class="md-nav__link">
         
   
   
@@ -5060,6 +5262,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
+      <a href="../../api-reference/public-apis/iam-identity-provider.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IAM IdentityProvider
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../api-reference/public-apis/openshift-cluster.html" class="md-nav__link">
         
   
@@ -5228,14 +5458,14 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../api-reference/public-apis/netbird-router.html" class="md-nav__link">
+      <a href="../../api-reference/public-apis/mesh-router.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    NetbirdRouter
+    MeshRouter
   
 
     
@@ -5714,33 +5944,6 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../changelog.html" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Changelog
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../eula.html" class="md-nav__link">
         
   
@@ -5801,10 +6004,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
-  <a href="#what-gets-created" class="md-nav__link">
+  <a href="#when-to-model-a-child-resource" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What Gets Created
+        When to Model a Child Resource
       
     </span>
   </a>
@@ -5812,10 +6015,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-1-find-the-service-address" class="md-nav__link">
+  <a href="#the-parent-reference-contract" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 1: Find the Service Address
+        The Parent Reference Contract
       
     </span>
   </a>
@@ -5823,10 +6026,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-2-define-a-netbirdrouter-claim" class="md-nav__link">
+  <a href="#step-1-add-the-reference-field-to-the-child-xrd" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 2: Define a NetbirdRouter Claim
+        Step 1: Add the Reference Field to the Child XRD
       
     </span>
   </a>
@@ -5834,10 +6037,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-3-apply-the-claim" class="md-nav__link">
+  <a href="#step-2-tag-the-field-for-marketplace-discovery" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 3: Apply the Claim
+        Step 2: Tag the Field for Marketplace Discovery
       
     </span>
   </a>
@@ -5845,10 +6048,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-4-verify-the-router" class="md-nav__link">
+  <a href="#step-3-declare-the-verified-status-block" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 4: Verify the Router
+        Step 3: Declare the Verified Status Block
       
     </span>
   </a>
@@ -5856,10 +6059,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-5-connect-a-device-with-the-setup-key" class="md-nav__link">
+  <a href="#step-4-add-printer-columns" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 5: Connect a Device with the Setup Key
+        Step 4: Add Printer Columns
       
     </span>
   </a>
@@ -5867,10 +6070,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-6-test" class="md-nav__link">
+  <a href="#step-5-implement-the-parent-watch-in-the-composition" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 6: Test
+        Step 5: Implement the Parent Watch in the Composition
       
     </span>
   </a>
@@ -5878,10 +6081,21 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
-  <a href="#related" class="md-nav__link">
+  <a href="#step-6-verify" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Related
+        Step 6: Verify
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#whats-next" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What's Next?
       
     </span>
   </a>
@@ -5905,67 +6119,326 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 
 
 
-<h1 id="how-to-expose-an-internal-service-via-the-mesh">How to Expose an Internal Service via the Mesh<a class="headerlink" href="#how-to-expose-an-internal-service-via-the-mesh" title="Permanent link">#</a></h1>
-<p>Learn how to make an in-cluster service reachable from laptops and VMs on your organisation's Mesh — without a public endpoint.</p>
-<p>Emma, a developer at ACME Corp, runs an internal admin API in her project. Her team needs to reach it from their laptops, but it must not be exposed to the internet. A NetbirdRouter advertises the service's address to Mesh peers, so enrolled devices reach it directly over the encrypted mesh.</p>
-<blockquote>
-<p>Platform services such as a <a href="create-vault.html">Vault</a> are published to Mesh peers automatically — you only need a NetbirdRouter for your <strong>own</strong> services.</p>
-</blockquote>
+<h1 id="modelling-child-resources">Modelling Child Resources<a class="headerlink" href="#modelling-child-resources" title="Permanent link">#</a></h1>
+<p>Some solutions are not a single resource but a family of related ones: an OpenShift cluster and its node pools, a database instance and its logical databases. This guide shows how to model the child as its own claim kind — a child resource — that holds a verified reference to its parent claim.</p>
+<p>The examples use the platform's <code>OpenShiftNodePool</code>, a child resource of <code>OpenShiftCluster</code>, as the running example. The same contract applies to any parent/child pair.</p>
+<hr>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">#</a></h2>
 <ul>
-<li>A <a href="create-mesh.html">Mesh</a> in your organisation, already Ready</li>
-<li>The <code>netbirdrouter.netbird.cloud.stakater.com</code> API available</li>
-<li><code>kubectl</code> configured with your project kubeconfig</li>
-<li>The in-cluster Service you want to expose (note its ClusterIP)</li>
+<li>A parent solution already exists (XRD and Composition) — see <a href="creating-solutions.html">Creating Solutions</a></li>
+<li>Familiarity with <a href="crossplane-compositions.html">Crossplane Compositions</a> authoring patterns</li>
 </ul>
-<h2 id="what-gets-created">What Gets Created<a class="headerlink" href="#what-gets-created" title="Permanent link">#</a></h2>
-<p>When you create a NetbirdRouter claim, the platform provisions:</p>
+<hr>
+<h2 id="when-to-model-a-child-resource">When to Model a Child Resource<a class="headerlink" href="#when-to-model-a-child-resource" title="Permanent link">#</a></h2>
+<p>A child resource is a claim kind in its own right: it has its own top-level API, appears as its own resource in the console, and is managed independently of its parent. Model a child as its own claim kind when:</p>
 <ul>
-<li>A <strong>routing peer</strong> joined to your organisation's Mesh that advertises your routes</li>
-<li>Mesh <strong>access policy</strong> allowing holders of the client setup key to reach the advertised routes</li>
-<li>A <strong>Secret</strong> in your project containing the client setup key, named after the claim</li>
+<li><strong>It is a resource in its own right</strong> — consumers should see and manage it as its own object in the console, not as a field buried in the parent's spec</li>
+<li><strong>Independent lifecycle</strong> — consumers create, resize, and delete children without touching the parent (e.g. adding a node pool to a running cluster)</li>
+<li><strong>Variable cardinality</strong> — one parent has many children, and the number is not known when the parent is created</li>
+<li><strong>Separate ownership</strong> — different people manage the parent and the children</li>
 </ul>
-<h2 id="step-1-find-the-service-address">Step 1: Find the Service Address<a class="headerlink" href="#step-1-find-the-service-address" title="Permanent link">#</a></h2>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>svc<span class="w"> </span>my-admin-api<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.spec.clusterIP}'</span>
-</code></pre></div>
-<h2 id="step-2-define-a-netbirdrouter-claim">Step 2: Define a NetbirdRouter Claim<a class="headerlink" href="#step-2-define-a-netbirdrouter-claim" title="Permanent link">#</a></h2>
-<p>Create a file named <code>router.yaml</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">netbird.cloud.stakater.com/v1</span>
-<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">NetbirdRouter</span>
+<p>A child that is created alongside its parent by default can still be a child resource — being created together does not make something part of the parent. What matters is whether it stands on its own as a resource afterwards.</p>
+<p>Do <strong>not</strong> model a child resource when:</p>
+<ul>
+<li><strong>It is plain configuration of the parent</strong> — a setting with no identity or lifecycle of its own belongs in the parent's spec</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A parent reference gives you a <em>verified link</em>, not cascade deletion. Deleting a parent claim does not delete its children — they remain, with <code>status.&lt;role&gt;Ref.available: false</code> and a message explaining why. If you need cascade deletion, that is a separate concern to solve outside this contract.</p>
+</div>
+<hr>
+<h2 id="the-parent-reference-contract">The Parent Reference Contract<a class="headerlink" href="#the-parent-reference-contract" title="Permanent link">#</a></h2>
+<p>A child resource declares its parent relationship in four places, all on the <strong>child</strong> solution:</p>
+<ol>
+<li><strong>A reference field</strong> in the child's spec — <code>spec.parameters.&lt;role&gt;Ref</code>, where <code>&lt;role&gt;</code> names the relationship (<code>clusterRef</code>, <code>networkRef</code>, …)</li>
+<li><strong>A discovery tag</strong> (<code>x-sco-parent-ref</code>) on that field, so the marketplace and console can render the relationship</li>
+<li><strong>A verified status block</strong> at <code>status.&lt;role&gt;Ref</code>, written by the child's composition on every reconcile</li>
+<li><strong>Printer columns</strong> showing the claimed parent and its verification state at <code>kubectl get</code> time</li>
+</ol>
+<p>The parent solution needs no changes.</p>
+<hr>
+<h2 id="step-1-add-the-reference-field-to-the-child-xrd">Step 1: Add the Reference Field to the Child XRD<a class="headerlink" href="#step-1-add-the-reference-field-to-the-child-xrd" title="Permanent link">#</a></h2>
+<p>The parent reference is declared in the child's <code>CompositeResourceDefinition</code> (XRD) — the same XRD that defines the claim API, as covered in <a href="creating-solutions.html">Creating Solutions</a>. Inside the XRD's <code>openAPIV3Schema</code> (which describes the claims consumers create, not a claim itself), each parent reference is an object under the claim's <code>spec.parameters</code>, holding the parent's name:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">apiextensions.crossplane.io/v2</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CompositeResourceDefinition</span>
 <span class="nt">metadata</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-router</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openshiftnodepools.kubernetes.cloud.stakater.com</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">scope</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Namespaced</span>
+<span class="w">  </span><span class="nt">group</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kubernetes.cloud.stakater.com</span>
+<span class="w">  </span><span class="nt">names</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">OpenShiftNodePool</span>
+<span class="w">    </span><span class="nt">plural</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openshiftnodepools</span>
+<span class="w">  </span><span class="nt">versions</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
+<span class="w">      </span><span class="nt">served</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">referenceable</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">      </span><span class="nt">schema</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">openAPIV3Schema</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">object</span>
+<span class="w">          </span><span class="nt">properties</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">spec</span><span class="p">:</span>
+<span class="w">              </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">object</span>
+<span class="w">              </span><span class="nt">required</span><span class="p">:</span>
+<span class="w">                </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">parameters</span>
+<span class="w">              </span><span class="nt">properties</span><span class="p">:</span>
+<span class="w">                </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">                  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">object</span>
+<span class="w">                  </span><span class="nt">required</span><span class="p">:</span>
+<span class="w">                    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">clusterRef</span>
+<span class="w">                  </span><span class="nt">properties</span><span class="p">:</span>
+<span class="w">                    </span><span class="c1"># The parent reference field — everything else in this</span>
+<span class="w">                    </span><span class="c1"># XRD is the usual claim schema</span>
+<span class="w">                    </span><span class="nt">clusterRef</span><span class="p">:</span>
+<span class="w">                      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">object</span>
+<span class="w">                      </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Reference to the OpenShiftCluster this pool belongs to</span>
+<span class="w">                      </span><span class="nt">required</span><span class="p">:</span>
+<span class="w">                        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">name</span>
+<span class="w">                      </span><span class="nt">properties</span><span class="p">:</span>
+<span class="w">                        </span><span class="nt">name</span><span class="p">:</span>
+<span class="w">                          </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="w">                          </span><span class="nt">minLength</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">                          </span><span class="nt">maxLength</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">63</span>
+<span class="w">                          </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Name of the OpenShiftCluster in the same project</span>
+</code></pre></div>
+<p>Conventions:</p>
+<ul>
+<li><code>name</code> is required and always declared.</li>
+<li>The parent is resolved <strong>in the same project</strong> as the child claim.</li>
+<li><code>kind</code> and <code>apiVersion</code> are deliberately <strong>not</strong> part of the spec — they are fixed by the solution and declared in the discovery tag (Step 2). Consumers only ever supply a name.</li>
+</ul>
+<p>The consumer's claim then looks like:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kubernetes.cloud.stakater.com/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">OpenShiftNodePool</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-cluster-workers</span>
 <span class="nt">spec</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">routes</span><span class="p">:</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">admin-api</span>
-<span class="w">        </span><span class="nt">address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">172.30.52.51/32</span><span class="w">        </span><span class="c1"># the Service ClusterIP, as a /32</span>
-<span class="w">        </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">"Internal</span><span class="nv"> </span><span class="s">admin</span><span class="nv"> </span><span class="s">API"</span>
+<span class="w">    </span><span class="nt">clusterRef</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-cluster</span><span class="w">    </span><span class="c1"># the only thing the consumer supplies about the parent</span>
+<span class="w">    </span><span class="nt">size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">small</span>
+<span class="w">    </span><span class="nt">replicas</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2</span>
 </code></pre></div>
-<p>A router can advertise multiple routes — CIDRs, single hosts, or domains. See the <a href="../../api-reference/public-apis/netbird-router.html">API reference</a> for all fields.</p>
-<h2 id="step-3-apply-the-claim">Step 3: Apply the Claim<a class="headerlink" href="#step-3-apply-the-claim" title="Permanent link">#</a></h2>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>router.yaml
+<hr>
+<h2 id="step-2-tag-the-field-for-marketplace-discovery">Step 2: Tag the Field for Marketplace Discovery<a class="headerlink" href="#step-2-tag-the-field-for-marketplace-discovery" title="Permanent link">#</a></h2>
+<p>Add the <code>x-sco-parent-ref</code> tag directly on the reference field's schema node from Step 1 (<code>spec.parameters.clusterRef</code> inside the XRD's <code>openAPIV3Schema</code>):</p>
+<div class="highlight"><pre><span></span><code><span class="nt">clusterRef</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">object</span>
+<span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Reference to the OpenShiftCluster this pool belongs to</span>
+<span class="w">  </span><span class="nt">x-sco-parent-ref</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">parentKinds</span><span class="p">:</span><span class="w">                </span><span class="c1"># which kinds this slot accepts</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kubernetes.cloud.stakater.com/v1</span>
+<span class="w">        </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">OpenShiftCluster</span>
+<span class="w">    </span><span class="nt">statusPath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">status.clusterRef</span><span class="w">    </span><span class="c1"># where the verified reference lives (Step 3)</span>
+<span class="w">  </span><span class="nt">required</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">name</span>
+<span class="w">  </span><span class="nt">properties</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
 </code></pre></div>
-<h2 id="step-4-verify-the-router">Step 4: Verify the Router<a class="headerlink" href="#step-4-verify-the-router" title="Permanent link">#</a></h2>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>netbirdrouter<span class="w"> </span>my-router
+<p>The platform reads this tag straight off the XRD — there is no build step or separate artifact to maintain. It drives:</p>
+<table>
+<thead>
+<tr>
+<th>Consumer experience</th>
+<th>Driven by</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Create forms render a parent picker instead of a free-text field</td>
+<td><code>parentKinds</code></td>
+</tr>
+<tr>
+<td>Instance views link to the verified parent</td>
+<td><code>statusPath</code></td>
+</tr>
+<tr>
+<td>Reverse discovery ("list the node pools of this cluster")</td>
+<td>The tag's location in the schema — <code>&lt;field&gt;.name</code> is the identifier path</td>
+</tr>
+</tbody>
+</table>
+<p>The tag only carries what cannot be deduced: the accepted parent kinds, and the cross-reference to the status block. Everything else follows from where the tag sits in the schema.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p><code>parentKinds</code> is a list. A slot that accepts several parent kinds lists them all; the resolved kind for a specific instance is read from the status block (<code>status.&lt;role&gt;Ref.kind</code>) at runtime.</p>
+</div>
+<hr>
+<h2 id="step-3-declare-the-verified-status-block">Step 3: Declare the Verified Status Block<a class="headerlink" href="#step-3-declare-the-verified-status-block" title="Permanent link">#</a></h2>
+<p>Still in the XRD's <code>openAPIV3Schema</code>, mirror the reference under the claim's <code>status</code> at <code>status.&lt;role&gt;Ref</code>. This is pure data, written by the child's composition on every reconcile — the discovery tag from Step 2 does not appear here:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">status</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">object</span>
+<span class="w">  </span><span class="nt">properties</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">clusterRef</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">object</span>
+<span class="w">      </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Verified reference to the parent OpenShiftCluster</span>
+<span class="w">      </span><span class="nt">properties</span><span class="p">:</span>
+<span class="w">        </span><span class="c1"># Always written, on every reconcile</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="w">          </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Name of the parent</span>
+<span class="w">        </span><span class="nt">kind</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="w">          </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Kind of the parent</span>
+<span class="w">        </span><span class="nt">apiVersion</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="w">          </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ApiVersion of the parent</span>
+<span class="w">        </span><span class="nt">namespace</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="w">          </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Namespace of the parent</span>
+<span class="w">        </span><span class="c1"># Written only once the parent has been observed</span>
+<span class="w">        </span><span class="nt">uid</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="w">          </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Observed UID of the parent (survives rename)</span>
+<span class="w">        </span><span class="nt">available</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">boolean</span>
+<span class="w">          </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Whether the parent is currently available</span>
+<span class="w">        </span><span class="nt">message</span><span class="p">:</span>
+<span class="w">          </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="w">          </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Human-readable status when not available</span>
 </code></pre></div>
-<p>Wait for <code>READY: True</code>. The routing peer also appears in your Mesh dashboard.</p>
-<h2 id="step-5-connect-a-device-with-the-setup-key">Step 5: Connect a Device with the Setup Key<a class="headerlink" href="#step-5-connect-a-device-with-the-setup-key" title="Permanent link">#</a></h2>
-<p>The platform delivers a Secret named after the claim (<code>my-router</code>) into your project. It contains the client setup key — share it with devices that should reach the advertised routes:</p>
-<div class="highlight"><pre><span></span><code>netbird<span class="w"> </span>up<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--management-url<span class="o">=</span>&lt;your<span class="w"> </span>organisation<span class="s1">'s management URL&gt; \</span>
-<span class="s1">  --setup-key=$(kubectl get secret my-router -o jsonpath='</span><span class="o">{</span>.data.setupKey<span class="o">}</span><span class="err">'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64<span class="w"> </span>-d<span class="o">)</span>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Written</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code>, <code>kind</code>, <code>apiVersion</code>, <code>namespace</code></td>
+<td>On every reconcile — the block is self-describing from the first reconcile</td>
+</tr>
+<tr>
+<td><code>uid</code>, <code>available</code></td>
+<td>Once the parent has been observed</td>
+</tr>
+<tr>
+<td><code>message</code></td>
+<td>While the parent is not available, explaining why</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>uid</code> records <em>which</em> parent instance was observed, so the link survives a parent being renamed or recreated. A typo in <code>clusterRef.name</code> is machine-detectable: <code>available</code> stays <code>false</code> and <code>message</code> says the parent was not found.</p>
+<hr>
+<h2 id="step-4-add-printer-columns">Step 4: Add Printer Columns<a class="headerlink" href="#step-4-add-printer-columns" title="Permanent link">#</a></h2>
+<p>On the XRD version entry (alongside <code>schema</code>), add printer columns showing the claimed parent and its verification state at <code>kubectl get</code> time:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">additionalPrinterColumns</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Cluster</span><span class="w">                </span><span class="c1"># the claimed parent (what the consumer asked for)</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="w">    </span><span class="nt">jsonPath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">.spec.parameters.clusterRef.name</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Verified</span><span class="w">               </span><span class="c1"># whether that link is confirmed (Step 3)</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">boolean</span>
+<span class="w">    </span><span class="nt">jsonPath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">.status.clusterRef.available</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Phase</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="w">    </span><span class="nt">jsonPath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">.status.phase</span>
 </code></pre></div>
-<p>The device is automatically allowed to reach the routes — no dashboard configuration needed.</p>
-<h2 id="step-6-test">Step 6: Test<a class="headerlink" href="#step-6-test" title="Permanent link">#</a></h2>
-<p>From the enrolled device:</p>
-<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>http://172.30.52.51/healthz
+<div class="highlight"><pre><span></span><code><span class="gp">$ </span>kubectl<span class="w"> </span>get<span class="w"> </span>openshiftnodepools
+<span class="go">NAME                 CLUSTER      VERIFIED   PHASE</span>
+<span class="go">my-cluster-workers   my-cluster   true       Ready</span>
+<span class="go">staging-workers      staging      false      WaitingForCluster</span>
 </code></pre></div>
-<p>The request travels over the encrypted mesh to the routing peer, which forwards it to the in-cluster Service.</p>
-<h2 id="related">Related<a class="headerlink" href="#related" title="Permanent link">#</a></h2>
+<hr>
+<h2 id="step-5-implement-the-parent-watch-in-the-composition">Step 5: Implement the Parent Watch in the Composition<a class="headerlink" href="#step-5-implement-the-parent-watch-in-the-composition" title="Permanent link">#</a></h2>
+<p>The child's composition must observe the parent, gate its own resources on the parent being ready, and write the status block from Step 3 on every reconcile. The <code>stakater-common</code> KCL module packages all of this behind a single call, <code>parentRef</code>:</p>
+<div class="highlight"><pre><span></span><code>import stakaterCommon as sc
+
+oxr = option("params").oxr
+ocds = option("params").ocds or {}
+env = option("params").ctx["apiextensions.crossplane.io/environment"]
+
+methods = sc.generateItemMethods(ocds)
+
+spec = oxr.spec
+parameters = spec.parameters or {}
+
+kubernetesProviderConfigName = env?.providerConfigs?.kubernetes or "kubernetes-provider"
+
+# Observe the parent and surface the verified reference
+cluster = sc.parentRef({
+    role: "cluster"                       # writes status.clusterRef
+    namePrefix: oxr.metadata.name
+    parentKind: "OpenShiftCluster"
+    parentApiVersion: "kubernetes.cloud.stakater.com/v1"
+    parentName: parameters.clusterRef.name
+    defaultNamespace: oxr.metadata.namespace
+    providerConfigRef: kubernetesProviderConfigName
+    # What "ready" means for this parent kind (optional — defaults to
+    # the parent's Available condition)
+    readyCheck: lambda parent: any -&gt; bool {
+        _conds = parent?.status?.conditions or []
+        len([c for c in _conds if c.type == "Available" and c.status == "True"]) &gt; 0
+    }
+    # Parent fields the child needs downstream (optional)
+    extract: {
+        version: lambda parent: any -&gt; str { parent?.status?.version or "" }
+    }
+    # Status to show on the child while the parent is not ready
+    xrStatusOnWaiting: {
+        ready: False
+        phase: "WaitingForCluster"
+        message: "Waiting for OpenShiftCluster '{}' to become Available".format(parameters.clusterRef.name)
+    }
+}, methods)
+
+# Create the child's resources only once the parent is ready
+nodePool = methods.createItem({
+    condition: lambda _: {str:sc.savedItem} -&gt; bool { cluster.ready }
+    dependsOn: [cluster.item]
+    resourceName: "{}-nodepool".format(oxr.metadata.name)
+    content: {
+        # ... the child's actual resources, free to use cluster.fields.version ...
+    }
+})
+
+items = methods.renderItems({})
+</code></pre></div>
+<p>The one <code>parentRef</code> call gives you the whole contract:</p>
 <ul>
-<li><a href="../../api-reference/public-apis/netbird-router.html">NetbirdRouter API reference</a></li>
-<li><a href="create-mesh.html">Create a Mesh</a></li>
-<li><a href="create-vault.html">Create a Vault</a> — published over the Mesh automatically</li>
+<li><strong>An observer for the parent</strong> with <code>managementPolicies: ["Observe"]</code> — the child never mutates or takes ownership of the parent.</li>
+<li><strong>A readiness gate</strong> — <code>cluster.ready</code> and <code>cluster.item</code> for <code>condition</code>/<code>dependsOn</code> on dependent items, so nothing is provisioned against a parent that does not exist or is not ready.</li>
+<li><strong>The <code>status.&lt;role&gt;Ref</code> block from Step 3</strong>, written on every reconcile: <code>name</code>/<code>kind</code>/<code>apiVersion</code>/<code>namespace</code> always, <code>uid</code>/<code>available</code> once the parent is observed, <code>message</code> while it is not.</li>
+<li><strong>Extracted parent fields</strong> via <code>cluster.fields.&lt;key&gt;</code>.</li>
+<li><strong>A clear waiting state</strong> — while the parent is not ready, the child's status shows the <code>xrStatusOnWaiting</code> block (e.g. <code>phase: WaitingForCluster</code>) instead of failing opaquely.</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Compositions written with other pipeline functions (Go templates, Python, …) implement the same contract by hand: an Observe-only resource for the parent, a readiness gate on the child's resources, and the Step 3 status block written on every reconcile.</p>
+</div>
+<hr>
+<h2 id="step-6-verify">Step 6: Verify<a class="headerlink" href="#step-6-verify" title="Permanent link">#</a></h2>
+<p>Create the child <strong>before</strong> its parent exists, and confirm it waits rather than fails:</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>nodepool-claim.yaml
+kubectl<span class="w"> </span>get<span class="w"> </span>openshiftnodepool<span class="w"> </span>my-cluster-workers
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="go">NAME                 CLUSTER      VERIFIED   PHASE</span>
+<span class="go">my-cluster-workers   my-cluster   false      WaitingForCluster</span>
+</code></pre></div>
+<p>Then create the parent and watch the child verify the link and start provisioning:</p>
+<div class="highlight"><pre><span></span><code><span class="go">NAME                 CLUSTER      VERIFIED   PHASE</span>
+<span class="go">my-cluster-workers   my-cluster   true       Creating</span>
+</code></pre></div>
+<p>Inspect the verified reference on the child's status:</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>openshiftnodepool<span class="w"> </span>my-cluster-workers<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.status.clusterRef}'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"my-cluster"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"kind"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OpenShiftCluster"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"apiVersion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"kubernetes.cloud.stakater.com/v1"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"namespace"</span><span class="p">:</span><span class="w"> </span><span class="s2">"my-project"</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"uid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"8f9a2c3e-..."</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">"available"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Finally, verify the broken-link behaviour: point a child at a parent name that does not exist and confirm <code>Verified</code> stays <code>false</code> with an explanatory <code>message</code>.</p>
+<hr>
+<h2 id="whats-next">What's Next?<a class="headerlink" href="#whats-next" title="Permanent link">#</a></h2>
+<ul>
+<li><a href="creating-solutions.html">Creating Solutions</a> — Define the XRD and Composition for a new solution</li>
+<li><a href="crossplane-compositions.html">Crossplane Compositions</a> — Advanced composition patterns and KCL functions</li>
+<li><a href="../marketplace/publishing-solutions.html">Publishing Solutions</a> — Make your solution available in the marketplace</li>
 </ul>
 
 
@@ -6314,9 +6787,8 @@ This documentation is for a pull request deployment and is unreleased, it is onl
                         </b>
                     </p>
                     <div class="margin-bottom-16">
-                        <a href="https://www.stakater.com/saap-kubernetes-openshift" class="md-footer-col-link">
-                            Stakater App Agility <br>
-                            Platform (SAAP)
+                        <a href="https://docs.stakater.com/kubestackplus/" class="md-footer-col-link">
+                            KubeStack+
                         </a>
                     </div>
                     <div class="margin-bottom-16">
@@ -6660,7 +7132,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
       <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.code.copy", "navigation.tracking", "toc.follow", "navigation.top"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
     
   

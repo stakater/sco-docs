@@ -3237,6 +3237,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
+      <a href="how-to-guides/user/connect-identity-provider.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Connect Your Company Identity Provider
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="how-to-guides/user/provision-openshift-cluster.html" class="md-nav__link">
         
   
@@ -5349,6 +5377,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
+      <a href="api-reference/public-apis/iam-identity-provider.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IAM IdentityProvider
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="api-reference/public-apis/openshift-cluster.html" class="md-nav__link">
         
   
@@ -6349,7 +6405,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     Project --&gt; Platform[SCO Control Plane&lt;br/&gt;KCP, Crossplane, MTO, Keycloak]
     Platform --&gt; Infra[Infrastructure&lt;br/&gt;VMs, clusters, databases, storage]</code></pre>
 <ol>
-<li><strong>SCO is installed</strong> on your Kubernetes cluster using the <code>ksp up</code> CLI command (tested on OpenShift 4.14+)</li>
+<li><strong>SCO is installed</strong> on your Kubernetes cluster using the <code>ksp up</code> CLI command (on OpenShift 4.19+)</li>
 <li><strong>Platform providers</strong> create solutions (e.g., VirtualMachine-as-a-Service, OpenShift-as-a-Service) using composition tools</li>
 <li>Solutions are published to the <strong>marketplace</strong> as Kubernetes custom resources</li>
 <li><strong>Organisations</strong> are created with dedicated Keycloak realms for authentication isolation</li>
@@ -6360,7 +6416,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <h2 id="core-technologies">Core Technologies<a class="headerlink" href="#core-technologies" title="Permanent link">#</a></h2>
 <p>SCO leverages proven, cloud-native technologies:</p>
 <ul>
-<li><strong>Kubernetes</strong>: Foundation for all orchestration (tested on OpenShift 4.14+)</li>
+<li><strong>Kubernetes</strong>: Foundation for all orchestration (OpenShift 4.19+)</li>
 <li><strong>Kubernetes CRDs</strong>: Native extension mechanism for solutions and services</li>
 <li><strong>Virtual Machine Management</strong>: KubeVirt-based (OpenShift Virtualization on OpenShift)</li>
 <li><strong>Hosted Control Planes</strong>: hypershift for OpenShift-on-OpenShift</li>

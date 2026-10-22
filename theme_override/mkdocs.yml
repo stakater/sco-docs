@@ -51,6 +51,7 @@ nav:
           - how-to-guides/user/create-project.md
           - how-to-guides/user/create-iam-user.md
           - how-to-guides/user/create-iam-group.md
+          - how-to-guides/user/connect-identity-provider.md
           - how-to-guides/user/provision-openshift-cluster.md
           - how-to-guides/user/provision-virtual-machine.md
           - how-to-guides/user/back-up-virtual-machine.md
@@ -115,6 +116,7 @@ nav:
           - api-reference/public-apis/project.md
           - api-reference/public-apis/iam-user.md
           - api-reference/public-apis/iam-group.md
+          - api-reference/public-apis/iam-identity-provider.md
           - api-reference/public-apis/openshift-cluster.md
           - api-reference/public-apis/virtual-machine.md
           - api-reference/public-apis/s3-bucket.md

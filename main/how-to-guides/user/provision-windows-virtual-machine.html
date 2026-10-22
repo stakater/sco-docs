@@ -3273,6 +3273,34 @@ This documentation is either for an old version, or for the unreleased 'main' ve
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#keep-the-answer-file-in-your-vault" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Keep the Answer File in Your Vault
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Keep the Answer File in Your Vault">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-answer-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example answer file
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#licensing" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -6207,6 +6235,34 @@ This documentation is either for an old version, or for the unreleased 'main' ve
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#keep-the-answer-file-in-your-vault" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Keep the Answer File in Your Vault
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Keep the Answer File in Your Vault">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-answer-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example answer file
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#licensing" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -6490,14 +6546,58 @@ my-windows-vm    True     True    9m
 <p><code>status.vm.internalIP</code> stays empty until the guest reports an address, and it is never set when <code>meshRoute.enabled</code> is <code>false</code>. An empty value after 20 minutes means Windows has not finished installing — see <a href="#troubleshooting">Troubleshooting</a>.</p>
 </div>
 <h2 id="step-6-get-the-administrator-password">Step 6: Get the Administrator Password<a class="headerlink" href="#step-6-get-the-administrator-password" title="Permanent link">#</a></h2>
-<p>With the default installation, the claim status names where the password is stored:</p>
+<p>With the default installation the platform generates the Administrator password and stores it in your organisation's <a href="create-vault.html">Vault</a>, in your project's folder. The claim status names the exact path:</p>
 <div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>windowsvirtualmachine<span class="w"> </span>my-windows-vm<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.status.adminCredentials}'</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>{"delivered":true,"secretPath":"projects/my-project/vms/my-windows-vm","secretStore":"…","username":"Administrator"}
+<div class="highlight"><pre><span></span><code>{"delivered":true,"message":"Stored in your organization's OpenBao","secretPath":"stakater/projects/acme-my-project/vms/my-windows-vm","secretStore":"acme-bao","username":"Administrator"}
 </code></pre></div>
-<p>Wait for <code>delivered</code> to be <code>true</code>, then read the <code>username</code> and <code>password</code> properties from that path in your organisation's <a href="create-vault.html">Vault</a>. Log in to the Vault first, then read the entry:</p>
-<div class="highlight"><pre><span></span><code>bao<span class="w"> </span>kv<span class="w"> </span>get<span class="w"> </span>-mount<span class="o">=</span>stakater<span class="w"> </span>projects/my-project/vms/my-windows-vm
+<p>Read the path from left to right:</p>
+<table>
+<thead>
+<tr>
+<th>Part</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>stakater</code></td>
+<td>The secrets engine (mount) that holds your organisation's secrets</td>
+</tr>
+<tr>
+<td><code>projects/acme-my-project</code></td>
+<td>Your project's folder, named <code>&lt;organisation&gt;-&lt;project&gt;</code></td>
+</tr>
+<tr>
+<td><code>vms/my-windows-vm</code></td>
+<td>The entry for this VM. It holds the properties <code>username</code> and <code>password</code></td>
+</tr>
+</tbody>
+</table>
+<p>Wait for <code>delivered</code> to be <code>true</code>, then read the entry. You need to sign in to the Vault with one of your project's roles first. Any role that can see the project folder works, including the read-only ones (see <a href="../../api-reference/public-apis/vault.html#project-access">Project access</a>).</p>
+<ol>
+<li>
+<p>Find the Vault address and your role:</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>project<span class="w"> </span>my-project<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.status.openbao}'</span>
 </code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">"available"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="nt">"address"</span><span class="p">:</span><span class="s2">"https://bao.acme.mesh.example.com"</span><span class="p">,</span><span class="nt">"secretPath"</span><span class="p">:</span><span class="s2">"stakater/projects/acme-my-project/"</span><span class="p">,</span><span class="nt">"roles"</span><span class="p">:[</span><span class="s2">"acme-my-project-rw"</span><span class="p">],</span><span class="nt">"message"</span><span class="p">:</span><span class="s2">"Log in to your organization's OpenBao with OIDC and one of the listed roles"</span><span class="p">}</span>
+</code></pre></div>
+</li>
+<li>
+<p>Read the password in the web UI or the CLI.</p>
+<p><strong>Web UI:</strong> open the address, choose method <strong>OIDC</strong>, enter your role in <strong>Role</strong>, and sign in. Then open <strong>Secrets engines</strong> → <code>stakater</code> → <code>projects</code> → <code>acme-my-project</code> → <code>vms</code> → <code>my-windows-vm</code> and reveal <code>password</code>.</p>
+<p><strong>CLI:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">BAO_ADDR</span><span class="o">=</span>https://bao.acme.mesh.example.com
+bao<span class="w"> </span>login<span class="w"> </span>-method<span class="o">=</span>oidc<span class="w"> </span><span class="nv">role</span><span class="o">=</span>acme-my-project-rw
+bao<span class="w"> </span>kv<span class="w"> </span>get<span class="w"> </span>-mount<span class="o">=</span>stakater<span class="w"> </span>projects/acme-my-project/vms/my-windows-vm
+bao<span class="w"> </span>kv<span class="w"> </span>get<span class="w"> </span>-mount<span class="o">=</span>stakater<span class="w"> </span>-field<span class="o">=</span>password<span class="w"> </span>projects/acme-my-project/vms/my-windows-vm
+</code></pre></div>
+</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Signing in without a role succeeds but shows you nothing in your project's folder. A sign-in lasts one hour; sign in again with the role if the Vault stops showing the folder.</p>
+</div>
 <p>If <code>delivered</code> is <code>false</code>, the <code>message</code> field says why — most often, the organisation has no Vault.</p>
 <h2 id="step-7-connect-with-remote-desktop">Step 7: Connect with Remote Desktop<a class="headerlink" href="#step-7-connect-with-remote-desktop" title="Permanent link">#</a></h2>
 <ol>
@@ -6556,17 +6656,272 @@ my-windows-vm    True     True    9m
 </tr>
 <tr>
 <td><code>sysprep.secretPath</code></td>
-<td>Path to an answer file stored in your organisation's Vault, under your project's area (requires a Vault)</td>
+<td>Path to an answer file stored in your organisation's Vault, under your project's folder (requires a Vault). See <a href="#keep-the-answer-file-in-your-vault">Keep the Answer File in Your Vault</a></td>
 </tr>
 </tbody>
 </table>
 <p><code>autounattend</code>/<code>unattend</code> and <code>secretPath</code> are mutually exclusive.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Anything you put in <code>sysprep.autounattend</code> or <code>sysprep.unattend</code> is stored in the claim and is <strong>readable by anyone who can read the claim</strong>. Base64 is an encoding, not encryption. An answer file usually contains an Administrator password or product key — if it does, store it in your Vault and use <code>sysprep.secretPath</code> instead.</p>
+<p>Anything you put in <code>sysprep.autounattend</code> or <code>sysprep.unattend</code> is stored in the claim and is <strong>readable by anyone who can read the claim</strong>. Base64 is an encoding, not encryption. An answer file usually contains an Administrator password or product key — if it does, store it in your Vault and use <code>sysprep.secretPath</code> instead — see <a href="#keep-the-answer-file-in-your-vault">Keep the Answer File in Your Vault</a>.</p>
 </div>
+<h3 id="keep-the-answer-file-in-your-vault">Keep the Answer File in Your Vault<a class="headerlink" href="#keep-the-answer-file-in-your-vault" title="Permanent link">#</a></h3>
+<p>Use this route whenever the answer file holds a password or a product key. The file lives in your project's folder in the Vault, and the claim names only its location. The file never appears in the claim.</p>
+<p><strong>Where it goes.</strong> The claim's <code>sysprep.secretPath</code> is always <strong>relative to your project folder</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>You write in the claim</th>
+<th>The platform reads</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>secretPath: win/standard</code></td>
+<td><code>stakater/projects/acme-my-project/win/standard</code></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>The mount is <code>stakater</code> and the project folder is <code>projects/&lt;organisation&gt;-&lt;project&gt;</code>. The project page shows it as the <strong>Vault folder</strong>.</li>
+<li>The entry must have a property named exactly <code>autounattend.xml</code>. Its value is the answer file as <strong>plain XML text</strong>, not base64. An entry without that property makes the claim report that the file did not load.</li>
+<li>A path may use letters, digits, <code>.</code>, <code>_</code> and <code>-</code> inside each segment, separated by <code>/</code>. It cannot start with <code>/</code> or contain <code>..</code> or empty segments, and it can be at most 256 characters. A path outside your project folder cannot be named.</li>
+<li>This route requires a Vault on your organisation.</li>
+</ul>
+<p><strong>1. Prepare the answer file.</strong> Start from the <a href="#example-answer-file">example below</a> and save it as <code>autounattend.xml</code>. Replace <code>__ADMIN_PASSWORD__</code> in <strong>both</strong> places with the password you want for the local <code>Administrator</code> account. Check the edition index and drive letters against your installation media.</p>
+<p><strong>2. Sign in to the Vault</strong> with a project role that can write, as in <a href="#step-6-get-the-administrator-password">Step 6</a>. A read-only role cannot create the entry.</p>
+<p><strong>3. Store the file</strong> at <code>projects/acme-my-project/win/standard</code> with the key <code>autounattend.xml</code>.</p>
+<p><strong>Web UI:</strong> open <strong>Secrets engines</strong> → <code>stakater</code> → <strong>Create secret</strong>. Set <strong>Path for this secret</strong> to <code>projects/acme-my-project/win/standard</code>, add the key <code>autounattend.xml</code>, paste the whole file as the value, and save. If your project page shows an <strong>Add a secret</strong> link, it opens this form with the project folder already filled in.</p>
+<p><strong>CLI:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">BAO_ADDR</span><span class="o">=</span>https://bao.acme.mesh.example.com
+bao<span class="w"> </span>login<span class="w"> </span>-method<span class="o">=</span>oidc<span class="w"> </span><span class="nv">role</span><span class="o">=</span>acme-my-project-rw
+bao<span class="w"> </span>kv<span class="w"> </span>put<span class="w"> </span>-mount<span class="o">=</span>stakater<span class="w"> </span>projects/acme-my-project/win/standard<span class="w"> </span>autounattend.xml<span class="o">=</span>@autounattend.xml
+</code></pre></div>
+<p><strong>4. Point the claim at it.</strong> Remove any <code>sysprep.autounattend</code> or <code>sysprep.unattend</code>. They are mutually exclusive with <code>secretPath</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">sysprep</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">secretPath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">win/standard</span>
+</code></pre></div>
+<p><strong>5. Check that it loaded.</strong> The claim status reports where the answer file came from and whether it arrived:</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>windowsvirtualmachine<span class="w"> </span>my-windows-vm<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.status.sysprep}'</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>{"message":"Answer file loaded from your organization's OpenBao","ready":true,"secretPath":"stakater/projects/acme-my-project/win/standard","secretStore":"acme-bao","source":"openbao"}
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th><code>message</code></th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Answer file loaded from your organization's OpenBao</code></td>
+<td>The file arrived and Windows Setup will use it</td>
+</tr>
+<tr>
+<td><code>Loading the answer file from your organization's OpenBao</code></td>
+<td>Still being copied; check again shortly</td>
+</tr>
+<tr>
+<td><code>Not loaded: sysprep.secretPath must be a relative path such as win/standard</code></td>
+<td>The path is not valid; fix it as described above</td>
+</tr>
+<tr>
+<td><code>Not loaded: your organization's OpenBao is not available…</code></td>
+<td>Your organisation has no Vault yet, or it is still starting. Create a <a href="create-vault.html">Vault</a>, or supply the file inline with <code>sysprep.autounattend</code></td>
+</tr>
+<tr>
+<td>Any other <code>Not loaded: …</code> message</td>
+<td>The Vault entry could not be read, most often because the <code>autounattend.xml</code> property is missing or the path is wrong</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The VM reads the answer file only while Windows Setup runs. The platform refreshes the copy hourly, but editing the entry after the VM has installed changes nothing inside Windows. A VM keeps what it installed, so use the updated entry for new VMs.</p>
+</div>
+<h4 id="example-answer-file">Example answer file<a class="headerlink" href="#example-answer-file" title="Permanent link">#</a></h4>
+<p>This answer file installs Windows Server 2025 on a blank disk, loads the <code>virtio</code> drivers, sets the <code>Administrator</code> password, enables Remote Desktop with Network Level Authentication, and installs the <code>virtio</code> guest tools and the guest agent. Adapt it to your media:</p>
+<ul>
+<li><code>&lt;Value&gt;2&lt;/Value&gt;</code> under <code>/IMAGE/INDEX</code> selects an edition in the installation media. On a standard Windows Server 2025 ISO, <code>2</code> is usually Standard with Desktop Experience and <code>4</code> is usually <code>Datacenter</code> with Desktop Experience, but check your own media. List the indexes of your media with <code>dism /Get-WimInfo /WimFile:install.wim</code>.</li>
+<li>The <code>DriverPaths</code> entries search drives <code>D:</code> to <code>G:</code> for the <code>virtio</code> storage and network drivers in the <code>2k25</code> folder. Use the folder that matches your Windows version, for example <code>2k22</code>. You need the storage entries only if the VM's disk uses a <code>virtio</code> bus.</li>
+<li>To use a product key, add <code>&lt;Key&gt;</code> inside the <code>&lt;ProductKey&gt;</code> element of the <code>Microsoft-Windows-Setup</code> component.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
+<span class="nt">&lt;unattend</span><span class="w"> </span><span class="na">xmlns=</span><span class="s">"urn:schemas-microsoft-com:unattend"</span><span class="nt">&gt;</span>
+<span class="w">  </span><span class="nt">&lt;settings</span><span class="w"> </span><span class="na">pass=</span><span class="s">"windowsPE"</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;component</span><span class="w"> </span><span class="na">xmlns:wcm=</span><span class="s">"http://schemas.microsoft.com/WMIConfig/2002/State"</span><span class="w"> </span><span class="na">name=</span><span class="s">"Microsoft-Windows-International-Core-WinPE"</span><span class="w"> </span><span class="na">processorArchitecture=</span><span class="s">"amd64"</span><span class="w"> </span><span class="na">publicKeyToken=</span><span class="s">"31bf3856ad364e35"</span><span class="w"> </span><span class="na">language=</span><span class="s">"neutral"</span><span class="w"> </span><span class="na">versionScope=</span><span class="s">"nonSxS"</span><span class="nt">&gt;</span>
+<span class="w">      </span><span class="nt">&lt;SetupUILanguage&gt;</span>
+<span class="w">        </span><span class="nt">&lt;UILanguage&gt;</span>en-US<span class="nt">&lt;/UILanguage&gt;</span>
+<span class="w">      </span><span class="nt">&lt;/SetupUILanguage&gt;</span>
+<span class="w">      </span><span class="nt">&lt;InputLocale&gt;</span>en-US<span class="nt">&lt;/InputLocale&gt;</span>
+<span class="w">      </span><span class="nt">&lt;SystemLocale&gt;</span>en-US<span class="nt">&lt;/SystemLocale&gt;</span>
+<span class="w">      </span><span class="nt">&lt;UILanguage&gt;</span>en-US<span class="nt">&lt;/UILanguage&gt;</span>
+<span class="w">      </span><span class="nt">&lt;UserLocale&gt;</span>en-US<span class="nt">&lt;/UserLocale&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/component&gt;</span>
+<span class="w">    </span><span class="nt">&lt;component</span><span class="w"> </span><span class="na">xmlns:wcm=</span><span class="s">"http://schemas.microsoft.com/WMIConfig/2002/State"</span><span class="w"> </span><span class="na">name=</span><span class="s">"Microsoft-Windows-PnpCustomizationsWinPE"</span><span class="w"> </span><span class="na">processorArchitecture=</span><span class="s">"amd64"</span><span class="w"> </span><span class="na">publicKeyToken=</span><span class="s">"31bf3856ad364e35"</span><span class="w"> </span><span class="na">language=</span><span class="s">"neutral"</span><span class="w"> </span><span class="na">versionScope=</span><span class="s">"nonSxS"</span><span class="nt">&gt;</span>
+<span class="w">      </span><span class="nt">&lt;DriverPaths&gt;</span>
+<span class="w">        </span><span class="nt">&lt;PathAndCredentials</span><span class="w"> </span><span class="na">wcm:action=</span><span class="s">"add"</span><span class="w"> </span><span class="na">wcm:keyValue=</span><span class="s">"1"</span><span class="nt">&gt;</span>
+<span class="w">          </span><span class="nt">&lt;Path&gt;</span>D:\viostor\2k25\amd64<span class="nt">&lt;/Path&gt;</span>
+<span class="w">        </span><span class="nt">&lt;/PathAndCredentials&gt;</span>
+<span class="w">        </span><span class="nt">&lt;PathAndCredentials</span><span class="w"> </span><span class="na">wcm:action=</span><span class="s">"add"</span><span class="w"> </span><span class="na">wcm:keyValue=</span><span class="s">"2"</span><span class="nt">&gt;</span>
+<span class="w">          </span><span class="nt">&lt;Path&gt;</span>E:\viostor\2k25\amd64<span class="nt">&lt;/Path&gt;</span>
+<span class="w">        </span><span class="nt">&lt;/PathAndCredentials&gt;</span>
+<span class="w">        </span><span class="nt">&lt;PathAndCredentials</span><span class="w"> </span><span class="na">wcm:action=</span><span class="s">"add"</span><span class="w"> </span><span class="na">wcm:keyValue=</span><span class="s">"3"</span><span class="nt">&gt;</span>
+<span class="w">          </span><span class="nt">&lt;Path&gt;</span>F:\viostor\2k25\amd64<span class="nt">&lt;/Path&gt;</span>
+<span class="w">        </span><span class="nt">&lt;/PathAndCredentials&gt;</span>
+<span class="w">        </span><span class="nt">&lt;PathAndCredentials</span><span class="w"> </span><span class="na">wcm:action=</span><span class="s">"add"</span><span class="w"> </span><span class="na">wcm:keyValue=</span><span class="s">"4"</span><span class="nt">&gt;</span>
+<span class="w">          </span><span class="nt">&lt;Path&gt;</span>G:\viostor\2k25\amd64<span class="nt">&lt;/Path&gt;</span>
+<span class="w">        </span><span class="nt">&lt;/PathAndCredentials&gt;</span>
+<span class="w">        </span><span class="nt">&lt;PathAndCredentials</span><span class="w"> </span><span class="na">wcm:action=</span><span class="s">"add"</span><span class="w"> </span><span class="na">wcm:keyValue=</span><span class="s">"5"</span><span class="nt">&gt;</span>
+<span class="w">          </span><span class="nt">&lt;Path&gt;</span>D:\vioscsi\2k25\amd64<span class="nt">&lt;/Path&gt;</span>
+<span class="w">        </span><span class="nt">&lt;/PathAndCredentials&gt;</span>
+<span class="w">        </span><span class="nt">&lt;PathAndCredentials</span><span class="w"> </span><span class="na">wcm:action=</span><span class="s">"add"</span><span class="w"> </span><span class="na">wcm:keyValue=</span><span class="s">"6"</span><span class="nt">&gt;</span>
+<span class="w">          </span><span class="nt">&lt;Path&gt;</span>E:\vioscsi\2k25\amd64<span class="nt">&lt;/Path&gt;</span>
+<span class="w">        </span><span class="nt">&lt;/PathAndCredentials&gt;</span>
+<span class="w">        </span><span class="nt">&lt;PathAndCredentials</span><span class="w"> </span><span class="na">wcm:action=</span><span class="s">"add"</span><span class="w"> </span><span class="na">wcm:keyValue=</span><span class="s">"7"</span><span class="nt">&gt;</span>
+<span class="w">          </span><span class="nt">&lt;Path&gt;</span>F:\vioscsi\2k25\amd64<span class="nt">&lt;/Path&gt;</span>
+<span class="w">        </span><span class="nt">&lt;/PathAndCredentials&gt;</span>
+<span class="w">        </span><span class="nt">&lt;PathAndCredentials</span><span class="w"> </span><span class="na">wcm:action=</span><span class="s">"add"</span><span class="w"> </span><span class="na">wcm:keyValue=</span><span class="s">"8"</span><span class="nt">&gt;</span>
+<span class="w">          </span><span class="nt">&lt;Path&gt;</span>G:\vioscsi\2k25\amd64<span class="nt">&lt;/Path&gt;</span>
+<span class="w">        </span><span class="nt">&lt;/PathAndCredentials&gt;</span>
+<span class="w">        </span><span class="nt">&lt;PathAndCredentials</span><span class="w"> </span><span class="na">wcm:action=</span><span class="s">"add"</span><span class="w"> </span><span class="na">wcm:keyValue=</span><span class="s">"9"</span><span class="nt">&gt;</span>
+<span class="w">          </span><span class="nt">&lt;Path&gt;</span>D:\NetKVM\2k25\amd64<span class="nt">&lt;/Path&gt;</span>
+<span class="w">        </span><span class="nt">&lt;/PathAndCredentials&gt;</span>
+<span class="w">        </span><span class="nt">&lt;PathAndCredentials</span><span class="w"> </span><span class="na">wcm:action=</span><span class="s">"add"</span><span class="w"> </span><span class="na">wcm:keyValue=</span><span class="s">"10"</span><span class="nt">&gt;</span>
+<span class="w">          </span><span class="nt">&lt;Path&gt;</span>E:\NetKVM\2k25\amd64<span class="nt">&lt;/Path&gt;</span>
+<span class="w">        </span><span class="nt">&lt;/PathAndCredentials&gt;</span>
+<span class="w">        </span><span class="nt">&lt;PathAndCredentials</span><span class="w"> </span><span class="na">wcm:action=</span><span class="s">"add"</span><span class="w"> </span><span class="na">wcm:keyValue=</span><span class="s">"11"</span><span class="nt">&gt;</span>
+<span class="w">          </span><span class="nt">&lt;Path&gt;</span>F:\NetKVM\2k25\amd64<span class="nt">&lt;/Path&gt;</span>
+<span class="w">        </span><span class="nt">&lt;/PathAndCredentials&gt;</span>
+<span class="w">        </span><span class="nt">&lt;PathAndCredentials</span><span class="w"> </span><span class="na">wcm:action=</span><span class="s">"add"</span><span class="w"> </span><span class="na">wcm:keyValue=</span><span class="s">"12"</span><span class="nt">&gt;</span>
+<span class="w">          </span><span class="nt">&lt;Path&gt;</span>G:\NetKVM\2k25\amd64<span class="nt">&lt;/Path&gt;</span>
+<span class="w">        </span><span class="nt">&lt;/PathAndCredentials&gt;</span>
+<span class="w">      </span><span class="nt">&lt;/DriverPaths&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/component&gt;</span>
+<span class="w">    </span><span class="nt">&lt;component</span><span class="w"> </span><span class="na">xmlns:wcm=</span><span class="s">"http://schemas.microsoft.com/WMIConfig/2002/State"</span><span class="w"> </span><span class="na">name=</span><span class="s">"Microsoft-Windows-Setup"</span><span class="w"> </span><span class="na">processorArchitecture=</span><span class="s">"amd64"</span><span class="w"> </span><span class="na">publicKeyToken=</span><span class="s">"31bf3856ad364e35"</span><span class="w"> </span><span class="na">language=</span><span class="s">"neutral"</span><span class="w"> </span><span class="na">versionScope=</span><span class="s">"nonSxS"</span><span class="nt">&gt;</span>
+<span class="w">      </span><span class="nt">&lt;DiskConfiguration&gt;</span>
+<span class="w">        </span><span class="nt">&lt;Disk</span><span class="w"> </span><span class="na">wcm:action=</span><span class="s">"add"</span><span class="nt">&gt;</span>
+<span class="w">          </span><span class="nt">&lt;DiskID&gt;</span>0<span class="nt">&lt;/DiskID&gt;</span>
+<span class="w">          </span><span class="nt">&lt;WillWipeDisk&gt;</span>true<span class="nt">&lt;/WillWipeDisk&gt;</span>
+<span class="w">          </span><span class="nt">&lt;CreatePartitions&gt;</span>
+<span class="w">            </span><span class="nt">&lt;CreatePartition</span><span class="w"> </span><span class="na">wcm:action=</span><span class="s">"add"</span><span class="nt">&gt;</span>
+<span class="w">              </span><span class="nt">&lt;Order&gt;</span>1<span class="nt">&lt;/Order&gt;</span>
+<span class="w">              </span><span class="nt">&lt;Type&gt;</span>EFI<span class="nt">&lt;/Type&gt;</span>
+<span class="w">              </span><span class="nt">&lt;Size&gt;</span>100<span class="nt">&lt;/Size&gt;</span>
+<span class="w">            </span><span class="nt">&lt;/CreatePartition&gt;</span>
+<span class="w">            </span><span class="nt">&lt;CreatePartition</span><span class="w"> </span><span class="na">wcm:action=</span><span class="s">"add"</span><span class="nt">&gt;</span>
+<span class="w">              </span><span class="nt">&lt;Order&gt;</span>2<span class="nt">&lt;/Order&gt;</span>
+<span class="w">              </span><span class="nt">&lt;Type&gt;</span>MSR<span class="nt">&lt;/Type&gt;</span>
+<span class="w">              </span><span class="nt">&lt;Size&gt;</span>16<span class="nt">&lt;/Size&gt;</span>
+<span class="w">            </span><span class="nt">&lt;/CreatePartition&gt;</span>
+<span class="w">            </span><span class="nt">&lt;CreatePartition</span><span class="w"> </span><span class="na">wcm:action=</span><span class="s">"add"</span><span class="nt">&gt;</span>
+<span class="w">              </span><span class="nt">&lt;Order&gt;</span>3<span class="nt">&lt;/Order&gt;</span>
+<span class="w">              </span><span class="nt">&lt;Type&gt;</span>Primary<span class="nt">&lt;/Type&gt;</span>
+<span class="w">              </span><span class="nt">&lt;Extend&gt;</span>true<span class="nt">&lt;/Extend&gt;</span>
+<span class="w">            </span><span class="nt">&lt;/CreatePartition&gt;</span>
+<span class="w">          </span><span class="nt">&lt;/CreatePartitions&gt;</span>
+<span class="w">          </span><span class="nt">&lt;ModifyPartitions&gt;</span>
+<span class="w">            </span><span class="nt">&lt;ModifyPartition</span><span class="w"> </span><span class="na">wcm:action=</span><span class="s">"add"</span><span class="nt">&gt;</span>
+<span class="w">              </span><span class="nt">&lt;Order&gt;</span>1<span class="nt">&lt;/Order&gt;</span>
+<span class="w">              </span><span class="nt">&lt;PartitionID&gt;</span>1<span class="nt">&lt;/PartitionID&gt;</span>
+<span class="w">              </span><span class="nt">&lt;Format&gt;</span>FAT32<span class="nt">&lt;/Format&gt;</span>
+<span class="w">              </span><span class="nt">&lt;Label&gt;</span>System<span class="nt">&lt;/Label&gt;</span>
+<span class="w">            </span><span class="nt">&lt;/ModifyPartition&gt;</span>
+<span class="w">            </span><span class="nt">&lt;ModifyPartition</span><span class="w"> </span><span class="na">wcm:action=</span><span class="s">"add"</span><span class="nt">&gt;</span>
+<span class="w">              </span><span class="nt">&lt;Order&gt;</span>2<span class="nt">&lt;/Order&gt;</span>
+<span class="w">              </span><span class="nt">&lt;PartitionID&gt;</span>2<span class="nt">&lt;/PartitionID&gt;</span>
+<span class="w">            </span><span class="nt">&lt;/ModifyPartition&gt;</span>
+<span class="w">            </span><span class="nt">&lt;ModifyPartition</span><span class="w"> </span><span class="na">wcm:action=</span><span class="s">"add"</span><span class="nt">&gt;</span>
+<span class="w">              </span><span class="nt">&lt;Order&gt;</span>3<span class="nt">&lt;/Order&gt;</span>
+<span class="w">              </span><span class="nt">&lt;PartitionID&gt;</span>3<span class="nt">&lt;/PartitionID&gt;</span>
+<span class="w">              </span><span class="nt">&lt;Format&gt;</span>NTFS<span class="nt">&lt;/Format&gt;</span>
+<span class="w">              </span><span class="nt">&lt;Label&gt;</span>Windows<span class="nt">&lt;/Label&gt;</span>
+<span class="w">              </span><span class="nt">&lt;Letter&gt;</span>C<span class="nt">&lt;/Letter&gt;</span>
+<span class="w">            </span><span class="nt">&lt;/ModifyPartition&gt;</span>
+<span class="w">          </span><span class="nt">&lt;/ModifyPartitions&gt;</span>
+<span class="w">        </span><span class="nt">&lt;/Disk&gt;</span>
+<span class="w">      </span><span class="nt">&lt;/DiskConfiguration&gt;</span>
+<span class="w">      </span><span class="nt">&lt;ImageInstall&gt;</span>
+<span class="w">        </span><span class="nt">&lt;OSImage&gt;</span>
+<span class="w">          </span><span class="nt">&lt;InstallFrom&gt;</span>
+<span class="w">            </span><span class="nt">&lt;MetaData</span><span class="w"> </span><span class="na">wcm:action=</span><span class="s">"add"</span><span class="nt">&gt;</span>
+<span class="w">              </span><span class="nt">&lt;Key&gt;</span>/IMAGE/INDEX<span class="nt">&lt;/Key&gt;</span>
+<span class="w">              </span><span class="nt">&lt;Value&gt;</span>2<span class="nt">&lt;/Value&gt;</span>
+<span class="w">            </span><span class="nt">&lt;/MetaData&gt;</span>
+<span class="w">          </span><span class="nt">&lt;/InstallFrom&gt;</span>
+<span class="w">          </span><span class="nt">&lt;InstallTo&gt;</span>
+<span class="w">            </span><span class="nt">&lt;DiskID&gt;</span>0<span class="nt">&lt;/DiskID&gt;</span>
+<span class="w">            </span><span class="nt">&lt;PartitionID&gt;</span>3<span class="nt">&lt;/PartitionID&gt;</span>
+<span class="w">          </span><span class="nt">&lt;/InstallTo&gt;</span>
+<span class="w">        </span><span class="nt">&lt;/OSImage&gt;</span>
+<span class="w">      </span><span class="nt">&lt;/ImageInstall&gt;</span>
+<span class="w">      </span><span class="nt">&lt;UserData&gt;</span>
+<span class="w">        </span><span class="nt">&lt;AcceptEula&gt;</span>true<span class="nt">&lt;/AcceptEula&gt;</span>
+<span class="w">      </span><span class="nt">&lt;/UserData&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/component&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/settings&gt;</span>
+<span class="w">  </span><span class="nt">&lt;settings</span><span class="w"> </span><span class="na">pass=</span><span class="s">"oobeSystem"</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;component</span><span class="w"> </span><span class="na">xmlns:wcm=</span><span class="s">"http://schemas.microsoft.com/WMIConfig/2002/State"</span><span class="w"> </span><span class="na">name=</span><span class="s">"Microsoft-Windows-Shell-Setup"</span><span class="w"> </span><span class="na">processorArchitecture=</span><span class="s">"amd64"</span><span class="w"> </span><span class="na">publicKeyToken=</span><span class="s">"31bf3856ad364e35"</span><span class="w"> </span><span class="na">language=</span><span class="s">"neutral"</span><span class="w"> </span><span class="na">versionScope=</span><span class="s">"nonSxS"</span><span class="nt">&gt;</span>
+<span class="w">      </span><span class="nt">&lt;UserAccounts&gt;</span>
+<span class="w">        </span><span class="nt">&lt;AdministratorPassword&gt;</span>
+<span class="w">          </span><span class="nt">&lt;Value&gt;</span>__ADMIN_PASSWORD__<span class="nt">&lt;/Value&gt;</span>
+<span class="w">          </span><span class="nt">&lt;PlainText&gt;</span>true<span class="nt">&lt;/PlainText&gt;</span>
+<span class="w">        </span><span class="nt">&lt;/AdministratorPassword&gt;</span>
+<span class="w">      </span><span class="nt">&lt;/UserAccounts&gt;</span>
+<span class="w">      </span><span class="nt">&lt;AutoLogon&gt;</span>
+<span class="w">        </span><span class="nt">&lt;Enabled&gt;</span>true<span class="nt">&lt;/Enabled&gt;</span>
+<span class="w">        </span><span class="nt">&lt;LogonCount&gt;</span>1<span class="nt">&lt;/LogonCount&gt;</span>
+<span class="w">        </span><span class="nt">&lt;Username&gt;</span>Administrator<span class="nt">&lt;/Username&gt;</span>
+<span class="w">        </span><span class="nt">&lt;Password&gt;</span>
+<span class="w">          </span><span class="nt">&lt;Value&gt;</span>__ADMIN_PASSWORD__<span class="nt">&lt;/Value&gt;</span>
+<span class="w">          </span><span class="nt">&lt;PlainText&gt;</span>true<span class="nt">&lt;/PlainText&gt;</span>
+<span class="w">        </span><span class="nt">&lt;/Password&gt;</span>
+<span class="w">      </span><span class="nt">&lt;/AutoLogon&gt;</span>
+<span class="w">      </span><span class="nt">&lt;OOBE&gt;</span>
+<span class="w">        </span><span class="nt">&lt;HideEULAPage&gt;</span>true<span class="nt">&lt;/HideEULAPage&gt;</span>
+<span class="w">        </span><span class="nt">&lt;HideLocalAccountScreen&gt;</span>true<span class="nt">&lt;/HideLocalAccountScreen&gt;</span>
+<span class="w">        </span><span class="nt">&lt;HideOnlineAccountScreens&gt;</span>true<span class="nt">&lt;/HideOnlineAccountScreens&gt;</span>
+<span class="w">        </span><span class="nt">&lt;HideWirelessSetupInOOBE&gt;</span>true<span class="nt">&lt;/HideWirelessSetupInOOBE&gt;</span>
+<span class="w">        </span><span class="nt">&lt;ProtectYourPC&gt;</span>3<span class="nt">&lt;/ProtectYourPC&gt;</span>
+<span class="w">        </span><span class="nt">&lt;SkipMachineOOBE&gt;</span>true<span class="nt">&lt;/SkipMachineOOBE&gt;</span>
+<span class="w">        </span><span class="nt">&lt;SkipUserOOBE&gt;</span>true<span class="nt">&lt;/SkipUserOOBE&gt;</span>
+<span class="w">      </span><span class="nt">&lt;/OOBE&gt;</span>
+<span class="w">      </span><span class="nt">&lt;FirstLogonCommands&gt;</span>
+<span class="w">        </span><span class="nt">&lt;SynchronousCommand</span><span class="w"> </span><span class="na">wcm:action=</span><span class="s">"add"</span><span class="nt">&gt;</span>
+<span class="w">          </span><span class="nt">&lt;Order&gt;</span>1<span class="nt">&lt;/Order&gt;</span>
+<span class="w">          </span><span class="nt">&lt;Description&gt;</span>virtio<span class="w"> </span>guest<span class="w"> </span>tools<span class="w"> </span>and<span class="w"> </span>agent<span class="nt">&lt;/Description&gt;</span>
+<span class="w">          </span><span class="nt">&lt;CommandLine&gt;</span>powershell<span class="w"> </span>-NoProfile<span class="w"> </span>-ExecutionPolicy<span class="w"> </span>Bypass<span class="w"> </span>-Command<span class="w"> </span>"foreach($d<span class="w"> </span>in<span class="w"> </span>'D','E','F','G'){$m=$d+':\virtio-win-gt-x64.msi';<span class="w"> </span>if(Test-Path<span class="w"> </span>$m){Start-Process<span class="w"> </span>msiexec.exe<span class="w"> </span>-ArgumentList<span class="w"> </span>'/i',$m,'/qn','/norestart'<span class="w"> </span>-Wait}};<span class="w"> </span>foreach($d<span class="w"> </span>in<span class="w"> </span>'D','E','F','G'){$m=$d+':\guest-agent\qemu-ga-x86_64.msi';<span class="w"> </span>if(Test-Path<span class="w"> </span>$m){Start-Process<span class="w"> </span>msiexec.exe<span class="w"> </span>-ArgumentList<span class="w"> </span>'/i',$m,'/qn','/norestart'<span class="w"> </span>-Wait}}"<span class="nt">&lt;/CommandLine&gt;</span>
+<span class="w">        </span><span class="nt">&lt;/SynchronousCommand&gt;</span>
+<span class="w">        </span><span class="nt">&lt;SynchronousCommand</span><span class="w"> </span><span class="na">wcm:action=</span><span class="s">"add"</span><span class="nt">&gt;</span>
+<span class="w">          </span><span class="nt">&lt;Order&gt;</span>2<span class="nt">&lt;/Order&gt;</span>
+<span class="w">          </span><span class="nt">&lt;Description&gt;</span>enable<span class="w"> </span>RDP<span class="nt">&lt;/Description&gt;</span>
+<span class="w">          </span><span class="nt">&lt;CommandLine&gt;</span>reg<span class="w"> </span>add<span class="w"> </span>"HKLM\SYSTEM\CurrentControlSet\Control\Terminal<span class="w"> </span>Server"<span class="w"> </span>/v<span class="w"> </span>fDenyTSConnections<span class="w"> </span>/t<span class="w"> </span>REG_DWORD<span class="w"> </span>/d<span class="w"> </span>0<span class="w"> </span>/f<span class="nt">&lt;/CommandLine&gt;</span>
+<span class="w">        </span><span class="nt">&lt;/SynchronousCommand&gt;</span>
+<span class="w">        </span><span class="nt">&lt;SynchronousCommand</span><span class="w"> </span><span class="na">wcm:action=</span><span class="s">"add"</span><span class="nt">&gt;</span>
+<span class="w">          </span><span class="nt">&lt;Order&gt;</span>3<span class="nt">&lt;/Order&gt;</span>
+<span class="w">          </span><span class="nt">&lt;Description&gt;</span>RDP<span class="w"> </span>firewall<span class="nt">&lt;/Description&gt;</span>
+<span class="w">          </span><span class="nt">&lt;CommandLine&gt;</span>netsh<span class="w"> </span>advfirewall<span class="w"> </span>firewall<span class="w"> </span>set<span class="w"> </span>rule<span class="w"> </span>group="remote<span class="w"> </span>desktop"<span class="w"> </span>new<span class="w"> </span>enable=Yes<span class="nt">&lt;/CommandLine&gt;</span>
+<span class="w">        </span><span class="nt">&lt;/SynchronousCommand&gt;</span>
+<span class="w">        </span><span class="nt">&lt;SynchronousCommand</span><span class="w"> </span><span class="na">wcm:action=</span><span class="s">"add"</span><span class="nt">&gt;</span>
+<span class="w">          </span><span class="nt">&lt;Order&gt;</span>4<span class="nt">&lt;/Order&gt;</span>
+<span class="w">          </span><span class="nt">&lt;Description&gt;</span>NLA<span class="w"> </span>on<span class="nt">&lt;/Description&gt;</span>
+<span class="w">          </span><span class="nt">&lt;CommandLine&gt;</span>reg<span class="w"> </span>add<span class="w"> </span>"HKLM\SYSTEM\CurrentControlSet\Control\Terminal<span class="w"> </span>Server\WinStations\RDP-Tcp"<span class="w"> </span>/v<span class="w"> </span>UserAuthentication<span class="w"> </span>/t<span class="w"> </span>REG_DWORD<span class="w"> </span>/d<span class="w"> </span>1<span class="w"> </span>/f<span class="nt">&lt;/CommandLine&gt;</span>
+<span class="w">        </span><span class="nt">&lt;/SynchronousCommand&gt;</span>
+<span class="w">        </span><span class="nt">&lt;SynchronousCommand</span><span class="w"> </span><span class="na">wcm:action=</span><span class="s">"add"</span><span class="nt">&gt;</span>
+<span class="w">          </span><span class="nt">&lt;Order&gt;</span>5<span class="nt">&lt;/Order&gt;</span>
+<span class="w">          </span><span class="nt">&lt;Description&gt;</span>Remove<span class="w"> </span>the<span class="w"> </span>AutoLogon<span class="w"> </span>password<span class="nt">&lt;/Description&gt;</span>
+<span class="w">          </span><span class="nt">&lt;CommandLine&gt;</span>reg<span class="w"> </span>delete<span class="w"> </span>"HKLM\SOFTWARE\Microsoft\Windows<span class="w"> </span>NT\CurrentVersion\Winlogon"<span class="w"> </span>/v<span class="w"> </span>DefaultPassword<span class="w"> </span>/f<span class="nt">&lt;/CommandLine&gt;</span>
+<span class="w">        </span><span class="nt">&lt;/SynchronousCommand&gt;</span>
+<span class="w">      </span><span class="nt">&lt;/FirstLogonCommands&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/component&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/settings&gt;</span>
+<span class="nt">&lt;/unattend&gt;</span>
+</code></pre></div>
 <h3 id="licensing">Licensing<a class="headerlink" href="#licensing" title="Permanent link">#</a></h3>
-<p>The claim has no licence-key field. Evaluation media needs no key (it is time-limited). For retail or volume-licensed media, put the key in your own answer file (<code>&lt;ProductKey&gt;</code> in the <code>Microsoft-Windows-Setup</code> component) or activate after installation with <code>slmgr</code>. Inside the VM, <code>slmgr /dli</code> shows the current licence state.</p>
+<p>The claim has no licence-key field. Evaluation media needs no key (it is time-limited). For retail or volume-licensed media, put the key in your own answer file (<code>&lt;ProductKey&gt;</code> in the <code>Microsoft-Windows-Setup</code> component) and <a href="#keep-the-answer-file-in-your-vault">keep that file in your Vault</a> or activate after installation with <code>slmgr</code>. Inside the VM, <code>slmgr /dli</code> shows the current licence state.</p>
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">#</a></h2>
 <table>
 <thead>
@@ -6591,6 +6946,16 @@ my-windows-vm    True     True    9m
 <td><code>status.adminCredentials.delivered</code> is <code>false</code></td>
 <td>Your organisation has no Vault</td>
 <td>Create a <a href="create-vault.html">Vault</a>, or supply your own answer file</td>
+</tr>
+<tr>
+<td><code>status.sysprep.ready</code> is <code>false</code></td>
+<td>The answer file in your Vault did not load</td>
+<td>Read <code>status.sysprep.message</code> and see <a href="#keep-the-answer-file-in-your-vault">Keep the Answer File in Your Vault</a></td>
+</tr>
+<tr>
+<td>Setup ignores your answer file or stops at a prompt</td>
+<td>The XML is invalid, the edition index does not exist on your media, or the value was stored base64-encoded</td>
+<td>Validate the XML, check <code>/IMAGE/INDEX</code>, and store the plain XML text</td>
 </tr>
 <tr>
 <td><code>nc</code> to port 3389 times out, <code>internalIP</code> is set</td>
@@ -6644,7 +7009,8 @@ my-windows-vm    True     True    9m
 <ul>
 <li><a href="provision-virtual-machine.html">Provision a Linux Virtual Machine</a> - Provision a Linux VM and connect over SSH</li>
 <li><a href="create-mesh.html">Create a Mesh</a> - Set up the private network used to reach the VM</li>
-<li><a href="create-vault.html">Create a Vault</a> - Store the generated Administrator password</li>
+<li><a href="create-vault.html">Create a Vault</a> - Store the generated Administrator password and your own answer files</li>
+<li><a href="../../api-reference/public-apis/vault.html#project-access">Vault API reference</a> - Project roles and the project folder</li>
 <li><a href="../../cloud-user-guide/authentication/organisation-identity.html">One Identity Across Your Organisation</a> - Mesh enrolment caveats</li>
 </ul>
 

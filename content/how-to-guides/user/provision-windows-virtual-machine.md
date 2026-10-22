@@ -349,7 +349,7 @@ kubectl get windowsvirtualmachine my-windows-vm -o jsonpath='{.status.sysprep}'
 
 This answer file installs Windows Server 2025 on a blank disk, loads the virtio drivers, sets the `Administrator` password, enables Remote Desktop with Network Level Authentication, and installs the virtio guest tools and the guest agent. Adapt it to your media:
 
-- `<Value>2</Value>` under `/IMAGE/INDEX` selects an edition in the installation media. On a standard Windows Server 2025 ISO, `2` is usually Standard with Desktop Experience and `4` is usually Datacenter with Desktop Experience, but check your own media. List the indexes of your media with `dism /Get-WimInfo /WimFile:install.wim`.
+- `<Value>2</Value>` under `/IMAGE/INDEX` selects an edition in the installation media. On a standard Windows Server 2025 ISO, `2` is usually Standard with Desktop Experience and `4` is usually `Datacenter` with Desktop Experience, but check your own media. List the indexes of your media with `dism /Get-WimInfo /WimFile:install.wim`.
 - The `DriverPaths` entries search drives `D:` to `G:` for the virtio storage and network drivers in the `2k25` folder. Use the folder that matches your Windows version, for example `2k22`. You need the storage entries only if the VM's disk uses a virtio bus.
 - To use a product key, add `<Key>` inside the `<ProductKey>` element of the `Microsoft-Windows-Setup` component.
 

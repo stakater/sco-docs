@@ -67,14 +67,14 @@
   {
     "version": "fix-pin-test-runner",
     "title": "fix-pin-test-runner",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "feat-docs-target",
     "title": "feat-docs-target",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "feat-api-reference-s3-postgres",

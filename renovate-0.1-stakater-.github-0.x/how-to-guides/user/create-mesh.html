@@ -2989,6 +2989,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
+      <a href="connect-identity-provider.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Connect Your Company Identity Provider
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="provision-openshift-cluster.html" class="md-nav__link">
         
   
@@ -5232,6 +5260,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
+      <a href="../../api-reference/public-apis/iam-identity-provider.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IAM IdentityProvider
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../api-reference/public-apis/openshift-cluster.html" class="md-nav__link">
         
   
@@ -6083,9 +6139,9 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </ul>
 <h2 id="in-the-console">In the Console<a class="headerlink" href="#in-the-console" title="Permanent link">#</a></h2>
 <p>Meshes are under <strong>Networking</strong> in the sidebar. Check the list before you create anything — your organisation may already have one:</p>
-<p></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/generated/mesh-list.png" data-desc-position="bottom"><img alt="The Mesh list in the console" src="../../images/generated/mesh-list.png"></a></p>
 <p>The create form is as short as the claim, because a Mesh has no user-tunable fields. A name is all it asks for:</p>
-<p></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/generated/mesh-create.png" data-desc-position="bottom"><img alt="The Create Mesh form" src="../../images/generated/mesh-create.png"></a></p>
 <h2 id="step-1-define-a-mesh-claim">Step 1: Define a Mesh Claim<a class="headerlink" href="#step-1-define-a-mesh-claim" title="Permanent link">#</a></h2>
 <p>Create a file named <code>mesh.yaml</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">network.cloud.stakater.com/v1</span>
@@ -6105,7 +6161,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <p>Wait for <code>READY: True</code>.</p>
 <h2 id="step-4-open-the-dashboard">Step 4: Open the Dashboard<a class="headerlink" href="#step-4-open-the-dashboard" title="Permanent link">#</a></h2>
 <p>Open the Mesh in the console. Its detail page shows the <strong>Dashboard URL</strong>, and next to it the management URL you will need in <a href="#step-5-enrol-a-device">Step 5</a>:</p>
-<p></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/generated/mesh-detail.png" data-desc-position="bottom"><img alt="A Mesh detail page, showing the dashboard and management URLs" src="../../images/generated/mesh-detail.png"></a></p>
 <p>Follow the Dashboard URL and sign in with your organisation account. From here you manage peers, define groups, and write access policies — or manage groups and policies declaratively with <code>MeshGroup</code> / <code>MeshPolicy</code> claims.</p>
 <h2 id="step-5-enrol-a-device">Step 5: Enrol a Device<a class="headerlink" href="#step-5-enrol-a-device" title="Permanent link">#</a></h2>
 <p>Install the NetBird client on a laptop. In the dashboard, open <strong>Add Peer</strong> and copy the enrolment command it shows — it already includes your organisation's management URL:</p>

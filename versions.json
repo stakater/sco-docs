@@ -65,13 +65,6 @@
     "aliases": []
   },
   {
-    "version": "fix-pin-test-runner",
-    "title": "fix-pin-test-runner",
-    "aliases": [
-      "latest"
-    ]
-  },
-  {
     "version": "feat-docs-target",
     "title": "feat-docs-target",
     "aliases": []

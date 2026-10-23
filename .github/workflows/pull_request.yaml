@@ -34,7 +34,8 @@ jobs:
       SLACK_WEBHOOK_URL: ${{ secrets.STAKATER_DELIVERY_SLACK_WEBHOOK }}
       DOCKER_SECRETS: GIT_AUTH_TOKEN=${{ secrets.PUBLISH_TOKEN }}
   test:
-    runs-on: ubuntu-latest
+    # Playwright 1.57 has no Chromium for ubuntu-latest (26.04). Unpin once it does.
+    runs-on: ubuntu-24.04
     needs: [ build_container, deploy_doc ]
     env:
       CURRENT_BRANCH: ${{ needs.deploy_doc.outputs.CURRENT_BRANCH }}

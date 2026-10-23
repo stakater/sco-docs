@@ -67,7 +67,9 @@
   {
     "version": "feat-docs-target",
     "title": "feat-docs-target",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "feat-api-reference-s3-postgres",
@@ -112,9 +114,7 @@
   {
     "version": "docs-netbird-macos-enrolment",
     "title": "docs-netbird-macos-enrolment",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "docs-installation",

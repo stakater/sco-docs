@@ -70,13 +70,39 @@ Follow the Dashboard URL and sign in with your organisation account. From here y
 
 ## Step 5: Enrol a Device
 
-Install the NetBird client on a laptop. In the dashboard, open **Add Peer** and copy the enrolment command it shows — it already includes your organisation's management URL:
+Install the NetBird client on a laptop, then point it at your organisation's management URL from [Step 4](#step-4-open-the-dashboard). On macOS you can do this in the desktop app; on Linux and headless machines, use the CLI.
+
+### macOS (desktop app)
+
+1. Open the NetBird app, go to **Settings** > **General**, and scroll down to **Connection**. Under **Management Server** it offers two options, **Cloud** and **Self-hosted**:
+
+    ![The Connection section of the NetBird settings, with the Cloud and Self-hosted options](../../images/netbird-macos-connection.png)
+
+1. Select **Self-hosted**, paste the management URL from Step 4, and click **Save**:
+
+    ![Self-hosted selected, with the management URL filled in](../../images/netbird-macos-self-hosted.png)
+
+1. Click **Connect**. NetBird opens a browser for single sign-on — sign in with your organisation account. When the browser flow completes, the app shows **Connected**:
+
+    ![The NetBird app in the connected state](../../images/netbird-macos-connected.png)
+
+!!! tip
+    On its first launch, the app opens a **Set up NetBird** window with the same choice. Pick **Self-hosted** there, enter the management URL, and go on to the **Connect** step.
+
+### CLI (Linux and headless machines)
+
+In the dashboard, open **Add Peer** and copy the enrolment command it shows — it already includes your organisation's management URL:
 
 ```bash
 netbird up --management-url=<your organisation's management URL>
 ```
 
-This opens a browser for single sign-on — leave the command running until the browser flow completes, and use a private window if you need to enrol as a different user than your current browser session. See [One Identity Across Your Organisation](../../cloud-user-guide/authentication/organisation-identity.md) for enrolment caveats and multi-account profiles. After registration the device appears in the dashboard and can be assigned to groups.
+This opens a browser for single sign-on — leave the command running until the browser flow completes.
+
+Either way, use a private window if you need to enrol as a different user than your current browser session. See [One Identity Across Your Organisation](../../cloud-user-guide/authentication/organisation-identity.md) for enrolment caveats and multi-account profiles. After registration the device appears in the dashboard and can be assigned to groups.
+
+!!! note "Try a lower MTU"
+    If the device is enrolled but traffic over the mesh does not get through, one possible cause is a network that drops packets at NetBird's default MTU. To check for it, set the MTU to `1200`, then disconnect and connect again. In the macOS app, go to **Settings** > **Advanced**, set **MTU** under **Interface**, and click **Save Changes**. With the CLI, run `netbird down`, then run `netbird up` again with `--mtu 1200` added.
 
 ## Step 6: Reach Services over the Mesh
 

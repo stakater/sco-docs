@@ -67,7 +67,9 @@
   {
     "version": "main",
     "title": "main",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "feat-api-reference-s3-postgres",
@@ -82,9 +84,7 @@
   {
     "version": "docs-vm-backup-vs-snapshot",
     "title": "docs-vm-backup-vs-snapshot",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "docs-scobasic-org-onboarding",

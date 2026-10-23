@@ -107,7 +107,9 @@
   {
     "version": "docs-netbird-macos-enrolment",
     "title": "docs-netbird-macos-enrolment",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "docs-installation",

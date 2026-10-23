@@ -30,6 +30,26 @@ All parameters are nested under `spec.parameters`.
 | `connection` | `string` | `private` | Network access type. `private` = no external IP; `public` = LoadBalancer Service created |
 | `sshPublicKey.data` | `string` | — | Base64-encoded (or raw) SSH public key for VM access |
 | `cloudInit.userData` | `string` | — | Cloud-init `userData` script injected on first boot |
+| `peers` | `array` | — | Workloads in this project allowed to reach the VM, each on its own ports. Needs a project with `network.mode: native`. See [Peers](#peers) |
+
+### Peers
+
+Each entry in `spec.parameters.peers` lets one workload in the same project reach the VM. All other traffic to the VM stays blocked. `WindowsVirtualMachine` takes the same field.
+
+| Field | Type | Default | Description |
+|-------|------|---------|-------------|
+| `kind` | `string` | — | Kind of workload. `OpenShiftCluster` admits workloads running on one of this project's OpenShift clusters |
+| `name` | `string` | — | Name of the workload, for example the OpenShift cluster's name |
+| `ports[].port` | `integer` | — | Port on the VM the peer may reach (1–65535) |
+| `ports[].protocol` | `string` | `TCP` | `TCP` or `UDP` |
+
+Each peer reports its state in `status.peering.peers`:
+
+| State | Meaning |
+|-------|---------|
+| `Ready` | The peer can reach the VM on its ports |
+| `Pending` | Being set up, or the named workload does not exist yet |
+| `Rejected` | Not allowed: the workload is in another project, or the VM's project is not in `native` mode. `message` says which |
 
 ## Status Fields
 
@@ -43,6 +63,8 @@ All parameters are nested under `spec.parameters`.
 | `status.vm.serviceIP` | `string` | LoadBalancer IP address (if `connection: public`) |
 | `status.vm.serviceHostname` | `string` | LoadBalancer hostname (if `connection: public`) |
 | `status.vm.conditions` | `array` | Conditions representing the VM state |
+| `status.peering.address` | `string` | Address peers use to reach the VM, on the ports granted to them. It stays the same when the VM restarts or moves |
+| `status.peering.peers` | `array` | `kind`, `name`, `state` and `message` for each peer (see [Peers](#peers)) |
 
 ## Supported Flavours
 
@@ -160,6 +182,28 @@ spec:
           - curl
 ```
 
-## How-to Guide
+### VM Reachable from an OpenShift Cluster
 
-[Provision a Virtual Machine](../../how-to-guides/user/provision-virtual-machine.md)
+The project must use `network.mode: native`. Workloads on the `app-cluster` OpenShift cluster can reach PostgreSQL on port 5432; nothing else can.
+
+```yaml
+apiVersion: compute.cloud.stakater.com/v1
+kind: VirtualMachine
+metadata:
+  name: db-vm
+spec:
+  parameters:
+    flavour: rhel9
+    instanceType: o1.medium
+    connection: private
+    peers:
+      - kind: OpenShiftCluster
+        name: app-cluster
+        ports:
+          - port: 5432
+```
+
+## How-to Guides
+
+- [Provision a Virtual Machine](../../how-to-guides/user/provision-virtual-machine.md)
+- [Connect an OpenShift Cluster to a Virtual Machine](../../how-to-guides/user/connect-openshift-cluster-to-virtual-machine.md)

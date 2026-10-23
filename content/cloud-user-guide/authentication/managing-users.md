@@ -29,6 +29,21 @@ kubectl apply -f alice.yaml
 
 See the [Create IAM User](../../how-to-guides/user/create-iam-user.md) how-to guide for the full parameter reference.
 
+!!! note
+    If your organisation has connected a company identity provider, do not create a `User` claim for an email address in its domains. That user gets a password and signs in without the company identity provider. See [Users from Your Company Identity Provider](#users-from-your-company-identity-provider).
+
+---
+
+## Users from Your Company Identity Provider
+
+When your organisation has a [company identity provider](../../how-to-guides/user/connect-identity-provider.md), users of its email domains need no `User` claim:
+
+- The platform creates their organisation user at their first sign-in. It has no password.
+- They do not appear in the console's user list, because there is no `User` claim for them.
+- You give them access by email address, as for other users: in the `members` of a group, or in the `users` of a project's `access` list.
+- You can add someone to a group before their first sign-in. The membership applies after their first sign-in, within about 15 minutes. Until then, the group already lists them, but they do not have the group's access yet.
+- To stop someone signing in, disable them in your company identity provider. Sessions that are already open stay valid until they expire.
+
 ---
 
 ## Creating Groups

@@ -17,7 +17,9 @@
   {
     "version": "renovate-main-stakater-.github-0.x",
     "title": "renovate-main-stakater-.github-0.x",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "renovate-main-node-24.x-lockfile",
@@ -67,9 +69,7 @@
   {
     "version": "fix-serialize-gh-pages-deploys",
     "title": "fix-serialize-gh-pages-deploys",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "feat-api-reference-s3-postgres",

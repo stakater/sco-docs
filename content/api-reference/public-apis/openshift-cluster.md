@@ -1,6 +1,6 @@
 # OpenShift Cluster
 
-Provisions a managed OpenShift hosted cluster with a T-shirt sized default node pool, Keycloak OAuth integration, and group-based access control.
+Provisions a managed OpenShift hosted cluster with a T-shirt sized default node pool, single sign-on integration, and group-based access control.
 
 ## API Details
 
@@ -30,15 +30,26 @@ All parameters are nested under `spec.parameters`.
 | `defaultNodepool.size` | `string` | `medium` | T-shirt size for default node pool nodes. Allowed: `small`, `medium`, `large`, `xlarge`. Maps to a predefined CPU, memory, and root volume configuration at the platform level. |
 | `defaultNodepool.replicas` | `integer` | `3` | Number of nodes in the default node pool (1–10) |
 | `networking.mode` | `string` | `public` | Network access mode for the cluster API and console. Allowed: `public`, `private` |
-| `access.groups` | `array` | — | List of Keycloak group → ClusterRole bindings (see below) |
+| `access.groups` | `array` | — | Grants organisation groups a role on the cluster (see below) |
 | `bootstrap.enabled` | `boolean` | `false` | When `true`, the hosting cluster auto-installs core add-ons (Crossplane, ArgoCD, ksp-system). Enable for new clusters; leave disabled for clusters that were bootstrapped manually. |
 
 ### `access.groups[]`
 
 | Field | Type | Constraints | Description |
 |-------|------|-------------|-------------|
-| `name` | `string` | 1–253 characters, RFC 1123 subdomain | Keycloak group name exactly as it appears in the `groups` claim of the OIDC token. |
-| `role` | `string` | 1–253 characters | ClusterRole to bind. Typically, `customer-edit` or `customer-view` (managed by the RBAC Permissions Operator), or a built-in such as `view`, `edit`, or `admin`. |
+| `name` | `string` | 1–253 characters, RFC 1123 subdomain | Organisation group name, exactly as it appears in your single sign-on. Cannot be a name reserved for platform access (e.g. names ending in `-cluster-admin`). |
+| `role` | `string` | `view`, `edit`, `admin`, or `customer-admin` | Access level to grant the group. `view`/`edit`/`admin` apply within your own projects; `customer-admin` additionally grants cluster-wide administrative access (including the marketplace). See the roles table below. |
+
+#### Access roles
+
+| Role | Scope | Grants |
+|------|-------|--------|
+| `view` | your projects | read-only access to resources in your own projects |
+| `edit` | your projects | create and modify resources in your own projects |
+| `admin` | your projects | full administration of your own projects, including managing access within them |
+| `customer-admin` | the cluster | cluster-wide administration of your cluster and the ability to browse and install from the marketplace, while platform-managed namespaces and host-level (node) access remain off-limits |
+
+`cluster-admin` and other arbitrary roles are not accepted — a claim can only grant the roles above.
 
 ## Status Fields
 
@@ -89,9 +100,9 @@ spec:
     access:
       groups:
         - name: platform-admins
-          role: customer-edit
+          role: customer-admin
         - name: developers
-          role: customer-view
+          role: edit
     bootstrap:
       enabled: true
 ```

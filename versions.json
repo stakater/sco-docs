@@ -12,6 +12,11 @@
     ]
   },
   {
+    "version": "renovate-0.1-node-24.x-lockfile",
+    "title": "renovate-0.1-node-24.x-lockfile",
+    "aliases": []
+  },
+  {
     "version": "renovate-main-stakater-.github-0.x",
     "title": "renovate-main-stakater-.github-0.x",
     "aliases": []

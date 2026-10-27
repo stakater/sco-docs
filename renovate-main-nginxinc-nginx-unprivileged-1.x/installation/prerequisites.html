@@ -18,7 +18,7 @@
       
       
       <link rel="icon" href="../assets/images/favicon.svg">
-      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.7.7">
+      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.8.0">
     
     
       
@@ -26,10 +26,10 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.57a0d79d.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.fb2fffe2.min.css">
       
       
 
@@ -2985,6 +2985,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
+      <a href="../how-to-guides/user/connect-identity-provider.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Connect Your Company Identity Provider
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../how-to-guides/user/provision-openshift-cluster.html" class="md-nav__link">
         
   
@@ -3561,6 +3589,17 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
     <nav class="md-nav" aria-label="Cluster Requirements">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#openshift-version" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OpenShift version
+      
+    </span>
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#which-variant-are-you-installing" class="md-nav__link">
@@ -5266,6 +5305,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
+      <a href="../api-reference/public-apis/iam-identity-provider.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IAM IdentityProvider
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../api-reference/public-apis/openshift-cluster.html" class="md-nav__link">
         
   
@@ -5981,6 +6048,17 @@ This documentation is for a pull request deployment and is unreleased, it is onl
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#openshift-version" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OpenShift version
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#which-variant-are-you-installing" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -6133,12 +6211,44 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <p>Requirements for installing Stakater Cloud Orchestrator on OpenShift.</p>
 <h2 id="cluster-requirements">Cluster Requirements<a class="headerlink" href="#cluster-requirements" title="Permanent link">#</a></h2>
 <ul>
-<li><strong>Platform</strong>: Red Hat OpenShift 4.14+ (<code>ocp</code> is the only currently supported platform)</li>
+<li><strong>Platform</strong>: Red Hat OpenShift — <strong>4.19+</strong> for <code>scobasic</code>, <strong>4.21 or 4.22</strong> for <code>hosting</code> (<code>ocp</code> is the only currently supported platform). See <a href="#openshift-version">OpenShift version</a></li>
 <li><strong>Deployment</strong>: Bare metal (production-supported)</li>
 <li><strong>Access</strong>: Cluster administrator privileges</li>
 <li><strong>Nodes</strong>: Minimum 6 worker nodes recommended for production</li>
 <li><strong>Storage</strong>: Depends on the variant — see <a href="#which-variant-are-you-installing">Which variant are you installing?</a> below</li>
 </ul>
+<h3 id="openshift-version">OpenShift version<a class="headerlink" href="#openshift-version" title="Permanent link">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>Variant</th>
+<th>OpenShift</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>hosting</code></td>
+<td><strong>4.21 or 4.22</strong></td>
+<td>It installs ODF and OpenShift Virtualization, whose versions are pinned per OpenShift minor</td>
+</tr>
+<tr>
+<td><code>scobasic</code></td>
+<td><strong>4.19+</strong> (4.20 and 4.21 are tested)</td>
+<td>It installs neither, so it does not depend on those pins</td>
+</tr>
+</tbody>
+</table>
+<p>Check the version your cluster runs with:</p>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>clusterversion<span class="w"> </span>version<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.status.desired.version}{"\n"}'</span>
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title"><code>ksp up</code> currently checks for 4.21 or 4.22 on every variant</p>
+<p>The recommended <code>ksp</code> version (see <a href="#kubestack-cli-ksp">KubeStack+ CLI</a>) stops
+with an <code>OpenShift Version Mismatch</code> error on any other minor, including for
+<code>scobasic</code>. On a <code>scobasic</code> cluster running an earlier supported version, add
+<code>--skip-openshift-version-check</code> to <code>ksp up</code>.</p>
+</div>
 <h3 id="which-variant-are-you-installing">Which variant are you installing?<a class="headerlink" href="#which-variant-are-you-installing" title="Permanent link">#</a></h3>
 <p>The two supported variants make <strong>opposite assumptions about storage and load balancing</strong>, and getting this backwards is the most common cause of a failed installation.</p>
 <table>
@@ -6230,7 +6340,7 @@ available from the customer distribution registry, so use a supported version:</
 </thead>
 <tbody>
 <tr>
-<td><strong>v2.8.1</strong> (recommended), v2.8.0, v2.7.1</td>
+<td><strong>v2.8.1</strong> (recommended), v2.8.4, v2.8.3, v2.8.2, v2.8.0, v2.7.1</td>
 <td>Supported for the brownfield (<code>scobasic</code>) variant</td>
 </tr>
 <tr>
@@ -6307,7 +6417,7 @@ helm<span class="w"> </span>pull<span class="w"> </span>oci://ghcr.io/stakater/r
 <p>See <a href="openshift.html">OpenShift Installation</a> for example claim files.</p>
 <h2 id="pre-installation-checklist">Pre-Installation Checklist<a class="headerlink" href="#pre-installation-checklist" title="Permanent link">#</a></h2>
 <ul>
-<li>[ ] OpenShift 4.14+ cluster on bare metal</li>
+<li>[ ] OpenShift cluster on bare metal at a <a href="#openshift-version">supported version</a> for your variant</li>
 <li>[ ] Cluster administrator access</li>
 <li>[ ] <code>ksp</code> CLI installed and on PATH</li>
 <li>[ ] <code>oc</code> authenticated to the cluster</li>
@@ -7011,10 +7121,10 @@ helm<span class="w"> </span>pull<span class="w"> </span>oci://ghcr.io/stakater/r
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["content.code.copy", "navigation.tracking", "toc.follow", "navigation.top"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["content.code.copy", "navigation.tracking", "toc.follow", "navigation.top"], "search": "../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      <script src="../assets/javascripts/bundle.c21346df.min.js"></script>
       
     
   

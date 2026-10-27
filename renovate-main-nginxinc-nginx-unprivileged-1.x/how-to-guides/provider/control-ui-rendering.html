@@ -18,7 +18,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.svg">
-      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.7.7">
+      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.8.0">
     
     
       
@@ -26,10 +26,10 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.57a0d79d.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.fb2fffe2.min.css">
       
       
 
@@ -2985,6 +2985,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
+      <a href="../user/connect-identity-provider.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Connect Your Company Identity Provider
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../user/provision-openshift-cluster.html" class="md-nav__link">
         
   
@@ -4363,10 +4391,21 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
-  <a href="#order-and-group-fields" class="md-nav__link">
+  <a href="#order-fields" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Order and Group Fields
+        Order Fields
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#group-fields-into-sections" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Group Fields into Sections
       
     </span>
   </a>
@@ -5210,6 +5249,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
+      <a href="../../api-reference/public-apis/iam-identity-provider.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IAM IdentityProvider
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../api-reference/public-apis/openshift-cluster.html" class="md-nav__link">
         
   
@@ -5946,10 +6013,21 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
-  <a href="#order-and-group-fields" class="md-nav__link">
+  <a href="#order-fields" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Order and Group Fields
+        Order Fields
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#group-fields-into-sections" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Group Fields into Sections
       
     </span>
   </a>
@@ -6019,7 +6097,8 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 
 <h1 id="how-to-control-console-ui-rendering">How to Control Console UI Rendering<a class="headerlink" href="#how-to-control-console-ui-rendering" title="Permanent link">#</a></h1>
 <p>Shape how your resources appear in the SCO console — labels, inputs, ordering, grouping, visibility, and detail pages — by annotating your Crossplane Composition's OpenAPI schema.</p>
-<p>Sam, a platform provider at ACME Corp, has published a new resource API. It works, but in the console it renders with raw field names in schema order. Sam wants a polished form and detail page without changing any console code.</p>
+<p>Sam, a platform provider at ACME Corp, has published a new resource API. It works, but in the console it renders with raw field names in alphabetical order. Sam wants a polished form and detail page without changing any console code.</p>
+<p>This guide picks up where <a href="../../service-provider-guide/solutions/creating-solutions.html">Creating Solutions</a> leaves off, and uses the same <code>PostgreSQLDatabase</code> solution throughout.</p>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">#</a></h2>
 <ul>
 <li>A resource whose schema the platform serves to the console</li>
@@ -6032,42 +6111,62 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <p>So you add <code>x-sco-ui-*</code> keys to your schema, and the console adjusts. Resources with no hints still render, using defaults inferred from the schema type. The full list of tags and values is in the <a href="../../service-provider-guide/console/ui-extensions-reference.html">Console UI Extensions Reference</a>.</p>
 <h2 id="rename-a-field">Rename a Field<a class="headerlink" href="#rename-a-field" title="Permanent link">#</a></h2>
 <p>Give a field a human-readable label instead of its property name:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">"replicas"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="nt">"storageGb"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"integer"</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">"x-sco-ui-label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Node Count"</span>
+<span class="w">  </span><span class="nt">"x-sco-ui-label"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Storage (GiB)"</span>
 <span class="p">}</span>
 </code></pre></div>
-<h2 id="order-and-group-fields">Order and Group Fields<a class="headerlink" href="#order-and-group-fields" title="Permanent link">#</a></h2>
-<p>Put related fields into sections and control their order (lower <code>x-sco-ui-order</code> first):</p>
-<div class="highlight"><pre><span></span><code><span class="nt">"network"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w"> </span><span class="nt">"x-sco-ui-group"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Networking"</span><span class="p">,</span><span class="w"> </span><span class="nt">"x-sco-ui-order"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="w"> </span><span class="p">},</span>
-<span class="nt">"subnet"</span><span class="p">:</span><span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w"> </span><span class="nt">"x-sco-ui-group"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Networking"</span><span class="p">,</span><span class="w"> </span><span class="nt">"x-sco-ui-order"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="w"> </span><span class="p">}</span>
+<h2 id="order-fields">Order Fields<a class="headerlink" href="#order-fields" title="Permanent link">#</a></h2>
+<p>Field order comes from <code>x-sco-ui-order</code> — lower values render first:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">"dbName"</span><span class="p">:</span><span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">  </span><span class="nt">"x-sco-ui-order"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10"</span><span class="w"> </span><span class="p">},</span>
+<span class="nt">"version"</span><span class="p">:</span><span class="w">   </span><span class="p">{</span><span class="w"> </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">  </span><span class="nt">"x-sco-ui-order"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20"</span><span class="w"> </span><span class="p">},</span>
+<span class="nt">"storageGb"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"integer"</span><span class="p">,</span><span class="w"> </span><span class="nt">"x-sco-ui-order"</span><span class="p">:</span><span class="w"> </span><span class="s2">"30"</span><span class="w"> </span><span class="p">},</span>
+<span class="nt">"instances"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"integer"</span><span class="p">,</span><span class="w"> </span><span class="nt">"x-sco-ui-order"</span><span class="p">:</span><span class="w"> </span><span class="s2">"40"</span><span class="w"> </span><span class="p">}</span>
 </code></pre></div>
-<p>Fields without a group fall into a default <code>General</code> section on forms.</p>
+<p>Count in tens rather than ones. The gaps let you slot a field in later — give it <code>"25"</code> — without renumbering every field after it.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>A field with no <code>x-sco-ui-order</code> falls back to <strong>alphabetical</strong> order, <em>not</em> the order you wrote it in your schema file. Property order in a schema file is not carried through to the console, so writing <code>dbName</code> before <code>version</code> does not put it first. Tag every field whose position matters.</p>
+</div>
+<p>Untagged fields sort after tagged ones, alphabetically among themselves. Within one group, tag all the fields or none — a half-tagged group reads as arbitrary.</p>
+<h2 id="group-fields-into-sections">Group Fields into Sections<a class="headerlink" href="#group-fields-into-sections" title="Permanent link">#</a></h2>
+<p>Add <code>x-sco-ui-group</code> to collect related fields:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">"dbName"</span><span class="p">:</span><span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w"> </span><span class="nt">"x-sco-ui-group"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Database"</span><span class="p">,</span><span class="w"> </span><span class="nt">"x-sco-ui-order"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10"</span><span class="w"> </span><span class="p">},</span>
+<span class="nt">"version"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w"> </span><span class="nt">"x-sco-ui-group"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Database"</span><span class="p">,</span><span class="w"> </span><span class="nt">"x-sco-ui-order"</span><span class="p">:</span><span class="w"> </span><span class="s2">"20"</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+<p>Fields without a group fall into a default section — <code>General</code> on forms, <code>Details</code> on detail pages.</p>
+<p>Section position differs between the two views:</p>
+<ul>
+<li><strong>On forms</strong>, <code>General</code> always comes first, whatever its fields are numbered. Named sections follow it, ordered by their lowest-numbered field.</li>
+<li><strong>On detail pages</strong>, every section including <code>Details</code> is ordered by its lowest-numbered field.</li>
+</ul>
+<p>So number across groups rather than restarting within each one, and do not rely on <code>x-sco-ui-order</code> to move <code>General</code> on a form.</p>
 <h2 id="choose-the-input">Choose the Input<a class="headerlink" href="#choose-the-input" title="Permanent link">#</a></h2>
 <p>Override the inferred input with <code>x-sco-ui-component</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">"tier"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="nt">"version"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">"enum"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"small"</span><span class="p">,</span><span class="w"> </span><span class="s2">"medium"</span><span class="p">,</span><span class="w"> </span><span class="s2">"large"</span><span class="p">],</span>
+<span class="w">  </span><span class="nt">"enum"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"14"</span><span class="p">,</span><span class="w"> </span><span class="s2">"15"</span><span class="p">,</span><span class="w"> </span><span class="s2">"16"</span><span class="p">],</span>
 <span class="w">  </span><span class="nt">"x-sco-ui-component"</span><span class="p">:</span><span class="w"> </span><span class="s2">"radio"</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>See the reference for the full set of form and detail components.</p>
 <h2 id="hide-a-field-or-mark-it-advanced">Hide a Field or Mark It Advanced<a class="headerlink" href="#hide-a-field-or-mark-it-advanced" title="Permanent link">#</a></h2>
-<div class="highlight"><pre><span></span><code><span class="nt">"internalId"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w"> </span><span class="nt">"x-sco-ui-visibility"</span><span class="p">:</span><span class="w"> </span><span class="s2">"hidden"</span><span class="w"> </span><span class="p">},</span>
-<span class="nt">"tuning"</span><span class="p">:</span><span class="w">     </span><span class="p">{</span><span class="w"> </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"object"</span><span class="p">,</span><span class="w"> </span><span class="nt">"x-sco-ui-complexity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"advanced"</span><span class="w"> </span><span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="nt">"providerConfigsRef"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"object"</span><span class="p">,</span><span class="w">  </span><span class="nt">"x-sco-ui-visibility"</span><span class="p">:</span><span class="w"> </span><span class="s2">"hidden"</span><span class="w"> </span><span class="p">},</span>
+<span class="nt">"instances"</span><span class="p">:</span><span class="w">          </span><span class="p">{</span><span class="w"> </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"integer"</span><span class="p">,</span><span class="w"> </span><span class="nt">"x-sco-ui-complexity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"advanced"</span><span class="w"> </span><span class="p">}</span>
 </code></pre></div>
 <p><code>hidden</code> removes the field entirely; <code>x-sco-ui-complexity: "advanced"</code> keeps it out of <strong>Standard</strong> mode but shows it in <strong>Advanced</strong> mode.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>The Kubernetes envelope (<code>apiVersion</code>, <code>kind</code>, <code>metadata</code>, <code>status</code>) and standard Crossplane plumbing fields are hidden automatically — you only need to hide your own internal fields.</p>
+<p>The Kubernetes envelope (<code>apiVersion</code>, <code>kind</code>, <code>metadata</code>, <code>status</code>) and standard Crossplane plumbing fields are hidden from <strong>forms</strong> automatically — you only need to hide your own internal fields. Detail pages still render <code>status</code>, which is where the example below reads from.</p>
 </div>
 <h2 id="tailor-the-detail-page">Tailor the Detail Page<a class="headerlink" href="#tailor-the-detail-page" title="Permanent link">#</a></h2>
 <p>Detail-page tags shadow the shared ones, so a field can look different on the form and the detail view:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">"phase"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="nt">"endpoint"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span>
-<span class="w">  </span><span class="nt">"x-sco-ui-detail-component"</span><span class="p">:</span><span class="w"> </span><span class="s2">"status"</span>
+<span class="w">  </span><span class="nt">"x-sco-ui-detail-component"</span><span class="p">:</span><span class="w"> </span><span class="s2">"code"</span>
 <span class="p">}</span>
 </code></pre></div>
+<p><code>status</code> is the component to reach for when a field holds a phase or health value — it renders as a coloured badge.</p>
 <p>At the schema <strong>root</strong>, <code>x-sco-ui</code> adds a summary strip, extra tabs, and actions to the detail page. See <a href="../../service-provider-guide/console/ui-extensions-reference.html#schema-level-extension-x-sco-ui">Schema-Level Extension</a> in the reference.</p>
 <h2 id="whats-next">What's Next?<a class="headerlink" href="#whats-next" title="Permanent link">#</a></h2>
 <ul>
@@ -6762,10 +6861,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.code.copy", "navigation.tracking", "toc.follow", "navigation.top"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.code.copy", "navigation.tracking", "toc.follow", "navigation.top"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      <script src="../../assets/javascripts/bundle.c21346df.min.js"></script>
       
     
   

@@ -18,7 +18,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.svg">
-      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.7.7">
+      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.8.0">
     
     
       
@@ -26,10 +26,10 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.57a0d79d.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.fb2fffe2.min.css">
       
       
 
@@ -2359,10 +2359,10 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 </li>
         
           <li class="md-nav__item">
-  <a href="#single-sign-on-sso" class="md-nav__link">
+  <a href="#company-identity-provider" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Single Sign-On (SSO)
+        Company identity provider
       
     </span>
   </a>
@@ -3122,6 +3122,34 @@ This documentation is either for an old version, or for the unreleased 'main' ve
     
   
     How to Create an IAM Group
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../how-to-guides/user/connect-identity-provider.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Connect Your Company Identity Provider
   
 
     
@@ -5226,6 +5254,34 @@ This documentation is either for an old version, or for the unreleased 'main' ve
   
   
     <li class="md-nav__item">
+      <a href="../../api-reference/public-apis/iam-identity-provider.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    IAM IdentityProvider
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../api-reference/public-apis/openshift-cluster.html" class="md-nav__link">
         
   
@@ -5963,10 +6019,10 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 </li>
         
           <li class="md-nav__item">
-  <a href="#single-sign-on-sso" class="md-nav__link">
+  <a href="#company-identity-provider" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Single Sign-On (SSO)
+        Company identity provider
       
     </span>
   </a>
@@ -6063,11 +6119,16 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 <p>Navigate to your console URL in a browser. You will be presented with the login page for your organisation.</p>
 <h3 id="standard-login">Standard login<a class="headerlink" href="#standard-login" title="Permanent link">#</a></h3>
 <p>Enter the username and password provided by your administrator or set during account creation.</p>
-<h3 id="single-sign-on-sso">Single Sign-On (SSO)<a class="headerlink" href="#single-sign-on-sso" title="Permanent link">#</a></h3>
-<p>If your organisation has configured SSO (Azure AD, Google, <code>Okta</code>, LDAP, or another corporate provider), a <strong>Sign in with [Provider]</strong> button will appear. Click it and complete authentication with your corporate credentials.</p>
+<h3 id="company-identity-provider">Company identity provider<a class="headerlink" href="#company-identity-provider" title="Permanent link">#</a></h3>
+<p>If your organisation has connected its company identity provider, such as <code>Okta</code> or Microsoft <code>Entra</code> ID, the login page asks for your email address first:</p>
+<ul>
+<li>If your email domain belongs to the company identity provider, you go straight to its sign-in page. Sign in there with your company account.</li>
+<li>Otherwise, you see the password field. Enter the password provided by your administrator or set during account creation.</li>
+</ul>
+<p>If your administrator has turned off the automatic redirect, the login page shows a button for the company identity provider instead. See <a href="../../how-to-guides/user/connect-identity-provider.html">How to Connect Your Company Identity Provider</a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>If SSO is configured, your organisation administrator may require you to use SSO exclusively. Contact your administrator if you are unsure which login method to use.</p>
+<p>If you had a password before your organisation connected its company identity provider, you keep signing in with that password until your administrator moves your account.</p>
 </div>
 <hr>
 <h2 id="step-3-set-your-password-first-login">Step 3: Set Your Password (First Login)<a class="headerlink" href="#step-3-set-your-password-first-login" title="Permanent link">#</a></h2>
@@ -6782,10 +6843,10 @@ This documentation is either for an old version, or for the unreleased 'main' ve
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.code.copy", "navigation.tracking", "toc.follow", "navigation.top"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.code.copy", "navigation.tracking", "toc.follow", "navigation.top"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      <script src="../../assets/javascripts/bundle.c21346df.min.js"></script>
       
     
   

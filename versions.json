@@ -20,11 +20,6 @@
     "aliases": []
   },
   {
-    "version": "renovate-main-stakater-.github-0.x",
-    "title": "renovate-main-stakater-.github-0.x",
-    "aliases": []
-  },
-  {
     "version": "renovate-main-node-24.x-lockfile",
     "title": "renovate-main-node-24.x-lockfile",
     "aliases": []

@@ -15,13 +15,6 @@
     "aliases": []
   },
   {
-    "version": "renovate-migrate-config",
-    "title": "renovate-migrate-config",
-    "aliases": [
-      "latest"
-    ]
-  },
-  {
     "version": "renovate-main-stakater-.github-0.x",
     "title": "renovate-main-stakater-.github-0.x",
     "aliases": []

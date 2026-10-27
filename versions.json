@@ -20,6 +20,11 @@
     "aliases": []
   },
   {
+    "version": "renovate-0.1-dotenv-17.x-lockfile",
+    "title": "renovate-0.1-dotenv-17.x-lockfile",
+    "aliases": []
+  },
+  {
     "version": "renovate-main-node-24.x-lockfile",
     "title": "renovate-main-node-24.x-lockfile",
     "aliases": []

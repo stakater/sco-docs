@@ -32,7 +32,9 @@
   {
     "version": "renovate-main-dotenv-18.x",
     "title": "renovate-main-dotenv-18.x",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "renovate-main-dotenv-17.x-lockfile",

@@ -6,10 +6,13 @@ Makes one or more in-cluster Services reachable from peers on your organisation'
 
 | Field | Value |
 |-------|-------|
-| **API Group** | `network.cloud.stakater.com` |
+| **API Group** | `mesh.cloud.stakater.com` |
 | **Version** | `v1` |
 | **Kind** | `MeshRouter` |
 | **Scope** | Namespace-scoped |
+
+!!! warning "Current limitations"
+    A MeshRouter created **inside a project** reports Ready but never joins the Mesh, so its routes are never advertised (tracked as SA-9272); a MeshPolicy created inside a project has the same problem. A MeshRouter created with your **organisation** kubeconfig joins the Mesh and advertises its routes, but it runs outside your projects' networks and **cannot reach workloads in your projects** — virtual machines on a project network, or Services inside an OpenShift cluster you provisioned. Until this is fixed you cannot publish your own project workloads with a MeshRouter. The intended way to reach a project virtual machine is the VM's built-in Mesh Route (`spec.parameters.meshRoute.enabled: true` on the [VirtualMachine](./virtual-machine.md)), which opens only SSH (tcp/22), RDP (tcp/3389) and ICMP, and does not deliver traffic yet either (tracked as SA-9273).
 
 ## Spec Parameters
 
@@ -41,10 +44,10 @@ All parameters are nested under `spec.parameters`.
 
 ## Granting Access
 
-Enrolled devices sign in to the Mesh with your organisation's single sign-on — there are no keys to distribute. Access to the advertised routes is governed by Mesh access policies: the router publishes its routes to a peer group named `<claim-name>-routers`, and you allow your users' groups to reach it with a [MeshPolicy](./mesh.md) claim:
+Enrolled devices sign in to the Mesh with your organisation's single sign-on — there are no keys to distribute. Access to the advertised routes is governed by Mesh access policies: the router publishes its routes to a peer group named `<claim-name>-routers`, and you allow your users' groups to reach it with a [MeshPolicy](./mesh-policy.md) claim:
 
 ```yaml
-apiVersion: network.cloud.stakater.com/v1
+apiVersion: mesh.cloud.stakater.com/v1
 kind: MeshPolicy
 metadata:
   name: allow-devs-to-my-router
@@ -66,7 +69,7 @@ Peers in the source groups can then reach every address the router advertises.
 ### Single route to an internal service
 
 ```yaml
-apiVersion: network.cloud.stakater.com/v1
+apiVersion: mesh.cloud.stakater.com/v1
 kind: MeshRouter
 metadata:
   name: my-router
@@ -74,7 +77,7 @@ spec:
   parameters:
     routes:
       - name: internal-api
-        address: 172.30.52.51/32        # ClusterIP of the Service, /32
+        address: 172.30.52.51/32        # a single host, as a /32
         description: "Internal admin API"
 ```
 
@@ -83,7 +86,7 @@ After Ready (plus a MeshPolicy allowing your group), an enrolled laptop can reac
 ### Multiple routes
 
 ```yaml
-apiVersion: network.cloud.stakater.com/v1
+apiVersion: mesh.cloud.stakater.com/v1
 kind: MeshRouter
 metadata:
   name: my-router
@@ -108,4 +111,5 @@ spec:
 ## Related
 
 - [Mesh](./mesh.md) — the Mesh this router joins. A Mesh must exist before a MeshRouter can register.
+- [MeshPolicy](./mesh-policy.md) — grants your users' groups access to the router's routes.
 - [Vault](./vault.md) — published to Mesh peers automatically; no MeshRouter needed.

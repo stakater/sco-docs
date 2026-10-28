@@ -6,8 +6,8 @@ Organisations are the top-level tenancy unit in SCO. Each organisation gets a fu
 
 ## Prerequisites
 
-- `infrastructure.stakater.com` API available
-- `kubectl` configured with platform administrator access
+- The `organizations.infrastructure.stakater.com` API available on the hosting cluster
+- `kubectl` configured with platform administrator access to the hosting cluster
 - An admin email address for the initial organisation administrator
 
 ---
@@ -18,59 +18,102 @@ When an organisation is provisioned, SCO automatically creates:
 
 - An isolated identity realm for authentication (users, groups, SSO configuration)
 - A virtual API workspace for the organisation and its projects
-- An initial administrator account with credentials sent to the specified email
+- An initial administrator account for the admin email, with a generated password
 - Default role bindings for the organisation admin
+- An organisation mesh and secret store, unless you turn them off (`mesh.enabled`, `bao.enabled`)
+
+!!! note
+    The platform does **not** email the credentials. Organisation realms have no mail server configured, so no welcome or password email is sent. You hand the initial credentials to the organisation administrator yourself (see [Step 3](#step-3-hand-over-to-the-organisation-administrator)).
 
 ---
 
-## Step 1: Apply the Organisation Onboarding Claim
+## Step 1: Apply the Organisation Claim
+
+Organisations are `Organization` claims (`infrastructure.stakater.com/v1alpha1`) in the `kcp-sco-orgs` namespace of the hosting cluster:
 
 ```yaml
 apiVersion: infrastructure.stakater.com/v1alpha1
-kind: XOrgOnboarding
+kind: Organization
 metadata:
   name: acme-corp
+  namespace: kcp-sco-orgs
 spec:
   providerConfigRef:
     name: kubernetes-provider
   kcpRootProviderConfigRef:
-    name: kcp-root-provider
+    name: cloud
+  keycloakProviderConfigRef:
+    name: keycloak-config-rhbk-public
   parameters:
     organizationName: acme-corp
     adminEmail: admin@acmecorp.example.com
+    mesh:
+      enabled: true
+    bao:
+      enabled: true
+```
+
+| Field | Description | Default |
+|-------|-------------|---------|
+| `metadata.name` | Claim name. Use the same value as `organizationName`. | — |
+| `spec.providerConfigRef.name` | Provider configuration for the hosting cluster | — |
+| `spec.kcpRootProviderConfigRef.name` | Provider configuration for the root virtual API workspace | — |
+| `spec.keycloakProviderConfigRef.name` | Provider configuration for the identity service | — |
+| `parameters.organizationName` | Organisation identifier (required) | — |
+| `parameters.adminEmail` | Email of the initial organisation administrator (required) | — |
+| `parameters.mesh.enabled` | Provision the organisation's default mesh | `true` |
+| `parameters.bao.enabled` | Provision the organisation's default secret store | `true` |
+
+The provider configuration names differ per platform; the values above are the ones used on Stakater-managed hubs. Copy them from an existing organisation on your hosting cluster:
+
+```bash
+kubectl get organizations.infrastructure.stakater.com -n kcp-sco-orgs -o yaml
 ```
 
 ```bash
-kubectl apply -f org-onboarding.yaml
+kubectl apply -f organization-acme-corp.yaml
 ```
 
+On a platform managed through GitOps, commit the claim to the platform's GitOps repository instead of applying it by hand.
+
 !!! note
-    The `organizationName` value becomes the organisation's identifier throughout the platform. Choose a short, URL-safe name — lowercase letters, numbers, and hyphens only.
+    The `organizationName` value becomes the organisation's identifier throughout the platform and cannot be renamed later. Choose a short, URL-safe name — lowercase letters, numbers, and hyphens only.
+
+!!! warning
+    Do not name an organisation `alpha` or `constellation` on Stakater-managed hubs. The platform's tenant configuration ships sample tenants with those names, and an organisation with the same name inherits their settings, which leaves its workloads unschedulable.
+
+!!! warning
+    Decide on `mesh.enabled` when you create the organisation. Turning the mesh off later on an existing organisation can leave mesh resources stuck on deletion.
 
 ## Step 2: Verify the Organisation
 
+Several APIs on the hosting cluster serve a resource called `organizations`, so always use the fully qualified name:
+
 ```bash
-kubectl get organizations
+kubectl get organizations.infrastructure.stakater.com -n kcp-sco-orgs acme-corp
 ```
 
 ```text
-NAME        STATUS   AGE
-acme-corp   Ready    2m
+NAME        SYNCED   READY   CONNECTION-SECRET   AGE
+acme-corp   True     True                        2m
 ```
 
-The organisation is ready when its `STATUS` is `Ready`. At this point:
+The organisation is ready when `READY` is `True`. At this point:
 
 - The administrator account has been created
-- Login credentials have been sent to the specified email address
 - The organisation's console URL is active
 
-## Step 3: Notify the Organisation Administrator
+## Step 3: Hand Over to the Organisation Administrator
 
-Share the following with the new organisation administrator:
+No credentials email is sent, so share the following with the new organisation administrator over a secure channel:
 
 - The SCO console URL for their organisation
-- That they have received login credentials by email
+- Their username (the admin email) and the initial password
 - Links to the [Cloud User Guide](../../cloud-user-guide/getting-started.md)
+
+<!-- TODO(SA-8708): document where a platform administrator reads the generated initial admin password, and whether the administrator must change it at first login. Not verified for this change. -->
+
+The same applies to users the organisation administrator creates later: they receive no email, and the organisation administrator passes on their initial credentials (see [How to Create an IAM User](../../how-to-guides/user/create-iam-user.md)).
 
 ---
 
@@ -80,14 +123,17 @@ Each organisation is completely isolated — no shared user database, no cross-o
 
 ```bash
 # List all organisations
-kubectl get organizations
+kubectl get organizations.infrastructure.stakater.com -n kcp-sco-orgs
 
 # Inspect a specific organisation
-kubectl describe organization acme-corp
+kubectl describe organizations.infrastructure.stakater.com -n kcp-sco-orgs acme-corp
 ```
 
 !!! warning
     Deleting an organisation removes all projects, provisioned services, users, and data within it. This action is irreversible. Notify the customer and ensure data has been exported before proceeding.
+
+!!! note
+    If your GitOps tooling syncs organisation claims without pruning, removing the file from Git does not delete the organisation. Delete the claim on the hosting cluster as well.
 
 ---
 

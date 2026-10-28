@@ -27,6 +27,11 @@
     ]
   },
   {
+    "version": "renovate-main-node-26.x",
+    "title": "renovate-main-node-26.x",
+    "aliases": []
+  },
+  {
     "version": "renovate-main-node-24.x-lockfile",
     "title": "renovate-main-node-24.x-lockfile",
     "aliases": []

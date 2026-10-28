@@ -20,7 +20,7 @@ Emma, a developer at ACME Corp, runs an internal admin API. Her team needs to re
 
 ### Which kubeconfig each step uses
 
-| Step | What you do | Kubeconfig |
+| Step | What you do | kubeconfig |
 |------|-------------|------------|
 | 1 | Look up the service address | The cluster the service runs in |
 | 2–4 | Create and check the MeshRouter | Organisation |

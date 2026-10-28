@@ -6,7 +6,7 @@ Organisation administrators can manage users and groups through the SCO IAM API.
 
 ## Creating Users
 
-Create a user in your organisation with a `iam.cloud.stakater.com/v1 User` claim. The platform provisions an organisation user in your organisation's IDP. The user's **email address is their login name**: they log in with it, and you use it to add them to groups and grant them project access.
+Create a user in your organisation with a `iam.cloud.stakater.com/v1 User` claim. The platform provisions an organisation user in your organisation's IdP. The user's **email address is their login name**: they log in with it, and you use it to add them to groups and grant them project access.
 
 ```yaml
 apiVersion: iam.cloud.stakater.com/v1
@@ -133,7 +133,7 @@ To permanently remove a user, first remove them from every group (see [Removing 
 kubectl delete user alice
 ```
 
-This removes the user from your organisation's IDP. They can no longer log in. Past audit log entries are retained.
+This removes the user from your organisation's IdP. They can no longer log in. Past audit log entries are retained.
 
 !!! warning "Remove group memberships before deleting a user"
     Always take a user out of their groups (or delete those groups) **before** deleting the user. If you delete the user first, a group they were in can no longer be deleted cleanly: it keeps trying to remove a member who no longer exists. If that has already happened, contact your platform provider.

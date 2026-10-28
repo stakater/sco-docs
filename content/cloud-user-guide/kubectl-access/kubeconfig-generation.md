@@ -16,7 +16,7 @@ Always use the kubeconfig the platform generates for your project. It is the onl
 1. In the dialog, choose **Decoded** and copy the YAML into a file, for example `~/.kube/<project-name>.yaml`
 
 !!! warning
-    The dialog is titled **Kubeconfig Base64** and can also show the **Encoded** form, a single line of base64 text. `kubectl` cannot read the encoded form. Make sure you copy the **Decoded** view, which starts with `apiVersion: v1`.
+    The dialog is titled `Kubeconfig Base64` and can also show the **Encoded** form, a single line of base64 text. `kubectl` cannot read the encoded form. Make sure you copy the **Decoded** view, which starts with `apiVersion: v1`.
 
 **From the Project claim (organisation administrators):** the same kubeconfig is published, base64-encoded, in the project's status. With your organisation kubeconfig:
 

@@ -81,9 +81,7 @@ spec:
 ```
 
 !!! note
-    List members by their **email address**. A value that is not a user's email address, such as the `username` from their `User` claim, never matches: the membership stays not ready and the group never becomes ready.
-
-    Members must already exist as organisation users before they can be added to a group. Create users first using the [IAM User](create-iam-user.md) guide.
+    List members by their **email address**. A value that is not a user's email address, such as the `username` from their `User` claim, never matches: the membership stays not ready and the group never becomes ready. Members must already exist as organisation users before they can be added to a group. Create users first using the [IAM User](create-iam-user.md) guide.
 
 ## Step 3: Apply the Claim
 

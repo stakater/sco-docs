@@ -31,7 +31,7 @@ Deploying an application on SCO involves four main steps:
 
 Following this guide, the platform provisions:
 
-- **Organisation users and a group** in your organisation's IDP
+- **Organisation users and a group** in your organisation's IdP
 - **A project** with its own private network, and role-based access for your group
 - **A private virtual machine** running your application, advertised to your organisation's Mesh
 
@@ -65,7 +65,7 @@ kubectl apply -f group.yaml
 ```
 
 !!! note
-    Users sign in with their email address, and the organisation IDP identifies them by it. Use the email — not the user claim's `username` — wherever you name a user: in group `members` and in a project's `access[].users`. A name that does not match keeps the group from becoming Ready, or grants the user nothing.
+    Users sign in with their email address, and the organisation IdP identifies them by it. Use the email — not the user claim's `username` — wherever you name a user: in group `members` and in a project's `access[].users`. A name that does not match keeps the group from becoming Ready, or grants the user nothing.
 
 See the dedicated guides for full details:
 

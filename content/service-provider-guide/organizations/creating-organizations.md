@@ -80,7 +80,7 @@ On a platform managed through GitOps, commit the claim to the platform's GitOps 
     The `organizationName` value becomes the organisation's identifier throughout the platform and cannot be renamed later. Choose a short, URL-safe name — lowercase letters, numbers, and hyphens only.
 
 !!! warning
-    Do not name an organisation `alpha` or `constellation` on Stakater-managed hubs. The platform's tenant configuration ships sample tenants with those names, and an organisation with the same name inherits their settings, which leaves its workloads unschedulable.
+    Do not name an organisation `alpha` or `constellation` on Stakater-managed hubs. The platform's tenant configuration ships sample tenants with those names, and an organisation with the same name inherits their settings, which leaves its workloads with no node they can run on.
 
 !!! warning
     Decide on `mesh.enabled` when you create the organisation. Turning the mesh off later on an existing organisation can leave mesh resources stuck on deletion.

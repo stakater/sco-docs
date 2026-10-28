@@ -12,7 +12,8 @@ Makes one or more in-cluster Services reachable from peers on your organisation'
 | **Scope** | Namespace-scoped |
 
 !!! warning "Current limitations"
-    A MeshRouter created **inside a project** reports Ready but never joins the Mesh, so its routes are never advertised (tracked as SA-9272); a MeshPolicy created inside a project has the same problem. A MeshRouter created with your **organisation** kubeconfig joins the Mesh and advertises its routes, but it runs outside your projects' networks and **cannot reach workloads in your projects** — virtual machines on a project network, or Services inside an OpenShift cluster you provisioned. Until this is fixed you cannot publish your own project workloads with a MeshRouter. The intended way to reach a project virtual machine is the VM's built-in Mesh Route (`spec.parameters.meshRoute.enabled: true` on the [VirtualMachine](./virtual-machine.md)), which opens only SSH (tcp/22), RDP (tcp/3389) and ICMP, and does not deliver traffic yet either (tracked as SA-9273).
+    A MeshRouter created **inside a project** reports Ready but never joins the Mesh, so its routes are never advertised; a MeshPolicy created inside a project has the same problem. A MeshRouter created with your **organisation** kubeconfig joins the Mesh and advertises its routes, but it runs outside your projects' networks and **cannot reach workloads in your projects** — virtual machines on a project network, or Services inside an OpenShift cluster you provisioned. Until this is fixed you cannot publish your own project workloads with a MeshRouter. The intended way to reach a project virtual machine is the VM's built-in Mesh Route (`spec.parameters.meshRoute.enabled: true` on the [VirtualMachine](./virtual-machine.md)), which opens only SSH (tcp/22), RDP (tcp/3389) and ICMP, and does not deliver traffic yet either.
+    <!-- Tracked internally: SA-9272, SA-9273 (SA-8708). Remove this limitation when fixed. -->
 
 ## Spec Parameters
 

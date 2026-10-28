@@ -17,7 +17,8 @@ Deploying an application on SCO involves four main steps:
     Steps 1 and 2 need an organisation administrator. Steps 3 and 4 can be done by any project member with the `compute-user` role.
 
 !!! warning "Current limitations"
-    Reaching an application privately over the Mesh does **not** work end to end yet. A VM's built-in Mesh Route opens only SSH (tcp/22), RDP (tcp/3389) and ICMP, not application ports such as `8080`, so the interim way to reach an application is an SSH tunnel (Step 4). That tunnel depends on the Mesh Route delivering SSH traffic to the VM, which it does not do yet (tracked as SA-9273), so Step 4 currently times out. A [MeshRouter](../../api-reference/public-apis/mesh-router.md) with a [MeshPolicy](../../api-reference/public-apis/mesh-policy.md) cannot reach project workloads either (tracked as SA-9272; see [Expose an Internal Service via the Mesh](expose-service-via-mesh.md)).
+    Reaching an application privately over the Mesh does **not** work end to end yet. A VM's built-in Mesh Route opens only SSH (tcp/22), RDP (tcp/3389) and ICMP, not application ports such as `8080`, so the interim way to reach an application is an SSH tunnel (Step 4). That tunnel depends on the Mesh Route delivering SSH traffic to the VM, which it does not do yet, so Step 4 currently times out. A [MeshRouter](../../api-reference/public-apis/mesh-router.md) with a [MeshPolicy](../../api-reference/public-apis/mesh-policy.md) cannot reach project workloads either (see [Expose an Internal Service via the Mesh](expose-service-via-mesh.md)).
+    <!-- Tracked internally: SA-9272, SA-9273 (SA-8708). Remove this limitation when fixed. -->
 
 ## Prerequisites
 
@@ -169,7 +170,8 @@ The application is private: it has no public address, and the Mesh Route opens S
     Expected output: `Hello from app-server`
 
 !!! note
-    This step depends on the Mesh Route delivering SSH traffic to the VM, which is not working yet (tracked as SA-9273). If `ssh` times out, that is the cause — see the limitations at the top of this guide.
+    This step depends on the Mesh Route delivering SSH traffic to the VM, which is not working yet. If `ssh` times out, that is the cause — see the limitations at the top of this guide.
+    <!-- Tracked internally: SA-9273 (SA-8708). Remove this limitation when fixed. -->
 
 <!-- TODO(SA-8708): the SSH-tunnel path has not been verified end to end (blocked by SA-9273). Re-test Step 4 once it is fixed, and remove the limitation notes. -->
 

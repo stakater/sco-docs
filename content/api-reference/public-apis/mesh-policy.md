@@ -12,7 +12,8 @@ Grants access between groups on your organisation's [Mesh](./mesh.md). Each rule
 | **Scope** | Namespace-scoped |
 
 !!! note "Current limitations"
-    A MeshPolicy created **inside a project** does not take effect today: the platform looks for a project-level mesh, but the Mesh belongs to the organisation (tracked as SA-9272). Create MeshPolicy claims with your **organisation** kubeconfig, where they are applied to the organisation's Mesh.
+    A MeshPolicy created **inside a project** does not take effect today: the platform looks for a project-level mesh, but the Mesh belongs to the organisation. Create MeshPolicy claims with your **organisation** kubeconfig, where they are applied to the organisation's Mesh.
+    <!-- Tracked internally: SA-9272 (SA-8708). Remove this limitation when fixed. -->
 
 ## Spec Parameters
 

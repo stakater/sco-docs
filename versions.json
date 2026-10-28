@@ -27,9 +27,7 @@
   {
     "version": "renovate-main-node-26.x",
     "title": "renovate-main-node-26.x",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "renovate-main-node-24.x-lockfile",
@@ -119,7 +117,9 @@
   {
     "version": "docs-sa8708-sco-user-journey-gaps",
     "title": "docs-sa8708-sco-user-journey-gaps",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "docs-networking-mode-not-self-service",

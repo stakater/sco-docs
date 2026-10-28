@@ -69,19 +69,19 @@ spec:
       cidr: 10.0.0.0/16
     tenantQuota: small
     access:
-      - role: cluster-admin
+      - role: platform-services-admin
         groups:
           - platform-admins
         users:
           - alex@acmecorp.example.com
-      - role: view
+      - role: platform-services-view
         groups:
           - developers
 ```
 
-Each entry in `access` specifies a `role` and lists `users` or `groups` to bind to that role within the project.
+Each entry in `access` specifies a `role` and lists `users` (by email) or `groups` to bind to that role within the project. Use only the roles listed in [Project Roles](../../cloud-user-guide/projects/creating-projects.md#project-roles); any other name is accepted without an error but can grant far broader rights than intended.
 
-The same entries also grant access to the project's folder in your organisation's Vault: `cluster-admin`, `admin` and `edit` can read and write it, `view` can read it. The Vault roles to sign in with appear in `status.openbao.roles`; see [Vault: Project access](../../api-reference/public-apis/vault.md#project-access).
+The same entries also grant access to the project's folder in your organisation's Vault: `platform-services-admin` and `secrets-user` can read and write it, `platform-services-view` and `secrets-viewer` can read it. The Vault roles to sign in with appear in `status.openbao.roles`; see [Vault: Project access](../../api-reference/public-apis/vault.md#project-access).
 
 ## Step 3: Apply the Claim
 
@@ -127,12 +127,12 @@ spec:
       cidr: 10.100.0.0/16
     tenantQuota: medium
     access:
-      - role: cluster-admin
+      - role: platform-services-admin
         groups:
           - platform-admins
         users:
           - alex@acmecorp.example.com
-      - role: view
+      - role: platform-services-view
         groups:
           - developers
           - qa-team

@@ -6131,7 +6131,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <h2 id="what-gets-created">What Gets Created<a class="headerlink" href="#what-gets-created" title="Permanent link">#</a></h2>
 <p>Following this guide, the platform provisions:</p>
 <ul>
-<li><strong>Organisation users and a group</strong> in your organisation's IDP</li>
+<li><strong>Organisation users and a group</strong> in your organisation's IdP</li>
 <li><strong>A project</strong> with its own private network, and role-based access for your group</li>
 <li><strong>A private virtual machine</strong> running your application, advertised to your organisation's Mesh</li>
 </ul>
@@ -6156,7 +6156,7 @@ kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> <
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Users sign in with their email address, and the organisation IDP identifies them by it. Use the email — not the user claim's <code>username</code> — wherever you name a user: in group <code>members</code> and in a project's <code>access[].users</code>. A name that does not match keeps the group from becoming Ready, or grants the user nothing.</p>
+<p>Users sign in with their email address, and the organisation IdP identifies them by it. Use the email — not the user claim's <code>username</code> — wherever you name a user: in group <code>members</code> and in a project's <code>access[].users</code>. A name that does not match keeps the group from becoming Ready, or grants the user nothing.</p>
 </div>
 <p>See the dedicated guides for full details:</p>
 <ul>

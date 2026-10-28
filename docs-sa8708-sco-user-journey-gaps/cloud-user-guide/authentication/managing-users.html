@@ -6083,7 +6083,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <p>Organisation administrators can manage users and groups through the SCO IAM API. This controls who can log in to the organisation and what projects they can access.</p>
 <hr>
 <h2 id="creating-users">Creating Users<a class="headerlink" href="#creating-users" title="Permanent link">#</a></h2>
-<p>Create a user in your organisation with a <code>iam.cloud.stakater.com/v1 User</code> claim. The platform provisions an organisation user in your organisation's IDP. The user's <strong>email address is their login name</strong>: they log in with it, and you use it to add them to groups and grant them project access.</p>
+<p>Create a user in your organisation with a <code>iam.cloud.stakater.com/v1 User</code> claim. The platform provisions an organisation user in your organisation's IdP. The user's <strong>email address is their login name</strong>: they log in with it, and you use it to add them to groups and grant them project access.</p>
 <div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">iam.cloud.stakater.com/v1</span>
 <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">User</span>
 <span class="nt">metadata</span><span class="p">:</span>
@@ -6199,7 +6199,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <p>To permanently remove a user, first remove them from every group (see <a href="#removing-a-user-from-a-group">Removing a User from a Group</a>) and from the <code>access</code> list of every project, then delete the claim:</p>
 <div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>delete<span class="w"> </span>user<span class="w"> </span>alice
 </code></pre></div>
-<p>This removes the user from your organisation's IDP. They can no longer log in. Past audit log entries are retained.</p>
+<p>This removes the user from your organisation's IdP. They can no longer log in. Past audit log entries are retained.</p>
 <div class="admonition warning">
 <p class="admonition-title">Remove group memberships before deleting a user</p>
 <p>Always take a user out of their groups (or delete those groups) <strong>before</strong> deleting the user. If you delete the user first, a group they were in can no longer be deleted cleanly: it keeps trying to remove a member who no longer exists. If that has already happened, contact your platform provider.</p>

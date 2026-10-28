@@ -6368,8 +6368,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>List members by their <strong>email address</strong>. A value that is not a user's email address, such as the <code>username</code> from their <code>User</code> claim, never matches: the membership stays not ready and the group never becomes ready.</p>
-<p>Members must already exist as organisation users before they can be added to a group. Create users first using the <a href="create-iam-user.html">IAM User</a> guide.</p>
+<p>List members by their <strong>email address</strong>. A value that is not a user's email address, such as the <code>username</code> from their <code>User</code> claim, never matches: the membership stays not ready and the group never becomes ready. Members must already exist as organisation users before they can be added to a group. Create users first using the <a href="create-iam-user.html">IAM User</a> guide.</p>
 </div>
 <h2 id="step-3-apply-the-claim">Step 3: Apply the Claim<a class="headerlink" href="#step-3-apply-the-claim" title="Permanent link">#</a></h2>
 <div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>group.yaml

@@ -1,85 +1,28 @@
 # ArgoCD Setup
 
-You can use ArgoCD to continuously deploy and manage resources in your SCO project workspace. ArgoCD treats your project's virtual API endpoint as a standard Kubernetes cluster.
+ArgoCD can deploy SCO claims from Git, because SCO claims are ordinary Kubernetes YAML. Connecting ArgoCD to an SCO project, however, needs an **automation identity**, and that is not available to project users yet.
+
+!!! note
+    Until the automation identity is available, use [Terraform](../terraform-access/setup-terraform.md) with your own project login to manage project resources programmatically.
 
 ---
 
-## How it Works
+## Why ArgoCD Cannot Connect Yet
 
-Your project exposes a standard Kubernetes API endpoint (via a kubeconfig). ArgoCD registers this endpoint as a target cluster and syncs your Git repository's manifests — including SCO claims — into the project workspace.
+ArgoCD needs long-lived credentials for every cluster it deploys to. Your project kubeconfig does not provide them:
 
-SCO claim manifests in your Git repository look the same as any other Kubernetes YAML. ArgoCD does not need special configuration to handle them.
+- **`argocd cluster add` fails.** It tries to create a service account, a cluster role and a role binding in the target, and to read a token for it. Project users, including organisation administrators, are not allowed to create any of these, so the command stops with `failed to create service account "argocd-manager" ... access denied`.
+- **Your kubeconfig signs in as you, through a browser.** It opens a browser login and caches a short-lived token. An ArgoCD server has no browser, and copying your personal login into ArgoCD would give it your access.
 
----
+A dedicated automation identity, scoped to your organisation or a project, is planned for tools such as ArgoCD, Flux and CI pipelines. This page will describe how to connect ArgoCD once it is available.
 
-## Prerequisites
-
-- ArgoCD deployed (within your project workspace or externally)
-- Your project kubeconfig (see [Setup kubectl](../kubectl-access/setup-kubectl.md))
-- A Git repository containing your manifests
+<!-- TODO(SA-8708): once the automation identity (TechnicalUser, iam.cloud.stakater.com/v1) is available to project users, document connecting ArgoCD with a declarative cluster Secret that uses its credentials. -->
 
 ---
 
-## Step 1: Register Your Project as a Cluster
+## Preparing Your Git Repository
 
-From the ArgoCD CLI, add your project's API endpoint as a target cluster using your kubeconfig:
-
-```bash
-# Set the project kubeconfig as active
-export KUBECONFIG=~/.kube/my-project.yaml
-
-# Add the cluster to ArgoCD
-argocd cluster add my-project --name sco-proj-frontend
-```
-
-ArgoCD will create a service account in your project workspace and use it for ongoing API access.
-
-Verify the cluster was added:
-
-```bash
-argocd cluster list
-```
-
----
-
-## Step 2: Create an ArgoCD Application
-
-Define an ArgoCD `Application` that points at your Git repository and targets your SCO project:
-
-```yaml
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: frontend-infra
-  namespace: argocd
-spec:
-  project: default
-  source:
-    repoURL: https://github.com/your-org/your-repo.git
-    targetRevision: main
-    path: environments/frontend
-  destination:
-    server: https://kcp.example.com/clusters/org-acme:proj-frontend
-    namespace: default
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-```
-
-The `destination.server` is your project's API endpoint URL from the kubeconfig.
-
-Apply this Application to your ArgoCD instance:
-
-```bash
-kubectl apply -f application.yaml -n argocd
-```
-
----
-
-## Step 3: Add SCO Claims to Your Git Repository
-
-In the Git path ArgoCD is watching, add your SCO claim manifests:
+You can already keep your SCO claims in Git. They look the same as any other Kubernetes YAML, and the same files work with `kubectl apply` today:
 
 ```yaml
 # environments/frontend/virtual-machine.yaml
@@ -92,21 +35,17 @@ spec:
     flavour: rhel9
     instanceType: o1.large
     connection: private
-    sshPublicKey: "ssh-rsa AAAAB3..."
+    sshPublicKey:
+      data: <base64-encoded OpenSSH public key>
 ```
 
-When you push this to the repository, ArgoCD syncs it to your project workspace and the platform provisions the VM automatically.
-
----
-
-## Automation Identity (Coming Soon)
-
-Currently, ArgoCD cluster registration uses the credentials embedded in your project kubeconfig. A dedicated **automation identity** capability is planned that will allow you to create a long-lived service account claim scoped to your organisation, specifically for use by automation tools like ArgoCD, Flux, and Terraform — without relying on a personal user kubeconfig.
+`sshPublicKey.data` is the OpenSSH public key, base64-encoded on a single line.
 
 ---
 
 ## What's Next?
 
-- [Flux Setup](flux-setup.md) — Alternative GitOps with Flux
+- [Setup Terraform](../terraform-access/setup-terraform.md) — The supported programmatic path today
+- [Flux Setup](flux-setup.md) — Flux has the same limitation
 - [Setup kubectl](../kubectl-access/setup-kubectl.md) — kubectl access to your project
 - [Provisioning Solutions](../solutions/provisioning-solutions.md) — Understanding SCO claim structure

@@ -123,6 +123,7 @@ nav:
           - api-reference/public-apis/vault.md
           - api-reference/public-apis/mesh.md
           - api-reference/public-apis/mesh-router.md
+          - api-reference/public-apis/mesh-policy.md
       - Platform APIs:
           - api-reference/private-apis/hypershift-hosted-cluster.md
           - api-reference/private-apis/virtual-machine-infrastructure.md

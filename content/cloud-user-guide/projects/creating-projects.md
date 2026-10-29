@@ -154,7 +154,7 @@ To delete a project and everything in it:
     kubectl label project frontend-dev sco/deletion-protection=disabled
     ```
 
-1. Wait about a minute for the change to reach all of the project's resources.
+1. Wait about a minute for the change to reach all the project's resources.
 1. Delete the project:
 
     ```bash

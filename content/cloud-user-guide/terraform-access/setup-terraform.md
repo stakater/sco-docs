@@ -8,7 +8,7 @@ This is the supported way to manage project resources programmatically today. Co
 
 ## Prerequisites
 
-- Terraform ([official install guide](https://developer.hashicorp.com/terraform/install)) or OpenTofu
+- Terraform ([official installation guide](https://developer.hashicorp.com/terraform/install)) or OpenTofu
 - Your project kubeconfig (see [Setup kubectl](../kubectl-access/setup-kubectl.md))
 - A working `kubectl` login with that kubeconfig. Terraform reuses the same login, so run any `kubectl` command first if your session has expired.
 

@@ -2665,6 +2665,17 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 </li>
       
         <li class="md-nav__item">
+  <a href="#project-roles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Project Roles
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#quota-profiles" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2680,6 +2691,17 @@ This documentation is either for an old version, or for the unreleased 'main' ve
     <span class="md-ellipsis">
       
         Getting the Project kubeconfig
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deleting-a-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deleting a Project
       
     </span>
   </a>
@@ -4139,7 +4161,7 @@ This documentation is either for an old version, or for the unreleased 'main' ve
   <span class="md-ellipsis">
     
   
-    Creating Organisations
+    Creating Organizations
   
 
     
@@ -5432,6 +5454,34 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api-reference/public-apis/mesh-policy.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MeshPolicy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -5979,6 +6029,17 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 </li>
       
         <li class="md-nav__item">
+  <a href="#project-roles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Project Roles
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#quota-profiles" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -5994,6 +6055,17 @@ This documentation is either for an old version, or for the unreleased 'main' ve
     <span class="md-ellipsis">
       
         Getting the Project kubeconfig
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deleting-a-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deleting a Project
       
     </span>
   </a>
@@ -6033,7 +6105,7 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 <p>For the full parameter reference, see the <a href="../../how-to-guides/user/create-project.html">Create Project</a> how-to guide.</p>
 <hr>
 <h2 id="who-creates-projects">Who Creates Projects<a class="headerlink" href="#who-creates-projects" title="Permanent link">#</a></h2>
-<p>Projects are created by <strong>organisation administrators</strong> — users with the <code>admin</code> role at the organisation level. Once created, a project is assigned to specific users or groups who can then provision services within it.</p>
+<p>Projects are created by <strong>organisation administrators</strong>. Once created, a project is assigned to specific users or groups who can then provision services within it.</p>
 <p>If you need a project and do not have admin access, contact your organisation administrator.</p>
 <hr>
 <h2 id="creating-a-project">Creating a Project<a class="headerlink" href="#creating-a-project" title="Permanent link">#</a></h2>
@@ -6050,13 +6122,14 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 <span class="w">      </span><span class="nt">cidr</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.200.0.0/16</span>
 <span class="w">    </span><span class="nt">tenantQuota</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">small</span>
 <span class="w">    </span><span class="nt">access</span><span class="p">:</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">admin</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">platform-services-admin</span>
 <span class="w">        </span><span class="nt">users</span><span class="p">:</span>
 <span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">alice@acmecorp.example.com</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edit</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">compute-user</span>
 <span class="w">        </span><span class="nt">groups</span><span class="p">:</span>
 <span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">frontend-team</span>
 </code></pre></div>
+<p>List individual users by their <strong>email address</strong>, the same address they log in with. Groups are listed by group name. See <a href="#project-roles">Project Roles</a> for the roles you can use.</p>
 <div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>frontend-dev-project.yaml
 </code></pre></div>
 <p>Check that the project is ready:</p>
@@ -6099,10 +6172,85 @@ frontend-dev   Ready    45s
 <tr>
 <td><code>access</code></td>
 <td>No</td>
-<td>Users and groups with access, and their roles</td>
+<td>Users (by email address) and groups with access, and their roles. See <a href="#project-roles">Project Roles</a></td>
 </tr>
 </tbody>
 </table>
+<hr>
+<h2 id="project-roles">Project Roles<a class="headerlink" href="#project-roles" title="Permanent link">#</a></h2>
+<p>Each <code>access</code> entry grants one role to a list of users and groups. The platform creates these roles in every project:</p>
+<table>
+<thead>
+<tr>
+<th>Role</th>
+<th>What it grants</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>platform-services-admin</code></td>
+<td>Full control of every platform service in the project: create, change and delete virtual machines, clusters, databases, buckets and so on, and start, stop, restart and open the console of virtual machines. Can also read the project's Secrets</td>
+</tr>
+<tr>
+<td><code>platform-services-view</code></td>
+<td>Read-only access to every platform service in the project, including virtual machine consoles and metrics. Can also read the project's Secrets</td>
+</tr>
+<tr>
+<td><code>&lt;service&gt;-user</code></td>
+<td>Full control of one platform service. Can also read the project's Secrets, which hold service connection credentials</td>
+</tr>
+<tr>
+<td><code>&lt;service&gt;-viewer</code></td>
+<td>Read-only access to one platform service. Cannot read Secrets</td>
+</tr>
+</tbody>
+</table>
+<p><code>&lt;service&gt;</code> is one of the platform services available in your project:</p>
+<table>
+<thead>
+<tr>
+<th>Service</th>
+<th>Resources it covers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>compute</code></td>
+<td>Virtual machines, their volumes, snapshots and backups</td>
+</tr>
+<tr>
+<td><code>database</code></td>
+<td>Databases such as <code>Postgres</code></td>
+</tr>
+<tr>
+<td><code>kubernetes</code></td>
+<td>OpenShift clusters and node pools</td>
+</tr>
+<tr>
+<td><code>mesh</code></td>
+<td>Mesh routers, routes, groups and policies</td>
+</tr>
+<tr>
+<td><code>network</code></td>
+<td>Your organisation mesh</td>
+</tr>
+<tr>
+<td><code>secrets</code></td>
+<td><code>Vault</code></td>
+</tr>
+<tr>
+<td><code>storage</code></td>
+<td>S3 buckets</td>
+</tr>
+</tbody>
+</table>
+<p>For example, <code>compute-user</code> lets someone manage virtual machines only, and <code>database-viewer</code> lets someone see databases but not change them. Only services enabled on your platform have roles; if a service is not available in your project, its <code>-user</code> and <code>-viewer</code> roles do not exist.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Use only the role names listed above. The platform accepts any role name without an error, and the project still reports <code>Ready</code>. A name that is not in this list does not grant an SCO role. If it matches a built-in Kubernetes role, such as <code>edit</code> or <code>cluster-admin</code>, the users get that built-in role inside the project, with far broader rights than any SCO role (for example creating and deleting Secrets, issuing service account tokens, or changing role-based access). If it matches nothing, they get no access at all. Check every <code>access</code> entry against this list before you apply it.</p>
+</div>
+<!-- TODO(SA-8708): link SA-9299 / SA-9303 fixes here once role names are validated, and drop the warning if other names are rejected -->
+
 <hr>
 <h2 id="quota-profiles">Quota Profiles<a class="headerlink" href="#quota-profiles" title="Permanent link">#</a></h2>
 <table>
@@ -6142,16 +6290,50 @@ frontend-dev   Ready    45s
 <p>Contact your platform provider if none of the standard profiles fit your workload requirements.</p>
 <hr>
 <h2 id="getting-the-project-kubeconfig">Getting the Project kubeconfig<a class="headerlink" href="#getting-the-project-kubeconfig" title="Permanent link">#</a></h2>
-<p>Once your project is ready, download the kubeconfig to access it from the command line:</p>
+<p>Once your project is ready, get its kubeconfig to access it from the command line:</p>
 <ol>
-<li>Navigate to your project in the console</li>
-<li>Click <strong>Settings</strong> or <strong>Access</strong></li>
-<li>Click <strong>Download kubeconfig</strong></li>
+<li>Open your project in the console</li>
+<li>Switch the page from <strong>Standard</strong> to <strong>Advanced</strong></li>
+<li>In the <strong>Access Configuration</strong> section, open the kubeconfig and choose <strong>Decoded</strong></li>
+<li>Copy the YAML into <code>~/.kube/&lt;project-name&gt;.yaml</code></li>
 </ol>
-<p>Or request it from your platform administrator. Save it to <code>~/.kube/&lt;project-name&gt;.yaml</code> and set:</p>
+<p>Do not save the <strong>Encoded</strong> view: it is a single line of base64 text that <code>kubectl</code> cannot read. See <a href="../kubectl-access/kubeconfig-generation.html">kubeconfig Generation</a> for details and for how organisation administrators can get it with <code>kubectl</code>.</p>
 <div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">KUBECONFIG</span><span class="o">=</span>~/.kube/frontend-dev.yaml
 kubectl<span class="w"> </span>get<span class="w"> </span>virtualmachines
 </code></pre></div>
+<p>The downloaded kubeconfig has a single context, named <code>dev</code>.</p>
+<hr>
+<h2 id="deleting-a-project">Deleting a Project<a class="headerlink" href="#deleting-a-project" title="Permanent link">#</a></h2>
+<p>Projects are protected from deletion by default. If you delete a project while the protection is on, the project disappears from the console and from <code>kubectl get projects</code>, but <strong>everything inside it keeps running</strong>: virtual machines, clusters, networks and mesh access are left behind, and you can no longer see or remove them yourself. They keep consuming resources and stay reachable over the mesh.</p>
+<p>To delete a project and everything in it:</p>
+<ol>
+<li>
+<p>Delete the virtual machines, clusters and other services in the project first, using the project kubeconfig:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">KUBECONFIG</span><span class="o">=</span>~/.kube/frontend-dev.yaml
+kubectl<span class="w"> </span>get<span class="w"> </span>virtualmachines,openshiftclusters
+kubectl<span class="w"> </span>delete<span class="w"> </span>virtualmachine<span class="w"> </span>&lt;name&gt;
+</code></pre></div>
+</li>
+<li>
+<p>With your organisation kubeconfig, turn off the deletion protection on the project:</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>label<span class="w"> </span>project<span class="w"> </span>frontend-dev<span class="w"> </span>sco/deletion-protection<span class="o">=</span>disabled
+</code></pre></div>
+</li>
+<li>
+<p>Wait about a minute for the change to reach all the project's resources.</p>
+</li>
+<li>
+<p>Delete the project:</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>delete<span class="w"> </span>project<span class="w"> </span>frontend-dev
+</code></pre></div>
+</li>
+</ol>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Never delete a project without the <code>sco/deletion-protection=disabled</code> label unless you intend to keep its resources running. If that has already happened, contact your platform provider to clean up what was left behind.</p>
+</div>
+<!-- TODO(SA-8708): add how to confirm the deletion completed, once the stuck-deletion issue seen in ST-15 (#44) is resolved -->
+
 <hr>
 <h2 id="whats-next">What's Next?<a class="headerlink" href="#whats-next" title="Permanent link">#</a></h2>
 <ul>

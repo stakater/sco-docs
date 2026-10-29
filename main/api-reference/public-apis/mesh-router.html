@@ -11,7 +11,7 @@
         <link rel="prev" href="mesh.html">
       
       
-        <link rel="next" href="../private-apis/hypershift-hosted-cluster.html">
+        <link rel="next" href="mesh-policy.html">
       
       
         
@@ -4020,7 +4020,7 @@ This documentation is either for an old version, or for the unreleased 'main' ve
   <span class="md-ellipsis">
     
   
-    Creating Organisations
+    Creating Organizations
   
 
     
@@ -5499,6 +5499,34 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="mesh-policy.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MeshPolicy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -6175,7 +6203,7 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 <tbody>
 <tr>
 <td><strong>API Group</strong></td>
-<td><code>network.cloud.stakater.com</code></td>
+<td><code>mesh.cloud.stakater.com</code></td>
 </tr>
 <tr>
 <td><strong>Version</strong></td>
@@ -6191,6 +6219,11 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 </tr>
 </tbody>
 </table>
+<div class="admonition warning">
+<p class="admonition-title">Current limitations</p>
+<p>A MeshRouter created <strong>inside a project</strong> reports Ready but never joins the Mesh, so its routes are never advertised; a MeshPolicy created inside a project has the same problem. A MeshRouter created with your <strong>organisation</strong> kubeconfig joins the Mesh and advertises its routes, but it runs outside your projects' networks and <strong>cannot reach workloads in your projects</strong> — virtual machines on a project network, or Services inside an OpenShift cluster you provisioned. Until this is fixed you cannot publish your own project workloads with a MeshRouter. The intended way to reach a project virtual machine is the VM's built-in Mesh Route (<code>spec.parameters.meshRoute.enabled: true</code> on the <a href="virtual-machine.html">VirtualMachine</a>), which opens only SSH (tcp/22), RDP (tcp/3389) and ICMP, and does not deliver traffic yet either.
+<!-- Tracked internally: SA-9272, SA-9273 (SA-8708). Remove this limitation when fixed. --></p>
+</div>
 <h2 id="spec-parameters">Spec Parameters<a class="headerlink" href="#spec-parameters" title="Permanent link">#</a></h2>
 <p>All parameters are nested under <code>spec.parameters</code>.</p>
 <h3 id="required">Required<a class="headerlink" href="#required" title="Permanent link">#</a></h3>
@@ -6280,8 +6313,8 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 </tbody>
 </table>
 <h2 id="granting-access">Granting Access<a class="headerlink" href="#granting-access" title="Permanent link">#</a></h2>
-<p>Enrolled devices sign in to the Mesh with your organisation's single sign-on — there are no keys to distribute. Access to the advertised routes is governed by Mesh access policies: the router publishes its routes to a peer group named <code>&lt;claim-name&gt;-routers</code>, and you allow your users' groups to reach it with a <a href="mesh.html">MeshPolicy</a> claim:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">network.cloud.stakater.com/v1</span>
+<p>Enrolled devices sign in to the Mesh with your organisation's single sign-on — there are no keys to distribute. Access to the advertised routes is governed by Mesh access policies: the router publishes its routes to a peer group named <code>&lt;claim-name&gt;-routers</code>, and you allow your users' groups to reach it with a <a href="mesh-policy.html">MeshPolicy</a> claim:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mesh.cloud.stakater.com/v1</span>
 <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MeshPolicy</span>
 <span class="nt">metadata</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">allow-devs-to-my-router</span>
@@ -6298,7 +6331,7 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 <p>Peers in the source groups can then reach every address the router advertises.</p>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">#</a></h2>
 <h3 id="single-route-to-an-internal-service">Single route to an internal service<a class="headerlink" href="#single-route-to-an-internal-service" title="Permanent link">#</a></h3>
-<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">network.cloud.stakater.com/v1</span>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mesh.cloud.stakater.com/v1</span>
 <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MeshRouter</span>
 <span class="nt">metadata</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-router</span>
@@ -6306,12 +6339,12 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 <span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">routes</span><span class="p">:</span>
 <span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">internal-api</span>
-<span class="w">        </span><span class="nt">address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">172.30.52.51/32</span><span class="w">        </span><span class="c1"># ClusterIP of the Service, /32</span>
+<span class="w">        </span><span class="nt">address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">172.30.52.51/32</span><span class="w">        </span><span class="c1"># a single host, as a /32</span>
 <span class="w">        </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">"Internal</span><span class="nv"> </span><span class="s">admin</span><span class="nv"> </span><span class="s">API"</span>
 </code></pre></div>
 <p>After Ready (plus a MeshPolicy allowing your group), an enrolled laptop can reach the service by that IP — no public endpoint needed.</p>
 <h3 id="multiple-routes">Multiple routes<a class="headerlink" href="#multiple-routes" title="Permanent link">#</a></h3>
-<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">network.cloud.stakater.com/v1</span>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mesh.cloud.stakater.com/v1</span>
 <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MeshRouter</span>
 <span class="nt">metadata</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-router</span>
@@ -6333,6 +6366,7 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 <h2 id="related">Related<a class="headerlink" href="#related" title="Permanent link">#</a></h2>
 <ul>
 <li><a href="mesh.html">Mesh</a> — the Mesh this router joins. A Mesh must exist before a MeshRouter can register.</li>
+<li><a href="mesh-policy.html">MeshPolicy</a> — grants your users' groups access to the router's routes.</li>
 <li><a href="vault.html">Vault</a> — published to Mesh peers automatically; no MeshRouter needed.</li>
 </ul>
 

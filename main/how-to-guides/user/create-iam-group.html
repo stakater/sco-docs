@@ -3177,6 +3177,17 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 </li>
       
         <li class="md-nav__item">
+  <a href="#deleting-a-group-or-its-members" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deleting a Group or Its Members
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#whats-next" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4239,7 +4250,7 @@ This documentation is either for an old version, or for the unreleased 'main' ve
   <span class="md-ellipsis">
     
   
-    Creating Organisations
+    Creating Organizations
   
 
     
@@ -5532,6 +5543,34 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api-reference/public-apis/mesh-policy.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MeshPolicy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -6201,6 +6240,17 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 </li>
       
         <li class="md-nav__item">
+  <a href="#deleting-a-group-or-its-members" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deleting a Group or Its Members
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#whats-next" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -6229,7 +6279,7 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 
 
 <h1 id="how-to-create-an-iam-group">How to Create an IAM Group<a class="headerlink" href="#how-to-create-an-iam-group" title="Permanent link">#</a></h1>
-<p>Learn how to create a group in your organisation's identity provider and manage its members via a Project claim.</p>
+<p>Learn how to create a group in your organisation's identity provider and manage its members with a Group claim.</p>
 <p>Maria, an organisation administrator at ACME Corp, wants to create a group for her engineering team so she can assign project access to all members at once rather than individually.</p>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">#</a></h2>
 <ul>
@@ -6247,7 +6297,7 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 <h2 id="in-the-console">In the Console<a class="headerlink" href="#in-the-console" title="Permanent link">#</a></h2>
 <p>Groups sit next to Users under <strong>Identity &amp; Access</strong>. The create form asks for the project the group belongs to, then the same name and path as the claim:</p>
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/generated/iam-group-create.png" data-desc-position="bottom"><img alt="The Create Group form" src="../../images/generated/iam-group-create.png"></a></p>
-<p>Members are added one at a time: type a username in the <strong>Members</strong> field and press Enter to commit it. A value left as draft text is not part of the group. If the field is not on the form, switch it to <strong>Advanced</strong> — members are optional, so Standard mode may hide them:</p>
+<p>Members are added one at a time: type the user's email address in the <strong>Members</strong> field and press Enter to commit it. A value left as draft text is not part of the group. If the field is not on the form, switch it to <strong>Advanced</strong> — members are optional, so Standard mode may hide them:</p>
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/generated/iam-group-create-members.png" data-desc-position="bottom"><img alt="The Create Group form with three members added" src="../../images/generated/iam-group-create-members.png"></a></p>
 <p>The group's detail page then shows the memberships the platform actually applied, which is the console equivalent of the <code>status.memberships</code> check in <a href="#step-4-verify-the-group">Step 4</a>:</p>
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/generated/iam-group-detail.png" data-desc-position="bottom"><img alt="A group detail page showing its members" src="../../images/generated/iam-group-detail.png"></a></p>
@@ -6292,7 +6342,7 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 </tr>
 <tr>
 <td><code>parameters.members</code></td>
-<td>List of organisation usernames to add to the group</td>
+<td>Email addresses of the organisation users to add to the group</td>
 </tr>
 <tr>
 <td><code>parameters.attributes</code></td>
@@ -6311,13 +6361,13 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 <span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">engineering-team</span>
 <span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/teams/engineering</span>
 <span class="w">    </span><span class="nt">members</span><span class="p">:</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">alice</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bob</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">charlie</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">alice@acmecorp.example.com</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bob@acmecorp.example.com</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">charlie@acmecorp.example.com</span>
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Members must already exist as organisation users before they can be added to a group. Create users first using the <a href="create-iam-user.html">IAM User</a> guide.</p>
+<p>List members by their <strong>email address</strong>. A value that is not a user's email address, such as the <code>username</code> from their <code>User</code> claim, never matches: the membership stays not ready and the group never becomes ready. Members must already exist as organisation users before they can be added to a group. Create users first using the <a href="create-iam-user.html">IAM User</a> guide.</p>
 </div>
 <h2 id="step-3-apply-the-claim">Step 3: Apply the Claim<a class="headerlink" href="#step-3-apply-the-claim" title="Permanent link">#</a></h2>
 <div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>group.yaml
@@ -6358,9 +6408,9 @@ engineering-team   True    True     1m
 <span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">engineering-team</span>
 <span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/teams/engineering</span>
 <span class="w">    </span><span class="nt">members</span><span class="p">:</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">alice</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bob</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">charlie</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">alice@acmecorp.example.com</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bob@acmecorp.example.com</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">charlie@acmecorp.example.com</span>
 </code></pre></div>
 <h2 id="using-groups-for-project-access">Using Groups for Project Access<a class="headerlink" href="#using-groups-for-project-access" title="Permanent link">#</a></h2>
 <p>Once your group is created, reference it in a <a href="create-project.html">Project</a> claim to grant project access:</p>
@@ -6375,13 +6425,16 @@ engineering-team   True    True     1m
 <span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">app-network</span>
 <span class="w">      </span><span class="nt">cidr</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.0.0.0/16</span>
 <span class="w">    </span><span class="nt">access</span><span class="p">:</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cluster-admin</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">platform-services-admin</span>
 <span class="w">        </span><span class="nt">groups</span><span class="p">:</span>
 <span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">engineering-team</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">view</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">platform-services-view</span>
 <span class="w">        </span><span class="nt">groups</span><span class="p">:</span>
 <span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">qa-team</span>
 </code></pre></div>
+<p>Use only the roles listed in <a href="../../cloud-user-guide/projects/creating-projects.html#project-roles">Project Roles</a>. Other role names, such as <code>cluster-admin</code> or <code>edit</code>, are accepted without an error but grant a built-in Kubernetes role with far broader rights.</p>
+<h2 id="deleting-a-group-or-its-members">Deleting a Group or Its Members<a class="headerlink" href="#deleting-a-group-or-its-members" title="Permanent link">#</a></h2>
+<p>Before you delete a user who is a member of a group, remove them from the group's <code>members</code> list (or delete the group) first. If the user is deleted first, the group can no longer be deleted cleanly, because it keeps trying to remove a member who no longer exists. See <a href="../../cloud-user-guide/authentication/managing-users.html#disabling-or-removing-a-user">Disabling or Removing a User</a>.</p>
 <h2 id="whats-next">What's Next?<a class="headerlink" href="#whats-next" title="Permanent link">#</a></h2>
 <ul>
 <li><a href="create-iam-user.html">Create an IAM User</a> - Create users to add to your groups</li>

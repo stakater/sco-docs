@@ -3282,6 +3282,23 @@ This documentation is either for an old version, or for the unreleased 'main' ve
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Prerequisites">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#which-kubeconfig-each-step-uses" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Which kubeconfig each step uses
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -3362,10 +3379,10 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 </li>
       
         <li class="md-nav__item">
-  <a href="#related" class="md-nav__link">
+  <a href="#whats-next" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Related
+        What's Next?
       
     </span>
   </a>
@@ -4172,7 +4189,7 @@ This documentation is either for an old version, or for the unreleased 'main' ve
   <span class="md-ellipsis">
     
   
-    Creating Organisations
+    Creating Organizations
   
 
     
@@ -5465,6 +5482,34 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api-reference/public-apis/mesh-policy.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MeshPolicy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -5987,6 +6032,23 @@ This documentation is either for an old version, or for the unreleased 'main' ve
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Prerequisites">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#which-kubeconfig-each-step-uses" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Which kubeconfig each step uses
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -6067,10 +6129,10 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 </li>
       
         <li class="md-nav__item">
-  <a href="#related" class="md-nav__link">
+  <a href="#whats-next" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Related
+        What's Next?
       
     </span>
   </a>
@@ -6095,18 +6157,56 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 
 
 <h1 id="how-to-expose-an-internal-service-via-the-mesh">How to Expose an Internal Service via the Mesh<a class="headerlink" href="#how-to-expose-an-internal-service-via-the-mesh" title="Permanent link">#</a></h1>
-<p>Learn how to make an in-cluster service reachable from laptops and VMs on your organisation's Mesh — without a public endpoint.</p>
-<p>Emma, a developer at ACME Corp, runs an internal admin API in her project. Her team needs to reach it from their laptops, but it must not be exposed to the internet. A MeshRouter advertises the service's address to Mesh peers, and a MeshPolicy grants her team's group access — enrolled devices then reach it directly over the encrypted mesh.</p>
+<p>Learn how to make an internal service reachable from laptops and VMs on your organisation's Mesh — without a public endpoint.</p>
+<p>Emma, a developer at ACME Corp, runs an internal admin API. Her team needs to reach it from their laptops, but it must not be exposed to the internet. A MeshRouter advertises the service's address to Mesh peers, and a MeshPolicy grants her team's group access — enrolled devices then reach it directly over the encrypted mesh.</p>
 <blockquote>
 <p>Platform services such as a <a href="create-vault.html">Vault</a> are published to Mesh peers automatically — you only need a MeshRouter for your <strong>own</strong> services.</p>
 </blockquote>
+<div class="admonition warning">
+<p class="admonition-title">Current limitations — read before you start</p>
+<p>This guide does <strong>not</strong> yet work end to end for workloads in your projects. MeshRouter and MeshPolicy claims created <strong>inside a project</strong> do not take effect: the router claim reports Ready, but it never joins the Mesh and its <code>&lt;claim-name&gt;-routers</code> group is never created, so this guide creates both claims with your <strong>organisation</strong> kubeconfig. A router created that way joins the Mesh and your laptop receives the route, but the router runs outside your projects' networks, so connections to a project virtual machine, or to a Service inside an OpenShift cluster you provisioned, time out. The VM's built-in Mesh Route (<code>meshRoute.enabled: true</code> on a <a href="../../api-reference/public-apis/virtual-machine.html">VirtualMachine</a>) is the intended way to reach a project VM, but it opens only SSH (tcp/22), RDP (tcp/3389) and ICMP, and it does not deliver traffic yet either. Until these are fixed there is no supported way to reach your own project workloads privately over the Mesh: use the steps below only for an address the router can actually reach, and check Step 6 before relying on it.
+<!-- Tracked internally: SA-9272, SA-9273 (SA-8708). Remove this limitation when fixed. --></p>
+</div>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">#</a></h2>
 <ul>
 <li>A <a href="create-mesh.html">Mesh</a> in your organisation, already Ready</li>
-<li>The <code>meshrouter.network.cloud.stakater.com</code> API available</li>
-<li><code>kubectl</code> configured with your project kubeconfig</li>
-<li>The in-cluster Service you want to expose (note its ClusterIP)</li>
+<li>The <code>meshrouter.mesh.cloud.stakater.com</code> and <code>meshpolicy.mesh.cloud.stakater.com</code> APIs available</li>
+<li><code>kubectl</code> configured with your <strong>organisation</strong> kubeconfig, for the MeshRouter and MeshPolicy claims (Steps 2–5)</li>
+<li>Access to wherever the service runs, to look up its address (Step 1) — for a Service inside an OpenShift cluster you provisioned, that is the cluster's own kubeconfig, not your project or organisation kubeconfig</li>
+<li>A laptop enrolled on the Mesh and signed in as a member of the group you will grant access to (see <a href="create-mesh.html">Create a Mesh</a>)</li>
 </ul>
+<h3 id="which-kubeconfig-each-step-uses">Which kubeconfig each step uses<a class="headerlink" href="#which-kubeconfig-each-step-uses" title="Permanent link">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>What you do</th>
+<th>kubeconfig</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Look up the service address</td>
+<td>The cluster the service runs in</td>
+</tr>
+<tr>
+<td>2–4</td>
+<td>Create and check the MeshRouter</td>
+<td>Organisation</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Create the MeshPolicy</td>
+<td>Organisation</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Test</td>
+<td>None — run from your enrolled laptop</td>
+</tr>
+</tbody>
+</table>
 <h2 id="what-gets-created">What Gets Created<a class="headerlink" href="#what-gets-created" title="Permanent link">#</a></h2>
 <p>When you create a MeshRouter claim, the platform provisions:</p>
 <ul>
@@ -6115,11 +6215,16 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 </ul>
 <p>Access is granted separately with a MeshPolicy (Step 5); devices authenticate to the Mesh with your organisation's single sign-on, so there are no keys to distribute.</p>
 <h2 id="step-1-find-the-service-address">Step 1: Find the Service Address<a class="headerlink" href="#step-1-find-the-service-address" title="Permanent link">#</a></h2>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>svc<span class="w"> </span>my-admin-api<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.spec.clusterIP}'</span>
+<p>Run this against the cluster where the service runs:</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>--kubeconfig<span class="w"> </span>&lt;cluster-kubeconfig&gt;<span class="w"> </span>get<span class="w"> </span>svc<span class="w"> </span>my-admin-api<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.spec.clusterIP}'</span>
 </code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Service ClusterIP ranges (typically <code>172.30.0.0/16</code>) are the same on every OpenShift cluster, so a ClusterIP alone does not say which cluster it belongs to. The router forwards to the address from where the router itself runs, not from inside your cluster.</p>
+</div>
 <h2 id="step-2-define-a-meshrouter-claim">Step 2: Define a MeshRouter Claim<a class="headerlink" href="#step-2-define-a-meshrouter-claim" title="Permanent link">#</a></h2>
 <p>Create a file named <code>router.yaml</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">network.cloud.stakater.com/v1</span>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mesh.cloud.stakater.com/v1</span>
 <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MeshRouter</span>
 <span class="nt">metadata</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-router</span>
@@ -6127,20 +6232,21 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 <span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">routes</span><span class="p">:</span>
 <span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">admin-api</span>
-<span class="w">        </span><span class="nt">address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">172.30.52.51/32</span><span class="w">        </span><span class="c1"># the Service ClusterIP, as a /32</span>
+<span class="w">        </span><span class="nt">address</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">172.30.52.51/32</span><span class="w">        </span><span class="c1"># the service address from Step 1, as a /32</span>
 <span class="w">        </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">"Internal</span><span class="nv"> </span><span class="s">admin</span><span class="nv"> </span><span class="s">API"</span>
 </code></pre></div>
-<p>A router can advertise multiple routes — CIDRs, single hosts, or domains. See the <a href="../../api-reference/public-apis/mesh-router.html">API reference</a> for all fields.</p>
+<p>A router can advertise multiple routes — CIDRs, single hosts, or domains. See the <a href="../../api-reference/public-apis/mesh-router.html">MeshRouter API reference</a> for all fields.</p>
 <h2 id="step-3-apply-the-claim">Step 3: Apply the Claim<a class="headerlink" href="#step-3-apply-the-claim" title="Permanent link">#</a></h2>
+<p>With your organisation kubeconfig:</p>
 <div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>router.yaml
 </code></pre></div>
 <h2 id="step-4-verify-the-router">Step 4: Verify the Router<a class="headerlink" href="#step-4-verify-the-router" title="Permanent link">#</a></h2>
 <div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>meshrouter<span class="w"> </span>my-router
 </code></pre></div>
-<p>Wait for <code>READY: True</code>. The routing peer also appears in your Mesh dashboard.</p>
+<p>Wait for <code>READY: True</code>. The routing peer also appears in your Mesh dashboard, together with a group named <code>my-router-routers</code>. If that group does not appear, the router has not joined the Mesh — see the limitations above.</p>
 <h2 id="step-5-grant-access-with-a-meshpolicy">Step 5: Grant Access with a MeshPolicy<a class="headerlink" href="#step-5-grant-access-with-a-meshpolicy" title="Permanent link">#</a></h2>
-<p>Allow the Mesh groups that should reach the routes. The router's destination group is named after the claim (<code>my-router-routers</code>):</p>
-<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">network.cloud.stakater.com/v1</span>
+<p>Allow the groups that should reach the routes. The router's destination group is named after the claim (<code>my-router-routers</code>). Create a file named <code>policy.yaml</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">mesh.cloud.stakater.com/v1</span>
 <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MeshPolicy</span>
 <span class="nt">metadata</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">allow-devs-to-my-router</span>
@@ -6150,22 +6256,29 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 <span class="w">    </span><span class="nt">rules</span><span class="p">:</span>
 <span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">devs-to-routes</span>
 <span class="w">        </span><span class="nt">sourceGroupNames</span><span class="p">:</span>
-<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">developers</span><span class="w">            </span><span class="c1"># your users' Mesh group</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">developers</span><span class="w">            </span><span class="c1"># your users' group</span>
 <span class="w">        </span><span class="nt">destinationGroupNames</span><span class="p">:</span>
 <span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-router-routers</span>
 </code></pre></div>
+<p>Apply it with your organisation kubeconfig and check that it is Ready:</p>
 <div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>policy.yaml
+kubectl<span class="w"> </span>get<span class="w"> </span>meshpolicy<span class="w"> </span>allow-devs-to-my-router
 </code></pre></div>
+<p>A group can only be used as a source once at least one of its members has signed in to the Mesh. See the <a href="../../api-reference/public-apis/mesh-policy.html">MeshPolicy API reference</a> for ports, protocols and one-way rules.</p>
 <h2 id="step-6-test">Step 6: Test<a class="headerlink" href="#step-6-test" title="Permanent link">#</a></h2>
-<p>From a device enrolled on the Mesh (see <a href="create-mesh.html">Create a Mesh</a> for enrolment) and in an allowed group:</p>
+<p>From a device enrolled on the Mesh and signed in as a member of an allowed group, first check that the route arrived:</p>
+<div class="highlight"><pre><span></span><code>netbird<span class="w"> </span>networks<span class="w"> </span>list
+</code></pre></div>
+<p>A network named after the router and the route (<code>my-router-admin-api</code>) should be listed with the address <code>172.30.52.51/32</code> and marked as selected. Then call the service:</p>
 <div class="highlight"><pre><span></span><code>curl<span class="w"> </span>http://172.30.52.51/healthz
 </code></pre></div>
-<p>The request travels over the encrypted mesh to the routing peer, which forwards it to the in-cluster Service.</p>
-<h2 id="related">Related<a class="headerlink" href="#related" title="Permanent link">#</a></h2>
+<p>The request travels over the encrypted mesh to the routing peer, which forwards it to the address you advertised. If the route is listed but the request times out, the router cannot reach that address — see the limitations above.</p>
+<h2 id="whats-next">What's Next?<a class="headerlink" href="#whats-next" title="Permanent link">#</a></h2>
 <ul>
-<li><a href="../../api-reference/public-apis/mesh-router.html">MeshRouter API reference</a></li>
-<li><a href="create-mesh.html">Create a Mesh</a></li>
-<li><a href="create-vault.html">Create a Vault</a> — published over the Mesh automatically</li>
+<li><a href="../../api-reference/public-apis/mesh-router.html">MeshRouter API reference</a> - All router fields</li>
+<li><a href="../../api-reference/public-apis/mesh-policy.html">MeshPolicy API reference</a> - All policy fields</li>
+<li><a href="create-mesh.html">Create a Mesh</a> - Set up the Mesh and enrol devices</li>
+<li><a href="create-vault.html">Create a Vault</a> - Published over the Mesh automatically</li>
 </ul>
 
 

@@ -2509,6 +2509,17 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 </li>
       
         <li class="md-nav__item">
+  <a href="#step-4-clean-up" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: Clean Up
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#whats-next" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4128,7 +4139,7 @@ This documentation is either for an old version, or for the unreleased 'main' ve
   <span class="md-ellipsis">
     
   
-    Creating Organisations
+    Creating Organizations
   
 
     
@@ -5421,6 +5432,34 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api-reference/public-apis/mesh-policy.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MeshPolicy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -5979,6 +6018,17 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 </li>
       
         <li class="md-nav__item">
+  <a href="#step-4-clean-up" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: Clean Up
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#whats-next" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -6007,60 +6057,83 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 
 
 <h1 id="setup-terraform">Setup Terraform<a class="headerlink" href="#setup-terraform" title="Permanent link">#</a></h1>
-<p>Terraform can manage resources in your SCO project using the Kubernetes provider. The same project kubeconfig used by <code>kubectl</code> provides Terraform with access.</p>
+<p>Terraform (or OpenTofu) can manage resources in your SCO project with the same project kubeconfig you use for <code>kubectl</code>. Terraform signs in as you, so it can do exactly what your project role allows.</p>
+<p>This is the supported way to manage project resources programmatically today. Continuous deployment tools such as ArgoCD and Flux need an automation identity, which is not available yet; see <a href="../gitops-access/argocd-setup.html">ArgoCD Setup</a>.</p>
 <hr>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">#</a></h2>
 <ul>
-<li>Terraform installed (<a href="https://developer.hashicorp.com/terraform/install">official install guide</a>)</li>
+<li>Terraform (<a href="https://developer.hashicorp.com/terraform/install">official installation guide</a>) or OpenTofu</li>
 <li>Your project kubeconfig (see <a href="../kubectl-access/setup-kubectl.html">Setup kubectl</a>)</li>
+<li>A working <code>kubectl</code> login with that kubeconfig. Terraform reuses the same login, so run any <code>kubectl</code> command first if your session has expired.</li>
 </ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Use the <code>alekc/kubectl</code> provider, as shown below. The <code>hashicorp/kubernetes</code> provider (<code>kubernetes_manifest</code>, <code>data "kubernetes_resource"</code>) does not work for project users: it needs to read the API schemas directly, which project users are not allowed to do, and fails with a <code>customresourcedefinitions ... is forbidden</code> error.</p>
+</div>
 <hr>
 <h2 id="step-1-configure-the-provider">Step 1: Configure the Provider<a class="headerlink" href="#step-1-configure-the-provider" title="Permanent link">#</a></h2>
+<p>Find the context name in your project kubeconfig:</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>config<span class="w"> </span>get-contexts<span class="w"> </span>--kubeconfig<span class="w"> </span>~/.kube/my-project.yaml
+</code></pre></div>
+<p>The kubeconfig downloaded from the console has a single context named <code>dev</code>. Use the name the command prints.</p>
 <div class="highlight"><pre><span></span><code><span class="nb">terraform</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="nb">required_providers</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nb">kubernetes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="na">source</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s2">"hashicorp/kubernetes"</span>
-<span class="w">      </span><span class="na">version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"~&gt; 2.0"</span>
+<span class="w">    </span><span class="nb">kubectl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="na">source</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s2">"alekc/kubectl"</span>
+<span class="w">      </span><span class="na">version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"~&gt; 2.4"</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 
-<span class="kr">provider</span><span class="w"> </span><span class="nv">"kubernetes"</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="na">config_path</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="nf">pathexpand</span><span class="p">(</span><span class="s2">"~/.kube/my-project.yaml"</span><span class="p">)</span>
-<span class="w">  </span><span class="na">config_context</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"my-project"</span>
+<span class="kr">provider</span><span class="w"> </span><span class="nv">"kubectl"</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="na">config_path</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="nf">pathexpand</span><span class="p">(</span><span class="s2">"~/.kube/my-project.yaml"</span><span class="p">)</span>
+<span class="w">  </span><span class="na">config_context</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="s2">"dev"</span>
+<span class="w">  </span><span class="na">load_config_file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="no">true</span>
 <span class="p">}</span>
 </code></pre></div>
-<p>Or use the <code>KUBECONFIG</code> environment variable:</p>
+<p>Or set the <code>KUBECONFIG</code> environment variable and leave <code>config_path</code> out:</p>
 <div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">KUBECONFIG</span><span class="o">=</span>~/.kube/my-project.yaml
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="kr">provider</span><span class="w"> </span><span class="nv">"kubernetes"</span><span class="w"> </span><span class="p">{}</span>
+<div class="highlight"><pre><span></span><code><span class="kr">provider</span><span class="w"> </span><span class="nv">"kubectl"</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="na">load_config_file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="no">true</span>
+<span class="p">}</span>
 </code></pre></div>
 <hr>
 <h2 id="step-2-provision-a-service">Step 2: Provision a Service<a class="headerlink" href="#step-2-provision-a-service" title="Permanent link">#</a></h2>
-<p>Use <code>kubernetes_manifest</code> to apply SCO claims:</p>
-<div class="highlight"><pre><span></span><code><span class="kr">resource</span><span class="w"> </span><span class="nc">"kubernetes_manifest"</span><span class="w"> </span><span class="nv">"dev_vm"</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="nb">manifest</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<p>Use <code>kubectl_manifest</code> to apply SCO claims. Write the claim with <code>yamlencode</code> so Terraform checks the structure for you:</p>
+<div class="highlight"><pre><span></span><code><span class="kr">variable</span><span class="w"> </span><span class="nv">"ssh_public_key"</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="na">description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"OpenSSH public key, for example the contents of ~/.ssh/id_ed25519.pub"</span>
+<span class="w">  </span><span class="na">type</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="kt">string</span>
+<span class="p">}</span>
+
+<span class="kr">resource</span><span class="w"> </span><span class="nc">"kubectl_manifest"</span><span class="w"> </span><span class="nv">"dev_vm"</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="na">yaml_body</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">yamlencode</span><span class="p">({</span>
 <span class="w">    </span><span class="na">apiVersion</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"compute.cloud.stakater.com/v1"</span>
 <span class="w">    </span><span class="na">kind</span><span class="w">       </span><span class="o">=</span><span class="w"> </span><span class="s2">"VirtualMachine"</span>
 <span class="w">    </span><span class="nb">metadata</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="na">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"dev-vm"</span>
+<span class="w">      </span><span class="na">name</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="s2">"dev-vm"</span>
+<span class="w">      </span><span class="na">namespace</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"default"</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="w">    </span><span class="nb">spec</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
 <span class="w">      </span><span class="nb">parameters</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="na">flavour</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="s2">"rhel9"</span>
 <span class="w">        </span><span class="na">instanceType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"o1.medium"</span>
 <span class="w">        </span><span class="na">connection</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="s2">"private"</span>
-<span class="w">        </span><span class="na">sshPublicKey</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">var.ssh_public_key</span>
+<span class="w">        </span><span class="nb">sshPublicKey</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="na">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">base64encode</span><span class="p">(</span><span class="nv">var.ssh_public_key</span><span class="p">)</span>
+<span class="w">        </span><span class="p">}</span>
 <span class="w">      </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
-<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="p">})</span>
 
-<span class="w">  </span><span class="nb">timeouts</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="na">create</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"10m"</span>
-<span class="w">    </span><span class="na">delete</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"10m"</span>
-<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="na">wait_for_rollout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="no">false</span>
 <span class="p">}</span>
 </code></pre></div>
+<p>Two details differ from the <code>kubectl</code> examples elsewhere in these docs:</p>
+<ul>
+<li><strong><code>namespace = "default"</code> is required.</strong> <code>kubectl</code> fills it in for you; Terraform does not, and refuses the claim without it (<code>Resources of type VirtualMachine require a namespace</code>).</li>
+<li><strong><code>sshPublicKey</code> is an object</strong>, with the OpenSSH public key base64-encoded in <code>data</code>. A plain string is rejected.</li>
+</ul>
 <p>Apply:</p>
 <div class="highlight"><pre><span></span><code>terraform<span class="w"> </span>init
 terraform<span class="w"> </span>plan
@@ -6068,22 +6141,33 @@ terraform<span class="w"> </span>apply
 </code></pre></div>
 <hr>
 <h2 id="step-3-read-status">Step 3: Read Status<a class="headerlink" href="#step-3-read-status" title="Permanent link">#</a></h2>
-<div class="highlight"><pre><span></span><code><span class="kr">data</span><span class="w"> </span><span class="nc">"kubernetes_resource"</span><span class="w"> </span><span class="nv">"dev_vm"</span><span class="w"> </span><span class="p">{</span>
+<p>Read the claim back with the <code>kubectl_manifest</code> data source and decode its <code>json</code> attribute:</p>
+<div class="highlight"><pre><span></span><code><span class="kr">data</span><span class="w"> </span><span class="nc">"kubectl_manifest"</span><span class="w"> </span><span class="nv">"dev_vm"</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="na">api_version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"compute.cloud.stakater.com/v1"</span>
 <span class="w">  </span><span class="na">kind</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="s2">"VirtualMachine"</span>
-<span class="w">  </span><span class="nb">metadata</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="na">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"dev-vm"</span>
-<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="na">name</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="s2">"dev-vm"</span>
+<span class="w">  </span><span class="na">namespace</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="s2">"default"</span>
+<span class="w">  </span><span class="na">depends_on</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="nv">kubectl_manifest.dev_vm</span><span class="p">]</span>
+<span class="p">}</span>
+
+<span class="kr">output</span><span class="w"> </span><span class="nv">"vm_ready"</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="na">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">try</span><span class="p">([</span><span class="err">for</span><span class="w"> </span><span class="err">c</span><span class="w"> </span><span class="err">in</span><span class="w"> </span><span class="nf">jsondecode</span><span class="p">(</span><span class="nv">data.kubectl_manifest.dev_vm.json</span><span class="p">).</span><span class="nv">status.conditions</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="nv">c.status</span><span class="w"> </span><span class="err">if</span><span class="w"> </span><span class="nv">c.type</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="s2">"Ready"</span><span class="p">][</span><span class="m">0</span><span class="p">],</span><span class="w"> </span><span class="kt">null</span><span class="p">)</span>
 <span class="p">}</span>
 
 <span class="kr">output</span><span class="w"> </span><span class="nv">"vm_status"</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="na">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">data.kubernetes_resource.dev_vm.object.status</span>
+<span class="w">  </span><span class="na">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">try</span><span class="p">(</span><span class="nf">jsondecode</span><span class="p">(</span><span class="nv">data.kubectl_manifest.dev_vm.json</span><span class="p">).</span><span class="nv">status.vm.printableStatus</span><span class="p">,</span><span class="w"> </span><span class="kt">null</span><span class="p">)</span>
 <span class="p">}</span>
 </code></pre></div>
+<p>The VM takes a few minutes to become ready. Run <code>terraform apply</code> again to refresh the outputs.</p>
+<hr>
+<h2 id="step-4-clean-up">Step 4: Clean Up<a class="headerlink" href="#step-4-clean-up" title="Permanent link">#</a></h2>
+<div class="highlight"><pre><span></span><code>terraform<span class="w"> </span>destroy
+</code></pre></div>
+<p>This deletes the claim, and the platform removes the VM.</p>
 <hr>
 <h2 id="whats-next">What's Next?<a class="headerlink" href="#whats-next" title="Permanent link">#</a></h2>
 <ul>
-<li><a href="kubernetes-provider.html">Kubernetes Provider</a> — Advanced patterns and multiple project configuration</li>
+<li><a href="kubernetes-provider.html">Kubernetes Provider</a> — More services, multiple projects and state management</li>
 <li><a href="../solutions/provisioning-solutions.html">Provisioning Solutions</a> — SCO claim structure reference</li>
 <li><a href="../../api-reference/overview.html">API Reference</a> — Full parameter reference for all services</li>
 </ul>

@@ -4020,7 +4020,7 @@ This documentation is either for an old version, or for the unreleased 'main' ve
   <span class="md-ellipsis">
     
   
-    Creating Organisations
+    Creating Organizations
   
 
     
@@ -5493,6 +5493,34 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="mesh-policy.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MeshPolicy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -6227,14 +6255,15 @@ netbird<span class="w"> </span>up<span class="w"> </span>--management-url<span c
 </code></pre></div>
 <p>This opens a browser for single sign-on. After registration, the peer appears in the dashboard and you can assign it to groups.</p>
 <h3 id="managing-groups-policies-and-setup-keys">Managing groups, policies, and setup keys<a class="headerlink" href="#managing-groups-policies-and-setup-keys" title="Permanent link">#</a></h3>
-<p>Manage them declaratively with claims in the same API group — <code>MeshGroup</code>, <code>MeshPolicy</code>, <code>MeshRoute</code>, and <code>MeshSetupKey</code> — or interactively in the Mesh dashboard at <code>status.mesh.dashboardURL</code>.</p>
+<p>Manage them declaratively with claims in the <code>mesh.cloud.stakater.com</code> API group — <code>MeshGroup</code>, <a href="mesh-policy.html"><code>MeshPolicy</code></a>, <code>MeshRoute</code>, and <code>MeshSetupKey</code> — or interactively in the Mesh dashboard at <code>status.mesh.dashboardURL</code>.</p>
 <h2 id="platform-services-over-the-mesh">Platform services over the Mesh<a class="headerlink" href="#platform-services-over-the-mesh" title="Permanent link">#</a></h2>
 <p>Platform-provisioned services in your organisation are published to Mesh peers automatically. A <a href="vault.html">Vault</a>, for example, gets a stable DNS name (<code>bao.&lt;organisation&gt;.mesh.&lt;cluster-domain&gt;</code>) served with a publicly-trusted TLS certificate — reachable only from enrolled peers, with no extra claims or dashboard configuration. To expose your <strong>own</strong> services the same way, use a <a href="mesh-router.html">MeshRouter</a>.</p>
 <h2 id="how-to-guide">How-to Guide<a class="headerlink" href="#how-to-guide" title="Permanent link">#</a></h2>
 <p><a href="../../how-to-guides/user/create-mesh.html">Create a Mesh</a></p>
 <h2 id="related">Related<a class="headerlink" href="#related" title="Permanent link">#</a></h2>
 <ul>
-<li><a href="mesh-router.html">MeshRouter</a> — make your own in-cluster Services reachable from peers on this Mesh.</li>
+<li><a href="mesh-router.html">MeshRouter</a> — make your own services reachable from peers on this Mesh.</li>
+<li><a href="mesh-policy.html">MeshPolicy</a> — grant groups access to each other on this Mesh.</li>
 <li><a href="vault.html">Vault</a> — published to Mesh peers automatically when your organisation runs a Mesh.</li>
 </ul>
 

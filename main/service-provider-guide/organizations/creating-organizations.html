@@ -22,7 +22,7 @@
     
     
       
-        <title>Creating Organisations - Stakater Cloud Orchestrator</title>
+        <title>Creating Organizations - Stakater Cloud Orchestrator</title>
       
     
     
@@ -95,7 +95,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#creating-organisations" class="md-skip">
+        <a href="#creating-organizations" class="md-skip">
           Skip to content
         </a>
       
@@ -4033,7 +4033,7 @@ This documentation is either for an old version, or for the unreleased 'main' ve
   <span class="md-ellipsis">
     
   
-    Creating Organisations
+    Creating Organizations
   
 
     
@@ -4051,7 +4051,7 @@ This documentation is either for an old version, or for the unreleased 'main' ve
   <span class="md-ellipsis">
     
   
-    Creating Organisations
+    Creating Organizations
   
 
     
@@ -4101,10 +4101,10 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-1-apply-the-organisation-onboarding-claim" class="md-nav__link">
+  <a href="#step-1-apply-the-organization-claim" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 1: Apply the Organisation Onboarding Claim
+        Step 1: Apply the Organization Claim
       
     </span>
   </a>
@@ -4112,10 +4112,10 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-2-verify-the-organisation" class="md-nav__link">
+  <a href="#step-2-verify-the-organization" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 2: Verify the Organisation
+        Step 2: Verify the Organization
       
     </span>
   </a>
@@ -4123,10 +4123,10 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-3-notify-the-organisation-administrator" class="md-nav__link">
+  <a href="#step-3-hand-over-to-the-organization-administrator" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 3: Notify the Organisation Administrator
+        Step 3: Hand Over to the Organization Administrator
       
     </span>
   </a>
@@ -4134,10 +4134,10 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 </li>
       
         <li class="md-nav__item">
-  <a href="#managing-multiple-organisations" class="md-nav__link">
+  <a href="#managing-multiple-organizations" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Managing Multiple Organisations
+        Managing Multiple Organizations
       
     </span>
   </a>
@@ -5443,6 +5443,34 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api-reference/public-apis/mesh-policy.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MeshPolicy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -5979,10 +6007,10 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-1-apply-the-organisation-onboarding-claim" class="md-nav__link">
+  <a href="#step-1-apply-the-organization-claim" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 1: Apply the Organisation Onboarding Claim
+        Step 1: Apply the Organization Claim
       
     </span>
   </a>
@@ -5990,10 +6018,10 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-2-verify-the-organisation" class="md-nav__link">
+  <a href="#step-2-verify-the-organization" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 2: Verify the Organisation
+        Step 2: Verify the Organization
       
     </span>
   </a>
@@ -6001,10 +6029,10 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-3-notify-the-organisation-administrator" class="md-nav__link">
+  <a href="#step-3-hand-over-to-the-organization-administrator" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 3: Notify the Organisation Administrator
+        Step 3: Hand Over to the Organization Administrator
       
     </span>
   </a>
@@ -6012,10 +6040,10 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 </li>
       
         <li class="md-nav__item">
-  <a href="#managing-multiple-organisations" class="md-nav__link">
+  <a href="#managing-multiple-organizations" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Managing Multiple Organisations
+        Managing Multiple Organizations
       
     </span>
   </a>
@@ -6050,83 +6078,166 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 
 
 
-<h1 id="creating-organisations">Creating Organisations<a class="headerlink" href="#creating-organisations" title="Permanent link">#</a></h1>
-<p>Organisations are the top-level tenancy unit in SCO. Each organisation gets a fully isolated identity realm, a dedicated virtual API workspace hierarchy, and its own set of users, groups, and projects.</p>
+<h1 id="creating-organizations">Creating Organizations<a class="headerlink" href="#creating-organizations" title="Permanent link">#</a></h1>
+<p>Organizations are the top-level tenancy unit in SCO. Each organization gets a fully isolated identity realm, a dedicated virtual API workspace hierarchy, and its own set of users, groups, and projects.</p>
 <hr>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">#</a></h2>
 <ul>
-<li><code>infrastructure.stakater.com</code> API available</li>
-<li><code>kubectl</code> configured with platform administrator access</li>
-<li>An admin email address for the initial organisation administrator</li>
+<li>The <code>organizations.infrastructure.stakater.com</code> API available on the hosting cluster</li>
+<li><code>kubectl</code> configured with platform administrator access to the hosting cluster</li>
+<li>An admin email address for the initial organization administrator</li>
 </ul>
 <hr>
 <h2 id="what-gets-created">What Gets Created<a class="headerlink" href="#what-gets-created" title="Permanent link">#</a></h2>
-<p>When an organisation is provisioned, SCO automatically creates:</p>
+<p>When an organization is provisioned, SCO automatically creates:</p>
 <ul>
 <li>An isolated identity realm for authentication (users, groups, SSO configuration)</li>
-<li>A virtual API workspace for the organisation and its projects</li>
-<li>An initial administrator account with credentials sent to the specified email</li>
-<li>Default role bindings for the organisation admin</li>
+<li>A virtual API workspace for the organization and its projects</li>
+<li>An initial administrator account for the admin email, with a generated password</li>
+<li>Default role bindings for the organization admin</li>
+<li>An organization mesh and secret store, unless you turn them off (<code>mesh.enabled</code>, <code>bao.enabled</code>)</li>
 </ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The platform does <strong>not</strong> email the credentials. Organization realms have no mail server configured, so no welcome or password email is sent. You hand the initial credentials to the organization administrator yourself (see <a href="#step-3-hand-over-to-the-organization-administrator">Step 3</a>).</p>
+</div>
 <hr>
-<h2 id="step-1-apply-the-organisation-onboarding-claim">Step 1: Apply the Organisation Onboarding Claim<a class="headerlink" href="#step-1-apply-the-organisation-onboarding-claim" title="Permanent link">#</a></h2>
+<h2 id="step-1-apply-the-organization-claim">Step 1: Apply the Organization Claim<a class="headerlink" href="#step-1-apply-the-organization-claim" title="Permanent link">#</a></h2>
+<p>Organizations are <code>Organization</code> claims (<code>infrastructure.stakater.com/v1alpha1</code>) in the <code>kcp-sco-orgs</code> namespace of the hosting cluster:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">infrastructure.stakater.com/v1alpha1</span>
-<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">XOrgOnboarding</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Organization</span>
 <span class="nt">metadata</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">acme-corp</span>
+<span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kcp-sco-orgs</span>
 <span class="nt">spec</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">providerConfigRef</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kubernetes-provider</span>
 <span class="w">  </span><span class="nt">kcpRootProviderConfigRef</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kcp-root-provider</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cloud</span>
+<span class="w">  </span><span class="nt">keycloakProviderConfigRef</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">keycloak-config-rhbk-public</span>
 <span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">organizationName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">acme-corp</span>
 <span class="w">    </span><span class="nt">adminEmail</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">admin@acmecorp.example.com</span>
+<span class="w">    </span><span class="nt">mesh</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">    </span><span class="nt">bao</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>org-onboarding.yaml
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>metadata.name</code></td>
+<td>Claim name. Use the same value as <code>organizationName</code>.</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>spec.providerConfigRef.name</code></td>
+<td>Provider configuration for the hosting cluster</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>spec.kcpRootProviderConfigRef.name</code></td>
+<td>Provider configuration for the root virtual API workspace</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>spec.keycloakProviderConfigRef.name</code></td>
+<td>Provider configuration for the identity service</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>parameters.organizationName</code></td>
+<td>Organization identifier (required)</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>parameters.adminEmail</code></td>
+<td>Email of the initial organization administrator (required)</td>
+<td>—</td>
+</tr>
+<tr>
+<td><code>parameters.mesh.enabled</code></td>
+<td>Provision the organization's default mesh</td>
+<td><code>true</code></td>
+</tr>
+<tr>
+<td><code>parameters.bao.enabled</code></td>
+<td>Provision the organization's default secret store</td>
+<td><code>true</code></td>
+</tr>
+</tbody>
+</table>
+<p>The provider configuration names differ per platform; the values above are the ones used on Stakater-managed hubs. Copy them from an existing organization on your hosting cluster:</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>organizations.infrastructure.stakater.com<span class="w"> </span>-n<span class="w"> </span>kcp-sco-orgs<span class="w"> </span>-o<span class="w"> </span>yaml
 </code></pre></div>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>organization-acme-corp.yaml
+</code></pre></div>
+<p>On a platform managed through GitOps, commit the claim to the platform's GitOps repository instead of applying it by hand.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The <code>organizationName</code> value becomes the organisation's identifier throughout the platform. Choose a short, URL-safe name — lowercase letters, numbers, and hyphens only.</p>
+<p>The <code>organizationName</code> value becomes the organization's identifier throughout the platform and cannot be renamed later. Choose a short, URL-safe name — lowercase letters, numbers, and hyphens only.</p>
 </div>
-<h2 id="step-2-verify-the-organisation">Step 2: Verify the Organisation<a class="headerlink" href="#step-2-verify-the-organisation" title="Permanent link">#</a></h2>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>organizations
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Do not name an organization <code>alpha</code> or <code>constellation</code> on Stakater-managed hubs. The platform's tenant configuration ships sample tenants with those names, and an organization with the same name inherits their settings, which leaves its workloads with no node they can run on.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Decide on <code>mesh.enabled</code> when you create the organization. Turning the mesh off later on an existing organization can leave mesh resources stuck on deletion.</p>
+</div>
+<h2 id="step-2-verify-the-organization">Step 2: Verify the Organization<a class="headerlink" href="#step-2-verify-the-organization" title="Permanent link">#</a></h2>
+<p>Several APIs on the hosting cluster serve a resource called <code>organizations</code>, so always use the fully qualified name:</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>organizations.infrastructure.stakater.com<span class="w"> </span>-n<span class="w"> </span>kcp-sco-orgs<span class="w"> </span>acme-corp
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>NAME        STATUS   AGE
-acme-corp   Ready    2m
+<div class="highlight"><pre><span></span><code>NAME        SYNCED   READY   CONNECTION-SECRET   AGE
+acme-corp   True     True                        2m
 </code></pre></div>
-<p>The organisation is ready when its <code>STATUS</code> is <code>Ready</code>. At this point:</p>
+<p>The organization is ready when <code>READY</code> is <code>True</code>. At this point:</p>
 <ul>
 <li>The administrator account has been created</li>
-<li>Login credentials have been sent to the specified email address</li>
-<li>The organisation's console URL is active</li>
+<li>The organization's console URL is active</li>
 </ul>
-<h2 id="step-3-notify-the-organisation-administrator">Step 3: Notify the Organisation Administrator<a class="headerlink" href="#step-3-notify-the-organisation-administrator" title="Permanent link">#</a></h2>
-<p>Share the following with the new organisation administrator:</p>
+<h2 id="step-3-hand-over-to-the-organization-administrator">Step 3: Hand Over to the Organization Administrator<a class="headerlink" href="#step-3-hand-over-to-the-organization-administrator" title="Permanent link">#</a></h2>
+<p>No credentials email is sent, so share the following with the new organization administrator over a secure channel:</p>
 <ul>
-<li>The SCO console URL for their organisation</li>
-<li>That they have received login credentials by email</li>
+<li>The SCO console URL for their organization</li>
+<li>Their username (the admin email) and the initial password</li>
 <li>Links to the <a href="../../cloud-user-guide/getting-started.html">Cloud User Guide</a></li>
 </ul>
-<hr>
-<h2 id="managing-multiple-organisations">Managing Multiple Organisations<a class="headerlink" href="#managing-multiple-organisations" title="Permanent link">#</a></h2>
-<p>Each organisation is completely isolated — no shared user database, no cross-organisation credential. As a platform provider you can:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># List all organisations</span>
-kubectl<span class="w"> </span>get<span class="w"> </span>organizations
+<!-- TODO(SA-8708): document where a platform administrator reads the generated initial admin password, and whether the administrator must change it at first login. Not verified for this change. -->
 
-<span class="c1"># Inspect a specific organisation</span>
-kubectl<span class="w"> </span>describe<span class="w"> </span>organization<span class="w"> </span>acme-corp
+<p>The same applies to users the organization administrator creates later: they receive no email, and the organization administrator passes on their initial credentials (see <a href="../../how-to-guides/user/create-iam-user.html">How to Create an IAM User</a>).</p>
+<hr>
+<h2 id="managing-multiple-organizations">Managing Multiple Organizations<a class="headerlink" href="#managing-multiple-organizations" title="Permanent link">#</a></h2>
+<p>Each organization is completely isolated — no shared user database, no cross-organization credential. As a platform provider you can:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># List all organizations</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>organizations.infrastructure.stakater.com<span class="w"> </span>-n<span class="w"> </span>kcp-sco-orgs
+
+<span class="c1"># Inspect a specific organization</span>
+kubectl<span class="w"> </span>describe<span class="w"> </span>organizations.infrastructure.stakater.com<span class="w"> </span>-n<span class="w"> </span>kcp-sco-orgs<span class="w"> </span>acme-corp
 </code></pre></div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Deleting an organisation removes all projects, provisioned services, users, and data within it. This action is irreversible. Notify the customer and ensure data has been exported before proceeding.</p>
+<p>Deleting an organization removes all projects, provisioned services, users, and data within it. This action is irreversible. Notify the customer and ensure data has been exported before proceeding.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If your GitOps tooling syncs organization claims without pruning, removing the file from Git does not delete the organization. Delete the claim on the hosting cluster as well.</p>
 </div>
 <hr>
 <h2 id="whats-next">What's Next?<a class="headerlink" href="#whats-next" title="Permanent link">#</a></h2>
 <ul>
-<li><a href="keycloak-realms.html">Keycloak Realms</a> — Configure SSO and identity federation for the organisation</li>
-<li><a href="../projects/project-architecture.html">Project Architecture</a> — How projects are structured within an organisation</li>
-<li><a href="../../how-to-guides/user/create-project.html">Create Project</a> — Create projects for organisation users</li>
+<li><a href="keycloak-realms.html">Keycloak Realms</a> — Configure SSO and identity federation for the organization</li>
+<li><a href="../projects/project-architecture.html">Project Architecture</a> — How projects are structured within an organization</li>
+<li><a href="../../how-to-guides/user/create-project.html">Create Project</a> — Create projects for organization users</li>
 </ul>
 
 

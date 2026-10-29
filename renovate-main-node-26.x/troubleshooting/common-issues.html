@@ -4021,7 +4021,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Creating Organisations
+    Creating Organizations
   
 
     
@@ -5314,6 +5314,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api-reference/public-apis/mesh-policy.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MeshPolicy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -5902,6 +5930,28 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#project-deleted-but-its-resources-keep-running" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Project deleted but its resources keep running
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#project-stuck-deleting-after-vms-were-removed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Project stuck deleting after VMs were removed
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -6201,6 +6251,28 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#project-deleted-but-its-resources-keep-running" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Project deleted but its resources keep running
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#project-stuck-deleting-after-vms-were-removed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Project stuck deleting after VMs were removed
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -6397,6 +6469,18 @@ kubectl<span class="w"> </span>cluster-info
 <p><strong>Cause:</strong> Deletion is ordered — all composed resources must be removed before the claim disappears. This is expected behaviour.</p>
 <p>VMs typically delete in under a minute. OpenShift clusters may take 5–10 minutes.</p>
 <p>If stuck for more than 15 minutes, contact your platform administrator.</p>
+<hr>
+<h3 id="project-deleted-but-its-resources-keep-running">Project deleted but its resources keep running<a class="headerlink" href="#project-deleted-but-its-resources-keep-running" title="Permanent link">#</a></h3>
+<p><strong>Cause:</strong> Projects have deletion protection turned on by default. Deleting a protected project removes the project itself, but the VMs, clusters and other resources in it keep running, and you can no longer see or remove them.</p>
+<p><strong>Fix:</strong> Before you delete a project, turn deletion protection off, then delete it:</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>label<span class="w"> </span>project<span class="w"> </span>my-project<span class="w"> </span>sco/deletion-protection<span class="o">=</span>disabled
+kubectl<span class="w"> </span>delete<span class="w"> </span>project<span class="w"> </span>my-project
+</code></pre></div>
+<p>See <a href="../cloud-user-guide/projects/creating-projects.html#deleting-a-project">Deleting a project</a>. If you already deleted a protected project, contact your platform administrator to remove what was left behind.</p>
+<hr>
+<h3 id="project-stuck-deleting-after-vms-were-removed">Project stuck deleting after VMs were removed<a class="headerlink" href="#project-stuck-deleting-after-vms-were-removed" title="Permanent link">#</a></h3>
+<p><strong>Cause:</strong> Known issue: billing records for deleted VMs are not always cleaned up, and they block the project from finishing its deletion.</p>
+<p><strong>Fix:</strong> Contact your platform administrator.</p>
 <hr>
 <h2 id="virtual-machines">Virtual Machines<a class="headerlink" href="#virtual-machines" title="Permanent link">#</a></h2>
 <h3 id="vm-ready-but-ssh-connection-refused">VM Ready but SSH connection refused<a class="headerlink" href="#vm-ready-but-ssh-connection-refused" title="Permanent link">#</a></h3>

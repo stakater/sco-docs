@@ -4021,7 +4021,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Creating Organisations
+    Creating Organizations
   
 
     
@@ -5478,6 +5478,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="mesh-policy.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MeshPolicy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -6161,14 +6189,9 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </thead>
 <tbody>
 <tr>
-<td><code>username</code></td>
-<td><code>string</code></td>
-<td>Username for the organisation user</td>
-</tr>
-<tr>
 <td><code>email</code></td>
 <td><code>string</code></td>
-<td>Email address for the user</td>
+<td>Email address for the user. It is also the user's login name, and the value to use in group <code>members</code> and project <code>access</code> entries</td>
 </tr>
 </tbody>
 </table>
@@ -6207,6 +6230,12 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <td><code>true</code></td>
 <td>Whether the user can log in immediately</td>
 </tr>
+<tr>
+<td><code>username</code></td>
+<td><code>string</code></td>
+<td>—</td>
+<td>Deprecated and ignored. The email address is used as the login name</td>
+</tr>
 </tbody>
 </table>
 <h2 id="status-fields">Status Fields<a class="headerlink" href="#status-fields" title="Permanent link">#</a></h2>
@@ -6227,7 +6256,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <tr>
 <td><code>status.user.username</code></td>
 <td><code>string</code></td>
-<td>Confirmed username</td>
+<td>Login name (the same as the email address)</td>
 </tr>
 <tr>
 <td><code>status.user.email</code></td>
@@ -6264,7 +6293,6 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">jane-doe</span>
 <span class="nt">spec</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">jane.doe</span>
 <span class="w">    </span><span class="nt">email</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">jane.doe@acmecorp.example.com</span>
 </code></pre></div>
 <h3 id="full">Full<a class="headerlink" href="#full" title="Permanent link">#</a></h3>
@@ -6274,7 +6302,6 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">jane-doe</span>
 <span class="nt">spec</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">jane.doe</span>
 <span class="w">    </span><span class="nt">email</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">jane.doe@acmecorp.example.com</span>
 <span class="w">    </span><span class="nt">firstName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Jane</span>
 <span class="w">    </span><span class="nt">lastName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Doe</span>

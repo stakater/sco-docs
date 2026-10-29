@@ -26,7 +26,7 @@ All parameters are nested under `spec.parameters`.
 | Field | Type | Description |
 |-------|------|-------------|
 | `path` | `string` | Path for the group in the organisation group hierarchy (e.g., `/teams/engineering`) |
-| `members` | `string[]` | List of usernames to add to the group |
+| `members` | `string[]` | Email addresses of the users to add to the group. Other values, such as a `User` claim's `username`, never match |
 | `attributes` | `object` | Additional key/value attributes to set on the group. Each value is a `string[]`. |
 
 ## Status Fields
@@ -68,9 +68,9 @@ spec:
     name: engineering-team
     path: /teams/engineering
     members:
-      - alice
-      - bob
-      - charlie
+      - alice@acmecorp.example.com
+      - bob@acmecorp.example.com
+      - charlie@acmecorp.example.com
 ```
 
 ### With Attributes

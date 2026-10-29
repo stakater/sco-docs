@@ -36,9 +36,12 @@ Each entry in `spec.parameters.access` defines role bindings for the project:
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `role` | `string` | Role name to bind (e.g., `cluster-admin`, `view`) |
-| `users` | `string[]` | List of user identifiers to grant the role |
-| `groups` | `string[]` | List of group identifiers to grant the role |
+| `role` | `string` | Role to grant: `platform-services-admin`, `platform-services-view`, or `<service>-user` / `<service>-viewer` for one service (`compute`, `database`, `kubernetes`, `mesh`, `network`, `secrets`, `storage`). See [Project Roles](../../cloud-user-guide/projects/creating-projects.md#project-roles) |
+| `users` | `string[]` | Email addresses of the users to grant the role |
+| `groups` | `string[]` | Names of the groups to grant the role |
+
+!!! warning
+    `role` is not validated. Any other name is accepted, and if it matches a built-in Kubernetes role such as `edit` or `cluster-admin`, it grants that role in the project, with far broader rights than the SCO roles. Use only the roles listed above.
 
 ## Status Fields
 
@@ -91,12 +94,12 @@ spec:
       cidr: 10.100.0.0/16
     tenantQuota: medium
     access:
-      - role: cluster-admin
+      - role: platform-services-admin
         groups:
           - platform-admins
         users:
           - alex@acmecorp.example.com
-      - role: view
+      - role: platform-services-view
         groups:
           - developers
           - qa-team

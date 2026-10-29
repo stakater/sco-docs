@@ -55,7 +55,7 @@ This opens a browser for single sign-on. After registration, the peer appears in
 
 ### Managing groups, policies, and setup keys
 
-Manage them declaratively with claims in the same API group — `MeshGroup`, `MeshPolicy`, `MeshRoute`, and `MeshSetupKey` — or interactively in the Mesh dashboard at `status.mesh.dashboardURL`.
+Manage them declaratively with claims in the `mesh.cloud.stakater.com` API group — `MeshGroup`, [`MeshPolicy`](./mesh-policy.md), `MeshRoute`, and `MeshSetupKey` — or interactively in the Mesh dashboard at `status.mesh.dashboardURL`.
 
 ## Platform services over the Mesh
 
@@ -67,5 +67,6 @@ Platform-provisioned services in your organisation are published to Mesh peers a
 
 ## Related
 
-- [MeshRouter](./mesh-router.md) — make your own in-cluster Services reachable from peers on this Mesh.
+- [MeshRouter](./mesh-router.md) — make your own services reachable from peers on this Mesh.
+- [MeshPolicy](./mesh-policy.md) — grant groups access to each other on this Mesh.
 - [Vault](./vault.md) — published to Mesh peers automatically when your organisation runs a Mesh.

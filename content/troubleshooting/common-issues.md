@@ -81,6 +81,29 @@ If stuck for more than 15 minutes, contact your platform administrator.
 
 ---
 
+### Project deleted but its resources keep running
+
+**Cause:** Projects have deletion protection turned on by default. Deleting a protected project removes the project itself, but the VMs, clusters and other resources in it keep running, and you can no longer see or remove them.
+
+**Fix:** Before you delete a project, turn deletion protection off, then delete it:
+
+```bash
+kubectl label project my-project sco/deletion-protection=disabled
+kubectl delete project my-project
+```
+
+See [Deleting a project](../cloud-user-guide/projects/creating-projects.md#deleting-a-project). If you already deleted a protected project, contact your platform administrator to remove what was left behind.
+
+---
+
+### Project stuck deleting after VMs were removed
+
+**Cause:** Known issue: billing records for deleted VMs are not always cleaned up, and they block the project from finishing its deletion.
+
+**Fix:** Contact your platform administrator.
+
+---
+
 ## Virtual Machines
 
 ### VM Ready but SSH connection refused

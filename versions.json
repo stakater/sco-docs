@@ -117,14 +117,14 @@
   {
     "version": "docs-sa-9394-scobasic-certificates",
     "title": "docs-sa-9394-scobasic-certificates",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "docs-sa-9189-postgres-vm-reachability",
     "title": "docs-sa-9189-postgres-vm-reachability",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "docs-networking-mode-not-self-service",

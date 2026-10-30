@@ -122,6 +122,11 @@
     ]
   },
   {
+    "version": "docs-sa-9189-postgres-vm-reachability",
+    "title": "docs-sa-9189-postgres-vm-reachability",
+    "aliases": []
+  },
+  {
     "version": "docs-networking-mode-not-self-service",
     "title": "docs-networking-mode-not-self-service",
     "aliases": []

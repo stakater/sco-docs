@@ -117,7 +117,11 @@ kubectl get virtualmachine my-vm -o jsonpath='{.status}'
 ssh -i ~/.ssh/my-key user@<vm-ip>
 ```
 
-If using `connection: private`, the VM IP is only reachable from within the cluster. Use `connection: public` for external access.
+A `connection: private` VM has no external address. To reach it from your laptop, set `meshRoute.enabled: true` on the VM and connect over your organisation's Mesh: the Mesh Route opens SSH (`22`), RDP (`3389`) and ICMP to enrolled devices. Use `connection: public` only when the VM must be reachable from the internet.
+
+!!! warning
+    SSH over the Mesh Route does not work yet for every project role. If `ssh` over the Mesh times out, see the limitations in [Deploy Your First Application](../how-to-guides/user/deploy-first-app.md).
+    <!-- Tracked internally: SA-9273 (SA-9189). Remove this note when fixed. -->
 
 ---
 

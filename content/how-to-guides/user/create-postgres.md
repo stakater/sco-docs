@@ -145,7 +145,11 @@ spec:
     exposeLoadBalancer: true
 ```
 
-Connect using the credentials from the Vault — no port-forward needed:
+!!! warning "Port 5432 may not be open to the internet"
+    Whether `externalHost` is reachable from the internet depends on your cloud's network perimeter. On Stakater's production cloud the perimeter admits only a few ports, such as `443` for HTTPS, and PostgreSQL's port `5432` is not one of them: the claim still reports Ready and `externalHost` still gets an address, but connections from outside the platform's network time out. Ask your platform team which ports your perimeter admits.
+    <!-- Source: ADR-0067 (gateway allowlist, confirmed for eu-1; eu-2 is more permissive, others unverified). Probe 2026-10-30: eu-1 VIP answers on 443, drops 5432. Not yet tested with a real Postgres claim. Tracked internally: SA-9189. -->
+
+From a network that can reach the endpoint, connect using the credentials from the Vault:
 
 ```bash
 PG_HOST=$(kubectl get postgres my-db -o jsonpath='{.status.connection.externalHost}')

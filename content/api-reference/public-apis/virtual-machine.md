@@ -27,7 +27,8 @@ All parameters are nested under `spec.parameters`.
 | Field | Type | Default | Description |
 |-------|------|---------|-------------|
 | `storageSize` | `string` | `medium` | Root disk size. Allowed: `small` (10 Gi), `medium` (30 Gi), `large` (50 Gi), `xlarge` (100 Gi) |
-| `connection` | `string` | `private` | Network access type. `private` = no external IP; `public` = LoadBalancer Service created |
+| `connection` | `string` | `private` | Network access type. `private` = no external address (reach it over the Mesh with `meshRoute`); `public` = LoadBalancer Service created |
+| `meshRoute.enabled` | `boolean` | `false` | Advertise the VM on your organisation's Mesh, so enrolled devices can reach it on SSH (`22`), RDP (`3389`) and ICMP |
 | `sshPublicKey.data` | `string` | — | Base64-encoded (or raw) SSH public key for VM access |
 | `cloudInit.userData` | `string` | — | Cloud-init `userData` script injected on first boot |
 

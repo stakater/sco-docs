@@ -82,9 +82,7 @@
   {
     "version": "fix-screenshots-name-input-id",
     "title": "fix-screenshots-name-input-id",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "feat-api-reference-s3-postgres",
@@ -144,7 +142,9 @@
   {
     "version": "docs-iam-group-names-no-path",
     "title": "docs-iam-group-names-no-path",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "architecture",

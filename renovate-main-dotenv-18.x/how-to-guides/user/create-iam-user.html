@@ -3100,6 +3100,17 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
+  <a href="#step-5-give-the-user-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5: Give the User Access
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#full-example" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4201,7 +4212,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Creating Organisations
+    Creating Organizations
   
 
     
@@ -5494,6 +5505,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api-reference/public-apis/mesh-policy.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MeshPolicy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -6113,6 +6152,17 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
+  <a href="#step-5-give-the-user-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5: Give the User Access
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#full-example" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -6152,7 +6202,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 
 
 <h1 id="how-to-create-an-iam-user">How to Create an IAM User<a class="headerlink" href="#how-to-create-an-iam-user" title="Permanent link">#</a></h1>
-<p>Learn how to create a user identity in your organisation's identity provider via a Project claim.</p>
+<p>Learn how to create a user identity in your organisation's identity provider with a User claim.</p>
 <p>Maria, an organisation administrator at ACME Corp, needs to provision a new team member's account so they can log in to the SCO console and access their project.</p>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">#</a></h2>
 <ul>
@@ -6164,7 +6214,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <h2 id="what-gets-created">What Gets Created<a class="headerlink" href="#what-gets-created" title="Permanent link">#</a></h2>
 <p>When you create a User claim, the platform provisions:</p>
 <ul>
-<li>An <strong>organisation user</strong> in your organisation's IdP with the specified username and email</li>
+<li>An <strong>organisation user</strong> in your organisation's IdP whose login name is the specified email address</li>
 <li>An <strong>auto-generated initial password</strong> (base64 encoded, available in the resource status)</li>
 </ul>
 <h2 id="in-the-console">In the Console<a class="headerlink" href="#in-the-console" title="Permanent link">#</a></h2>
@@ -6181,7 +6231,6 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">jane-doe</span>
 <span class="nt">spec</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">jane.doe</span>
 <span class="w">    </span><span class="nt">email</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">jane.doe@acmecorp.example.com</span>
 </code></pre></div>
 <h3 id="required-parameters">Required Parameters<a class="headerlink" href="#required-parameters" title="Permanent link">#</a></h3>
@@ -6194,12 +6243,8 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </thead>
 <tbody>
 <tr>
-<td><code>parameters.username</code></td>
-<td>Username for the organisation user</td>
-</tr>
-<tr>
 <td><code>parameters.email</code></td>
-<td>Email address for the user</td>
+<td>Email address for the user. It is also their login name, and the identifier you use for them in group <code>members</code> and project <code>access</code> entries</td>
 </tr>
 </tbody>
 </table>
@@ -6235,6 +6280,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </tr>
 </tbody>
 </table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code>parameters.username</code> is deprecated and ignored. Do not use it: the user cannot log in with it, and it does not work in group <code>members</code> or project <code>access</code> entries.</p>
+</div>
 <h2 id="step-2-add-full-profile-optional">Step 2: Add Full Profile (Optional)<a class="headerlink" href="#step-2-add-full-profile-optional" title="Permanent link">#</a></h2>
 <p>For a complete user profile, include first and last name:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">iam.cloud.stakater.com/v1</span>
@@ -6243,7 +6292,6 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">jane-doe</span>
 <span class="nt">spec</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">jane.doe</span>
 <span class="w">    </span><span class="nt">email</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">jane.doe@acmecorp.example.com</span>
 <span class="w">    </span><span class="nt">firstName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Jane</span>
 <span class="w">    </span><span class="nt">lastName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Doe</span>
@@ -6267,8 +6315,14 @@ jane-doe   True    True     1m
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Share the initial password securely with the new user. They should change it on first login.</p>
+<p>Share the initial password securely with the new user. They log in with their <strong>email address</strong> (<code>jane.doe@acmecorp.example.com</code>) and this password, and are asked to set a new password at first login. <!-- TODO(SA-8708): in ST-06 one of two test users was not asked to change the password at first console login; confirm the forced change is reliable --></p>
 </div>
+<h2 id="step-5-give-the-user-access">Step 5: Give the User Access<a class="headerlink" href="#step-5-give-the-user-access" title="Permanent link">#</a></h2>
+<p>A new user has no project access yet. Grant it by their email address, either directly in a project's <code>access</code> list or by adding them to a group:</p>
+<ul>
+<li><a href="../../cloud-user-guide/authentication/managing-users.html#granting-project-access">Granting Project Access</a></li>
+<li><a href="create-iam-group.html">Create an IAM Group</a></li>
+</ul>
 <h2 id="full-example">Full Example<a class="headerlink" href="#full-example" title="Permanent link">#</a></h2>
 <div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">iam.cloud.stakater.com/v1</span>
 <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">User</span>
@@ -6276,7 +6330,6 @@ jane-doe   True    True     1m
 <span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tenant-user</span>
 <span class="nt">spec</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tenant-admin</span>
 <span class="w">    </span><span class="nt">email</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">admin@org.example.com</span>
 <span class="w">    </span><span class="nt">firstName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Tenant</span>
 <span class="w">    </span><span class="nt">lastName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Admin</span>

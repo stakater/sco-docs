@@ -4151,7 +4151,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Creating Organisations
+    Creating Organizations
   
 
     
@@ -5444,6 +5444,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api-reference/public-apis/mesh-policy.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MeshPolicy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -6055,14 +6083,13 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <p>Organisation administrators can manage users and groups through the SCO IAM API. This controls who can log in to the organisation and what projects they can access.</p>
 <hr>
 <h2 id="creating-users">Creating Users<a class="headerlink" href="#creating-users" title="Permanent link">#</a></h2>
-<p>Create a user in your organisation with a <code>iam.cloud.stakater.com/v1 User</code> claim. The user is provisioned in your organisation's identity realm and receives a welcome email with login credentials.</p>
+<p>Create a user in your organisation with a <code>iam.cloud.stakater.com/v1 User</code> claim. The platform provisions an organisation user in your organisation's IdP. The user's <strong>email address is their login name</strong>: they log in with it, and you use it to add them to groups and grant them project access.</p>
 <div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">iam.cloud.stakater.com/v1</span>
 <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">User</span>
 <span class="nt">metadata</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">alice</span>
 <span class="nt">spec</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">alice</span>
 <span class="w">    </span><span class="nt">email</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">alice@acmecorp.example.com</span>
 <span class="w">    </span><span class="nt">firstName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Alice</span>
 <span class="w">    </span><span class="nt">lastName</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Smith</span>
@@ -6071,6 +6098,13 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </code></pre></div>
 <div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>alice.yaml
 </code></pre></div>
+<p>The platform generates an initial password and publishes it, base64-encoded, in the claim's status. Read it and share it with the user securely:</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>user<span class="w"> </span>alice<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.status.user.initialPassword}'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64<span class="w"> </span>-d
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code>username</code> parameter is deprecated and ignored. The user cannot log in with it, and it cannot be used in group <code>members</code> or project <code>access</code> entries. Always use the email address.</p>
+</div>
 <p>See the <a href="../../how-to-guides/user/create-iam-user.html">Create IAM User</a> how-to guide for the full parameter reference.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -6097,28 +6131,33 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">developers</span>
 <span class="w">    </span><span class="nt">members</span><span class="p">:</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">alice</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bob</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">alice@acmecorp.example.com</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bob@acmecorp.example.com</span>
 </code></pre></div>
+<p>List members by their email address.</p>
 <div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>developers-group.yaml
 </code></pre></div>
 <p>See <a href="../../how-to-guides/user/create-iam-group.html">Create IAM Group</a> for the full guide.</p>
 <hr>
 <h2 id="granting-project-access">Granting Project Access<a class="headerlink" href="#granting-project-access" title="Permanent link">#</a></h2>
-<p>Project access is configured in the <code>Project</code> claim's <code>access</code> field:</p>
+<p>Project access is configured in the <code>Project</code> claim's <code>access</code> field. List individual users by their <strong>email address</strong>, and groups by name:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">spec</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">access</span><span class="p">:</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">admin</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">platform-services-admin</span>
 <span class="w">        </span><span class="nt">users</span><span class="p">:</span>
-<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">alice</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edit</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">alice@acmecorp.example.com</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">compute-user</span>
 <span class="w">        </span><span class="nt">groups</span><span class="p">:</span>
 <span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">developers</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">view</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">platform-services-view</span>
 <span class="w">        </span><span class="nt">groups</span><span class="p">:</span>
 <span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">stakeholders</span>
 </code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>An entry in <code>users</code> that is not the user's email address (for example the <code>username</code> from their <code>User</code> claim) grants nothing, and the project still reports <code>Ready</code>. The user then sees no projects in the console.</p>
+</div>
 <table>
 <thead>
 <tr>
@@ -6128,33 +6167,52 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </thead>
 <tbody>
 <tr>
-<td><code>admin</code></td>
-<td>Full control — create, update, delete any resource in the project</td>
+<td><code>platform-services-admin</code></td>
+<td>Full control of every platform service in the project. Can also read the project's Secrets</td>
 </tr>
 <tr>
-<td><code>edit</code></td>
-<td>Create and manage resources, cannot modify access configuration</td>
+<td><code>platform-services-view</code></td>
+<td>Read-only access to every platform service in the project. Can also read the project's Secrets</td>
 </tr>
 <tr>
-<td><code>view</code></td>
-<td>Read-only access to all resources in the project</td>
+<td><code>&lt;service&gt;-user</code></td>
+<td>Full control of one service (<code>compute</code>, <code>database</code>, <code>kubernetes</code>, <code>mesh</code>, <code>network</code>, <code>secrets</code> or <code>storage</code>). Can also read the project's Secrets</td>
+</tr>
+<tr>
+<td><code>&lt;service&gt;-viewer</code></td>
+<td>Read-only access to one service. Cannot read Secrets</td>
 </tr>
 </tbody>
 </table>
+<p>None of these roles lets a user change the project's <code>access</code> list; only organisation administrators can. See <a href="../projects/creating-projects.html#project-roles">Project Roles</a> for what each role covers.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Use only the roles in this table. Any other role name is accepted without an error. If it matches a built-in Kubernetes role, such as <code>edit</code> or <code>cluster-admin</code>, it grants that role in the project, with far broader rights than any SCO role, including creating and deleting Secrets.</p>
+</div>
 <hr>
 <h2 id="disabling-or-removing-a-user">Disabling or Removing a User<a class="headerlink" href="#disabling-or-removing-a-user" title="Permanent link">#</a></h2>
-<p>To disable a user without deleting them:</p>
+<p>To disable a user without deleting them, set <code>enabled: false</code> in their <code>User</code> claim and reapply it:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">spec</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
 </code></pre></div>
-<p>To permanently remove a user:</p>
+<p>To permanently remove a user, first remove them from every group (see <a href="#removing-a-user-from-a-group">Removing a User from a Group</a>) and from the <code>access</code> list of every project, then delete the claim:</p>
 <div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>delete<span class="w"> </span>user<span class="w"> </span>alice
 </code></pre></div>
-<p>This removes the user from your organisation's identity realm. They can no longer log in. Past audit log entries are retained.</p>
+<p>This removes the user from your organisation's IdP. They can no longer log in. Past audit log entries are retained.</p>
+<div class="admonition warning">
+<p class="admonition-title">Remove group memberships before deleting a user</p>
+<p>Always take a user out of their groups (or delete those groups) <strong>before</strong> deleting the user. If you delete the user first, a group they were in can no longer be deleted cleanly: it keeps trying to remove a member who no longer exists. If that has already happened, contact your platform provider.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Disabling or deleting a user does not end their mesh session</p>
+<p>Disabling or deleting a user blocks new logins to the console. It does <strong>not</strong> disconnect devices the user has already enrolled in your organisation mesh: a connected device keeps its mesh access until its own mesh login expires. Until this is fixed, an organisation administrator must also remove the user's devices from the mesh: open the Mesh dashboard (its URL is on the Mesh detail page in the console, see <a href="../../how-to-guides/user/create-mesh.html#step-4-open-the-dashboard">Create a Mesh</a>), find the user's devices in the list of peers, and remove them.</p>
+</div>
+<!-- TODO(SA-8708): replace the mesh warning once SA-9375 (disable/delete should expire the user's mesh peers) is fixed; confirm the dashboard's control for removing a peer -->
+
 <hr>
 <h2 id="removing-a-user-from-a-group">Removing a User from a Group<a class="headerlink" href="#removing-a-user-from-a-group" title="Permanent link">#</a></h2>
-<p>Update the <code>members</code> list in the group claim and reapply it. Removing a user from a group immediately revokes any project access granted via that group.</p>
+<p>Remove the user's email address from the <code>members</code> list in the group claim and reapply it. Removing a user from a group revokes any project access granted via that group.</p>
 <hr>
 <h2 id="whats-next">What's Next?<a class="headerlink" href="#whats-next" title="Permanent link">#</a></h2>
 <ul>

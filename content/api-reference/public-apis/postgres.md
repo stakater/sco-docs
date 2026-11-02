@@ -21,7 +21,7 @@ All parameters are nested under `spec.parameters`.
 |-------|------|---------|-------------|
 | `instances` | `integer` | `1` | Number of PostgreSQL instances (replicas) |
 | `storage.size` | `string` | `10Gi` | Disk size per PostgreSQL instance |
-| `exposeLoadBalancer` | `boolean` | `false` | When `true`, the database is reachable from outside the project via an externally-routable endpoint. When `false`, the database is reachable only from inside the project. |
+| `exposeLoadBalancer` | `boolean` | `false` | When `true`, the platform creates an external endpoint for the database and reports it in `status.connection.externalHost`. Whether that endpoint is reachable from the internet depends on your cloud's network perimeter; on Stakater's production cloud it is not, because the perimeter does not admit port `5432` (see [Test from Your Workstation](../../how-to-guides/user/create-postgres.md#test-from-your-workstation)). When `false`, the database is reachable only from inside the project. |
 
 ## Status Fields
 

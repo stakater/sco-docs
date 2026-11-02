@@ -6287,7 +6287,13 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <td><code>connection</code></td>
 <td><code>string</code></td>
 <td><code>private</code></td>
-<td>Network access type. <code>private</code> = no external IP; <code>public</code> = LoadBalancer Service created</td>
+<td>Network access type. <code>private</code> = no external address (reach it over the Mesh with <code>meshRoute</code>); <code>public</code> = LoadBalancer Service created</td>
+</tr>
+<tr>
+<td><code>meshRoute.enabled</code></td>
+<td><code>boolean</code></td>
+<td><code>false</code></td>
+<td>Advertise the VM on your organisation's Mesh, so enrolled devices can reach it on SSH (<code>22</code>), RDP (<code>3389</code>) and ICMP</td>
 </tr>
 <tr>
 <td><code>sshPublicKey.data</code></td>

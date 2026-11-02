@@ -126,7 +126,18 @@ spec:
       clusterDomain: cluster.local
       podCIDR: <pod-cidr>
       serviceCIDR: <service-cidr>
+
+    certificate:
+      type: byo                # <- required on your own domain
+      clusterIssuer: <cluster-issuer>
+
+    dns:
+      type: byo                # <- required on your own domain
 ```
+
+Keep the `certificate` and `dns` blocks. Without them the platform tries to
+issue certificates and create DNS records through Stakater's own DNS, which
+cannot work on your domain. See [Certificates and DNS](#certificates-and-dns).
 
 ### KubeStackPlus claim
 
@@ -179,6 +190,7 @@ clusterDefaults:
 | `<apps-domain>` | `oc get ingresses.config cluster -o jsonpath='{.spec.domain}'` |
 | `<pod-cidr>` | `oc get network.config cluster -o jsonpath='{.spec.clusterNetwork[*].cidr}'` |
 | `<service-cidr>` | `oc get network.config cluster -o jsonpath='{.spec.serviceNetwork[*]}'` |
+| `<cluster-issuer>` | The name of the cert-manager `ClusterIssuer` you create — see [Certificates and DNS](#certificates-and-dns) |
 | `<your-storage-class>` | `oc get storageclass` — an RWO class |
 | `<range-start>` / `<range-end>` | A free address range you own |
 
@@ -186,6 +198,38 @@ clusterDefaults:
     Placeholder CIDRs that look plausible are not good enough. Incorrect values
     produce components that start but cannot reach each other, and nothing
     reports an error.
+
+## Certificates and DNS
+
+The platform does not bring a certificate authority or DNS provider for your
+domain. It uses one certificate issuer that you provide.
+
+1. Before installing, create a cert-manager `ClusterIssuer` that can issue
+   certificates for `<apps-domain>`. Use either ACME with a DNS-01 solver for
+   your DNS provider, or a CA issuer backed by your own certificate authority.
+   The platform's router certificate is a wildcard, so ACME HTTP-01 does not
+   work.
+1. Set its name in the claim as `certificate.clusterIssuer`, with
+   `certificate.type: byo`. The platform then requests and renews all of its
+   certificates through that issuer.
+1. Set `dns.type: byo`. You keep ownership of DNS records. The wildcard and `api`
+   records already exist on an installed cluster.
+
+If your issuer is backed by a private CA that clients do not trust by default,
+also set `certificate.privateCA: true` and pass the root CA to `ksp up` with
+`--trusted-ca`. Decide this before installing; it cannot be turned on later.
+
+!!! note "Default router and API server certificates"
+    In this mode the platform also points the default router and the API server
+    at the certificates it issues. To keep the certificates they serve today,
+    contact Stakater before installing.
+
+!!! tip "Already installed without these blocks?"
+    If `oc get clusterissuer letsencrypt` reports a missing `aws-dns-creds` secret,
+    the claim is still on the default mode. Create your `ClusterIssuer`, add the
+    `certificate` and `dns` blocks to `kubestack-config-claim.yaml`, and re-apply
+    it with `oc apply -f kubestack-config-claim.yaml`. You do not need to run
+    `ksp up` again, and you do not need AWS credentials.
 
 ## Choosing how the secret store unseals
 

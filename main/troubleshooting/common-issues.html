@@ -6488,7 +6488,12 @@ kubectl<span class="w"> </span>delete<span class="w"> </span>project<span class=
 <div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>virtualmachine<span class="w"> </span>my-vm<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.status}'</span>
 ssh<span class="w"> </span>-i<span class="w"> </span>~/.ssh/my-key<span class="w"> </span>user@&lt;vm-ip&gt;
 </code></pre></div>
-<p>If using <code>connection: private</code>, the VM IP is only reachable from within the cluster. Use <code>connection: public</code> for external access.</p>
+<p>A <code>connection: private</code> VM has no external address. To reach it from your laptop, set <code>meshRoute.enabled: true</code> on the VM and connect over your organisation's Mesh: the Mesh Route opens SSH (<code>22</code>), RDP (<code>3389</code>) and ICMP to enrolled devices. Use <code>connection: public</code> only when the VM must be reachable from the internet.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>SSH over the Mesh Route does not work yet for every project role. If <code>ssh</code> over the Mesh times out, see the limitations in <a href="../how-to-guides/user/deploy-first-app.html">Deploy Your First Application</a>.
+<!-- Tracked internally: SA-9273 (SA-9189). Remove this note when fixed. --></p>
+</div>
 <hr>
 <h3 id="cloud-init-script-didnt-run">Cloud-init script didn't run<a class="headerlink" href="#cloud-init-script-didnt-run" title="Permanent link">#</a></h3>
 <p><strong>Cause:</strong> Syntax error in <code>cloudInit.userData</code>.</p>

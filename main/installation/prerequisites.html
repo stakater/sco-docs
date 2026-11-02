@@ -6416,7 +6416,7 @@ oc<span class="w"> </span>whoami
 <h2 id="network-requirements">Network Requirements<a class="headerlink" href="#network-requirements" title="Permanent link">#</a></h2>
 <ul>
 <li><strong>DNS</strong>: Wildcard DNS configured for cluster ingress (e.g., <code>*.apps.cluster.example.com</code>)</li>
-<li><strong>TLS</strong>: Wildcard TLS certificate for ingress routes</li>
+<li><strong>TLS</strong>: A cert-manager <code>ClusterIssuer</code> that can issue certificates for your apps domain, including a wildcard (ACME DNS-01 or your own CA)</li>
 <li><strong>Connectivity</strong>: Outbound access to container registries (docker.io, Quay.io, ghcr.io)</li>
 </ul>
 <h2 id="registry-access">Registry Access<a class="headerlink" href="#registry-access" title="Permanent link">#</a></h2>
@@ -6449,7 +6449,7 @@ helm<span class="w"> </span>pull<span class="w"> </span>oci://ghcr.io/stakater/r
 <li>[ ] <code>ksp</code> CLI installed and on PATH</li>
 <li>[ ] <code>oc</code> authenticated to the cluster</li>
 <li>[ ] Wildcard DNS configured</li>
-<li>[ ] Wildcard TLS certificate ready</li>
+<li>[ ] Certificate issuer (<code>ClusterIssuer</code>) ready for your apps domain</li>
 <li>[ ] Registry access granted to your GitHub account, and a <code>read:packages</code> token created</li>
 <li>[ ] <code>KubeStackConfig</code> claim file prepared</li>
 <li>[ ] <code>KubeStackPlus</code> claim file prepared</li>

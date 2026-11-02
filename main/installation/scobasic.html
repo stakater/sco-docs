@@ -3767,6 +3767,17 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 </li>
       
         <li class="md-nav__item">
+  <a href="#certificates-and-dns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Certificates and DNS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#choosing-how-the-secret-store-unseals" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -6285,6 +6296,17 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 </li>
       
         <li class="md-nav__item">
+  <a href="#certificates-and-dns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Certificates and DNS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#choosing-how-the-secret-store-unseals" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -6562,7 +6584,17 @@ below are what differ for <code>scobasic</code>.</p>
 <span class="w">      </span><span class="nt">clusterDomain</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cluster.local</span>
 <span class="w">      </span><span class="nt">podCIDR</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;pod-cidr&gt;</span>
 <span class="w">      </span><span class="nt">serviceCIDR</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;service-cidr&gt;</span>
+
+<span class="w">    </span><span class="nt">certificate</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">byo</span><span class="w">                </span><span class="c1"># &lt;- required on your own domain</span>
+<span class="w">      </span><span class="nt">clusterIssuer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;cluster-issuer&gt;</span>
+
+<span class="w">    </span><span class="nt">dns</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">byo</span><span class="w">                </span><span class="c1"># &lt;- required on your own domain</span>
 </code></pre></div>
+<p>Keep the <code>certificate</code> and <code>dns</code> blocks. Without them the platform tries to
+issue certificates and create DNS records through Stakater's own DNS, which
+cannot work on your domain. See <a href="#certificates-and-dns">Certificates and DNS</a>.</p>
 <h3 id="kubestackplus-claim">KubeStackPlus claim<a class="headerlink" href="#kubestackplus-claim" title="Permanent link">#</a></h3>
 <div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cloud.stakater.com/v1alpha1</span>
 <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">KubeStackPlus</span>
@@ -6625,6 +6657,10 @@ address range:</p>
 <td><code>oc get network.config cluster -o jsonpath='{.spec.serviceNetwork[*]}'</code></td>
 </tr>
 <tr>
+<td><code>&lt;cluster-issuer&gt;</code></td>
+<td>The name of the cert-manager <code>ClusterIssuer</code> you create — see <a href="#certificates-and-dns">Certificates and DNS</a></td>
+</tr>
+<tr>
 <td><code>&lt;your-storage-class&gt;</code></td>
 <td><code>oc get storageclass</code> — an RWO class</td>
 </tr>
@@ -6639,6 +6675,38 @@ address range:</p>
 <p>Placeholder CIDRs that look plausible are not good enough. Incorrect values
 produce components that start but cannot reach each other, and nothing
 reports an error.</p>
+</div>
+<h2 id="certificates-and-dns">Certificates and DNS<a class="headerlink" href="#certificates-and-dns" title="Permanent link">#</a></h2>
+<p>The platform does not bring a certificate authority or DNS provider for your
+domain. It uses one certificate issuer that you provide.</p>
+<ol>
+<li>Before installing, create a cert-manager <code>ClusterIssuer</code> that can issue
+   certificates for <code>&lt;apps-domain&gt;</code>. Use either ACME with a DNS-01 solver for
+   your DNS provider, or a CA issuer backed by your own certificate authority.
+   The platform's router certificate is a wildcard, so ACME HTTP-01 does not
+   work.</li>
+<li>Set its name in the claim as <code>certificate.clusterIssuer</code>, with
+   <code>certificate.type: byo</code>. The platform then requests and renews all of its
+   certificates through that issuer.</li>
+<li>Set <code>dns.type: byo</code>. You keep ownership of DNS records. The wildcard and <code>api</code>
+   records already exist on an installed cluster.</li>
+</ol>
+<p>If your issuer is backed by a private CA that clients do not trust by default,
+also set <code>certificate.privateCA: true</code> and pass the root CA to <code>ksp up</code> with
+<code>--trusted-ca</code>. Decide this before installing; it cannot be turned on later.</p>
+<div class="admonition note">
+<p class="admonition-title">Default router and API server certificates</p>
+<p>In this mode the platform also points the default router and the API server
+at the certificates it issues. To keep the certificates they serve today,
+contact Stakater before installing.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Already installed without these blocks?</p>
+<p>If <code>oc get clusterissuer letsencrypt</code> reports a missing <code>aws-dns-creds</code> secret,
+the claim is still on the default mode. Create your <code>ClusterIssuer</code>, add the
+<code>certificate</code> and <code>dns</code> blocks to <code>kubestack-config-claim.yaml</code>, and re-apply
+it with <code>oc apply -f kubestack-config-claim.yaml</code>. You do not need to run
+<code>ksp up</code> again, and you do not need AWS credentials.</p>
 </div>
 <h2 id="choosing-how-the-secret-store-unseals">Choosing how the secret store unseals<a class="headerlink" href="#choosing-how-the-secret-store-unseals" title="Permanent link">#</a></h2>
 <p>Decide this <strong>before</strong> the first installation — the choice is recorded permanently

@@ -55,7 +55,6 @@ metadata:
   name: developers
 spec:
   parameters:
-    name: developers
     members:
       - emma@acmecorp.example.com
 ```

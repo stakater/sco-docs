@@ -65,7 +65,6 @@ metadata:
   name: developers
 spec:
   parameters:
-    name: developers
     members:
       - alice@acmecorp.example.com
       - bob@acmecorp.example.com

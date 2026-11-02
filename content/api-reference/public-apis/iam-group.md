@@ -13,13 +13,11 @@ Creates a group in your organisation's identity provider and manages its members
 
 ## Spec Parameters
 
-All parameters are nested under `spec.parameters`.
+All parameters are nested under `spec.parameters`. None is required.
 
-### Required
+The group is named after `metadata.name`, which is also its name in your organisation's identity provider. These names are reserved for platform access and are refused when you create the group: `customer-admin`, names that start with `stakater-`, and names that end with `-cluster-admin` or `-stakater-admin`.
 
-| Field | Type | Description |
-|-------|------|-------------|
-| `name` | `string` | Name of the group in your organisation's identity provider. Use the same value as `metadata.name`, which names the `Group` resource in your project |
+`spec.parameters.name` is deprecated and ignored. Older claims that still set it keep working, and the group is named after `metadata.name`.
 
 ### Optional
 
@@ -50,8 +48,7 @@ kind: Group
 metadata:
   name: engineering-team
 spec:
-  parameters:
-    name: engineering-team
+  parameters: {}
 ```
 
 ### With Members
@@ -63,7 +60,6 @@ metadata:
   name: engineering-team
 spec:
   parameters:
-    name: engineering-team
     members:
       - alice@acmecorp.example.com
       - bob@acmecorp.example.com
@@ -79,7 +75,6 @@ metadata:
   name: platform-team
 spec:
   parameters:
-    name: platform-team
     attributes:
       department:
         - engineering

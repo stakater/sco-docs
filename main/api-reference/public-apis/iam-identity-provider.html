@@ -6235,6 +6235,11 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 <td><code>string</code></td>
 <td>JSON Web Key Set URL. Must use <code>https</code> and the issuer's host.</td>
 </tr>
+<tr>
+<td><code>credentials.secretPath</code></td>
+<td><code>string</code></td>
+<td>Path of the Vault entry that holds <code>clientId</code> and <code>clientSecret</code>, inside your organisation folder <code>stakater/org/</code>, for example <code>idp/acme-okta</code>. Segments of letters, digits, <code>.</code>, <code>_</code> or <code>-</code>, separated by <code>/</code>.</td>
+</tr>
 </tbody>
 </table>
 <h3 id="optional">Optional<a class="headerlink" href="#optional" title="Permanent link">#</a></h3>
@@ -6312,9 +6317,19 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 <td>Register <strong>every</strong> URI in your identity provider's application</td>
 </tr>
 <tr>
+<td><code>status.credentials.vaultPath</code></td>
+<td><code>string</code></td>
+<td>Full Vault path the platform copies the client credentials from</td>
+</tr>
+<tr>
+<td><code>status.credentials.synced</code></td>
+<td><code>boolean</code></td>
+<td>Whether the last copy from Vault succeeded</td>
+</tr>
+<tr>
 <td><code>status.secretName</code></td>
 <td><code>string</code></td>
-<td>Name under which your platform provider stores the client credentials</td>
+<td>Name of the platform's copy of the client credentials</td>
 </tr>
 <tr>
 <td><code>status.organizationId</code></td>
@@ -6328,10 +6343,12 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 </tr>
 </tbody>
 </table>
-<p>The console badge shows <strong>ready</strong>, <strong>progressing</strong> while the identity provider waits for its client credentials, <strong>error</strong> when a check fails, and <strong>warning</strong> when the identity provider works, but its last change was not applied.</p>
+<p>The console badge shows <strong>ready</strong>, <strong>progressing</strong> while the identity provider waits for its client credentials in Vault, <strong>error</strong> when a check fails, and <strong>warning</strong> when the identity provider works, but its last change was not applied.</p>
 <h2 id="behaviour">Behaviour<a class="headerlink" href="#behaviour" title="Permanent link">#</a></h2>
 <ul>
-<li>Nothing is created until your platform provider has stored the client ID, the client secret and the approved issuer. The claim's <code>issuer</code> must match the approved issuer.</li>
+<li>The client ID and client secret come only from your organisation's Vault, from the entry <code>stakater/org/&lt;credentials.secretPath&gt;</code>, which only organisation administrators can write. The platform copies the keys <code>clientId</code> and <code>clientSecret</code> and nothing else.</li>
+<li>Nothing is created until both keys are in that entry. A changed secret in Vault reaches the identity provider within about 15 minutes.</li>
+<li>When Vault cannot be read, the identity provider keeps the last copy and keeps working. <code>status.message</code> says so.</li>
 <li>When a change to a working identity provider fails a check, nothing changes and the identity provider keeps working. <code>status.message</code> starts with <code>change not applied:</code>.</li>
 <li>At a user's first sign-in, the platform creates an organisation user without a password.</li>
 <li>Removing the claim removes every organisation user that was created through it.</li>
@@ -6352,6 +6369,8 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 <span class="w">    </span><span class="nt">tokenUrl</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://acme.okta.com/oauth2/v1/token</span>
 <span class="w">    </span><span class="nt">jwksUrl</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://acme.okta.com/oauth2/v1/keys</span>
 <span class="w">    </span><span class="nt">userInfoUrl</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://acme.okta.com/oauth2/v1/userinfo</span>
+<span class="w">    </span><span class="nt">credentials</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">secretPath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">idp/acme-okta</span>
 </code></pre></div>
 <h3 id="microsoft-entra-id">Microsoft <code>Entra</code> ID<a class="headerlink" href="#microsoft-entra-id" title="Permanent link">#</a></h3>
 <div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">iam.cloud.stakater.com/v1</span>
@@ -6367,6 +6386,8 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 <span class="w">    </span><span class="nt">authorizationUrl</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://login.microsoftonline.com/&lt;tenant-id&gt;/oauth2/v2.0/authorize</span>
 <span class="w">    </span><span class="nt">tokenUrl</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://login.microsoftonline.com/&lt;tenant-id&gt;/oauth2/v2.0/token</span>
 <span class="w">    </span><span class="nt">jwksUrl</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://login.microsoftonline.com/&lt;tenant-id&gt;/discovery/v2.0/keys</span>
+<span class="w">    </span><span class="nt">credentials</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">secretPath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">idp/acme-entra</span>
 </code></pre></div>
 <h2 id="how-to-guide">How-to Guide<a class="headerlink" href="#how-to-guide" title="Permanent link">#</a></h2>
 <p><a href="../../how-to-guides/user/connect-identity-provider.html">Connect Your Company Identity Provider</a></p>

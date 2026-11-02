@@ -15,12 +15,17 @@ Maria, an organisation administrator at ACME Corp, wants to create a group for h
 
 When you create a Group claim, the platform provisions:
 
-- An **organisation group** in your organisation's IdP at the specified path
+- An **organisation group** in your organisation's IdP
 - **Group memberships** if `members` are provided (adds existing organisation users to the group)
 
 ## In the Console
 
-Groups sit next to Users under **Identity & Access**. The create form asks for the project the group belongs to, then the same name and path as the claim:
+Groups sit next to Users under **Identity & Access**. The create form has two name fields, and both are required:
+
+- **Group name**, at the top, names the `Group` resource in your project. It is `metadata.name` in the claim.
+- **Name**, under **General**, is the group's name in your organisation's identity provider. It is `parameters.name` in the claim.
+
+Enter the same value in both, as the YAML examples below do:
 
 ![The Create Group form]({{ screenshot: iam-group-create }})
 
@@ -44,8 +49,9 @@ metadata:
 spec:
   parameters:
     name: engineering-team
-    path: /teams/engineering
 ```
+
+`metadata.name` names the `Group` resource in your project, and `parameters.name` is the group's name in your organisation's identity provider. Use the same value for both.
 
 ### Required Parameters
 
@@ -57,7 +63,6 @@ spec:
 
 | Parameter | Description |
 |-----------|-------------|
-| `parameters.path` | Path for the group in the organisation group hierarchy (e.g., `/teams/engineering`) |
 | `parameters.members` | Email addresses of the organisation users to add to the group |
 | `parameters.attributes` | Additional key-value attributes to set on the group |
 
@@ -73,7 +78,6 @@ metadata:
 spec:
   parameters:
     name: engineering-team
-    path: /teams/engineering
     members:
       - alice@acmecorp.example.com
       - bob@acmecorp.example.com
@@ -123,27 +127,26 @@ metadata:
 spec:
   parameters:
     name: tenant-group
-    path: /tenant-group
     members:
       - user1@tenant.com
       - user2@tenant.com
 ```
 
-### Group with Hierarchy
+### Group with Attributes
 
 ```yaml
 apiVersion: iam.cloud.stakater.com/v1
 kind: Group
 metadata:
-  name: engineering-team
+  name: platform-team
 spec:
   parameters:
-    name: engineering-team
-    path: /teams/engineering
-    members:
-      - alice@acmecorp.example.com
-      - bob@acmecorp.example.com
-      - charlie@acmecorp.example.com
+    name: platform-team
+    attributes:
+      department:
+        - engineering
+      costCentre:
+        - cc-1234
 ```
 
 ## Using Groups for Project Access

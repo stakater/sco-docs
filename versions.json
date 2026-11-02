@@ -82,7 +82,9 @@
   {
     "version": "fix-screenshots-name-input-id",
     "title": "fix-screenshots-name-input-id",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "feat-api-reference-s3-postgres",
@@ -122,9 +124,7 @@
   {
     "version": "docs-sa-9217-idp-credentials-org-vault",
     "title": "docs-sa-9217-idp-credentials-org-vault",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "docs-networking-mode-not-self-service",

@@ -89,7 +89,12 @@ A path you give a claim is always **relative to your project folder**: `win/stan
 |---|---|---|
 | any path you choose | organisation administrators | `clientId` and `clientSecret` of your company identity provider, read by an [IdentityProvider](./iam-identity-provider.md) through `credentials.secretPath` |
 
-In the web UI, open an entry by its link, for example `<address>/ui/vault/secrets/stakater/create/?initialKey=org/idp/acme-okta` to create one. The `org-admins` role cannot sign in from the command line with `bao login -method=oidc`; copy the token from the web UI (**user menu > Copy token**) and run `bao login <token>`.
+In the web UI, open an entry by its link, for example `<address>/ui/vault/secrets/stakater/create/?initialKey=org/idp/acme-okta` to create one. The `org-admins` role cannot sign in from the command line with `bao login -method=oidc`. To use the CLI, copy the token from the web UI (**user menu > Copy token**), point the CLI at the Vault, and paste the token when `bao login` asks for it. Do not put the token on the command line, where your shell history would keep it.
+
+```sh
+export BAO_ADDR=<address>
+bao login
+```
 
 ## Access over the Mesh
 

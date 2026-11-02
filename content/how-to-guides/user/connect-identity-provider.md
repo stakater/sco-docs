@@ -172,7 +172,7 @@ The organisation folder `stakater/org/` of your Vault holds what belongs to the 
 The platform copies only these two keys. The identity provider becomes ready within about five minutes.
 
 !!! note
-    Signing in to Vault from the command line with `bao login -method=oidc` does not work for the `org-admins` role. Sign in with the browser instead. To use the CLI, copy the token from the browser (**user menu > Copy token**) and run `bao login <token>`.
+    Signing in to Vault from the command line with `bao login -method=oidc` does not work for the `org-admins` role. Sign in with the browser instead. To use the CLI, copy the token from the browser (**user menu > Copy token**), run `export BAO_ADDR=<vault-address>` and then `bao login`, and paste the token when it asks for it. Do not put the token on the command line, where your shell history would keep it.
 
 ## Step 6: Verify
 

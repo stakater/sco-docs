@@ -27,9 +27,7 @@
   {
     "version": "renovate-main-node-26.x",
     "title": "renovate-main-node-26.x",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "renovate-main-node-24.x-lockfile",
@@ -144,7 +142,9 @@
   {
     "version": "ci-closed-pr-deploy-concurrency",
     "title": "ci-closed-pr-deploy-concurrency",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "architecture",

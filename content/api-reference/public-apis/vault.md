@@ -81,6 +81,16 @@ Changes to a project's `access` apply to new sign-ins: removing a user or group 
 
 A path you give a claim is always **relative to your project folder**: `win/standard` means `stakater/projects/<organisation>-<project>/win/standard`. A claim cannot name a path outside it.
 
+### Organisation folder
+
+`stakater/org/` holds what belongs to the whole organisation rather than to one project. Only organisation administrators can use it: sign in with the role `org-admins`. Project roles cannot open it.
+
+| Path (under `stakater/org/`) | Written by | Contents |
+|---|---|---|
+| any path you choose | organisation administrators | `clientId` and `clientSecret` of your company identity provider, read by an [IdentityProvider](./iam-identity-provider.md) through `credentials.secretPath` |
+
+In the web UI, open an entry by its link, for example `<address>/ui/vault/secrets/stakater/create/?initialKey=org/idp/acme-okta` to create one. The `org-admins` role cannot sign in from the command line with `bao login -method=oidc`; copy the token from the web UI (**user menu > Copy token**) and run `bao login <token>`.
+
 ## Access over the Mesh
 
 When your organisation runs a [Mesh](./mesh.md), the platform automatically publishes the Vault to Mesh peers — no extra claim needed. The Mesh endpoint appears in the claim's status as `status.endpoint.meshAddress`:

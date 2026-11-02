@@ -26,6 +26,7 @@ All parameters are nested under `spec.parameters`.
 | `authorizationUrl` | `string` | Authorization endpoint. Must use `https` and the issuer's host. |
 | `tokenUrl` | `string` | Token endpoint. Must use `https` and the issuer's host. |
 | `jwksUrl` | `string` | JSON Web Key Set URL. Must use `https` and the issuer's host. |
+| `credentials.secretPath` | `string` | Path of the Vault entry that holds `clientId` and `clientSecret`, inside your organisation folder `stakater/org/`, for example `idp/acme-okta`. Segments of letters, digits, `.`, `_` or `-`, separated by `/`. |
 
 ### Optional
 
@@ -45,15 +46,19 @@ All parameters are nested under `spec.parameters`.
 | `status.ready` | `boolean` | Whether the identity provider is in place and users can sign in through it |
 | `status.message` | `string` | Why the identity provider is not ready, or which change was not applied. Empty when all is well. |
 | `status.redirectUris` | `string[]` | Register **every** URI in your identity provider's application |
-| `status.secretName` | `string` | Name under which your platform provider stores the client credentials |
+| `status.credentials.vaultPath` | `string` | Full Vault path the platform copies the client credentials from |
+| `status.credentials.synced` | `boolean` | Whether the last copy from Vault succeeded |
+| `status.secretName` | `string` | Name of the platform's copy of the client credentials |
 | `status.organizationId` | `string` | ID that the platform gives to the set of domains of this identity provider |
 | `status.conditions` | `array` | Standard Kubernetes conditions |
 
-The console badge shows **ready**, **progressing** while the identity provider waits for its client credentials, **error** when a check fails, and **warning** when the identity provider works, but its last change was not applied.
+The console badge shows **ready**, **progressing** while the identity provider waits for its client credentials in Vault, **error** when a check fails, and **warning** when the identity provider works, but its last change was not applied.
 
 ## Behaviour
 
-- Nothing is created until your platform provider has stored the client ID, the client secret and the approved issuer. The claim's `issuer` must match the approved issuer.
+- The client ID and client secret come only from your organisation's Vault, from the entry `stakater/org/<credentials.secretPath>`, which only organisation administrators can write. The platform copies the keys `clientId` and `clientSecret` and nothing else.
+- Nothing is created until both keys are in that entry. A changed secret in Vault reaches the identity provider within about 15 minutes.
+- When Vault cannot be read, the identity provider keeps the last copy and keeps working. `status.message` says so.
 - When a change to a working identity provider fails a check, nothing changes and the identity provider keeps working. `status.message` starts with `change not applied:`.
 - At a user's first sign-in, the platform creates an organisation user without a password.
 - Removing the claim removes every organisation user that was created through it.
@@ -77,6 +82,8 @@ spec:
     tokenUrl: https://acme.okta.com/oauth2/v1/token
     jwksUrl: https://acme.okta.com/oauth2/v1/keys
     userInfoUrl: https://acme.okta.com/oauth2/v1/userinfo
+    credentials:
+      secretPath: idp/acme-okta
 ```
 
 ### Microsoft `Entra` ID
@@ -95,6 +102,8 @@ spec:
     authorizationUrl: https://login.microsoftonline.com/<tenant-id>/oauth2/v2.0/authorize
     tokenUrl: https://login.microsoftonline.com/<tenant-id>/oauth2/v2.0/token
     jwksUrl: https://login.microsoftonline.com/<tenant-id>/discovery/v2.0/keys
+    credentials:
+      secretPath: idp/acme-entra
 ```
 
 ## How-to Guide

@@ -129,7 +129,7 @@ oc whoami
 ## Network Requirements
 
 - **DNS**: Wildcard DNS configured for cluster ingress (e.g., `*.apps.cluster.example.com`)
-- **TLS**: Wildcard TLS certificate for ingress routes
+- **TLS**: A cert-manager `ClusterIssuer` that can issue certificates for your apps domain, including a wildcard (ACME DNS-01 or your own CA)
 - **Connectivity**: Outbound access to container registries (docker.io, Quay.io, ghcr.io)
 
 ## Registry Access
@@ -168,7 +168,7 @@ See [OpenShift Installation](openshift.md) for example claim files.
 - [ ] `ksp` CLI installed and on PATH
 - [ ] `oc` authenticated to the cluster
 - [ ] Wildcard DNS configured
-- [ ] Wildcard TLS certificate ready
+- [ ] Certificate issuer (`ClusterIssuer`) ready for your apps domain
 - [ ] Registry access granted to your GitHub account, and a `read:packages` token created
 - [ ] `KubeStackConfig` claim file prepared
 - [ ] `KubeStackPlus` claim file prepared

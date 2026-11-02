@@ -32,7 +32,9 @@
   {
     "version": "renovate-main-node-24.x-lockfile",
     "title": "renovate-main-node-24.x-lockfile",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "renovate-main-node-24.x",
@@ -117,9 +119,7 @@
   {
     "version": "docs-sa-9189-postgres-vm-reachability",
     "title": "docs-sa-9189-postgres-vm-reachability",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "docs-networking-mode-not-self-service",

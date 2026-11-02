@@ -117,7 +117,9 @@
   {
     "version": "docs-sa-9217-idp-credentials-org-vault",
     "title": "docs-sa-9217-idp-credentials-org-vault",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "docs-networking-mode-not-self-service",
@@ -137,9 +139,7 @@
   {
     "version": "docs-iam-group-names-no-path",
     "title": "docs-iam-group-names-no-path",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "ci-closed-pr-deploy-concurrency",

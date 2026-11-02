@@ -6445,7 +6445,10 @@ bao<span class="w"> </span>kv<span class="w"> </span>get<span class="w"> </span>
 </tr>
 </tbody>
 </table>
-<p>In the web UI, open an entry by its link, for example <code>&lt;address&gt;/ui/vault/secrets/stakater/create/?initialKey=org/idp/acme-okta</code> to create one. The <code>org-admins</code> role cannot sign in from the command line with <code>bao login -method=oidc</code>; copy the token from the web UI (<strong>user menu &gt; Copy token</strong>) and run <code>bao login &lt;token&gt;</code>.</p>
+<p>In the web UI, open an entry by its link, for example <code>&lt;address&gt;/ui/vault/secrets/stakater/create/?initialKey=org/idp/acme-okta</code> to create one. The <code>org-admins</code> role cannot sign in from the command line with <code>bao login -method=oidc</code>. To use the CLI, copy the token from the web UI (<strong>user menu &gt; Copy token</strong>), point the CLI at the Vault, and paste the token when <code>bao login</code> asks for it. Do not put the token on the command line, where your shell history would keep it.</p>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">BAO_ADDR</span><span class="o">=</span>&lt;address&gt;
+bao<span class="w"> </span>login
+</code></pre></div>
 <h2 id="access-over-the-mesh">Access over the Mesh<a class="headerlink" href="#access-over-the-mesh" title="Permanent link">#</a></h2>
 <p>When your organisation runs a <a href="mesh.html">Mesh</a>, the platform automatically publishes the Vault to Mesh peers — no extra claim needed. The Mesh endpoint appears in the claim's status as <code>status.endpoint.meshAddress</code>:</p>
 <ul>

@@ -6674,7 +6674,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <p>The platform copies only these two keys. The identity provider becomes ready within about five minutes.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Signing in to Vault from the command line with <code>bao login -method=oidc</code> does not work for the <code>org-admins</code> role. Sign in with the browser instead. To use the CLI, copy the token from the browser (<strong>user menu &gt; Copy token</strong>) and run <code>bao login &lt;token&gt;</code>.</p>
+<p>Signing in to Vault from the command line with <code>bao login -method=oidc</code> does not work for the <code>org-admins</code> role. Sign in with the browser instead. To use the CLI, copy the token from the browser (<strong>user menu &gt; Copy token</strong>), run <code>export BAO_ADDR=&lt;vault-address&gt;</code> and then <code>bao login</code>, and paste the token when it asks for it. Do not put the token on the command line, where your shell history would keep it.</p>
 </div>
 <h2 id="step-6-verify">Step 6: Verify<a class="headerlink" href="#step-6-verify" title="Permanent link">#</a></h2>
 <p>Check the claim:</p>

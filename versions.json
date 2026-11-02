@@ -122,6 +122,11 @@
     "aliases": []
   },
   {
+    "version": "docs-sa-9217-idp-credentials-org-vault",
+    "title": "docs-sa-9217-idp-credentials-org-vault",
+    "aliases": []
+  },
+  {
     "version": "docs-networking-mode-not-self-service",
     "title": "docs-networking-mode-not-self-service",
     "aliases": []

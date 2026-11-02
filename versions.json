@@ -80,11 +80,6 @@
     "aliases": []
   },
   {
-    "version": "fix-screenshots-name-input-id",
-    "title": "fix-screenshots-name-input-id",
-    "aliases": []
-  },
-  {
     "version": "feat-api-reference-s3-postgres",
     "title": "feat-api-reference-s3-postgres",
     "aliases": []

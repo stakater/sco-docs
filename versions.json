@@ -147,11 +147,6 @@
     "aliases": []
   },
   {
-    "version": "ci-closed-pr-deploy-concurrency",
-    "title": "ci-closed-pr-deploy-concurrency",
-    "aliases": []
-  },
-  {
     "version": "architecture",
     "title": "architecture",
     "aliases": []

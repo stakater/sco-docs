@@ -98,7 +98,7 @@ Practical sizing:
 
 ## Preparing the claim files
 
-`ksp up` applies three files. The structure matches the
+`ksp up` applies three files, plus the organization platform config. The structure matches the
 [hosting installation](openshift.md#step-2-prepare-claim-files); the values
 below are what differ for `scobasic`.
 
@@ -182,6 +182,38 @@ clusterDefaults:
       enabled: false
 ```
 
+### Organization platform config
+
+Every organization reads the EnvironmentConfig `organization-platform-config`.
+It is required: without it no organization can be created. It also turns the
+optional organization integrations on: an AWS Organizational Unit per
+organization, Azure AD SSO for organization admins, outbound email (SMTP) for the
+organization realms, and audit. For `scobasic` all of them are usually off:
+
+```yaml
+apiVersion: apiextensions.crossplane.io/v1beta1
+kind: EnvironmentConfig
+metadata:
+  name: organization-platform-config
+data:
+  aws:
+    enabled: false
+  azuread:
+    enabled: false
+  smtp:
+    enabled: false
+  audit:
+    enabled: false
+```
+
+Pass it with `--organization-platform-config`. `ksp up` creates it right before
+the claims, and with every integration off when you leave the flag out. It never
+changes an existing one: edit it later with
+`kubectl edit environmentconfigs.apiextensions.crossplane.io organization-platform-config`.
+With a `ksp` version that does not have the flag, apply the file yourself
+(`kubectl apply -f organization-platform-config.yaml`) before you create the first
+organization.
+
 ### Where each value comes from
 
 | Value | How to obtain it |
@@ -249,6 +281,7 @@ ksp up \
   -c   kubestack-config-claim.yaml \
   -f   kubestack-plus-claim.yaml \
   --environment-config env-config.yaml \
+  --organization-platform-config organization-platform-config.yaml \
   --extra-secrets      extra-secrets.yaml \
   --registry-secret    registry-secret.yaml \
   --timeout 15m

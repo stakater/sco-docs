@@ -2950,6 +2950,28 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prerequisites
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-gets-created" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Gets Created
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#step-1-create-users-and-groups" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2972,10 +2994,21 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-3-provision-a-virtual-machine" class="md-nav__link">
+  <a href="#step-3-provision-a-virtual-machine-with-your-application" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 3: Provision a Virtual Machine
+        Step 3: Provision a Virtual Machine with Your Application
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-4-reach-the-application-over-the-mesh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: Reach the Application over the Mesh
       
     </span>
   </a>
@@ -4129,7 +4162,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Creating Organisations
+    Creating Organizations
   
 
     
@@ -5422,6 +5455,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api-reference/public-apis/mesh-policy.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MeshPolicy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -5947,6 +6008,28 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prerequisites
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-gets-created" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Gets Created
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#step-1-create-users-and-groups" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -5969,10 +6052,21 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-3-provision-a-virtual-machine" class="md-nav__link">
+  <a href="#step-3-provision-a-virtual-machine-with-your-application" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 3: Provision a Virtual Machine
+        Step 3: Provision a Virtual Machine with Your Application
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-4-reach-the-application-over-the-mesh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: Reach the Application over the Mesh
       
     </span>
   </a>
@@ -6008,56 +6102,92 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 
 
 <h1 id="how-to-deploy-your-first-application">How to Deploy Your First Application<a class="headerlink" href="#how-to-deploy-your-first-application" title="Permanent link">#</a></h1>
-<p>Learn how to deploy an application using SCO services.</p>
-<p>Emma, a developer at ACME Corp, needs to deploy her application with a virtual machine and a dedicated project.</p>
+<p>Learn how to deploy an application on a private virtual machine in its own project, using SCO services.</p>
+<p>Emma, a developer at ACME Corp, needs to deploy her application on a virtual machine in a dedicated project, where only her team can manage it and nothing is exposed to the internet.</p>
 <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">#</a></h2>
-<p>Deploying an application on SCO involves three main steps:</p>
+<p>Deploying an application on SCO involves four main steps:</p>
 <ol>
 <li><strong>Set up identity</strong> — Create the users and groups who will access the application environment</li>
-<li><strong>Create a project</strong> — Provision an isolated project with network and quota configuration</li>
-<li><strong>Provision compute</strong> — Deploy the virtual machines or clusters your application needs</li>
+<li><strong>Create a project</strong> — Provision an isolated project with its own network, and grant your team access</li>
+<li><strong>Provision compute with your application</strong> — Deploy a virtual machine that installs and starts your application</li>
+<li><strong>Reach the application</strong> — Connect to it privately over your organisation's Mesh</li>
 </ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Steps 1 and 2 need an organisation administrator. Steps 3 and 4 can be done by any project member with the <code>compute-user</code> role.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Current limitations</p>
+<p>Reaching an application privately over the Mesh does <strong>not</strong> work end to end yet. A VM's built-in Mesh Route opens only SSH (tcp/22), RDP (tcp/3389) and ICMP, not application ports such as <code>8080</code>, so the interim way to reach an application is an SSH tunnel (Step 4). That tunnel depends on the Mesh Route delivering SSH traffic to the VM, which it does not do yet, so Step 4 currently times out. A <a href="../../api-reference/public-apis/mesh-router.html">MeshRouter</a> with a <a href="../../api-reference/public-apis/mesh-policy.html">MeshPolicy</a> cannot reach project workloads either (see <a href="expose-service-via-mesh.html">Expose an Internal Service via the Mesh</a>).
+<!-- Tracked internally: SA-9272, SA-9273 (SA-8708). Remove this limitation when fixed. --></p>
+</div>
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">#</a></h2>
+<ul>
+<li>The <code>user.iam.cloud.stakater.com</code>, <code>group.iam.cloud.stakater.com</code>, <code>project.tenant.cloud.stakater.com</code> and <code>virtualmachine.compute.cloud.stakater.com</code> APIs available</li>
+<li><code>kubectl</code> configured with your organisation project kubeconfig (Steps 1–2) and, once it exists, the new project's kubeconfig (Steps 3–4)</li>
+<li>A <a href="create-mesh.html">Mesh</a> in your organisation, and a laptop enrolled on it</li>
+<li>An SSH key pair</li>
+</ul>
+<h2 id="what-gets-created">What Gets Created<a class="headerlink" href="#what-gets-created" title="Permanent link">#</a></h2>
+<p>Following this guide, the platform provisions:</p>
+<ul>
+<li><strong>Organisation users and a group</strong> in your organisation's IdP</li>
+<li><strong>A project</strong> with its own private network, and role-based access for your group</li>
+<li><strong>A private virtual machine</strong> running your application, advertised to your organisation's Mesh</li>
+</ul>
 <h2 id="step-1-create-users-and-groups">Step 1: Create Users and Groups<a class="headerlink" href="#step-1-create-users-and-groups" title="Permanent link">#</a></h2>
 <p>Before creating a project, set up identity resources for your team.</p>
 <p>Create a user for each team member:</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># See: How to Create an IAM User</span>
 kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>user.yaml
 </code></pre></div>
-<p>Organise users into a group:</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># See: How to Create an IAM Group</span>
-kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>group.yaml
+<p>Organise users into a group. Add each member by their <strong>email address</strong>:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">iam.cloud.stakater.com/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Group</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">developers</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">developers</span>
+<span class="w">    </span><span class="nt">members</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">emma@acmecorp.example.com</span>
 </code></pre></div>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>group.yaml
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Users sign in with their email address, and the organisation IdP identifies them by it. Use the email — not the user claim's <code>username</code> — wherever you name a user: in group <code>members</code> and in a project's <code>access[].users</code>. A name that does not match keeps the group from becoming Ready, or grants the user nothing.</p>
+</div>
 <p>See the dedicated guides for full details:</p>
 <ul>
 <li><a href="create-iam-user.html">Create an IAM User</a></li>
 <li><a href="create-iam-group.html">Create an IAM Group</a></li>
 </ul>
 <h2 id="step-2-create-a-project">Step 2: Create a Project<a class="headerlink" href="#step-2-create-a-project" title="Permanent link">#</a></h2>
-<p>Create a project to isolate your application's resources:</p>
+<p>Create a project to isolate your application's resources, and grant your team the <code>compute-user</code> role:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tenant.cloud.stakater.com/v1</span>
 <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Project</span>
 <span class="nt">metadata</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-app-dev</span>
 <span class="nt">spec</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-app-dev</span>
 <span class="w">    </span><span class="nt">network</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">app-network</span>
 <span class="w">      </span><span class="nt">cidr</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.100.0.0/16</span>
-<span class="w">    </span><span class="nt">tenantQuota</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">small</span>
 <span class="w">    </span><span class="nt">access</span><span class="p">:</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cluster-admin</span>
-<span class="w">        </span><span class="nt">users</span><span class="p">:</span>
-<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">emma@acmecorp.example.com</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">view</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">compute-user</span>
 <span class="w">        </span><span class="nt">groups</span><span class="p">:</span>
 <span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">developers</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>project.yaml
 </code></pre></div>
+<p><code>compute-user</code> lets members create and manage virtual machines in the project, and gives the group SSH access to the project's VMs over the Mesh. VM access over the Mesh is granted to <strong>groups</strong>, not to individual users, so grant the role to a group even for a single person. You can also grant a role to an individual user by email (<code>users: [emma@acmecorp.example.com]</code>), but that user does not get Mesh access to the VMs.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Grant the least-privileged role that does the job. Do <strong>not</strong> use <code>cluster-admin</code> in <code>access</code>: it gives full control of the project, including granting access to others and deleting it.</p>
+</div>
 <p>See the full guide: <a href="create-project.html">Create a Project</a></p>
-<h2 id="step-3-provision-a-virtual-machine">Step 3: Provision a Virtual Machine<a class="headerlink" href="#step-3-provision-a-virtual-machine" title="Permanent link">#</a></h2>
-<p>Deploy a VM in your new project:</p>
+<h2 id="step-3-provision-a-virtual-machine-with-your-application">Step 3: Provision a Virtual Machine with Your Application<a class="headerlink" href="#step-3-provision-a-virtual-machine-with-your-application" title="Permanent link">#</a></h2>
+<p>Switch to the new project's kubeconfig (see <a href="../../cloud-user-guide/kubectl-access/setup-kubectl.html">Set Up kubectl Access</a>). Deploy a VM whose cloud-init installs and starts a small web application on port <code>8080</code>, and turn on its Mesh Route:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">compute.cloud.stakater.com/v1</span>
 <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VirtualMachine</span>
 <span class="nt">metadata</span><span class="p">:</span>
@@ -6068,6 +6198,8 @@ kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> <
 <span class="w">    </span><span class="nt">instanceType</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">o1.medium</span>
 <span class="w">    </span><span class="nt">storageSize</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">medium</span>
 <span class="w">    </span><span class="nt">connection</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">private</span>
+<span class="w">    </span><span class="nt">meshRoute</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 <span class="w">    </span><span class="nt">sshPublicKey</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">data</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;base64-encoded-ssh-public-key&gt;</span>
 <span class="w">    </span><span class="nt">cloudInit</span><span class="p">:</span>
@@ -6076,16 +6208,51 @@ kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> <
 <span class="w">        </span><span class="no">packages:</span>
 <span class="w">          </span><span class="no">- git</span>
 <span class="w">          </span><span class="no">- curl</span>
+<span class="w">        </span><span class="no">write_files:</span>
+<span class="w">          </span><span class="no">- path: /opt/app/index.html</span>
+<span class="w">            </span><span class="no">content: "Hello from app-server\n"</span>
+<span class="w">        </span><span class="no">runcmd:</span>
+<span class="w">          </span><span class="no">- [bash, -c, "cd /opt/app &amp;&amp; nohup python3 -m http.server 8080 &gt;/var/log/app.log 2&gt;&amp;1 &amp;"]</span>
+<span class="w">          </span><span class="no">- [bash, -c, "firewall-cmd --add-port=8080/tcp || true"]</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>vm.yaml
 </code></pre></div>
+<p>Replace the <code>write_files</code> and <code>runcmd</code> entries with the commands that install and start your own application.</p>
+<p>Wait for the VM to be Ready and note its private IP address:</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>virtualmachine<span class="w"> </span>app-server
+kubectl<span class="w"> </span>get<span class="w"> </span>virtualmachine<span class="w"> </span>app-server<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.status.vm.internalIP}'</span>
+</code></pre></div>
 <p>See the full guide: <a href="provision-virtual-machine.html">Provision a Virtual Machine</a></p>
+<h2 id="step-4-reach-the-application-over-the-mesh">Step 4: Reach the Application over the Mesh<a class="headerlink" href="#step-4-reach-the-application-over-the-mesh" title="Permanent link">#</a></h2>
+<p>The application is private: it has no public address, and the Mesh Route opens SSH but not port <code>8080</code>. Reach it through an SSH tunnel over the Mesh.</p>
+<ol>
+<li>On your laptop, sign in to the Mesh as a member of the <code>developers</code> group, so the Mesh Route is allowed for you.</li>
+<li>
+<p>Open a tunnel from local port <code>8080</code> to the application on the VM:</p>
+<div class="highlight"><pre><span></span><code>ssh<span class="w"> </span>-L<span class="w"> </span><span class="m">8080</span>:localhost:8080<span class="w"> </span>cloud-user@&lt;vm-internal-ip&gt;
+</code></pre></div>
+</li>
+<li>
+<p>In another terminal, call the application:</p>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>http://localhost:8080/
+</code></pre></div>
+<p>Expected output: <code>Hello from app-server</code></p>
+</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This step depends on the Mesh Route delivering SSH traffic to the VM, which is not working yet. If <code>ssh</code> times out, that is the cause — see the limitations at the top of this guide.
+<!-- Tracked internally: SA-9273 (SA-8708). Remove this limitation when fixed. --></p>
+</div>
+<!-- TODO(SA-8708): the SSH-tunnel path has not been verified end to end (blocked by SA-9273). Re-test Step 4 once it is fixed, and remove the limitation notes. -->
+
 <h2 id="whats-next">What's Next?<a class="headerlink" href="#whats-next" title="Permanent link">#</a></h2>
 <ul>
 <li><a href="create-project.html">Create a Project</a> - Detailed project creation guide</li>
 <li><a href="create-iam-user.html">Create an IAM User</a> - Provision user accounts</li>
 <li><a href="create-iam-group.html">Create an IAM Group</a> - Organise users into groups</li>
 <li><a href="provision-virtual-machine.html">Provision a Virtual Machine</a> - Deploy compute resources</li>
+<li><a href="expose-service-via-mesh.html">Expose an Internal Service via the Mesh</a> - Publish your own services to Mesh peers</li>
 <li><a href="provision-openshift-cluster.html">Provision an OpenShift Cluster</a> - Deploy an OpenShift cluster</li>
 <li><a href="../../cloud-user-guide/getting-started.html">Getting Started</a> - Cloud user quick start</li>
 </ul>

@@ -34,6 +34,8 @@ Set these on individual schema **properties**.
 | `x-sco-ui-complexity` | `advanced` | Hides the field in **Standard** mode; shows it in **Advanced** mode. |
 | `x-sco-value-encoding` | `base64` | The user edits plain text; the console encodes on save and decodes on load. |
 | `x-sco-value-type` | `enum` | The field's options come from an EnumContext rather than a schema `enum`. Renders as a select. See [Value Type](#value-type). |
+| `x-sco-parent-ref` | `{ parentKinds, statusPath }` | On a child's reference to its parent. Lists the child on the parent's detail page. See [Modelling Child Resources](../solutions/modeling-child-resources.md). |
+| `x-sco-related-ref` | `{ relatedKinds, selector? }` | On a field naming other claims. Lists them on this claim's detail page. See [Modelling Related Resources](../solutions/modeling-related-resources.md). |
 
 ### `x-sco-ui-component` values
 

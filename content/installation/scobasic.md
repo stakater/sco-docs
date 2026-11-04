@@ -206,11 +206,35 @@ data:
     enabled: false
 ```
 
-`ksp up` creates it right before the claims, with every integration off, when it
-does not exist, and never changes an existing one. To turn an integration on,
-edit it:
-`kubectl edit environmentconfigs.apiextensions.crossplane.io organization-platform-config`.
-With a `ksp` version that does not create it, apply the file above yourself
+The platform creates it with every integration off; you do not apply it. To
+turn an integration on, put its settings in the override for the
+`crossplane-environment-config` addon (add them to that object if you already
+have one). Editing `organization-platform-config` directly does not last: the
+platform renders it again from these values.
+
+```yaml
+apiVersion: apiextensions.crossplane.io/v1beta1
+kind: EnvironmentConfig
+metadata:
+  name: <cluster-name>-crossplane-environment-config-addon-env-override
+  labels:
+    crossplane.io/composite: <cluster-name>
+    kubestack.stakater.com/addon-name: crossplane-environment-config
+    kubestack.stakater.com/config-kind: kubestack-plus-env
+    kubestack.stakater.com/config-scope: addon
+    kubestack.stakater.com/domain: <apps-domain>
+    kubestack.stakater.com/name: <cluster-name>
+data:
+  SCOBASIC-OCP-VALUES: |
+    organizationPlatformConfig:
+      data:
+        smtp:
+          enabled: true
+          # ...the settings this integration needs
+```
+
+With a platform version that does not create it yet, save the first file above
+as `organization-platform-config.yaml` and apply it yourself
 (`kubectl apply -f organization-platform-config.yaml`) before you create the first
 organization.
 

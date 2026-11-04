@@ -3990,10 +3990,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
-  <a href="#what-consumers-see" class="md-nav__link">
+  <a href="#step-4-verify" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What Consumers See
+        Step 4: Verify
       
     </span>
   </a>
@@ -4001,10 +4001,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-4-verify" class="md-nav__link">
+  <a href="#what-consumers-see" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 4: Verify
+        What Consumers See
       
     </span>
   </a>
@@ -6138,10 +6138,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
-  <a href="#what-consumers-see" class="md-nav__link">
+  <a href="#step-4-verify" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What Consumers See
+        Step 4: Verify
       
     </span>
   </a>
@@ -6149,10 +6149,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-4-verify" class="md-nav__link">
+  <a href="#what-consumers-see" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 4: Verify
+        What Consumers See
       
     </span>
   </a>
@@ -6278,6 +6278,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <span class="w">      </span><span class="nt">volume</span><span class="p">:</span>
 <span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
 <span class="w">        </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Name of an existing VirtualMachineVolume in your project to attach (persistent disks).</span>
+<span class="w">      </span><span class="nt">size</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">string</span>
+<span class="w">        </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Size of the scratch disk, e.g. 10Gi (ephemeral disks).</span>
+<span class="w">      </span><span class="c1"># image and bus trimmed</span>
 <span class="w">    </span><span class="nt">required</span><span class="p">:</span>
 <span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">name</span>
 </code></pre></div>
@@ -6380,7 +6384,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <hr>
 <h2 id="step-3-match-on-something-other-than-the-object-name">Step 3: Match on Something Other Than the Object Name<a class="headerlink" href="#step-3-match-on-something-other-than-the-object-name" title="Permanent link">#</a></h2>
 <p>By default each name is matched against the target's <code>metadata.name</code>. When the field holds another identifier, such as an email address or a display name, set <code>selector.targetName</code> to the path on the target that holds it.</p>
-<p>A <code>Group</code> lists its members by email, and each <code>User</code> claim carries its email in <code>spec.parameters.email</code>:</p>
+<p>For example, if a <code>Group</code> listed its members by email, its tag would match each name against the email a <code>User</code> claim carries in <code>spec.parameters.email</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">members</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">array</span>
 <span class="w">  </span><span class="nt">items</span><span class="p">:</span>
@@ -6396,6 +6400,26 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <p class="admonition-title">Note</p>
 <p>Without <code>targetName</code> here, the tab renders but lists nothing, because no <code>User</code> is named after an email address.</p>
 </div>
+<hr>
+<h2 id="step-4-verify">Step 4: Verify<a class="headerlink" href="#step-4-verify" title="Permanent link">#</a></h2>
+<p>Create two blank volumes for the VM from Step 1 to attach. Each is a <code>VirtualMachineVolume</code> claim:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">compute.cloud.stakater.com/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VirtualMachineVolume</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">data-vm-data1</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">storageSize</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">large</span>
+</code></pre></div>
+<p>Save it as <code>data-vm-data1.yaml</code>, and a copy named <code>data-vm-data2</code> as <code>data-vm-data2.yaml</code>. Save the <code>data-vm</code> claim from Step 1 as <code>data-vm.yaml</code>, then apply all three:</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>data-vm-data1.yaml<span class="w"> </span>-f<span class="w"> </span>data-vm-data2.yaml<span class="w"> </span>-f<span class="w"> </span>data-vm.yaml
+</code></pre></div>
+<p>Open <code>data-vm</code> in the console. Its detail page shows a <strong>Virtual Machine Volumes</strong> tab listing <code>data-vm-data1</code> and <code>data-vm-data2</code>.</p>
+<p>Then check the edge cases:</p>
+<ol>
+<li>Delete <code>data-vm-data2</code>. The tab stays and lists only <code>data-vm-data1</code>.</li>
+<li>Create a VM with only ephemeral disks. It has no volumes tab.</li>
+</ol>
 <hr>
 <h2 id="what-consumers-see">What Consumers See<a class="headerlink" href="#what-consumers-see" title="Permanent link">#</a></h2>
 <p>On the detail page of the claim holding the tag, the console adds one tab per tagged field, listing the named targets in the claim's project.</p>
@@ -6434,17 +6458,6 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <p class="admonition-title">Tip</p>
 <p>Because a tag naming an unavailable kind produces no tab, you can tag a field before the target solution is published. The tab appears once the target kind is available.</p>
 </div>
-<hr>
-<h2 id="step-4-verify">Step 4: Verify<a class="headerlink" href="#step-4-verify" title="Permanent link">#</a></h2>
-<p>Create two volumes and a VM that attaches them:</p>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>data-vm-data1.yaml<span class="w"> </span>-f<span class="w"> </span>data-vm-data2.yaml<span class="w"> </span>-f<span class="w"> </span>data-vm.yaml
-</code></pre></div>
-<p>Open <code>data-vm</code> in the console. Its detail page shows a <strong>Virtual Machine Volumes</strong> tab listing <code>data-vm-data1</code> and <code>data-vm-data2</code>.</p>
-<p>Then check the edge cases:</p>
-<ol>
-<li>Delete <code>data-vm-data2</code>. The tab stays and lists only <code>data-vm-data1</code>.</li>
-<li>Create a VM with only ephemeral disks. It has no volumes tab.</li>
-</ol>
 <hr>
 <h2 id="whats-next">What's Next?<a class="headerlink" href="#whats-next" title="Permanent link">#</a></h2>
 <ul>

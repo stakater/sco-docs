@@ -122,6 +122,11 @@
     ]
   },
   {
+    "version": "docs-organization-platform-config-install",
+    "title": "docs-organization-platform-config-install",
+    "aliases": []
+  },
+  {
     "version": "docs-networking-mode-not-self-service",
     "title": "docs-networking-mode-not-self-service",
     "aliases": []

@@ -3067,17 +3067,6 @@ This documentation is either for an old version, or for the unreleased 'main' ve
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#required-parameters" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Required Parameters
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#optional-parameters" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3150,10 +3139,10 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 </li>
         
           <li class="md-nav__item">
-  <a href="#group-with-hierarchy" class="md-nav__link">
+  <a href="#group-with-attributes" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Group with Hierarchy
+        Group with Attributes
       
     </span>
   </a>
@@ -6130,17 +6119,6 @@ This documentation is either for an old version, or for the unreleased 'main' ve
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#required-parameters" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Required Parameters
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#optional-parameters" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -6213,10 +6191,10 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 </li>
         
           <li class="md-nav__item">
-  <a href="#group-with-hierarchy" class="md-nav__link">
+  <a href="#group-with-attributes" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Group with Hierarchy
+        Group with Attributes
       
     </span>
   </a>
@@ -6291,11 +6269,11 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 <h2 id="what-gets-created">What Gets Created<a class="headerlink" href="#what-gets-created" title="Permanent link">#</a></h2>
 <p>When you create a Group claim, the platform provisions:</p>
 <ul>
-<li>An <strong>organisation group</strong> in your organisation's IdP at the specified path</li>
+<li>An <strong>organisation group</strong> in your organisation's IdP</li>
 <li><strong>Group memberships</strong> if <code>members</code> are provided (adds existing organisation users to the group)</li>
 </ul>
 <h2 id="in-the-console">In the Console<a class="headerlink" href="#in-the-console" title="Permanent link">#</a></h2>
-<p>Groups sit next to Users under <strong>Identity &amp; Access</strong>. The create form asks for the project the group belongs to, then the same name and path as the claim:</p>
+<p>Groups sit next to Users under <strong>Identity &amp; Access</strong>. The create form asks for one name, <strong>Group name</strong>, at the top. It is <code>metadata.name</code> in the claim, and the platform uses it as the group's name in your organisation's identity provider:</p>
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/generated/iam-group-create.png" data-desc-position="bottom"><img alt="The Create Group form" src="../../images/generated/iam-group-create.png"></a></p>
 <p>Members are added one at a time: type the user's email address in the <strong>Members</strong> field and press Enter to commit it. A value left as draft text is not part of the group. If the field is not on the form, switch it to <strong>Advanced</strong> — members are optional, so Standard mode may hide them:</p>
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/generated/iam-group-create-members.png" data-desc-position="bottom"><img alt="The Create Group form with three members added" src="../../images/generated/iam-group-create-members.png"></a></p>
@@ -6308,25 +6286,17 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 <span class="nt">metadata</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">engineering-team</span>
 <span class="nt">spec</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">engineering-team</span>
-<span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/teams/engineering</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span>
 </code></pre></div>
-<h3 id="required-parameters">Required Parameters<a class="headerlink" href="#required-parameters" title="Permanent link">#</a></h3>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>parameters.name</code></td>
-<td>Name of the organisation group</td>
-</tr>
-</tbody>
-</table>
+<p><code>metadata.name</code> is the group's name, both for the <code>Group</code> resource in your project and in your organisation's identity provider. No parameter is required.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Some group names are reserved for platform access and are refused when you create the group: <code>customer-admin</code>, names that start with <code>stakater-</code>, and names that end with <code>-cluster-admin</code> or <code>-stakater-admin</code>.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Older claims may still set <code>parameters.name</code>. The field is deprecated and ignored: the group is always named after <code>metadata.name</code>.</p>
+</div>
 <h3 id="optional-parameters">Optional Parameters<a class="headerlink" href="#optional-parameters" title="Permanent link">#</a></h3>
 <table>
 <thead>
@@ -6336,10 +6306,6 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 </tr>
 </thead>
 <tbody>
-<tr>
-<td><code>parameters.path</code></td>
-<td>Path for the group in the organisation group hierarchy (e.g., <code>/teams/engineering</code>)</td>
-</tr>
 <tr>
 <td><code>parameters.members</code></td>
 <td>Email addresses of the organisation users to add to the group</td>
@@ -6358,8 +6324,6 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 <span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">engineering-team</span>
 <span class="nt">spec</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">engineering-team</span>
-<span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/teams/engineering</span>
 <span class="w">    </span><span class="nt">members</span><span class="p">:</span>
 <span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">alice@acmecorp.example.com</span>
 <span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bob@acmecorp.example.com</span>
@@ -6392,25 +6356,22 @@ engineering-team   True    True     1m
 <span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tenant-group</span>
 <span class="nt">spec</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tenant-group</span>
-<span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/tenant-group</span>
 <span class="w">    </span><span class="nt">members</span><span class="p">:</span>
 <span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">user1@tenant.com</span>
 <span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">user2@tenant.com</span>
 </code></pre></div>
-<h3 id="group-with-hierarchy">Group with Hierarchy<a class="headerlink" href="#group-with-hierarchy" title="Permanent link">#</a></h3>
+<h3 id="group-with-attributes">Group with Attributes<a class="headerlink" href="#group-with-attributes" title="Permanent link">#</a></h3>
 <div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">iam.cloud.stakater.com/v1</span>
 <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Group</span>
 <span class="nt">metadata</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">engineering-team</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">platform-team</span>
 <span class="nt">spec</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">engineering-team</span>
-<span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/teams/engineering</span>
-<span class="w">    </span><span class="nt">members</span><span class="p">:</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">alice@acmecorp.example.com</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bob@acmecorp.example.com</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">charlie@acmecorp.example.com</span>
+<span class="w">    </span><span class="nt">attributes</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">department</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">engineering</span>
+<span class="w">      </span><span class="nt">costCentre</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cc-1234</span>
 </code></pre></div>
 <h2 id="using-groups-for-project-access">Using Groups for Project Access<a class="headerlink" href="#using-groups-for-project-access" title="Permanent link">#</a></h2>
 <p>Once your group is created, reference it in a <a href="create-project.html">Project</a> claim to grant project access:</p>

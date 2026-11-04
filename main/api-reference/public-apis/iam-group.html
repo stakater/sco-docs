@@ -5157,17 +5157,6 @@ This documentation is either for an old version, or for the unreleased 'main' ve
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#required" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Required
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#optional" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -5218,10 +5207,10 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 </li>
         
           <li class="md-nav__item">
-  <a href="#with-path-and-members" class="md-nav__link">
+  <a href="#with-members" class="md-nav__link">
     <span class="md-ellipsis">
       
-        With Path and Members
+        With Members
       
     </span>
   </a>
@@ -6053,17 +6042,6 @@ This documentation is either for an old version, or for the unreleased 'main' ve
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#required" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Required
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#optional" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -6114,10 +6092,10 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 </li>
         
           <li class="md-nav__item">
-  <a href="#with-path-and-members" class="md-nav__link">
+  <a href="#with-members" class="md-nav__link">
     <span class="md-ellipsis">
       
-        With Path and Members
+        With Members
       
     </span>
   </a>
@@ -6198,24 +6176,9 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 </tbody>
 </table>
 <h2 id="spec-parameters">Spec Parameters<a class="headerlink" href="#spec-parameters" title="Permanent link">#</a></h2>
-<p>All parameters are nested under <code>spec.parameters</code>.</p>
-<h3 id="required">Required<a class="headerlink" href="#required" title="Permanent link">#</a></h3>
-<table>
-<thead>
-<tr>
-<th>Field</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>name</code></td>
-<td><code>string</code></td>
-<td>Name of the organisation group</td>
-</tr>
-</tbody>
-</table>
+<p>All parameters are nested under <code>spec.parameters</code>. None is required.</p>
+<p>The group is named after <code>metadata.name</code>, which is also its name in your organisation's identity provider. These names are reserved for platform access and are refused when you create the group: <code>customer-admin</code>, names that start with <code>stakater-</code>, and names that end with <code>-cluster-admin</code> or <code>-stakater-admin</code>.</p>
+<p><code>spec.parameters.name</code> is deprecated and ignored. Older claims that still set it keep working, and the group is named after <code>metadata.name</code>.</p>
 <h3 id="optional">Optional<a class="headerlink" href="#optional" title="Permanent link">#</a></h3>
 <table>
 <thead>
@@ -6226,11 +6189,6 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 </tr>
 </thead>
 <tbody>
-<tr>
-<td><code>path</code></td>
-<td><code>string</code></td>
-<td>Path for the group in the organisation group hierarchy (e.g., <code>/teams/engineering</code>)</td>
-</tr>
 <tr>
 <td><code>members</code></td>
 <td><code>string[]</code></td>
@@ -6262,11 +6220,6 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 <td><code>status.group.name</code></td>
 <td><code>string</code></td>
 <td>Confirmed group name</td>
-</tr>
-<tr>
-<td><code>status.group.path</code></td>
-<td><code>string</code></td>
-<td>Confirmed group path</td>
 </tr>
 <tr>
 <td><code>status.group.created</code></td>
@@ -6302,18 +6255,15 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 <span class="nt">metadata</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">engineering-team</span>
 <span class="nt">spec</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">engineering-team</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span>
 </code></pre></div>
-<h3 id="with-path-and-members">With Path and Members<a class="headerlink" href="#with-path-and-members" title="Permanent link">#</a></h3>
+<h3 id="with-members">With Members<a class="headerlink" href="#with-members" title="Permanent link">#</a></h3>
 <div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">iam.cloud.stakater.com/v1</span>
 <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Group</span>
 <span class="nt">metadata</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">engineering-team</span>
 <span class="nt">spec</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">engineering-team</span>
-<span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/teams/engineering</span>
 <span class="w">    </span><span class="nt">members</span><span class="p">:</span>
 <span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">alice@acmecorp.example.com</span>
 <span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bob@acmecorp.example.com</span>
@@ -6326,8 +6276,6 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 <span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">platform-team</span>
 <span class="nt">spec</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">platform-team</span>
-<span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/teams/platform</span>
 <span class="w">    </span><span class="nt">attributes</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">department</span><span class="p">:</span>
 <span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">engineering</span>

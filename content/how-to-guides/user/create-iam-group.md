@@ -20,12 +20,7 @@ When you create a Group claim, the platform provisions:
 
 ## In the Console
 
-Groups sit next to Users under **Identity & Access**. The create form has two name fields, and both are required:
-
-- **Group name**, at the top, names the `Group` resource in your project. It is `metadata.name` in the claim.
-- **Name**, under **General**, is the group's name in your organisation's identity provider. It is `parameters.name` in the claim.
-
-Enter the same value in both, as the YAML examples below do:
+Groups sit next to Users under **Identity & Access**. The create form asks for one name, **Group name**, at the top. It is `metadata.name` in the claim, and the platform uses it as the group's name in your organisation's identity provider:
 
 ![The Create Group form]({{ screenshot: iam-group-create }})
 
@@ -47,17 +42,16 @@ kind: Group
 metadata:
   name: engineering-team
 spec:
-  parameters:
-    name: engineering-team
+  parameters: {}
 ```
 
-`metadata.name` names the `Group` resource in your project, and `parameters.name` is the group's name in your organisation's identity provider. Use the same value for both.
+`metadata.name` is the group's name, both for the `Group` resource in your project and in your organisation's identity provider. No parameter is required.
 
-### Required Parameters
+!!! note
+    Some group names are reserved for platform access and are refused when you create the group: `customer-admin`, names that start with `stakater-`, and names that end with `-cluster-admin` or `-stakater-admin`.
 
-| Parameter | Description |
-|-----------|-------------|
-| `parameters.name` | Name of the organisation group |
+!!! note
+    Older claims may still set `parameters.name`. The field is deprecated and ignored: the group is always named after `metadata.name`.
 
 ### Optional Parameters
 
@@ -77,7 +71,6 @@ metadata:
   name: engineering-team
 spec:
   parameters:
-    name: engineering-team
     members:
       - alice@acmecorp.example.com
       - bob@acmecorp.example.com
@@ -126,7 +119,6 @@ metadata:
   name: tenant-group
 spec:
   parameters:
-    name: tenant-group
     members:
       - user1@tenant.com
       - user2@tenant.com
@@ -141,7 +133,6 @@ metadata:
   name: platform-team
 spec:
   parameters:
-    name: platform-team
     attributes:
       department:
         - engineering

@@ -198,7 +198,6 @@ metadata:
   name: acme-engineers
 spec:
   parameters:
-    name: acme-engineers
     members:
       - maria@acme.example
       - tom@acme.example

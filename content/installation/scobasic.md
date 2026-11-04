@@ -98,7 +98,7 @@ Practical sizing:
 
 ## Preparing the claim files
 
-`ksp up` applies three files, plus the organization platform config. The structure matches the
+`ksp up` applies three files. The structure matches the
 [hosting installation](openshift.md#step-2-prepare-claim-files); the values
 below are what differ for `scobasic`.
 
@@ -206,11 +206,11 @@ data:
     enabled: false
 ```
 
-Pass it with `--organization-platform-config`. `ksp up` creates it right before
-the claims, and with every integration off when you leave the flag out. It never
-changes an existing one: edit it later with
+`ksp up` creates it right before the claims, with every integration off, when it
+does not exist, and never changes an existing one. To turn an integration on,
+edit it:
 `kubectl edit environmentconfigs.apiextensions.crossplane.io organization-platform-config`.
-With a `ksp` version that does not have the flag, apply the file yourself
+With a `ksp` version that does not create it, apply the file above yourself
 (`kubectl apply -f organization-platform-config.yaml`) before you create the first
 organization.
 
@@ -281,7 +281,6 @@ ksp up \
   -c   kubestack-config-claim.yaml \
   -f   kubestack-plus-claim.yaml \
   --environment-config env-config.yaml \
-  --organization-platform-config organization-platform-config.yaml \
   --extra-secrets      extra-secrets.yaml \
   --registry-secret    registry-secret.yaml \
   --timeout 15m

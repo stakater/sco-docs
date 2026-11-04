@@ -6674,11 +6674,32 @@ organization realms, and audit. For <code>scobasic</code> all of them are usuall
 <span class="w">  </span><span class="nt">audit</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
 </code></pre></div>
-<p><code>ksp up</code> creates it right before the claims, with every integration off, when it
-does not exist, and never changes an existing one. To turn an integration on,
-edit it:
-<code>kubectl edit environmentconfigs.apiextensions.crossplane.io organization-platform-config</code>.
-With a <code>ksp</code> version that does not create it, apply the file above yourself
+<p>The platform creates it with every integration off; you do not apply it. To
+turn an integration on, put its settings in the override for the
+<code>crossplane-environment-config</code> addon (add them to that object if you already
+have one). Editing <code>organization-platform-config</code> directly does not last: the
+platform renders it again from these values.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">apiextensions.crossplane.io/v1beta1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">EnvironmentConfig</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;cluster-name&gt;-crossplane-environment-config-addon-env-override</span>
+<span class="w">  </span><span class="nt">labels</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">crossplane.io/composite</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;cluster-name&gt;</span>
+<span class="w">    </span><span class="nt">kubestack.stakater.com/addon-name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">crossplane-environment-config</span>
+<span class="w">    </span><span class="nt">kubestack.stakater.com/config-kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kubestack-plus-env</span>
+<span class="w">    </span><span class="nt">kubestack.stakater.com/config-scope</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">addon</span>
+<span class="w">    </span><span class="nt">kubestack.stakater.com/domain</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;apps-domain&gt;</span>
+<span class="w">    </span><span class="nt">kubestack.stakater.com/name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;cluster-name&gt;</span>
+<span class="nt">data</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">SCOBASIC-OCP-VALUES</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">    </span><span class="no">organizationPlatformConfig:</span>
+<span class="w">      </span><span class="no">data:</span>
+<span class="w">        </span><span class="no">smtp:</span>
+<span class="w">          </span><span class="no">enabled: true</span>
+<span class="w">          </span><span class="no"># ...the settings this integration needs</span>
+</code></pre></div>
+<p>With a platform version that does not create it yet, save the first file above
+as <code>organization-platform-config.yaml</code> and apply it yourself
 (<code>kubectl apply -f organization-platform-config.yaml</code>) before you create the first
 organization.</p>
 <h3 id="where-each-value-comes-from">Where each value comes from<a class="headerlink" href="#where-each-value-comes-from" title="Permanent link">#</a></h3>

@@ -57,7 +57,9 @@
   {
     "version": "renovate-main-docker-login-action-4.x",
     "title": "renovate-main-docker-login-action-4.x",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "renovate-main-actions-setup-node-7.x",
@@ -142,9 +144,7 @@
   {
     "version": "docs-iam-group-names-no-path",
     "title": "docs-iam-group-names-no-path",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "architecture",

@@ -71,6 +71,10 @@ additionalVolumes:
       volume:
         type: string
         description: Name of an existing VirtualMachineVolume in your project to attach (persistent disks).
+      size:
+        type: string
+        description: Size of the scratch disk, e.g. 10Gi (ephemeral disks).
+      # image and bus trimmed
     required:
       - name
 ```
@@ -148,7 +152,7 @@ Fields inside arrays need no index or wildcard: a tag on `additionalVolumes[].vo
 
 By default each name is matched against the target's `metadata.name`. When the field holds another identifier, such as an email address or a display name, set `selector.targetName` to the path on the target that holds it.
 
-A `Group` lists its members by email, and each `User` claim carries its email in `spec.parameters.email`:
+For example, if a `Group` listed its members by email, its tag would match each name against the email a `User` claim carries in `spec.parameters.email`:
 
 ```yaml
 members:
@@ -168,6 +172,35 @@ members:
 
 ---
 
+## Step 4: Verify
+
+Create two blank volumes for the VM from Step 1 to attach. Each is a `VirtualMachineVolume` claim:
+
+```yaml
+apiVersion: compute.cloud.stakater.com/v1
+kind: VirtualMachineVolume
+metadata:
+  name: data-vm-data1
+spec:
+  parameters:
+    storageSize: large
+```
+
+Save it as `data-vm-data1.yaml`, and a copy named `data-vm-data2` as `data-vm-data2.yaml`. Save the `data-vm` claim from Step 1 as `data-vm.yaml`, then apply all three:
+
+```bash
+kubectl apply -f data-vm-data1.yaml -f data-vm-data2.yaml -f data-vm.yaml
+```
+
+Open `data-vm` in the console. Its detail page shows a **Virtual Machine Volumes** tab listing `data-vm-data1` and `data-vm-data2`.
+
+Then check the edge cases:
+
+1. Delete `data-vm-data2`. The tab stays and lists only `data-vm-data1`.
+1. Create a VM with only ephemeral disks. It has no volumes tab.
+
+---
+
 ## What Consumers See
 
 On the detail page of the claim holding the tag, the console adds one tab per tagged field, listing the named targets in the claim's project.
@@ -184,23 +217,6 @@ A related tab offers neither create nor delete. Creating a target would not atta
 
 !!! tip
     Because a tag naming an unavailable kind produces no tab, you can tag a field before the target solution is published. The tab appears once the target kind is available.
-
----
-
-## Step 4: Verify
-
-Create two volumes and a VM that attaches them:
-
-```bash
-kubectl apply -f data-vm-data1.yaml -f data-vm-data2.yaml -f data-vm.yaml
-```
-
-Open `data-vm` in the console. Its detail page shows a **Virtual Machine Volumes** tab listing `data-vm-data1` and `data-vm-data2`.
-
-Then check the edge cases:
-
-1. Delete `data-vm-data2`. The tab stays and lists only `data-vm-data1`.
-1. Create a VM with only ephemeral disks. It has no volumes tab.
 
 ---
 

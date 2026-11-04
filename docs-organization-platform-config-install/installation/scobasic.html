@@ -6582,7 +6582,7 @@ systems that need them, you do not need it.</p>
     runs well above the requested figure.</li>
 </ul>
 <h2 id="preparing-the-claim-files">Preparing the claim files<a class="headerlink" href="#preparing-the-claim-files" title="Permanent link">#</a></h2>
-<p><code>ksp up</code> applies three files, plus the organization platform config. The structure matches the
+<p><code>ksp up</code> applies three files. The structure matches the
 <a href="openshift.html#step-2-prepare-claim-files">hosting installation</a>; the values
 below are what differ for <code>scobasic</code>.</p>
 <h3 id="kubestackconfig-claim">KubeStackConfig claim<a class="headerlink" href="#kubestackconfig-claim" title="Permanent link">#</a></h3>
@@ -6674,11 +6674,11 @@ organization realms, and audit. For <code>scobasic</code> all of them are usuall
 <span class="w">  </span><span class="nt">audit</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
 </code></pre></div>
-<p>Pass it with <code>--organization-platform-config</code>. <code>ksp up</code> creates it right before
-the claims, and with every integration off when you leave the flag out. It never
-changes an existing one: edit it later with
+<p><code>ksp up</code> creates it right before the claims, with every integration off, when it
+does not exist, and never changes an existing one. To turn an integration on,
+edit it:
 <code>kubectl edit environmentconfigs.apiextensions.crossplane.io organization-platform-config</code>.
-With a <code>ksp</code> version that does not have the flag, apply the file yourself
+With a <code>ksp</code> version that does not create it, apply the file above yourself
 (<code>kubectl apply -f organization-platform-config.yaml</code>) before you create the first
 organization.</p>
 <h3 id="where-each-value-comes-from">Where each value comes from<a class="headerlink" href="#where-each-value-comes-from" title="Permanent link">#</a></h3>
@@ -6771,7 +6771,6 @@ ksp<span class="w"> </span>up<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-c<span class="w">   </span>kubestack-config-claim.yaml<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-f<span class="w">   </span>kubestack-plus-claim.yaml<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--environment-config<span class="w"> </span>env-config.yaml<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--organization-platform-config<span class="w"> </span>organization-platform-config.yaml<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--extra-secrets<span class="w">      </span>extra-secrets.yaml<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--registry-secret<span class="w">    </span>registry-secret.yaml<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--timeout<span class="w"> </span>15m

@@ -6417,7 +6417,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <p>Open <code>data-vm</code> in the console. Its detail page shows a <strong>Virtual Machine Volumes</strong> tab listing <code>data-vm-data1</code> and <code>data-vm-data2</code>.</p>
 <p>Then check the edge cases:</p>
 <ol>
-<li>Delete <code>data-vm-data2</code>. The tab stays and lists only <code>data-vm-data1</code>.</li>
+<li>Point a VM's persistent disk at a volume that does not exist, such as <code>data-vm-missing</code>. The tab shows with an empty list, and the VM never starts because its disk is missing. Delete it when done.</li>
 <li>Create a VM with only ephemeral disks. It has no volumes tab.</li>
 </ol>
 <hr>

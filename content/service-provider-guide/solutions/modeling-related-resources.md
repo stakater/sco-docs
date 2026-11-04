@@ -203,7 +203,7 @@ Then check the edge cases:
 
 ## What Consumers See
 
-On the detail page of the claim holding the tag, the console adds one tab per tagged field, listing the named targets in the claim's project.
+On the detail page of the claim holding the tag, the console adds one tab per tagged field and named kind, listing the named targets in the claim's project.
 
 | Situation | Console behaviour |
 |-----------|-------------------|

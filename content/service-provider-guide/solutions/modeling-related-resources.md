@@ -196,7 +196,7 @@ Open `data-vm` in the console. Its detail page shows a **Virtual Machine Volumes
 
 Then check the edge cases:
 
-1. Delete `data-vm-data2`. The tab stays and lists only `data-vm-data1`.
+1. Point a VM's persistent disk at a volume that does not exist, such as `data-vm-missing`. The tab shows with an empty list, and the VM never starts because its disk is missing. Delete it when done.
 1. Create a VM with only ephemeral disks. It has no volumes tab.
 
 ---

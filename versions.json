@@ -117,14 +117,14 @@
   {
     "version": "docs-sa-8965-related-resources",
     "title": "docs-sa-8965-related-resources",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "docs-organization-platform-config-install",
     "title": "docs-organization-platform-config-install",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "docs-networking-mode-not-self-service",

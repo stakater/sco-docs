@@ -122,9 +122,7 @@
   {
     "version": "docs-organization-platform-config-install",
     "title": "docs-organization-platform-config-install",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "docs-networking-mode-not-self-service",
@@ -144,7 +142,9 @@
   {
     "version": "docs-iam-group-names-no-path",
     "title": "docs-iam-group-names-no-path",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "ci-closed-pr-deploy-concurrency",

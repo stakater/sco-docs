@@ -8,7 +8,7 @@ The examples use the platform's `VirtualMachine`, which attaches existing `Virtu
 
 ## Prerequisites
 
-- A solution already exists (XRD and Composition) — see [Creating Solutions](creating-solutions.md)
+- A solution already exists (its CompositeResourceDefinition, or XRD, and its Composition) — see [Creating Solutions](creating-solutions.md)
 - The claim kind being referenced (the **target**) is available in the same project
 
 ---

@@ -97,14 +97,14 @@
   {
     "version": "docs-screenshots-s01-linux-vm",
     "title": "docs-screenshots-s01-linux-vm",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "docs-screenshots-s00-cluster-connect",
     "title": "docs-screenshots-s00-cluster-connect",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "docs-scobasic-org-onboarding",

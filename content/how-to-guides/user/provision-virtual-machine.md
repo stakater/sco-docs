@@ -1,6 +1,6 @@
 # How to Provision a Virtual Machine
 
-Learn how to provision a virtual machine in your project.
+Learn how to provision a virtual machine in your project. The examples below match the `demo-virtual-machine` shown in the console screenshots.
 
 Emma, a developer at ACME Corp, needs a Linux virtual machine for her development environment. She can provision a VM with a chosen OS, instance size, and network connectivity in minutes.
 
@@ -10,6 +10,16 @@ Emma, a developer at ACME Corp, needs a Linux virtual machine for her developmen
 - The `virtualmachine.compute.cloud.stakater.com` API available
 - `kubectl` configured with your project kubeconfig
 - An SSH public key for VM access
+
+## In the Console
+
+Virtual machines are under **Compute** in the sidebar. The create form opens in **Standard** mode and asks for the same things the minimal claim below does: a name, a flavour and an instance type.
+
+![The Create Virtual Machine form in Standard mode]({{ screenshot: vm-create-standard }})
+
+**Advanced** reveals the rest of the claim further down the form: storage size, the connection mode, the SSH public key and the cloud-init script.
+
+![The lower part of the create form in Advanced mode, showing the connection mode, SSH key and cloud-init fields]({{ screenshot: vm-create-advanced }})
 
 ## Cloud VM
 
@@ -31,11 +41,11 @@ Create a file named `vm.yaml` with the required parameters:
 apiVersion: compute.cloud.stakater.com/v1
 kind: VirtualMachine
 metadata:
-  name: my-dev-vm
+  name: demo-virtual-machine
 spec:
   parameters:
-    flavour: rhel9
-    instanceType: o1.small
+    flavour: fedora
+    instanceType: u1.micro
 ```
 
 ### Required Parameters
@@ -62,7 +72,7 @@ A more complete example with SSH access and private networking:
 apiVersion: compute.cloud.stakater.com/v1
 kind: VirtualMachine
 metadata:
-  name: my-dev-vm
+  name: demo-virtual-machine
 spec:
   parameters:
     flavour: rhel9
@@ -94,7 +104,7 @@ Use `cloudInit.userData` to run scripts on first boot:
 apiVersion: compute.cloud.stakater.com/v1
 kind: VirtualMachine
 metadata:
-  name: my-dev-vm
+  name: demo-virtual-machine
 spec:
   parameters:
     flavour: rhel9
@@ -124,20 +134,28 @@ kubectl apply -f vm.yaml
 Check the VM status:
 
 ```bash
-kubectl get virtualmachine my-dev-vm
+kubectl get virtualmachine demo-virtual-machine
 ```
 
 Wait for the VM to reach `Running` status:
 
 ```text
-NAME         READY   SYNCED   PRINTABLE-STATUS   AGE
-my-dev-vm    True    True     Running            3m
+NAME                   READY   SYNCED   PRINTABLE-STATUS   AGE
+demo-virtual-machine   True    True     Running            3m
 ```
+
+The list in the console shows the same status:
+
+![The Virtual Machines list in the console, with a running VM]({{ screenshot: vm-list }})
+
+The VM's detail page shows the VM status, resources and connection mode. A `public` VM shows its address here. A `private` VM is reached over your organisation's mesh, and only the address differs: enrol as described in [Create a Mesh](create-mesh.md), then SSH to the VM's mesh address.
+
+![A Virtual Machine detail page, showing the status, resources and connection mode]({{ screenshot: vm-detail }})
 
 Retrieve the VM's connection details (for `public` VMs):
 
 ```bash
-kubectl get virtualmachine my-dev-vm \
+kubectl get virtualmachine demo-virtual-machine \
   -o jsonpath='{.status.vm.serviceHostname}'
 ```
 

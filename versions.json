@@ -95,6 +95,11 @@
     "aliases": []
   },
   {
+    "version": "docs-screenshots-s01-linux-vm",
+    "title": "docs-screenshots-s01-linux-vm",
+    "aliases": []
+  },
+  {
     "version": "docs-screenshots-s00-cluster-connect",
     "title": "docs-screenshots-s00-cluster-connect",
     "aliases": [

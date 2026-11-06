@@ -1,15 +1,18 @@
-# how-to-guides/user/provision-openshift-cluster.md -> 2 images.
+# how-to-guides/user/provision-openshift-cluster.md and
+# how-to-guides/user/connect-to-openshift-cluster.md -> 6 images.
 #
-# Create-form only, and that is a cost decision rather than a design one: a list or
-# detail shot needs a real cluster to exist in the capture org, and a hosted OpenShift
-# cluster kept alive for two screenshots is not worth a control plane. The forms need
-# nothing seeded, so this flow runs against any org.
+# The list and detail shots need a real, long-lived cluster in the capture org
+# (DOCS_CLUSTER_NAME, phase Ready). That was traded away once because a hosted control
+# plane kept alive for two images was not worth it; the connect guide makes the detail
+# page the thing the reader navigates by, so the cluster is now a capture requirement.
 #
-# Read-only like the rest: the form is filled and shot, never submitted. Submitting it
-# is what would provision the cluster this flow declines to require.
+# The hosted-cluster-console shot opens the cluster's own console URL, outside the SCO
+# console. For a private cluster that URL resolves only over the organisation mesh, so
+# the runner host must be enrolled (netbird up against the CONSOLE_ORG default mesh) as
+# a user in the <cluster>-mesh-access group before this flow runs. A public cluster
+# needs nothing extra. Nothing is submitted: the existing SSO session carries over.
 #
-# `cluster-list` and `cluster-detail` are the images this leaves out. Add them here, and
-# their directives back to the guide, if a long-lived cluster ever exists to point at.
+# Read-only like the rest: the create form is filled and shot, never submitted.
 name: sco-docs-clusters
 
 requires:
@@ -18,8 +21,11 @@ requires:
     - CONSOLE_ORG
     - CONSOLE_USER
     - CONSOLE_PASSWORD
+    - DOCS_CLUSTER_SIDEBAR_GROUP
     - DOCS_CLUSTER_PLURAL
-  reachable: ["${CONSOLE_URL}"]
+    - DOCS_CLUSTER_NAME
+    - DOCS_CLUSTER_CONSOLE_URL
+  reachable: ["${CONSOLE_URL}", "${DOCS_CLUSTER_CONSOLE_URL}"]
 
 viewport:
   width: 1280
@@ -34,6 +40,16 @@ steps:
       org: "${CONSOLE_ORG}"
       username: "${CONSOLE_USER}"
       password: "${CONSOLE_PASSWORD}"
+
+  # Both guides open with the list: where a reader finds the cluster they were handed.
+  - use: cloud-orchestrator-console-open-resource-list
+    with:
+      portal: "${CONSOLE_URL}"
+      plural: "${DOCS_CLUSTER_PLURAL}"
+  - use: cloud-orchestrator-console-expand-sidebar-group
+    with:
+      group: "${DOCS_CLUSTER_SIDEBAR_GROUP}"
+  - { step: screenshot, path: cluster-list.png, fullPage: false }
 
   # The create form as it opens. Standard is the default in a fresh browser context and
   # nothing has toggled it yet, so this is a Standard shot without asserting it -- the
@@ -62,6 +78,47 @@ steps:
   - { step: scroll-to, selector: 'form button[type="submit"]', block: end }
   - { step: wait, ms: 500 }
   - { step: screenshot, path: cluster-create-advanced.png, fullPage: false }
+
+  # Back to Standard before the detail shot, so the detail page reads the way a new
+  # user sees it rather than inheriting the Advanced toggle from the form above.
+  - use: cloud-orchestrator-console-set-complexity-mode
+    with:
+      mode: Standard
+  - { step: wait, ms: 750 }
+
+  # Step 1 of the connect guide, and Step 4 of the provision guide: the phase and the
+  # access grants at a glance. Needs DOCS_CLUSTER_NAME at phase Ready.
+  - use: cloud-orchestrator-console-open-resource-detail
+    with:
+      portal: "${CONSOLE_URL}"
+      plural: "${DOCS_CLUSTER_PLURAL}"
+      name: "${DOCS_CLUSTER_NAME}"
+  - { step: screenshot, path: cluster-detail.png, fullPage: false }
+
+  # Connect guide: the detail page in Advanced, framed on the Status block, which is
+  # where the console URL and API endpoint render. Standard does not show that block at
+  # all, which is why the guide tells the reader to switch. Standard was shot first.
+  - use: cloud-orchestrator-console-set-complexity-mode
+    with:
+      mode: Advanced
+  - { step: wait, ms: 750 }
+  - { step: scroll-to, selector: 'text=Api Endpoint', block: center }
+  - { step: wait, ms: 500 }
+  - { step: screenshot, path: cluster-detail-advanced.png, fullPage: false }
+  - use: cloud-orchestrator-console-set-complexity-mode
+    with:
+      mode: Standard
+  - { step: wait, ms: 500 }
+
+  # Step 3 of the connect guide: the hosted cluster's own console. The browser already
+  # holds a single sign-on session with the organisation realm from the SCO console
+  # login, so the OpenShift console signs in without a prompt and lands on Projects.
+  # That is also what a reader sees when they follow the guide in the same browser.
+  # Over the mesh when the cluster is private (see the note at the top of this file).
+  - { step: open, url: "${DOCS_CLUSTER_CONSOLE_URL}" }
+  - { step: wait-for, selector: '#page-sidebar, [data-test="user-dropdown"], header', timeout: 90s }
+  - { step: wait, ms: 3000 }
+  - { step: screenshot, path: hosted-cluster-console.png, fullPage: false }
 
 after:
   - { step: screenshot, when: on-failure, path: _failure-clusters.png }

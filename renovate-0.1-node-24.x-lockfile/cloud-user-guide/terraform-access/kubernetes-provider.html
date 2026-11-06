@@ -2505,15 +2505,15 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
-  <a href="#managing-all-sco-services" class="md-nav__link">
+  <a href="#managing-sco-services" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Managing All SCO Services
+        Managing SCO Services
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Managing All SCO Services">
+    <nav class="md-nav" aria-label="Managing SCO Services">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -2551,6 +2551,17 @@ This documentation is for a pull request deployment and is unreleased, it is onl
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reading-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reading Status
+      
+    </span>
+  </a>
   
 </li>
       
@@ -4157,7 +4168,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Creating Organisations
+    Creating Organizations
   
 
     
@@ -5450,6 +5461,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api-reference/public-apis/mesh-policy.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MeshPolicy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -5975,15 +6014,15 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
-  <a href="#managing-all-sco-services" class="md-nav__link">
+  <a href="#managing-sco-services" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Managing All SCO Services
+        Managing SCO Services
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Managing All SCO Services">
+    <nav class="md-nav" aria-label="Managing SCO Services">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -6021,6 +6060,17 @@ This documentation is for a pull request deployment and is unreleased, it is onl
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reading-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reading Status
+      
+    </span>
+  </a>
   
 </li>
       
@@ -6064,77 +6114,105 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 
 
 <h1 id="kubernetes-provider">Kubernetes Provider<a class="headerlink" href="#kubernetes-provider" title="Permanent link">#</a></h1>
-<p>Advanced Terraform Kubernetes provider patterns for managing SCO project resources.</p>
+<p>More Terraform patterns for managing SCO project resources with the <code>alekc/kubectl</code> provider. Start with <a href="setup-terraform.html">Setup Terraform</a> if you have not configured the provider yet.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code>hashicorp/kubernetes</code> provider (<code>kubernetes_manifest</code>) does not work for project users. Use <code>kubectl_manifest</code> from <code>alekc/kubectl</code>, as in the examples below.</p>
+</div>
+<p>Every example sets <code>namespace = "default"</code>. Terraform needs it set explicitly, even though <code>kubectl</code> fills it in for you.</p>
 <hr>
 <h2 id="multiple-projects">Multiple Projects<a class="headerlink" href="#multiple-projects" title="Permanent link">#</a></h2>
-<p>Use provider aliases to manage resources across multiple projects in the same Terraform configuration:</p>
-<div class="highlight"><pre><span></span><code><span class="kr">provider</span><span class="w"> </span><span class="nv">"kubernetes"</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="na">alias</span><span class="w">          </span><span class="o">=</span><span class="w"> </span><span class="s2">"frontend"</span>
-<span class="w">  </span><span class="na">config_path</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="s2">"~/.kube/proj-frontend.yaml"</span>
-<span class="w">  </span><span class="na">config_context</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"proj-frontend"</span>
+<p>Download a kubeconfig for each project, and use provider aliases to manage resources across them in the same configuration. Check each file's context name with <code>kubectl config get-contexts --kubeconfig &lt;file&gt;</code>; console downloads use <code>dev</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="kr">provider</span><span class="w"> </span><span class="nv">"kubectl"</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="na">alias</span><span class="w">            </span><span class="o">=</span><span class="w"> </span><span class="s2">"frontend"</span>
+<span class="w">  </span><span class="na">config_path</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="nf">pathexpand</span><span class="p">(</span><span class="s2">"~/.kube/proj-frontend.yaml"</span><span class="p">)</span>
+<span class="w">  </span><span class="na">config_context</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="s2">"dev"</span>
+<span class="w">  </span><span class="na">load_config_file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="no">true</span>
 <span class="p">}</span>
 
-<span class="kr">provider</span><span class="w"> </span><span class="nv">"kubernetes"</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="na">alias</span><span class="w">          </span><span class="o">=</span><span class="w"> </span><span class="s2">"backend"</span>
-<span class="w">  </span><span class="na">config_path</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="s2">"~/.kube/proj-backend.yaml"</span>
-<span class="w">  </span><span class="na">config_context</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"proj-backend"</span>
+<span class="kr">provider</span><span class="w"> </span><span class="nv">"kubectl"</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="na">alias</span><span class="w">            </span><span class="o">=</span><span class="w"> </span><span class="s2">"backend"</span>
+<span class="w">  </span><span class="na">config_path</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="nf">pathexpand</span><span class="p">(</span><span class="s2">"~/.kube/proj-backend.yaml"</span><span class="p">)</span>
+<span class="w">  </span><span class="na">config_context</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="s2">"dev"</span>
+<span class="w">  </span><span class="na">load_config_file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="no">true</span>
 <span class="p">}</span>
 
-<span class="kr">resource</span><span class="w"> </span><span class="nc">"kubernetes_manifest"</span><span class="w"> </span><span class="nv">"frontend_vm"</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="na">provider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">kubernetes.frontend</span>
-<span class="w">  </span><span class="nb">manifest</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">}</span>
+<span class="c1"># local.frontend_vm and local.backend_db hold claims shaped like the examples below</span>
+<span class="kr">resource</span><span class="w"> </span><span class="nc">"kubectl_manifest"</span><span class="w"> </span><span class="nv">"frontend_vm"</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="na">provider</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nv">kubectl.frontend</span>
+<span class="w">  </span><span class="na">yaml_body</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">yamlencode</span><span class="p">(</span><span class="nv">local.frontend_vm</span><span class="p">)</span>
 <span class="p">}</span>
 
-<span class="kr">resource</span><span class="w"> </span><span class="nc">"kubernetes_manifest"</span><span class="w"> </span><span class="nv">"backend_db"</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="na">provider</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">kubernetes.backend</span>
-<span class="w">  </span><span class="nb">manifest</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">...</span><span class="w"> </span><span class="p">}</span>
+<span class="kr">resource</span><span class="w"> </span><span class="nc">"kubectl_manifest"</span><span class="w"> </span><span class="nv">"backend_db"</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="na">provider</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nv">kubectl.backend</span>
+<span class="w">  </span><span class="na">yaml_body</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">yamlencode</span><span class="p">(</span><span class="nv">local.backend_db</span><span class="p">)</span>
 <span class="p">}</span>
 </code></pre></div>
 <hr>
-<h2 id="managing-all-sco-services">Managing All SCO Services<a class="headerlink" href="#managing-all-sco-services" title="Permanent link">#</a></h2>
+<h2 id="managing-sco-services">Managing SCO Services<a class="headerlink" href="#managing-sco-services" title="Permanent link">#</a></h2>
 <h3 id="virtual-machine">Virtual Machine<a class="headerlink" href="#virtual-machine" title="Permanent link">#</a></h3>
-<div class="highlight"><pre><span></span><code><span class="kr">resource</span><span class="w"> </span><span class="nc">"kubernetes_manifest"</span><span class="w"> </span><span class="nv">"app_vm"</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="nb">manifest</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="kr">resource</span><span class="w"> </span><span class="nc">"kubectl_manifest"</span><span class="w"> </span><span class="nv">"app_vm"</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="na">yaml_body</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">yamlencode</span><span class="p">({</span>
 <span class="w">    </span><span class="na">apiVersion</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"compute.cloud.stakater.com/v1"</span>
 <span class="w">    </span><span class="na">kind</span><span class="w">       </span><span class="o">=</span><span class="w"> </span><span class="s2">"VirtualMachine"</span>
-<span class="w">    </span><span class="nb">metadata</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="na">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"app-vm"</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="nb">metadata</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="na">name</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="s2">"app-vm"</span>
+<span class="w">      </span><span class="na">namespace</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"default"</span>
+<span class="w">    </span><span class="p">}</span>
 <span class="w">    </span><span class="nb">spec</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
 <span class="w">      </span><span class="nb">parameters</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="na">flavour</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="s2">"rhel9"</span>
 <span class="w">        </span><span class="na">instanceType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"o1.large"</span>
 <span class="w">        </span><span class="na">storageSize</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s2">"medium"</span>
 <span class="w">        </span><span class="na">connection</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="s2">"public"</span>
-<span class="w">        </span><span class="na">sshPublicKey</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">var.ssh_public_key</span>
+<span class="w">        </span><span class="nb">sshPublicKey</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="na">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">base64encode</span><span class="p">(</span><span class="nv">var.ssh_public_key</span><span class="p">)</span>
+<span class="w">        </span><span class="p">}</span>
 <span class="w">      </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
-<span class="w">  </span><span class="p">}</span>
-<span class="w">  </span><span class="nb">timeouts</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="na">create</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"10m"; delete = "10m"</span><span class="w"> </span><span class="p">}</span>
+<span class="w">  </span><span class="p">})</span>
+
+<span class="w">  </span><span class="na">wait_for_rollout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="no">false</span>
 <span class="p">}</span>
 </code></pre></div>
+<p><code>sshPublicKey</code> is an object; <code>data</code> holds the base64-encoded OpenSSH public key.</p>
 <h3 id="openshift-cluster">OpenShift Cluster<a class="headerlink" href="#openshift-cluster" title="Permanent link">#</a></h3>
-<div class="highlight"><pre><span></span><code><span class="kr">resource</span><span class="w"> </span><span class="nc">"kubernetes_manifest"</span><span class="w"> </span><span class="nv">"dev_cluster"</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="nb">manifest</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="kr">resource</span><span class="w"> </span><span class="nc">"kubectl_manifest"</span><span class="w"> </span><span class="nv">"dev_cluster"</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="na">yaml_body</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">yamlencode</span><span class="p">({</span>
 <span class="w">    </span><span class="na">apiVersion</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"kubernetes.cloud.stakater.com/v1"</span>
 <span class="w">    </span><span class="na">kind</span><span class="w">       </span><span class="o">=</span><span class="w"> </span><span class="s2">"OpenShiftCluster"</span>
-<span class="w">    </span><span class="nb">metadata</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="na">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"dev-cluster", namespace = "my-tenant"</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="nb">metadata</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="na">name</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="s2">"dev-cluster"</span>
+<span class="w">      </span><span class="na">namespace</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"default"</span>
+<span class="w">    </span><span class="p">}</span>
 <span class="w">    </span><span class="nb">spec</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
 <span class="w">      </span><span class="nb">parameters</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="na">clusterName</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="s2">"dev-cluster"</span>
-<span class="w">        </span><span class="na">version</span><span class="w">         </span><span class="o">=</span><span class="w"> </span><span class="s2">"4.19"</span>
-<span class="w">        </span><span class="nb">defaultNodepool</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="na">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"large"</span><span class="p">,</span><span class="w"> </span><span class="na">replicas</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="p">}</span>
-<span class="w">        </span><span class="nb">networking</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="na">mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"public"</span><span class="w"> </span><span class="p">}</span>
+<span class="w">        </span><span class="na">version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"4.19"</span>
+<span class="w">        </span><span class="nb">defaultNodepool</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="na">size</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="s2">"large"</span>
+<span class="w">          </span><span class="na">replicas</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="nb">networking</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">          </span><span class="na">mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"public"</span>
+<span class="w">        </span><span class="p">}</span>
 <span class="w">      </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
-<span class="w">  </span><span class="p">}</span>
-<span class="w">  </span><span class="nb">timeouts</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="na">create</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"30m"; delete = "20m"</span><span class="w"> </span><span class="p">}</span>
+<span class="w">  </span><span class="p">})</span>
+
+<span class="w">  </span><span class="na">wait_for_rollout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="no">false</span>
 <span class="p">}</span>
 </code></pre></div>
+<p>The cluster name defaults to the claim name (<code>metadata.name</code>).</p>
 <h3 id="iam-resources">IAM Resources<a class="headerlink" href="#iam-resources" title="Permanent link">#</a></h3>
-<div class="highlight"><pre><span></span><code><span class="kr">resource</span><span class="w"> </span><span class="nc">"kubernetes_manifest"</span><span class="w"> </span><span class="nv">"user_alice"</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="nb">manifest</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<p>Organisation users are created by an organisation administrator (see <a href="../../how-to-guides/user/create-iam-user.html">How to Create an IAM User</a>). Use a provider configured with that kubeconfig:</p>
+<div class="highlight"><pre><span></span><code><span class="kr">resource</span><span class="w"> </span><span class="nc">"kubectl_manifest"</span><span class="w"> </span><span class="nv">"user_alice"</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="na">yaml_body</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">yamlencode</span><span class="p">({</span>
 <span class="w">    </span><span class="na">apiVersion</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"iam.cloud.stakater.com/v1"</span>
 <span class="w">    </span><span class="na">kind</span><span class="w">       </span><span class="o">=</span><span class="w"> </span><span class="s2">"User"</span>
-<span class="w">    </span><span class="nb">metadata</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="na">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"alice"</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="nb">metadata</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="na">name</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="s2">"alice"</span>
+<span class="w">      </span><span class="na">namespace</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"default"</span>
+<span class="w">    </span><span class="p">}</span>
 <span class="w">    </span><span class="nb">spec</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
 <span class="w">      </span><span class="nb">parameters</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="na">username</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="s2">"alice"</span>
@@ -6145,14 +6223,31 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <span class="w">        </span><span class="na">enabled</span><span class="w">       </span><span class="o">=</span><span class="w"> </span><span class="no">true</span>
 <span class="w">      </span><span class="p">}</span>
 <span class="w">    </span><span class="p">}</span>
-<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="p">})</span>
+
+<span class="w">  </span><span class="na">wait_for_rollout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="no">false</span>
+<span class="p">}</span>
+</code></pre></div>
+<hr>
+<h2 id="reading-status">Reading Status<a class="headerlink" href="#reading-status" title="Permanent link">#</a></h2>
+<p>Use the <code>kubectl_manifest</code> data source and decode its <code>json</code> attribute. Status fields are listed in the <a href="../../api-reference/overview.html">API Reference</a>.</p>
+<div class="highlight"><pre><span></span><code><span class="kr">data</span><span class="w"> </span><span class="nc">"kubectl_manifest"</span><span class="w"> </span><span class="nv">"app_vm"</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="na">api_version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"compute.cloud.stakater.com/v1"</span>
+<span class="w">  </span><span class="na">kind</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="s2">"VirtualMachine"</span>
+<span class="w">  </span><span class="na">name</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="s2">"app-vm"</span>
+<span class="w">  </span><span class="na">namespace</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="s2">"default"</span>
+<span class="w">  </span><span class="na">depends_on</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="nv">kubectl_manifest.app_vm</span><span class="p">]</span>
+<span class="p">}</span>
+
+<span class="kr">output</span><span class="w"> </span><span class="nv">"app_vm_status"</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="na">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">try</span><span class="p">(</span><span class="nf">jsondecode</span><span class="p">(</span><span class="nv">data.kubectl_manifest.app_vm.json</span><span class="p">).</span><span class="nv">status.vm.printableStatus</span><span class="p">,</span><span class="w"> </span><span class="kt">null</span><span class="p">)</span>
 <span class="p">}</span>
 </code></pre></div>
 <hr>
 <h2 id="state-management">State Management<a class="headerlink" href="#state-management" title="Permanent link">#</a></h2>
-<p>Import existing SCO claims into Terraform state:</p>
-<div class="highlight"><pre><span></span><code>terraform<span class="w"> </span>import<span class="w"> </span>kubernetes_manifest.app_vm<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span><span class="s2">"apiVersion=compute.cloud.stakater.com/v1,kind=VirtualMachine,name=app-vm"</span>
+<p>Import existing SCO claims into Terraform state. The ID separates <code>apiVersion</code>, <code>kind</code>, name and namespace with <code>//</code>:</p>
+<div class="highlight"><pre><span></span><code>terraform<span class="w"> </span>import<span class="w"> </span>kubectl_manifest.app_vm<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="s2">"compute.cloud.stakater.com/v1//VirtualMachine//app-vm//default"</span>
 </code></pre></div>
 <p>Use remote state for team environments to avoid state conflicts:</p>
 <div class="highlight"><pre><span></span><code><span class="nb">terraform</span><span class="w"> </span><span class="p">{</span>
@@ -6167,7 +6262,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <h2 id="whats-next">What's Next?<a class="headerlink" href="#whats-next" title="Permanent link">#</a></h2>
 <ul>
 <li><a href="setup-terraform.html">Setup Terraform</a> — Initial provider setup</li>
-<li><a href="../gitops-access/argocd-setup.html">GitOps Access</a> — Continuous deployment with ArgoCD or Flux</li>
+<li><a href="../gitops-access/argocd-setup.html">ArgoCD Setup</a> — Status of continuous deployment with ArgoCD or Flux</li>
 <li><a href="../../api-reference/overview.html">API Reference</a> — Full parameter reference for all services</li>
 </ul>
 

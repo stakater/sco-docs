@@ -4021,7 +4021,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Creating Organisations
+    Creating Organizations
   
 
     
@@ -5489,6 +5489,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="mesh-policy.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MeshPolicy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -6238,20 +6266,24 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <tr>
 <td><code>role</code></td>
 <td><code>string</code></td>
-<td>Role name to bind (e.g., <code>cluster-admin</code>, <code>view</code>)</td>
+<td>Role to grant: <code>platform-services-admin</code>, <code>platform-services-view</code>, or <code>&lt;service&gt;-user</code> / <code>&lt;service&gt;-viewer</code> for one service (<code>compute</code>, <code>database</code>, <code>kubernetes</code>, <code>mesh</code>, <code>network</code>, <code>secrets</code>, <code>storage</code>). See <a href="../../cloud-user-guide/projects/creating-projects.html#project-roles">Project Roles</a></td>
 </tr>
 <tr>
 <td><code>users</code></td>
 <td><code>string[]</code></td>
-<td>List of user identifiers to grant the role</td>
+<td>Email addresses of the users to grant the role</td>
 </tr>
 <tr>
 <td><code>groups</code></td>
 <td><code>string[]</code></td>
-<td>List of group identifiers to grant the role</td>
+<td>Names of the groups to grant the role</td>
 </tr>
 </tbody>
 </table>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><code>role</code> is not validated. Any other name is accepted, and if it matches a built-in Kubernetes role such as <code>edit</code> or <code>cluster-admin</code>, it grants that role in the project, with far broader rights than the SCO roles. Use only the roles listed above.</p>
+</div>
 <h2 id="status-fields">Status Fields<a class="headerlink" href="#status-fields" title="Permanent link">#</a></h2>
 <table>
 <thead>
@@ -6360,12 +6392,12 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <span class="w">      </span><span class="nt">cidr</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.100.0.0/16</span>
 <span class="w">    </span><span class="nt">tenantQuota</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">medium</span>
 <span class="w">    </span><span class="nt">access</span><span class="p">:</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cluster-admin</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">platform-services-admin</span>
 <span class="w">        </span><span class="nt">groups</span><span class="p">:</span>
 <span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">platform-admins</span>
 <span class="w">        </span><span class="nt">users</span><span class="p">:</span>
 <span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">alex@acmecorp.example.com</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">view</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">platform-services-view</span>
 <span class="w">        </span><span class="nt">groups</span><span class="p">:</span>
 <span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">developers</span>
 <span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">qa-team</span>

@@ -6269,7 +6269,7 @@ nslookup<span class="w"> </span>console-openshift-console.apps.&lt;cluster&gt;.&
 <span class="nb">printf</span><span class="w"> </span><span class="s1">'nameserver 8.8.8.8\n'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>/etc/resolver/&lt;platform<span class="w"> </span>sign-in<span class="w"> </span>domain&gt;
 sudo<span class="w"> </span>dscacheutil<span class="w"> </span>-flushcache<span class="p">;</span><span class="w"> </span>sudo<span class="w"> </span>killall<span class="w"> </span>-HUP<span class="w"> </span>mDNSResponder
 </code></pre></div>
-<p>The sign-in domain is the host part of the address your browser reports as unreachable after the redirect, for example <code>oauth-hypershift-&lt;cluster&gt;.&lt;platform-domain&gt;</code>. On Linux, add the same per-domain forwarding in your resolver's configuration. Remove the entries to undo.</p>
+<p>The sign-in domain is the host part of the address your browser reports as unreachable after the redirect, for example <code>oauth-hypershift-&lt;cluster&gt;.&lt;platform-domain&gt;</code>. On Linux, add the same per-domain forwarding to the configuration of your local resolver. Remove the entries to undo.</p>
 <p>If pages then hang or load only partly, reconnect with a smaller MTU:</p>
 <div class="highlight"><pre><span></span><code>netbird<span class="w"> </span>down
 netbird<span class="w"> </span>up<span class="w"> </span>--mtu<span class="w"> </span><span class="m">1200</span><span class="w"> </span>--management-url<span class="o">=</span>&lt;management<span class="w"> </span>URL&gt;

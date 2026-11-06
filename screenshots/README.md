@@ -61,10 +61,10 @@ the `viewport:` block of every flow so all captures come out the same size.
 | `resources` | `resources.md`, `overview.md` | `resource-list`, `resource-detail`, `create-form-standard`, `resource-detail-1`, `detail-advanced` |
 | `iam` | `create-iam-user.md`, `create-iam-group.md` | `iam-users-list`, `iam-user-create`, `iam-group-create`, `iam-group-create-members`, `iam-group-detail` |
 | `mesh` | `create-mesh.md` | `mesh-list`, `mesh-create`, `mesh-detail` |
-| `clusters` | `provision-openshift-cluster.md` | `cluster-create-standard`, `cluster-create-advanced` |
+| `clusters` | `provision-openshift-cluster.md`, `connect-to-openshift-cluster.md` | `cluster-list`, `cluster-create-standard`, `cluster-create-advanced`, `cluster-detail`, `hosted-cluster-console-login` |
 | `windows-vm` | `provision-windows-virtual-machine.md` | `windows-vm-create`, `windows-vm-list`, `windows-vm-detail` |
 
-`dashboard-org-stats` and `create-form-standard` are each referenced by two pages.
+`dashboard-org-stats`, `create-form-standard`, `cluster-list`, `cluster-detail` and `mesh-detail` are each referenced by two pages.
 
 The `iam`, `mesh` and `clusters` flows cover how-to guides rather than console pages, so
 they carry a console section into a `kubectl`-first guide. They are still read-only: a
@@ -124,10 +124,15 @@ The flows create nothing, but they do need somewhere to point and something to s
   mesh is the organization's own default Mesh, `<org>-default-mesh`, so the detail image
   shows a different name from the `my-mesh` in the guide's snippet.
 
-No cluster is required. The `clusters` flow captures the create form only, because a list
-or detail shot would mean keeping a hosted OpenShift control plane alive for two images.
-That is the one place a capture requirement was traded away rather than met; the note at
-the top of `flows/clusters.yaml` says what to add back if a long-lived cluster appears.
+- the cluster named in `DOCS_CLUSTER_NAME`, long-lived and at phase Ready, so its detail
+  page shows a console URL and API endpoint. `DOCS_CLUSTER_CONSOLE_URL` is that cluster's
+  console. The `clusters` flow opens it for the sign-in shot, so when the cluster is
+  private the runner host must first be enrolled in the `CONSOLE_ORG` default mesh
+  (`netbird up --management-url=<mesh management URL>`) as a user in the
+  `<cluster>-mesh-access` group, or the URL is unreachable and the flow fails at
+  `requires.reachable`. In CI that means the runner job needs a NetBird client and a
+  setup key or user credentials for that mesh; until it has them, run the flow locally
+  from an enrolled machine.
 
 If a future flow does need to create something, `capture.sh` runs `flows/_seed.yaml`
 first and `flows/_teardown.yaml` last, ahead of and after everything else. There is no

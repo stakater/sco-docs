@@ -1,0 +1,65 @@
+# how-to-guides/user/create-s3-bucket.md -> 3 images.
+#
+# Read-only: the create form is opened and named, never submitted. The list and detail
+# shots need the S3Bucket named DOCS_S3_NAME to exist in CONSOLE_ORG and be Ready. Seed
+# it through the console, not from here -- see "What the environment needs" in
+# screenshots/README.md. It is named after the example in the guide, so the image and
+# the snippet describe one bucket.
+name: sco-docs-s3
+
+requires:
+  env:
+    - CONSOLE_URL
+    - CONSOLE_ORG
+    - CONSOLE_USER
+    - CONSOLE_PASSWORD
+    - DOCS_S3_SIDEBAR_GROUP
+    - DOCS_S3_PLURAL
+    - DOCS_S3_NAME
+  reachable: ["${CONSOLE_URL}"]
+
+viewport:
+  width: 1280
+  height: 800
+  deviceScaleFactor: 2
+  colorScheme: light
+
+steps:
+  - use: cloud-orchestrator-console-login
+    with:
+      portal: "${CONSOLE_URL}"
+      org: "${CONSOLE_ORG}"
+      username: "${CONSOLE_USER}"
+      password: "${CONSOLE_PASSWORD}"
+
+  # Step 1, "Define an S3Bucket Claim" -- the guide's point is that `parameters: {}` is
+  # the whole claim; the form is the same statement in the other medium: a project and
+  # a name, nothing else. Standard is the default in a fresh browser context.
+  - use: cloud-orchestrator-console-open-resource-create
+    with:
+      portal: "${CONSOLE_URL}"
+      plural: "${DOCS_S3_PLURAL}"
+  - { step: fill, selector: 'input[id="metadata.name"], input#name', value: "my-bucket" }
+  - { step: screenshot, path: s3-create.png, fullPage: false }
+
+  # Step 3, "Verify the Bucket" -- the list is where READY shows. Needs at least one row.
+  - use: cloud-orchestrator-console-open-resource-list
+    with:
+      portal: "${CONSOLE_URL}"
+      plural: "${DOCS_S3_PLURAL}"
+  - use: cloud-orchestrator-console-expand-sidebar-group
+    with:
+      group: "${DOCS_S3_SIDEBAR_GROUP}"
+  - { step: screenshot, path: s3-list.png, fullPage: false }
+
+  # Step 3 and 4 -- the detail page carries the bucket name, endpoint and the Vault path
+  # the guide reads the credentials from. Needs the seeded bucket.
+  - use: cloud-orchestrator-console-open-resource-detail
+    with:
+      portal: "${CONSOLE_URL}"
+      plural: "${DOCS_S3_PLURAL}"
+      name: "${DOCS_S3_NAME}"
+  - { step: screenshot, path: s3-detail.png, fullPage: false }
+
+after:
+  - { step: screenshot, when: on-failure, path: _failure-s3.png }

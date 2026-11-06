@@ -102,7 +102,7 @@ printf 'nameserver 8.8.8.8\n' | sudo tee /etc/resolver/<platform sign-in domain>
 sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder
 ```
 
-The sign-in domain is the host part of the address your browser reports as unreachable after the redirect, for example `oauth-hypershift-<cluster>.<platform-domain>`. On Linux, add the same per-domain forwarding in your resolver's configuration. Remove the entries to undo.
+The sign-in domain is the host part of the address your browser reports as unreachable after the redirect, for example `oauth-hypershift-<cluster>.<platform-domain>`. On Linux, add the same per-domain forwarding to the configuration of your local resolver. Remove the entries to undo.
 
 If pages then hang or load only partly, reconnect with a smaller MTU:
 

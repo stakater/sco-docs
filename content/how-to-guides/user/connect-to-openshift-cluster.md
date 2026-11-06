@@ -9,7 +9,7 @@ Sam, a senior platform engineer at ACME Corp, has just provisioned a private clu
 - An [OpenShift cluster](provision-openshift-cluster.md) whose claim reports `READY=True`
 - The [NetBird client](https://docs.netbird.io/how-to/installation) installed on your device. The CLI alone is enough; the GUI is optional
 - Membership of a group listed under the cluster's `access.groups`, so you have a role once you are signed in
-- For a **private** cluster, membership of the organisation group `<cluster>-mesh-access`, which your organisation administrator grants
+- For a **private** cluster, membership of the organisation group `<cluster>-mesh-access`. The group is created empty when the cluster is provisioned, and the cluster's access grants form cannot fill it: ask your platform administrator to add you
 
 ## What Private Means
 
@@ -37,9 +37,9 @@ Open the cluster in the console. Clusters are under **Containers** in the sideba
 
 ![The OpenShift cluster list in the console]({{ screenshot: cluster-list }})
 
-The detail page shows the phase, the **Console URL** and the **API endpoint** once the cluster is ready:
+The detail page shows the phase and the access grants. The addresses are further down, in the **Status** block, which only renders in **Advanced** mode. Switch the toggle at the top right and scroll to it:
 
-![A cluster detail page showing the console URL and API endpoint]({{ screenshot: cluster-detail }})
+![A cluster detail page in Advanced mode, with the Status block showing the API endpoint and console URL]({{ screenshot: cluster-detail-advanced }})
 
 The same values are on the claim status:
 
@@ -77,14 +77,12 @@ See [Create a Mesh](create-mesh.md) for the full enrolment walkthrough and [One 
 
 ## Step 3: Open the Cluster Console
 
-Open the **Console URL** from Step 1 in your browser. You are redirected to your organisation's sign-in page:
+Open the **Console URL** from Step 1 in your browser. The cluster console uses your organisation's single sign-on. If you are already signed in to the Stakater Cloud Orchestrator console in the same browser, it signs you in without a prompt; otherwise you are redirected to your organisation's sign-in page. Either way you land on the cluster's **Projects** page:
 
-![The hosted cluster console sign-in page, redirected to the organisation identity provider]({{ screenshot: hosted-cluster-console-login }})
-
-Sign in with your organisation account. The console opens on the projects you have a role in.
+![The hosted cluster console after sign-in, showing the Projects page]({{ screenshot: hosted-cluster-console }})
 
 !!! note
-    If the console loads but shows no projects and offers to create one, your network path works but you have no role on the cluster. Ask whoever owns the claim to add your group under `access.groups`.
+    A fresh cluster shows no projects and offers to create one. That is normal when you have a role but nothing has been deployed yet. If you expected to see existing projects and do not, your network path works but you have no role on the cluster: ask whoever owns the claim to add your group under `access.groups`.
 
 ### If the Console Does Not Resolve
 

@@ -144,7 +144,9 @@ kubectl get openshiftcluster my-cluster -n my-tenant -o jsonpath="{.status.phase
 
 The cluster's detail page in the console shows the same phase, alongside the console URL and API endpoint that [Step 5](#step-5-access-the-cluster) reads out of the status:
 
-![A cluster detail page showing the phase, console URL and API endpoint]({{ screenshot: cluster-detail }})
+![A cluster detail page showing the phase and access grants]({{ screenshot: cluster-detail }})
+
+The console URL and API endpoint are in the **Status** block further down the page, shown in **Advanced** mode.
 
 ## Step 5: Access the Cluster
 

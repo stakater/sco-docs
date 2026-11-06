@@ -43,7 +43,7 @@ steps:
     with:
       portal: "${CONSOLE_URL}"
       plural: "${DOCS_VM_PLURAL}"
-  - { step: fill, selector: 'input[id="metadata.name"], input#name', value: "my-dev-vm" }
+  - { step: fill, selector: 'input[id="metadata.name"], input#name', value: "demo-virtual-machine" }
   - { step: screenshot, path: vm-create-standard.png, fullPage: false }
 
   # Step 3 and 4, SSH key, connection and cloud-init -- the Advanced-only fields render

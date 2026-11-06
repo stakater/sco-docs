@@ -6246,7 +6246,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 
 
 <h1 id="how-to-provision-a-virtual-machine">How to Provision a Virtual Machine<a class="headerlink" href="#how-to-provision-a-virtual-machine" title="Permanent link">#</a></h1>
-<p>Learn how to provision a virtual machine in your project.</p>
+<p>Learn how to provision a virtual machine in your project. The examples below match the <code>demo-virtual-machine</code> shown in the console screenshots.</p>
 <p>Emma, a developer at ACME Corp, needs a Linux virtual machine for her development environment. She can provision a VM with a chosen OS, instance size, and network connectivity in minutes.</p>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">#</a></h2>
 <ul>
@@ -6271,11 +6271,11 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">compute.cloud.stakater.com/v1</span>
 <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VirtualMachine</span>
 <span class="nt">metadata</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-dev-vm</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">demo-virtual-machine</span>
 <span class="nt">spec</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">flavour</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rhel9</span>
-<span class="w">    </span><span class="nt">instanceType</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">o1.small</span>
+<span class="w">    </span><span class="nt">flavour</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fedora</span>
+<span class="w">    </span><span class="nt">instanceType</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">u1.micro</span>
 </code></pre></div>
 <h3 id="required-parameters">Required Parameters<a class="headerlink" href="#required-parameters" title="Permanent link">#</a></h3>
 <table>
@@ -6333,7 +6333,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">compute.cloud.stakater.com/v1</span>
 <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VirtualMachine</span>
 <span class="nt">metadata</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-dev-vm</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">demo-virtual-machine</span>
 <span class="nt">spec</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">flavour</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rhel9</span>
@@ -6358,7 +6358,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">compute.cloud.stakater.com/v1</span>
 <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VirtualMachine</span>
 <span class="nt">metadata</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-dev-vm</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">demo-virtual-machine</span>
 <span class="nt">spec</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">flavour</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rhel9</span>
@@ -6381,18 +6381,18 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </code></pre></div>
 <h3 id="step-6-monitor-the-vm">Step 6: Monitor the VM<a class="headerlink" href="#step-6-monitor-the-vm" title="Permanent link">#</a></h3>
 <p>Check the VM status:</p>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>virtualmachine<span class="w"> </span>my-dev-vm
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>virtualmachine<span class="w"> </span>demo-virtual-machine
 </code></pre></div>
 <p>Wait for the VM to reach <code>Running</code> status:</p>
-<div class="highlight"><pre><span></span><code>NAME         READY   SYNCED   PRINTABLE-STATUS   AGE
-my-dev-vm    True    True     Running            3m
+<div class="highlight"><pre><span></span><code>NAME                   READY   SYNCED   PRINTABLE-STATUS   AGE
+demo-virtual-machine   True    True     Running            3m
 </code></pre></div>
 <p>The list in the console shows the same status:</p>
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/generated/vm-list.png" data-desc-position="bottom"><img alt="The Virtual Machines list in the console, with a running VM" src="../../images/generated/vm-list.png"></a></p>
-<p>The VM's detail page shows the VM status, resources and connection mode. A <code>public</code> VM also shows its address here; a <code>private</code> one is reached over your organisation's <a href="create-mesh.html">Mesh</a>:</p>
+<p>The VM's detail page shows the VM status, resources and connection mode. A <code>public</code> VM shows its address here. A <code>private</code> VM is reached over your organisation's mesh, and only the address differs: enrol as described in <a href="create-mesh.html">Create a Mesh</a>, then SSH to the VM's mesh address.</p>
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/generated/vm-detail.png" data-desc-position="bottom"><img alt="A Virtual Machine detail page, showing the status, resources and connection mode" src="../../images/generated/vm-detail.png"></a></p>
 <p>Retrieve the VM's connection details (for <code>public</code> VMs):</p>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>virtualmachine<span class="w"> </span>my-dev-vm<span class="w"> </span><span class="se">\</span>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>virtualmachine<span class="w"> </span>demo-virtual-machine<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.status.vm.serviceHostname}'</span>
 </code></pre></div>
 <p>SSH into the VM:</p>

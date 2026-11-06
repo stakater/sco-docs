@@ -11,6 +11,16 @@ Emma, a developer at ACME Corp, needs a Linux virtual machine for her developmen
 - `kubectl` configured with your project kubeconfig
 - An SSH public key for VM access
 
+## In the Console
+
+Virtual machines are under **Compute** in the sidebar. The create form opens in **Standard** mode and asks for the same things the minimal claim below does: a name, a flavour and an instance type.
+
+![The Create Virtual Machine form in Standard mode]({{ screenshot: vm-create-standard }})
+
+**Advanced** reveals the rest of the claim further down the form: storage size, the connection mode, the SSH public key and the cloud-init script.
+
+![The lower part of the create form in Advanced mode, showing the connection mode, SSH key and cloud-init fields]({{ screenshot: vm-create-advanced }})
+
 ## Cloud VM
 
 ### Step 1: Prepare Your SSH Key
@@ -133,6 +143,14 @@ Wait for the VM to reach `Running` status:
 NAME         READY   SYNCED   PRINTABLE-STATUS   AGE
 my-dev-vm    True    True     Running            3m
 ```
+
+The list in the console shows the same status:
+
+![The Virtual Machines list in the console, with a running VM]({{ screenshot: vm-list }})
+
+The VM's detail page shows the VM status, resources and connection mode. A `public` VM also shows its address here; a `private` one is reached over your organisation's [Mesh](create-mesh.md):
+
+![A Virtual Machine detail page, showing the status, resources and connection mode]({{ screenshot: vm-detail }})
 
 Retrieve the VM's connection details (for `public` VMs):
 

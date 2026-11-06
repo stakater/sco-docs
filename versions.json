@@ -22,9 +22,7 @@
   {
     "version": "renovate-0.1-dotenv-17.x-lockfile",
     "title": "renovate-0.1-dotenv-17.x-lockfile",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "renovate-main-node-26.x",
@@ -99,7 +97,9 @@
   {
     "version": "docs-screenshots-s00-cluster-connect",
     "title": "docs-screenshots-s00-cluster-connect",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "docs-scobasic-org-onboarding",

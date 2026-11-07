@@ -157,6 +157,11 @@
     "aliases": []
   },
   {
+    "version": "docs-decommission-scosmart",
+    "title": "docs-decommission-scosmart",
+    "aliases": []
+  },
+  {
     "version": "architecture",
     "title": "architecture",
     "aliases": []

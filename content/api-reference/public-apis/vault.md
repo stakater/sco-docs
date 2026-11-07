@@ -77,7 +77,7 @@ Changes to a project's `access` apply to new sign-ins: removing a user or group 
 | Path (under `stakater/projects/<organisation>-<project>/`) | Written by | Contents |
 |---|---|---|
 | `vms/<vm>` | the platform | `username` and `password` of the local Administrator it generates for a Windows virtual machine installed without an answer file of your own |
-| any path you choose | you | answer files a Windows virtual machine reads through `sysprep.secretPath` (property `autounattend.xml`), and credentials a virtual machine backup reads through `credentials.secretPath` |
+| any path you choose | you | answer files a Windows virtual machine reads through `sysprep.secretPath` (property `autounattend.xml`), credentials a virtual machine backup reads through `credentials.secretPath`, and the bucket access key a [Postgres](./postgres.md#backup) backup reads through `backup.credentials.secretPath` |
 
 A path you give a claim is always **relative to your project folder**: `win/standard` means `stakater/projects/<organisation>-<project>/win/standard`. A claim cannot name a path outside it.
 

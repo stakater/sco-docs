@@ -72,6 +72,7 @@ nav:
           - installation/scobasic.md
           - installation/openbao-unseal.md
           - installation/configuration.md
+          - installation/database-backups.md
       - Solutions and Marketplace:
           - service-provider-guide/solutions/solution-overview.md
           - Creating Solutions:

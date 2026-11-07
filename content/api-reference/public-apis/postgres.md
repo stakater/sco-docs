@@ -23,6 +23,35 @@ All parameters are nested under `spec.parameters`.
 | `storage.size` | `string` | `10Gi` | Disk size per PostgreSQL instance |
 | `exposeLoadBalancer` | `boolean` | `false` | When `true`, the platform creates an external endpoint for the database and reports it in `status.connection.externalHost`. Whether that endpoint is reachable from the internet depends on your cloud's network perimeter; on Stakater's production cloud it is not, because the perimeter does not admit port `5432` (see [Test from Your Workstation](../../how-to-guides/user/create-postgres.md#test-from-your-workstation)). When `false`, the database is reachable only from inside the project. |
 
+### Backup
+
+Continuous backups to a bucket you own, on Amazon S3 or any S3-compatible service. Every change is archived as it happens, and a full backup is taken on a schedule. Turning backups on or off restarts the database once.
+
+| Field | Type | Default | Description |
+|-------|------|---------|-------------|
+| `backup.enabled` | `boolean` | `false` | Back the database up. |
+| `backup.bucket` | `string` | — | Name of an existing bucket. The platform does not create or empty it. Required when `enabled` is `true`. |
+| `backup.path` | `string` | bucket root | Folder inside the bucket, for example `postgres/orders`. The database writes below it in a folder of its own. |
+| `backup.endpointURL` | `string` | Amazon S3 | `https://` address of an S3-compatible storage service, for example `https://s3.example.com`. |
+| `backup.region` | `string` | detected | Region of the bucket, for example `eu-west-1`. |
+| `backup.schedule` | `string` | `0 0 2 * * *` | When to take the full backup: a six-field cron expression in UTC, seconds first. The default is 02:00 every day. |
+| `backup.retentionPolicy` | `string` | `7d` | How far back the database can be restored: a number followed by `d` (days), `w` (weeks) or `m` (months). |
+| `backup.credentials.secretPath` | `string` | — | Path of the access key in your project's folder of your organisation's [Vault](./vault.md#what-the-platform-keeps-in-your-project-folder): `postgres/backup` reads `stakater/projects/<organisation>-<project>/postgres/backup`. Segments of letters, digits, `.`, `_` or `-`, separated by `/`. A path outside your project folder cannot be named. |
+| `backup.credentials.secretName` | `string` | — | Name of an existing Secret in the namespace the database runs in. Takes precedence over `secretPath`. Your project kubeconfig may not reach that namespace, so use `secretPath` unless your platform team has created the Secret for you. |
+| `backup.credentials.privateCA` | `boolean` | `false` | Verify the storage service against the certificate under `ca.crt` in the access key. Use it when the service's certificate is issued by a private certificate authority. |
+
+When `enabled` is `true`, `bucket` and one of `credentials.secretPath` or `credentials.secretName` are required.
+
+The access key, in the Vault or in the Secret, holds these keys:
+
+| Key | Description |
+|-----|-------------|
+| `ACCESS_KEY_ID` | Access key ID for the bucket |
+| `ACCESS_SECRET_KEY` | Secret access key for the bucket |
+| `ca.crt` | PEM certificate of the private certificate authority. Needed only with `privateCA: true`. |
+
+The key needs to list the bucket and to read, write and delete objects below `path`: the platform deletes backups older than `retentionPolicy`.
+
 ## Status Fields
 
 `status.connection` carries non-sensitive endpoint metadata plus a pointer to the credentials. Credentials (username, password, URI) are **not** placed here — they are stored in your organisation's Vault (see [Credentials](#credentials)).
@@ -99,6 +128,28 @@ metadata:
 spec:
   parameters:
     exposeLoadBalancer: true
+```
+
+### Backed up to your own bucket
+
+```yaml
+apiVersion: database.cloud.stakater.com/v1
+kind: Postgres
+metadata:
+  name: orders-db
+spec:
+  parameters:
+    backup:
+      enabled: true
+      bucket: acme-backups
+      path: postgres/orders
+      endpointURL: https://s3.example.com
+      region: eu-central-1
+      schedule: "0 15 1 * * *"
+      retentionPolicy: 14d
+      credentials:
+        secretPath: postgres/backup
+        privateCA: true
 ```
 
 ### Consuming the credentials from a workload

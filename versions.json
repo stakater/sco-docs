@@ -137,7 +137,9 @@
   {
     "version": "docs-postgres-backup-byo",
     "title": "docs-postgres-backup-byo",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "docs-organization-platform-config-install",
@@ -162,9 +164,7 @@
   {
     "version": "docs-decommission-scosmart",
     "title": "docs-decommission-scosmart",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "architecture",

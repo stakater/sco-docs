@@ -113,7 +113,7 @@ metadata:
 spec:
   parameters:
     name: <cluster-name>
-    variant: scobasic          # <- the variant
+    variant: scobasic          # <- the variant (also the default when omitted)
     platform: ocp
     domain: <apps-domain>
 

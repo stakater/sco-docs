@@ -97,9 +97,7 @@
   {
     "version": "docs-screenshots-s02-s3-bucket",
     "title": "docs-screenshots-s02-s3-bucket",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "docs-screenshots-s01-linux-vm",
@@ -159,7 +157,9 @@
   {
     "version": "docs-decommission-scosmart",
     "title": "docs-decommission-scosmart",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "architecture",

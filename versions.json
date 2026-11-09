@@ -47,7 +47,9 @@
   {
     "version": "renovate-main-dotenv-18.x",
     "title": "renovate-main-dotenv-18.x",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "renovate-main-dotenv-17.x-lockfile",
@@ -137,9 +139,7 @@
   {
     "version": "docs-postgres-backup-byo",
     "title": "docs-postgres-backup-byo",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "docs-organization-platform-config-install",

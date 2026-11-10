@@ -82,7 +82,9 @@
   {
     "version": "fix-0.1-screenshots-name-input-id",
     "title": "fix-0.1-screenshots-name-input-id",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "feat-api-reference-s3-postgres",
@@ -157,9 +159,7 @@
   {
     "version": "docs-organization-platform-config-install",
     "title": "docs-organization-platform-config-install",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "docs-networking-mode-not-self-service",

@@ -1,0 +1,86 @@
+# how-to-guides/user/provision-virtual-machine.md -> 4 images.
+#
+# Read-only: the create form is filled and shot, never submitted. The list and detail
+# shots need the Linux VirtualMachine named DOCS_VM_NAME to exist in CONSOLE_ORG and be
+# Running; the same VM serves the resources flow, so one seeded machine covers both.
+#
+# The sidebar group and plural are the ones resources.yaml uses (DOCS_SIDEBAR_GROUP,
+# DOCS_VM_PLURAL), because they are the same resource. This flow exists separately so
+# the guide's images are framed on the guide's steps -- the create form with a name
+# typed in, Advanced on the end of the form, the detail page -- rather than on the
+# generic console pages resources.md documents.
+name: sco-docs-vm
+
+requires:
+  env:
+    - CONSOLE_URL
+    - CONSOLE_ORG
+    - CONSOLE_USER
+    - CONSOLE_PASSWORD
+    - DOCS_SIDEBAR_GROUP
+    - DOCS_VM_PLURAL
+    - DOCS_VM_NAME
+  reachable: ["${CONSOLE_URL}"]
+
+viewport:
+  width: 1280
+  height: 800
+  deviceScaleFactor: 2
+  colorScheme: light
+
+steps:
+  - use: cloud-orchestrator-console-login
+    with:
+      portal: "${CONSOLE_URL}"
+      org: "${CONSOLE_ORG}"
+      username: "${CONSOLE_USER}"
+      password: "${CONSOLE_PASSWORD}"
+
+  # Step 2, "Define a Minimal VM Claim" -- the Standard form asks for the same things
+  # the minimal claim does: a name, a flavour and an instance type. Standard is the
+  # default in a fresh browser context, so this is shot first without asserting it.
+  - use: cloud-orchestrator-console-open-resource-create
+    with:
+      portal: "${CONSOLE_URL}"
+      plural: "${DOCS_VM_PLURAL}"
+  - { step: fill, selector: 'input[id="metadata.name"], input#name', value: "demo-virtual-machine" }
+  - { step: screenshot, path: vm-create-standard.png, fullPage: false }
+
+  # Step 3 and 4, SSH key, connection and cloud-init -- the Advanced-only fields render
+  # further down, so the shot is framed on the end of the form. Settle before scrolling
+  # (see clusters.yaml for why), and Standard had to be shot first because the mode
+  # persists in localStorage.
+  - use: cloud-orchestrator-console-set-complexity-mode
+    with:
+      mode: Advanced
+  - { step: wait, ms: 750 }
+  - { step: scroll-to, selector: 'form button[type="submit"]', block: end }
+  - { step: wait, ms: 500 }
+  - { step: screenshot, path: vm-create-advanced.png, fullPage: false }
+  - use: cloud-orchestrator-console-set-complexity-mode
+    with:
+      mode: Standard
+  - { step: wait, ms: 500 }
+
+  # Step 6, "Monitor the VM" -- the list is where status reaches Running. Needs at least
+  # one row, or the flow fails on the empty state rather than publishing one.
+  - use: cloud-orchestrator-console-open-resource-list
+    with:
+      portal: "${CONSOLE_URL}"
+      plural: "${DOCS_VM_PLURAL}"
+  - use: cloud-orchestrator-console-expand-sidebar-group
+    with:
+      group: "${DOCS_SIDEBAR_GROUP}"
+  - { step: screenshot, path: vm-list.png, fullPage: false }
+
+  # Step 6, connection details -- the detail page's summary strip carries the address
+  # the guide tells the reader to SSH to. Needs the seeded VM.
+  - use: cloud-orchestrator-console-open-resource-detail
+    with:
+      portal: "${CONSOLE_URL}"
+      plural: "${DOCS_VM_PLURAL}"
+      name: "${DOCS_VM_NAME}"
+  - { step: screenshot, path: vm-detail.png, fullPage: false }
+
+after:
+  - { step: screenshot, when: on-failure, path: _failure-vm.png }

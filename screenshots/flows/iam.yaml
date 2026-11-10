@@ -58,7 +58,7 @@ steps:
     with:
       portal: "${CONSOLE_URL}"
       plural: "${DOCS_GROUP_PLURAL}"
-  - { step: fill, selector: "input#name", value: "engineering-team" }
+  - { step: fill, selector: 'input[id="metadata.name"], input#name', value: "engineering-team" }
   - { step: screenshot, path: iam-group-create.png, fullPage: false }
 
   # create-iam-group.md step 2 -- adding members. Advanced first: `members` is optional

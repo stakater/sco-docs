@@ -18,7 +18,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.svg">
-      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.8.0">
+      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.8.1">
     
     
       
@@ -4020,7 +4020,7 @@ This documentation is either for an old version, or for the unreleased 'main' ve
   <span class="md-ellipsis">
     
   
-    Creating Organisations
+    Creating Organizations
   
 
     
@@ -5510,6 +5510,34 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="mesh-policy.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MeshPolicy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -6258,7 +6286,13 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 <td><code>connection</code></td>
 <td><code>string</code></td>
 <td><code>private</code></td>
-<td>Network access type. <code>private</code> = no external IP; <code>public</code> = LoadBalancer Service created</td>
+<td>Network access type. <code>private</code> = no external address (reach it over the Mesh with <code>meshRoute</code>); <code>public</code> = LoadBalancer Service created</td>
+</tr>
+<tr>
+<td><code>meshRoute.enabled</code></td>
+<td><code>boolean</code></td>
+<td><code>false</code></td>
+<td>Advertise the VM on your organisation's Mesh, so enrolled devices can reach it on SSH (<code>22</code>), RDP (<code>3389</code>) and ICMP</td>
 </tr>
 <tr>
 <td><code>sshPublicKey.data</code></td>
@@ -7291,7 +7325,7 @@ This documentation is either for an old version, or for the unreleased 'main' ve
       <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.code.copy", "navigation.tracking", "toc.follow", "navigation.top"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.c21346df.min.js"></script>
+      <script src="../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
       
     
   

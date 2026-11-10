@@ -47,9 +47,7 @@
   {
     "version": "renovate-main-dotenv-18.x",
     "title": "renovate-main-dotenv-18.x",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "renovate-main-dotenv-17.x-lockfile",
@@ -104,7 +102,9 @@
   {
     "version": "docs-screenshots-s01-linux-vm",
     "title": "docs-screenshots-s01-linux-vm",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "docs-screenshots-s00-cluster-connect",

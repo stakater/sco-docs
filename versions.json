@@ -137,14 +137,14 @@
   {
     "version": "docs-sa-8965-related-resources",
     "title": "docs-sa-8965-related-resources",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "docs-private-ca-certificate-files",
     "title": "docs-private-ca-certificate-files",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "docs-postgres-backup-byo",

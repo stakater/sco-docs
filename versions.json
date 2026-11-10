@@ -95,6 +95,11 @@
     "aliases": []
   },
   {
+    "version": "docs-screenshots-s03-postgres",
+    "title": "docs-screenshots-s03-postgres",
+    "aliases": []
+  },
+  {
     "version": "docs-screenshots-s02-s3-bucket",
     "title": "docs-screenshots-s02-s3-bucket",
     "aliases": []

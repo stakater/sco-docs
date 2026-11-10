@@ -123,7 +123,7 @@ spec:
 | Field | Required | Description |
 |-------|:--------:|-------------|
 | `metadata.name` | ✅ | Claim name. Convention: `<cluster-slug>-package`. |
-| `parameters.variant` | ✅ | `hosting` — must match the `KubeStackConfig` variant. When omitted it defaults to `scobasic`. |
+| `parameters.variant` | ✅ | `hosting` — must match the `KubeStackConfig` variant. There is no default: a claim without it is rejected at admission. |
 | `parameters.platform` | ✅ | `ocp`. |
 | `parameters.server` | — | ArgoCD Application destination API server. For `hosting`, the local cluster API (default `https://kubernetes.default.svc`). |
 | `parameters.excludedAddons` | — | Optional list of addon names to exclude (see below). |

@@ -97,7 +97,9 @@
   {
     "version": "docs-screenshots-s03-postgres",
     "title": "docs-screenshots-s03-postgres",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "docs-screenshots-s02-s3-bucket",
@@ -107,9 +109,7 @@
   {
     "version": "docs-screenshots-s01-linux-vm",
     "title": "docs-screenshots-s01-linux-vm",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "docs-screenshots-s00-cluster-connect",

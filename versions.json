@@ -150,13 +150,6 @@
     "aliases": []
   },
   {
-    "version": "docs-organization-platform-config-install",
-    "title": "docs-organization-platform-config-install",
-    "aliases": [
-      "latest"
-    ]
-  },
-  {
     "version": "docs-networking-mode-not-self-service",
     "title": "docs-networking-mode-not-self-service",
     "aliases": []

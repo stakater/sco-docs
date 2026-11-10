@@ -169,8 +169,15 @@ oc get svc -n openshift-ingress | grep LoadBalancer
 ```
 
 Each hosted cluster needs two more records, `api.<cluster>.<base>` and
-`*.apps.<cluster>.<base>`. The platform lists them, with their addresses, in the
-cluster's status (`status.dns`).
+`*.apps.<cluster>.<base>`. The platform lists them, with their addresses, in
+`status.dns` of the cluster's infrastructure resource on the management cluster.
+A platform administrator reads them there; the project user's view of the cluster
+does not show them:
+
+```bash
+oc get openshiftclusters.infrastructure.stakater.com -A \
+  -o custom-columns=CLUSTER:.metadata.name,RECORDS:.status.dns.records
+```
 
 !!! tip "Put records where the name is served"
     - If `<base>` is a delegated zone, create the records **in that zone**. Records in its parent zone are ignored.

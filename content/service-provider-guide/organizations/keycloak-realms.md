@@ -46,9 +46,8 @@ metadata:
   name: platform-engineers
 spec:
   parameters:
-    name: platform-engineers
     members:
-      - alice
+      - alice@acmecorp.example.com
 EOF
 ```
 

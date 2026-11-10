@@ -113,10 +113,9 @@ metadata:
   name: platform-admins
 spec:
   parameters:
-    name: platform-admins
     members:
-      - alice
-      - bob
+      - alice@example.com
+      - bob@example.com
 ```
 
 These claims trigger Crossplane compositions that reconcile the corresponding Keycloak realm users and groups. Direct Keycloak API access is not required for routine IAM management.

@@ -82,9 +82,7 @@
   {
     "version": "fix-0.1-screenshots-name-input-id",
     "title": "fix-0.1-screenshots-name-input-id",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "feat-api-reference-s3-postgres",
@@ -184,7 +182,9 @@
   {
     "version": "ci-0.1-closed-pr-deploy-concurrency",
     "title": "ci-0.1-closed-pr-deploy-concurrency",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "architecture",

@@ -6473,8 +6473,13 @@ a minute, without restarting.</p>
 <div class="highlight"><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>svc<span class="w"> </span>-n<span class="w"> </span>openshift-ingress<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>LoadBalancer
 </code></pre></div>
 <p>Each hosted cluster needs two more records, <code>api.&lt;cluster&gt;.&lt;base&gt;</code> and
-<code>*.apps.&lt;cluster&gt;.&lt;base&gt;</code>. The platform lists them, with their addresses, in the
-cluster's status (<code>status.dns</code>).</p>
+<code>*.apps.&lt;cluster&gt;.&lt;base&gt;</code>. The platform lists them, with their addresses, in
+<code>status.dns</code> of the cluster's infrastructure resource on the management cluster.
+A platform administrator reads them there; the project user's view of the cluster
+does not show them:</p>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>openshiftclusters.infrastructure.stakater.com<span class="w"> </span>-A<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-o<span class="w"> </span>custom-columns<span class="o">=</span>CLUSTER:.metadata.name,RECORDS:.status.dns.records
+</code></pre></div>
 <div class="admonition tip">
 <p class="admonition-title">Put records where the name is served</p>
 <ul>

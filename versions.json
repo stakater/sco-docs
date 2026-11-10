@@ -87,6 +87,11 @@
     "aliases": []
   },
   {
+    "version": "docs-0.1-organization-platform-config",
+    "title": "docs-0.1-organization-platform-config",
+    "aliases": []
+  },
+  {
     "version": "docs-vm-peers-native-network",
     "title": "docs-vm-peers-native-network",
     "aliases": []

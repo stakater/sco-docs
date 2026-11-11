@@ -152,11 +152,6 @@
     "aliases": []
   },
   {
-    "version": "docs-private-ca-certificate-files",
-    "title": "docs-private-ca-certificate-files",
-    "aliases": []
-  },
-  {
     "version": "docs-postgres-backup-byo",
     "title": "docs-postgres-backup-byo",
     "aliases": []

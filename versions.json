@@ -22,9 +22,7 @@
   {
     "version": "renovate-0.1-dotenv-17.x-lockfile",
     "title": "renovate-0.1-dotenv-17.x-lockfile",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "renovate-main-node-26.x",
@@ -34,7 +32,9 @@
   {
     "version": "renovate-main-node-24.x-lockfile",
     "title": "renovate-main-node-24.x-lockfile",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "renovate-main-node-24.x",

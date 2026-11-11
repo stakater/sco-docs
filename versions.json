@@ -102,7 +102,9 @@
   {
     "version": "docs-screenshots-s04-vault",
     "title": "docs-screenshots-s04-vault",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "docs-screenshots-s03-postgres",
@@ -152,9 +154,7 @@
   {
     "version": "docs-private-ca-certificate-files",
     "title": "docs-private-ca-certificate-files",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "docs-postgres-backup-byo",

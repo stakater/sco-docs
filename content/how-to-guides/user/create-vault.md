@@ -11,6 +11,12 @@ Emma, a developer at ACME Corp, needs a secrets manager her team can reach from 
 - `kubectl` configured with your project kubeconfig
 - The [OpenBao CLI](https://openbao.org/docs/install/) (or Vault CLI) for command-line access
 
+## Your Organisation Probably Has One Already
+
+When an organisation is set up, the platform creates a default Vault for it, named `<organisation>-default-bao`. Your platform administrator controls this with the `bao.enabled` setting on the organisation, which is on unless they turned it off (see [Creating Organizations](../../service-provider-guide/organizations/creating-organizations.md)).
+
+An organisation is meant to have one Vault: projects, databases and buckets all keep their secrets in it. Check the Vaults list first. If the default Vault is there, do not create another: skip to [Step 3](#step-3-verify-the-vault) and use its name in place of `my-vault`. Create a Vault with the steps below only if your organisation has none.
+
 ## What Gets Created
 
 When you create a Vault claim, the platform provisions:
@@ -22,7 +28,11 @@ When you create a Vault claim, the platform provisions:
 
 ## In the Console
 
-Vaults are under **Secrets** in the sidebar. The create form asks for a project and a name, the same as the minimal claim below. The storage sizes are filled in with their defaults, and **Mesh Access** takes the extra groups described in Step 1:
+Vaults are under **Secrets** in the sidebar. Check the list before you create anything. Here it shows the default Vault of the `acme` organisation:
+
+![The Vaults list in the console, showing the default Vault of the organisation]({{ screenshot: vault-list }})
+
+The create form asks for a project and a name, the same as the minimal claim below. The storage sizes are filled in with their defaults, and **Mesh Access** takes the extra groups described in Step 1:
 
 ![The Create Vault form, with the name filled in and the default storage sizes]({{ screenshot: vault-create }})
 
@@ -72,10 +82,6 @@ kubectl apply -f vault.yaml
 ```bash
 kubectl get vault my-vault
 ```
-
-The Vault also appears in the console list:
-
-![The Vaults list in the console]({{ screenshot: vault-list }})
 
 Wait for `READY: True`, then read the endpoint:
 

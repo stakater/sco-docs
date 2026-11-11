@@ -6351,9 +6351,9 @@ private CA they reach it in one of two ways:</p>
 <p>The platform then requests and renews all of its certificates through that issuer.</p>
 <h2 id="option-2-certificate-files">Option 2: certificate files<a class="headerlink" href="#option-2-certificate-files" title="Permanent link">#</a></h2>
 <div class="admonition note">
-<p class="admonition-title">Needs a recent <code>ksp</code></p>
-<p>Certificate files need a <code>ksp</code> release that supports them. Check the
-<a href="prerequisites.html#kubestack-cli-ksp">KubeStack+ CLI</a> table, or ask Stakater.</p>
+<p class="admonition-title">Needs <code>ksp</code> v2.9.0 or later</p>
+<p>Earlier <code>ksp</code> releases require a ClusterIssuer when <code>privateCA</code> is set. See the
+<a href="prerequisites.html#kubestack-cli-ksp">KubeStack+ CLI</a> table.</p>
 </div>
 <h3 id="the-certificate">The certificate<a class="headerlink" href="#the-certificate" title="Permanent link">#</a></h3>
 <p>Ask your CA for <strong>one</strong> certificate with these names. <code>&lt;base&gt;</code> is the cluster

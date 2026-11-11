@@ -3752,6 +3752,17 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
         
           <li class="md-nav__item">
+  <a href="#organization-platform-config" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Organization platform config
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#where-each-value-comes-from" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -6309,6 +6320,17 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
         
           <li class="md-nav__item">
+  <a href="#organization-platform-config" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Organization platform config
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#where-each-value-comes-from" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -6660,6 +6682,54 @@ address range:</p>
 <span class="w">    </span><span class="nt">bgp</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
 </code></pre></div>
+<h3 id="organization-platform-config">Organization platform config<a class="headerlink" href="#organization-platform-config" title="Permanent link">#</a></h3>
+<p>Every organization reads the EnvironmentConfig <code>organization-platform-config</code>.
+It is required: without it no organization can be created. It also turns the
+optional organization integrations on: an AWS Organizational Unit per
+organization, Azure AD SSO for organization admins, outbound email (SMTP) for the
+organization realms, and audit. For <code>scobasic</code> all of them are usually off:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">apiextensions.crossplane.io/v1beta1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">EnvironmentConfig</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">organization-platform-config</span>
+<span class="nt">data</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">aws</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">  </span><span class="nt">azuread</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">  </span><span class="nt">smtp</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">  </span><span class="nt">audit</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+</code></pre></div>
+<p>The platform creates it with every integration off; you do not apply it. To
+turn an integration on, put its settings in the override for the
+<code>crossplane-environment-config</code> addon (add them to that object if you already
+have one). Editing <code>organization-platform-config</code> directly does not last: the
+platform renders it again from these values.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">apiextensions.crossplane.io/v1beta1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">EnvironmentConfig</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;cluster-name&gt;-crossplane-environment-config-addon-env-override</span>
+<span class="w">  </span><span class="nt">labels</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">crossplane.io/composite</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;cluster-name&gt;</span>
+<span class="w">    </span><span class="nt">kubestack.stakater.com/addon-name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">crossplane-environment-config</span>
+<span class="w">    </span><span class="nt">kubestack.stakater.com/config-kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kubestack-plus-env</span>
+<span class="w">    </span><span class="nt">kubestack.stakater.com/config-scope</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">addon</span>
+<span class="w">    </span><span class="nt">kubestack.stakater.com/domain</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;apps-domain&gt;</span>
+<span class="w">    </span><span class="nt">kubestack.stakater.com/name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;cluster-name&gt;</span>
+<span class="nt">data</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">SCOBASIC-OCP-VALUES</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">    </span><span class="no">organizationPlatformConfig:</span>
+<span class="w">      </span><span class="no">data:</span>
+<span class="w">        </span><span class="no">smtp:</span>
+<span class="w">          </span><span class="no">enabled: true</span>
+<span class="w">          </span><span class="no"># ...the settings this integration needs</span>
+</code></pre></div>
+<p>With a platform version that does not create it yet, save the first file above
+as <code>organization-platform-config.yaml</code> and apply it yourself
+(<code>kubectl apply -f organization-platform-config.yaml</code>) before you create the first
+organization.</p>
 <h3 id="where-each-value-comes-from">Where each value comes from<a class="headerlink" href="#where-each-value-comes-from" title="Permanent link">#</a></h3>
 <table>
 <thead>

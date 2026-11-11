@@ -3230,6 +3230,17 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
+  <a href="#your-organisation-probably-has-one-already" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Your Organisation Probably Has One Already
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#what-gets-created" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -6019,6 +6030,17 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
+  <a href="#your-organisation-probably-has-one-already" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Your Organisation Probably Has One Already
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#what-gets-created" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -6133,6 +6155,9 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <li><code>kubectl</code> configured with your project kubeconfig</li>
 <li>The <a href="https://openbao.org/docs/install/">OpenBao CLI</a> (or Vault CLI) for command-line access</li>
 </ul>
+<h2 id="your-organisation-probably-has-one-already">Your Organisation Probably Has One Already<a class="headerlink" href="#your-organisation-probably-has-one-already" title="Permanent link">#</a></h2>
+<p>When an organisation is set up, the platform creates a default Vault for it, named <code>&lt;organisation&gt;-default-bao</code>. Your platform administrator controls this with the <code>bao.enabled</code> setting on the organisation, which is on unless they turned it off (see <a href="../../service-provider-guide/organizations/creating-organizations.html">Creating Organizations</a>).</p>
+<p>An organisation is meant to have one Vault: projects, databases and buckets all keep their secrets in it. Check the Vaults list first. If the default Vault is there, do not create another: skip to <a href="#step-3-verify-the-vault">Step 3</a> and use its name in place of <code>my-vault</code>. Create a Vault with the steps below only if your organisation has none.</p>
 <h2 id="what-gets-created">What Gets Created<a class="headerlink" href="#what-gets-created" title="Permanent link">#</a></h2>
 <p>When you create a Vault claim, the platform provisions:</p>
 <ul>
@@ -6142,7 +6167,9 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <li>If your organisation runs a <a href="create-mesh.html">Mesh</a>: a stable DNS name (<code>bao.&lt;organisation&gt;.mesh.&lt;cluster-domain&gt;</code>) with a publicly-trusted TLS certificate, reachable only from Mesh peers</li>
 </ul>
 <h2 id="in-the-console">In the Console<a class="headerlink" href="#in-the-console" title="Permanent link">#</a></h2>
-<p>Vaults are under <strong>Secrets</strong> in the sidebar. The create form asks for a project and a name, the same as the minimal claim below. The storage sizes are filled in with their defaults, and <strong>Mesh Access</strong> takes the extra groups described in Step 1:</p>
+<p>Vaults are under <strong>Secrets</strong> in the sidebar. Check the list before you create anything. Here it shows the default Vault of the <code>acme</code> organisation:</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/generated/vault-list.png" data-desc-position="bottom"><img alt="The Vaults list in the console, showing the default Vault of the organisation" src="../../images/generated/vault-list.png"></a></p>
+<p>The create form asks for a project and a name, the same as the minimal claim below. The storage sizes are filled in with their defaults, and <strong>Mesh Access</strong> takes the extra groups described in Step 1:</p>
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/generated/vault-create.png" data-desc-position="bottom"><img alt="The Create Vault form, with the name filled in and the default storage sizes" src="../../images/generated/vault-create.png"></a></p>
 <h2 id="step-1-define-a-vault-claim">Step 1: Define a Vault Claim<a class="headerlink" href="#step-1-define-a-vault-claim" title="Permanent link">#</a></h2>
 <p>Create a file named <code>vault.yaml</code>:</p>
@@ -6174,8 +6201,6 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <h2 id="step-3-verify-the-vault">Step 3: Verify the Vault<a class="headerlink" href="#step-3-verify-the-vault" title="Permanent link">#</a></h2>
 <div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>vault<span class="w"> </span>my-vault
 </code></pre></div>
-<p>The Vault also appears in the console list:</p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/generated/vault-list.png" data-desc-position="bottom"><img alt="The Vaults list in the console" src="../../images/generated/vault-list.png"></a></p>
 <p>Wait for <code>READY: True</code>, then read the endpoint:</p>
 <div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>vault<span class="w"> </span>my-vault<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.status.endpoint.address}'</span>
 </code></pre></div>

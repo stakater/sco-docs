@@ -122,9 +122,7 @@
   {
     "version": "docs-screenshots-s00-cluster-connect",
     "title": "docs-screenshots-s00-cluster-connect",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "docs-scobasic-org-onboarding",
@@ -154,7 +152,9 @@
   {
     "version": "docs-private-ca-certificate-files",
     "title": "docs-private-ca-certificate-files",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "docs-postgres-backup-byo",

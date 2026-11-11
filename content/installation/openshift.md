@@ -224,7 +224,14 @@ openbsdUnboundConfig:
 | `clusterDefaults.metallb.bgp.peerAddress` | ✅ (BGP) | The router's **internal** IP, as the nodes reach it — not its public address. |
 | `clusterDefaults.metallb.bgp.peerPort` | — | The router's BGP port. Default: `179`. |
 | `clusterDefaults.metallb.bgp.addressRanges` | ✅ (BGP) | The block your network routes to this cluster, usually a CIDR such as `203.0.113.128/27`. |
-| `clusterDefaults.storage` | ✅ | ODF sizing. Set `odfStorageSize` to the size of each spare disk. List `localStorageNodes` when nodes have spare disks of different sizes, so ODF uses uniform disks; leave it empty to let the platform pick the nodes. |
+| `clusterDefaults.storage` | — | How the platform builds ODF from the nodes' spare disks. Every field has a default; in most installs you change only `odfStorageSize` and `odfStorageClusterCount`. |
+| `clusterDefaults.storage.odfStorageSize` | — | Size ODF claims from each spare disk, e.g. `"1Ti"`. Set it to the size of your spare disks — the smallest one, if they differ. A disk smaller than this value is not used. Default: `1Ti`. |
+| `clusterDefaults.storage.localStorageNodes` | — | Node names (as in `oc get nodes`) whose spare disks ODF may use. Leave empty to use every worker node. List the nodes when only some of them have suitable disks, or when the disks differ in size and you want ODF on uniform disks. Default: empty. |
+| `clusterDefaults.storage.odfStorageClusterCount` | — | Number of disks ODF uses. Set it to the number of spare disks across the nodes in use; it is not derived from `localStorageNodes`. Default: `3`. |
+| `clusterDefaults.storage.odfStorageClusterReplicas` | — | Disks per storage set. Keep `1`: ODF is set up for flexible scaling, which expects one. Default: `1`. |
+| `clusterDefaults.storage.odfPatchStorageClassAsDefault` | — | `true` makes the ODF block storage class the cluster's default storage class. Set `false` to keep a default class you already have. Default: `true`. |
+| `clusterDefaults.storage.persistentStorageClassName` | — | Storage class the platform's own components use for their volumes. Keep the default, which is the ODF block storage class. Default: `ocs-storagecluster-ceph-rbd`. |
+| `clusterDefaults.storage.odfStorageClassName` | — | Name of the class for the spare disks, and the prefix of the ODF storage classes. Keep the default. Default: `ocs-storagecluster`. |
 | `openbsdUnboundConfig` | — | Only if OpenBSD routers proxy DNS for hosted-cluster public access. Use the same hosts as `openshiftCluster.public.openbsdUnbound` in the `KubeStackConfig` claim. Otherwise set `enabled: false`. |
 
 !!! note "Address budget"

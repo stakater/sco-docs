@@ -18,7 +18,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.svg">
-      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.8.0">
+      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.8.1">
     
     
       
@@ -6192,36 +6192,38 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <ul>
 <li>An <a href="provision-openshift-cluster.html">OpenShift cluster</a> whose claim reports <code>READY=True</code></li>
 <li>The <a href="https://docs.netbird.io/how-to/installation">NetBird client</a> installed on your device. The CLI alone is enough; the GUI is optional</li>
-<li>Membership of a group listed under the cluster's <code>access.groups</code>, so you have a role once you are signed in</li>
-<li>For a <strong>private</strong> cluster, membership of the organisation group <code>&lt;cluster&gt;-mesh-access</code>. The group is created empty when the cluster is provisioned, and the cluster's access grants form cannot fill it: ask your platform administrator to add you</li>
+<li>Membership of a group listed under the cluster's <code>access.groups</code>. For a <strong>private</strong> cluster, that one membership gives you both the network path over the mesh and a role once you are signed in</li>
+<li>For a <strong>private</strong> cluster, a Mesh enabled for your organisation</li>
 </ul>
 <h2 id="what-private-means">What Private Means<a class="headerlink" href="#what-private-means" title="Permanent link">#</a></h2>
 <p>A cluster created with the networking mode <strong>Private</strong> has no public address at all. Its API, console, sign-in endpoint and every application route are reachable only from devices enrolled in your organisation's mesh. Traffic from inside the cluster to the internet still works, so package installs and image pulls are unaffected.</p>
-<p>A <strong>Public</strong> cluster is reachable from anywhere and needs none of the mesh steps below. Choose the mode when you create the cluster: it is the <strong>Mode</strong> field under <strong>Advanced</strong> in the create form. An existing public cluster can also be converted to private by changing <code>networking.mode</code> on its claim; it keeps its workloads and configuration.</p>
-<p>Publishing individual applications from a private cluster to the internet, while everything else stays private, is possible with a public load balancer or a public router. Ask your platform administrator to set that up.</p>
+<p>A <strong>Public</strong> cluster is reachable from anywhere and needs none of the mesh steps below. Choose the mode when you create the cluster: it is the <strong>Mode</strong> field under <strong>Advanced</strong> in the create form.</p>
+<p>Converting an existing public cluster to private is an administrator-assisted change that needs a maintenance window, not a field to flip yourself. The cluster keeps its workloads and configuration, but every node is replaced, so all workloads restart, and load balancers created on the cluster can lose their public address. Ask your platform administrator to plan it with you.</p>
+<p>Publishing individual HTTP/HTTPS (80/443) applications to the internet from a private cluster needs your platform administrator; other ports cannot be published.</p>
 <h2 id="how-access-works">How Access Works<a class="headerlink" href="#how-access-works" title="Permanent link">#</a></h2>
-<p>Reaching a private cluster takes two independent grants, and the two failure modes look nothing alike:</p>
+<p>Being in a group listed under <code>access.groups</code> gives you both the network path and a role. <code>&lt;cluster&gt;-mesh-access</code> is only for people who need network access without a role on the cluster. The two failure modes look nothing alike:</p>
 <table>
 <thead>
 <tr>
-<th>Grant</th>
-<th>What it gives</th>
-<th>Symptom when missing</th>
+<th>What is missing</th>
+<th>Symptom</th>
+<th>Who is affected</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Mesh membership (<code>&lt;cluster&gt;-mesh-access</code>)</td>
 <td>A network path to the cluster's console, API and sign-in endpoints</td>
 <td>Pages time out and nothing ever loads</td>
+<td>Anyone not in a group under <code>access.groups</code> and not in <code>&lt;cluster&gt;-mesh-access</code>, or whose device is not enrolled in the mesh</td>
 </tr>
 <tr>
-<td>A role via <code>access.groups</code> on the claim</td>
-<td>Permission to see or do anything once signed in</td>
+<td>A role on the cluster</td>
 <td>You sign in successfully and land on an empty console that invites you to create a project</td>
+<td>Members of <code>&lt;cluster&gt;-mesh-access</code> only</td>
 </tr>
 </tbody>
 </table>
+<p>The highest role <code>access.groups</code> can grant is <code>customer-admin</code>. <code>cluster-admin</code> cannot be granted through the claim.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>There is no local <code>kubeadmin</code> login on a cluster provisioned by the platform. The console sends you straight to your organisation's sign-in page, so an identity in your organisation is the only way in.</p>
@@ -6236,7 +6238,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 kubectl<span class="w"> </span>get<span class="w"> </span>openshiftcluster<span class="w"> </span>my-cluster<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s2">"{.status.apiEndpoint}"</span>
 </code></pre></div>
 <h2 id="step-2-join-your-organisations-mesh">Step 2: Join Your Organisation's Mesh<a class="headerlink" href="#step-2-join-your-organisations-mesh" title="Permanent link">#</a></h2>
-<p>Every organisation has a default Mesh. Open it under <strong>Networking</strong> in the sidebar. Its detail page shows the <strong>Management URL</strong> you enrol against:</p>
+<p>If your organisation has the mesh enabled, its default Mesh is under <strong>Networking</strong> in the sidebar; otherwise ask your platform administrator to enable it. The Mesh detail page shows the <strong>Management URL</strong> you enrol against:</p>
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/generated/mesh-detail.png" data-desc-position="bottom"><img alt="The organisation's default Mesh detail page, showing the management URL" src="../../images/generated/mesh-detail.png"></a></p>
 <p>The management URL is not a web page. Opening it in a browser shows "page not found"; it is only ever passed to the NetBird client. Enrol your device:</p>
 <div class="highlight"><pre><span></span><code>netbird<span class="w"> </span>up<span class="w"> </span>--management-url<span class="o">=</span>&lt;management<span class="w"> </span>URL<span class="w"> </span>from<span class="w"> </span>the<span class="w"> </span>Mesh<span class="w"> </span>detail<span class="w"> </span>page&gt;
@@ -6248,7 +6250,7 @@ kubectl<span class="w"> </span>get<span class="w"> </span>openshiftcluster<span 
 <p><code>Management</code> and <code>Signal</code> should both read <code>Connected</code>. <code>Networks: -</code> in that output is cosmetic and does not mean routes are missing. Allow a minute or two after enrolling before the cluster's addresses respond.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>Mesh group membership takes effect at sign-in. If your administrator added you to <code>&lt;cluster&gt;-mesh-access</code> after you enrolled, run <code>netbird down</code> and then <code>netbird up</code> again so your new membership is picked up.</p>
+<p>Group membership takes effect at sign-in. If you were added to a group under <code>access.groups</code>, or to <code>&lt;cluster&gt;-mesh-access</code>, after you enrolled, run <code>netbird down</code> and then <code>netbird up</code> again so your new membership is picked up.</p>
 </div>
 <p>See <a href="create-mesh.html">Create a Mesh</a> for the full enrolment walkthrough and <a href="../../cloud-user-guide/authentication/organisation-identity.html">One Identity Across Your Organisation</a> for multi-account caveats.</p>
 <h2 id="step-3-open-the-cluster-console">Step 3: Open the Cluster Console<a class="headerlink" href="#step-3-open-the-cluster-console" title="Permanent link">#</a></h2>
@@ -6256,7 +6258,11 @@ kubectl<span class="w"> </span>get<span class="w"> </span>openshiftcluster<span 
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/generated/hosted-cluster-console.png" data-desc-position="bottom"><img alt="The hosted cluster console after sign-in, showing the Projects page" src="../../images/generated/hosted-cluster-console.png"></a></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>A fresh cluster shows no projects and offers to create one. That is normal when you have a role but nothing has been deployed yet. If you expected to see existing projects and do not, your network path works but you have no role on the cluster: ask whoever owns the claim to add your group under <code>access.groups</code>.</p>
+<p>A fresh cluster shows no projects and offers to create one. That is normal when you have a role but nothing has been deployed yet. If you expected to see existing projects and do not, your network path works but your group has no role that covers them: ask whoever owns the claim to check your group and its role under <code>access.groups</code>.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The first sign-in can show <code>Invalid parameter</code> or "state did not contain a valid CSRF token". It is harmless. Open the console URL again rather than refreshing the page, because a refresh replays the expired sign-in.</p>
 </div>
 <h3 id="if-the-console-does-not-resolve">If the Console Does Not Resolve<a class="headerlink" href="#if-the-console-does-not-resolve" title="Permanent link">#</a></h3>
 <p>A private cluster's hostnames deliberately resolve to internal addresses. Many corporate and ISP resolvers refuse internal addresses for public hostnames as a security measure, so the page fails with a DNS error even though the mesh is connected. Check whether a public resolver answers where yours does not:</p>
@@ -6269,7 +6275,13 @@ nslookup<span class="w"> </span>console-openshift-console.apps.&lt;cluster&gt;.&
 <span class="nb">printf</span><span class="w"> </span><span class="s1">'nameserver 8.8.8.8\n'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>/etc/resolver/&lt;platform<span class="w"> </span>sign-in<span class="w"> </span>domain&gt;
 sudo<span class="w"> </span>dscacheutil<span class="w"> </span>-flushcache<span class="p">;</span><span class="w"> </span>sudo<span class="w"> </span>killall<span class="w"> </span>-HUP<span class="w"> </span>mDNSResponder
 </code></pre></div>
-<p>The sign-in domain is the host part of the address your browser reports as unreachable after the redirect, for example <code>oauth-hypershift-&lt;cluster&gt;.&lt;platform-domain&gt;</code>. On Linux, add the same per-domain forwarding to the configuration of your local resolver. Remove the entries to undo.</p>
+<p>The sign-in domain is the host part of the address your browser reports as unreachable after the redirect, for example <code>oauth-hypershift-&lt;cluster&gt;.&lt;platform-domain&gt;</code>. Remove the files to undo.</p>
+<p>On Linux with <code>systemd-resolved</code>, set the same per-domain forwarding on your network interface. <code>ip route show default</code> names it:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>resolvectl<span class="w"> </span>dns<span class="w"> </span>&lt;interface&gt;<span class="w"> </span><span class="m">8</span>.8.8.8
+sudo<span class="w"> </span>resolvectl<span class="w"> </span>domain<span class="w"> </span>&lt;interface&gt;<span class="w"> </span><span class="s1">'~&lt;cluster&gt;.&lt;base-domain&gt;'</span><span class="w"> </span><span class="s1">'~&lt;platform sign-in domain&gt;'</span>
+</code></pre></div>
+<p><code>sudo resolvectl revert &lt;interface&gt;</code> undoes it, and the setting is also lost when the interface reconnects.</p>
+<p>Windows has no per-domain resolver files. Set a public resolver as the DNS server of your network adapter instead.</p>
 <p>If pages then hang or load only partly, reconnect with a smaller MTU:</p>
 <div class="highlight"><pre><span></span><code>netbird<span class="w"> </span>down
 netbird<span class="w"> </span>up<span class="w"> </span>--mtu<span class="w"> </span><span class="m">1200</span><span class="w"> </span>--management-url<span class="o">=</span>&lt;management<span class="w"> </span>URL&gt;
@@ -6294,8 +6306,13 @@ oc<span class="w"> </span>get<span class="w"> </span>projects
 <tbody>
 <tr>
 <td>Console or API times out</td>
-<td>Not enrolled in the mesh, or not in <code>&lt;cluster&gt;-mesh-access</code></td>
-<td>Check <code>netbird status</code>; ask your administrator for the mesh group; re-run <code>netbird up</code></td>
+<td>Not enrolled in the mesh, or not in a group under <code>access.groups</code> or in <code>&lt;cluster&gt;-mesh-access</code></td>
+<td>Check <code>netbird status</code>; ask whoever owns the claim to add your group under <code>access.groups</code>; run <code>netbird down</code> and <code>netbird up</code> again</td>
+</tr>
+<tr>
+<td><code>Invalid parameter</code> or a CSRF token error on first sign-in</td>
+<td>The sign-in expired before it completed</td>
+<td>Open the console URL again; do not refresh</td>
 </tr>
 <tr>
 <td><code>DNS address could not be found</code> for the console or the sign-in page</td>
@@ -6319,8 +6336,8 @@ oc<span class="w"> </span>get<span class="w"> </span>projects
 </tr>
 <tr>
 <td>Signed in, console is empty</td>
-<td>No role via <code>access.groups</code></td>
-<td>Add your group to the claim</td>
+<td>Network access only, through <code>&lt;cluster&gt;-mesh-access</code>, with no role</td>
+<td>Add your group under <code>access.groups</code> on the claim</td>
 </tr>
 </tbody>
 </table>
@@ -7022,7 +7039,7 @@ oc<span class="w"> </span>get<span class="w"> </span>projects
       <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.code.copy", "navigation.tracking", "toc.follow", "navigation.top"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.c21346df.min.js"></script>
+      <script src="../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
       
     
   

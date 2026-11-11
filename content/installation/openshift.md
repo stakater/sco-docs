@@ -227,6 +227,11 @@ openbsdUnboundConfig:
 | `clusterDefaults.storage` | ✅ | ODF sizing. Set `odfStorageSize` to the size of each spare disk. List `localStorageNodes` when nodes have spare disks of different sizes, so ODF uses uniform disks; leave it empty to let the platform pick the nodes. |
 | `openbsdUnboundConfig` | — | Only if OpenBSD routers proxy DNS for hosted-cluster public access. Use the same hosts as `openshiftCluster.public.openbsdUnbound` in the `KubeStackConfig` claim. Otherwise set `enabled: false`. |
 
+!!! note "Address budget"
+    Plan for roughly **seven** load balancer addresses: three for the storage
+    object gateway and four for the platform mesh. The three storage addresses
+    all serve port 443, so each needs its own address.
+
 !!! warning "Disable the MetalLB mode you do not use"
     `l2Advertisement` is on by default. With BGP, set
     `l2Advertisement.enabled: false` explicitly: leaving the block out keeps

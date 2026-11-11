@@ -195,7 +195,7 @@ clusterDefaults:
     odfPatchStorageClassAsDefault: true
 
 # OpenBSD routers for hosted-cluster public DNS — top level, not under
-# clusterDefaults. Set enabled: false if you do not use them.
+# clusterDefaults. Leave this block out if you do not use them.
 openbsdUnboundConfig:
   enabled: true
   openbsdHosts:
@@ -217,29 +217,13 @@ openbsdUnboundConfig:
 | `clusterDefaults.variant` / `platform` | ✅ | `hosting` and `ocp` — must match both claims. |
 | `clusterDefaults.metallb` | ✅ | The IP addresses the cluster hands out to `LoadBalancer` Services, and how it announces them to your network. Enable exactly one mode: `l2Advertisement` or `bgp`. The addresses must be unused and reach this cluster. See [MetalLB](#metallb-clusterdefaultsmetallb). |
 | `clusterDefaults.storage` | — | How the platform builds ODF from the nodes' spare disks. Every field has a default; in most installs you change only `odfStorageSize` and `odfStorageClusterCount`. See [Storage](#storage-clusterdefaultsstorage). |
-| `openbsdUnboundConfig` | — | Only if OpenBSD routers proxy DNS for hosted-cluster public access. Use the same hosts as `openshiftCluster.public.openbsdUnbound` in the `KubeStackConfig` claim. Otherwise set `enabled: false`. |
+| `openbsdUnboundConfig` | — | Only if OpenBSD routers serve DNS for hosted-cluster public access. Off by default; leave the block out if you do not use them. See [OpenBSD DNS routers](#openbsd-dns-routers-openbsdunboundconfig). |
 
 !!! warning "Keep `baseDomain` and `rhbkUrl` in line with the claim"
     After installation the platform renders this configuration again from the
     `KubeStackConfig` claim on every sync. A `baseDomain` or `rhbkUrl` that
     differs from the claim is overwritten on the first sync. The `metallb`,
     `storage` and `openbsdUnboundConfig` values you set here are kept.
-
-If you use `openbsdUnboundConfig`, the platform logs in to the routers with an
-SSH key. Create that secret during installation with `--extra-secrets`, in a
-file such as `extra-secrets.yaml`:
-
-```yaml
-secrets:
-  - name: openbsd-ssh-credentials
-    namespace: crossplane-system
-    type: kubernetes.io/ssh-auth
-    sshAuth:
-      privateKey: |
-        -----BEGIN OPENSSH PRIVATE KEY-----
-        <private key for the router user>
-        -----END OPENSSH PRIVATE KEY-----
-```
 
 !!! tip
     `ksp prerequisites --variant hosting` lists the sections this variant
@@ -350,6 +334,70 @@ oc get storagecluster -n openshift-storage   # PHASE should be Ready
 
 If `odfStorageClusterCount` is higher than the number of disks found, the extra
 claims stay `Pending` and the storage cluster never becomes ready.
+
+#### OpenBSD DNS routers `openbsdUnboundConfig`
+
+Only for networks where OpenBSD routers run the DNS resolver (Unbound) that
+hosted clusters use. A hosted cluster must reach its login endpoint through
+the hosting cluster's internal router, not through its public address. So
+each time a hosted cluster is created, the platform logs in to every listed
+router over SSH, adds a DNS record that points the cluster's login endpoint at
+`routerPodIPs`, and reloads Unbound.
+
+The feature is off by default. Leave the block out if you do not use it.
+
+Prepare each router before you install:
+
+1. Create the user the platform logs in as (`crossplane` by default), and add
+   the public half of an SSH key pair to its `authorized_keys`:
+
+    ```bash
+    ssh-keygen -t ed25519 -f crossplane-key -N "" -C crossplane
+    ```
+
+1. Let that user write to `/var/unbound/etc/conf.d`.
+1. Allow that user to reload Unbound, and nothing else, in `/etc/doas.conf`:
+
+    ```text
+    permit nopass crossplane cmd /usr/sbin/unbound-control args reload
+    ```
+
+1. Install Python 3 (`pkg_add python3`). The platform configures the router
+   with Ansible, which needs it.
+1. Make Unbound read the directory. Add this line to the `server:` block of
+   `/var/unbound/etc/unbound.conf`:
+
+    ```text
+    include: /var/unbound/etc/conf.d/*.conf
+    ```
+
+| Field | Required | Description |
+|-------|:--------:|-------------|
+| `openbsdUnboundConfig.enabled` | — | `true` to manage DNS records on the routers. Default: `false`. |
+| `openbsdUnboundConfig.openbsdHosts` | ✅ | Address of every router to configure. List both members of a high-availability pair. Use the same hosts as `openshiftCluster.public.openbsdUnbound.openbsdHosts` in the `KubeStackConfig` claim. |
+| `openbsdUnboundConfig.routerPodIPs` | ✅ | Internal IPs of the hosting cluster's ingress router, which the DNS records point to. Find them with `oc get pods -n openshift-ingress -o wide`. Use the same IPs as in the `KubeStackConfig` claim. |
+| `openbsdUnboundConfig.sshUser` | — | User the platform logs in as. Default: `crossplane`. |
+| `openbsdUnboundConfig.sshCredentialsSecretRef.name` | — | Secret that holds the SSH private key. Default: `openbsd-ssh-credentials`. |
+| `openbsdUnboundConfig.sshCredentialsSecretRef.namespace` | — | Namespace of that secret. Default: `crossplane-system`. |
+| `openbsdUnboundConfig.sshCredentialsSecretRef.privateKeyKey` | — | Key in the secret that holds the private key. Default: `ssh-privatekey`. |
+
+Create the secret with the private key during installation with
+`--extra-secrets`, in a file such as `extra-secrets.yaml`:
+
+```yaml
+secrets:
+  - name: openbsd-ssh-credentials
+    namespace: crossplane-system
+    type: kubernetes.io/ssh-auth
+    sshAuth:
+      privateKey: |
+        -----BEGIN OPENSSH PRIVATE KEY-----
+        <contents of crossplane-key>
+        -----END OPENSSH PRIVATE KEY-----
+```
+
+After a hosted cluster is created, its record appears on each router as
+`/var/unbound/etc/conf.d/<hosted-cluster-name>.conf`.
 
 ## Step 3: Prepare Registry Credentials
 

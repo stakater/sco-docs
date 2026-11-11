@@ -20,7 +20,7 @@ oc get nodes
 
 ## Step 2: Prepare Claim Files
 
-This guide targets **`variant: hosting`** — the full greenfield deployment that installs the entire platform foundation plus the SCO layer on a base OpenShift cluster. You author two claim files and adjust every `<...>` placeholder for your environment.
+This guide targets **`variant: hosting`** — the full greenfield deployment that installs the entire platform foundation plus the SCO layer on a base OpenShift cluster. You author two claim files and an environment configuration file, and adjust every `<...>` placeholder for your environment.
 
 ### KubeStackConfig Claim (`kubestack-config-claim.yaml`)
 
@@ -151,6 +151,102 @@ spec:
 !!! note
     Example claim files are available in the `examples/` directory of the KubeStack+ CLI repository.
 
+### Environment Configuration (`hosting-env-config.yaml`)
+
+**Required.** Passed to `ksp up` with `--environment-config` (Step 4). It
+becomes the cluster's `cluster-defaults` EnvironmentConfig: the base domain,
+the identity provider URL, load balancing, storage and, if you use them, the
+OpenBSD DNS routers. The platform reads where to find its components from
+this configuration, so `ksp up` will not start the installation without it.
+
+```yaml
+name: cluster-defaults
+
+clusterDefaults:
+  # Core
+  baseDomain: "apps.<cluster-domain>"     # same value as parameters.domain
+  rhbkUrl: "rhbk.apps.<cluster-domain>"   # rhbk.<baseDomain>, no https://
+  variant: "hosting"
+  platform: "ocp"
+
+  # Load balancer addresses — enable ONE of the two modes
+  metallb:
+    l2Advertisement:                      # no router peering needed
+      enabled: false
+      addressRanges:
+        - "<range-start>-<range-end>"
+    bgp:                                  # peering with your gateway router
+      enabled: true
+      myASN: <cluster-asn>                # e.g. 65002
+      peerASN: <gateway-asn>              # e.g. 65001
+      peerAddress: "<gateway-internal-ip>"
+      peerPort: 179
+      addressRanges:
+        - "<public-cidr>"                 # the block routed to this cluster
+
+  # Storage (ODF)
+  storage:
+    localStorageNodes: []                 # node names whose spare disks ODF uses
+    odfStorageClassName: "ocs-storagecluster"
+    persistentStorageClassName: "ocs-storagecluster-ceph-rbd"
+    odfStorageClusterCount: 3
+    odfStorageClusterReplicas: 1
+    odfStorageSize: "1Ti"                 # per disk; match your disks
+    odfPatchStorageClassAsDefault: true
+
+# OpenBSD routers for hosted-cluster public DNS — top level, not under
+# clusterDefaults. Set enabled: false if you do not use them.
+openbsdUnboundConfig:
+  enabled: true
+  openbsdHosts:
+    - "<router-host-1>"
+  routerPodIPs:
+    - "<router-pod-ip>"
+  sshCredentialsSecretRef:
+    name: openbsd-ssh-credentials
+    privateKeyKey: ssh-privatekey
+    namespace: crossplane-system
+  sshUser: crossplane
+```
+
+| Field | Required | Description |
+|-------|:--------:|-------------|
+| `name` | ✅ | Always `cluster-defaults`. |
+| `clusterDefaults.baseDomain` | ✅ | Wildcard apps domain, without a leading `*.`. Must equal `parameters.domain` in the `KubeStackConfig` claim. |
+| `clusterDefaults.rhbkUrl` | ✅ | Host name of the platform identity provider, without a scheme: `rhbk.<baseDomain>`. |
+| `clusterDefaults.variant` / `platform` | ✅ | `hosting` and `ocp` — must match both claims. |
+| `clusterDefaults.metallb` | ✅ | Address range the cluster hands out to `LoadBalancer` Services. The range must be unused and routed to this cluster. Enable either `l2Advertisement` or `bgp`, not both. For BGP, `peerAddress` is the gateway's **internal** IP. |
+| `clusterDefaults.storage` | ✅ | ODF sizing. Set `odfStorageSize` to the size of each spare disk. List `localStorageNodes` when nodes have spare disks of different sizes, so ODF uses uniform disks; leave it empty to let the platform pick the nodes. |
+| `openbsdUnboundConfig` | — | Only if OpenBSD routers proxy DNS for hosted-cluster public access. Use the same hosts as `openshiftCluster.public.openbsdUnbound` in the `KubeStackConfig` claim. Otherwise set `enabled: false`. |
+
+!!! warning "Keep `baseDomain` and `rhbkUrl` in line with the claim"
+    After installation the platform renders this configuration again from the
+    `KubeStackConfig` claim on every sync. A `baseDomain` or `rhbkUrl` that
+    differs from the claim is overwritten on the first sync. The `metallb`,
+    `storage` and `openbsdUnboundConfig` values you set here are kept.
+
+If you use `openbsdUnboundConfig`, the platform logs in to the routers with an
+SSH key. Create that secret during installation with `--extra-secrets`, in a
+file such as `extra-secrets.yaml`:
+
+```yaml
+secrets:
+  - name: openbsd-ssh-credentials
+    namespace: crossplane-system
+    type: kubernetes.io/ssh-auth
+    sshAuth:
+      privateKey: |
+        -----BEGIN OPENSSH PRIVATE KEY-----
+        <private key for the router user>
+        -----END OPENSSH PRIVATE KEY-----
+```
+
+!!! tip
+    `ksp prerequisites --variant hosting` lists the sections this variant
+    needs. Add `--generate-files <dir>` to write a skeleton of this file. A
+    complete example is `examples/hosting-env-config.yaml` in the KubeStack+
+    CLI repository.
+
 ## Step 3: Prepare Registry Credentials
 
 SCO components are pulled from Stakater's customer distribution registry, so a registry-secret file is **required**. Use your GitHub username and the `read:packages` token you created for it (see [Prerequisites](prerequisites.md#registry-access)).
@@ -184,19 +280,23 @@ The symptom is unhelpful: every platform Application fails to sync with a `401`,
 
 ## Step 4: Run Installation
 
-`ksp up` operates on your **current `oc`/`kubectl` context**, so confirm it points at the target cluster first (`oc whoami --show-server`). Then run it with both claim files and your registry secret — `-c` (KubeStackConfig) is applied first, then `-f` (KubeStackPlus):
+`ksp up` operates on your **current `oc`/`kubectl` context**, so confirm it points at the target cluster first (`oc whoami --show-server`). Then run it with both claim files, the environment configuration and your registry secret — `-c` (KubeStackConfig) is applied first, then `-f` (KubeStackPlus):
 
 ```bash
 ksp up \
   -c kubestack-config-claim.yaml \
   -f kubestack-plus-claim.yaml \
+  --environment-config ./hosting-env-config.yaml \
   --registry-secret ./registry-secret.yaml
 ```
+
+If you use `openbsdUnboundConfig`, also pass `--extra-secrets ./extra-secrets.yaml`.
 
 By default `ksp up` asks you to confirm the target cluster before making changes. For non-interactive runs (e.g. CI/CD), add `--no-prompt`:
 
 ```bash
 ksp up -c kubestack-config-claim.yaml -f kubestack-plus-claim.yaml \
+       --environment-config ./hosting-env-config.yaml \
        --registry-secret ./registry-secret.yaml --no-prompt
 ```
 
@@ -286,6 +386,17 @@ oc describe kubestackplus <name> -n ksp-system
 ```bash
 oc logs -n crossplane-system -l app=crossplane
 oc logs -n crossplane-system -l app.kubernetes.io/component=crossplane
+```
+
+### Every component is reported as missing
+
+On a cluster that already has components installed, `ksp up` reports all of
+them as missing, as if the cluster were new. `ksp` uses Helm to find out what
+is installed; when Helm fails, nothing is found. Check that Helm is 3.18 or
+newer:
+
+```bash
+helm version --short
 ```
 
 ### Provider installation timeout

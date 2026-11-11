@@ -8,25 +8,29 @@ Sam, a senior platform engineer at ACME Corp, has just provisioned a private clu
 
 - An [OpenShift cluster](provision-openshift-cluster.md) whose claim reports `READY=True`
 - The [NetBird client](https://docs.netbird.io/how-to/installation) installed on your device. The CLI alone is enough; the GUI is optional
-- Membership of a group listed under the cluster's `access.groups`, so you have a role once you are signed in
-- For a **private** cluster, membership of the organisation group `<cluster>-mesh-access`. The group is created empty when the cluster is provisioned, and the cluster's access grants form cannot fill it: ask your platform administrator to add you
+- Membership of a group listed under the cluster's `access.groups`. For a **private** cluster, that one membership gives you both the network path over the mesh and a role once you are signed in
+- For a **private** cluster, a Mesh enabled for your organisation
 
 ## What Private Means
 
 A cluster created with the networking mode **Private** has no public address at all. Its API, console, sign-in endpoint and every application route are reachable only from devices enrolled in your organisation's mesh. Traffic from inside the cluster to the internet still works, so package installs and image pulls are unaffected.
 
-A **Public** cluster is reachable from anywhere and needs none of the mesh steps below. Choose the mode when you create the cluster: it is the **Mode** field under **Advanced** in the create form. An existing public cluster can also be converted to private by changing `networking.mode` on its claim; it keeps its workloads and configuration.
+A **Public** cluster is reachable from anywhere and needs none of the mesh steps below. Choose the mode when you create the cluster: it is the **Mode** field under **Advanced** in the create form.
 
-Publishing individual applications from a private cluster to the internet, while everything else stays private, is possible with a public load balancer or a public router. Ask your platform administrator to set that up.
+Converting an existing public cluster to private is an administrator-assisted change that needs a maintenance window, not a field to flip yourself. The cluster keeps its workloads and configuration, but every node is replaced, so all workloads restart, and load balancers created on the cluster can lose their public address. Ask your platform administrator to plan it with you.
+
+Publishing individual HTTP/HTTPS (80/443) applications to the internet from a private cluster needs your platform administrator; other ports cannot be published.
 
 ## How Access Works
 
-Reaching a private cluster takes two independent grants, and the two failure modes look nothing alike:
+Being in a group listed under `access.groups` gives you both the network path and a role. `<cluster>-mesh-access` is only for people who need network access without a role on the cluster. The two failure modes look nothing alike:
 
-| Grant | What it gives | Symptom when missing |
-|-------|---------------|----------------------|
-| Mesh membership (`<cluster>-mesh-access`) | A network path to the cluster's console, API and sign-in endpoints | Pages time out and nothing ever loads |
-| A role via `access.groups` on the claim | Permission to see or do anything once signed in | You sign in successfully and land on an empty console that invites you to create a project |
+| What is missing | Symptom | Who is affected |
+|-----------------|---------|-----------------|
+| A network path to the cluster's console, API and sign-in endpoints | Pages time out and nothing ever loads | Anyone not in a group under `access.groups` and not in `<cluster>-mesh-access`, or whose device is not enrolled in the mesh |
+| A role on the cluster | You sign in successfully and land on an empty console that invites you to create a project | Members of `<cluster>-mesh-access` only |
+
+The highest role `access.groups` can grant is `customer-admin`. `cluster-admin` cannot be granted through the claim.
 
 !!! note
     There is no local `kubeadmin` login on a cluster provisioned by the platform. The console sends you straight to your organisation's sign-in page, so an identity in your organisation is the only way in.
@@ -50,7 +54,7 @@ kubectl get openshiftcluster my-cluster -o jsonpath="{.status.apiEndpoint}"
 
 ## Step 2: Join Your Organisation's Mesh
 
-Every organisation has a default Mesh. Open it under **Networking** in the sidebar. Its detail page shows the **Management URL** you enrol against:
+If your organisation has the mesh enabled, its default Mesh is under **Networking** in the sidebar; otherwise ask your platform administrator to enable it. The Mesh detail page shows the **Management URL** you enrol against:
 
 ![The organisation's default Mesh detail page, showing the management URL]({{ screenshot: mesh-detail }})
 
@@ -71,7 +75,7 @@ netbird status
 `Management` and `Signal` should both read `Connected`. `Networks: -` in that output is cosmetic and does not mean routes are missing. Allow a minute or two after enrolling before the cluster's addresses respond.
 
 !!! tip
-    Mesh group membership takes effect at sign-in. If your administrator added you to `<cluster>-mesh-access` after you enrolled, run `netbird down` and then `netbird up` again so your new membership is picked up.
+    Group membership takes effect at sign-in. If you were added to a group under `access.groups`, or to `<cluster>-mesh-access`, after you enrolled, run `netbird down` and then `netbird up` again so your new membership is picked up.
 
 See [Create a Mesh](create-mesh.md) for the full enrolment walkthrough and [One Identity Across Your Organisation](../../cloud-user-guide/authentication/organisation-identity.md) for multi-account caveats.
 
@@ -82,7 +86,10 @@ Open the **Console URL** from Step 1 in your browser. The cluster console uses y
 ![The hosted cluster console after sign-in, showing the Projects page]({{ screenshot: hosted-cluster-console }})
 
 !!! note
-    A fresh cluster shows no projects and offers to create one. That is normal when you have a role but nothing has been deployed yet. If you expected to see existing projects and do not, your network path works but you have no role on the cluster: ask whoever owns the claim to add your group under `access.groups`.
+    A fresh cluster shows no projects and offers to create one. That is normal when you have a role but nothing has been deployed yet. If you expected to see existing projects and do not, your network path works but your group has no role that covers them: ask whoever owns the claim to check your group and its role under `access.groups`.
+
+!!! note
+    The first sign-in can show `Invalid parameter` or "state did not contain a valid CSRF token". It is harmless. Open the console URL again rather than refreshing the page, because a refresh replays the expired sign-in.
 
 ### If the Console Does Not Resolve
 
@@ -102,7 +109,18 @@ printf 'nameserver 8.8.8.8\n' | sudo tee /etc/resolver/<platform sign-in domain>
 sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder
 ```
 
-The sign-in domain is the host part of the address your browser reports as unreachable after the redirect, for example `oauth-hypershift-<cluster>.<platform-domain>`. On Linux, add the same per-domain forwarding to the configuration of your local resolver. Remove the entries to undo.
+The sign-in domain is the host part of the address your browser reports as unreachable after the redirect, for example `oauth-hypershift-<cluster>.<platform-domain>`. Remove the files to undo.
+
+On Linux with `systemd-resolved`, set the same per-domain forwarding on your network interface. `ip route show default` names it:
+
+```bash
+sudo resolvectl dns <interface> 8.8.8.8
+sudo resolvectl domain <interface> '~<cluster>.<base-domain>' '~<platform sign-in domain>'
+```
+
+`sudo resolvectl revert <interface>` undoes it, and the setting is also lost when the interface reconnects.
+
+Windows has no per-domain resolver files. Set a public resolver as the DNS server of your network adapter instead.
 
 If pages then hang or load only partly, reconnect with a smaller MTU:
 
@@ -130,12 +148,13 @@ oc get projects
 
 | Symptom | Likely cause | What to do |
 |---------|--------------|------------|
-| Console or API times out | Not enrolled in the mesh, or not in `<cluster>-mesh-access` | Check `netbird status`; ask your administrator for the mesh group; re-run `netbird up` |
+| Console or API times out | Not enrolled in the mesh, or not in a group under `access.groups` or in `<cluster>-mesh-access` | Check `netbird status`; ask whoever owns the claim to add your group under `access.groups`; run `netbird down` and `netbird up` again |
+| `Invalid parameter` or a CSRF token error on first sign-in | The sign-in expired before it completed | Open the console URL again; do not refresh |
 | `DNS address could not be found` for the console or the sign-in page | Your local resolver drops private-address answers | Per-domain public resolver entries, see [If the Console Does Not Resolve](#if-the-console-does-not-resolve) |
 | Pages hang part-way through loading | MTU too large for the tunnel | `netbird up --mtu 1200` |
 | `netbird up` ignores a new management URL | A stale profile survives `netbird down` | Stop the client, move `/var/lib/netbird/default.json` aside, start it and enrol again |
 | `oc login` times out against an IP | Connecting by address instead of name | Use `https://api.<cluster>.<base-domain>:6443` |
-| Signed in, console is empty | No role via `access.groups` | Add your group to the claim |
+| Signed in, console is empty | Network access only, through `<cluster>-mesh-access`, with no role | Add your group under `access.groups` on the claim |
 
 ## What's Next?
 

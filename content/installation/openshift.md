@@ -215,9 +215,22 @@ openbsdUnboundConfig:
 | `clusterDefaults.baseDomain` | ✅ | Wildcard apps domain, without a leading `*.`. Must equal `parameters.domain` in the `KubeStackConfig` claim. |
 | `clusterDefaults.rhbkUrl` | ✅ | Host name of the platform identity provider, without a scheme: `rhbk.<baseDomain>`. |
 | `clusterDefaults.variant` / `platform` | ✅ | `hosting` and `ocp` — must match both claims. |
-| `clusterDefaults.metallb` | ✅ | Address range the cluster hands out to `LoadBalancer` Services. The range must be unused and routed to this cluster. Enable either `l2Advertisement` or `bgp`, not both. For BGP, `peerAddress` is the gateway's **internal** IP. |
+| `clusterDefaults.metallb` | ✅ | The IP addresses the cluster hands out to `LoadBalancer` Services, and how it announces them to your network. Enable exactly one mode: `l2Advertisement` or `bgp`. The addresses must be unused and reach this cluster. |
+| `clusterDefaults.metallb.l2Advertisement.enabled` | — | `true` to announce the addresses on the nodes' own network segment. Needs no router configuration. Default: `true`. |
+| `clusterDefaults.metallb.l2Advertisement.addressRanges` | ✅ (L2) | List of ranges (`<start>-<end>`) or CIDRs. The addresses must be on the same network segment as the nodes. |
+| `clusterDefaults.metallb.bgp.enabled` | — | `true` to announce the addresses to your gateway router over BGP. Every node peers with the router, and each address is announced on its own (`/32`). Default: `false`. |
+| `clusterDefaults.metallb.bgp.myASN` | ✅ (BGP) | The cluster's own AS number, as configured on the router for this cluster, e.g. `65002`. |
+| `clusterDefaults.metallb.bgp.peerASN` | ✅ (BGP) | The router's AS number, e.g. `65001`. |
+| `clusterDefaults.metallb.bgp.peerAddress` | ✅ (BGP) | The router's **internal** IP, as the nodes reach it — not its public address. |
+| `clusterDefaults.metallb.bgp.peerPort` | — | The router's BGP port. Default: `179`. |
+| `clusterDefaults.metallb.bgp.addressRanges` | ✅ (BGP) | The block your network routes to this cluster, usually a CIDR such as `203.0.113.128/27`. |
 | `clusterDefaults.storage` | ✅ | ODF sizing. Set `odfStorageSize` to the size of each spare disk. List `localStorageNodes` when nodes have spare disks of different sizes, so ODF uses uniform disks; leave it empty to let the platform pick the nodes. |
 | `openbsdUnboundConfig` | — | Only if OpenBSD routers proxy DNS for hosted-cluster public access. Use the same hosts as `openshiftCluster.public.openbsdUnbound` in the `KubeStackConfig` claim. Otherwise set `enabled: false`. |
+
+!!! warning "Disable the MetalLB mode you do not use"
+    `l2Advertisement` is on by default. With BGP, set
+    `l2Advertisement.enabled: false` explicitly: leaving the block out keeps
+    layer 2 switched on, with a placeholder range, next to BGP.
 
 !!! warning "Keep `baseDomain` and `rhbkUrl` in line with the claim"
     After installation the platform renders this configuration again from the

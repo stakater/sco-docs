@@ -55,9 +55,9 @@ The platform then requests and renews all of its certificates through that issue
 
 ## Option 2: certificate files
 
-!!! note "Needs a recent `ksp`"
-    Certificate files need a `ksp` release that supports them. Check the
-    [KubeStack+ CLI](prerequisites.md#kubestack-cli-ksp) table, or ask Stakater.
+!!! note "Needs `ksp` v2.9.0 or later"
+    Earlier `ksp` releases require a ClusterIssuer when `privateCA` is set. See the
+    [KubeStack+ CLI](prerequisites.md#kubestack-cli-ksp) table.
 
 ### The certificate
 

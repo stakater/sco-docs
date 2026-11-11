@@ -20,6 +20,12 @@ When you create a Vault claim, the platform provisions:
 - A web UI and API endpoint, published in the claim's status
 - If your organisation runs a [Mesh](create-mesh.md): a stable DNS name (`bao.<organisation>.mesh.<cluster-domain>`) with a publicly-trusted TLS certificate, reachable only from Mesh peers
 
+## In the Console
+
+Vaults are under **Secrets** in the sidebar. The create form asks for a project and a name, the same as the minimal claim below. The storage sizes are filled in with their defaults, and **Mesh Access** takes the extra groups described in Step 1:
+
+![The Create Vault form, with the name filled in and the default storage sizes]({{ screenshot: vault-create }})
+
 ## Step 1: Define a Vault Claim
 
 Create a file named `vault.yaml`:
@@ -43,6 +49,18 @@ spec:
       auditSize: 20Gi
 ```
 
+Without these, the data volume is `15Gi` and the audit volume is `10Gi`.
+
+If your organisation runs a [Mesh](create-mesh.md), `meshAccess.groups` lists further organisation groups whose members may reach the Vault over the Mesh, on top of those your organisation already allows. It opens the network path only: signing in and the role you choose still decide which secrets you can read.
+
+```yaml
+spec:
+  parameters:
+    meshAccess:
+      groups:
+        - engineering-team
+```
+
 ## Step 2: Apply the Claim
 
 ```bash
@@ -55,11 +73,21 @@ kubectl apply -f vault.yaml
 kubectl get vault my-vault
 ```
 
+The Vault also appears in the console list:
+
+![The Vaults list in the console]({{ screenshot: vault-list }})
+
 Wait for `READY: True`, then read the endpoint:
 
 ```bash
 kubectl get vault my-vault -o jsonpath='{.status.endpoint.address}'
 ```
+
+The same addresses are on the Vault detail page in the console, under **Endpoint**, below the status conditions:
+
+![The lower part of a Vault detail page, showing the status conditions and the Endpoint block with the Mesh address]({{ screenshot: vault-detail }})
+
+If **Address** is empty, as it is here, the Vault is published on the Mesh only. Use the **Mesh Address** instead, as described in [Step 5](#step-5-optional-reach-it-over-the-mesh), from a device enrolled on the Mesh.
 
 ## Step 4: Log In
 

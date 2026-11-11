@@ -215,34 +215,9 @@ openbsdUnboundConfig:
 | `clusterDefaults.baseDomain` | ✅ | Wildcard apps domain, without a leading `*.`. Must equal `parameters.domain` in the `KubeStackConfig` claim. |
 | `clusterDefaults.rhbkUrl` | ✅ | Host name of the platform identity provider, without a scheme: `rhbk.<baseDomain>`. |
 | `clusterDefaults.variant` / `platform` | ✅ | `hosting` and `ocp` — must match both claims. |
-| `clusterDefaults.metallb` | ✅ | The IP addresses the cluster hands out to `LoadBalancer` Services, and how it announces them to your network. Enable exactly one mode: `l2Advertisement` or `bgp`. The addresses must be unused and reach this cluster. |
-| `clusterDefaults.metallb.l2Advertisement.enabled` | — | `true` to announce the addresses on the nodes' own network segment. Needs no router configuration. Default: `true`. |
-| `clusterDefaults.metallb.l2Advertisement.addressRanges` | ✅ (L2) | List of ranges (`<start>-<end>`) or CIDRs. The addresses must be on the same network segment as the nodes. |
-| `clusterDefaults.metallb.bgp.enabled` | — | `true` to announce the addresses to your gateway router over BGP. Every node peers with the router, and each address is announced on its own (`/32`). Default: `false`. |
-| `clusterDefaults.metallb.bgp.myASN` | ✅ (BGP) | The cluster's own AS number, as configured on the router for this cluster, e.g. `65002`. |
-| `clusterDefaults.metallb.bgp.peerASN` | ✅ (BGP) | The router's AS number, e.g. `65001`. |
-| `clusterDefaults.metallb.bgp.peerAddress` | ✅ (BGP) | The router's **internal** IP, as the nodes reach it — not its public address. |
-| `clusterDefaults.metallb.bgp.peerPort` | — | The router's BGP port. Default: `179`. |
-| `clusterDefaults.metallb.bgp.addressRanges` | ✅ (BGP) | The block your network routes to this cluster, usually a CIDR such as `203.0.113.128/27`. |
-| `clusterDefaults.storage` | — | How the platform builds ODF from the nodes' spare disks. Every field has a default; in most installs you change only `odfStorageSize` and `odfStorageClusterCount`. |
-| `clusterDefaults.storage.odfStorageSize` | — | Size ODF claims from each spare disk, e.g. `"1Ti"`. Set it to the size of your spare disks — the smallest one, if they differ. A disk smaller than this value is not used. Default: `1Ti`. |
-| `clusterDefaults.storage.localStorageNodes` | — | Node names (as in `oc get nodes`) whose spare disks ODF may use. Leave empty to use every worker node. List the nodes when only some of them have suitable disks, or when the disks differ in size and you want ODF on uniform disks. Default: empty. |
-| `clusterDefaults.storage.odfStorageClusterCount` | — | Number of disks ODF uses. Set it to the number of spare disks across the nodes in use; it is not derived from `localStorageNodes`. Default: `3`. |
-| `clusterDefaults.storage.odfStorageClusterReplicas` | — | Disks per storage set. Keep `1`: ODF is set up for flexible scaling, which expects one. Default: `1`. |
-| `clusterDefaults.storage.odfPatchStorageClassAsDefault` | — | `true` makes the ODF block storage class the cluster's default storage class. Set `false` to keep a default class you already have. Default: `true`. |
-| `clusterDefaults.storage.persistentStorageClassName` | — | Storage class the platform's own components use for their volumes. Keep the default, which is the ODF block storage class. Default: `ocs-storagecluster-ceph-rbd`. |
-| `clusterDefaults.storage.odfStorageClassName` | — | Name of the class for the spare disks, and the prefix of the ODF storage classes. Keep the default. Default: `ocs-storagecluster`. |
+| `clusterDefaults.metallb` | ✅ | The IP addresses the cluster hands out to `LoadBalancer` Services, and how it announces them to your network. Enable exactly one mode: `l2Advertisement` or `bgp`. The addresses must be unused and reach this cluster. See [MetalLB](#metallb-clusterdefaultsmetallb). |
+| `clusterDefaults.storage` | — | How the platform builds ODF from the nodes' spare disks. Every field has a default; in most installs you change only `odfStorageSize` and `odfStorageClusterCount`. See [Storage](#storage-clusterdefaultsstorage). |
 | `openbsdUnboundConfig` | — | Only if OpenBSD routers proxy DNS for hosted-cluster public access. Use the same hosts as `openshiftCluster.public.openbsdUnbound` in the `KubeStackConfig` claim. Otherwise set `enabled: false`. |
-
-!!! note "Address budget"
-    Plan for roughly **seven** load balancer addresses: three for the storage
-    object gateway and four for the platform mesh. The three storage addresses
-    all serve port 443, so each needs its own address.
-
-!!! warning "Disable the MetalLB mode you do not use"
-    `l2Advertisement` is on by default. With BGP, set
-    `l2Advertisement.enabled: false` explicitly: leaving the block out keeps
-    layer 2 switched on, with a placeholder range, next to BGP.
 
 !!! warning "Keep `baseDomain` and `rhbkUrl` in line with the claim"
     After installation the platform renders this configuration again from the
@@ -271,6 +246,110 @@ secrets:
     needs. Add `--generate-files <dir>` to write a skeleton of this file. A
     complete example is `examples/hosting-env-config.yaml` in the KubeStack+
     CLI repository.
+
+#### MetalLB `clusterDefaults.metallb`
+
+On bare metal nothing hands out addresses to `LoadBalancer` Services, so the
+platform installs MetalLB and configures it from these values. The platform
+cannot obtain the addresses or configure your network for you; arrange both
+before you install.
+
+Choose one of two modes:
+
+- **Layer 2** (`l2Advertisement`) — one node answers for each address on the
+  local network, and another node takes over if it fails. It needs no router
+  configuration, but the addresses must come from the nodes' own network
+  segment, and all traffic for one address enters through a single node.
+- **BGP** (`bgp`) — every node peers with your gateway router and announces
+  each address to it. Use it when the addresses are a separate block, such as
+  public IPs routed to the cluster.
+
+Before you install, have ready:
+
+- A block of addresses that nothing else uses and that your network delivers
+  to this cluster. Plan for roughly **seven** addresses: three for the storage
+  object gateway and four for the platform mesh. The three storage addresses
+  all serve port 443, so each needs its own address.
+- For BGP: the router configured to accept a BGP session from every node's
+  internal IP, the AS numbers for both sides, and the router's internal IP.
+
+| Field | Required | Description |
+|-------|:--------:|-------------|
+| `clusterDefaults.metallb.l2Advertisement.enabled` | — | `true` to announce the addresses on the nodes' own network segment. Needs no router configuration. Default: `true`. |
+| `clusterDefaults.metallb.l2Advertisement.addressRanges` | ✅ (L2) | List of ranges (`<start>-<end>`) or CIDRs. The addresses must be on the same network segment as the nodes. |
+| `clusterDefaults.metallb.bgp.enabled` | — | `true` to announce the addresses to your gateway router over BGP. Every node peers with the router, and each address is announced on its own (`/32`). Default: `false`. |
+| `clusterDefaults.metallb.bgp.myASN` | ✅ (BGP) | The cluster's own AS number, as configured on the router for this cluster, e.g. `65002`. |
+| `clusterDefaults.metallb.bgp.peerASN` | ✅ (BGP) | The router's AS number, e.g. `65001`. |
+| `clusterDefaults.metallb.bgp.peerAddress` | ✅ (BGP) | The router's **internal** IP, as the nodes reach it — not its public address. |
+| `clusterDefaults.metallb.bgp.peerPort` | — | The router's BGP port. Default: `179`. |
+| `clusterDefaults.metallb.bgp.addressRanges` | ✅ (BGP) | The block your network routes to this cluster, usually a CIDR such as `203.0.113.128/27`. |
+
+!!! warning "Disable the MetalLB mode you do not use"
+    `l2Advertisement` is on by default. With BGP, set
+    `l2Advertisement.enabled: false` explicitly: leaving the block out keeps
+    layer 2 switched on, with a placeholder range, next to BGP.
+
+After installation, check that the address pool exists and that no Service is
+still waiting for an address:
+
+```bash
+oc get ipaddresspools,l2advertisements,bgppeers -n metallb-operator
+oc get svc -A | grep -i pending          # should be empty
+```
+
+#### Storage `clusterDefaults.storage`
+
+The platform builds the cluster's storage with ODF from unused disks on the
+worker nodes:
+
+1. The Local Storage Operator finds every unused disk and partition of 1 GiB or
+   more on the selected nodes, and offers each one as a volume.
+1. ODF claims `odfStorageClusterCount` of those volumes, of at least
+   `odfStorageSize` each, and builds a storage cluster from them.
+1. ODF creates the storage classes the platform and your workloads use, among
+   them `ocs-storagecluster-ceph-rbd` for block volumes.
+
+The platform also turns on cluster-wide disk encryption in ODF, with the keys
+kept in the cluster. There is no setting for it here.
+
+Before you install, make sure that:
+
+- At least three nodes have spare disks.
+- Each spare disk is empty — no filesystem and no data you want to keep.
+- No other disk is left unused on those nodes. The platform takes every unused
+  disk and partition of 1 GiB or more, including ones you meant for something
+  else.
+
+ODF keeps three copies of all data, so usable capacity is about a third of the
+raw capacity. For example, three nodes with two 2 TiB disks each:
+
+```yaml
+  storage:
+    odfStorageClusterCount: 6     # 3 nodes × 2 disks
+    odfStorageSize: "2Ti"         # 12 TiB raw, about 4 TiB usable
+```
+
+| Field | Required | Description |
+|-------|:--------:|-------------|
+| `clusterDefaults.storage.odfStorageSize` | — | Size ODF claims from each spare disk, e.g. `"1Ti"`. Set it to the size of your spare disks — the smallest one, if they differ. A disk smaller than this value is not used. Default: `1Ti`. |
+| `clusterDefaults.storage.localStorageNodes` | — | Node names (as in `oc get nodes`) whose spare disks ODF may use. Leave empty to use every worker node. List the nodes when only some of them have suitable disks, or when the disks differ in size and you want ODF on uniform disks. Default: empty. |
+| `clusterDefaults.storage.odfStorageClusterCount` | — | Number of disks ODF uses. Set it to the number of spare disks across the nodes in use; it is not derived from `localStorageNodes`. Default: `3`. |
+| `clusterDefaults.storage.odfStorageClusterReplicas` | — | Disks per storage set. Keep `1`: ODF is set up for flexible scaling, which expects one. Default: `1`. |
+| `clusterDefaults.storage.odfPatchStorageClassAsDefault` | — | `true` makes the ODF block storage class the cluster's default storage class. Set `false` to keep a default class you already have. Default: `true`. |
+| `clusterDefaults.storage.persistentStorageClassName` | — | Storage class the platform's own components use for their volumes. Keep the default, which is the ODF block storage class. Default: `ocs-storagecluster-ceph-rbd`. |
+| `clusterDefaults.storage.odfStorageClassName` | — | Name of the class for the spare disks, and the prefix of the ODF storage classes. Keep the default. Default: `ocs-storagecluster`. |
+
+After installation, check that the disks were found and the storage cluster is
+ready:
+
+```bash
+oc get localvolumeset -n openshift-local-storage
+oc get pv | grep ocs-storagecluster       # one volume per spare disk
+oc get storagecluster -n openshift-storage   # PHASE should be Ready
+```
+
+If `odfStorageClusterCount` is higher than the number of disks found, the extra
+claims stay `Pending` and the storage cluster never becomes ready.
 
 ## Step 3: Prepare Registry Credentials
 

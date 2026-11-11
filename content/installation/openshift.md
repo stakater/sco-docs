@@ -227,9 +227,7 @@ openbsdUnboundConfig:
 
 !!! tip
     `ksp prerequisites --variant hosting` lists the sections this variant
-    needs. Add `--generate-files <dir>` to write a skeleton of this file. A
-    complete example is `examples/hosting-env-config.yaml` in the KubeStack+
-    CLI repository.
+    needs. Add `--generate-files <dir>` to write a skeleton of this file.
 
 #### MetalLB `clusterDefaults.metallb`
 

@@ -27,9 +27,7 @@
   {
     "version": "renovate-main-node-26.x",
     "title": "renovate-main-node-26.x",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "renovate-main-node-24.x-lockfile",
@@ -124,7 +122,9 @@
   {
     "version": "docs-screenshots-s00-cluster-connect",
     "title": "docs-screenshots-s00-cluster-connect",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "docs-scobasic-org-onboarding",

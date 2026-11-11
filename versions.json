@@ -102,7 +102,9 @@
   {
     "version": "docs-screenshots-s04-vault",
     "title": "docs-screenshots-s04-vault",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "docs-screenshots-s03-postgres",
@@ -177,9 +179,7 @@
   {
     "version": "docs-decommission-scosmart",
     "title": "docs-decommission-scosmart",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "architecture",

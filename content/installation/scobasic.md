@@ -182,6 +182,62 @@ clusterDefaults:
       enabled: false
 ```
 
+### Organization platform config
+
+Every organization reads the EnvironmentConfig `organization-platform-config`.
+It is required: without it no organization can be created. It also turns the
+optional organization integrations on: an AWS Organizational Unit per
+organization, Azure AD SSO for organization admins, outbound email (SMTP) for the
+organization realms, and audit. For `scobasic` all of them are usually off:
+
+```yaml
+apiVersion: apiextensions.crossplane.io/v1beta1
+kind: EnvironmentConfig
+metadata:
+  name: organization-platform-config
+data:
+  aws:
+    enabled: false
+  azuread:
+    enabled: false
+  smtp:
+    enabled: false
+  audit:
+    enabled: false
+```
+
+The platform creates it with every integration off; you do not apply it. To
+turn an integration on, put its settings in the override for the
+`crossplane-environment-config` addon (add them to that object if you already
+have one). Editing `organization-platform-config` directly does not last: the
+platform renders it again from these values.
+
+```yaml
+apiVersion: apiextensions.crossplane.io/v1beta1
+kind: EnvironmentConfig
+metadata:
+  name: <cluster-name>-crossplane-environment-config-addon-env-override
+  labels:
+    crossplane.io/composite: <cluster-name>
+    kubestack.stakater.com/addon-name: crossplane-environment-config
+    kubestack.stakater.com/config-kind: kubestack-plus-env
+    kubestack.stakater.com/config-scope: addon
+    kubestack.stakater.com/domain: <apps-domain>
+    kubestack.stakater.com/name: <cluster-name>
+data:
+  SCOBASIC-OCP-VALUES: |
+    organizationPlatformConfig:
+      data:
+        smtp:
+          enabled: true
+          # ...the settings this integration needs
+```
+
+With a platform version that does not create it yet, save the first file above
+as `organization-platform-config.yaml` and apply it yourself
+(`kubectl apply -f organization-platform-config.yaml`) before you create the first
+organization.
+
 ### Where each value comes from
 
 | Value | How to obtain it |

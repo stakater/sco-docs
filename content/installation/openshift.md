@@ -148,9 +148,6 @@ spec:
 !!! note
     Excluding an addon also transitively excludes any addons that depend on it.
 
-!!! note
-    Example claim files are available in the `examples/` directory of the KubeStack+ CLI repository.
-
 ### Environment Configuration (`hosting-env-config.yaml`)
 
 **Required.** Passed to `ksp up` with `--environment-config` (Step 4). It

@@ -46,6 +46,14 @@ The two supported variants make **opposite assumptions about storage and load ba
     working RWO StorageClass and working `LoadBalancer` Services. See
     [`scobasic` Installation](scobasic.md) for the full requirements.
 
+!!! warning "`hosting` requires ODF on bare metal"
+    `hosting` builds its storage with ODF from the worker nodes' spare disks,
+    and cannot use another storage layer instead. Excluding `odf-instance` with
+    `excludedAddons` does not work around this: the secret store, the identity
+    provider and most other platform components depend on it and are excluded
+    with it. If your cluster brings its own storage — for example a cluster on
+    VMware vSphere — install `scobasic`.
+
 ### Compute Resources
 
 Recommended minimum capacity for the SCO platform on the **`hosting`** variant

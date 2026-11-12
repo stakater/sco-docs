@@ -18,7 +18,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.svg">
-      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.7.7">
+      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.8.1">
     
     
       
@@ -26,10 +26,10 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.57a0d79d.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.fb2fffe2.min.css">
       
       
 
@@ -3167,10 +3167,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-5-send-the-client-credentials-to-your-platform-provider" class="md-nav__link">
+  <a href="#step-5-store-the-client-credentials-in-your-vault" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 5: Send the Client Credentials to Your Platform Provider
+        Step 5: Store the Client Credentials in Your Vault
       
     </span>
   </a>
@@ -3211,10 +3211,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
-  <a href="#change-switch-off-or-remove" class="md-nav__link">
+  <a href="#change-rotate-switch-off-or-remove" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Change, Switch Off or Remove
+        Change, Rotate, Switch Off or Remove
       
     </span>
   </a>
@@ -3910,6 +3910,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
+      <a href="../../installation/private-ca.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Private Certificate Authority
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../installation/openbao-unseal.html" class="md-nav__link">
         
   
@@ -4334,7 +4362,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Creating Organisations
+    Creating Organizations
   
 
     
@@ -5627,6 +5655,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api-reference/public-apis/mesh-policy.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MeshPolicy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -6257,10 +6313,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-5-send-the-client-credentials-to-your-platform-provider" class="md-nav__link">
+  <a href="#step-5-store-the-client-credentials-in-your-vault" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 5: Send the Client Credentials to Your Platform Provider
+        Step 5: Store the Client Credentials in Your Vault
       
     </span>
   </a>
@@ -6301,10 +6357,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
-  <a href="#change-switch-off-or-remove" class="md-nav__link">
+  <a href="#change-rotate-switch-off-or-remove" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Change, Switch Off or Remove
+        Change, Rotate, Switch Off or Remove
       
     </span>
   </a>
@@ -6400,6 +6456,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <ul>
 <li>You list the email domains that your company identity provider is responsible for, for example <code>acme.example</code>.</li>
 <li>On the organisation sign-in page, users type their email address first. Users whose domain you listed go straight to your company identity provider. Everyone else, including your platform provider's staff, keeps signing in as before.</li>
+<li>You keep the client ID and client secret of your application in your organisation's Vault, in a folder that only organisation administrators can open. You never send the client secret to anyone.</li>
 <li>At a user's first sign-in, the platform creates an organisation user for them. This user has no password: they always sign in through your company identity provider.</li>
 <li>The same sign-in works everywhere your organisation reaches: the SCO console, the Mesh, Vault and cluster consoles. See <a href="../../cloud-user-guide/authentication/organisation-identity.html">One Identity Across Your Organisation</a>.</li>
 <li>Signing in does not give access. You give access by email address, in groups and projects. See <a href="#step-7-give-your-users-access">Step 7</a>.</li>
@@ -6408,13 +6465,15 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <ul>
 <li>You are an administrator of your organisation</li>
 <li>The <code>identityprovider.iam.cloud.stakater.com</code> API available</li>
+<li>Your organisation has a <a href="create-vault.html">Vault</a>. If your organisation runs a <a href="create-mesh.html">Mesh</a>, the Vault is reachable only from Mesh peers, so you also need the Mesh client on your computer.</li>
 <li>Administrator access to your company identity provider, to create an OpenID Connect (OIDC) web application</li>
 <li>Every user who will sign in has an email address in one of your domains, and your company identity provider sends that address</li>
 <li><code>kubectl</code> configured with your organisation project kubeconfig, if you use the command line</li>
 </ul>
 <h2 id="what-gets-created">What Gets Created<a class="headerlink" href="#what-gets-created" title="Permanent link">#</a></h2>
-<p>When you create an IdentityProvider claim, and your platform provider has stored its client credentials, the platform provisions:</p>
+<p>When you create an IdentityProvider claim, and the client credentials are in your Vault, the platform provisions:</p>
 <ul>
+<li>A copy of the client ID and client secret, kept in step with your Vault</li>
 <li>A connection from your organisation sign-in to your company identity provider</li>
 <li>Ownership of the listed email domains, so users of those domains go to your company identity provider</li>
 </ul>
@@ -6471,7 +6530,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </tr>
 </tbody>
 </table>
-<p>Every endpoint must use <code>https</code> and the same host as <code>issuer</code>. The platform sends your client secret only to that host.</p>
+<p>Every endpoint must use <code>https</code> and the same host as <code>issuer</code>, and that host must be a public name. The platform sends your client secret only to that host.</p>
 <div class="admonition tip">
 <p class="admonition-title"><code>Okta</code></p>
 <p>With the org authorization server, the issuer is <code>https://&lt;your-okta-domain&gt;</code> and the endpoints are under <code>https://&lt;your-okta-domain&gt;/oauth2/v1/</code>. With a custom authorization server, both include its path, for example <code>/oauth2/default</code>. Copy the values from the discovery document; do not build them by hand.</p>
@@ -6481,10 +6540,12 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <p>The issuer is <code>https://login.microsoftonline.com/&lt;tenant-id&gt;/v2.0</code>. Leave <code>userInfoUrl</code> empty: <code>Entra</code> serves user information from <code>graph.microsoft.com</code>, which is not the issuer's host. The platform reads the user's details from the sign-in token instead.</p>
 </div>
 <h2 id="step-3-create-the-identityprovider">Step 3: Create the IdentityProvider<a class="headerlink" href="#step-3-create-the-identityprovider" title="Permanent link">#</a></h2>
+<p>The claim names the Vault entry that will hold the client credentials, for example <code>idp/acme-okta</code>. You store the credentials there in <a href="#step-5-store-the-client-credentials-in-your-vault">Step 5</a>, after you have created the application.</p>
 <h3 id="in-the-console">In the Console<a class="headerlink" href="#in-the-console" title="Permanent link">#</a></h3>
 <ol>
 <li>Go to <strong>All services &gt; IAM &gt; Identity Providers</strong> and click <strong>Create</strong>.</li>
 <li>Fill in the name, the domains and the endpoints from Steps 1 and 2.</li>
+<li>Under <strong>Credentials</strong>, set <strong>Secret Path</strong> to the Vault entry, for example <code>idp/acme-okta</code>.</li>
 <li>Tick <strong>Enabled</strong> and <strong>Redirect On Email Match</strong>.</li>
 <li>Click <strong>Create</strong>.</li>
 </ol>
@@ -6508,6 +6569,8 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <span class="w">    </span><span class="nt">tokenUrl</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://acme.okta.com/oauth2/v1/token</span>
 <span class="w">    </span><span class="nt">jwksUrl</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://acme.okta.com/oauth2/v1/keys</span>
 <span class="w">    </span><span class="nt">userInfoUrl</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://acme.okta.com/oauth2/v1/userinfo</span>
+<span class="w">    </span><span class="nt">credentials</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">secretPath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">idp/acme-okta</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>identity-provider.yaml
 </code></pre></div>
@@ -6553,6 +6616,12 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <td>JSON Web Key Set URL, on the issuer's host</td>
 </tr>
 <tr>
+<td><code>parameters.credentials.secretPath</code></td>
+<td>Yes</td>
+<td>-</td>
+<td>Path of the Vault entry inside the organisation folder <code>stakater/org/</code>, for example <code>idp/acme-okta</code></td>
+</tr>
+<tr>
 <td><code>parameters.userInfoUrl</code></td>
 <td>No</td>
 <td>-</td>
@@ -6590,7 +6659,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </tr>
 </tbody>
 </table>
-<p>The claim is not ready yet. Its status says that it waits for the client credentials, and it lists the redirect URIs for the next step.</p>
+<p>The claim is not ready yet. Its status says that it waits for the credentials in Vault, and it lists the redirect URIs for the next step.</p>
 <h2 id="step-4-create-the-application-in-your-company-identity-provider">Step 4: Create the Application in Your Company Identity Provider<a class="headerlink" href="#step-4-create-the-application-in-your-company-identity-provider" title="Permanent link">#</a></h2>
 <p>Read the redirect URIs from the claim's detail page in the console, or with <code>kubectl</code>:</p>
 <div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>identityprovider<span class="w"> </span>acme-okta<span class="w"> </span><span class="se">\</span>
@@ -6631,18 +6700,38 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <p class="admonition-title">Microsoft <code>Entra</code> ID</p>
 <p><code>Entra</code> sends <code>email</code> only when you add it as an optional claim of the ID token (<strong>Token configuration &gt; Add optional claim &gt; ID &gt; email</strong>). Each user must also have their <strong>Email</strong> attribute set.</p>
 </div>
-<h2 id="step-5-send-the-client-credentials-to-your-platform-provider">Step 5: Send the Client Credentials to Your Platform Provider<a class="headerlink" href="#step-5-send-the-client-credentials-to-your-platform-provider" title="Permanent link">#</a></h2>
-<p>Your platform provider stores the client credentials for you, and approves the issuer at the same time. Send them three values:</p>
-<ul>
-<li>the client ID</li>
-<li>the client secret</li>
-<li>the issuer URL, the same value as in your claim</li>
-</ul>
+<h2 id="step-5-store-the-client-credentials-in-your-vault">Step 5: Store the Client Credentials in Your Vault<a class="headerlink" href="#step-5-store-the-client-credentials-in-your-vault" title="Permanent link">#</a></h2>
+<p>The organisation folder <code>stakater/org/</code> of your Vault holds what belongs to the whole organisation. Only organisation administrators can open it, and project roles cannot.</p>
+<ol>
+<li>If your organisation runs a Mesh, connect to it first.</li>
+<li>Open your Vault in a browser. Its address is in the status of your Vault claim.</li>
+<li>Choose method <strong>OIDC</strong>, type <code>org-admins</code> in <strong>Role</strong>, and sign in.</li>
+<li>Open <code>&lt;vault-address&gt;/ui/vault/secrets/stakater/create/?initialKey=org/&lt;secretPath&gt;</code>, for example <code>…/create/?initialKey=org/idp/acme-okta</code>.</li>
+<li>Add two keys, spelled exactly like this, and save:</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>clientId</code></td>
+<td>The client ID of your application</td>
+</tr>
+<tr>
+<td><code>clientSecret</code></td>
+<td>The client secret of your application</td>
+</tr>
+</tbody>
+</table>
+<p>The platform copies only these two keys. The identity provider becomes ready within about five minutes.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Use the secure channel that your platform provider gives you. Never send a client secret by email or chat.</p>
+<p>Signing in to Vault from the command line with <code>bao login -method=oidc</code> does not work for the <code>org-admins</code> role. Sign in with the browser instead. To use the CLI, copy the token from the browser (<strong>user menu &gt; Copy token</strong>), run <code>export BAO_ADDR=&lt;vault-address&gt;</code> and then <code>bao login</code>, and paste the token when it asks for it. Do not put the token on the command line, where your shell history would keep it.</p>
 </div>
-<p>When the credentials are stored, the identity provider becomes ready within a minute. The platform sends the client secret only to the issuer's host.</p>
 <h2 id="step-6-verify">Step 6: Verify<a class="headerlink" href="#step-6-verify" title="Permanent link">#</a></h2>
 <p>Check the claim:</p>
 <div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>identityprovider<span class="w"> </span>acme-okta<span class="w"> </span><span class="se">\</span>
@@ -6672,7 +6761,6 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">acme-engineers</span>
 <span class="nt">spec</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">acme-engineers</span>
 <span class="w">    </span><span class="nt">members</span><span class="p">:</span>
 <span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">maria@acme.example</span>
 <span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tom@acme.example</span>
@@ -6688,8 +6776,9 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <h2 id="users-who-already-have-a-password">Users Who Already Have a Password<a class="headerlink" href="#users-who-already-have-a-password" title="Permanent link">#</a></h2>
 <p>Users who had a password in your organisation before you connected your company identity provider keep signing in with that password. The platform does not move them automatically.</p>
 <p>Ask your platform provider to move them. A moved user keeps the same organisation user, so their groups and access stay the same. Depending on your company identity provider, your platform provider either links the accounts for you, or sends the user a link to confirm once with their current password.</p>
-<h2 id="change-switch-off-or-remove">Change, Switch Off or Remove<a class="headerlink" href="#change-switch-off-or-remove" title="Permanent link">#</a></h2>
+<h2 id="change-rotate-switch-off-or-remove">Change, Rotate, Switch Off or Remove<a class="headerlink" href="#change-rotate-switch-off-or-remove" title="Permanent link">#</a></h2>
 <p><strong>Change:</strong> Edit the claim in the console or with <code>kubectl</code>. The name cannot change. If a change fails a check, the identity provider keeps working as before, and the status message starts with <code>change not applied:</code>.</p>
+<p><strong>Rotate the client secret:</strong> Create a new client secret in your company identity provider and save it as <code>clientSecret</code> in the same Vault entry. The platform uses the new secret within about 15 minutes, so keep the old secret valid until then.</p>
 <p><strong>Switch off:</strong> Set <code>enabled</code> to <code>false</code>. Sign-in through the identity provider stops, and its users and their links stay. Users of its domains cannot sign in until you set <code>enabled</code> back to <code>true</code>.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -6706,14 +6795,39 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </thead>
 <tbody>
 <tr>
-<td><code>waiting for Secret … with keys clientId, clientSecret and issuer</code></td>
-<td>Your platform provider has not stored the client credentials yet</td>
-<td>Send them, see <a href="#step-5-send-the-client-credentials-to-your-platform-provider">Step 5</a></td>
+<td><code>credentials is required: …</code></td>
+<td>The claim names no Vault entry</td>
+<td>Set <code>credentials.secretPath</code>, see <a href="#step-3-create-the-identityprovider">Step 3</a></td>
 </tr>
 <tr>
-<td><code>issuer … is not the issuer approved in Secret …</code></td>
-<td>The issuer in the claim differs from the issuer you sent</td>
-<td>Use the same issuer in both places</td>
+<td><code>your organisation has no Vault; …</code></td>
+<td>Your organisation has no Vault yet</td>
+<td>Ask your platform provider to enable it</td>
+</tr>
+<tr>
+<td><code>waiting for your organisation's Vault …</code></td>
+<td>The Vault is still being set up</td>
+<td>Wait a few minutes</td>
+</tr>
+<tr>
+<td><code>waiting for the credentials in Vault stakater/org/… (keys clientId and clientSecret): …</code></td>
+<td>The entry does not exist yet, or a key is missing or misspelled</td>
+<td>Store both keys, see <a href="#step-5-store-the-client-credentials-in-your-vault">Step 5</a></td>
+</tr>
+<tr>
+<td><code>credentials.secretPath must be '/'-separated segments …</code></td>
+<td>The path has characters that are not allowed</td>
+<td>Use letters, digits, <code>.</code>, <code>_</code> and <code>-</code>, for example <code>idp/acme-okta</code></td>
+</tr>
+<tr>
+<td><code>credentials in Vault … cannot be read, the last copy is in use</code></td>
+<td>The Vault was unreachable at the last copy</td>
+<td>Sign-in keeps working with the last copy; check the entry and your Vault</td>
+</tr>
+<tr>
+<td><code>issuer and endpoints must use a public host: …</code></td>
+<td>An endpoint uses an IP address or an internal name</td>
+<td>Use the public names from the discovery document</td>
 </tr>
 <tr>
 <td><code>endpoints must use https and the issuer host …</code></td>
@@ -6734,6 +6848,11 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <td><code>change not applied: …</code></td>
 <td>The last change failed the check after the colon</td>
 <td>Correct the change; the identity provider works as before</td>
+</tr>
+<tr>
+<td>Vault shows <code>permission denied</code> or an empty list</td>
+<td>You signed in without the <code>org-admins</code> role, or you are not an organisation administrator</td>
+<td>Sign in again with role <code>org-admins</code>, and open the entry by its link</td>
 </tr>
 <tr>
 <td>Microsoft <code>AADSTS50011</code></td>
@@ -6769,6 +6888,8 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <span class="w">    </span><span class="nt">jwksUrl</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://acme.okta.com/oauth2/v1/keys</span>
 <span class="w">    </span><span class="nt">userInfoUrl</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://acme.okta.com/oauth2/v1/userinfo</span>
 <span class="w">    </span><span class="nt">logoutUrl</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://acme.okta.com/oauth2/v1/logout</span>
+<span class="w">    </span><span class="nt">credentials</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">secretPath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">idp/acme-okta</span>
 </code></pre></div>
 <h3 id="microsoft-entra-id">Microsoft <code>Entra</code> ID<a class="headerlink" href="#microsoft-entra-id" title="Permanent link">#</a></h3>
 <div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">iam.cloud.stakater.com/v1</span>
@@ -6784,12 +6905,15 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <span class="w">    </span><span class="nt">authorizationUrl</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://login.microsoftonline.com/&lt;tenant-id&gt;/oauth2/v2.0/authorize</span>
 <span class="w">    </span><span class="nt">tokenUrl</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://login.microsoftonline.com/&lt;tenant-id&gt;/oauth2/v2.0/token</span>
 <span class="w">    </span><span class="nt">jwksUrl</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://login.microsoftonline.com/&lt;tenant-id&gt;/discovery/v2.0/keys</span>
+<span class="w">    </span><span class="nt">credentials</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">secretPath</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">idp/acme-entra</span>
 </code></pre></div>
 <h2 id="whats-next">What's Next?<a class="headerlink" href="#whats-next" title="Permanent link">#</a></h2>
 <ul>
 <li><a href="../../cloud-user-guide/authentication/managing-users.html">Managing Users</a> - How users from your company identity provider fit next to other users</li>
 <li><a href="create-iam-group.html">Create an IAM Group</a> - Give users from your company identity provider access through groups</li>
 <li><a href="create-project.html">Create a Project</a> - Grant groups and users roles in a project</li>
+<li><a href="create-vault.html">Create a Vault</a> - Set up the Vault that holds the client credentials</li>
 <li><a href="../../api-reference/public-apis/iam-identity-provider.html">IdentityProvider API reference</a> - Every parameter and status field</li>
 </ul>
 
@@ -7481,10 +7605,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.code.copy", "navigation.tracking", "toc.follow", "navigation.top"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.code.copy", "navigation.tracking", "toc.follow", "navigation.top"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      <script src="../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
       
     
   

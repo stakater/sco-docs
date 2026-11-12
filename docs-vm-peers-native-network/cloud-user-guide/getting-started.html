@@ -18,7 +18,7 @@
       
       
       <link rel="icon" href="../assets/images/favicon.svg">
-      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.7.7">
+      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.8.1">
     
     
       
@@ -26,10 +26,10 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.57a0d79d.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.fb2fffe2.min.css">
       
       
 
@@ -3911,6 +3911,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
+      <a href="../installation/private-ca.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Private Certificate Authority
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../installation/openbao-unseal.html" class="md-nav__link">
         
   
@@ -4335,7 +4363,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Creating Organisations
+    Creating Organizations
   
 
     
@@ -5628,6 +5656,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api-reference/public-apis/mesh-policy.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MeshPolicy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -6403,7 +6459,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </ul>
 <h2 id="step-1-log-in-to-your-organization">Step 1: Log In to Your Organization<a class="headerlink" href="#step-1-log-in-to-your-organization" title="Permanent link">#</a></h2>
 <p>Navigate to your organization's SCO console URL (provided by your administrator).</p>
-<p>Log in using your credentials. Each organization has its own isolated authentication realm, so you'll only see resources within your organization.</p>
+<p>Log in with your <strong>email address</strong> and password. Each organization has its own isolated authentication realm, so you'll only see resources within your organization.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Your administrator will provide the console URL and initial login credentials. You may be able to use SSO if configured.</p>
@@ -6431,13 +6487,14 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <span class="w">      </span><span class="nt">cidr</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.100.0.0/16</span>
 <span class="w">    </span><span class="nt">tenantQuota</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">small</span>
 <span class="w">    </span><span class="nt">access</span><span class="p">:</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">admin</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">platform-services-admin</span>
 <span class="w">        </span><span class="nt">users</span><span class="p">:</span>
 <span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">emma@acmecorp.example.com</span>
-<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">view</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">platform-services-view</span>
 <span class="w">        </span><span class="nt">groups</span><span class="p">:</span>
 <span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">developers</span>
 </code></pre></div>
+<p>Users are listed by the email address they log in with. Use only the roles listed in <a href="projects/creating-projects.html#project-roles">Project Roles</a>; other role names are accepted without an error but do not grant SCO access as intended.</p>
 <p>Once created, verify your project access:</p>
 <div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>projects
 </code></pre></div>
@@ -6519,10 +6576,11 @@ my-dev-vm   o1.medium       Ready    3m
 <p>From the console:</p>
 <ol>
 <li>Navigate to your project</li>
-<li>Click "Settings" or "Access"</li>
-<li>Click "Download kubeconfig"</li>
+<li>Switch the page from <strong>Standard</strong> to <strong>Advanced</strong></li>
+<li>In the <strong>Access Configuration</strong> section, open the kubeconfig and choose <strong>Decoded</strong> (not <strong>Encoded</strong>)</li>
+<li>Copy the YAML and save it as <code>~/.kube/my-app-dev-config</code></li>
 </ol>
-<p>Save the file as <code>~/.kube/my-app-dev-config</code></p>
+<p>The kubeconfig's context is named <code>dev</code>. See <a href="kubectl-access/kubeconfig-generation.html">kubeconfig Generation</a> for details.</p>
 <h3 id="use-the-kubeconfig">Use the kubeconfig<a class="headerlink" href="#use-the-kubeconfig" title="Permanent link">#</a></h3>
 <div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">KUBECONFIG</span><span class="o">=</span>~/.kube/my-app-dev-config
 
@@ -7250,10 +7308,10 @@ kubectl<span class="w"> </span>get<span class="w"> </span>virtualmachine
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["content.code.copy", "navigation.tracking", "toc.follow", "navigation.top"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["content.code.copy", "navigation.tracking", "toc.follow", "navigation.top"], "search": "../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      <script src="../assets/javascripts/bundle.a5f9d56c.min.js"></script>
       
     
   

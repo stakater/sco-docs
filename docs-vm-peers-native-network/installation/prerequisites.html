@@ -18,7 +18,7 @@
       
       
       <link rel="icon" href="../assets/images/favicon.svg">
-      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.7.7">
+      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.8.1">
     
     
       
@@ -26,10 +26,10 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.57a0d79d.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.fb2fffe2.min.css">
       
       
 
@@ -3833,6 +3833,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
+      <a href="private-ca.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Private Certificate Authority
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="openbao-unseal.html" class="md-nav__link">
         
   
@@ -4257,7 +4285,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Creating Organisations
+    Creating Organizations
   
 
     
@@ -5550,6 +5578,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api-reference/public-apis/mesh-policy.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MeshPolicy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -6368,6 +6424,10 @@ available from the customer distribution registry, so use a supported version:</
 </thead>
 <tbody>
 <tr>
+<td>v2.9.0</td>
+<td>Supported for the brownfield (<code>scobasic</code>) variant. Needed for a <a href="private-ca.html#option-2-certificate-files">private CA with certificate files</a></td>
+</tr>
+<tr>
 <td><strong>v2.8.1</strong> (recommended), v2.8.4, v2.8.3, v2.8.2, v2.8.0, v2.7.1</td>
 <td>Supported for the brownfield (<code>scobasic</code>) variant</td>
 </tr>
@@ -6417,7 +6477,7 @@ oc<span class="w"> </span>whoami
 <h2 id="network-requirements">Network Requirements<a class="headerlink" href="#network-requirements" title="Permanent link">#</a></h2>
 <ul>
 <li><strong>DNS</strong>: Wildcard DNS configured for cluster ingress (e.g., <code>*.apps.cluster.example.com</code>)</li>
-<li><strong>TLS</strong>: Wildcard TLS certificate for ingress routes</li>
+<li><strong>TLS</strong>: A cert-manager <code>ClusterIssuer</code> that can issue certificates for your apps domain, including a wildcard (ACME DNS-01 or your own CA). With a private CA that only hands out certificates, you install one certificate as files instead — see <a href="private-ca.html">Private Certificate Authority</a></li>
 <li><strong>Connectivity</strong>: Outbound access to container registries (docker.io, Quay.io, ghcr.io)</li>
 </ul>
 <h2 id="registry-access">Registry Access<a class="headerlink" href="#registry-access" title="Permanent link">#</a></h2>
@@ -6450,7 +6510,7 @@ helm<span class="w"> </span>pull<span class="w"> </span>oci://ghcr.io/stakater/r
 <li>[ ] <code>ksp</code> CLI installed and on PATH</li>
 <li>[ ] <code>oc</code> authenticated to the cluster</li>
 <li>[ ] Wildcard DNS configured</li>
-<li>[ ] Wildcard TLS certificate ready</li>
+<li>[ ] Certificate issuer (<code>ClusterIssuer</code>) ready for your apps domain, or, with a private CA, the <a href="private-ca.html#option-2-certificate-files">certificate installed as files</a></li>
 <li>[ ] Registry access granted to your GitHub account, and a <code>read:packages</code> token created</li>
 <li>[ ] <code>KubeStackConfig</code> claim file prepared</li>
 <li>[ ] <code>KubeStackPlus</code> claim file prepared</li>
@@ -7149,10 +7209,10 @@ helm<span class="w"> </span>pull<span class="w"> </span>oci://ghcr.io/stakater/r
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["content.code.copy", "navigation.tracking", "toc.follow", "navigation.top"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["content.code.copy", "navigation.tracking", "toc.follow", "navigation.top"], "search": "../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      <script src="../assets/javascripts/bundle.a5f9d56c.min.js"></script>
       
     
   

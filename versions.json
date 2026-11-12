@@ -87,7 +87,9 @@
   {
     "version": "docs-0.1-organization-platform-config",
     "title": "docs-0.1-organization-platform-config",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "docs-vm-peers-native-network",
@@ -107,9 +109,7 @@
   {
     "version": "docs-screenshots-s03-postgres",
     "title": "docs-screenshots-s03-postgres",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "docs-screenshots-s02-s3-bucket",

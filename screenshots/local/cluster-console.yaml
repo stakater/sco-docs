@@ -1,0 +1,34 @@
+# Local only: needs a device enrolled in the CONSOLE_ORG mesh. Not part of screenshots/flows,
+# because a CI runner cannot reach a private cluster. Output goes to static images under
+# content/how-to-guides/user/images/.
+name: sco-docs-cluster-console-local
+
+requires:
+  env: [CONSOLE_URL, CONSOLE_ORG, CONSOLE_USER, CONSOLE_PASSWORD]
+  reachable: ["${CONSOLE_URL}"]
+
+viewport:
+  width: 1280
+  height: 800
+  deviceScaleFactor: 2
+  colorScheme: light
+
+steps:
+  - use: cloud-orchestrator-console-login
+    with:
+      portal: "${CONSOLE_URL}"
+      org: "${CONSOLE_ORG}"
+      username: "${CONSOLE_USER}"
+      password: "${CONSOLE_PASSWORD}"
+  - { step: open, url: "https://console-openshift-console.apps.my-cluster.stakater.cloud" }
+  - { step: wait-for, selector: '#page-sidebar, [data-test="user-dropdown"], header', timeout: 90s }
+  - { step: wait-for, selector: 'h1:has-text("Projects")', timeout: 120s }
+  - { step: wait-for, selector: 'text=Create a new project', timeout: 120s }
+  - { step: wait, ms: 2000 }
+  - { step: screenshot, path: hosted-cluster-console.png, fullPage: false }
+  - { step: click, selector: '[data-test="user-dropdown-toggle"], [data-test="user-dropdown"] button' }
+  - { step: wait, ms: 750 }
+  - { step: screenshot, path: hosted-cluster-console-user-menu.png, fullPage: false }
+
+after:
+  - { step: screenshot, when: on-failure, path: _failure-cluster-console.png }

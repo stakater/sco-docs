@@ -85,7 +85,7 @@ spec:
 | Field | Required | Description |
 |-------|:--------:|-------------|
 | `parameters.name` | ✅ | Cluster slug — short identifier; appears in resource names and labels. Use it consistently. |
-| `parameters.variant` | ✅ | `hosting` for a hosting-cluster install. |
+| `parameters.variant` | ✅ | `hosting` for a hosting-cluster install. Set it explicitly: when omitted it defaults to `scobasic`. |
 | `parameters.platform` | ✅ | `ocp` for OpenShift. |
 | `parameters.domain` | ✅ | Wildcard apps domain — `apps.<cluster-name>.<domain>`. |
 | `parameters.namespaces.{platform,monitoring,logging}` | — | Reserved namespace names (defaults: `platform-system` / `monitoring` / `logging`). |
@@ -123,7 +123,7 @@ spec:
 | Field | Required | Description |
 |-------|:--------:|-------------|
 | `metadata.name` | ✅ | Claim name. Convention: `<cluster-slug>-package`. |
-| `parameters.variant` | ✅ | `hosting` — must match the `KubeStackConfig` variant. |
+| `parameters.variant` | ✅ | `hosting` — must match the `KubeStackConfig` variant. There is no default: a claim without it is rejected at admission. |
 | `parameters.platform` | ✅ | `ocp`. |
 | `parameters.server` | — | ArgoCD Application destination API server. For `hosting`, the local cluster API (default `https://kubernetes.default.svc`). |
 | `parameters.excludedAddons` | — | Optional list of addon names to exclude (see below). |

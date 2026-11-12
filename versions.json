@@ -172,6 +172,11 @@
     "aliases": []
   },
   {
+    "version": "docs-hosting-environment-config",
+    "title": "docs-hosting-environment-config",
+    "aliases": []
+  },
+  {
     "version": "architecture",
     "title": "architecture",
     "aliases": []

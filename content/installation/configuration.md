@@ -152,6 +152,7 @@ This workflow ensures all configuration changes are auditable, reversible (via G
 
 ## What's Next?
 
+- [Platform Database Backups](database-backups.md) — Back up the platform's own databases
 - [Service Provider Guide](../service-provider-guide/getting-started.md) — Start building service offerings
 - [Crossplane Integration](../integrations/crossplane.md) — How Crossplane manages platform components
 - [Architecture](../architecture/architecture.md) — Understanding the platform's design

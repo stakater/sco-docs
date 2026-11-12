@@ -6616,7 +6616,7 @@ oc<span class="w"> </span>get<span class="w"> </span>nodes
 <tr>
 <td><code>parameters.variant</code></td>
 <td style="text-align: center;">✅</td>
-<td><code>hosting</code> for a hosting-cluster install.</td>
+<td><code>hosting</code> for a hosting-cluster install. Set it explicitly: when omitted it defaults to <code>scobasic</code>.</td>
 </tr>
 <tr>
 <td><code>parameters.platform</code></td>
@@ -6699,7 +6699,7 @@ oc<span class="w"> </span>get<span class="w"> </span>nodes
 <tr>
 <td><code>parameters.variant</code></td>
 <td style="text-align: center;">✅</td>
-<td><code>hosting</code> — must match the <code>KubeStackConfig</code> variant.</td>
+<td><code>hosting</code> — must match the <code>KubeStackConfig</code> variant. There is no default: a claim without it is rejected at admission.</td>
 </tr>
 <tr>
 <td><code>parameters.platform</code></td>

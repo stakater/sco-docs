@@ -87,9 +87,7 @@
   {
     "version": "docs-0.1-organization-platform-config",
     "title": "docs-0.1-organization-platform-config",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "docs-vm-peers-native-network",
@@ -124,7 +122,9 @@
   {
     "version": "docs-screenshots-s00-cluster-connect",
     "title": "docs-screenshots-s00-cluster-connect",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "docs-scobasic-org-onboarding",

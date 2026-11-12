@@ -11,7 +11,7 @@
         <link rel="prev" href="connect-identity-provider.html">
       
       
-        <link rel="next" href="provision-virtual-machine.html">
+        <link rel="next" href="connect-to-openshift-cluster.html">
       
       
         
@@ -3237,6 +3237,34 @@ This documentation is either for an old version, or for the unreleased 'main' ve
   
   
     <li class="md-nav__item">
+      <a href="connect-to-openshift-cluster.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Connect to an OpenShift Cluster
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="provision-virtual-machine.html" class="md-nav__link">
         
   
@@ -6260,7 +6288,9 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 <li><strong>Bootstrap credentials</strong>, console URL, and API endpoint exposed on the claim status</li>
 </ul>
 <h2 id="in-the-console">In the Console<a class="headerlink" href="#in-the-console" title="Permanent link">#</a></h2>
-<p>Clusters are under <strong>Containers</strong> in the sidebar. The create form opens in <strong>Standard</strong> mode, which asks for the same one field the minimal claim below does — everything else falls back to a platform default:</p>
+<p>Clusters are under <strong>Containers</strong> in the sidebar:</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/generated/cluster-list.png" data-desc-position="bottom"><img alt="The OpenShift cluster list in the console" src="../../images/generated/cluster-list.png"></a></p>
+<p>The create form opens in <strong>Standard</strong> mode, which asks for the same one field the minimal claim below does — everything else falls back to a platform default:</p>
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/generated/cluster-create-standard.png" data-desc-position="bottom"><img alt="The Create OpenShift Cluster form in Standard mode" src="../../images/generated/cluster-create-standard.png"></a></p>
 <p><strong>Advanced</strong> reveals the rest of the claim further down the form — node pool sizing, the networking <strong>Mode</strong> as a Public / Private choice with what each one exposes, and the OpenShift <strong>Version</strong>:</p>
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/generated/cluster-create-advanced.png" data-desc-position="bottom"><img alt="The lower part of the create form in Advanced mode, showing the networking mode choice and the version selector" src="../../images/generated/cluster-create-advanced.png"></a></p>
@@ -6401,19 +6431,22 @@ my-cluster   True    True     15m
 <p>For a more granular view, read <code>status.phase</code> directly. It moves through <code>Initializing</code> → <code>RegistrationPending</code> → <code>Ready</code>:</p>
 <div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>openshiftcluster<span class="w"> </span>my-cluster<span class="w"> </span>-n<span class="w"> </span>my-tenant<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s2">"{.status.phase}"</span>
 </code></pre></div>
-<p>The cluster's detail page in the console shows the same phase, alongside the console URL and API endpoint that <a href="#step-5-access-the-cluster">Step 5</a> reads out of the status.</p>
+<p>The cluster's detail page in the console shows the same phase, alongside the console URL and API endpoint that <a href="#step-5-access-the-cluster">Step 5</a> reads out of the status:</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/generated/cluster-detail.png" data-desc-position="bottom"><img alt="A cluster detail page showing the phase and access grants" src="../../images/generated/cluster-detail.png"></a></p>
+<p>The console URL and API endpoint are in the <strong>Status</strong> block further down the page, shown in <strong>Advanced</strong> mode.</p>
 <h2 id="step-5-access-the-cluster">Step 5: Access the Cluster<a class="headerlink" href="#step-5-access-the-cluster" title="Permanent link">#</a></h2>
 <p>Once the cluster is ready, the claim status exposes the console URL, API endpoint, and bootstrap credentials:</p>
 <div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>openshiftcluster<span class="w"> </span>my-cluster<span class="w"> </span>-n<span class="w"> </span>my-tenant<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s2">"{.status.consoleUrl}"</span>
 kubectl<span class="w"> </span>get<span class="w"> </span>openshiftcluster<span class="w"> </span>my-cluster<span class="w"> </span>-n<span class="w"> </span>my-tenant<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s2">"{.status.apiEndpoint}"</span>
 </code></pre></div>
-<p>Bootstrap credentials are available under <code>status.credentials</code> for initial access. After that, users should sign in through the configured Keycloak identity provider using the groups granted via <code>access.groups</code>.</p>
+<p>Users sign in through your organisation's identity provider with the roles granted via <code>access.groups</code>. A private cluster is reachable only over your organisation's mesh. <a href="connect-to-openshift-cluster.html">Connect to an OpenShift Cluster</a> walks through enrolling a device, opening the console and logging in with the CLI.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>Contact your platform administrator for the list of validated OpenShift versions and the CPU/memory mappings backing each T-shirt size in your environment.</p>
 </div>
 <h2 id="whats-next">What's Next?<a class="headerlink" href="#whats-next" title="Permanent link">#</a></h2>
 <ul>
+<li><a href="connect-to-openshift-cluster.html">Connect to an OpenShift Cluster</a> - Join the mesh, open the console and sign in</li>
 <li><a href="create-project.html">Create a Project</a> - Create projects for teams on the new cluster</li>
 <li><a href="create-iam-group.html">Create an IAM Group</a> - Set up group-based access to the cluster</li>
 <li><a href="provision-virtual-machine.html">Provision a Virtual Machine</a> - Deploy VMs alongside your cluster</li>

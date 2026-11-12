@@ -92,7 +92,9 @@
   {
     "version": "docs-vm-peers-native-network",
     "title": "docs-vm-peers-native-network",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "docs-vm-backup-vs-snapshot",
@@ -107,9 +109,7 @@
   {
     "version": "docs-screenshots-s03-postgres",
     "title": "docs-screenshots-s03-postgres",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "docs-screenshots-s02-s3-bucket",

@@ -11,7 +11,7 @@
         <link rel="prev" href="openshift.html">
       
       
-        <link rel="next" href="openbao-unseal.html">
+        <link rel="next" href="private-ca.html">
       
       
         
@@ -3916,6 +3916,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
+      <a href="private-ca.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Private Certificate Authority
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="openbao-unseal.html" class="md-nav__link">
         
   
@@ -6594,7 +6622,7 @@ below are what differ for <code>scobasic</code>.</p>
 <span class="nt">spec</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;cluster-name&gt;</span>
-<span class="w">    </span><span class="nt">variant</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">scobasic</span><span class="w">          </span><span class="c1"># &lt;- the variant</span>
+<span class="w">    </span><span class="nt">variant</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">scobasic</span><span class="w">          </span><span class="c1"># &lt;- the variant (also the default when omitted)</span>
 <span class="w">    </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ocp</span>
 <span class="w">    </span><span class="nt">domain</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;apps-domain&gt;</span>
 
@@ -6729,7 +6757,7 @@ organization.</p>
 </tr>
 <tr>
 <td><code>&lt;cluster-issuer&gt;</code></td>
-<td>The name of the cert-manager <code>ClusterIssuer</code> you create — see <a href="#certificates-and-dns">Certificates and DNS</a></td>
+<td>The name of the cert-manager <code>ClusterIssuer</code> you create — see <a href="#certificates-and-dns">Certificates and DNS</a>. With a private CA and certificate files, leave <code>clusterIssuer</code> out — see <a href="private-ca.html">Private Certificate Authority</a></td>
 </tr>
 <tr>
 <td><code>&lt;your-storage-class&gt;</code></td>
@@ -6765,6 +6793,10 @@ domain. It uses one certificate issuer that you provide.</p>
 <p>If your issuer is backed by a private CA that clients do not trust by default,
 also set <code>certificate.privateCA: true</code> and pass the root CA to <code>ksp up</code> with
 <code>--trusted-ca</code>. Decide this before installing; it cannot be turned on later.</p>
+<p>If your private CA hands out certificates but cannot act as an issuer, you can
+install one certificate as files instead and leave out <code>clusterIssuer</code>. See
+<a href="private-ca.html">Private Certificate Authority</a>, which also covers the names the
+certificate needs and the DNS records you create.</p>
 <div class="admonition note">
 <p class="admonition-title">Default router and API server certificates</p>
 <p>In this mode the platform also points the default router and the API server

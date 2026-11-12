@@ -3184,6 +3184,17 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#if-pages-hang-or-load-only-partly" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        If Pages Hang or Load Only Partly
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -6158,6 +6169,17 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#if-pages-hang-or-load-only-partly" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        If Pages Hang or Load Only Partly
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -6310,12 +6332,26 @@ sudo<span class="w"> </span>resolvectl<span class="w"> </span>domain<span class=
 </code></pre></div>
 <p><code>sudo resolvectl revert &lt;interface&gt;</code> undoes it, and the setting is also lost when the interface reconnects.</p>
 <p>Windows has no per-domain resolver files. Set a public resolver as the DNS server of your network adapter instead.</p>
-<p>If pages then hang or load only partly, reconnect with a smaller MTU:</p>
+<h3 id="if-pages-hang-or-load-only-partly">If Pages Hang or Load Only Partly<a class="headerlink" href="#if-pages-hang-or-load-only-partly" title="Permanent link">#</a></h3>
+<p>The mesh tunnel has a default MTU of 1280. When your connection to the cluster is relayed rather than direct, the path can carry less than that, and larger packets are dropped without an error. Small requests still get through, so the symptoms are misleading:</p>
+<ul>
+<li><code>netbird status</code> reads <code>Connected</code>, and <code>nslookup</code> and <code>curl</code> against the console succeed</li>
+<li>the browser stays on a blank page, hangs on the redirect to the sign-in page, or loads the console frame without its content</li>
+<li><code>oc</code> commands that return a lot of output stall</li>
+</ul>
+<p>Check whether the connection is relayed and, on Linux, what the tunnel MTU is:</p>
+<div class="highlight"><pre><span></span><code>netbird<span class="w"> </span>status<span class="w"> </span>-d<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s2">"Connection type"</span>
+ip<span class="w"> </span>link<span class="w"> </span>show<span class="w"> </span>wt0<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-o<span class="w"> </span><span class="s2">"mtu [0-9]*"</span>
+</code></pre></div>
+<p>If the connection type is <code>Relayed</code>, reconnect with a smaller MTU:</p>
 <div class="highlight"><pre><span></span><code>netbird<span class="w"> </span>down
 netbird<span class="w"> </span>up<span class="w"> </span>--mtu<span class="w"> </span><span class="m">1200</span><span class="w"> </span>--management-url<span class="o">=</span>&lt;management<span class="w"> </span>URL&gt;
 </code></pre></div>
+<p>You are usually not asked to sign in again. The setting is kept for later connections on that device.</p>
 <h2 id="step-4-connect-with-the-cli">Step 4: Connect with the CLI<a class="headerlink" href="#step-4-connect-with-the-cli" title="Permanent link">#</a></h2>
-<p>In the cluster console, open your user menu and choose <strong>Copy login command</strong> to get a token. Log in with the <strong>hostname</strong> from the API endpoint. The raw IP address times out, because TLS and routing are set up for the name:</p>
+<p>In the cluster console, open your user menu and choose <strong>Copy login command</strong> to get a token:</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="images/hosted-cluster-console-user-menu.png" data-desc-position="bottom"><img alt="The user menu in the cluster console, with Copy login command at the top" src="images/hosted-cluster-console-user-menu.png"></a></p>
+<p>Log in with the <strong>hostname</strong> from the API endpoint. The raw IP address times out, because TLS and routing are set up for the name:</p>
 <div class="highlight"><pre><span></span><code>oc<span class="w"> </span>login<span class="w"> </span>--token<span class="o">=</span>&lt;token&gt;<span class="w"> </span>--server<span class="o">=</span>https://api.&lt;cluster&gt;.&lt;base-domain&gt;:6443
 </code></pre></div>
 <p>Verify:</p>
@@ -6348,9 +6384,9 @@ oc<span class="w"> </span>get<span class="w"> </span>projects
 <td>Per-domain public resolver entries, see <a href="#if-the-console-does-not-resolve">If the Console Does Not Resolve</a></td>
 </tr>
 <tr>
-<td>Pages hang part-way through loading</td>
-<td>MTU too large for the tunnel</td>
-<td><code>netbird up --mtu 1200</code></td>
+<td>Blank page, a hang on the sign-in redirect, or a console frame with no content, while <code>curl</code> to the same address works</td>
+<td>MTU too large for a relayed mesh connection</td>
+<td>Reconnect with <code>netbird up --mtu 1200</code>, see <a href="#if-pages-hang-or-load-only-partly">If Pages Hang or Load Only Partly</a></td>
 </tr>
 <tr>
 <td><code>netbird up</code> ignores a new management URL</td>

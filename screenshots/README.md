@@ -61,7 +61,7 @@ the `viewport:` block of every flow so all captures come out the same size.
 | `resources` | `resources.md`, `overview.md` | `resource-list`, `resource-detail`, `create-form-standard`, `resource-detail-1`, `detail-advanced` |
 | `iam` | `create-iam-user.md`, `create-iam-group.md` | `iam-users-list`, `iam-user-create`, `iam-group-create`, `iam-group-create-members`, `iam-group-detail` |
 | `mesh` | `create-mesh.md` | `mesh-list`, `mesh-create`, `mesh-detail` |
-| `clusters` | `provision-openshift-cluster.md`, `connect-to-openshift-cluster.md` | `cluster-list`, `cluster-create-standard`, `cluster-create-advanced`, `cluster-detail`, `cluster-detail-advanced`, `hosted-cluster-console` |
+| `clusters` | `provision-openshift-cluster.md`, `connect-to-openshift-cluster.md` | `cluster-list`, `cluster-create-standard`, `cluster-create-advanced`, `cluster-detail`, `cluster-detail-advanced` |
 | `windows-vm` | `provision-windows-virtual-machine.md` | `windows-vm-create`, `windows-vm-list`, `windows-vm-detail` |
 
 `dashboard-org-stats`, `create-form-standard`, `cluster-list`, `cluster-detail` and `mesh-detail` are each referenced by two pages.
@@ -125,14 +125,13 @@ The flows create nothing, but they do need somewhere to point and something to s
   shows a different name from the `my-mesh` in the guide's snippet.
 
 - the cluster named in `DOCS_CLUSTER_NAME`, long-lived and at phase Ready, so its detail
-  page shows a console URL and API endpoint. `DOCS_CLUSTER_CONSOLE_URL` is that cluster's
-  console. The `clusters` flow opens it for the signed-in console shot, so when the cluster is
-  private the runner host must first be enrolled in the `CONSOLE_ORG` default mesh
-  (`netbird up --management-url=<mesh management URL>`) as a user in the
-  `<cluster>-mesh-access` group, or the URL is unreachable and the flow fails at
-  `requires.reachable`. In CI that means the runner job needs a NetBird client and a
-  setup key or user credentials for that mesh; until it has them, run the flow locally
-  from an enrolled machine.
+  page shows a console URL and API endpoint.
+
+One image is not captured: the signed-in console of that cluster, in
+`connect-to-openshift-cluster.md`. The cluster is private, so its console is reachable
+only over the organization mesh, and a CI runner is not on it. That image is a static
+file, `content/how-to-guides/user/images/hosted-cluster-console.png`, taken by hand from
+a mesh-enrolled device. Retake it there if the OpenShift console changes.
 
 If a future flow does need to create something, `capture.sh` runs `flows/_seed.yaml`
 first and `flows/_teardown.yaml` last, ahead of and after everything else. There is no

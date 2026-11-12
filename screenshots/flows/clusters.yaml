@@ -1,16 +1,14 @@
 # how-to-guides/user/provision-openshift-cluster.md and
-# how-to-guides/user/connect-to-openshift-cluster.md -> 6 images.
+# how-to-guides/user/connect-to-openshift-cluster.md -> 5 images.
 #
 # The list and detail shots need a real, long-lived cluster in the capture org
 # (DOCS_CLUSTER_NAME, phase Ready). That was traded away once because a hosted control
 # plane kept alive for two images was not worth it; the connect guide makes the detail
 # page the thing the reader navigates by, so the cluster is now a capture requirement.
 #
-# The hosted-cluster-console shot opens the cluster's own console URL, outside the SCO
-# console. For a private cluster that URL resolves only over the organisation mesh, so
-# the runner host must be enrolled (netbird up against the CONSOLE_ORG default mesh) as
-# a user in the <cluster>-mesh-access group before this flow runs. A public cluster
-# needs nothing extra. Nothing is submitted: the existing SSO session carries over.
+# The cluster's own console is not captured here. The seeded cluster is private, so its
+# console resolves only over the organisation mesh, which a CI runner is not on. The
+# connect guide embeds that one image as a static file instead (see README.md).
 #
 # Read-only like the rest: the create form is filled and shot, never submitted.
 name: sco-docs-clusters
@@ -24,8 +22,7 @@ requires:
     - DOCS_CLUSTER_SIDEBAR_GROUP
     - DOCS_CLUSTER_PLURAL
     - DOCS_CLUSTER_NAME
-    - DOCS_CLUSTER_CONSOLE_URL
-  reachable: ["${CONSOLE_URL}", "${DOCS_CLUSTER_CONSOLE_URL}"]
+  reachable: ["${CONSOLE_URL}"]
 
 viewport:
   width: 1280
@@ -109,16 +106,6 @@ steps:
     with:
       mode: Standard
   - { step: wait, ms: 500 }
-
-  # Step 3 of the connect guide: the hosted cluster's own console. The browser already
-  # holds a single sign-on session with the organisation realm from the SCO console
-  # login, so the OpenShift console signs in without a prompt and lands on Projects.
-  # That is also what a reader sees when they follow the guide in the same browser.
-  # Over the mesh when the cluster is private (see the note at the top of this file).
-  - { step: open, url: "${DOCS_CLUSTER_CONSOLE_URL}" }
-  - { step: wait-for, selector: '#page-sidebar, [data-test="user-dropdown"], header', timeout: 90s }
-  - { step: wait, ms: 3000 }
-  - { step: screenshot, path: hosted-cluster-console.png, fullPage: false }
 
 after:
   - { step: screenshot, when: on-failure, path: _failure-clusters.png }

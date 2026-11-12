@@ -83,7 +83,7 @@ See [Create a Mesh](create-mesh.md) for the full enrolment walkthrough and [One 
 
 Open the **Console URL** from Step 1 in your browser. The cluster console uses your organisation's single sign-on. If you are already signed in to the Stakater Cloud Orchestrator console in the same browser, it signs you in without a prompt; otherwise you are redirected to your organisation's sign-in page. Either way you land on the cluster's **Projects** page:
 
-![The hosted cluster console after sign-in, showing the Projects page]({{ screenshot: hosted-cluster-console }})
+![The hosted cluster console after sign-in, showing the Projects page](images/hosted-cluster-console.png)
 
 !!! note
     A fresh cluster shows no projects and offers to create one. That is normal when you have a role but nothing has been deployed yet. If you expected to see existing projects and do not, your network path works but your group has no role that covers them: ask whoever owns the claim to check your group and its role under `access.groups`.

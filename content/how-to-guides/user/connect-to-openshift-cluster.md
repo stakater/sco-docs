@@ -122,16 +122,37 @@ sudo resolvectl domain <interface> '~<cluster>.<base-domain>' '~<platform sign-i
 
 Windows has no per-domain resolver files. Set a public resolver as the DNS server of your network adapter instead.
 
-If pages then hang or load only partly, reconnect with a smaller MTU:
+### If Pages Hang or Load Only Partly
+
+The mesh tunnel has a default MTU of 1280. When your connection to the cluster is relayed rather than direct, the path can carry less than that, and larger packets are dropped without an error. Small requests still get through, so the symptoms are misleading:
+
+- `netbird status` reads `Connected`, and `nslookup` and `curl` against the console succeed
+- the browser stays on a blank page, hangs on the redirect to the sign-in page, or loads the console frame without its content
+- `oc` commands that return a lot of output stall
+
+Check whether the connection is relayed and, on Linux, what the tunnel MTU is:
+
+```bash
+netbird status -d | grep "Connection type"
+ip link show wt0 | grep -o "mtu [0-9]*"
+```
+
+If the connection type is `Relayed`, reconnect with a smaller MTU:
 
 ```bash
 netbird down
 netbird up --mtu 1200 --management-url=<management URL>
 ```
 
+You are usually not asked to sign in again. The setting is kept for later connections on that device.
+
 ## Step 4: Connect with the CLI
 
-In the cluster console, open your user menu and choose **Copy login command** to get a token. Log in with the **hostname** from the API endpoint. The raw IP address times out, because TLS and routing are set up for the name:
+In the cluster console, open your user menu and choose **Copy login command** to get a token:
+
+![The user menu in the cluster console, with Copy login command at the top](images/hosted-cluster-console-user-menu.png)
+
+Log in with the **hostname** from the API endpoint. The raw IP address times out, because TLS and routing are set up for the name:
 
 ```bash
 oc login --token=<token> --server=https://api.<cluster>.<base-domain>:6443
@@ -151,7 +172,7 @@ oc get projects
 | Console or API times out | Not enrolled in the mesh, or not in a group under `access.groups` or in `<cluster>-mesh-access` | Check `netbird status`; ask whoever owns the claim to add your group under `access.groups`; run `netbird down` and `netbird up` again |
 | `Invalid parameter` or a CSRF token error on first sign-in | The sign-in expired before it completed | Open the console URL again; do not refresh |
 | `DNS address could not be found` for the console or the sign-in page | Your local resolver drops private-address answers | Per-domain public resolver entries, see [If the Console Does Not Resolve](#if-the-console-does-not-resolve) |
-| Pages hang part-way through loading | MTU too large for the tunnel | `netbird up --mtu 1200` |
+| Blank page, a hang on the sign-in redirect, or a console frame with no content, while `curl` to the same address works | MTU too large for a relayed mesh connection | Reconnect with `netbird up --mtu 1200`, see [If Pages Hang or Load Only Partly](#if-pages-hang-or-load-only-partly) |
 | `netbird up` ignores a new management URL | A stale profile survives `netbird down` | Stop the client, move `/var/lib/netbird/default.json` aside, start it and enrol again |
 | `oc login` times out against an IP | Connecting by address instead of name | Use `https://api.<cluster>.<base-domain>:6443` |
 | Signed in, console is empty | Network access only, through `<cluster>-mesh-access`, with no role | Add your group under `access.groups` on the claim |

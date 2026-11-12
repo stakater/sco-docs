@@ -127,11 +127,26 @@ The flows create nothing, but they do need somewhere to point and something to s
 - the cluster named in `DOCS_CLUSTER_NAME`, long-lived and at phase Ready, so its detail
   page shows a console URL and API endpoint.
 
-One image is not captured: the signed-in console of that cluster, in
-`connect-to-openshift-cluster.md`. The cluster is private, so its console is reachable
-only over the organization mesh, and a CI runner is not on it. That image is a static
-file, `content/how-to-guides/user/images/hosted-cluster-console.png`, taken by hand from
-a mesh-enrolled device. Retake it there if the OpenShift console changes.
+Two images are not captured by `make screenshots`: the signed-in console of that cluster
+and its user menu, in `connect-to-openshift-cluster.md`. The cluster is private, so its
+console is reachable only over the organization mesh, and a CI runner is not on it.
+Those images are static files under `content/how-to-guides/user/images/`
+(`hosted-cluster-console.png`, `hosted-cluster-console-user-menu.png`).
+
+Retake them from a device enrolled in the `CONSOLE_ORG` mesh with the flow in
+`screenshots/local/`, which `capture.sh` never runs. The container needs the host
+network to use the mesh, and a relayed connection needs `netbird up --mtu 1200` first,
+or the browser hangs on the sign-in redirect:
+
+```sh
+mkdir -p /tmp/mesh-shots && chmod 0777 /tmp/mesh-shots
+docker run --rm --network host \
+  --env-file screenshots/config.env --env-file screenshots/.env \
+  -e E2E_ARTIFACTS_DIR=/out -v /tmp/mesh-shots:/out \
+  -v "$PWD/screenshots/local/cluster-console.yaml:/etc/e2e/test.yaml:ro" \
+  ghcr.io/stakater/browser-runner:latest /etc/e2e/test.yaml
+cp /tmp/mesh-shots/hosted-cluster-console*.png content/how-to-guides/user/images/
+```
 
 If a future flow does need to create something, `capture.sh` runs `flows/_seed.yaml`
 first and `flows/_teardown.yaml` last, ahead of and after everything else. There is no

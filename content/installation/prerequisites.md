@@ -80,6 +80,7 @@ available from the customer distribution registry, so use a supported version:
 
 | `ksp` version | Customer install |
 |---|---|
+| v2.9.0 | Supported for the brownfield (`scobasic`) variant. Needed for a [private CA with certificate files](private-ca.md#option-2-certificate-files) |
 | **v2.8.1** (recommended), v2.8.4, v2.8.3, v2.8.2, v2.8.0, v2.7.1 | Supported for the brownfield (`scobasic`) variant |
 | v2.6.0, v2.7.0 | **Not supported** — the platform release they install is not in the distribution registry, and `ksp up` fails partway through |
 | v2.5.0 and earlier | Install an older platform release. Use the recommended version for new installs |
@@ -129,7 +130,7 @@ oc whoami
 ## Network Requirements
 
 - **DNS**: Wildcard DNS configured for cluster ingress (e.g., `*.apps.cluster.example.com`)
-- **TLS**: A cert-manager `ClusterIssuer` that can issue certificates for your apps domain, including a wildcard (ACME DNS-01 or your own CA)
+- **TLS**: A cert-manager `ClusterIssuer` that can issue certificates for your apps domain, including a wildcard (ACME DNS-01 or your own CA). With a private CA that only hands out certificates, you install one certificate as files instead — see [Private Certificate Authority](private-ca.md)
 - **Connectivity**: Outbound access to container registries (docker.io, Quay.io, ghcr.io)
 
 ## Registry Access
@@ -168,7 +169,7 @@ See [OpenShift Installation](openshift.md) for example claim files.
 - [ ] `ksp` CLI installed and on PATH
 - [ ] `oc` authenticated to the cluster
 - [ ] Wildcard DNS configured
-- [ ] Certificate issuer (`ClusterIssuer`) ready for your apps domain
+- [ ] Certificate issuer (`ClusterIssuer`) ready for your apps domain, or, with a private CA, the [certificate installed as files](private-ca.md#option-2-certificate-files)
 - [ ] Registry access granted to your GitHub account, and a `read:packages` token created
 - [ ] `KubeStackConfig` claim file prepared
 - [ ] `KubeStackPlus` claim file prepared

@@ -70,6 +70,7 @@ nav:
           - installation/prerequisites.md
           - installation/openshift.md
           - installation/scobasic.md
+          - installation/private-ca.md
           - installation/openbao-unseal.md
           - installation/configuration.md
       - Solutions and Marketplace:

@@ -1,0 +1,78 @@
+# how-to-guides/user/create-postgres.md -> 4 images.
+#
+# Read-only: the create form is opened and named, never submitted. The list and detail
+# shots need the Postgres named DOCS_POSTGRES_NAME to exist in CONSOLE_ORG and be Ready.
+# Seed it through the console, not from here -- see "What the environment needs" in
+# screenshots/README.md. It is named after the example in the guide.
+name: sco-docs-postgres
+
+requires:
+  env:
+    - CONSOLE_URL
+    - CONSOLE_ORG
+    - CONSOLE_USER
+    - CONSOLE_PASSWORD
+    - DOCS_POSTGRES_SIDEBAR_GROUP
+    - DOCS_POSTGRES_PLURAL
+    - DOCS_POSTGRES_NAME
+  reachable: ["${CONSOLE_URL}"]
+
+viewport:
+  width: 1280
+  height: 800
+  deviceScaleFactor: 2
+  colorScheme: light
+
+steps:
+  - use: cloud-orchestrator-console-login
+    with:
+      portal: "${CONSOLE_URL}"
+      org: "${CONSOLE_ORG}"
+      username: "${CONSOLE_USER}"
+      password: "${CONSOLE_PASSWORD}"
+
+  # Step 1, "Define a Postgres Claim" -- Standard asks for a project and a name, the
+  # same as the empty-parameters claim. Standard is the default in a fresh context.
+  - use: cloud-orchestrator-console-open-resource-create
+    with:
+      portal: "${CONSOLE_URL}"
+      plural: "${DOCS_POSTGRES_PLURAL}"
+  - { step: fill, selector: 'input[id="metadata.name"], input#name', value: "my-database" }
+  - { step: screenshot, path: postgres-create.png, fullPage: false }
+
+  # Optional parameters -- instances, storage size and exposeLoadBalancer are the
+  # Advanced fields, framed on the end of the form. Standard was shot first because the
+  # mode persists in localStorage; settle before scrolling (see clusters.yaml).
+  - use: cloud-orchestrator-console-set-complexity-mode
+    with:
+      mode: Advanced
+  - { step: wait, ms: 750 }
+  - { step: scroll-to, selector: 'form button[type="submit"]', block: end }
+  - { step: wait, ms: 500 }
+  - { step: screenshot, path: postgres-create-advanced.png, fullPage: false }
+  - use: cloud-orchestrator-console-set-complexity-mode
+    with:
+      mode: Standard
+  - { step: wait, ms: 500 }
+
+  # Step 3, "Verify the Database" -- the list is where READY shows. Needs one row.
+  - use: cloud-orchestrator-console-open-resource-list
+    with:
+      portal: "${CONSOLE_URL}"
+      plural: "${DOCS_POSTGRES_PLURAL}"
+  - use: cloud-orchestrator-console-expand-sidebar-group
+    with:
+      group: "${DOCS_POSTGRES_SIDEBAR_GROUP}"
+  - { step: screenshot, path: postgres-list.png, fullPage: false }
+
+  # Step 3 and 4 -- the detail page carries the connection block: host, port, database
+  # and the Vault path the guide reads the credentials from. Needs the seeded database.
+  - use: cloud-orchestrator-console-open-resource-detail
+    with:
+      portal: "${CONSOLE_URL}"
+      plural: "${DOCS_POSTGRES_PLURAL}"
+      name: "${DOCS_POSTGRES_NAME}"
+  - { step: screenshot, path: postgres-detail.png, fullPage: false }
+
+after:
+  - { step: screenshot, when: on-failure, path: _failure-postgres.png }

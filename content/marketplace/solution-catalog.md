@@ -97,7 +97,7 @@ Full reference: [Mesh API](../api-reference/public-apis/mesh.md)
 
 ### MeshRouter
 
-**API:** `network.cloud.stakater.com/v1 MeshRouter`
+**API:** `mesh.cloud.stakater.com/v1 MeshRouter`
 
 Per-tenant router that joins the Mesh and advertises in-cluster CIDRs / hosts to peers. Use it to give laptops access to internal-only Services (Vault, kube-apiserver Service IPs, etc.) without exposing them to the internet.
 

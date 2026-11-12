@@ -1,6 +1,6 @@
 # How to Create an IAM Group
 
-Learn how to create a group in your organisation's identity provider and manage its members via a Project claim.
+Learn how to create a group in your organisation's identity provider and manage its members with a Group claim.
 
 Maria, an organisation administrator at ACME Corp, wants to create a group for her engineering team so she can assign project access to all members at once rather than individually.
 
@@ -15,16 +15,16 @@ Maria, an organisation administrator at ACME Corp, wants to create a group for h
 
 When you create a Group claim, the platform provisions:
 
-- An **organisation group** in your organisation's IdP at the specified path
+- An **organisation group** in your organisation's IdP
 - **Group memberships** if `members` are provided (adds existing organisation users to the group)
 
 ## In the Console
 
-Groups sit next to Users under **Identity & Access**. The create form asks for the project the group belongs to, then the same name and path as the claim:
+Groups sit next to Users under **Identity & Access**. The create form asks for one name, **Group name**, at the top. It is `metadata.name` in the claim, and the platform uses it as the group's name in your organisation's identity provider:
 
 ![The Create Group form]({{ screenshot: iam-group-create }})
 
-Members are added one at a time: type a username in the **Members** field and press Enter to commit it. A value left as draft text is not part of the group. If the field is not on the form, switch it to **Advanced** — members are optional, so Standard mode may hide them:
+Members are added one at a time: type the user's email address in the **Members** field and press Enter to commit it. A value left as draft text is not part of the group. If the field is not on the form, switch it to **Advanced** — members are optional, so Standard mode may hide them:
 
 ![The Create Group form with three members added]({{ screenshot: iam-group-create-members }})
 
@@ -42,23 +42,22 @@ kind: Group
 metadata:
   name: engineering-team
 spec:
-  parameters:
-    name: engineering-team
-    path: /teams/engineering
+  parameters: {}
 ```
 
-### Required Parameters
+`metadata.name` is the group's name, both for the `Group` resource in your project and in your organisation's identity provider. No parameter is required.
 
-| Parameter | Description |
-|-----------|-------------|
-| `parameters.name` | Name of the organisation group |
+!!! note
+    Some group names are reserved for platform access and are refused when you create the group: `customer-admin`, names that start with `stakater-`, and names that end with `-cluster-admin` or `-stakater-admin`.
+
+!!! note
+    Older claims may still set `parameters.name`. The field is deprecated and ignored: the group is always named after `metadata.name`.
 
 ### Optional Parameters
 
 | Parameter | Description |
 |-----------|-------------|
-| `parameters.path` | Path for the group in the organisation group hierarchy (e.g., `/teams/engineering`) |
-| `parameters.members` | List of organisation usernames to add to the group |
+| `parameters.members` | Email addresses of the organisation users to add to the group |
 | `parameters.attributes` | Additional key-value attributes to set on the group |
 
 ## Step 2: Add Group Members (Optional)
@@ -72,16 +71,14 @@ metadata:
   name: engineering-team
 spec:
   parameters:
-    name: engineering-team
-    path: /teams/engineering
     members:
-      - alice
-      - bob
-      - charlie
+      - alice@acmecorp.example.com
+      - bob@acmecorp.example.com
+      - charlie@acmecorp.example.com
 ```
 
 !!! note
-    Members must already exist as organisation users before they can be added to a group. Create users first using the [IAM User](create-iam-user.md) guide.
+    List members by their **email address**. A value that is not a user's email address, such as the `username` from their `User` claim, never matches: the membership stays not ready and the group never becomes ready. Members must already exist as organisation users before they can be added to a group. Create users first using the [IAM User](create-iam-user.md) guide.
 
 ## Step 3: Apply the Claim
 
@@ -122,28 +119,25 @@ metadata:
   name: tenant-group
 spec:
   parameters:
-    name: tenant-group
-    path: /tenant-group
     members:
       - user1@tenant.com
       - user2@tenant.com
 ```
 
-### Group with Hierarchy
+### Group with Attributes
 
 ```yaml
 apiVersion: iam.cloud.stakater.com/v1
 kind: Group
 metadata:
-  name: engineering-team
+  name: platform-team
 spec:
   parameters:
-    name: engineering-team
-    path: /teams/engineering
-    members:
-      - alice
-      - bob
-      - charlie
+    attributes:
+      department:
+        - engineering
+      costCentre:
+        - cc-1234
 ```
 
 ## Using Groups for Project Access
@@ -162,13 +156,19 @@ spec:
       name: app-network
       cidr: 10.0.0.0/16
     access:
-      - role: cluster-admin
+      - role: platform-services-admin
         groups:
           - engineering-team
-      - role: view
+      - role: platform-services-view
         groups:
           - qa-team
 ```
+
+Use only the roles listed in [Project Roles](../../cloud-user-guide/projects/creating-projects.md#project-roles). Other role names, such as `cluster-admin` or `edit`, are accepted without an error but grant a built-in Kubernetes role with far broader rights.
+
+## Deleting a Group or Its Members
+
+Before you delete a user who is a member of a group, remove them from the group's `members` list (or delete the group) first. If the user is deleted first, the group can no longer be deleted cleanly, because it keeps trying to remove a member who no longer exists. See [Disabling or Removing a User](../../cloud-user-guide/authentication/managing-users.md#disabling-or-removing-a-user).
 
 ## What's Next?
 

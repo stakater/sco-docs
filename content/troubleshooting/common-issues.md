@@ -81,6 +81,29 @@ If stuck for more than 15 minutes, contact your platform administrator.
 
 ---
 
+### Project deleted but its resources keep running
+
+**Cause:** Projects have deletion protection turned on by default. Deleting a protected project removes the project itself, but the VMs, clusters and other resources in it keep running, and you can no longer see or remove them.
+
+**Fix:** Before you delete a project, turn deletion protection off, then delete it:
+
+```bash
+kubectl label project my-project sco/deletion-protection=disabled
+kubectl delete project my-project
+```
+
+See [Deleting a project](../cloud-user-guide/projects/creating-projects.md#deleting-a-project). If you already deleted a protected project, contact your platform administrator to remove what was left behind.
+
+---
+
+### Project stuck deleting after VMs were removed
+
+**Cause:** Known issue: billing records for deleted VMs are not always cleaned up, and they block the project from finishing its deletion.
+
+**Fix:** Contact your platform administrator.
+
+---
+
 ## Virtual Machines
 
 ### VM Ready but SSH connection refused
@@ -94,7 +117,11 @@ kubectl get virtualmachine my-vm -o jsonpath='{.status}'
 ssh -i ~/.ssh/my-key user@<vm-ip>
 ```
 
-If using `connection: private`, the VM IP is only reachable from within the cluster. Use `connection: public` for external access.
+A `connection: private` VM has no external address. To reach it from your laptop, set `meshRoute.enabled: true` on the VM and connect over your organisation's Mesh: the Mesh Route opens SSH (`22`), RDP (`3389`) and ICMP to enrolled devices. Use `connection: public` only when the VM must be reachable from the internet.
+
+!!! warning
+    SSH over the Mesh Route does not work yet for every project role. If `ssh` over the Mesh times out, see the limitations in [Deploy Your First Application](../how-to-guides/user/deploy-first-app.md).
+    <!-- Tracked internally: SA-9273 (SA-9189). Remove this note when fixed. -->
 
 ---
 

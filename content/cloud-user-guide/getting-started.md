@@ -16,7 +16,7 @@ Before you begin, you need:
 
 Navigate to your organization's SCO console URL (provided by your administrator).
 
-Log in using your credentials. Each organization has its own isolated authentication realm, so you'll only see resources within your organization.
+Log in with your **email address** and password. Each organization has its own isolated authentication realm, so you'll only see resources within your organization.
 
 !!! note
     Your administrator will provide the console URL and initial login credentials. You may be able to use SSO if configured.
@@ -50,13 +50,15 @@ spec:
       cidr: 10.100.0.0/16
     tenantQuota: small
     access:
-      - role: admin
+      - role: platform-services-admin
         users:
           - emma@acmecorp.example.com
-      - role: view
+      - role: platform-services-view
         groups:
           - developers
 ```
+
+Users are listed by the email address they log in with. Use only the roles listed in [Project Roles](projects/creating-projects.md#project-roles); other role names are accepted without an error but do not grant SCO access as intended.
 
 Once created, verify your project access:
 
@@ -176,10 +178,11 @@ Get your project's kubeconfig to work with kubectl locally.
 From the console:
 
 1. Navigate to your project
-1. Click "Settings" or "Access"
-1. Click "Download kubeconfig"
+1. Switch the page from **Standard** to **Advanced**
+1. In the **Access Configuration** section, open the kubeconfig and choose **Decoded** (not **Encoded**)
+1. Copy the YAML and save it as `~/.kube/my-app-dev-config`
 
-Save the file as `~/.kube/my-app-dev-config`
+The kubeconfig's context is named `dev`. See [kubeconfig Generation](kubectl-access/kubeconfig-generation.md) for details.
 
 ### Use the kubeconfig
 

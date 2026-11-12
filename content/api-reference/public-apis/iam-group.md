@@ -13,20 +13,17 @@ Creates a group in your organisation's identity provider and manages its members
 
 ## Spec Parameters
 
-All parameters are nested under `spec.parameters`.
+All parameters are nested under `spec.parameters`. None is required.
 
-### Required
+The group is named after `metadata.name`, which is also its name in your organisation's identity provider. These names are reserved for platform access and are refused when you create the group: `customer-admin`, names that start with `stakater-`, and names that end with `-cluster-admin` or `-stakater-admin`.
 
-| Field | Type | Description |
-|-------|------|-------------|
-| `name` | `string` | Name of the organisation group |
+`spec.parameters.name` is deprecated and ignored. Older claims that still set it keep working, and the group is named after `metadata.name`.
 
 ### Optional
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `path` | `string` | Path for the group in the organisation group hierarchy (e.g., `/teams/engineering`) |
-| `members` | `string[]` | List of usernames to add to the group |
+| `members` | `string[]` | Email addresses of the users to add to the group. Other values, such as a `User` claim's `username`, never match |
 | `attributes` | `object` | Additional key/value attributes to set on the group. Each value is a `string[]`. |
 
 ## Status Fields
@@ -35,7 +32,6 @@ All parameters are nested under `spec.parameters`.
 |-------|------|-------------|
 | `status.group.id` | `string` | Group ID (uuid) assigned by the IdP |
 | `status.group.name` | `string` | Confirmed group name |
-| `status.group.path` | `string` | Confirmed group path |
 | `status.group.created` | `boolean` | Whether the group was successfully created |
 | `status.group.ready` | `boolean` | Whether the group is ready and accessible |
 | `status.memberships.members` | `string[]` | List of members currently in the group |
@@ -52,11 +48,10 @@ kind: Group
 metadata:
   name: engineering-team
 spec:
-  parameters:
-    name: engineering-team
+  parameters: {}
 ```
 
-### With Path and Members
+### With Members
 
 ```yaml
 apiVersion: iam.cloud.stakater.com/v1
@@ -65,12 +60,10 @@ metadata:
   name: engineering-team
 spec:
   parameters:
-    name: engineering-team
-    path: /teams/engineering
     members:
-      - alice
-      - bob
-      - charlie
+      - alice@acmecorp.example.com
+      - bob@acmecorp.example.com
+      - charlie@acmecorp.example.com
 ```
 
 ### With Attributes
@@ -82,8 +75,6 @@ metadata:
   name: platform-team
 spec:
   parameters:
-    name: platform-team
-    path: /teams/platform
     attributes:
       department:
         - engineering

@@ -1,39 +1,26 @@
 # Flux Setup
 
-Flux can continuously reconcile your SCO project workspace with a Git repository. Since your project exposes a standard Kubernetes API endpoint, Flux works against it without modification.
+Flux can reconcile SCO claims from Git, because SCO claims are ordinary Kubernetes YAML. Connecting Flux to an SCO project, however, needs an **automation identity**, and that is not available to project users yet.
+
+!!! note
+    Until the automation identity is available, use [Terraform](../terraform-access/setup-terraform.md) with your own project login to manage project resources programmatically.
 
 ---
 
-## Prerequisites
+## Why Flux Cannot Connect Yet
 
-- `flux` CLI installed ([official install guide](https://fluxcd.io/flux/installation/))
-- Your project kubeconfig (see [Setup kubectl](../kubectl-access/setup-kubectl.md))
-- A Git repository containing your manifests
+- **`flux bootstrap` cannot run against a project.** Bootstrap installs the Flux controllers, their API definitions, a `flux-system` namespace and cluster-wide role bindings into the target. Project users are not allowed to create these, and a project runs only the services you provision through claims, not arbitrary controllers.
+- **An external Flux instance cannot use your project kubeconfig.** A Flux `Kustomization` can deploy to a remote API through a kubeconfig stored in a `Secret`, but your project kubeconfig signs in as you through a browser login with a short-lived token. A Flux controller has no browser, and storing your personal login in a `Secret` would give Flux your access.
 
----
+A dedicated automation identity, scoped to your organisation or a project, is planned for tools such as Flux, ArgoCD and CI pipelines. This page will describe how to connect Flux once it is available.
 
-## Step 1: Bootstrap Flux
-
-Bootstrap Flux into your project workspace:
-
-```bash
-export KUBECONFIG=~/.kube/my-project.yaml
-
-flux bootstrap github \
-  --owner=your-org \
-  --repository=your-repo \
-  --branch=main \
-  --path=clusters/proj-frontend \
-  --personal
-```
-
-Flux creates the `flux-system` namespace in your project workspace and installs its controllers.
+<!-- TODO(SA-8708): once the automation identity (TechnicalUser, iam.cloud.stakater.com/v1) is available to project users, document an external Flux Kustomization with spec.kubeConfig.secretRef pointing at its kubeconfig. -->
 
 ---
 
-## Step 2: Add SCO Claims to Git
+## Preparing Your Git Repository
 
-In the Git path Flux is watching, add SCO claim manifests:
+You can already keep your SCO claims in Git. They look the same as any other Kubernetes YAML, and the same files work with `kubectl apply` today:
 
 ```yaml
 # clusters/proj-frontend/virtual-machine.yaml
@@ -46,65 +33,17 @@ spec:
     flavour: rhel9
     instanceType: o1.large
     connection: private
-    sshPublicKey: "ssh-rsa AAAAB3..."
+    sshPublicKey:
+      data: <base64-encoded OpenSSH public key>
 ```
 
-Commit and push. Flux applies the manifest to your project workspace within the configured sync interval.
-
----
-
-## Step 3: Monitor
-
-```bash
-flux get all
-kubectl get virtualmachines
-flux logs
-```
-
----
-
-## Targeting Your Project from an External Flux Instance
-
-If Flux is already running elsewhere and you want it to deploy into your SCO project, create a `Secret` with your kubeconfig and reference it in a `Kustomization`:
-
-```yaml
-apiVersion: v1
-kind: Secret
-metadata:
-  name: sco-project-kubeconfig
-  namespace: flux-system
-type: Opaque
-stringData:
-  value: |
-    # paste project kubeconfig contents here
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: sco-proj-frontend
-  namespace: flux-system
-spec:
-  interval: 5m
-  path: ./environments/proj-frontend
-  prune: true
-  sourceRef:
-    kind: GitRepository
-    name: your-repo
-  kubeConfig:
-    secretRef:
-      name: sco-project-kubeconfig
-```
-
----
-
-## Automation Identity (Coming Soon)
-
-Currently, Flux uses the credentials in your project kubeconfig. A dedicated **automation identity** claim type is planned — allowing you to create a long-lived, scoped service account for CI/CD tools without relying on a personal kubeconfig.
+`sshPublicKey.data` is the OpenSSH public key, base64-encoded on a single line.
 
 ---
 
 ## What's Next?
 
-- [ArgoCD Setup](argocd-setup.md) — Alternative GitOps with ArgoCD
+- [Setup Terraform](../terraform-access/setup-terraform.md) — The supported programmatic path today
+- [ArgoCD Setup](argocd-setup.md) — ArgoCD has the same limitation
 - [Setup kubectl](../kubectl-access/setup-kubectl.md) — kubectl access to your project
 - [Provisioning Solutions](../solutions/provisioning-solutions.md) — SCO claim structure

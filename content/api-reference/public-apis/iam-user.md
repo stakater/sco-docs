@@ -19,8 +19,7 @@ All parameters are nested under `spec.parameters`.
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `username` | `string` | Username for the organisation user |
-| `email` | `string` | Email address for the user |
+| `email` | `string` | Email address for the user. It is also the user's login name, and the value to use in group `members` and project `access` entries |
 
 ### Optional
 
@@ -30,13 +29,14 @@ All parameters are nested under `spec.parameters`.
 | `lastName` | `string` | — | User's last name |
 | `emailVerified` | `boolean` | `false` | Whether the email is pre-verified in the organisation's IdP |
 | `enabled` | `boolean` | `true` | Whether the user can log in immediately |
+| `username` | `string` | — | Deprecated and ignored. The email address is used as the login name |
 
 ## Status Fields
 
 | Field | Type | Description |
 |-------|------|-------------|
 | `status.user.id` | `string` | User ID (uuid) assigned by the IdP |
-| `status.user.username` | `string` | Confirmed username |
+| `status.user.username` | `string` | Login name (the same as the email address) |
 | `status.user.email` | `string` | Confirmed email address |
 | `status.user.created` | `boolean` | Whether the user was successfully created |
 | `status.user.ready` | `boolean` | Whether the user is ready and accessible |
@@ -54,7 +54,6 @@ metadata:
   name: jane-doe
 spec:
   parameters:
-    username: jane.doe
     email: jane.doe@acmecorp.example.com
 ```
 
@@ -67,7 +66,6 @@ metadata:
   name: jane-doe
 spec:
   parameters:
-    username: jane.doe
     email: jane.doe@acmecorp.example.com
     firstName: Jane
     lastName: Doe

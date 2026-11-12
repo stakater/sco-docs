@@ -22,7 +22,9 @@ Navigate to your console URL in a browser. You will be presented with the login 
 
 ### Standard login
 
-Enter the username and password provided by your administrator or set during account creation.
+Enter your **email address** and the password provided by your administrator. Your email address is your login name; a separate username from your account details does not work here.
+
+If your administrator created your account, the initial password is temporary: you are asked to set a new one, see [Step 3](#step-3-set-your-password-first-login).
 
 ### Company identity provider
 
@@ -62,7 +64,7 @@ To log out, use the account menu in the top-right corner of the console and sele
 
 ## Troubleshooting
 
-**"Invalid credentials":** Double-check your username and password — passwords are case-sensitive. Use the **Forgot password** link if available, or contact your administrator.
+**"Invalid username or password":** Make sure you entered your email address, not a username, and check your password — passwords are case-sensitive. Use the **Forgot password** link if available, or contact your administrator.
 
 **Redirected to the wrong realm:** Ensure you are using the console URL specific to your organisation.
 

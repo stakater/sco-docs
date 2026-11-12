@@ -21,7 +21,8 @@ User-facing APIs designed for cloud users — developers, team leads, and organi
 | [Postgres](public-apis/postgres.md) | `database.cloud.stakater.com/v1` | `Postgres` | PostgreSQL database backed by CloudNativePG |
 | [Vault](public-apis/vault.md) | `secrets.cloud.stakater.com/v1` | `Vault` | Per-tenant OpenBao instance with OIDC auth and HA Raft storage |
 | [Mesh](public-apis/mesh.md) | `network.cloud.stakater.com/v1` | `Mesh` | Per-tenant private mesh network (management + signal + dashboard) |
-| [MeshRouter](public-apis/mesh-router.md) | `network.cloud.stakater.com/v1` | `MeshRouter` | Router that advertises in-cluster CIDRs to peers on a Mesh |
+| [MeshRouter](public-apis/mesh-router.md) | `mesh.cloud.stakater.com/v1` | `MeshRouter` | Router that advertises in-cluster CIDRs to peers on a Mesh |
+| [MeshPolicy](public-apis/mesh-policy.md) | `mesh.cloud.stakater.com/v1` | `MeshPolicy` | Access rule allowing traffic between groups on a Mesh |
 
 ### Private APIs (`infrastructure.stakater.com`)
 

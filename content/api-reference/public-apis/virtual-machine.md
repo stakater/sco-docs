@@ -29,18 +29,20 @@ All parameters are nested under `spec.parameters`.
 | `storageSize` | `string` | `medium` | Root disk size. Allowed: `small` (10 Gi), `medium` (30 Gi), `large` (50 Gi), `xlarge` (100 Gi) |
 | `connection` | `string` | `private` | Network access type. `private` = no external address (reach it over the Mesh with `meshRoute`); `public` = LoadBalancer Service created |
 | `meshRoute.enabled` | `boolean` | `false` | Advertise the VM on your organisation's Mesh, so enrolled devices can reach it on SSH (`22`), RDP (`3389`) and ICMP |
+| `ports.mesh[].port` | `integer` | — | Extra TCP port that enrolled devices may reach over the Mesh, for example a database (1–65535, up to 16). Needs `meshRoute.enabled: true`. The SSH port is always available and need not be listed |
 | `sshPublicKey.data` | `string` | — | Base64-encoded (or raw) SSH public key for VM access |
 | `cloudInit.userData` | `string` | — | Cloud-init `userData` script injected on first boot |
 | `peers` | `array` | — | Workloads in this project allowed to reach the VM, each on its own ports. Needs a project with `network.mode: native`. See [Peers](#peers) |
 
 ### Peers
 
-Each entry in `spec.parameters.peers` lets one workload in the same project reach the VM. All other traffic to the VM stays blocked. `WindowsVirtualMachine` takes the same field.
+Each entry in `spec.parameters.peers` lets one workload in the same project reach the VM. All other traffic to the VM stays blocked. `WindowsVirtualMachine` takes the same field. You can list up to 16 peers.
 
 | Field | Type | Default | Description |
 |-------|------|---------|-------------|
-| `kind` | `string` | — | Kind of workload. `OpenShiftCluster` admits workloads running on one of this project's OpenShift clusters |
-| `name` | `string` | — | Name of the workload, for example the OpenShift cluster's name |
+| `kind` | `string` | `OpenShiftCluster` | Kind of workload. `OpenShiftCluster` admits workloads running on one of this project's OpenShift clusters |
+| `name` | `string` | — | Name of the workload, for example the OpenShift cluster's name. Required |
+| `ports` | `array` | — | Ports on the VM the peer may reach. Required, 1 to 16 entries |
 | `ports[].port` | `integer` | — | Port on the VM the peer may reach (1–65535) |
 | `ports[].protocol` | `string` | `TCP` | `TCP` or `UDP` |
 

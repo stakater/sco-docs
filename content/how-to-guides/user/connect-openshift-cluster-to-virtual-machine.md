@@ -36,7 +36,6 @@ spec:
   parameters:
     name: app-platform
     network:
-      name: app-platform
       mode: native
 ```
 
@@ -90,9 +89,9 @@ kubectl apply -f sql-vm.yaml
 
 | Parameter | Default | Description |
 |-----------|---------|-------------|
-| `peers[].kind` | — | `OpenShiftCluster` |
+| `peers[].kind` | `OpenShiftCluster` | Kind of workload. Only `OpenShiftCluster` is supported |
 | `peers[].name` | — | Name of an OpenShift cluster in the same project |
-| `peers[].ports[].port` | — | Port the cluster may reach on the virtual machine |
+| `peers[].ports[].port` | — | Port the cluster may reach on the virtual machine. List 1 to 16 ports |
 | `peers[].ports[].protocol` | `TCP` | `TCP` or `UDP` |
 
 A `VirtualMachine` (Linux) takes the same `peers` field. You can list up to 16 peers, each with its own ports.
@@ -173,6 +172,18 @@ spec:
       enabled: true
 ```
 
+The mesh reaches the management port (RDP `3389`, or SSH `22` on Linux) without further settings. Peers do not open ports over the mesh. To let people reach another port over the mesh as well, for example to query the database from their laptop, list it under `ports.mesh`:
+
+```yaml
+spec:
+  parameters:
+    meshRoute:
+      enabled: true
+    ports:
+      mesh:
+        - port: 1433
+```
+
 ## Full Example
 
 ```yaml
@@ -184,7 +195,6 @@ spec:
   parameters:
     name: app-platform
     network:
-      name: app-platform
       mode: native
 ---
 apiVersion: kubernetes.cloud.stakater.com/v1

@@ -20,14 +20,15 @@ All parameters are nested under `spec.parameters`.
 | Field | Type | Description |
 |-------|------|-------------|
 | `name` | `string` | Project name used for resource naming |
-| `network.name` | `string` | Network identifier for the project's isolated network |
-| `network.cidr` | `string` | CIDR block for the network (e.g., `10.0.0.0/16`). Required when `network.mode` is `udn` |
+| `network.cidr` | `string` | CIDR block for the network (e.g., `10.0.0.0/16`). Required when `network.mode` is `udn`. Choose a range that does not overlap another project in your organisation |
 
 ### Optional
 
 | Field | Type | Default | Description |
 |-------|------|---------|-------------|
 | `network.mode` | `string` | `udn` | How the project is networked. See [Network Modes](#network-modes) |
+| `network.name` | `string` | `default` | Name of the project's network. Only used in `udn` mode |
+| `network.externalRef` | `string` | — | Name of the external network assigned to your organisation. Required when `network.mode` is `external` |
 | `tenantQuota` | `string` | `small` | Resource quota size for the project (`small`, `medium`, `large`) |
 | `access` | `array` | — | List of role-based access entries (see [Access](#access)) |
 
@@ -106,7 +107,6 @@ spec:
   parameters:
     name: app-platform
     network:
-      name: app-platform
       mode: native
 ```
 

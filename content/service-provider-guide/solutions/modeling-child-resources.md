@@ -27,6 +27,7 @@ A child that is created alongside its parent by default can still be a child res
 Do **not** model a child resource when:
 
 - **It is plain configuration of the parent** — a setting with no identity or lifecycle of its own belongs in the parent's spec
+- **Several claims may name it** — a volume attached by several VMs has no single parent; see [Modelling Related Resources](modeling-related-resources.md)
 
 !!! note
     A parent reference gives you a *verified link*, not cascade deletion. Deleting a parent claim does not delete its children — they remain, with `status.<role>Ref.available: false` and a message explaining why. If you need cascade deletion, that is a separate concern to solve outside this contract.
@@ -340,6 +341,7 @@ Finally, verify the broken-link behaviour: point a child at a parent name that d
 
 ## What's Next?
 
+- [Modelling Related Resources](modeling-related-resources.md) — List the claims a claim names on its detail page
 - [Creating Solutions](creating-solutions.md) — Define the XRD and Composition for a new solution
 - [Crossplane Compositions](crossplane-compositions.md) — Advanced composition patterns and KCL functions
 - [Publishing Solutions](../marketplace/publishing-solutions.md) — Make your solution available in the marketplace

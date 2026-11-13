@@ -113,7 +113,7 @@ metadata:
 spec:
   parameters:
     name: <cluster-name>
-    variant: scobasic          # <- the variant
+    variant: scobasic          # <- the variant (also the default when omitted)
     platform: ocp
     domain: <apps-domain>
 
@@ -246,7 +246,7 @@ organization.
 | `<apps-domain>` | `oc get ingresses.config cluster -o jsonpath='{.spec.domain}'` |
 | `<pod-cidr>` | `oc get network.config cluster -o jsonpath='{.spec.clusterNetwork[*].cidr}'` |
 | `<service-cidr>` | `oc get network.config cluster -o jsonpath='{.spec.serviceNetwork[*]}'` |
-| `<cluster-issuer>` | The name of the cert-manager `ClusterIssuer` you create — see [Certificates and DNS](#certificates-and-dns) |
+| `<cluster-issuer>` | The name of the cert-manager `ClusterIssuer` you create — see [Certificates and DNS](#certificates-and-dns). With a private CA and certificate files, leave `clusterIssuer` out — see [Private Certificate Authority](private-ca.md) |
 | `<your-storage-class>` | `oc get storageclass` — an RWO class |
 | `<range-start>` / `<range-end>` | A free address range you own |
 
@@ -274,6 +274,11 @@ domain. It uses one certificate issuer that you provide.
 If your issuer is backed by a private CA that clients do not trust by default,
 also set `certificate.privateCA: true` and pass the root CA to `ksp up` with
 `--trusted-ca`. Decide this before installing; it cannot be turned on later.
+
+If your private CA hands out certificates but cannot act as an issuer, you can
+install one certificate as files instead and leave out `clusterIssuer`. See
+[Private Certificate Authority](private-ca.md), which also covers the names the
+certificate needs and the DNS records you create.
 
 !!! note "Default router and API server certificates"
     In this mode the platform also points the default router and the API server

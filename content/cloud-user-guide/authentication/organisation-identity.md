@@ -98,4 +98,4 @@ With a device enrolled, the organisation's published services resolve and authen
 - [Logging In](logging-in.md)
 - [Managing Users](managing-users.md)
 - [How to Create a Mesh](../../how-to-guides/user/create-mesh.md)
-- [How to Create a Vault](../../how-to-guides/user/create-vault.md)
+- [How to Access Your Organisation's Vault](../../how-to-guides/user/access-vault.md)

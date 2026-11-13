@@ -9,7 +9,7 @@ Emma, a developer at ACME Corp, needs persistent object storage for her applicat
 - A [Project](create-project.md) already created
 - The `s3bucket.storage.cloud.stakater.com` API available
 - `kubectl` configured with your project kubeconfig
-- To read the credentials: access to your organisation's [Vault](create-vault.md) from a device enrolled on the [Mesh](create-mesh.md)
+- To read the credentials: access to your organisation's [Vault](access-vault.md) from a device enrolled on the [Mesh](create-mesh.md)
 
 ## What Gets Created
 

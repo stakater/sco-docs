@@ -62,7 +62,7 @@ the `viewport:` block of every flow so all captures come out the same size.
 | `iam` | `create-iam-user.md`, `create-iam-group.md` | `iam-users-list`, `iam-user-create`, `iam-group-create`, `iam-group-create-members`, `iam-group-detail` |
 | `mesh` | `create-mesh.md` | `mesh-list`, `mesh-create`, `mesh-detail` |
 | `clusters` | `provision-openshift-cluster.md` | `cluster-create-standard`, `cluster-create-advanced` |
-| `vault` | `create-vault.md` | `vault-create`, `vault-list`, `vault-detail` |
+| `vault` | `access-vault.md` | `vault-list`, `vault-detail` |
 | `windows-vm` | `provision-windows-virtual-machine.md` | `windows-vm-create`, `windows-vm-list`, `windows-vm-detail` |
 
 `dashboard-org-stats` and `create-form-standard` are each referenced by two pages.
@@ -119,8 +119,7 @@ The flows create nothing, but they do need somewhere to point and something to s
 - the resource named in `DOCS_VM_NAME`, used for the detail, delete-panel and
   Advanced shots so all three agree
 - the Vault named in `DOCS_VAULT_NAME`, Ready. It is the Vault the organization
-  provisions for itself, `<org>-default-bao`, so the images show a different name from
-  the `my-vault` in the guide's snippet.
+  provisions for itself, `<org>-default-bao`. Cloud users cannot create another, so no flow opens the create form.
 - the same for `DOCS_GROUP_NAME` and `DOCS_MESH_NAME`, both provisioned out of band and
   long-lived; no flow creates them. The group must have members, and those members must
   exist as users — which is also what puts rows in the Users list. The group is named

@@ -1,6 +1,8 @@
 # Vault
 
-Provisions a private Vault instance for your organisation, with single sign-on against your organisation's identity provider.
+The private Vault of your organisation, with single sign-on against your organisation's identity provider.
+
+The platform creates one Vault for each organisation when the organisation is set up, named `<organisation>-default-bao`. It is not a service you order: you cannot create, resize or delete a Vault, and an organisation has only this one. You sign in to it with OIDC to read the credentials the platform stores for your virtual machines, S3 buckets and Postgres databases, and to keep secrets of your own.
 
 ## API Details
 
@@ -10,17 +12,9 @@ Provisions a private Vault instance for your organisation, with single sign-on a
 | **Version** | `v1` |
 | **Kind** | `Vault` |
 | **Scope** | Namespace-scoped |
+| **Managed by** | The platform (read-only for cloud users) |
 
-## Spec Parameters
-
-All parameters are nested under `spec.parameters`.
-
-### Optional
-
-| Field | Type | Default | Description |
-|-------|------|---------|-------------|
-| `storage.dataSize` | `string` | `15Gi` | Size of the persistent volume for Vault data. |
-| `storage.auditSize` | `string` | `10Gi` | Size of the persistent volume for the audit log. |
+The resource is read-only for cloud users. It has no parameters for you to set.
 
 ## Status Fields
 
@@ -107,40 +101,13 @@ When your organisation runs a [Mesh](./mesh.md), the platform automatically publ
 From an enrolled laptop:
 
 ```sh
-export BAO_ADDR=$(kubectl get vault my-vault -o jsonpath='{.status.endpoint.meshAddress}')
+export BAO_ADDR=$(kubectl get project my-project -o jsonpath='{.status.openbao.address}')
 bao login -method=oidc role=<organisation>-<project>-rw-users
-```
-
-## Examples
-
-### Minimal
-
-```yaml
-apiVersion: secrets.cloud.stakater.com/v1
-kind: Vault
-metadata:
-  name: my-vault
-spec:
-  parameters: {}
-```
-
-### Larger storage
-
-```yaml
-apiVersion: secrets.cloud.stakater.com/v1
-kind: Vault
-metadata:
-  name: app-vault
-spec:
-  parameters:
-    storage:
-      dataSize: 50Gi
-      auditSize: 20Gi
 ```
 
 ## How-to Guide
 
-[Create a Vault](../../how-to-guides/user/create-vault.md)
+[Access Your Organisation's Vault](../../how-to-guides/user/access-vault.md)
 
 ## Related
 

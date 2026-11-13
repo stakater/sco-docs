@@ -20,7 +20,7 @@ Maria, an IT administrator at ACME Corp, wants her colleagues to sign in to SCO 
 
 - You are an administrator of your organisation
 - The `identityprovider.iam.cloud.stakater.com` API available
-- Your organisation has a [Vault](create-vault.md). If your organisation runs a [Mesh](create-mesh.md), the Vault is reachable only from Mesh peers, so you also need the Mesh client on your computer.
+- Access to your organisation's [Vault](access-vault.md). If your organisation runs a [Mesh](create-mesh.md), the Vault is reachable only from Mesh peers, so you also need the Mesh client on your computer.
 - Administrator access to your company identity provider, to create an OpenID Connect (OIDC) web application
 - Every user who will sign in has an email address in one of your domains, and your company identity provider sends that address
 - `kubectl` configured with your organisation project kubeconfig, if you use the command line
@@ -311,5 +311,5 @@ spec:
 - [Managing Users](../../cloud-user-guide/authentication/managing-users.md) - How users from your company identity provider fit next to other users
 - [Create an IAM Group](create-iam-group.md) - Give users from your company identity provider access through groups
 - [Create a Project](create-project.md) - Grant groups and users roles in a project
-- [Create a Vault](create-vault.md) - Set up the Vault that holds the client credentials
+- [Access Your Organisation's Vault](access-vault.md) - Sign in to the Vault that holds the client credentials
 - [IdentityProvider API reference](../../api-reference/public-apis/iam-identity-provider.md) - Every parameter and status field

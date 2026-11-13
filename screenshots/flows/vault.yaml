@@ -1,7 +1,7 @@
-# how-to-guides/user/create-vault.md -> 3 images.
+# how-to-guides/user/access-vault.md -> 2 images.
 #
-# Read-only: the create form is opened and named, never submitted. The list and detail
-# shots need the Vault named DOCS_VAULT_NAME to exist in CONSOLE_ORG and be Ready. It is
+# Read-only. Cloud users cannot create a Vault, so the create form is not captured. The
+# list and detail shots need the Vault named DOCS_VAULT_NAME to exist in CONSOLE_ORG and be Ready. It is
 # the organisation's own Vault, provisioned out of band and long-lived -- see "What the
 # environment needs" in screenshots/README.md.
 name: sco-docs-vault
@@ -31,16 +31,7 @@ steps:
       username: "${CONSOLE_USER}"
       password: "${CONSOLE_PASSWORD}"
 
-  # Step 1, "Define a Vault Claim" -- Standard asks for a name only, the same as the
-  # empty-parameters claim. Standard is the default in a fresh context.
-  - use: cloud-orchestrator-console-open-resource-create
-    with:
-      portal: "${CONSOLE_URL}"
-      plural: "${DOCS_VAULT_PLURAL}"
-  - { step: fill, selector: 'input[id="metadata.name"], input#name', value: "my-vault" }
-  - { step: screenshot, path: vault-create.png, fullPage: false }
-
-  # Step 3, "Verify the Vault" -- the list is where a reader finds the Vault to open.
+  # Step 1, "Find the Address and Your Role" -- the list is where a reader finds the Vault to open.
   # Needs one row.
   - use: cloud-orchestrator-console-open-resource-list
     with:
@@ -51,7 +42,7 @@ steps:
       group: "${DOCS_VAULT_SIDEBAR_GROUP}"
   - { step: screenshot, path: vault-list.png, fullPage: false }
 
-  # Step 3 and 5 -- the detail page carries the endpoint the guide logs in to, and the
+  # Step 1 -- the detail page carries the endpoint the guide signs in to, and the
   # mesh address when the organisation runs a Mesh. Needs the seeded Vault.
   - use: cloud-orchestrator-console-open-resource-detail
     with:

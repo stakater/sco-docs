@@ -90,7 +90,7 @@ Each `access` entry grants one role to a list of users and groups. The platform 
 | `kubernetes` | OpenShift clusters and node pools |
 | `mesh` | Mesh routers, routes, groups and policies |
 | `network` | Your organisation mesh |
-| `secrets` | `Vault` |
+| `secrets` | The project's folder in your organisation's Vault |
 | `storage` | S3 buckets |
 
 For example, `compute-user` lets someone manage virtual machines only, and `database-viewer` lets someone see databases but not change them. Only services enabled on your platform have roles; if a service is not available in your project, its `-user` and `-viewer` roles do not exist.

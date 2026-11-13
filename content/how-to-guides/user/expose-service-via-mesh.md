@@ -4,7 +4,7 @@ Learn how to make an internal service reachable from laptops and VMs on your org
 
 Emma, a developer at ACME Corp, runs an internal admin API. Her team needs to reach it from their laptops, but it must not be exposed to the internet. A MeshRouter advertises the service's address to Mesh peers, and a MeshPolicy grants her team's group access — enrolled devices then reach it directly over the encrypted mesh.
 
-> Platform services such as a [Vault](create-vault.md) are published to Mesh peers automatically — you only need a MeshRouter for your **own** services.
+> Platform services such as your organisation's [Vault](access-vault.md) are published to Mesh peers automatically — you only need a MeshRouter for your **own** services.
 
 !!! warning "Current limitations — read before you start"
     This guide does **not** yet work end to end for workloads in your projects. MeshRouter and MeshPolicy claims created **inside a project** do not take effect: the router claim reports Ready, but it never joins the Mesh and its `<claim-name>-routers` group is never created, so this guide creates both claims with your **organisation** kubeconfig. A router created that way joins the Mesh and your laptop receives the route, but the router runs outside your projects' networks, so connections to a project virtual machine, or to a Service inside an OpenShift cluster you provisioned, time out. The VM's built-in Mesh Route (`meshRoute.enabled: true` on a [VirtualMachine](../../api-reference/public-apis/virtual-machine.md)) is the intended way to reach a project VM, but it opens only SSH (tcp/22), RDP (tcp/3389) and ICMP, and it does not deliver traffic yet either. Until these are fixed there is no supported way to reach your own project workloads privately over the Mesh: use the steps below only for an address the router can actually reach, and check Step 6 before relying on it.
@@ -132,4 +132,4 @@ The request travels over the encrypted mesh to the routing peer, which forwards 
 - [MeshRouter API reference](../../api-reference/public-apis/mesh-router.md) - All router fields
 - [MeshPolicy API reference](../../api-reference/public-apis/mesh-policy.md) - All policy fields
 - [Create a Mesh](create-mesh.md) - Set up the Mesh and enrol devices
-- [Create a Vault](create-vault.md) - Published over the Mesh automatically
+- [Access Your Organisation's Vault](access-vault.md) - Published over the Mesh automatically

@@ -99,6 +99,10 @@ kubectl apply -f project.yaml
 !!! note
     Grant the least-privileged role that does the job. Do **not** use `cluster-admin` in `access`: it gives full control of the project, including granting access to others and deleting it.
 
+In the console, the same project is created from **Projects** > **Create**:
+
+![The Create a new project form, with the project name and the network CIDR filled in]({{ screenshot: project-create-filled }})
+
 See the full guide: [Create a Project](create-project.md)
 
 ## Step 3: Provision a Virtual Machine with Your Application
@@ -137,6 +141,10 @@ spec:
 ```bash
 kubectl apply -f vm.yaml
 ```
+
+In the console, virtual machines and the other services of the project are in the sidebar. Each entry opens to **All** and **Create**:
+
+![The sidebar with resource groups expanded to show All and Create entries]({{ screenshot: sidebar-resources }})
 
 Replace the `write_files` and `runcmd` entries with the commands that install and start your own application.
 

@@ -57,14 +57,14 @@ the `viewport:` block of every flow so all captures come out the same size.
 | Flow | Docs page | Images |
 |---|---|---|
 | `login` | `accessing-the-console.md`, `dashboard.md`, `overview.md` | `login-org-slug`, `dashboard-org-stats`, `sidebar-resources`, `user-menu` |
-| `projects` | `projects.md` | `project-list`, `project-create` |
+| `projects` | `projects.md`, `create-project.md`, `deploy-first-app.md` | `project-list`, `project-create`, `project-create-filled`, `project-detail` |
 | `resources` | `resources.md`, `overview.md` | `resource-list`, `resource-detail`, `create-form-standard`, `resource-detail-1`, `detail-advanced` |
 | `iam` | `create-iam-user.md`, `create-iam-group.md` | `iam-users-list`, `iam-user-create`, `iam-group-create`, `iam-group-create-members`, `iam-group-detail` |
 | `mesh` | `create-mesh.md` | `mesh-list`, `mesh-create`, `mesh-detail` |
 | `clusters` | `provision-openshift-cluster.md`, `connect-to-openshift-cluster.md` | `cluster-list`, `cluster-create-standard`, `cluster-create-advanced`, `cluster-detail`, `cluster-detail-advanced` |
 | `windows-vm` | `provision-windows-virtual-machine.md` | `windows-vm-create`, `windows-vm-list`, `windows-vm-detail` |
 
-`dashboard-org-stats`, `create-form-standard`, `cluster-list`, `cluster-detail` and `mesh-detail` are each referenced by two pages.
+`dashboard-org-stats`, `create-form-standard`, `sidebar-resources`, `project-create-filled`, `cluster-list`, `cluster-detail` and `mesh-detail` are each referenced by two pages.
 
 The `iam`, `mesh` and `clusters` flows cover how-to guides rather than console pages, so
 they carry a console section into a `kubectl`-first guide. They are still read-only: a
@@ -115,6 +115,7 @@ The flows create nothing, but they do need somewhere to point and something to s
   `DOCS_PROJECT_PLURAL`, `DOCS_USER_PLURAL`, `DOCS_MESH_PLURAL`) — an empty list renders
   an empty state and no table, which fails the capture rather than publishing a
   screenshot of "No <resources>"
+- the project named in `DOCS_PROJECT_NAME`, Ready, for the project detail shot
 - the resource named in `DOCS_VM_NAME`, used for the detail, delete-panel and
   Advanced shots so all three agree
 - the same for `DOCS_GROUP_NAME` and `DOCS_MESH_NAME`, both provisioned out of band and

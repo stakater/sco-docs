@@ -3041,6 +3041,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
+      <a href="../how-to-guides/user/connect-to-openshift-cluster.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Connect to an OpenShift Cluster
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../how-to-guides/user/provision-virtual-machine.html" class="md-nav__link">
         
   
@@ -3153,14 +3181,14 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../how-to-guides/user/create-vault.html" class="md-nav__link">
+      <a href="../how-to-guides/user/access-vault.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    How to Create a Vault
+    How to Access Your Organisation's Vault
   
 
     
@@ -3577,6 +3605,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     
   
     scobasic Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation/private-ca.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Private Certificate Authority
   
 
     
@@ -6827,11 +6883,11 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <hr>
 <h2 id="secrets-management">Secrets Management<a class="headerlink" href="#secrets-management" title="Permanent link">#</a></h2>
 <h3 id="openbao">OpenBao<a class="headerlink" href="#openbao" title="Permanent link">#</a></h3>
-<p>OpenBao is the open-source secrets management platform (community fork of HashiCorp Vault). The platform runs a hub OpenBao instance for its own secrets and offers per-organisation OpenBao instances to cloud users via the <a href="../api-reference/public-apis/vault.html"><code>Vault</code></a> claim.</p>
+<p>OpenBao is the open-source secrets management platform (community fork of HashiCorp Vault). The platform runs a hub OpenBao instance for its own secrets and one OpenBao instance for each organisation, the organisation's <a href="../api-reference/public-apis/vault.html">Vault</a>.</p>
 <p><strong>Role in SCO:</strong></p>
 <ul>
 <li>The <strong>platform hub</strong> issues dynamic credentials for platform services (database passwords, cloud provider keys) that expire automatically and are rotated without manual intervention, provides a PKI engine for TLS certificate issuance used by platform components and hosted clusters, and stores platform secrets in encrypted, auditable storage.</li>
-<li><strong>Per-organisation Vaults</strong> are provisioned via the <code>Vault</code> claim. Each is independent of the others and uses single sign-on against the organisation's identity provider — operators log in via SSO (<code>bao login -method=oidc</code>); there is no static root token to manage.</li>
+<li><strong>Per-organisation Vaults</strong> are created by the platform when an organisation is set up, one for each organisation. Cloud users cannot create further ones. The platform stores the credentials of the organisation's virtual machines, buckets and databases there. Each is independent of the others and uses single sign-on against the organisation's identity provider — operators log in via SSO (<code>bao login -method=oidc</code>); there is no static root token to manage.</li>
 </ul>
 <p><strong>Consumer access:</strong> Per-organisation Vaults are reachable from inside the organisation's projects and from peers on the organisation's <a href="../api-reference/public-apis/mesh.html">Mesh</a> via a <a href="../api-reference/public-apis/mesh-router.html">MeshRouter</a>. They are not exposed on the public internet.</p>
 <hr>

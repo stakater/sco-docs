@@ -5,31 +5,31 @@
       
       
       
-        <link rel="canonical" href="https://docs.stakater.com/cloud-orchestrator/docs-screenshots-s04-vault/how-to-guides/user/create-vault.html">
+        <link rel="canonical" href="https://docs.stakater.com/cloud-orchestrator/docs-screenshots-s04-vault/installation/private-ca.html">
       
       
-        <link rel="prev" href="create-postgres.html">
+        <link rel="prev" href="scobasic.html">
       
       
-        <link rel="next" href="create-mesh.html">
+        <link rel="next" href="openbao-unseal.html">
       
       
         
       
       
-      <link rel="icon" href="../../assets/images/favicon.svg">
+      <link rel="icon" href="../assets/images/favicon.svg">
       <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.8.1">
     
     
       
-        <title>How to Create a Vault - Stakater Cloud Orchestrator</title>
+        <title>Private Certificate Authority - Stakater Cloud Orchestrator</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.57a0d79d.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.57a0d79d.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.fb2fffe2.min.css">
+        <link rel="stylesheet" href="../assets/stylesheets/palette.fb2fffe2.min.css">
       
       
 
@@ -48,9 +48,9 @@
       
     
     
-      <link rel="stylesheet" href="../../stylesheets/extra.css">
+      <link rel="stylesheet" href="../stylesheets/extra.css">
     
-    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
   
@@ -66,7 +66,7 @@
 
     
     
-  <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+  <link href="../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
             html.glightbox-open { overflow: initial; height: 100%; }
             .gslide-title { margin-top: 0px; user-select: text; }
             .gslide-desc { color: #666; user-select: text; }
@@ -95,7 +95,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#how-to-create-a-vault" class="md-skip">
+        <a href="#private-certificate-authority" class="md-skip">
           Skip to content
         </a>
       
@@ -340,7 +340,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <nav class="md-header__inner md-grid" aria-label="Header">
 
     <!-- Link to home -->
-    <a href="../../index.html" title="Stakater Cloud Orchestrator" class="md-header__button md-logo" aria-label="Stakater Cloud Orchestrator" data-md-component="logo">
+    <a href="../index.html" title="Stakater Cloud Orchestrator" class="md-header__button md-logo" aria-label="Stakater Cloud Orchestrator" data-md-component="logo">
       <!-- 
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -361,10 +361,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
         <!-- Logo -->
         <div class="md-header__topic">
           
-          <img class="md-header__logo_light" src="../../assets/images/logo-light.png#only-light" alt="logo">
+          <img class="md-header__logo_light" src="../assets/images/logo-light.png#only-light" alt="logo">
           
           
-          <img class="md-header__logo_dark" src="../../assets/images/logo-dark.png#only-dark" alt="logo">
+          <img class="md-header__logo_dark" src="../assets/images/logo-dark.png#only-dark" alt="logo">
           
           
           <div class="header-site-name">
@@ -1982,7 +1982,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../../index.html" title="Stakater Cloud Orchestrator" class="md-nav__button md-logo" aria-label="Stakater Cloud Orchestrator" data-md-component="logo">
+    <a href="../index.html" title="Stakater Cloud Orchestrator" class="md-nav__button md-logo" aria-label="Stakater Cloud Orchestrator" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"></path></svg>
@@ -2000,7 +2000,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../index.html" class="md-nav__link">
+      <a href="../index.html" class="md-nav__link">
         
   
   
@@ -2024,20 +2024,18 @@ This documentation is for a pull request deployment and is unreleased, it is onl
       
   
   
-    
   
   
-  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked="">
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2">
         
           
           <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
@@ -2058,7 +2056,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             
@@ -2076,7 +2074,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../audience/cloud-consumers.html" class="md-nav__link">
+      <a href="../audience/cloud-consumers.html" class="md-nav__link">
         
   
   
@@ -2151,7 +2149,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../cloud-user-guide/overview.html" class="md-nav__link">
+      <a href="../cloud-user-guide/overview.html" class="md-nav__link">
         
   
   
@@ -2179,7 +2177,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../cloud-user-guide/getting-started.html" class="md-nav__link">
+      <a href="../cloud-user-guide/getting-started.html" class="md-nav__link">
         
   
   
@@ -2262,7 +2260,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../cloud-user-guide/authentication/logging-in.html" class="md-nav__link">
+      <a href="../cloud-user-guide/authentication/logging-in.html" class="md-nav__link">
         
   
   
@@ -2290,7 +2288,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../cloud-user-guide/authentication/organisation-identity.html" class="md-nav__link">
+      <a href="../cloud-user-guide/authentication/organisation-identity.html" class="md-nav__link">
         
   
   
@@ -2318,7 +2316,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../cloud-user-guide/authentication/managing-users.html" class="md-nav__link">
+      <a href="../cloud-user-guide/authentication/managing-users.html" class="md-nav__link">
         
   
   
@@ -2346,7 +2344,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../cloud-user-guide/kubectl-access/setup-kubectl.html" class="md-nav__link">
+      <a href="../cloud-user-guide/kubectl-access/setup-kubectl.html" class="md-nav__link">
         
   
   
@@ -2374,7 +2372,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../cloud-user-guide/kubectl-access/kubeconfig-generation.html" class="md-nav__link">
+      <a href="../cloud-user-guide/kubectl-access/kubeconfig-generation.html" class="md-nav__link">
         
   
   
@@ -2402,7 +2400,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../cloud-user-guide/terraform-access/setup-terraform.html" class="md-nav__link">
+      <a href="../cloud-user-guide/terraform-access/setup-terraform.html" class="md-nav__link">
         
   
   
@@ -2430,7 +2428,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../cloud-user-guide/terraform-access/kubernetes-provider.html" class="md-nav__link">
+      <a href="../cloud-user-guide/terraform-access/kubernetes-provider.html" class="md-nav__link">
         
   
   
@@ -2458,7 +2456,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../cloud-user-guide/gitops-access/argocd-setup.html" class="md-nav__link">
+      <a href="../cloud-user-guide/gitops-access/argocd-setup.html" class="md-nav__link">
         
   
   
@@ -2486,7 +2484,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../cloud-user-guide/gitops-access/flux-setup.html" class="md-nav__link">
+      <a href="../cloud-user-guide/gitops-access/flux-setup.html" class="md-nav__link">
         
   
   
@@ -2569,7 +2567,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../cloud-user-guide/projects/creating-projects.html" class="md-nav__link">
+      <a href="../cloud-user-guide/projects/creating-projects.html" class="md-nav__link">
         
   
   
@@ -2597,7 +2595,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../cloud-user-guide/projects/project-structure.html" class="md-nav__link">
+      <a href="../cloud-user-guide/projects/project-structure.html" class="md-nav__link">
         
   
   
@@ -2680,7 +2678,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../cloud-user-guide/solutions/browsing-marketplace.html" class="md-nav__link">
+      <a href="../cloud-user-guide/solutions/browsing-marketplace.html" class="md-nav__link">
         
   
   
@@ -2708,7 +2706,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../cloud-user-guide/solutions/provisioning-solutions.html" class="md-nav__link">
+      <a href="../cloud-user-guide/solutions/provisioning-solutions.html" class="md-nav__link">
         
   
   
@@ -2736,7 +2734,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../marketplace/overview.html" class="md-nav__link">
+      <a href="../marketplace/overview.html" class="md-nav__link">
         
   
   
@@ -2764,7 +2762,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../marketplace/browsing.html" class="md-nav__link">
+      <a href="../marketplace/browsing.html" class="md-nav__link">
         
   
   
@@ -2792,7 +2790,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../marketplace/solution-catalog.html" class="md-nav__link">
+      <a href="../marketplace/solution-catalog.html" class="md-nav__link">
         
   
   
@@ -2825,20 +2823,18 @@ This documentation is for a pull request deployment and is unreleased, it is onl
                 
   
   
-    
   
   
-  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6" checked="">
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_6">
         
           
           <label class="md-nav__link" for="__nav_2_6" id="__nav_2_6_label" tabindex="0">
@@ -2859,7 +2855,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_6_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2_6">
             <span class="md-nav__icon md-icon"></span>
             
@@ -2877,7 +2873,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="deploy-first-app.html" class="md-nav__link">
+      <a href="../how-to-guides/user/deploy-first-app.html" class="md-nav__link">
         
   
   
@@ -2905,7 +2901,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="create-project.html" class="md-nav__link">
+      <a href="../how-to-guides/user/create-project.html" class="md-nav__link">
         
   
   
@@ -2933,7 +2929,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="create-iam-user.html" class="md-nav__link">
+      <a href="../how-to-guides/user/create-iam-user.html" class="md-nav__link">
         
   
   
@@ -2961,7 +2957,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="create-iam-group.html" class="md-nav__link">
+      <a href="../how-to-guides/user/create-iam-group.html" class="md-nav__link">
         
   
   
@@ -2989,7 +2985,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="connect-identity-provider.html" class="md-nav__link">
+      <a href="../how-to-guides/user/connect-identity-provider.html" class="md-nav__link">
         
   
   
@@ -3017,7 +3013,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="provision-openshift-cluster.html" class="md-nav__link">
+      <a href="../how-to-guides/user/provision-openshift-cluster.html" class="md-nav__link">
         
   
   
@@ -3045,7 +3041,35 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="provision-virtual-machine.html" class="md-nav__link">
+      <a href="../how-to-guides/user/connect-to-openshift-cluster.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Connect to an OpenShift Cluster
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../how-to-guides/user/provision-virtual-machine.html" class="md-nav__link">
         
   
   
@@ -3073,7 +3097,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="provision-windows-virtual-machine.html" class="md-nav__link">
+      <a href="../how-to-guides/user/provision-windows-virtual-machine.html" class="md-nav__link">
         
   
   
@@ -3101,7 +3125,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="create-s3-bucket.html" class="md-nav__link">
+      <a href="../how-to-guides/user/create-s3-bucket.html" class="md-nav__link">
         
   
   
@@ -3129,7 +3153,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="create-postgres.html" class="md-nav__link">
+      <a href="../how-to-guides/user/create-postgres.html" class="md-nav__link">
         
   
   
@@ -3154,44 +3178,17 @@ This documentation is for a pull request deployment and is unreleased, it is onl
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    How to Create a Vault
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="create-vault.html" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../how-to-guides/user/access-vault.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    How to Create a Vault
+    How to Access Your Organisation's Vault
   
 
     
@@ -3200,138 +3197,6 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
 
       </a>
-      
-        
-
-  
-
-<nav class="md-nav md-nav--secondary" aria-label="On this page">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      On this page
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
-      
-        <li class="md-nav__item">
-  <a href="#prerequisites" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Prerequisites
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#your-organisation-probably-has-one-already" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Your Organisation Probably Has One Already
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#what-gets-created" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        What Gets Created
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#in-the-console" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        In the Console
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#step-1-define-a-vault-claim" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 1: Define a Vault Claim
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#step-2-apply-the-claim" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 2: Apply the Claim
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#step-3-verify-the-vault" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 3: Verify the Vault
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#step-4-log-in" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 4: Log In
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#step-5-optional-reach-it-over-the-mesh" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 5 (Optional): Reach It over the Mesh
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#related" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Related
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -3344,7 +3209,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="create-mesh.html" class="md-nav__link">
+      <a href="../how-to-guides/user/create-mesh.html" class="md-nav__link">
         
   
   
@@ -3372,7 +3237,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="expose-service-via-mesh.html" class="md-nav__link">
+      <a href="../how-to-guides/user/expose-service-via-mesh.html" class="md-nav__link">
         
   
   
@@ -3412,18 +3277,20 @@ This documentation is for a pull request deployment and is unreleased, it is onl
       
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3">
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked="">
         
           
           <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
@@ -3444,7 +3311,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -3462,7 +3329,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../audience/platform-providers.html" class="md-nav__link">
+      <a href="../audience/platform-providers.html" class="md-nav__link">
         
   
   
@@ -3537,7 +3404,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../service-provider-guide/overview.html" class="md-nav__link">
+      <a href="../service-provider-guide/overview.html" class="md-nav__link">
         
   
   
@@ -3565,7 +3432,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../service-provider-guide/getting-started.html" class="md-nav__link">
+      <a href="../service-provider-guide/getting-started.html" class="md-nav__link">
         
   
   
@@ -3598,18 +3465,20 @@ This documentation is for a pull request deployment and is unreleased, it is onl
                 
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3">
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" checked="">
         
           
           <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
@@ -3630,7 +3499,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -3648,7 +3517,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../installation/overview.html" class="md-nav__link">
+      <a href="overview.html" class="md-nav__link">
         
   
   
@@ -3676,7 +3545,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../installation/prerequisites.html" class="md-nav__link">
+      <a href="prerequisites.html" class="md-nav__link">
         
   
   
@@ -3704,7 +3573,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../installation/openshift.html" class="md-nav__link">
+      <a href="openshift.html" class="md-nav__link">
         
   
   
@@ -3732,7 +3601,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../installation/scobasic.html" class="md-nav__link">
+      <a href="scobasic.html" class="md-nav__link">
         
   
   
@@ -3757,10 +3626,247 @@ This documentation is for a pull request deployment and is unreleased, it is onl
                 
   
   
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Private Certificate Authority
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="private-ca.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Private Certificate Authority
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#choose-how-certificates-reach-the-platform" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Choose how certificates reach the platform
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#trust-your-ca" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trust your CA
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#option-1-a-clusterissuer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option 1: a ClusterIssuer
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#option-2-certificate-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option 2: certificate files
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Option 2: certificate files">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-certificate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The certificate
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#install-it-before-ksp-up" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Install it before ksp up
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-claim" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The claim
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-ksp-up-checks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What ksp up checks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#renew-the-certificate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Renew the certificate
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#limits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Limits
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hosted-clusters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hosted clusters
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dns-records" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DNS records
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#clients" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Clients
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#whats-next" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What's Next?
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
   
   
     <li class="md-nav__item">
-      <a href="../../installation/openbao-unseal.html" class="md-nav__link">
+      <a href="openbao-unseal.html" class="md-nav__link">
         
   
   
@@ -3788,7 +3894,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../installation/configuration.html" class="md-nav__link">
+      <a href="configuration.html" class="md-nav__link">
         
   
   
@@ -3871,7 +3977,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../service-provider-guide/solutions/solution-overview.html" class="md-nav__link">
+      <a href="../service-provider-guide/solutions/solution-overview.html" class="md-nav__link">
         
   
   
@@ -3946,7 +4052,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../service-provider-guide/solutions/creating-solutions.html" class="md-nav__link">
+      <a href="../service-provider-guide/solutions/creating-solutions.html" class="md-nav__link">
         
   
   
@@ -3974,7 +4080,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../service-provider-guide/solutions/modeling-child-resources.html" class="md-nav__link">
+      <a href="../service-provider-guide/solutions/modeling-child-resources.html" class="md-nav__link">
         
   
   
@@ -4010,7 +4116,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../service-provider-guide/solutions/crossplane-compositions.html" class="md-nav__link">
+      <a href="../service-provider-guide/solutions/crossplane-compositions.html" class="md-nav__link">
         
   
   
@@ -4038,7 +4144,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../service-provider-guide/marketplace/publishing-solutions.html" class="md-nav__link">
+      <a href="../service-provider-guide/marketplace/publishing-solutions.html" class="md-nav__link">
         
   
   
@@ -4066,7 +4172,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../service-provider-guide/marketplace/marketplace-configuration.html" class="md-nav__link">
+      <a href="../service-provider-guide/marketplace/marketplace-configuration.html" class="md-nav__link">
         
   
   
@@ -4094,7 +4200,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../provider/create-postgresql-solution.html" class="md-nav__link">
+      <a href="../how-to-guides/provider/create-postgresql-solution.html" class="md-nav__link">
         
   
   
@@ -4177,7 +4283,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../service-provider-guide/organizations/creating-organizations.html" class="md-nav__link">
+      <a href="../service-provider-guide/organizations/creating-organizations.html" class="md-nav__link">
         
   
   
@@ -4205,7 +4311,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../service-provider-guide/organizations/keycloak-realms.html" class="md-nav__link">
+      <a href="../service-provider-guide/organizations/keycloak-realms.html" class="md-nav__link">
         
   
   
@@ -4233,7 +4339,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../service-provider-guide/projects/project-architecture.html" class="md-nav__link">
+      <a href="../service-provider-guide/projects/project-architecture.html" class="md-nav__link">
         
   
   
@@ -4261,7 +4367,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../service-provider-guide/projects/workspace-mapping.html" class="md-nav__link">
+      <a href="../service-provider-guide/projects/workspace-mapping.html" class="md-nav__link">
         
   
   
@@ -4344,7 +4450,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../service-provider-guide/api-publishing/kcp-overview.html" class="md-nav__link">
+      <a href="../service-provider-guide/api-publishing/kcp-overview.html" class="md-nav__link">
         
   
   
@@ -4372,7 +4478,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../service-provider-guide/api-publishing/publishing-apis.html" class="md-nav__link">
+      <a href="../service-provider-guide/api-publishing/publishing-apis.html" class="md-nav__link">
         
   
   
@@ -4455,7 +4561,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../provider/control-ui-rendering.html" class="md-nav__link">
+      <a href="../how-to-guides/provider/control-ui-rendering.html" class="md-nav__link">
         
   
   
@@ -4483,7 +4589,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../service-provider-guide/console/ui-extensions-reference.html" class="md-nav__link">
+      <a href="../service-provider-guide/console/ui-extensions-reference.html" class="md-nav__link">
         
   
   
@@ -4573,7 +4679,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../about/overview.html" class="md-nav__link">
+      <a href="../about/overview.html" class="md-nav__link">
         
   
   
@@ -4601,7 +4707,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../about/key-features.html" class="md-nav__link">
+      <a href="../about/key-features.html" class="md-nav__link">
         
   
   
@@ -4629,7 +4735,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../about/use-cases.html" class="md-nav__link">
+      <a href="../about/use-cases.html" class="md-nav__link">
         
   
   
@@ -4657,7 +4763,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../about/benefits.html" class="md-nav__link">
+      <a href="../about/benefits.html" class="md-nav__link">
         
   
   
@@ -4685,7 +4791,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../architecture/architecture.html" class="md-nav__link">
+      <a href="../architecture/architecture.html" class="md-nav__link">
         
   
   
@@ -4713,7 +4819,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../architecture/concepts.html" class="md-nav__link">
+      <a href="../architecture/concepts.html" class="md-nav__link">
         
   
   
@@ -4741,7 +4847,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../architecture/components.html" class="md-nav__link">
+      <a href="../architecture/components.html" class="md-nav__link">
         
   
   
@@ -4769,7 +4875,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../architecture/virtual-api-layer.html" class="md-nav__link">
+      <a href="../architecture/virtual-api-layer.html" class="md-nav__link">
         
   
   
@@ -4851,7 +4957,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../console/overview.html" class="md-nav__link">
+      <a href="../console/overview.html" class="md-nav__link">
         
   
   
@@ -4879,7 +4985,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../console/accessing-the-console.html" class="md-nav__link">
+      <a href="../console/accessing-the-console.html" class="md-nav__link">
         
   
   
@@ -4907,7 +5013,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../console/dashboard.html" class="md-nav__link">
+      <a href="../console/dashboard.html" class="md-nav__link">
         
   
   
@@ -4935,7 +5041,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../console/projects.html" class="md-nav__link">
+      <a href="../console/projects.html" class="md-nav__link">
         
   
   
@@ -4963,7 +5069,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../console/resources.html" class="md-nav__link">
+      <a href="../console/resources.html" class="md-nav__link">
         
   
   
@@ -4991,7 +5097,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../console/marketplace.html" class="md-nav__link">
+      <a href="../console/marketplace.html" class="md-nav__link">
         
   
   
@@ -5019,7 +5125,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../console/solutions.html" class="md-nav__link">
+      <a href="../console/solutions.html" class="md-nav__link">
         
   
   
@@ -5101,7 +5207,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../api-reference/overview.html" class="md-nav__link">
+      <a href="../api-reference/overview.html" class="md-nav__link">
         
   
   
@@ -5176,7 +5282,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../api-reference/public-apis/project.html" class="md-nav__link">
+      <a href="../api-reference/public-apis/project.html" class="md-nav__link">
         
   
   
@@ -5204,7 +5310,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../api-reference/public-apis/iam-user.html" class="md-nav__link">
+      <a href="../api-reference/public-apis/iam-user.html" class="md-nav__link">
         
   
   
@@ -5232,7 +5338,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../api-reference/public-apis/iam-group.html" class="md-nav__link">
+      <a href="../api-reference/public-apis/iam-group.html" class="md-nav__link">
         
   
   
@@ -5260,7 +5366,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../api-reference/public-apis/iam-identity-provider.html" class="md-nav__link">
+      <a href="../api-reference/public-apis/iam-identity-provider.html" class="md-nav__link">
         
   
   
@@ -5288,7 +5394,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../api-reference/public-apis/openshift-cluster.html" class="md-nav__link">
+      <a href="../api-reference/public-apis/openshift-cluster.html" class="md-nav__link">
         
   
   
@@ -5316,7 +5422,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../api-reference/public-apis/virtual-machine.html" class="md-nav__link">
+      <a href="../api-reference/public-apis/virtual-machine.html" class="md-nav__link">
         
   
   
@@ -5344,7 +5450,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../api-reference/public-apis/s3-bucket.html" class="md-nav__link">
+      <a href="../api-reference/public-apis/s3-bucket.html" class="md-nav__link">
         
   
   
@@ -5372,7 +5478,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../api-reference/public-apis/postgres.html" class="md-nav__link">
+      <a href="../api-reference/public-apis/postgres.html" class="md-nav__link">
         
   
   
@@ -5400,7 +5506,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../api-reference/public-apis/vault.html" class="md-nav__link">
+      <a href="../api-reference/public-apis/vault.html" class="md-nav__link">
         
   
   
@@ -5428,7 +5534,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../api-reference/public-apis/mesh.html" class="md-nav__link">
+      <a href="../api-reference/public-apis/mesh.html" class="md-nav__link">
         
   
   
@@ -5456,7 +5562,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../api-reference/public-apis/mesh-router.html" class="md-nav__link">
+      <a href="../api-reference/public-apis/mesh-router.html" class="md-nav__link">
         
   
   
@@ -5484,7 +5590,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../api-reference/public-apis/mesh-policy.html" class="md-nav__link">
+      <a href="../api-reference/public-apis/mesh-policy.html" class="md-nav__link">
         
   
   
@@ -5567,7 +5673,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../api-reference/private-apis/hypershift-hosted-cluster.html" class="md-nav__link">
+      <a href="../api-reference/private-apis/hypershift-hosted-cluster.html" class="md-nav__link">
         
   
   
@@ -5595,7 +5701,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../api-reference/private-apis/virtual-machine-infrastructure.html" class="md-nav__link">
+      <a href="../api-reference/private-apis/virtual-machine-infrastructure.html" class="md-nav__link">
         
   
   
@@ -5623,7 +5729,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../api-reference/private-apis/s3-bucket-infrastructure.html" class="md-nav__link">
+      <a href="../api-reference/private-apis/s3-bucket-infrastructure.html" class="md-nav__link">
         
   
   
@@ -5651,7 +5757,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../api-reference/private-apis/postgres-cluster-infrastructure.html" class="md-nav__link">
+      <a href="../api-reference/private-apis/postgres-cluster-infrastructure.html" class="md-nav__link">
         
   
   
@@ -5741,7 +5847,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../integrations/keycloak.html" class="md-nav__link">
+      <a href="../integrations/keycloak.html" class="md-nav__link">
         
   
   
@@ -5769,7 +5875,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../integrations/kcp.html" class="md-nav__link">
+      <a href="../integrations/kcp.html" class="md-nav__link">
         
   
   
@@ -5797,7 +5903,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../integrations/mto.html" class="md-nav__link">
+      <a href="../integrations/mto.html" class="md-nav__link">
         
   
   
@@ -5825,7 +5931,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../integrations/crossplane.html" class="md-nav__link">
+      <a href="../integrations/crossplane.html" class="md-nav__link">
         
   
   
@@ -5907,7 +6013,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../troubleshooting/overview.html" class="md-nav__link">
+      <a href="../troubleshooting/overview.html" class="md-nav__link">
         
   
   
@@ -5935,7 +6041,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../troubleshooting/common-issues.html" class="md-nav__link">
+      <a href="../troubleshooting/common-issues.html" class="md-nav__link">
         
   
   
@@ -5970,7 +6076,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../eula.html" class="md-nav__link">
+      <a href="../eula.html" class="md-nav__link">
         
   
   
@@ -6019,10 +6125,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
       
         <li class="md-nav__item">
-  <a href="#prerequisites" class="md-nav__link">
+  <a href="#choose-how-certificates-reach-the-platform" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Prerequisites
+        Choose how certificates reach the platform
       
     </span>
   </a>
@@ -6030,10 +6136,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
-  <a href="#your-organisation-probably-has-one-already" class="md-nav__link">
+  <a href="#trust-your-ca" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Your Organisation Probably Has One Already
+        Trust your CA
       
     </span>
   </a>
@@ -6041,10 +6147,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
-  <a href="#what-gets-created" class="md-nav__link">
+  <a href="#option-1-a-clusterissuer" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What Gets Created
+        Option 1: a ClusterIssuer
       
     </span>
   </a>
@@ -6052,10 +6158,93 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
-  <a href="#in-the-console" class="md-nav__link">
+  <a href="#option-2-certificate-files" class="md-nav__link">
     <span class="md-ellipsis">
       
-        In the Console
+        Option 2: certificate files
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Option 2: certificate files">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-certificate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The certificate
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#install-it-before-ksp-up" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Install it before ksp up
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-claim" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The claim
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-ksp-up-checks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What ksp up checks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#renew-the-certificate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Renew the certificate
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#limits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Limits
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hosted-clusters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hosted clusters
       
     </span>
   </a>
@@ -6063,10 +6252,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-1-define-a-vault-claim" class="md-nav__link">
+  <a href="#dns-records" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 1: Define a Vault Claim
+        DNS records
       
     </span>
   </a>
@@ -6074,10 +6263,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-2-apply-the-claim" class="md-nav__link">
+  <a href="#clients" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 2: Apply the Claim
+        Clients
       
     </span>
   </a>
@@ -6085,43 +6274,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-3-verify-the-vault" class="md-nav__link">
+  <a href="#whats-next" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 3: Verify the Vault
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#step-4-log-in" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 4: Log In
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#step-5-optional-reach-it-over-the-mesh" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 5 (Optional): Reach It over the Mesh
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#related" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Related
+        What's Next?
       
     </span>
   </a>
@@ -6145,96 +6301,230 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 
 
 
-<h1 id="how-to-create-a-vault">How to Create a Vault<a class="headerlink" href="#how-to-create-a-vault" title="Permanent link">#</a></h1>
-<p>Learn how to provision a private Vault (OpenBao) instance for your organisation and log in with single sign-on.</p>
-<p>Emma, a developer at ACME Corp, needs a secrets manager her team can reach from CI and from their laptops — without managing root tokens or exposing anything to the public internet.</p>
-<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">#</a></h2>
+<h1 id="private-certificate-authority">Private Certificate Authority<a class="headerlink" href="#private-certificate-authority" title="Permanent link">#</a></h1>
+<p>Install SCO on a domain whose certificates come from your own certificate
+authority (CA): for example an internal PKI that your users and systems trust,
+but the public internet does not.</p>
+<p>Decide this <strong>before</strong> installing. Private-CA mode cannot be turned on later.</p>
+<h2 id="choose-how-certificates-reach-the-platform">Choose how certificates reach the platform<a class="headerlink" href="#choose-how-certificates-reach-the-platform" title="Permanent link">#</a></h2>
+<p>The platform needs certificates for its routers and its API server. With a
+private CA they reach it in one of two ways:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>A <code>ClusterIssuer</code></th>
+<th>Certificate files</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>How it works</td>
+<td>cert-manager requests every certificate from your CA through a <code>ClusterIssuer</code> you provide</td>
+<td>You install one certificate for the cluster, and the platform serves it</td>
+</tr>
+<tr>
+<td>Renewal</td>
+<td>Automatic</td>
+<td>You replace the certificate yourself</td>
+</tr>
+<tr>
+<td>Hosted OpenShift clusters</td>
+<td>Use the same issuer</td>
+<td>Need an issuer of their own, see <a href="#hosted-clusters">Hosted clusters</a></td>
+</tr>
+<tr>
+<td>Platform mesh</td>
+<td>Available</td>
+<td>Stays off</td>
+</tr>
+<tr>
+<td>Choose it when</td>
+<td>Your CA offers ACME, or can give you a sub-CA for your domain</td>
+<td>Your CA only hands out certificates</td>
+</tr>
+</tbody>
+</table>
+<p>Both ways need the same three settings:</p>
 <ul>
-<li>A <a href="create-project.html">Project</a> already created</li>
-<li>The <code>vault.secrets.cloud.stakater.com</code> API available</li>
-<li><code>kubectl</code> configured with your project kubeconfig</li>
-<li>The <a href="https://openbao.org/docs/install/">OpenBao CLI</a> (or Vault CLI) for command-line access</li>
+<li><code>certificate.type: byo</code> and <code>certificate.privateCA: true</code> in the <code>KubeStackConfig</code> claim</li>
+<li>your root CA certificate, passed to <code>ksp up</code> with <code>--trusted-ca</code></li>
 </ul>
-<h2 id="your-organisation-probably-has-one-already">Your Organisation Probably Has One Already<a class="headerlink" href="#your-organisation-probably-has-one-already" title="Permanent link">#</a></h2>
-<p>When an organisation is set up, the platform creates a default Vault for it, named <code>&lt;organisation&gt;-default-bao</code>. Your platform administrator controls this with the <code>bao.enabled</code> setting on the organisation, which is on unless they turned it off (see <a href="../../service-provider-guide/organizations/creating-organizations.html">Creating Organizations</a>).</p>
-<p>An organisation is meant to have one Vault: projects, databases and buckets all keep their secrets in it. Check the Vaults list first. If the default Vault is there, do not create another: skip to <a href="#step-3-verify-the-vault">Step 3</a> and use its name in place of <code>my-vault</code>. Create a Vault with the steps below only if your organisation has none.</p>
-<h2 id="what-gets-created">What Gets Created<a class="headerlink" href="#what-gets-created" title="Permanent link">#</a></h2>
-<p>When you create a Vault claim, the platform provisions:</p>
+<h2 id="trust-your-ca">Trust your CA<a class="headerlink" href="#trust-your-ca" title="Permanent link">#</a></h2>
+<p>Pass the root certificate of your CA to <code>ksp up</code>:</p>
+<div class="highlight"><pre><span></span><code>ksp<span class="w"> </span>up<span class="w"> </span>...<span class="w"> </span>--trusted-ca<span class="w"> </span>root-ca.pem
+</code></pre></div>
 <ul>
-<li>A <strong>highly-available Vault (OpenBao) instance</strong>, private to your organisation</li>
-<li><strong>Single sign-on</strong> against your organisation's identity provider — there is no static root token to manage</li>
-<li>A web UI and API endpoint, published in the claim's status</li>
-<li>If your organisation runs a <a href="create-mesh.html">Mesh</a>: a stable DNS name (<code>bao.&lt;organisation&gt;.mesh.&lt;cluster-domain&gt;</code>) with a publicly-trusted TLS certificate, reachable only from Mesh peers</li>
+<li>The file holds one or more root certificates in PEM format. It must not hold a private key.</li>
+<li><code>ksp up</code> adds them to the cluster's trusted CA bundle. The nodes pick up the bundle without rebooting.</li>
 </ul>
-<h2 id="in-the-console">In the Console<a class="headerlink" href="#in-the-console" title="Permanent link">#</a></h2>
-<p>Vaults are under <strong>Secrets</strong> in the sidebar. Check the list before you create anything. Here it shows the default Vault of the <code>acme</code> organisation:</p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/generated/vault-list.png" data-desc-position="bottom"><img alt="The Vaults list in the console, showing the default Vault of the organisation" src="../../images/generated/vault-list.png"></a></p>
-<p>The create form asks for a project and a name, the same as the minimal claim below. The storage sizes are filled in with their defaults, and <strong>Mesh Access</strong> takes the extra groups described in Step 1:</p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/generated/vault-create.png" data-desc-position="bottom"><img alt="The Create Vault form, with the name filled in and the default storage sizes" src="../../images/generated/vault-create.png"></a></p>
-<h2 id="step-1-define-a-vault-claim">Step 1: Define a Vault Claim<a class="headerlink" href="#step-1-define-a-vault-claim" title="Permanent link">#</a></h2>
-<p>Create a file named <code>vault.yaml</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">secrets.cloud.stakater.com/v1</span>
-<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Vault</span>
-<span class="nt">metadata</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-vault</span>
-<span class="nt">spec</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span>
+<h2 id="option-1-a-clusterissuer">Option 1: a <code>ClusterIssuer</code><a class="headerlink" href="#option-1-a-clusterissuer" title="Permanent link">#</a></h2>
+<ol>
+<li>Create a cert-manager <code>ClusterIssuer</code> backed by your CA, before installing. Either:<ul>
+<li>a CA issuer that signs with a <strong>sub-CA</strong> your CA issued for your domain. Ask for one limited to your domain (name constraints), so it cannot sign anything else.</li>
+<li>an ACME issuer, if your CA offers ACME. The platform's certificates are wildcards, so the issuer must use a <strong>DNS-01</strong> solver. HTTP-01 does not work.</li>
+</ul>
+</li>
+<li>
+<p>Name it in the claim:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">certificate</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">byo</span>
+<span class="w">  </span><span class="nt">privateCA</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">  </span><span class="nt">clusterIssuer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;cluster-issuer&gt;</span>
+<span class="nt">dns</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">byo</span>
 </code></pre></div>
-<p><code>spec.parameters</code> can stay empty. To size storage explicitly:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">spec</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">storage</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">dataSize</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">50Gi</span>
-<span class="w">      </span><span class="nt">auditSize</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">20Gi</span>
+</li>
+</ol>
+<p>The platform then requests and renews all of its certificates through that issuer.</p>
+<h2 id="option-2-certificate-files">Option 2: certificate files<a class="headerlink" href="#option-2-certificate-files" title="Permanent link">#</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Needs <code>ksp</code> v2.9.0 or later</p>
+<p>Earlier <code>ksp</code> releases require a ClusterIssuer when <code>privateCA</code> is set. See the
+<a href="prerequisites.html#kubestack-cli-ksp">KubeStack+ CLI</a> table.</p>
+</div>
+<h3 id="the-certificate">The certificate<a class="headerlink" href="#the-certificate" title="Permanent link">#</a></h3>
+<p>Ask your CA for <strong>one</strong> certificate with these names. <code>&lt;base&gt;</code> is the cluster
+domain without its <code>apps.</code> prefix: for <code>apps.cluster.example.com</code> it is
+<code>cluster.example.com</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Served by</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>api.&lt;base&gt;</code></td>
+<td>the API server</td>
+</tr>
+<tr>
+<td><code>*.apps.&lt;base&gt;</code></td>
+<td>the default router: the OpenShift console and platform routes</td>
+</tr>
+<tr>
+<td><code>*.public.&lt;base&gt;</code></td>
+<td>the platform's second router: the sign-in pages and the SCO console</td>
+</tr>
+</tbody>
+</table>
+<p>Add any branded host names you use.</p>
+<div class="admonition warning">
+<p class="admonition-title">A wildcard covers one level only</p>
+<p><code>*.cluster.example.com</code> covers <code>console.cluster.example.com</code>, but <strong>not</strong>
+<code>console.apps.cluster.example.com</code>. A single wildcard on <code>&lt;base&gt;</code> is not
+enough: the certificate needs <code>*.apps.&lt;base&gt;</code> and <code>*.public.&lt;base&gt;</code> by name.</p>
+</div>
+<p><code>*.public</code> does not mean the router faces the internet. It is the platform's
+second router, and it needs its own <code>LoadBalancer</code> address. On <code>scobasic</code>, that
+address comes from your load balancer.</p>
+<p>You need the certificate <strong>with its full chain</strong> (the certificate, then any
+intermediate CA certificates, without the root) and its private key.</p>
+<h3 id="install-it-before-ksp-up">Install it before <code>ksp up</code><a class="headerlink" href="#install-it-before-ksp-up" title="Permanent link">#</a></h3>
+<p>Create the Secret <code>cluster-certificate</code> in <strong>both</strong> namespaces:</p>
+<div class="highlight"><pre><span></span><code><span class="k">for</span><span class="w"> </span>ns<span class="w"> </span><span class="k">in</span><span class="w"> </span>openshift-ingress<span class="w"> </span>openshift-config<span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">  </span>oc<span class="w"> </span>create<span class="w"> </span>secret<span class="w"> </span>tls<span class="w"> </span>cluster-certificate<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--cert<span class="o">=</span>full-chain.pem<span class="w"> </span>--key<span class="o">=</span>key.pem<span class="w"> </span>-n<span class="w"> </span><span class="s2">"</span><span class="nv">$ns</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--dry-run<span class="o">=</span>client<span class="w"> </span>-o<span class="w"> </span>yaml<span class="w"> </span><span class="p">|</span><span class="w"> </span>oc<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>-
+<span class="k">done</span>
 </code></pre></div>
-<p>Without these, the data volume is <code>15Gi</code> and the audit volume is <code>10Gi</code>.</p>
-<p>If your organisation runs a <a href="create-mesh.html">Mesh</a>, <code>meshAccess.groups</code> lists further organisation groups whose members may reach the Vault over the Mesh, on top of those your organisation already allows. It opens the network path only: signing in and the role you choose still decide which secrets you can read.</p>
-<div class="highlight"><pre><span></span><code><span class="nt">spec</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">meshAccess</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">groups</span><span class="p">:</span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">engineering-team</span>
+<h3 id="the-claim">The claim<a class="headerlink" href="#the-claim" title="Permanent link">#</a></h3>
+<p>Leave out <code>clusterIssuer</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">certificate</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">byo</span>
+<span class="w">  </span><span class="nt">privateCA</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span><span class="w">      </span><span class="c1"># no clusterIssuer: the certificate comes from the Secrets</span>
+<span class="nt">dns</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">byo</span>
 </code></pre></div>
-<h2 id="step-2-apply-the-claim">Step 2: Apply the Claim<a class="headerlink" href="#step-2-apply-the-claim" title="Permanent link">#</a></h2>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>vault.yaml
-</code></pre></div>
-<h2 id="step-3-verify-the-vault">Step 3: Verify the Vault<a class="headerlink" href="#step-3-verify-the-vault" title="Permanent link">#</a></h2>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>vault<span class="w"> </span>my-vault
-</code></pre></div>
-<p>Wait for <code>READY: True</code>, then read the endpoint:</p>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>vault<span class="w"> </span>my-vault<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.status.endpoint.address}'</span>
-</code></pre></div>
-<p>The same addresses are on the Vault detail page in the console, under <strong>Endpoint</strong>, below the status conditions:</p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/generated/vault-detail.png" data-desc-position="bottom"><img alt="The lower part of a Vault detail page, showing the status conditions and the Endpoint block with the Mesh address" src="../../images/generated/vault-detail.png"></a></p>
-<p>If <strong>Address</strong> is empty, as it is here, the Vault is published on the Mesh only. Use the <strong>Mesh Address</strong> instead, as described in <a href="#step-5-optional-reach-it-over-the-mesh">Step 5</a>, from a device enrolled on the Mesh.</p>
-<h2 id="step-4-log-in">Step 4: Log In<a class="headerlink" href="#step-4-log-in" title="Permanent link">#</a></h2>
-<p>You sign in as your organisation user and choose a <strong>role</strong>; the role decides what you can reach. Signing in without one succeeds but grants nothing. Each project you have access to has its own roles. Look them up on the project:</p>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>project<span class="w"> </span>my-project<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.status.openbao.roles}'</span>
-</code></pre></div>
-<div class="highlight"><pre><span></span><code>["acme-my-project-rw-users"]
-</code></pre></div>
-<p>Open the endpoint URL in a browser, choose method <strong>OIDC</strong>, enter the role in <strong>Role</strong>, and sign in. Or use the CLI:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">BAO_ADDR</span><span class="o">=</span><span class="k">$(</span>kubectl<span class="w"> </span>get<span class="w"> </span>vault<span class="w"> </span>my-vault<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.status.endpoint.address}'</span><span class="k">)</span>
-bao<span class="w"> </span>login<span class="w"> </span>-method<span class="o">=</span>oidc<span class="w"> </span><span class="nv">role</span><span class="o">=</span>acme-my-project-rw-users
-</code></pre></div>
-<p>This opens your browser, completes single sign-on, and writes a token to the local CLI. The role gives you your project's folder, <code>stakater/projects/&lt;organisation&gt;-&lt;project&gt;/</code>:</p>
-<div class="highlight"><pre><span></span><code>bao<span class="w"> </span>kv<span class="w"> </span>put<span class="w"> </span>-mount<span class="o">=</span>stakater<span class="w"> </span>projects/acme-my-project/app/config<span class="w"> </span><span class="nv">user</span><span class="o">=</span>app<span class="w"> </span><span class="nv">password</span><span class="o">=</span>s3cret
-</code></pre></div>
-<p>Which roles you get follows the project's <code>access</code> entries — see <a href="../../api-reference/public-apis/vault.html#project-access">Project access</a>.</p>
-<h2 id="step-5-optional-reach-it-over-the-mesh">Step 5 (Optional): Reach It over the Mesh<a class="headerlink" href="#step-5-optional-reach-it-over-the-mesh" title="Permanent link">#</a></h2>
-<p>If your organisation runs a <a href="create-mesh.html">Mesh</a>, the Vault is also published to Mesh peers automatically. The Mesh endpoint appears in the claim status once it is live:</p>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>vault<span class="w"> </span>my-vault<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.status.endpoint.meshAddress}'</span>
-</code></pre></div>
-<div class="highlight"><pre><span></span><code>https://bao.&lt;organisation&gt;.mesh.&lt;cluster-domain&gt;
-</code></pre></div>
-<p>The name resolves from anywhere but is reachable only from enrolled Mesh peers, and the certificate is publicly trusted — clients need no custom CA bundle and no <code>-tls-skip-verify</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">BAO_ADDR</span><span class="o">=</span><span class="k">$(</span>kubectl<span class="w"> </span>get<span class="w"> </span>vault<span class="w"> </span>my-vault<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.status.endpoint.meshAddress}'</span><span class="k">)</span>
-bao<span class="w"> </span>login<span class="w"> </span>-method<span class="o">=</span>oidc<span class="w"> </span><span class="nv">role</span><span class="o">=</span>acme-my-project-rw-users
-</code></pre></div>
-<h2 id="related">Related<a class="headerlink" href="#related" title="Permanent link">#</a></h2>
+<h3 id="what-ksp-up-checks">What <code>ksp up</code> checks<a class="headerlink" href="#what-ksp-up-checks" title="Permanent link">#</a></h3>
+<p>Before it applies the claims, <code>ksp up</code> checks both Secrets:</p>
 <ul>
-<li><a href="../../api-reference/public-apis/vault.html">Vault API reference</a></li>
-<li><a href="create-mesh.html">Create a Mesh</a></li>
+<li>they exist, are TLS Secrets and hold a key</li>
+<li>the certificate covers the names above: <code>*.apps</code> and <code>*.public</code> in <code>openshift-ingress</code>, <code>api</code> in <code>openshift-config</code></li>
+<li>it chains to a root you passed with <code>--trusted-ca</code></li>
+<li>it has not expired. It warns when it expires within 30 days.</li>
+</ul>
+<p>If a check fails, <code>ksp up</code> stops and prints the command to create the Secrets.</p>
+<h3 id="renew-the-certificate">Renew the certificate<a class="headerlink" href="#renew-the-certificate" title="Permanent link">#</a></h3>
+<p>Before the certificate expires, get a new one from your CA and run the same
+command again for both namespaces. The routers and the API server load it within
+a minute, without restarting.</p>
+<p>The platform does not remind you. Track the expiry date yourself.</p>
+<h3 id="limits">Limits<a class="headerlink" href="#limits" title="Permanent link">#</a></h3>
+<ul>
+<li>You renew the certificate by hand.</li>
+<li>The platform mesh stays off. It needs an issuer.</li>
+<li>Hosted OpenShift clusters need an issuer, see <a href="#hosted-clusters">Hosted clusters</a>.</li>
+</ul>
+<h2 id="hosted-clusters">Hosted clusters<a class="headerlink" href="#hosted-clusters" title="Permanent link">#</a></h2>
+<p>Every hosted OpenShift cluster gets its own wildcard certificate,
+<code>*.apps.&lt;cluster&gt;.&lt;base&gt;</code>, when a user creates it. That needs an issuer.</p>
+<ul>
+<li>With <strong>Option 1</strong>, hosted clusters use your <code>ClusterIssuer</code>.</li>
+<li>
+<p>With <strong>Option 2</strong>, name an issuer for hosted clusters in the <code>KubeStackConfig</code> claim. It can be an ACME issuer (DNS-01) or a CA issuer with a sub-CA limited to your domain:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">openshiftCluster</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">internal</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">baseDomain</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;base&gt;</span>
+<span class="w">    </span><span class="nt">certificate</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">clusterIssuer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;hosted-cluster-issuer&gt;</span>
+</code></pre></div>
+</li>
+</ul>
+<p>Without it, hosted-cluster certificates are never issued.</p>
+<h2 id="dns-records">DNS records<a class="headerlink" href="#dns-records" title="Permanent link">#</a></h2>
+<p>With <code>dns.type: byo</code> you create the records yourself:</p>
+<table>
+<thead>
+<tr>
+<th>Record</th>
+<th>Points to</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>api.&lt;base&gt;</code></td>
+<td>the API address of the cluster</td>
+</tr>
+<tr>
+<td><code>*.apps.&lt;base&gt;</code></td>
+<td>the ingress address of the cluster</td>
+</tr>
+<tr>
+<td><code>*.public.&lt;base&gt;</code></td>
+<td>the <code>LoadBalancer</code> address of the second router</td>
+</tr>
+</tbody>
+</table>
+<p>Find the second router's address with:</p>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>svc<span class="w"> </span>-n<span class="w"> </span>openshift-ingress<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>LoadBalancer
+</code></pre></div>
+<p>Each hosted cluster needs two more records, <code>api.&lt;cluster&gt;.&lt;base&gt;</code> and
+<code>*.apps.&lt;cluster&gt;.&lt;base&gt;</code>. The platform lists them, with their addresses, in
+<code>status.dns</code> of the cluster's infrastructure resource on the management cluster.
+A platform administrator reads them there; the project user's view of the cluster
+does not show them:</p>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>openshiftclusters.infrastructure.stakater.com<span class="w"> </span>-A<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-o<span class="w"> </span>custom-columns<span class="o">=</span>CLUSTER:.metadata.name,RECORDS:.status.dns.records
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Put records where the name is served</p>
+<ul>
+<li>If <code>&lt;base&gt;</code> is a delegated zone, create the records <strong>in that zone</strong>. Records in its parent zone are ignored.</li>
+<li>Many DNS consoles add the zone name for you. There, enter only the prefix, such as <code>api.mycluster</code>, not the full name.</li>
+</ul>
+</div>
+<h2 id="clients">Clients<a class="headerlink" href="#clients" title="Permanent link">#</a></h2>
+<p>Clients that talk to the cluster must trust your root CA:</p>
+<ul>
+<li><strong><code>oc</code></strong>: <code>oc login https://api.&lt;base&gt;:6443 --certificate-authority=root-ca.pem</code>, or add the root to your operating system's trust store.</li>
+<li><strong>Browsers</strong>: import the root as a trusted certificate authority.</li>
+</ul>
+<h2 id="whats-next">What's Next?<a class="headerlink" href="#whats-next" title="Permanent link">#</a></h2>
+<ul>
+<li><a href="scobasic.html"><code>scobasic</code> Installation</a></li>
+<li><a href="openshift.html">OpenShift Installation</a></li>
 </ul>
 
 
@@ -6529,27 +6819,27 @@ bao<span class="w"> </span>login<span class="w"> </span>-method<span class="o">=
                 <div class="flex-2">
                     <div class="logo-footer-container">
                         
-                        <img class="md-header__logo_light" src="../../assets/images/footer-logo-light.png#only-light" alt="logo">
+                        <img class="md-header__logo_light" src="../assets/images/footer-logo-light.png#only-light" alt="logo">
                         
                         
-                        <img src="../../assets/images/footer-logo-dark.png#only-dark" alt="logo">
+                        <img src="../assets/images/footer-logo-dark.png#only-dark" alt="logo">
                         
                     </div>
 
                     <div class="collaborations-img-container">
                         <div class="display-flex">
                             
-                            <img class="csa-logo-dark" src="../../assets/images/CSA_dark.png#only-dark" alt="CSA">
+                            <img class="csa-logo-dark" src="../assets/images/CSA_dark.png#only-dark" alt="CSA">
                             
                             
-                            <img class="csa-logo-light" src="../../assets/images/CSA_light.png#only-light" alt="CSA">
+                            <img class="csa-logo-light" src="../assets/images/CSA_light.png#only-light" alt="CSA">
                             
 
                             
-                            <img class="hc-logo-dark" src="../../assets/images/HC_dark.png#only-dark" alt="HC">
+                            <img class="hc-logo-dark" src="../assets/images/HC_dark.png#only-dark" alt="HC">
                             
                             
-                            <img class="hc-logo-light" src="../../assets/images/HC_light.png#only-light" alt="HC">
+                            <img class="hc-logo-light" src="../assets/images/HC_light.png#only-light" alt="HC">
                             
                         </div>
                     </div>
@@ -6925,10 +7215,10 @@ bao<span class="w"> </span>login<span class="w"> </span>-method<span class="o">=
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.code.copy", "navigation.tracking", "toc.follow", "navigation.top"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["content.code.copy", "navigation.tracking", "toc.follow", "navigation.top"], "search": "../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      <script src="../assets/javascripts/bundle.a5f9d56c.min.js"></script>
       
     
   

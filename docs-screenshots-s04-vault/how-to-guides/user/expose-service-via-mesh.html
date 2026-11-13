@@ -3045,6 +3045,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
+      <a href="connect-to-openshift-cluster.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Connect to an OpenShift Cluster
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="provision-virtual-machine.html" class="md-nav__link">
         
   
@@ -3157,14 +3185,14 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="create-vault.html" class="md-nav__link">
+      <a href="access-vault.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    How to Create a Vault
+    How to Access Your Organisation's Vault
   
 
     
@@ -3746,6 +3774,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     
   
     scobasic Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/private-ca.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Private Certificate Authority
   
 
     
@@ -6161,7 +6217,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <p>Learn how to make an internal service reachable from laptops and VMs on your organisation's Mesh — without a public endpoint.</p>
 <p>Emma, a developer at ACME Corp, runs an internal admin API. Her team needs to reach it from their laptops, but it must not be exposed to the internet. A MeshRouter advertises the service's address to Mesh peers, and a MeshPolicy grants her team's group access — enrolled devices then reach it directly over the encrypted mesh.</p>
 <blockquote>
-<p>Platform services such as a <a href="create-vault.html">Vault</a> are published to Mesh peers automatically — you only need a MeshRouter for your <strong>own</strong> services.</p>
+<p>Platform services such as your organisation's <a href="access-vault.html">Vault</a> are published to Mesh peers automatically — you only need a MeshRouter for your <strong>own</strong> services.</p>
 </blockquote>
 <div class="admonition warning">
 <p class="admonition-title">Current limitations — read before you start</p>
@@ -6279,7 +6335,7 @@ kubectl<span class="w"> </span>get<span class="w"> </span>meshpolicy<span class=
 <li><a href="../../api-reference/public-apis/mesh-router.html">MeshRouter API reference</a> - All router fields</li>
 <li><a href="../../api-reference/public-apis/mesh-policy.html">MeshPolicy API reference</a> - All policy fields</li>
 <li><a href="create-mesh.html">Create a Mesh</a> - Set up the Mesh and enrol devices</li>
-<li><a href="create-vault.html">Create a Vault</a> - Published over the Mesh automatically</li>
+<li><a href="access-vault.html">Access Your Organisation's Vault</a> - Published over the Mesh automatically</li>
 </ul>
 
 

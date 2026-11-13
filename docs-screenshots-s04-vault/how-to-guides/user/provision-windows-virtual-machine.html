@@ -3045,6 +3045,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
+      <a href="connect-to-openshift-cluster.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Connect to an OpenShift Cluster
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="provision-virtual-machine.html" class="md-nav__link">
         
   
@@ -3422,14 +3450,14 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="create-vault.html" class="md-nav__link">
+      <a href="access-vault.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    How to Create a Vault
+    How to Access Your Organisation's Vault
   
 
     
@@ -3846,6 +3874,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     
   
     scobasic Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/private-ca.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Private Certificate Authority
   
 
     
@@ -6368,7 +6424,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <li><code>kubectl</code> configured with your project kubeconfig</li>
 <li>A Windows installation ISO that you are licensed to use, reachable over HTTP(S) — for example a Windows Server evaluation ISO</li>
 <li>An RDP client (Windows App, <code>xfreerdp</code>, or the built-in Remote Desktop Connection)</li>
-<li>A <a href="create-vault.html">Vault</a> in your organisation, if you want the platform to generate and store the Administrator password (see <a href="#step-3-define-a-windowsvirtualmachine-claim">Step 3</a>)</li>
+<li>Your organisation's <a href="access-vault.html">Vault</a>, if you want the platform to generate and store the Administrator password (see <a href="#step-3-define-a-windowsvirtualmachine-claim">Step 3</a>)</li>
 </ul>
 <h2 id="what-gets-created">What Gets Created<a class="headerlink" href="#what-gets-created" title="Permanent link">#</a></h2>
 <p>When you create a WindowsVirtualMachine claim, the platform provisions:</p>
@@ -6575,7 +6631,7 @@ my-windows-vm    True     True    9m
 <p><code>status.vm.internalIP</code> stays empty until the guest reports an address, and it is never set when <code>meshRoute.enabled</code> is <code>false</code>. An empty value after 20 minutes means Windows has not finished installing — see <a href="#troubleshooting">Troubleshooting</a>.</p>
 </div>
 <h2 id="step-6-get-the-administrator-password">Step 6: Get the Administrator Password<a class="headerlink" href="#step-6-get-the-administrator-password" title="Permanent link">#</a></h2>
-<p>With the default installation the platform generates the Administrator password and stores it in your organisation's <a href="create-vault.html">Vault</a>, in your project's folder. The claim status names the exact path:</p>
+<p>With the default installation the platform generates the Administrator password and stores it in your organisation's <a href="access-vault.html">Vault</a>, in your project's folder. The claim status names the exact path:</p>
 <div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>windowsvirtualmachine<span class="w"> </span>my-windows-vm<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.status.adminCredentials}'</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code>{"delivered":true,"message":"Stored in your organization's OpenBao","secretPath":"stakater/projects/acme-my-project/vms/my-windows-vm","secretStore":"acme-bao","username":"Administrator"}
@@ -6759,7 +6815,7 @@ bao<span class="w"> </span>kv<span class="w"> </span>put<span class="w"> </span>
 </tr>
 <tr>
 <td><code>Not loaded: your organization's OpenBao is not available…</code></td>
-<td>Your organisation has no Vault yet, or it is still starting. Create a <a href="create-vault.html">Vault</a>, or supply the file inline with <code>sysprep.autounattend</code></td>
+<td>Your organisation's Vault is turned off, or it is still starting. Ask your platform administrator to enable it, or supply the file inline with <code>sysprep.autounattend</code></td>
 </tr>
 <tr>
 <td>Any other <code>Not loaded: …</code> message</td>
@@ -6973,8 +7029,8 @@ bao<span class="w"> </span>kv<span class="w"> </span>put<span class="w"> </span>
 </tr>
 <tr>
 <td><code>status.adminCredentials.delivered</code> is <code>false</code></td>
-<td>Your organisation has no Vault</td>
-<td>Create a <a href="create-vault.html">Vault</a>, or supply your own answer file</td>
+<td>Your organisation's Vault is turned off</td>
+<td>Ask your platform administrator to enable it, or supply your own answer file</td>
 </tr>
 <tr>
 <td><code>status.sysprep.ready</code> is <code>false</code></td>
@@ -7038,8 +7094,8 @@ bao<span class="w"> </span>kv<span class="w"> </span>put<span class="w"> </span>
 <ul>
 <li><a href="provision-virtual-machine.html">Provision a Linux Virtual Machine</a> - Provision a Linux VM and connect over SSH</li>
 <li><a href="create-mesh.html">Create a Mesh</a> - Set up the private network used to reach the VM</li>
-<li><a href="create-vault.html">Create a Vault</a> - Store the generated Administrator password and your own answer files</li>
-<li><a href="../../api-reference/public-apis/vault.html#project-access">Vault API reference</a> - Project roles and the project folder</li>
+<li><a href="access-vault.html">Access Your Organisation's Vault</a> - Read the generated Administrator password and store your own answer files</li>
+<li><a href="../../api-reference/public-apis/vault.html#project-access">Vault reference</a> - Project roles and the project folder</li>
 <li><a href="../../cloud-user-guide/authentication/organisation-identity.html">One Identity Across Your Organisation</a> - Mesh enrolment caveats</li>
 </ul>
 

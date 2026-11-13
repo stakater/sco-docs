@@ -3041,6 +3041,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
+      <a href="../../how-to-guides/user/connect-to-openshift-cluster.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Connect to an OpenShift Cluster
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../how-to-guides/user/provision-virtual-machine.html" class="md-nav__link">
         
   
@@ -3153,14 +3181,14 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../how-to-guides/user/create-vault.html" class="md-nav__link">
+      <a href="../../how-to-guides/user/access-vault.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    How to Create a Vault
+    How to Access Your Organisation's Vault
   
 
     
@@ -3577,6 +3605,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     
   
     scobasic Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/private-ca.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Private Certificate Authority
   
 
     
@@ -5314,34 +5370,6 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
-  <a href="#spec-parameters" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Spec Parameters
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Spec Parameters">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#optional" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Optional
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#status-fields" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -5410,45 +5438,6 @@ This documentation is for a pull request deployment and is unreleased, it is onl
       
     </span>
   </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#examples" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Examples
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Examples">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#minimal" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Minimal
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#larger-storage" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Larger storage
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -6092,34 +6081,6 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
-  <a href="#spec-parameters" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Spec Parameters
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Spec Parameters">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#optional" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Optional
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#status-fields" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -6192,45 +6153,6 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
-  <a href="#examples" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Examples
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Examples">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#minimal" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Minimal
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#larger-storage" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Larger storage
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#how-to-guide" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -6270,7 +6192,8 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 
 
 <h1 id="vault">Vault<a class="headerlink" href="#vault" title="Permanent link">#</a></h1>
-<p>Provisions a private Vault instance for your organisation, with single sign-on against your organisation's identity provider.</p>
+<p>The private Vault of your organisation, with single sign-on against your organisation's identity provider.</p>
+<p>The platform creates one Vault for each organisation when the organisation is set up, named <code>&lt;organisation&gt;-default-bao</code>. It is not a service you order: you cannot create, resize or delete a Vault, and an organisation has only this one. You sign in to it with OIDC to read the credentials the platform stores for your virtual machines, S3 buckets and Postgres databases, and to keep secrets of your own.</p>
 <h2 id="api-details">API Details<a class="headerlink" href="#api-details" title="Permanent link">#</a></h2>
 <table>
 <thead>
@@ -6296,35 +6219,13 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <td><strong>Scope</strong></td>
 <td>Namespace-scoped</td>
 </tr>
-</tbody>
-</table>
-<h2 id="spec-parameters">Spec Parameters<a class="headerlink" href="#spec-parameters" title="Permanent link">#</a></h2>
-<p>All parameters are nested under <code>spec.parameters</code>.</p>
-<h3 id="optional">Optional<a class="headerlink" href="#optional" title="Permanent link">#</a></h3>
-<table>
-<thead>
 <tr>
-<th>Field</th>
-<th>Type</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>storage.dataSize</code></td>
-<td><code>string</code></td>
-<td><code>15Gi</code></td>
-<td>Size of the persistent volume for Vault data.</td>
-</tr>
-<tr>
-<td><code>storage.auditSize</code></td>
-<td><code>string</code></td>
-<td><code>10Gi</code></td>
-<td>Size of the persistent volume for the audit log.</td>
+<td><strong>Managed by</strong></td>
+<td>The platform (read-only for cloud users)</td>
 </tr>
 </tbody>
 </table>
+<p>The resource is read-only for cloud users. It has no parameters for you to set.</p>
 <h2 id="status-fields">Status Fields<a class="headerlink" href="#status-fields" title="Permanent link">#</a></h2>
 <table>
 <thead>
@@ -6457,31 +6358,11 @@ bao<span class="w"> </span>login
 <li>Because the certificate is publicly trusted, clients work out of the box: no custom CA bundle, no <code>-tls-skip-verify</code>.</li>
 </ul>
 <p>From an enrolled laptop:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">BAO_ADDR</span><span class="o">=</span><span class="k">$(</span>kubectl<span class="w"> </span>get<span class="w"> </span>vault<span class="w"> </span>my-vault<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.status.endpoint.meshAddress}'</span><span class="k">)</span>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">BAO_ADDR</span><span class="o">=</span><span class="k">$(</span>kubectl<span class="w"> </span>get<span class="w"> </span>project<span class="w"> </span>my-project<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.status.openbao.address}'</span><span class="k">)</span>
 bao<span class="w"> </span>login<span class="w"> </span>-method<span class="o">=</span>oidc<span class="w"> </span><span class="nv">role</span><span class="o">=</span>&lt;organisation&gt;-&lt;project&gt;-rw-users
 </code></pre></div>
-<h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">#</a></h2>
-<h3 id="minimal">Minimal<a class="headerlink" href="#minimal" title="Permanent link">#</a></h3>
-<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">secrets.cloud.stakater.com/v1</span>
-<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Vault</span>
-<span class="nt">metadata</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-vault</span>
-<span class="nt">spec</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span>
-</code></pre></div>
-<h3 id="larger-storage">Larger storage<a class="headerlink" href="#larger-storage" title="Permanent link">#</a></h3>
-<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">secrets.cloud.stakater.com/v1</span>
-<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Vault</span>
-<span class="nt">metadata</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">app-vault</span>
-<span class="nt">spec</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">storage</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">dataSize</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">50Gi</span>
-<span class="w">      </span><span class="nt">auditSize</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">20Gi</span>
-</code></pre></div>
 <h2 id="how-to-guide">How-to Guide<a class="headerlink" href="#how-to-guide" title="Permanent link">#</a></h2>
-<p><a href="../../how-to-guides/user/create-vault.html">Create a Vault</a></p>
+<p><a href="../../how-to-guides/user/access-vault.html">Access Your Organisation's Vault</a></p>
 <h2 id="related">Related<a class="headerlink" href="#related" title="Permanent link">#</a></h2>
 <ul>
 <li><a href="project.html">Project</a> — its <code>access</code> entries grant Vault access to the project folder (see <a href="#project-access">Project access</a>).</li>

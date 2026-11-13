@@ -3326,6 +3326,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
+      <a href="connect-to-openshift-cluster.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Connect to an OpenShift Cluster
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="provision-virtual-machine.html" class="md-nav__link">
         
   
@@ -3438,14 +3466,14 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="create-vault.html" class="md-nav__link">
+      <a href="access-vault.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    How to Create a Vault
+    How to Access Your Organisation's Vault
   
 
     
@@ -3862,6 +3890,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     
   
     scobasic Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/private-ca.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Private Certificate Authority
   
 
     
@@ -6409,7 +6465,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <ul>
 <li>You are an administrator of your organisation</li>
 <li>The <code>identityprovider.iam.cloud.stakater.com</code> API available</li>
-<li>Your organisation has a <a href="create-vault.html">Vault</a>. If your organisation runs a <a href="create-mesh.html">Mesh</a>, the Vault is reachable only from Mesh peers, so you also need the Mesh client on your computer.</li>
+<li>Access to your organisation's <a href="access-vault.html">Vault</a>. If your organisation runs a <a href="create-mesh.html">Mesh</a>, the Vault is reachable only from Mesh peers, so you also need the Mesh client on your computer.</li>
 <li>Administrator access to your company identity provider, to create an OpenID Connect (OIDC) web application</li>
 <li>Every user who will sign in has an email address in one of your domains, and your company identity provider sends that address</li>
 <li><code>kubectl</code> configured with your organisation project kubeconfig, if you use the command line</li>
@@ -6857,7 +6913,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <li><a href="../../cloud-user-guide/authentication/managing-users.html">Managing Users</a> - How users from your company identity provider fit next to other users</li>
 <li><a href="create-iam-group.html">Create an IAM Group</a> - Give users from your company identity provider access through groups</li>
 <li><a href="create-project.html">Create a Project</a> - Grant groups and users roles in a project</li>
-<li><a href="create-vault.html">Create a Vault</a> - Set up the Vault that holds the client credentials</li>
+<li><a href="access-vault.html">Access Your Organisation's Vault</a> - Sign in to the Vault that holds the client credentials</li>
 <li><a href="../../api-reference/public-apis/iam-identity-provider.html">IdentityProvider API reference</a> - Every parameter and status field</li>
 </ul>
 

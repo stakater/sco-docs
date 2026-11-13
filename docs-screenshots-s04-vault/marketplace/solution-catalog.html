@@ -3260,6 +3260,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
+      <a href="../how-to-guides/user/connect-to-openshift-cluster.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Connect to an OpenShift Cluster
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../how-to-guides/user/provision-virtual-machine.html" class="md-nav__link">
         
   
@@ -3372,14 +3400,14 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../how-to-guides/user/create-vault.html" class="md-nav__link">
+      <a href="../how-to-guides/user/access-vault.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    How to Create a Vault
+    How to Access Your Organisation's Vault
   
 
     
@@ -3796,6 +3824,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     
   
     scobasic Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation/private-ca.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Private Certificate Authority
   
 
     
@@ -6367,28 +6423,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <hr>
 <h3 id="vault">Vault<a class="headerlink" href="#vault" title="Permanent link">#</a></h3>
 <p><strong>API:</strong> <code>secrets.cloud.stakater.com/v1 Vault</code></p>
-<p>Per-tenant OpenBao instance with HA Raft storage and OIDC auth against your organisation's Keycloak realm.</p>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Required</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>storage.dataSize</code></td>
-<td>No</td>
-<td>PVC size for Raft data (default <code>15Gi</code>)</td>
-</tr>
-<tr>
-<td><code>storage.auditSize</code></td>
-<td>No</td>
-<td>PVC size for audit log (default <code>10Gi</code>)</td>
-</tr>
-</tbody>
-</table>
+<p>Your organisation's Vault. The platform creates one for each organisation, so there is nothing to order: sign in with OIDC to read the credentials of your virtual machines, S3 buckets and Postgres databases.</p>
 <p>Full reference: <a href="../api-reference/public-apis/vault.html">Vault API</a></p>
 <hr>
 <h3 id="mesh">Mesh<a class="headerlink" href="#mesh" title="Permanent link">#</a></h3>

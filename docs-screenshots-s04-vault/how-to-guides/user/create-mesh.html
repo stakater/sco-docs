@@ -8,7 +8,7 @@
         <link rel="canonical" href="https://docs.stakater.com/cloud-orchestrator/docs-screenshots-s04-vault/how-to-guides/user/create-mesh.html">
       
       
-        <link rel="prev" href="create-vault.html">
+        <link rel="prev" href="access-vault.html">
       
       
         <link rel="next" href="expose-service-via-mesh.html">
@@ -3045,6 +3045,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
+      <a href="connect-to-openshift-cluster.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Connect to an OpenShift Cluster
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="provision-virtual-machine.html" class="md-nav__link">
         
   
@@ -3157,14 +3185,14 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="create-vault.html" class="md-nav__link">
+      <a href="access-vault.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    How to Create a Vault
+    How to Access Your Organisation's Vault
   
 
     
@@ -3740,6 +3768,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     
   
     scobasic Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../installation/private-ca.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Private Certificate Authority
   
 
     
@@ -6163,7 +6219,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <ul>
 <li>A private <strong>mesh network</strong> for your organisation — management, signalling, and relay infrastructure</li>
 <li>A <strong>web dashboard</strong> for managing peers, groups, and access policies, behind your organisation's single sign-on</li>
-<li>Automatic publishing of platform services (such as a <a href="create-vault.html">Vault</a>) to Mesh peers, with publicly-trusted TLS</li>
+<li>Automatic publishing of platform services (such as your organisation's <a href="access-vault.html">Vault</a>) to Mesh peers, with publicly-trusted TLS</li>
 </ul>
 <h2 id="in-the-console">In the Console<a class="headerlink" href="#in-the-console" title="Permanent link">#</a></h2>
 <p>Meshes are under <strong>Networking</strong> in the sidebar. Check the list before you create anything — your organisation may already have one:</p>
@@ -6198,14 +6254,14 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <p>This opens a browser for single sign-on — leave the command running until the browser flow completes, and use a private window if you need to enrol as a different user than your current browser session. See <a href="../../cloud-user-guide/authentication/organisation-identity.html">One Identity Across Your Organisation</a> for enrolment caveats and multi-account profiles. After registration the device appears in the dashboard and can be assigned to groups.</p>
 <h2 id="step-6-reach-services-over-the-mesh">Step 6: Reach Services over the Mesh<a class="headerlink" href="#step-6-reach-services-over-the-mesh" title="Permanent link">#</a></h2>
 <ul>
-<li><strong>Platform services</strong> are published automatically. With a <a href="create-vault.html">Vault</a> in your organisation, an enrolled laptop reaches it at <code>https://bao.&lt;organisation&gt;.mesh.&lt;cluster-domain&gt;</code> with a publicly-trusted certificate.</li>
+<li><strong>Platform services</strong> are published automatically. An enrolled laptop reaches your organisation's <a href="access-vault.html">Vault</a> at <code>https://bao.&lt;organisation&gt;.mesh.&lt;cluster-domain&gt;</code> with a publicly-trusted certificate.</li>
 <li><strong>Your own services</strong> can be advertised to Mesh peers with a <a href="expose-service-via-mesh.html">MeshRouter</a>.</li>
 </ul>
 <h2 id="related">Related<a class="headerlink" href="#related" title="Permanent link">#</a></h2>
 <ul>
 <li><a href="../../api-reference/public-apis/mesh.html">Mesh API reference</a></li>
 <li><a href="expose-service-via-mesh.html">Expose an internal service via the Mesh</a></li>
-<li><a href="create-vault.html">Create a Vault</a></li>
+<li><a href="access-vault.html">Access Your Organisation's Vault</a></li>
 </ul>
 
 

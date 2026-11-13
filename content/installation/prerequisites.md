@@ -46,6 +46,14 @@ The two supported variants make **opposite assumptions about storage and load ba
     working RWO StorageClass and working `LoadBalancer` Services. See
     [`scobasic` Installation](scobasic.md) for the full requirements.
 
+!!! warning "`hosting` requires ODF on bare metal"
+    `hosting` builds its storage with ODF from the worker nodes' spare disks,
+    and cannot use another storage layer instead. Excluding `odf-instance` with
+    `excludedAddons` does not work around this: the secret store, the identity
+    provider and most other platform components depend on it and are excluded
+    with it. If your cluster brings its own storage — for example a cluster on
+    VMware vSphere — install `scobasic`.
+
 ### Compute Resources
 
 Recommended minimum capacity for the SCO platform on the **`hosting`** variant
@@ -127,6 +135,16 @@ oc version
 oc whoami
 ```
 
+### Helm
+
+`ksp` uses Helm to install components and to check what is already installed.
+It needs **Helm 3.18 or newer**; with an older version, `ksp up` sees every
+component as missing.
+
+```bash
+helm version --short
+```
+
 ## Network Requirements
 
 - **DNS**: Wildcard DNS configured for cluster ingress (e.g., `*.apps.cluster.example.com`)
@@ -160,7 +178,10 @@ Before running `ksp up` you need two claim files prepared:
 1. **`KubeStackConfig`** — Platform configuration (name, location, domain)
 1. **`KubeStackPlus`** — SCO platform deployment (variant, platform)
 
-See [OpenShift Installation](openshift.md) for example claim files.
+You also need an environment configuration file (`--environment-config`)
+with the base domain, load balancer and storage settings.
+
+See [OpenShift Installation](openshift.md) for example files.
 
 ## Pre-Installation Checklist
 
@@ -168,6 +189,7 @@ See [OpenShift Installation](openshift.md) for example claim files.
 - [ ] Cluster administrator access
 - [ ] `ksp` CLI installed and on PATH
 - [ ] `oc` authenticated to the cluster
+- [ ] Helm 3.18 or newer installed
 - [ ] Wildcard DNS configured
 - [ ] Certificate issuer (`ClusterIssuer`) ready for your apps domain, or, with a private CA, the [certificate installed as files](private-ca.md#option-2-certificate-files)
 - [ ] Registry access granted to your GitHub account, and a `read:packages` token created

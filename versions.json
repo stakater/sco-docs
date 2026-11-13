@@ -27,9 +27,7 @@
   {
     "version": "renovate-main-node-26.x",
     "title": "renovate-main-node-26.x",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "renovate-main-node-24.x-lockfile",
@@ -104,7 +102,9 @@
   {
     "version": "docs-screenshots-s04-vault",
     "title": "docs-screenshots-s04-vault",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "docs-screenshots-s03-postgres",

@@ -152,6 +152,11 @@
     "aliases": []
   },
   {
+    "version": "docs-release-notes-and-admin-config",
+    "title": "docs-release-notes-and-admin-config",
+    "aliases": []
+  },
+  {
     "version": "docs-postgres-backup-byo",
     "title": "docs-postgres-backup-byo",
     "aliases": []

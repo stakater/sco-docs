@@ -1,0 +1,35 @@
+# Stakater Cloud Orchestrator
+
+> Stakater Cloud Orchestrator (SCO) is a platform that turns Red Hat OpenShift into a multi-tenant cloud: organisations and projects, virtual machines, OpenShift clusters, databases, S3 buckets, secrets and a private mesh, requested as Kubernetes claims or through a console. This documentation covers installing and operating the platform (platform providers) and using it (cloud consumers).
+
+The documentation site has its own version; the URLs below point to the latest. Release notes are keyed by the platform release version and are also published as JSON.
+
+## Release notes
+
+- [Release notes](https://docs.stakater.com/stakater-cloud-orchestrator/latest/release-notes/index.html): every platform release, with component versions, breaking changes and required actions
+- [Release index (JSON)](https://docs.stakater.com/stakater-cloud-orchestrator/latest/release-notes/index.json): machine-readable list of releases; each entry links its release file
+- [Next release, draft (JSON)](https://docs.stakater.com/stakater-cloud-orchestrator/latest/release-notes/next-release.json): unreleased changes, status draft
+- [Release data format](https://docs.stakater.com/stakater-cloud-orchestrator/latest/release-notes/release-data.html): fields of the JSON files, with JSON Schemas
+- [Versioning policy](https://docs.stakater.com/stakater-cloud-orchestrator/latest/release-notes/versioning.html): how platform and package versions move, and what counts as breaking
+
+## Platform providers
+
+- [Installation overview](https://docs.stakater.com/stakater-cloud-orchestrator/latest/installation/overview.html): install the platform with `ksp up`
+- [Prerequisites](https://docs.stakater.com/stakater-cloud-orchestrator/latest/installation/prerequisites.html): OpenShift versions, CLI versions, registry access
+- [Platform configuration APIs](https://docs.stakater.com/stakater-cloud-orchestrator/latest/platform-configuration/overview.html): typed resources for tuning the platform
+- [NetworkingConfig](https://docs.stakater.com/stakater-cloud-orchestrator/latest/platform-configuration/networking-config.html): network isolation and egress rules for platform namespaces, with verify and rollback steps
+- [NetworkingConfig JSON Schema](https://docs.stakater.com/stakater-cloud-orchestrator/latest/platform-configuration/networkingconfig.schema.json): validate a NetworkingConfig before applying it
+- [Platform configuration overrides](https://docs.stakater.com/stakater-cloud-orchestrator/latest/installation/configuration.html): override settings no configuration API covers yet
+- [Creating organisations](https://docs.stakater.com/stakater-cloud-orchestrator/latest/service-provider-guide/organizations/creating-organizations.html): onboard a customer organisation
+
+## Cloud consumers
+
+- [Getting started](https://docs.stakater.com/stakater-cloud-orchestrator/latest/cloud-user-guide/getting-started.html): first steps for organisation users
+- [Creating projects](https://docs.stakater.com/stakater-cloud-orchestrator/latest/cloud-user-guide/projects/creating-projects.html): projects, roles and network modes
+- [Managing users](https://docs.stakater.com/stakater-cloud-orchestrator/latest/cloud-user-guide/authentication/managing-users.html): users, groups and project access
+- [API reference](https://docs.stakater.com/stakater-cloud-orchestrator/latest/api-reference/overview.html): every user-facing API
+
+## Optional
+
+- [Troubleshooting](https://docs.stakater.com/stakater-cloud-orchestrator/latest/troubleshooting/overview.html): diagnose provisioning and platform issues
+- [Architecture](https://docs.stakater.com/stakater-cloud-orchestrator/latest/architecture/architecture.html): how the platform is built

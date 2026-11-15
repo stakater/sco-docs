@@ -1,0 +1,333 @@
+# yaml-language-server: $schema=networkingconfig.schema.json
+# NetworkingConfig holds the platform's networking settings. A cluster has one
+# NetworkingConfig, named cluster.
+apiVersion: config.platform.stakater.com/v1alpha1
+kind: NetworkingConfig
+metadata:
+  name: cluster
+spec:
+  # Networking settings for the platform.
+  parameters:
+    # Rules for traffic that leaves the cluster from platform namespaces. The rules of a
+    # namespace are evaluated in priority order and the first match wins. Nothing is
+    # denied unless a Deny rule is configured. Egress rules are independent of network
+    # isolation.
+    egress:
+      # Turns platform-managed egress rules on or off for every platform namespace that
+      # supports them. An entry under stacks or namespaces overrides this value for the
+      # namespaces it covers. When unset, each namespace keeps the default of the
+      # platform release, which is off.
+      enabled: false
+      # Egress rules for individual platform namespaces, keyed by namespace name. Only
+      # namespaces that belong to the platform itself are configured here. A namespace
+      # entry overrides enabled and the matching stacks entry for that namespace.
+      # Namespace names that match no platform namespace with egress rules are reported
+      # in status.egress.unmatched.namespaces.
+      namespaces:
+        stakater-forecastle:
+          # Turns egress rules on or off for this namespace. When unset, the namespace
+          # follows its stacks entry, or enabled when the stack has no entry.
+          enabled: true
+          # Egress rules of this namespace, keyed by rule name. A rule name is a
+          # lowercase DNS label. A rule that uses the name of a built-in rule changes
+          # that rule; any other name adds a rule.
+          rules:
+            allow-cluster-nodes:
+              # Position of the rule in the evaluation order. Rules with a lower number
+              # are evaluated first, rules with the same number in name order. When
+              # unset, a new rule gets 1000 and a built-in rule of the same name keeps
+              # its position.
+              priority: 300
+              # Destination the rule matches: exactly one of dnsName, cidrSelector or
+              # nodeSelector. Required unless the rule sets enabled to false.
+              to:
+                # Selects cluster nodes as the destination, by label.
+                nodeSelector:
+                  # Label requirements a node must meet.
+                  matchExpressions:
+                    # Label key the requirement applies to.
+                    - key: topology.kubernetes.io/zone
+                      # How the label is compared with values: In, NotIn, Exists or
+                      # DoesNotExist.
+                      operator: In
+                      # Label values for In and NotIn. When unset, the requirement
+                      # carries no values, as Exists and DoesNotExist expect.
+                      values:
+                        - eu-central-1a
+                  # Labels a node must carry, as key and value pairs. When unset, no
+                  # label is required.
+                  matchLabels:
+                    node-role.kubernetes.io/worker: ''
+            allow-corp-network:
+              # Position of the rule in the evaluation order. Rules with a lower number
+              # are evaluated first, rules with the same number in name order. When
+              # unset, a new rule gets 1000 and a built-in rule of the same name keeps
+              # its position.
+              priority: 200
+              # Destination the rule matches: exactly one of dnsName, cidrSelector or
+              # nodeSelector. Required unless the rule sets enabled to false.
+              to:
+                # Destination address range in CIDR notation, for example 10.20.0.0/16.
+                # When unset, the rule matches by dnsName or nodeSelector.
+                cidrSelector: 10.20.0.0/16
+            allow-quay:
+              # Turns this rule on or off. When unset, a new rule is on and a built-in
+              # rule of the same name keeps its setting. Set false, without to, to
+              # switch off a built-in rule.
+              enabled: true
+              # Destination ports the rule matches. When unset, the rule matches every
+              # port.
+              ports:
+                # Destination port number.
+                - port: 443
+                  # Protocol of the traffic: TCP, UDP or SCTP.
+                  protocol: TCP
+              # Position of the rule in the evaluation order. Rules with a lower number
+              # are evaluated first, rules with the same number in name order. When
+              # unset, a new rule gets 1000 and a built-in rule of the same name keeps
+              # its position.
+              priority: 100
+              # Destination the rule matches: exactly one of dnsName, cidrSelector or
+              # nodeSelector. Required unless the rule sets enabled to false.
+              to:
+                # DNS name of the destination, for example quay.io. A leading *. matches
+                # every subdomain. When unset, the rule matches by cidrSelector or
+                # nodeSelector.
+                dnsName: quay.io
+              # Whether matching traffic is allowed or denied: Allow or Deny. When
+              # unset, a new rule allows traffic and a built-in rule of the same name
+              # keeps its type.
+              type: Allow
+            deny-everything-else:
+              # Destination the rule matches: exactly one of dnsName, cidrSelector or
+              # nodeSelector. Required unless the rule sets enabled to false.
+              to:
+                # Destination address range in CIDR notation, for example 10.20.0.0/16.
+                # When unset, the rule matches by dnsName or nodeSelector.
+                cidrSelector: 0.0.0.0/0
+              # Whether matching traffic is allowed or denied: Allow or Deny. When
+              # unset, a new rule allows traffic and a built-in rule of the same name
+              # keeps its type.
+              type: Deny
+      # Egress rule switches for groups of platform components, one per stack. A stack
+      # entry overrides enabled for every platform namespace of that stack. When a stack
+      # has no entry, its namespaces follow enabled.
+      stacks:
+        # Egress rule switch for the backup and restore components.
+        backup:
+          # Turns platform-managed egress rules on or off for the platform namespaces of
+          # the backup stack.
+          enabled: true
+        # Egress rule switch for the GitOps components that install the platform.
+        bootstrap:
+          # Turns platform-managed egress rules on or off for the platform namespaces of
+          # the bootstrap stack.
+          enabled: true
+        # Egress rule switch for the pipeline, registry and code quality components.
+        cicd:
+          # Turns platform-managed egress rules on or off for the platform namespaces of
+          # the cicd stack.
+          enabled: true
+        # Egress rule switch for the GitOps configuration components.
+        gitops:
+          # Turns platform-managed egress rules on or off for the platform namespaces of
+          # the gitops stack.
+          enabled: true
+        # Egress rule switch for the single sign-on and access management components.
+        identity:
+          # Turns platform-managed egress rules on or off for the platform namespaces of
+          # the identity stack.
+          enabled: true
+        # Egress rule switch for the ingress, load balancing and DNS components.
+        networking:
+          # Turns platform-managed egress rules on or off for the platform namespaces of
+          # the networking stack.
+          enabled: true
+        # Egress rule switch for the logging, monitoring and alerting components.
+        observability:
+          # Turns platform-managed egress rules on or off for the platform namespaces of
+          # the observability stack.
+          enabled: true
+        # Egress rule switch for the core platform components.
+        platform:
+          # Turns platform-managed egress rules on or off for the platform namespaces of
+          # the platform stack.
+          enabled: true
+        # Egress rule switch for the secret, certificate and policy components.
+        security:
+          # Turns platform-managed egress rules on or off for the platform namespaces of
+          # the security stack.
+          enabled: false
+        # Egress rule switch for the storage components.
+        storage:
+          # Turns platform-managed egress rules on or off for the platform namespaces of
+          # the storage stack.
+          enabled: true
+    # Network isolation of platform namespaces. An isolated namespace accepts traffic
+    # only from its own workloads, from platform monitoring, and from the sources
+    # allowed for that namespace.
+    isolation:
+      # Turns network isolation on or off for every platform namespace that supports it.
+      # An entry under stacks or namespaces overrides this value for the namespaces it
+      # covers. When unset, each namespace keeps the default of the platform release,
+      # which is off.
+      enabled: true
+      # Network isolation settings for individual platform namespaces, keyed by
+      # namespace name. Only namespaces that belong to the platform itself are
+      # configured here. A namespace entry overrides enabled and the matching stacks
+      # entry for that namespace. Namespace names that match no isolated platform
+      # namespace are reported in status.isolation.unmatched.namespaces.
+      namespaces:
+        stakater-forecastle:
+          # Turns network isolation on or off for this namespace. When unset, the
+          # namespace follows its stacks entry, or enabled when the stack has no entry.
+          enabled: true
+          # Allows traffic from the cluster's host network into this namespace. Set true
+          # for a namespace that serves admission webhooks or aggregated APIs, which the
+          # Kubernetes API server calls from the host network. When unset, the namespace
+          # keeps its built-in setting.
+          fromHostNetwork: false
+          # Allows traffic from the cluster's ingress routers into this namespace. Set
+          # true for a namespace that serves Routes. When unset, the namespace keeps its
+          # built-in setting.
+          fromRouter: true
+          # Additional traffic allowed into this namespace, keyed by rule name. A rule
+          # name is a lowercase DNS label. A rule that uses the name of a built-in rule
+          # changes that rule; any other name adds a rule.
+          ingress:
+            from-corp-monitoring:
+              # Turns this rule on or off. When unset, a new rule is on and a built-in
+              # rule of the same name keeps its setting. Set false, without from, to
+              # switch off a built-in rule.
+              enabled: true
+              # Sources allowed to connect, at least one. Traffic is allowed when it
+              # matches any entry. Required unless the rule sets enabled to false.
+              from:
+                # An IP address range outside the cluster's pod network.
+                - ipBlock:
+                    # Address range in CIDR notation, for example 10.20.0.0/16.
+                    cidr: 10.20.0.0/16
+                    # Address ranges inside cidr that are not allowed, in CIDR notation.
+                    # When unset, the whole cidr range is allowed.
+                    except:
+                      - 10.20.99.0/24
+                # Selects source namespaces by label. An empty selector selects every
+                # namespace. Without podSelector, every pod in the selected namespaces
+                # is allowed.
+                - namespaceSelector:
+                    # Label requirements a namespace must meet.
+                    matchExpressions:
+                      # Label key the requirement applies to.
+                      - key: environment
+                        # How the label is compared with values: In, NotIn, Exists or
+                        # DoesNotExist.
+                        operator: In
+                        # Label values for In and NotIn. When unset, the requirement
+                        # carries no values, as Exists and DoesNotExist expect.
+                        values:
+                          - production
+                    # Labels a namespace must carry, as key and value pairs. When unset,
+                    # no label is required.
+                    matchLabels:
+                      kubernetes.io/metadata.name: corp-monitoring
+                  # Selects source pods by label. With namespaceSelector, pods are
+                  # matched in the selected namespaces; without it, in this namespace.
+                  podSelector:
+                    # Label requirements a pod must meet.
+                    matchExpressions:
+                      # Label key the requirement applies to.
+                      - key: role
+                        # How the label is compared with values: In, NotIn, Exists or
+                        # DoesNotExist.
+                        operator: Exists
+                        # Label values for In and NotIn. When unset, the requirement
+                        # carries no values, as Exists and DoesNotExist expect.
+                        values: []
+                    # Labels a pod must carry, as key and value pairs. When unset, no
+                    # label is required.
+                    matchLabels:
+                      app: prober
+              # Selects the pods in this namespace that the rule applies to. An empty
+              # selector, the default, selects every pod in the namespace.
+              podSelector:
+                # Label requirements a pod must meet.
+                matchExpressions:
+                  # Label key the requirement applies to.
+                  - key: app.kubernetes.io/component
+                    # How the label is compared with values: In, NotIn, Exists or
+                    # DoesNotExist.
+                    operator: NotIn
+                    # Label values for In and NotIn. When unset, the requirement carries
+                    # no values, as Exists and DoesNotExist expect.
+                    values:
+                      - test
+                # Labels a pod must carry, as key and value pairs. When unset, no label
+                # is required.
+                matchLabels:
+                  app.kubernetes.io/name: forecastle
+              # Ports the sources may connect to. When unset, every port is allowed.
+              ports:
+                # Last port of a range that starts at port. Requires a numeric port.
+                # When unset, only port is allowed.
+                - endPort: 8089
+                  # Port number, or the name of a container port. When unset, every port
+                  # of the protocol is allowed.
+                  port: 8080
+                  # Protocol of the traffic: TCP, UDP or SCTP. When unset, TCP applies.
+                  protocol: TCP
+      # Network isolation switches for groups of platform components, one per stack. A
+      # stack entry overrides enabled for every platform namespace of that stack. When a
+      # stack has no entry, its namespaces follow enabled.
+      stacks:
+        # Network isolation switch for the backup and restore components.
+        backup:
+          # Turns network isolation on or off for the platform namespaces of the backup
+          # stack.
+          enabled: true
+        # Network isolation switch for the GitOps components that install the platform.
+        bootstrap:
+          # Turns network isolation on or off for the platform namespaces of the
+          # bootstrap stack.
+          enabled: true
+        # Network isolation switch for the pipeline, registry and code quality
+        # components.
+        cicd:
+          # Turns network isolation on or off for the platform namespaces of the cicd
+          # stack.
+          enabled: true
+        # Network isolation switch for the GitOps configuration components.
+        gitops:
+          # Turns network isolation on or off for the platform namespaces of the gitops
+          # stack.
+          enabled: true
+        # Network isolation switch for the single sign-on and access management
+        # components.
+        identity:
+          # Turns network isolation on or off for the platform namespaces of the
+          # identity stack.
+          enabled: true
+        # Network isolation switch for the ingress, load balancing and DNS components.
+        networking:
+          # Turns network isolation on or off for the platform namespaces of the
+          # networking stack.
+          enabled: true
+        # Network isolation switch for the logging, monitoring and alerting components.
+        observability:
+          # Turns network isolation on or off for the platform namespaces of the
+          # observability stack.
+          enabled: true
+        # Network isolation switch for the core platform components.
+        platform:
+          # Turns network isolation on or off for the platform namespaces of the
+          # platform stack.
+          enabled: true
+        # Network isolation switch for the secret, certificate and policy components.
+        security:
+          # Turns network isolation on or off for the platform namespaces of the
+          # security stack.
+          enabled: false
+        # Network isolation switch for the storage components.
+        storage:
+          # Turns network isolation on or off for the platform namespaces of the storage
+          # stack.
+          enabled: true

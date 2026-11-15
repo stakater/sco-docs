@@ -26,7 +26,9 @@ spec:
 kubectl apply -f alice.yaml
 ```
 
-The platform generates an initial password and publishes it, base64-encoded, in the claim's status. Read it and share it with the user securely:
+The platform generates an initial password and publishes it, base64-encoded, in the claim's status. The password is temporary: the user must change it at first sign-in. Read it and share it with the user securely.
+
+In the console, open the user: **Initial password** is shown masked. **Reveal** shows the password, and **Copy** copies it and masks it again. Both give the decoded password, ready to pass on. With `kubectl`:
 
 ```bash
 kubectl get user alice -o jsonpath='{.status.user.initialPassword}' | base64 -d

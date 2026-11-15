@@ -39,7 +39,10 @@ spec:
           - frontend-team
 ```
 
-List individual users by their **email address**, the same address they log in with. Groups are listed by group name. See [Project Roles](#project-roles) for the roles you can use.
+List individual users by their **email address**, the same address they log in with, and groups by their **group name**, exactly as the group was created (for example `frontend-team`, not a display name). The platform rejects anything else when you apply the project. See [Project Roles](#project-roles) for the roles you can use.
+
+!!! note
+    Mesh and virtual machine access (SSH, RDP) is granted through **groups only**: to groups with the `compute-user`, `admin` or `cluster-admin` role. A person listed under `users` gets the project and its secrets, but not mesh or virtual machine access. To give someone that access, add them to a group and grant one of those roles to the group.
 
 ```bash
 kubectl apply -f frontend-dev-project.yaml
@@ -63,16 +66,33 @@ frontend-dev   Ready    45s
 | Parameter | Required | Description |
 |-----------|----------|-------------|
 | `name` | Yes | Project display name |
-| `network.name` | Yes | Network identifier for the project |
-| `network.cidr` | Yes | IP range for the project network |
+| `network.mode` | No | How the project is networked: `udn` (default), `native` or `external`. See [Network Modes](#network-modes) |
+| `network.cidr` | With `udn` | IP range for the project network. Choose one that no other project in your organisation uses |
+| `network.name` | No | Name of the project network, `udn` mode only (default: `default`) |
+| `network.externalRef` | With `external` | Name of the external network assigned to your organisation |
 | `tenantQuota` | No | Quota profile: `small`, `medium`, or `large` (default: `small`) |
-| `access` | No | Users (by email address) and groups with access, and their roles. See [Project Roles](#project-roles) |
+| `access` | No | Users (by email address) and groups (by group name) with access, and their roles. See [Project Roles](#project-roles) |
+
+---
+
+## Network Modes
+
+| Mode | In the console | What the project gets |
+|------|----------------|-----------------------|
+| `udn` (default) | Isolated network | Its own private network, addressed from `network.cidr` |
+| `native` | Shared cluster network | The platform's shared network, isolated from other projects by network policies. Choose it for virtual machines that must be reachable from this project's OpenShift clusters |
+| `external` | External network | An external network assigned to your organisation, named by `network.externalRef` |
+
+The console offers only the modes your platform supports. `external` is offered only where organisations have external networks; ask your platform provider if you need one.
+
+!!! note
+    A project cannot change to or from `udn` after it is created. To move to or from `udn`, create a new project with the mode you need.
 
 ---
 
 ## Project Roles
 
-Each `access` entry grants one role to a list of users and groups. The platform creates these roles in every project:
+Each `access` entry grants one role to a list of users and groups. In the console, **Role** is a select that describes each role. The platform creates these roles in every project, and they are the ones to use:
 
 | Role | What it grants |
 |------|----------------|
@@ -95,8 +115,19 @@ Each `access` entry grants one role to a list of users and groups. The platform 
 
 For example, `compute-user` lets someone manage virtual machines only, and `database-viewer` lets someone see databases but not change them. Only services enabled on your platform have roles; if a service is not available in your project, its `-user` and `-viewer` roles do not exist.
 
+The console also offers four built-in roles, last and labelled *unrestricted*:
+
+| Role | What it grants |
+|------|----------------|
+| `cluster-admin` | Unrestricted control of everything in the project, including Secrets and who has access |
+| `admin` | Control of nearly everything in the project, including Secrets and who has access |
+| `edit` | Create, change and delete most resources in the project, including Secrets |
+| `view` | Read most resources in the project, excluding Secrets |
+
+Each is broader than any platform role. Prefer the platform roles, and use a built-in role only when no platform role covers what someone needs.
+
 !!! warning
-    Use only the role names listed above. The platform accepts any role name without an error, and the project still reports `Ready`. A name that is not in this list does not grant an SCO role. If it matches a built-in Kubernetes role, such as `edit` or `cluster-admin`, the users get that built-in role inside the project, with far broader rights than any SCO role (for example creating and deleting Secrets, issuing service account tokens, or changing role-based access). If it matches nothing, they get no access at all. Check every `access` entry against this list before you apply it.
+    The platform accepts any role name without an error, and the project still reports `Ready`. A name that matches no role grants nothing. Check every `access` entry against the roles above before you apply it.
 
 <!-- TODO(SA-8708): link SA-9299 / SA-9303 fixes here once role names are validated, and drop the warning if other names are rejected -->
 

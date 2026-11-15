@@ -111,7 +111,16 @@ No credentials email is sent, so share the following with the new organization a
 - Their username (the admin email) and the initial password
 - Links to the [Cloud User Guide](../../cloud-user-guide/getting-started.md)
 
-<!-- TODO(SA-8708): document where a platform administrator reads the generated initial admin password, and whether the administrator must change it at first login. Not verified for this change. -->
+The initial password is in the organization's status, base64 encoded. Read and decode it:
+
+```bash
+kubectl get organizations.infrastructure.stakater.com -n kcp-sco-orgs acme-corp \
+  -o jsonpath='{.status.admin.passwordBase64}' | base64 -d
+```
+
+Where the console shows it, **Initial password** is masked. **Reveal** shows the decoded password, and **Copy** copies it and masks it again.
+
+The password is temporary: the organization administrator must change it at first sign-in.
 
 The same applies to users the organization administrator creates later: they receive no email, and the organization administrator passes on their initial credentials (see [How to Create an IAM User](../../how-to-guides/user/create-iam-user.md)).
 

@@ -24,7 +24,7 @@ Groups sit next to Users under **Identity & Access**. The create form asks for o
 
 ![The Create Group form]({{ screenshot: iam-group-create }})
 
-Members are added one at a time: type the user's email address in the **Members** field and press Enter to commit it. A value left as draft text is not part of the group. If the field is not on the form, switch it to **Advanced** — members are optional, so Standard mode may hide them:
+Members are added one at a time by username, which on this platform is the user's email address: type it in the **Members** field and press Enter to commit it. A value left as draft text is not part of the group. If the field is not on the form, switch it to **Advanced** — members are optional, so Standard mode may hide them:
 
 ![The Create Group form with three members added]({{ screenshot: iam-group-create-members }})
 
@@ -57,8 +57,8 @@ spec:
 
 | Parameter | Description |
 |-----------|-------------|
-| `parameters.members` | Email addresses of the organisation users to add to the group |
-| `parameters.attributes` | Additional key-value attributes to set on the group |
+| `parameters.members` | Usernames of the organisation users to add to the group. A user's username is their email address |
+| `parameters.attributes` | Not used: labels for your own records, with no effect on access. The console does not offer it |
 
 ## Step 2: Add Group Members (Optional)
 
@@ -77,8 +77,10 @@ spec:
       - charlie@acmecorp.example.com
 ```
 
+Members get every role granted to the group, including mesh and virtual machine access (SSH, RDP) where the group's project role grants it.
+
 !!! note
-    List members by their **email address**. A value that is not a user's email address, such as the `username` from their `User` claim, never matches: the membership stays not ready and the group never becomes ready. Members must already exist as organisation users before they can be added to a group. Create users first using the [IAM User](create-iam-user.md) guide.
+    List members by their **username**, which is their **email address**. A value that is not a user's email address, such as the `username` from their `User` claim, never matches: the membership stays not ready and the group never becomes ready. Members must already exist as organisation users before they can be added to a group. Create users first using the [IAM User](create-iam-user.md) guide.
 
 ## Step 3: Apply the Claim
 
@@ -122,22 +124,6 @@ spec:
     members:
       - user1@tenant.com
       - user2@tenant.com
-```
-
-### Group with Attributes
-
-```yaml
-apiVersion: iam.cloud.stakater.com/v1
-kind: Group
-metadata:
-  name: platform-team
-spec:
-  parameters:
-    attributes:
-      department:
-        - engineering
-      costCentre:
-        - cc-1234
 ```
 
 ## Using Groups for Project Access

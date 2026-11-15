@@ -9,6 +9,7 @@ Use this path if you need to install the platform, create service offerings, pub
 - [Platform Provider Guide Overview](../service-provider-guide/overview.md) - Understand the provider responsibilities
 - [Getting Started](../service-provider-guide/getting-started.md) - Create your first platform offering
 - [Installation Overview](../installation/overview.md) - Review platform setup prerequisites and workflow
+- [Release Notes](../release-notes/index.md) - What changes in each platform release, and what to do when you upgrade
 
 ## Common Tasks
 
@@ -20,6 +21,7 @@ Use this path if you need to install the platform, create service offerings, pub
 
 ## Platform Areas
 
+- [Platform Configuration APIs](../platform-configuration/overview.md) - Tune the platform with typed, validated resources
 - [Solutions Overview](../service-provider-guide/solutions/solution-overview.md) - Understand how solutions are structured
 - [Marketplace Configuration](../service-provider-guide/marketplace/marketplace-configuration.md) - Control how catalogue entries are presented
 - [Project Architecture](../service-provider-guide/projects/project-architecture.md) - Understand the provider-side project model

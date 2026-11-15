@@ -15,6 +15,13 @@ validation:
 hooks:
   - screenshots/mkdocs_hook.py
 
+# Merged with the common plugin list (search, glightbox). mkdocs-redirects is in the
+# common requirements.
+plugins:
+  - redirects:
+      redirect_maps:
+        changelog.md: release-notes/index.md
+
 extra:
   version:
     provider: mike
@@ -74,6 +81,14 @@ nav:
           - installation/private-ca.md
           - installation/openbao-unseal.md
           - installation/configuration.md
+      - Release Notes:
+          - release-notes/index.md
+          - release-notes/next-release.md
+          - release-notes/versioning.md
+          - release-notes/release-data.md
+      - Platform Configuration APIs:
+          - platform-configuration/overview.md
+          - platform-configuration/networking-config.md
       - Solutions and Marketplace:
           - service-provider-guide/solutions/solution-overview.md
           - Creating Solutions:

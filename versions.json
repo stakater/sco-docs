@@ -17,7 +17,9 @@
   {
     "version": "renovate-0.1-node-24.x-lockfile",
     "title": "renovate-0.1-node-24.x-lockfile",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "renovate-0.1-dotenv-17.x-lockfile",
@@ -152,9 +154,7 @@
   {
     "version": "docs-release-notes-and-admin-config",
     "title": "docs-release-notes-and-admin-config",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "docs-postgres-backup-byo",

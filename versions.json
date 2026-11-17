@@ -152,14 +152,14 @@
   {
     "version": "docs-release-notes-and-admin-config",
     "title": "docs-release-notes-and-admin-config",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "docs-postgres-backup-byo",
     "title": "docs-postgres-backup-byo",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "docs-networking-mode-not-self-service",

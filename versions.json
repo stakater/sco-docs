@@ -22,9 +22,7 @@
   {
     "version": "renovate-0.1-dotenv-17.x-lockfile",
     "title": "renovate-0.1-dotenv-17.x-lockfile",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "renovate-main-node-26.x",
@@ -159,7 +157,9 @@
   {
     "version": "docs-postgres-backup-byo",
     "title": "docs-postgres-backup-byo",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "docs-networking-mode-not-self-service",

@@ -17,6 +17,8 @@ Each database archives every change as it happens and also takes a full backup o
 
 The last two are off by default because turning backups on restarts a database once. To back one up to the default target, give it an empty entry (`keycloakPublic: {}`). A database is only backed up if its component is installed.
 
+When you turn backups on for a running database, each of its instances restarts once and the first full backup is then taken automatically. On a database with several instances the primary restarts in place, so expect its identity provider to refuse logins for about a minute.
+
 ## Choosing a target
 
 `postgresBackup.type` sets the default target:

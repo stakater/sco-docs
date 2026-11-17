@@ -79,8 +79,8 @@ frontend-dev   Ready    45s
 
 | Mode | In the console | What the project gets |
 |------|----------------|-----------------------|
-| `udn` (default) | Isolated network | Its own private network, addressed from `network.cidr` |
-| `native` | Shared cluster network | The platform's shared network, isolated from other projects by network policies. Choose it for virtual machines that must be reachable from this project's OpenShift clusters |
+| `udn` (default) | Isolated network (VMs only) | A private network with its own address range from `network.cidr`, strictly isolated from everything else. Suitable only for virtual machines |
+| `native` | Standard network | Works with every service, including OpenShift clusters and the virtual machines they need to reach. Other projects cannot reach it |
 | `external` | External network | An external network assigned to your organisation, named by `network.externalRef` |
 
 The console offers only the modes your platform supports. `external` is offered only where organisations have external networks; ask your platform provider if you need one.

@@ -48,7 +48,7 @@ spec:
 
 | Parameter | Default | Description |
 |-----------|---------|-------------|
-| `parameters.network.mode` | `udn` | `udn` (Isolated network), `native` (Shared cluster network) or `external`. The console offers only the modes your platform supports. See [Network Modes](../../cloud-user-guide/projects/creating-projects.md#network-modes) |
+| `parameters.network.mode` | `udn` | `udn` (Isolated network, virtual machines only), `native` (Standard network) or `external`. The console offers only the modes your platform supports. See [Network Modes](../../cloud-user-guide/projects/creating-projects.md#network-modes) |
 | `parameters.network.name` | `default` | Name of the project network, `udn` mode only |
 | `parameters.tenantQuota` | `small` | Quota size for the project (`small`, `medium`, `large`) |
 | `parameters.access` | — | Role-based access entries for users and groups |

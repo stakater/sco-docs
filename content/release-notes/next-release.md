@@ -1,7 +1,7 @@
 # Next Release (unreleased)
 
 !!! warning "Draft"
-    This release has no version yet and is not available. Its content and component versions can still change. Versions shown as **TBD** are not released yet. When the version is assigned, this page moves to `release-notes/<version>.html` and the JSON file to `release-notes/<version>.json`.
+    This release has no platform release version yet. Its components are released: `kubestack-config` 0.8.1 and `kubestack-plus` 0.1.1 carry them. When the version is assigned, this page moves to `release-notes/<version>.html` and the JSON file to `release-notes/<version>.json`.
 
 Machine-readable form: [`next-release.json`](next-release.json) (`status: draft`).
 
@@ -18,23 +18,25 @@ Machine-readable form: [`next-release.json`](next-release.json) (`status: draft`
 
 | Component | Type | Version | Change |
 |-----------|------|---------|--------|
-| `NetworkingConfig` API (`networking-config`) | Crossplane package | TBD | New |
-| Platform configuration APIs (`sco-package-platform-config`) | Helm chart | TBD | New. Installs the platform configuration APIs, their roles and the name policy |
-| `network-policy-base` | Helm library chart | TBD | New. Network isolation for platform namespaces, used by the charts below |
-| `forecastle` | Helm chart | TBD | Supports network isolation and egress rules, off by default |
-| `Project` API (`project.tenant.cloud.stakater.com`) | Crossplane package | TBD | Validates `access[].users` and `access[].groups` |
-| Project console catalogue (`crossplane-package-kcp`) | Helm chart | TBD | Select lists for `access[].role` and `network.mode` |
-| `User` API (`user.iam.cloud.stakater.com`) | Crossplane package | TBD | Initial password marked as secret |
-| `Group` API (`group.iam.cloud.stakater.com`) | Crossplane package | TBD | `attributes` hidden in the console; `members` described |
-| `Organization` and `OrgOnboarding` APIs (`infrastructure.stakater.com`) | Crossplane packages | TBD | Initial administrator password marked as secret |
-| Organisation Vault (`openbao`) | Helm chart | 0.0.74 | Setup job fix. The package that delivers it to organisations: TBD |
-| Console | Container image | TBD | Masked secret values; select lists limited to the values the platform offers |
+| `kubestack-config` | Crossplane package | 0.8.1 | Release defaults for every component below. Adds the optional `supportIntegration` parameter, off by default |
+| `kubestack-plus` | Crossplane package | 0.1.1 | Installs `sco-package-platform-config`. Adds the optional `gitopsProject` parameter |
+| `NetworkingConfig` API (`networking-config`) | Crossplane package | 0.0.1 | New |
+| Platform configuration APIs (`sco-package-platform-config`) | Helm chart | 0.0.1 | New. Installs the platform configuration APIs, their roles and the name policy |
+| `network-policy-base` | Helm library chart | 0.0.1 | New. Network isolation for platform namespaces, used by the charts below |
+| `forecastle` | Helm chart | 1.0.32 | Supports network isolation and egress rules, off by default |
+| `Project` API (`project.tenant.cloud.stakater.com`) | Crossplane package | 0.6.4 | Validates `access[].users` and `access[].groups` |
+| Project console catalogue (`crossplane-package-kcp`) | Helm chart | 0.1.16 | Project catalogue on: select lists for `access[].role` and `network.mode` |
+| `User` API (`user.iam.cloud.stakater.com`) | Crossplane package | 0.1.8 | Initial password marked as secret. Installed by `sco-package-iam` 0.0.16 |
+| `Group` API (`group.iam.cloud.stakater.com`) | Crossplane package | 0.0.18 | `attributes` hidden in the console; `members` described. Installed by `sco-package-iam` 0.0.16 |
+| `Organization` and `OrgOnboarding` APIs (`infrastructure.stakater.com`) | Crossplane packages | 0.3.0 and 0.2.2 | Initial administrator password marked as secret |
+| Organisation Vault (`openbao`) | Helm chart | 0.0.74 | Setup job fix. Delivered to organisations by the `openbao` package 0.5.7, installed by `sco-package-secrets` 0.0.16 |
+| Console | Container image | 0.68.0 | Masked secret values; select lists limited to the values the platform offers. Shipped by `cloud-orchestrator-portal` 0.0.44 |
 
 ### Upgrade Paths
 
 | From | To this release | Notes |
 |------|-----------------|-------|
-| TBD (the previous platform release) | Supported | Do the [actions before upgrading](#before-you-upgrade) first |
+| The previous platform release (`kubestack-config` 0.7.23, `kubestack-plus` 0.0.71) | Supported | Do the [actions before upgrading](#before-you-upgrade) first |
 
 ## Breaking Changes
 
@@ -86,7 +88,9 @@ No output means no project is affected. A project with more than 50 `access` ent
 | ClusterRoles `platform-config-networking-admin` and `platform-config-networking-view` | Manage or read `NetworkingConfig`. Not bound to anyone, and not part of `admin`, `edit` or `view` |
 | ValidatingAdmissionPolicy `platform-config-singleton-name` | Rejects a `config.platform.stakater.com` object whose name is not `cluster` |
 | `forecastle` chart values `networkPolicy.*` | Network isolation and egress rules. Set them through `NetworkingConfig`, not directly |
-| `crossplane-package-kcp` chart values `serviceCatalogs.project.enabled`, `projectCatalog.accessRoles`, `projectCatalog.networkModes` | The console select lists for a Project's role and network mode, and the values they offer. Whether `serviceCatalogs.project.enabled` is on by default in this release: TBD |
+| `crossplane-package-kcp` chart values `serviceCatalogs.project.enabled`, `projectCatalog.accessRoles`, `projectCatalog.networkModes` | The console select lists for a Project's role and network mode, and the values they offer. This release turns `serviceCatalogs.project.enabled` on; the chart default stays off |
+| `KubeStackConfig` `spec.parameters.supportIntegration` | Optional support desk integration. Off by default; nothing changes unless you enable it |
+| `KubeStackPlus` `spec.parameters.gitopsProject` | The Argo CD project of the platform's Applications. Defaults to `default`, as before |
 
 ### Changed
 
@@ -96,7 +100,7 @@ No output means no project is affected. A project with more than 50 `access` ent
 | `Project` `spec.parameters.access[].groups` | **Breaking.** Group names only. See [Breaking Changes](#breaking-changes) |
 | `Project` `spec.parameters.access`, `users`, `groups` | At most 50 entries, and 100 users and 100 groups per entry |
 | `Project` `spec.parameters.access[].role` | The console offers the project roles as a select with descriptions. The API still accepts any role name |
-| `Project` `spec.parameters.network.mode` | The console offers `udn` and `native`, with descriptions. `external` is offered only on platforms that add it. The API still accepts all three modes |
+| `Project` `spec.parameters.network.mode` | The console offers *Isolated network* (`udn`, virtual machines only) and *Standard network* (`native`), with descriptions. `external` is offered only on platforms that add it. The API still accepts all three modes |
 | `User` `status.user.initialPassword` | Shown masked in the console, with reveal and copy |
 | `Organization` and `OrgOnboarding` `status.admin.passwordBase64` | Shown masked in the console, with reveal and copy |
 | `Group` `spec.parameters.attributes` | No longer offered in the console. It stays in the API and has no effect on access |
@@ -131,9 +135,9 @@ See [Platform Configuration APIs](../platform-configuration/overview.md) and [Ne
 
 - **Role** is a select of the project roles, each with a description. The platform roles come first. The built-in roles `cluster-admin`, `admin`, `edit` and `view` are last and labelled *unrestricted*.
 - **Users** and **Groups** explain what to enter. A value that is not an email address or a group name is rejected when you submit.
-- **Network mode** offers *Isolated network* (`udn`) and *Shared cluster network* (`native`), each with a description. On a platform where organisations have external networks, add an `external` entry under `projectCatalog.networkModes` to offer that mode too.
+- **Network mode** offers *Standard network* (`native`), which works with every service, and *Isolated network* (`udn`), strictly isolated and suitable only for virtual machines. Each has a description. On a platform where organisations have external networks, add an `external` entry under `projectCatalog.networkModes` to offer that mode too.
 
-The role and network mode select lists appear when the project catalogue (`serviceCatalogs.project.enabled`) is on. Without it, both fields are text boxes, as before.
+The role and network mode select lists come from the project catalogue (`serviceCatalogs.project.enabled`), which this release turns on.
 
 ### Masked initial passwords
 

@@ -3041,6 +3041,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
+      <a href="../how-to-guides/user/connect-to-openshift-cluster.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Connect to an OpenShift Cluster
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../how-to-guides/user/provision-virtual-machine.html" class="md-nav__link">
         
   
@@ -3581,6 +3609,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     
   
     scobasic Installation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="private-ca.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Private Certificate Authority
   
 
     
@@ -6156,6 +6212,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </tbody>
 </table>
 <p>The last two are off by default because turning backups on restarts a database once. To back one up to the default target, give it an empty entry (<code>keycloakPublic: {}</code>). A database is only backed up if its component is installed.</p>
+<p>When you turn backups on for a running database, each of its instances restarts once and the first full backup is then taken automatically. On a database with several instances the primary restarts in place, so expect its identity provider to refuse logins for about a minute.</p>
 <h2 id="choosing-a-target">Choosing a target<a class="headerlink" href="#choosing-a-target" title="Permanent link">#</a></h2>
 <p><code>postgresBackup.type</code> sets the default target:</p>
 <table>

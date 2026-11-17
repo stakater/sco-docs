@@ -6560,13 +6560,13 @@ frontend-dev   Ready    45s
 <tbody>
 <tr>
 <td><code>udn</code> (default)</td>
-<td>Isolated network</td>
-<td>Its own private network, addressed from <code>network.cidr</code></td>
+<td>Isolated network (VMs only)</td>
+<td>A private network with its own address range from <code>network.cidr</code>, strictly isolated from everything else. Suitable only for virtual machines</td>
 </tr>
 <tr>
 <td><code>native</code></td>
-<td>Shared cluster network</td>
-<td>The platform's shared network, isolated from other projects by network policies. Choose it for virtual machines that must be reachable from this project's OpenShift clusters</td>
+<td>Standard network</td>
+<td>Works with every service, including OpenShift clusters and the virtual machines they need to reach. Other projects cannot reach it</td>
 </tr>
 <tr>
 <td><code>external</code></td>

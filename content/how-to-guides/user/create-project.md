@@ -20,6 +20,14 @@ When you create a Project claim, the platform provisions:
 - **Identity groups** for read-only and admin access
 - **Role-based access control** within the project
 
+## In the Console
+
+Select **Projects** in the sidebar, then **Create**. The form asks for the same values as the claim below: a project name, the network with its CIDR range, and the access entries further down.
+
+![The Create a new project form, with the project name and the network CIDR filled in]({{ screenshot: project-create-filled }})
+
+Choose a CIDR range that no other project in your organisation uses. The platform does not check ranges for overlap.
+
 ## Step 1: Define Your Project Claim
 
 Create a file named `project.yaml` with the following minimal configuration:
@@ -103,6 +111,10 @@ Wait for the project to become ready:
 NAME         READY   SYNCED   AGE
 my-project   True    True     2m
 ```
+
+In the console, the project shows **Ready** next to its name. Its detail page lists the quota and the network, and the address, sign-in role and folder of the project in your organisation's [Vault](../../api-reference/public-apis/vault.md#project-access):
+
+![The detail page of a Ready project, showing its quota, network and Vault folder]({{ screenshot: project-detail }})
 
 You can also describe the claim to inspect status conditions:
 

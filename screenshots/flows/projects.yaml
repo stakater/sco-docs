@@ -1,4 +1,4 @@
-# console/projects.md -> 2 images.
+# console/projects.md -> 2 images; how-to-guides/user/create-project.md -> 2 images.
 # Projects are an ordinary resource, so the same two packs the resources flow uses
 # cover this page with nothing but a different plural.
 name: sco-docs-projects
@@ -10,6 +10,7 @@ requires:
     - CONSOLE_USER
     - CONSOLE_PASSWORD
     - DOCS_PROJECT_PLURAL
+    - DOCS_PROJECT_NAME
   reachable: ["${CONSOLE_URL}"]
 
 viewport:
@@ -37,6 +38,20 @@ steps:
       portal: "${CONSOLE_URL}"
       plural: "${DOCS_PROJECT_PLURAL}"
   - { step: screenshot, path: project-create.png, fullPage: false }
+
+  # create-project.md step 1 -- the same form with the name and CIDR from the guide's snippet, so
+  # the image and the YAML describe one project. Filled, never submitted.
+  - { step: fill, selector: 'input[id="metadata.name"], input#name', value: "my-project" }
+  - { step: fill, selector: 'input[placeholder^="CIDR range"]', value: "10.0.0.0/16" }
+  - { step: screenshot, path: project-create-filled.png, fullPage: false }
+
+  # create-project.md step 4 -- the detail page of a Ready project. Needs the seeded one.
+  - use: cloud-orchestrator-console-open-resource-detail
+    with:
+      portal: "${CONSOLE_URL}"
+      plural: "${DOCS_PROJECT_PLURAL}"
+      name: "${DOCS_PROJECT_NAME}"
+  - { step: screenshot, path: project-detail.png, fullPage: false }
 
 after:
   - { step: screenshot, when: on-failure, path: _failure-projects.png }

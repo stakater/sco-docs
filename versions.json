@@ -37,7 +37,9 @@
   {
     "version": "renovate-main-nginxinc-nginx-unprivileged-1.x",
     "title": "renovate-main-nginxinc-nginx-unprivileged-1.x",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "renovate-main-dotenv-18.x",
@@ -127,9 +129,7 @@
   {
     "version": "docs-scobasic-public-dns",
     "title": "docs-scobasic-public-dns",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "docs-scobasic-org-onboarding",

@@ -87,39 +87,76 @@ kubectl get postgres my-database -o jsonpath='{.status.connection}'
 ```
 
 ```json
-{"host":"my-database-rw.projects.svc.cluster.local","port":"5432","database":"my-database","credentialsRef":{"vault":"https://bao.acme.mesh.example.stakater.cloud","mount":"services","path":"my-project/postgres/my-database"}}
+{"database":"my-database","host":"my-database-rw","port":"5432"}
 ```
 
 ## Step 4: Read the Credentials
 
-The platform stores the credentials in your organisation's Vault at `status.connection.credentialsRef`. Open the Vault URL in a browser (from a Mesh-enrolled device) and navigate to the `services` secret engine, or use the CLI:
+The platform generates the database credentials and stores them in your organisation's [Vault](create-vault.md), in your project's folder. The claim status names the exact path:
 
 ```bash
-export BAO_ADDR=$(kubectl get postgres my-database -o jsonpath='{.status.connection.credentialsRef.vault}')
-bao login -method=oidc
-bao kv get -mount=services $(kubectl get postgres my-database -o jsonpath='{.status.connection.credentialsRef.path}')
+kubectl get postgres my-database -o jsonpath='{.status.credentials}'
 ```
 
-Keys cover the common client conventions:
+```json
+{"delivered":true,"message":"Stored in your organization's OpenBao","secretPath":"stakater/projects/acme-my-project/databases/my-database","secretStore":"acme-bao"}
+```
+
+Read the path from left to right:
+
+| Part | Meaning |
+|------|---------|
+| `stakater` | The secrets engine (mount) that holds your organisation's secrets |
+| `projects/acme-my-project` | Your project's folder, named `<organisation>-<project>` |
+| `databases/my-database` | The entry for this database |
+
+Wait for `delivered` to be `true`, then read the entry. You need to sign in to the Vault with one of your project's roles first. Any role that can see the project folder works, including the read-only ones (see [Project access](../../api-reference/public-apis/vault.md#project-access)).
+
+1. Find the Vault address and your role:
+
+    ```bash
+    kubectl get project my-project -o jsonpath='{.status.openbao}'
+    ```
+
+    ```json
+    {"available":true,"address":"https://bao.acme.mesh.example.com","secretPath":"stakater/projects/acme-my-project/","roles":["acme-my-project-rw"],"message":"Log in to your organization's OpenBao with OIDC and one of the listed roles"}
+    ```
+
+1. Read the credentials in the web UI or the CLI.
+
+    **Web UI:** open the address, choose method **OIDC**, enter your role in **Role**, and sign in. Then open **Secrets engines** → `stakater` → `projects` → `acme-my-project` → `databases` → `my-database` and reveal `password`.
+
+    **CLI:**
+
+    ```bash
+    export BAO_ADDR=https://bao.acme.mesh.example.com
+    bao login -method=oidc role=acme-my-project-rw
+    bao kv get -mount=stakater projects/acme-my-project/databases/my-database
+    bao kv get -mount=stakater -field=password projects/acme-my-project/databases/my-database
+    ```
+
+!!! note
+    Signing in without a role succeeds but shows you nothing in your project's folder. A sign-in lasts one hour; sign in again with the role if the Vault stops showing the folder.
+
+If `delivered` is `false`, the `message` field says why — most often, the organisation has no Vault.
+
+The entry holds these keys:
 
 | Key | Description |
 |-----|-------------|
-| `username` / `user` | Application user (both keys carry the same value) |
+| `username` | Application user |
 | `password` | Password for the application user |
 | `host` | Read-write service hostname |
 | `port` | Service port |
 | `dbname` | Database name |
 | `uri` | PostgreSQL connection URI |
-| `jdbc-uri` | JDBC URL |
-| `fqdn-uri`, `fqdn-jdbc-uri` | URI / JDBC URL with the host's fully-qualified cluster DNS name |
-| `pgpass` | A line for `~/.pgpass` |
 
 ### Mount the credentials into a workload
 
 Create a Secret next to your workload from the Vault values, then reference it with `envFrom`:
 
 ```bash
-bao kv get -mount=services -format=json my-project/postgres/my-database \
+bao kv get -mount=stakater -format=json projects/acme-my-project/databases/my-database \
   | jq -r '.data.data' > creds.json
 kubectl create secret generic my-database --from-env-file=<(jq -r 'to_entries[] | "\(.key)=\(.value)"' creds.json)
 rm creds.json
@@ -172,7 +209,7 @@ From a network that can reach the endpoint, connect using the credentials from t
 
 ```bash
 PG_HOST=$(kubectl get postgres my-database -o jsonpath='{.status.connection.externalHost}')
-CREDS=$(bao kv get -mount=services -format=json my-project/postgres/my-database | jq -r '.data.data')
+CREDS=$(bao kv get -mount=stakater -format=json projects/acme-my-project/databases/my-database | jq -r '.data.data')
 export PGUSER=$(echo "$CREDS" | jq -r '.username')
 export PGPASSWORD=$(echo "$CREDS" | jq -r '.password')
 export PGDATABASE=$(echo "$CREDS" | jq -r '.dbname')
@@ -218,9 +255,10 @@ spec:
 kubectl delete postgres my-database
 ```
 
-The platform tears down the database and removes the credentials from your organisation's Vault. If you copied the credentials into Secrets next to your workloads, remember to delete those too:
+The platform tears down the database. The credentials entry stays in your organisation's Vault; remove it with a read-write project role, and delete any Secrets you created from it next to your workloads:
 
 ```bash
+bao kv metadata delete -mount=stakater projects/acme-my-project/databases/my-database
 kubectl delete secret my-database
 ```
 

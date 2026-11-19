@@ -152,14 +152,14 @@
   {
     "version": "docs-sa-8965-related-resources",
     "title": "docs-sa-8965-related-resources",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "docs-release-notes-and-admin-config",
     "title": "docs-release-notes-and-admin-config",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "docs-postgres-backup-byo",

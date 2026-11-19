@@ -37,24 +37,21 @@ View the [`.gitmodules`](./.gitmodules) file to see linked git submodules.
 
 There are at least two options to get fast continuous feedback during local development:
 
-1. Build and run the docs using the Dockerfile image
+1. Run the docs in a container with live reload
 1. Run the commands locally
 
-### Build Dockerfile image and run container
+### Run in a container with live reload
 
-Build Dockerfile test image:
-
-```bash
-docker build . -t test -f Dockerfilelocal
-```
-
-Run test container:
+Make sure the `theme_common` submodule is checked out (see above), then start the
+[`compose.yaml`](./compose.yaml) service:
 
 ```bash
-docker run -p 8080:8080 test
+docker compose up    # or: podman compose up
 ```
 
-Then access the docs on [`localhost:8080`](localhost:8080).
+Then access the docs on [`localhost:8000`](http://localhost:8000). Changes under
+`content/` reload in the browser. After changing `theme_override/mkdocs.yml`, restart
+the service.
 
 ### Run commands locally
 

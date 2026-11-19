@@ -20,7 +20,7 @@ oc get nodes
 
 ## Step 2: Prepare Claim Files
 
-This guide targets **`variant: hosting`** — the full greenfield deployment that installs the entire platform foundation plus the SCO layer on a base OpenShift cluster. You author two claim files and adjust every `<...>` placeholder for your environment.
+This guide targets **`variant: hosting`** — the full greenfield deployment that installs the entire platform foundation plus the SCO layer on a base OpenShift cluster. You author two claim files and an environment configuration file, and adjust every `<...>` placeholder for your environment.
 
 ### KubeStackConfig Claim (`kubestack-config-claim.yaml`)
 
@@ -148,8 +148,251 @@ spec:
 !!! note
     Excluding an addon also transitively excludes any addons that depend on it.
 
-!!! note
-    Example claim files are available in the `examples/` directory of the KubeStack+ CLI repository.
+### Environment Configuration (`hosting-env-config.yaml`)
+
+**Required.** Passed to `ksp up` with `--environment-config` (Step 4). It
+becomes the cluster's `cluster-defaults` EnvironmentConfig: the base domain,
+the identity provider URL, load balancing, storage and, if you use them, the
+OpenBSD DNS routers. The platform reads where to find its components from
+this configuration, so `ksp up` will not start the installation without it.
+
+```yaml
+name: cluster-defaults
+
+clusterDefaults:
+  # Core
+  baseDomain: "apps.<cluster-domain>"     # same value as parameters.domain
+  rhbkUrl: "rhbk.apps.<cluster-domain>"   # rhbk.<baseDomain>, no https://
+  variant: "hosting"
+  platform: "ocp"
+
+  # Load balancer addresses — enable ONE of the two modes
+  metallb:
+    l2Advertisement:                      # no router peering needed
+      enabled: false
+      addressRanges:
+        - "<range-start>-<range-end>"
+    bgp:                                  # peering with your gateway router
+      enabled: true
+      myASN: <cluster-asn>                # e.g. 65002
+      peerASN: <gateway-asn>              # e.g. 65001
+      peerAddress: "<gateway-internal-ip>"
+      peerPort: 179
+      addressRanges:
+        - "<public-cidr>"                 # the block routed to this cluster
+
+  # Storage (ODF)
+  storage:
+    localStorageNodes: []                 # node names whose spare disks ODF uses
+    odfStorageClassName: "ocs-storagecluster"
+    persistentStorageClassName: "ocs-storagecluster-ceph-rbd"
+    odfStorageClusterCount: 3
+    odfStorageClusterReplicas: 1
+    odfStorageSize: "1Ti"                 # per disk; match your disks
+    odfPatchStorageClassAsDefault: true
+
+# OpenBSD routers for hosted-cluster public DNS — top level, not under
+# clusterDefaults. Leave this block out if you do not use them.
+openbsdUnboundConfig:
+  enabled: true
+  openbsdHosts:
+    - "<router-host-1>"
+  routerPodIPs:
+    - "<router-pod-ip>"
+  sshCredentialsSecretRef:
+    name: openbsd-ssh-credentials
+    privateKeyKey: ssh-privatekey
+    namespace: crossplane-system
+  sshUser: crossplane
+```
+
+| Field | Required | Description |
+|-------|:--------:|-------------|
+| `name` | ✅ | Always `cluster-defaults`. |
+| `clusterDefaults.baseDomain` | ✅ | Wildcard apps domain, without a leading `*.`. Must equal `parameters.domain` in the `KubeStackConfig` claim. |
+| `clusterDefaults.rhbkUrl` | ✅ | Host name of the platform identity provider, without a scheme: `rhbk.<baseDomain>`. |
+| `clusterDefaults.variant` / `platform` | ✅ | `hosting` and `ocp` — must match both claims. |
+| `clusterDefaults.metallb` | ✅ | The IP addresses the cluster hands out to `LoadBalancer` Services, and how it announces them to your network. Enable exactly one mode: `l2Advertisement` or `bgp`. The addresses must be unused and reach this cluster. See [MetalLB](#metallb-clusterdefaultsmetallb). |
+| `clusterDefaults.storage` | — | How the platform builds ODF from the nodes' spare disks. Every field has a default; in most installs you change only `odfStorageSize` and `odfStorageClusterCount`. See [Storage](#storage-clusterdefaultsstorage). |
+| `openbsdUnboundConfig` | — | Only if OpenBSD routers serve DNS for hosted-cluster public access. Off by default; leave the block out if you do not use them. See [OpenBSD DNS routers](#openbsd-dns-routers-openbsdunboundconfig). |
+
+!!! warning "Keep `baseDomain` and `rhbkUrl` in line with the claim"
+    After installation the platform renders this configuration again from the
+    `KubeStackConfig` claim on every sync. A `baseDomain` or `rhbkUrl` that
+    differs from the claim is overwritten on the first sync. The `metallb`,
+    `storage` and `openbsdUnboundConfig` values you set here are kept.
+
+!!! tip
+    `ksp prerequisites --variant hosting` lists the sections this variant
+    needs. Add `--generate-files <dir>` to write a skeleton of this file.
+
+#### MetalLB `clusterDefaults.metallb`
+
+On bare metal nothing hands out addresses to `LoadBalancer` Services, so the
+platform installs MetalLB and configures it from these values. The platform
+cannot obtain the addresses or configure your network for you; arrange both
+before you install.
+
+Choose one of two modes:
+
+- **Layer 2** (`l2Advertisement`) — one node answers for each address on the
+  local network, and another node takes over if it fails. It needs no router
+  configuration, but the addresses must come from the nodes' own network
+  segment, and all traffic for one address enters through a single node.
+- **BGP** (`bgp`) — every node peers with your gateway router and announces
+  each address to it. Use it when the addresses are a separate block, such as
+  public IPs routed to the cluster.
+
+Before you install, have ready:
+
+- A block of addresses that nothing else uses and that your network delivers
+  to this cluster. Plan for roughly **seven** addresses: three for the storage
+  object gateway and four for the platform mesh. The three storage addresses
+  all serve port 443, so each needs its own address.
+- For BGP: the router configured to accept a BGP session from every node's
+  internal IP, the AS numbers for both sides, and the router's internal IP.
+
+| Field | Required | Description |
+|-------|:--------:|-------------|
+| `clusterDefaults.metallb.l2Advertisement.enabled` | — | `true` to announce the addresses on the nodes' own network segment. Needs no router configuration. Default: `true`. |
+| `clusterDefaults.metallb.l2Advertisement.addressRanges` | ✅ (L2) | List of ranges (`<start>-<end>`) or CIDRs. The addresses must be on the same network segment as the nodes. |
+| `clusterDefaults.metallb.bgp.enabled` | — | `true` to announce the addresses to your gateway router over BGP. Every node peers with the router, and each address is announced on its own (`/32`). Default: `false`. |
+| `clusterDefaults.metallb.bgp.myASN` | ✅ (BGP) | The cluster's own AS number, as configured on the router for this cluster, e.g. `65002`. |
+| `clusterDefaults.metallb.bgp.peerASN` | ✅ (BGP) | The router's AS number, e.g. `65001`. |
+| `clusterDefaults.metallb.bgp.peerAddress` | ✅ (BGP) | The router's **internal** IP, as the nodes reach it — not its public address. |
+| `clusterDefaults.metallb.bgp.peerPort` | — | The router's BGP port. Default: `179`. |
+| `clusterDefaults.metallb.bgp.addressRanges` | ✅ (BGP) | The block your network routes to this cluster, usually a CIDR such as `203.0.113.128/27`. |
+
+!!! warning "Disable the MetalLB mode you do not use"
+    `l2Advertisement` is on by default. With BGP, set
+    `l2Advertisement.enabled: false` explicitly: leaving the block out keeps
+    layer 2 switched on, with a placeholder range, next to BGP.
+
+After installation, check that the address pool exists and that no Service is
+still waiting for an address:
+
+```bash
+oc get ipaddresspools,l2advertisements,bgppeers -n metallb-operator
+oc get svc -A | grep -i pending          # should be empty
+```
+
+#### Storage `clusterDefaults.storage`
+
+The platform builds the cluster's storage with ODF from unused disks on the
+worker nodes:
+
+1. The Local Storage Operator finds every unused disk and partition of 1 GiB or
+   more on the selected nodes, and offers each one as a volume.
+1. ODF claims `odfStorageClusterCount` of those volumes, of at least
+   `odfStorageSize` each, and builds a storage cluster from them.
+1. ODF creates the storage classes the platform and your workloads use, among
+   them `ocs-storagecluster-ceph-rbd` for block volumes.
+
+The platform also turns on cluster-wide disk encryption in ODF, with the keys
+kept in the cluster. There is no setting for it here.
+
+Before you install, make sure that:
+
+- At least three nodes have spare disks.
+- Each spare disk is empty — no filesystem and no data you want to keep.
+- No other disk is left unused on those nodes. The platform takes every unused
+  disk and partition of 1 GiB or more, including ones you meant for something
+  else.
+
+ODF keeps three copies of all data, so usable capacity is about a third of the
+raw capacity. For example, three nodes with two 2 TiB disks each:
+
+```yaml
+  storage:
+    odfStorageClusterCount: 6     # 3 nodes × 2 disks
+    odfStorageSize: "2Ti"         # 12 TiB raw, about 4 TiB usable
+```
+
+| Field | Required | Description |
+|-------|:--------:|-------------|
+| `clusterDefaults.storage.odfStorageSize` | — | Size ODF claims from each spare disk, e.g. `"1Ti"`. Set it to the size of your spare disks — the smallest one, if they differ. A disk smaller than this value is not used. Default: `1Ti`. |
+| `clusterDefaults.storage.localStorageNodes` | — | Node names (as in `oc get nodes`) whose spare disks ODF may use. Leave empty to use every worker node. List the nodes when only some of them have suitable disks, or when the disks differ in size and you want ODF on uniform disks. Default: empty. |
+| `clusterDefaults.storage.odfStorageClusterCount` | — | Number of disks ODF uses. Set it to the number of spare disks across the nodes in use; it is not derived from `localStorageNodes`. Default: `3`. |
+| `clusterDefaults.storage.odfStorageClusterReplicas` | — | Disks per storage set. Keep `1`: ODF is set up for flexible scaling, which expects one. Default: `1`. |
+| `clusterDefaults.storage.odfPatchStorageClassAsDefault` | — | `true` makes the ODF block storage class the cluster's default storage class. Set `false` to keep a default class you already have. Default: `true`. |
+| `clusterDefaults.storage.persistentStorageClassName` | — | Storage class the platform's own components use for their volumes. Keep the default, which is the ODF block storage class. Default: `ocs-storagecluster-ceph-rbd`. |
+| `clusterDefaults.storage.odfStorageClassName` | — | Name of the class for the spare disks, and the prefix of the ODF storage classes. Keep the default. Default: `ocs-storagecluster`. |
+
+After installation, check that the disks were found and the storage cluster is
+ready:
+
+```bash
+oc get localvolumeset -n openshift-local-storage
+oc get pv | grep ocs-storagecluster       # one volume per spare disk
+oc get storagecluster -n openshift-storage   # PHASE should be Ready
+```
+
+If `odfStorageClusterCount` is higher than the number of disks found, the extra
+claims stay `Pending` and the storage cluster never becomes ready.
+
+#### OpenBSD DNS routers `openbsdUnboundConfig`
+
+Only for networks where OpenBSD routers run the DNS resolver (Unbound) that
+hosted clusters use. A hosted cluster must reach its login endpoint through
+the hosting cluster's internal router, not through its public address. So
+each time a hosted cluster is created, the platform logs in to every listed
+router over SSH, adds a DNS record that points the cluster's login endpoint at
+`routerPodIPs`, and reloads Unbound.
+
+The feature is off by default. Leave the block out if you do not use it.
+
+Prepare each router before you install:
+
+1. Create the user the platform logs in as (`crossplane` by default), and add
+   the public half of an SSH key pair to its `authorized_keys`:
+
+    ```bash
+    ssh-keygen -t ed25519 -f crossplane-key -N "" -C crossplane
+    ```
+
+1. Let that user write to `/var/unbound/etc/conf.d`.
+1. Allow that user to reload Unbound, and nothing else, in `/etc/doas.conf`:
+
+    ```text
+    permit nopass crossplane cmd /usr/sbin/unbound-control args reload
+    ```
+
+1. Install Python 3 (`pkg_add python3`). The platform configures the router
+   with Ansible, which needs it.
+1. Make Unbound read the directory. Add this line to the `server:` block of
+   `/var/unbound/etc/unbound.conf`:
+
+    ```text
+    include: /var/unbound/etc/conf.d/*.conf
+    ```
+
+| Field | Required | Description |
+|-------|:--------:|-------------|
+| `openbsdUnboundConfig.enabled` | — | `true` to manage DNS records on the routers. Default: `false`. |
+| `openbsdUnboundConfig.openbsdHosts` | ✅ | Address of every router to configure. List both members of a high-availability pair. Use the same hosts as `openshiftCluster.public.openbsdUnbound.openbsdHosts` in the `KubeStackConfig` claim. |
+| `openbsdUnboundConfig.routerPodIPs` | ✅ | Internal IPs of the hosting cluster's ingress router, which the DNS records point to. Find them with `oc get pods -n openshift-ingress -o wide`. Use the same IPs as in the `KubeStackConfig` claim. |
+| `openbsdUnboundConfig.sshUser` | — | User the platform logs in as. Default: `crossplane`. |
+| `openbsdUnboundConfig.sshCredentialsSecretRef.name` | — | Secret that holds the SSH private key. Default: `openbsd-ssh-credentials`. |
+| `openbsdUnboundConfig.sshCredentialsSecretRef.namespace` | — | Namespace of that secret. Default: `crossplane-system`. |
+| `openbsdUnboundConfig.sshCredentialsSecretRef.privateKeyKey` | — | Key in the secret that holds the private key. Default: `ssh-privatekey`. |
+
+Create the secret with the private key during installation with
+`--extra-secrets`, in a file such as `extra-secrets.yaml`:
+
+```yaml
+secrets:
+  - name: openbsd-ssh-credentials
+    namespace: crossplane-system
+    type: kubernetes.io/ssh-auth
+    sshAuth:
+      privateKey: |
+        -----BEGIN OPENSSH PRIVATE KEY-----
+        <contents of crossplane-key>
+        -----END OPENSSH PRIVATE KEY-----
+```
+
+After a hosted cluster is created, its record appears on each router as
+`/var/unbound/etc/conf.d/<hosted-cluster-name>.conf`.
 
 ## Step 3: Prepare Registry Credentials
 
@@ -184,19 +427,23 @@ The symptom is unhelpful: every platform Application fails to sync with a `401`,
 
 ## Step 4: Run Installation
 
-`ksp up` operates on your **current `oc`/`kubectl` context**, so confirm it points at the target cluster first (`oc whoami --show-server`). Then run it with both claim files and your registry secret — `-c` (KubeStackConfig) is applied first, then `-f` (KubeStackPlus):
+`ksp up` operates on your **current `oc`/`kubectl` context**, so confirm it points at the target cluster first (`oc whoami --show-server`). Then run it with both claim files, the environment configuration and your registry secret — `-c` (KubeStackConfig) is applied first, then `-f` (KubeStackPlus):
 
 ```bash
 ksp up \
   -c kubestack-config-claim.yaml \
   -f kubestack-plus-claim.yaml \
+  --environment-config ./hosting-env-config.yaml \
   --registry-secret ./registry-secret.yaml
 ```
+
+If you use `openbsdUnboundConfig`, also pass `--extra-secrets ./extra-secrets.yaml`.
 
 By default `ksp up` asks you to confirm the target cluster before making changes. For non-interactive runs (e.g. CI/CD), add `--no-prompt`:
 
 ```bash
 ksp up -c kubestack-config-claim.yaml -f kubestack-plus-claim.yaml \
+       --environment-config ./hosting-env-config.yaml \
        --registry-secret ./registry-secret.yaml --no-prompt
 ```
 
@@ -286,6 +533,17 @@ oc describe kubestackplus <name> -n ksp-system
 ```bash
 oc logs -n crossplane-system -l app=crossplane
 oc logs -n crossplane-system -l app.kubernetes.io/component=crossplane
+```
+
+### Every component is reported as missing
+
+On a cluster that already has components installed, `ksp up` reports all of
+them as missing, as if the cluster were new. `ksp` uses Helm to find out what
+is installed; when Helm fails, nothing is found. Check that Helm is 3.18 or
+newer:
+
+```bash
+helm version --short
 ```
 
 ### Provider installation timeout

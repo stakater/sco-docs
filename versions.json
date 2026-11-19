@@ -152,9 +152,7 @@
   {
     "version": "docs-release-notes-and-admin-config",
     "title": "docs-release-notes-and-admin-config",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "docs-postgres-backup-byo",
@@ -174,7 +172,9 @@
   {
     "version": "docs-mesh-local-route-overlap-sa9649",
     "title": "docs-mesh-local-route-overlap-sa9649",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "docs-installation",

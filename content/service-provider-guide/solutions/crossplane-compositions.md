@@ -356,6 +356,7 @@ See the [Crossplane Integration](../../integrations/crossplane.md) guide for a f
 ## What's Next?
 
 - [Modelling Child Resources](modeling-child-resources.md) — Model parent/child relationships between claim kinds
+- [Modelling Related Resources](modeling-related-resources.md) — List the claims a claim names on its detail page
 - [Crossplane Integration](../../integrations/crossplane.md) — Full provider setup and composition reference
 - [Publishing APIs](../api-publishing/publishing-apis.md) — Expose your composition to consumer projects
 - [Create PostgreSQL Solution](../../how-to-guides/provider/create-postgresql-solution.md) — Full end-to-end worked example

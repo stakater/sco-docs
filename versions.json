@@ -150,13 +150,6 @@
     "aliases": []
   },
   {
-    "version": "docs-sa-8965-related-resources",
-    "title": "docs-sa-8965-related-resources",
-    "aliases": [
-      "latest"
-    ]
-  },
-  {
     "version": "docs-release-notes-and-admin-config",
     "title": "docs-release-notes-and-admin-config",
     "aliases": []

@@ -87,7 +87,9 @@
   {
     "version": "docs-vm-peers-native-network",
     "title": "docs-vm-peers-native-network",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "docs-vm-backup-vs-snapshot",
@@ -157,9 +159,7 @@
   {
     "version": "docs-postgres-backup-byo",
     "title": "docs-postgres-backup-byo",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "docs-networking-mode-not-self-service",

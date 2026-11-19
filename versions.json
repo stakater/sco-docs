@@ -127,7 +127,9 @@
   {
     "version": "docs-scobasic-public-dns",
     "title": "docs-scobasic-public-dns",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "docs-scobasic-org-onboarding",

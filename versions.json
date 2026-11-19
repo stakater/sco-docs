@@ -137,7 +137,9 @@
   {
     "version": "docs-scobasic-extra-secrets-and-cli-version",
     "title": "docs-scobasic-extra-secrets-and-cli-version",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "docs-sa8938-vm-ssh-port",
@@ -157,9 +159,7 @@
   {
     "version": "docs-release-notes-and-admin-config",
     "title": "docs-release-notes-and-admin-config",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "docs-postgres-backup-byo",

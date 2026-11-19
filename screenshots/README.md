@@ -64,8 +64,12 @@ the `viewport:` block of every flow so all captures come out the same size.
 | `clusters` | `provision-openshift-cluster.md` | `cluster-create-standard`, `cluster-create-advanced` |
 | `postgres` | `create-postgres.md` | `postgres-create`, `postgres-create-advanced`, `postgres-list`, `postgres-detail` |
 | `windows-vm` | `provision-windows-virtual-machine.md` | `windows-vm-create`, `windows-vm-list`, `windows-vm-detail` |
+| none (taken by hand) | `create-postgres.md` | `vault-oidc-sign-in`, `vault-database-credentials` |
 
 `dashboard-org-stats` and `create-form-standard` are each referenced by two pages.
+
+The two `vault-*` images show the Vault's own web UI, which no flow opens. A capture run
+does not refresh them; retake them by hand when that UI changes.
 
 The `iam`, `mesh` and `clusters` flows cover how-to guides rather than console pages, so
 they carry a console section into a `kubectl`-first guide. They are still read-only: a

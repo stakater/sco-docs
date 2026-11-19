@@ -126,6 +126,12 @@ Wait for `delivered` to be `true`, then read the entry. You need to sign in to t
 
     **Web UI:** open the address, choose method **OIDC**, enter your role in **Role**, and sign in. Then open **Secrets engines** → `stakater` → `projects` → `acme-my-project` → `databases` → `my-database` and reveal `password`.
 
+    ![The Vault sign-in form with method OIDC and a project role entered in Role]({{ screenshot: vault-oidc-sign-in }})
+
+    The entry lists the keys with their values hidden until you reveal them:
+
+    ![A database entry in the Vault, under the databases folder of the project, showing its six keys]({{ screenshot: vault-database-credentials }})
+
     **CLI:**
 
     ```bash

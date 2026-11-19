@@ -18,7 +18,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.svg">
-      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.8.1">
+      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.8.2">
     
     
       
@@ -3185,6 +3185,17 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
         
           <li class="md-nav__item">
+  <a href="#if-the-connection-fails-straight-away" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        If the Connection Fails Straight Away
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#if-pages-hang-or-load-only-partly" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -6198,6 +6209,17 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
         
           <li class="md-nav__item">
+  <a href="#if-the-connection-fails-straight-away" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        If the Connection Fails Straight Away
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#if-pages-hang-or-load-only-partly" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -6360,6 +6382,17 @@ sudo<span class="w"> </span>resolvectl<span class="w"> </span>domain<span class=
 </code></pre></div>
 <p><code>sudo resolvectl revert &lt;interface&gt;</code> undoes it, and the setting is also lost when the interface reconnects.</p>
 <p>Windows has no per-domain resolver files. Set a public resolver as the DNS server of your network adapter instead.</p>
+<h3 id="if-the-connection-fails-straight-away">If the Connection Fails Straight Away<a class="headerlink" href="#if-the-connection-fails-straight-away" title="Permanent link">#</a></h3>
+<p>A cluster's addresses are in <code>172.30.0.0/16</code>. If a network on your own machine uses that range, your operating system sends the traffic there instead of into the mesh. Docker networks and some VPNs commonly do. <code>netbird status</code> still reads <code>Connected</code>, but the connection fails within a few seconds, often with <code>No route to host</code>. In <code>curl -v</code> output the failed connection comes from a local <code>172.30.x.x</code> address.</p>
+<p>Look up the cluster's address, then check which interface your machine uses to reach it:</p>
+<div class="highlight"><pre><span></span><code>nslookup<span class="w"> </span>console-openshift-console.apps.&lt;cluster&gt;.&lt;base-domain&gt;
+ip<span class="w"> </span>route<span class="w"> </span>get<span class="w"> </span>&lt;address&gt;<span class="w">          </span><span class="c1"># Linux</span>
+route<span class="w"> </span>-n<span class="w"> </span>get<span class="w"> </span>&lt;address&gt;<span class="w">          </span><span class="c1"># macOS</span>
+</code></pre></div>
+<p>The interface must be NetBird's: <code>wt0</code> on Linux, a <code>utun</code> interface on macOS. On Windows, <code>Find-NetRoute -RemoteIPAddress &lt;address&gt;</code> in PowerShell must name the NetBird adapter.</p>
+<p>If it names another interface, find what owns the range, for example with <code>ip -br addr | grep 172.30</code> and <code>docker network ls</code>. Remove that network or recreate it on another subnet. To stop Docker from assigning this range again, set a different default address pool in <code>/etc/docker/daemon.json</code> and restart Docker:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">"default-address-pools"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="nt">"base"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10.200.0.0/16"</span><span class="p">,</span><span class="w"> </span><span class="nt">"size"</span><span class="p">:</span><span class="w"> </span><span class="mi">24</span><span class="p">}]}</span>
+</code></pre></div>
 <h3 id="if-pages-hang-or-load-only-partly">If Pages Hang or Load Only Partly<a class="headerlink" href="#if-pages-hang-or-load-only-partly" title="Permanent link">#</a></h3>
 <p>The mesh tunnel has a default MTU of 1280. When your connection to the cluster is relayed rather than direct, the path can carry less than that, and larger packets are dropped without an error. Small requests still get through, so the symptoms are misleading:</p>
 <ul>
@@ -6410,6 +6443,11 @@ oc<span class="w"> </span>get<span class="w"> </span>projects
 <td><code>DNS address could not be found</code> for the console or the sign-in page</td>
 <td>Your local resolver drops private-address answers</td>
 <td>Per-domain public resolver entries, see <a href="#if-the-console-does-not-resolve">If the Console Does Not Resolve</a></td>
+</tr>
+<tr>
+<td><code>No route to host</code> or an immediate connection failure while <code>netbird status</code> reads <code>Connected</code></td>
+<td>A local network (often Docker or a VPN) uses <code>172.30.0.0/16</code> and takes the traffic</td>
+<td>Check <code>ip route get &lt;address&gt;</code>; remove or re-address the local network, see <a href="#if-the-connection-fails-straight-away">If the Connection Fails Straight Away</a></td>
 </tr>
 <tr>
 <td>Blank page, a hang on the sign-in redirect, or a console frame with no content, while <code>curl</code> to the same address works</td>

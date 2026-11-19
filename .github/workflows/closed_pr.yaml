@@ -13,6 +13,6 @@ jobs:
     concurrency:
       group: pull_request_versioned_doc
       cancel-in-progress: false
-    uses: stakater/.github/.github/workflows/pull_request_closed.yaml@v0.0.221
+    uses: stakater/.github/.github/workflows/pull_request_closed.yaml@v0.0.222
     secrets:
       GH_TOKEN: ${{ secrets.PUBLISH_TOKEN }}

@@ -3889,6 +3889,34 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../solutions/modeling-related-resources.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modelling Related Resources
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -6473,6 +6501,16 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 <td><code>x-sco-value-type</code></td>
 <td><code>enum</code></td>
 <td>The field's options come from an EnumContext rather than a schema <code>enum</code>. Renders as a select. See <a href="#value-type">Value Type</a>.</td>
+</tr>
+<tr>
+<td><code>x-sco-parent-ref</code></td>
+<td><code>{ parentKinds, statusPath }</code></td>
+<td>On a child's reference to its parent. Lists the child on the parent's detail page. See <a href="../solutions/modeling-child-resources.html">Modelling Child Resources</a>.</td>
+</tr>
+<tr>
+<td><code>x-sco-related-ref</code></td>
+<td><code>{ relatedKinds, selector? }</code></td>
+<td>On a field naming other claims. Lists them on this claim's detail page. See <a href="../solutions/modeling-related-resources.html">Modelling Related Resources</a>.</td>
 </tr>
 </tbody>
 </table>

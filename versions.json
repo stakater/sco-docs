@@ -102,9 +102,7 @@
   {
     "version": "docs-versioning-and-upgrades",
     "title": "docs-versioning-and-upgrades",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "docs-screenshots-s05-project",
@@ -159,7 +157,9 @@
   {
     "version": "docs-release-notes-and-admin-config",
     "title": "docs-release-notes-and-admin-config",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "docs-postgres-backup-byo",

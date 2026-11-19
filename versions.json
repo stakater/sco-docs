@@ -25,6 +25,11 @@
     "aliases": []
   },
   {
+    "version": "renovate-main-stakater-.github-0.x",
+    "title": "renovate-main-stakater-.github-0.x",
+    "aliases": []
+  },
+  {
     "version": "renovate-main-node-26.x",
     "title": "renovate-main-node-26.x",
     "aliases": []

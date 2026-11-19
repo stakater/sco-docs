@@ -85,13 +85,6 @@
     "aliases": []
   },
   {
-    "version": "docs-vm-peers-native-network",
-    "title": "docs-vm-peers-native-network",
-    "aliases": [
-      "latest"
-    ]
-  },
-  {
     "version": "docs-vm-backup-vs-snapshot",
     "title": "docs-vm-backup-vs-snapshot",
     "aliases": []

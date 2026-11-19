@@ -11,14 +11,14 @@
         <link rel="prev" href="creating-solutions.html">
       
       
-        <link rel="next" href="crossplane-compositions.html">
+        <link rel="next" href="modeling-related-resources.html">
       
       
         
       
       
       <link rel="icon" href="../../assets/images/favicon.svg">
-      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.8.0">
+      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.8.2">
     
     
       
@@ -3041,6 +3041,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
+      <a href="../../how-to-guides/user/connect-to-openshift-cluster.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Connect to an OpenShift Cluster
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../how-to-guides/user/provision-virtual-machine.html" class="md-nav__link">
         
   
@@ -3599,6 +3627,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
+      <a href="../../installation/private-ca.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Private Certificate Authority
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../installation/openbao-unseal.html" class="md-nav__link">
         
   
@@ -3997,6 +4053,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="modeling-related-resources.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modelling Related Resources
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -4186,7 +4270,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    Creating Organisations
+    Creating Organizations
   
 
     
@@ -5479,6 +5563,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api-reference/public-apis/mesh-policy.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    MeshPolicy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -6141,6 +6253,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <p>Do <strong>not</strong> model a child resource when:</p>
 <ul>
 <li><strong>It is plain configuration of the parent</strong> — a setting with no identity or lifecycle of its own belongs in the parent's spec</li>
+<li><strong>Several claims may name it</strong> — a volume attached by several VMs has no single parent; see <a href="modeling-related-resources.html">Modelling Related Resources</a></li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -6436,6 +6549,7 @@ kubectl<span class="w"> </span>get<span class="w"> </span>openshiftnodepool<span
 <hr>
 <h2 id="whats-next">What's Next?<a class="headerlink" href="#whats-next" title="Permanent link">#</a></h2>
 <ul>
+<li><a href="modeling-related-resources.html">Modelling Related Resources</a> — List the claims a claim names on its detail page</li>
 <li><a href="creating-solutions.html">Creating Solutions</a> — Define the XRD and Composition for a new solution</li>
 <li><a href="crossplane-compositions.html">Crossplane Compositions</a> — Advanced composition patterns and KCL functions</li>
 <li><a href="../marketplace/publishing-solutions.html">Publishing Solutions</a> — Make your solution available in the marketplace</li>
@@ -7132,7 +7246,7 @@ kubectl<span class="w"> </span>get<span class="w"> </span>openshiftnodepool<span
       <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.code.copy", "navigation.tracking", "toc.follow", "navigation.top"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.c21346df.min.js"></script>
+      <script src="../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
       
     
   

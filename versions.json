@@ -135,13 +135,6 @@
     "aliases": []
   },
   {
-    "version": "docs-scobasic-extra-secrets-and-cli-version",
-    "title": "docs-scobasic-extra-secrets-and-cli-version",
-    "aliases": [
-      "latest"
-    ]
-  },
-  {
     "version": "docs-sa8938-vm-ssh-port",
     "title": "docs-sa8938-vm-ssh-port",
     "aliases": []

@@ -245,6 +245,47 @@ See [Choosing the Platform Secret Store Unseal Method](openbao-unseal.md). For a
 self-hosted or disconnected installation, the `static` method requires no cloud
 account.
 
+## Preparing the install secrets
+
+`ksp up --extra-secrets extra-secrets.yaml` creates these Kubernetes Secrets
+before it installs anything. For `scobasic` the file holds two secrets:
+
+```yaml
+secrets:
+  - name: "ghcr-helm-repo"
+    namespace: "crossplane-system"
+    type: "Opaque"
+    labels:
+      app.kubernetes.io/component: "ghcr-helm-repo"
+      app.kubernetes.io/name: "crossplane-system"
+    data:
+      enableOCI: "true"
+      name: "ghcr-helm-repo"
+      type: "helm"
+      url: "<gitopsChartsUrl from registry-secret.yaml>"
+      username: "<registry username>"
+      password: "<registry token>"
+
+  - name: "openbao-unseal-key"
+    namespace: "stakater-openbao"
+    type: "Opaque"
+    data:
+      current: "<32-byte key, base64>"
+```
+
+Write every value as plain text. The installer encodes it for Kubernetes, so do
+not base64-encode the values yourself.
+
+| Secret | Purpose | Values |
+|---|---|---|
+| `ghcr-helm-repo` | Registry credentials the platform uses to pull the charts it installs after the initial installation | The same username and token as in `registry-secret.yaml` (see [Prepare Registry Credentials](openshift.md#step-3-prepare-registry-credentials)). Set `url` to the same value as `gitopsChartsUrl` in that file. Keep `enableOCI`, `name` and `type` exactly as shown |
+| `openbao-unseal-key` | The key the platform secret store unseals with | Needed only with the `static` unseal method. Generate it and back it up as described in [Choosing the Platform Secret Store Unseal Method](openbao-unseal.md) |
+
+!!! warning "Keep this file"
+    Store `extra-secrets.yaml` somewhere safe after the installation. If one of
+    these secrets is lost later, you rebuild it from the same values. See
+    [An install secret is missing](#an-install-secret-is-missing).
+
 ## Installing
 
 ```bash
@@ -325,7 +366,7 @@ the installation complete.
 ## Troubleshooting
 
 The [OpenShift installation troubleshooting](openshift.md#troubleshooting)
-section applies here too. Two failure modes are specific to `scobasic`:
+section applies here too. These failure modes are specific to `scobasic`:
 
 ### LoadBalancer Services stay pending
 
@@ -349,6 +390,54 @@ oc get pods -n stakater-openbao
 ```
 
 See [the unseal guide](openbao-unseal.md) if it has not come up.
+
+### An install secret is missing
+
+The platform keeps a copy of the registry credentials from your install secrets
+in its secret store, and reads them back from there. If both copies are lost,
+for example after the secret store has been reset, Crossplane's Helm provider
+can no longer pull charts. The signs are:
+
+```bash
+oc get externalsecrets.external-secrets.io ghcr-helm-repo -n crossplane-system   # SecretSyncedError
+oc get pushsecrets.external-secrets.io ghcr-helm-repo -n crossplane-system       # Errored
+oc describe pushsecrets.external-secrets.io ghcr-helm-repo -n crossplane-system  # "could not get source secret"
+```
+
+Re-create the secret. If you no longer have `extra-secrets.yaml`, copy the
+values from the Argo CD repository credential that `ksp up` created from the
+same registry credentials. The values are not printed:
+
+```bash
+S=$(oc get secret -n openshift-gitops -l argocd.argoproj.io/secret-type=repository -o name | head -1 | cut -d/ -f2)
+echo "copying from: $S"
+oc create secret generic ghcr-helm-repo -n crossplane-system \
+  --from-literal=enableOCI=true \
+  --from-literal=name=ghcr-helm-repo \
+  --from-literal=type=helm \
+  --from-literal=url="$(oc get secret "$S" -n openshift-gitops -o jsonpath='{.data.url}' | base64 -d)" \
+  --from-literal=username="$(oc get secret "$S" -n openshift-gitops -o jsonpath='{.data.username}' | base64 -d)" \
+  --from-literal=password="$(oc get secret "$S" -n openshift-gitops -o jsonpath='{.data.password}' | base64 -d)"
+oc label secret ghcr-helm-repo -n crossplane-system \
+  app.kubernetes.io/component=ghcr-helm-repo app.kubernetes.io/name=crossplane-system
+```
+
+Check that `copying from:` names a single secret before you continue. If you
+still have the file, use its values instead. If `oc create` reports that the
+secret already exists, check it with `oc get secret ghcr-helm-repo -n crossplane-system -o yaml`;
+delete it only if its values are wrong, then run the commands again.
+
+After many failed attempts, the copy into the secret store can wait a long time
+before it retries. Trigger it, then trigger the read-back:
+
+```bash
+oc annotate pushsecrets.external-secrets.io ghcr-helm-repo -n crossplane-system force-sync=$(date +%s) --overwrite
+sleep 20
+oc get pushsecrets.external-secrets.io ghcr-helm-repo -n crossplane-system       # Synced
+oc annotate externalsecrets.external-secrets.io ghcr-helm-repo -n crossplane-system force-sync=$(date +%s) --overwrite
+sleep 10
+oc get externalsecrets.external-secrets.io ghcr-helm-repo -n crossplane-system   # SecretSynced, READY True
+```
 
 ## What's Next?
 

@@ -42,13 +42,14 @@ spec:
 | Parameter | Description |
 |-----------|-------------|
 | `parameters.name` | Project name used for resource naming |
-| `parameters.network.name` | Network identifier for the project's isolated network |
-| `parameters.network.cidr` | CIDR block for the project network (e.g., `10.0.0.0/16`) |
+| `parameters.network.cidr` | CIDR block for the project network (e.g., `10.0.0.0/16`). Required in the default `udn` network mode. Choose one that no other project in your organisation uses |
 
 ### Optional Parameters
 
 | Parameter | Default | Description |
 |-----------|---------|-------------|
+| `parameters.network.mode` | `udn` | `udn` (Isolated network, virtual machines only), `native` (Standard network) or `external`. The console offers only the modes your platform supports. See [Network Modes](../../cloud-user-guide/projects/creating-projects.md#network-modes) |
+| `parameters.network.name` | `default` | Name of the project network, `udn` mode only |
 | `parameters.tenantQuota` | `small` | Quota size for the project (`small`, `medium`, `large`) |
 | `parameters.access` | — | Role-based access entries for users and groups |
 
@@ -79,7 +80,16 @@ spec:
           - developers
 ```
 
-Each entry in `access` specifies a `role` and lists `users` (by email) or `groups` to bind to that role within the project. Use only the roles listed in [Project Roles](../../cloud-user-guide/projects/creating-projects.md#project-roles); any other name is accepted without an error but can grant far broader rights than intended.
+Each entry in `access` specifies a `role` and lists `users` or `groups` to bind to that role within the project:
+
+- `role`: use a platform role from [Project Roles](../../cloud-user-guide/projects/creating-projects.md#project-roles). In the console it is a select with a description of each role. The built-in roles `cluster-admin`, `admin`, `edit` and `view`, labelled *unrestricted*, grant far broader rights; use them only when no platform role fits.
+- `users`: email addresses only, the address each person signs in with.
+- `groups`: group names only, exactly as each group was created (its `metadata.name`), for example `platform-admins`.
+
+The platform rejects a `users` value that is not an email address, and a `groups` value that is not a group name, when you apply the project.
+
+!!! note
+    Mesh and virtual machine access (SSH, RDP) is granted through groups only, to groups with the `compute-user`, `admin` or `cluster-admin` role. People listed under `users` do not get it.
 
 The same entries also grant access to the project's folder in your organisation's Vault: `platform-services-admin` and `secrets-user` can read and write it, `platform-services-view` and `secrets-viewer` can read it. The Vault roles to sign in with appear in `status.openbao.roles`; see [Vault: Project access](../../api-reference/public-apis/vault.md#project-access).
 

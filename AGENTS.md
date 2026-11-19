@@ -6,6 +6,8 @@ This file describes conventions for AI agents and human contributors authoring c
 
 Documentation in this repository targets **platform users** — developers, team leads, and organisation administrators who interact with the SCO platform through its user-facing APIs. Docs should be written from their perspective, not from the perspective of platform engineers or operators who built the underlying system.
 
+Admin documentation (everything under "For Platform Providers", including the release notes) targets **platform administrators** who install, configure and upgrade the platform. It follows its own rules; see [Admin-Audience Content](#admin-audience-content).
+
 ## Abstraction Principle
 
 **Hide implementation details. Use platform-level terminology.**
@@ -42,6 +44,25 @@ Users interact with the SCO platform through claims and the SCO console. They do
 
 **Correct:**
 > Prerequisites: The `group.iam.cloud.stakater.com` api available, `kubectl` configured with your organisation project kubeconfig.
+
+## Admin-Audience Content
+
+Release notes and admin docs name what an admin **configures or observes**, and nothing else:
+
+| Name | Do not name |
+|------|-------------|
+| Components and their versions, as an admin sees them on the cluster (packages, charts, the console) | Internal repository paths, source files or code |
+| API groups, kinds, fields and configuration keys an admin sets | Build detail: CI jobs, preview tags, image build steps, test fixtures |
+| Namespaces, resources, conditions and status fields an admin checks | Internal ticket numbers or pull request links |
+| Commands an admin runs to apply, verify and roll back | Customer, organisation or cluster names from our own environments |
+
+- **Security fixes** are described by impact and required action ("users with role X could read Y; upgrade, then rotate Z"), not by mechanism.
+- **Agent-actionable.** Write plain Markdown with stable URLs, exact names and exact versions. Give verify steps and, where a change can be undone, rollback steps. A placeholder for a value not known yet is marked as such (for example `TBD`), never guessed.
+- The user-audience rules in [Abstraction Principle](#abstraction-principle) still apply to user docs. Admin docs may name platform components such as namespaces and charts, because an admin operates them.
+
+### Release Notes
+
+Release notes live in `content/release-notes/`, one page per platform release plus a JSON file with the same content (see the page `release-notes/release-data.md` for the format). They are keyed by the platform release version, not by the version of this docs site. When you add or change a release page, update its JSON file, `release-notes/index.json` and `llms.txt` in the same change.
 
 ## Terminology Reference
 

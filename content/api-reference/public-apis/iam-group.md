@@ -23,8 +23,8 @@ The group is named after `metadata.name`, which is also its name in your organis
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `members` | `string[]` | Email addresses of the users to add to the group. Other values, such as a `User` claim's `username`, never match |
-| `attributes` | `object` | Additional key/value attributes to set on the group. Each value is a `string[]`. |
+| `members` | `string[]` | Usernames of the people in the group. On this platform a user's username is their email address, for example `jane.doe@acmecorp.example.com`. Other values, such as the deprecated `username` parameter of a `User` claim, never match. Members get every role granted to the group, including mesh and virtual machine access (SSH, RDP) |
+| `attributes` | `object` | Not used. Labels stored on the group for your own records; they do not affect access and are not shown in sign-in tokens. The console does not offer this field |
 
 ## Status Fields
 
@@ -64,22 +64,6 @@ spec:
       - alice@acmecorp.example.com
       - bob@acmecorp.example.com
       - charlie@acmecorp.example.com
-```
-
-### With Attributes
-
-```yaml
-apiVersion: iam.cloud.stakater.com/v1
-kind: Group
-metadata:
-  name: platform-team
-spec:
-  parameters:
-    attributes:
-      department:
-        - engineering
-      costCentre:
-        - cc-1234
 ```
 
 ## How-to Guide

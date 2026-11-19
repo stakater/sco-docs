@@ -32,16 +32,20 @@ All parameters are nested under `spec.parameters`.
 
 ### Access
 
-Each entry in `spec.parameters.access` defines role bindings for the project:
+Each entry in `spec.parameters.access` grants one role to the listed users and groups. `access` holds at most 50 entries.
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `role` | `string` | Role to grant: `platform-services-admin`, `platform-services-view`, or `<service>-user` / `<service>-viewer` for one service (`compute`, `database`, `kubernetes`, `mesh`, `network`, `secrets`, `storage`). See [Project Roles](../../cloud-user-guide/projects/creating-projects.md#project-roles) |
-| `users` | `string[]` | Email addresses of the users to grant the role |
-| `groups` | `string[]` | Names of the groups to grant the role |
+| `role` | `string` | Role to grant. Use a platform role: `platform-services-admin`, `platform-services-view`, or `<service>-user` / `<service>-viewer` for one service (`compute`, `database`, `kubernetes`, `mesh`, `network`, `secrets`, `storage`). See [Project Roles](../../cloud-user-guide/projects/creating-projects.md#project-roles) |
+| `users` | `string[]` | Email addresses of the people to grant the role, the address each person signs in with, for example `jane.doe@example.com`. Only email addresses are accepted. At most 100 |
+| `groups` | `string[]` | Names of groups in your organisation, exactly as each group was created (its `metadata.name`), for example `platform-team`. Display names are not accepted. At most 100 |
+
+The platform rejects a value in `users` that is not an email address, and a value in `groups` that is not a group name: only lowercase letters, digits, `-` and `.`, starting and ending with a letter or digit.
+
+Mesh and virtual machine access (SSH, RDP) follows **groups only**: groups with the `compute-user`, `admin` or `cluster-admin` role get it. People listed in `users` get the project and its secrets, but not mesh or virtual machine access; grant that through a group.
 
 !!! warning
-    `role` is not validated. Any other name is accepted, and if it matches a built-in Kubernetes role such as `edit` or `cluster-admin`, it grants that role in the project, with far broader rights than the SCO roles. Use only the roles listed above.
+    `role` is not validated. The console offers the platform roles first, and the built-in Kubernetes roles `cluster-admin`, `admin`, `edit` and `view` last, labelled *unrestricted*. A built-in role grants far broader rights in the project than any platform role, for example to create and delete Secrets or change who has access. A name that matches no role is accepted and grants nothing. Use the platform roles.
 
 ## Status Fields
 

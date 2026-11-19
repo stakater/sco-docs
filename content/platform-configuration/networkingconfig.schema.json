@@ -1,0 +1,1050 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "additionalProperties": false,
+  "description": "NetworkingConfig holds the platform's networking settings. A cluster has one NetworkingConfig, named cluster.",
+  "properties": {
+    "apiVersion": {
+      "enum": [
+        "config.platform.stakater.com/v1alpha1"
+      ],
+      "type": "string"
+    },
+    "kind": {
+      "enum": [
+        "NetworkingConfig"
+      ],
+      "type": "string"
+    },
+    "metadata": {
+      "additionalProperties": false,
+      "properties": {
+        "annotations": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "type": "object"
+        },
+        "finalizers": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "labels": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "type": "object"
+        },
+        "name": {
+          "enum": [
+            "cluster"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "type": "object"
+    },
+    "spec": {
+      "additionalProperties": false,
+      "properties": {
+        "crossplane": {
+          "description": "Crossplane settings for this resource, such as the composition it uses.",
+          "type": "object"
+        },
+        "parameters": {
+          "additionalProperties": false,
+          "description": "Networking settings for the platform.",
+          "properties": {
+            "egress": {
+              "additionalProperties": false,
+              "description": "Rules for traffic that leaves the cluster from platform namespaces. The rules of a namespace are evaluated in priority order and the first match wins. Nothing is denied unless a Deny rule is configured. Egress rules are independent of network isolation.",
+              "properties": {
+                "enabled": {
+                  "description": "Turns platform-managed egress rules on or off for every platform namespace that supports them. An entry under stacks or namespaces overrides this value for the namespaces it covers. When unset, each namespace keeps the default of the platform release, which is off.",
+                  "examples": [
+                    false
+                  ],
+                  "type": "boolean"
+                },
+                "namespaces": {
+                  "additionalProperties": {
+                    "additionalProperties": false,
+                    "properties": {
+                      "enabled": {
+                        "description": "Turns egress rules on or off for this namespace. When unset, the namespace follows its stacks entry, or enabled when the stack has no entry.",
+                        "type": "boolean"
+                      },
+                      "rules": {
+                        "additionalProperties": {
+                          "additionalProperties": false,
+                          "anyOf": [
+                            {
+                              "required": [
+                                "to"
+                              ]
+                            },
+                            {
+                              "properties": {
+                                "enabled": {
+                                  "enum": [
+                                    false
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "enabled"
+                              ]
+                            }
+                          ],
+                          "properties": {
+                            "enabled": {
+                              "description": "Turns this rule on or off. When unset, a new rule is on and a built-in rule of the same name keeps its setting. Set false, without to, to switch off a built-in rule.",
+                              "type": "boolean"
+                            },
+                            "ports": {
+                              "description": "Destination ports the rule matches. When unset, the rule matches every port.",
+                              "items": {
+                                "additionalProperties": false,
+                                "properties": {
+                                  "port": {
+                                    "description": "Destination port number.",
+                                    "maximum": 65535,
+                                    "minimum": 1,
+                                    "type": "integer"
+                                  },
+                                  "protocol": {
+                                    "description": "Protocol of the traffic: TCP, UDP or SCTP.",
+                                    "enum": [
+                                      "TCP",
+                                      "UDP",
+                                      "SCTP"
+                                    ],
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "protocol",
+                                  "port"
+                                ],
+                                "type": "object"
+                              },
+                              "maxItems": 32,
+                              "type": "array"
+                            },
+                            "priority": {
+                              "description": "Position of the rule in the evaluation order. Rules with a lower number are evaluated first, rules with the same number in name order. When unset, a new rule gets 1000 and a built-in rule of the same name keeps its position.",
+                              "minimum": 0,
+                              "type": "integer"
+                            },
+                            "to": {
+                              "additionalProperties": false,
+                              "description": "Destination the rule matches: exactly one of dnsName, cidrSelector or nodeSelector. Required unless the rule sets enabled to false.",
+                              "oneOf": [
+                                {
+                                  "required": [
+                                    "dnsName"
+                                  ]
+                                },
+                                {
+                                  "required": [
+                                    "cidrSelector"
+                                  ]
+                                },
+                                {
+                                  "required": [
+                                    "nodeSelector"
+                                  ]
+                                }
+                              ],
+                              "properties": {
+                                "cidrSelector": {
+                                  "description": "Destination address range in CIDR notation, for example 10.20.0.0/16. When unset, the rule matches by dnsName or nodeSelector.",
+                                  "maxLength": 64,
+                                  "pattern": "^(([0-9]{1,3}\\.){3}[0-9]{1,3}/([0-9]|[12][0-9]|3[0-2])|[0-9A-Fa-f:]*:[0-9A-Fa-f:.]*/([0-9]|[1-9][0-9]|1[01][0-9]|12[0-8]))$",
+                                  "type": "string"
+                                },
+                                "dnsName": {
+                                  "description": "DNS name of the destination, for example quay.io. A leading *. matches every subdomain. When unset, the rule matches by cidrSelector or nodeSelector.",
+                                  "maxLength": 253,
+                                  "pattern": "^(\\*\\.)?([A-Za-z0-9-]+\\.)*[A-Za-z0-9-]+\\.?$",
+                                  "type": "string"
+                                },
+                                "nodeSelector": {
+                                  "additionalProperties": false,
+                                  "description": "Selects cluster nodes as the destination, by label.",
+                                  "properties": {
+                                    "matchExpressions": {
+                                      "description": "Label requirements a node must meet.",
+                                      "items": {
+                                        "additionalProperties": false,
+                                        "properties": {
+                                          "key": {
+                                            "description": "Label key the requirement applies to.",
+                                            "type": "string"
+                                          },
+                                          "operator": {
+                                            "description": "How the label is compared with values: In, NotIn, Exists or DoesNotExist.",
+                                            "enum": [
+                                              "In",
+                                              "NotIn",
+                                              "Exists",
+                                              "DoesNotExist"
+                                            ],
+                                            "type": "string"
+                                          },
+                                          "values": {
+                                            "description": "Label values for In and NotIn. When unset, the requirement carries no values, as Exists and DoesNotExist expect.",
+                                            "items": {
+                                              "type": "string"
+                                            },
+                                            "maxItems": 32,
+                                            "type": "array"
+                                          }
+                                        },
+                                        "required": [
+                                          "key",
+                                          "operator"
+                                        ],
+                                        "type": "object"
+                                      },
+                                      "maxItems": 16,
+                                      "type": "array"
+                                    },
+                                    "matchLabels": {
+                                      "additionalProperties": {
+                                        "type": "string"
+                                      },
+                                      "description": "Labels a node must carry, as key and value pairs. When unset, no label is required.",
+                                      "type": "object"
+                                    }
+                                  },
+                                  "type": "object"
+                                }
+                              },
+                              "type": "object"
+                            },
+                            "type": {
+                              "description": "Whether matching traffic is allowed or denied: Allow or Deny. When unset, a new rule allows traffic and a built-in rule of the same name keeps its type.",
+                              "enum": [
+                                "Allow",
+                                "Deny"
+                              ],
+                              "type": "string"
+                            }
+                          },
+                          "type": "object"
+                        },
+                        "description": "Egress rules of this namespace, keyed by rule name. A rule name is a lowercase DNS label. A rule that uses the name of a built-in rule changes that rule; any other name adds a rule.",
+                        "maxProperties": 64,
+                        "type": "object"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "description": "Egress rules for individual platform namespaces, keyed by namespace name. Only namespaces that belong to the platform itself are configured here. A namespace entry overrides enabled and the matching stacks entry for that namespace. Namespace names that match no platform namespace with egress rules are reported in status.egress.unmatched.namespaces.",
+                  "examples": [
+                    {
+                      "stakater-forecastle": {
+                        "enabled": true,
+                        "rules": {
+                          "allow-cluster-nodes": {
+                            "priority": 300,
+                            "to": {
+                              "nodeSelector": {
+                                "matchExpressions": [
+                                  {
+                                    "key": "topology.kubernetes.io/zone",
+                                    "operator": "In",
+                                    "values": [
+                                      "eu-central-1a"
+                                    ]
+                                  }
+                                ],
+                                "matchLabels": {
+                                  "node-role.kubernetes.io/worker": ""
+                                }
+                              }
+                            }
+                          },
+                          "allow-corp-network": {
+                            "priority": 200,
+                            "to": {
+                              "cidrSelector": "10.20.0.0/16"
+                            }
+                          },
+                          "allow-quay": {
+                            "enabled": true,
+                            "ports": [
+                              {
+                                "port": 443,
+                                "protocol": "TCP"
+                              }
+                            ],
+                            "priority": 100,
+                            "to": {
+                              "dnsName": "quay.io"
+                            },
+                            "type": "Allow"
+                          },
+                          "deny-everything-else": {
+                            "to": {
+                              "cidrSelector": "0.0.0.0/0"
+                            },
+                            "type": "Deny"
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "maxProperties": 64,
+                  "type": "object"
+                },
+                "stacks": {
+                  "additionalProperties": false,
+                  "description": "Egress rule switches for groups of platform components, one per stack. A stack entry overrides enabled for every platform namespace of that stack. When a stack has no entry, its namespaces follow enabled.",
+                  "properties": {
+                    "backup": {
+                      "additionalProperties": false,
+                      "description": "Egress rule switch for the backup and restore components.",
+                      "properties": {
+                        "enabled": {
+                          "description": "Turns platform-managed egress rules on or off for the platform namespaces of the backup stack.",
+                          "examples": [
+                            true
+                          ],
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "enabled"
+                      ],
+                      "type": "object"
+                    },
+                    "bootstrap": {
+                      "additionalProperties": false,
+                      "description": "Egress rule switch for the GitOps components that install the platform.",
+                      "properties": {
+                        "enabled": {
+                          "description": "Turns platform-managed egress rules on or off for the platform namespaces of the bootstrap stack.",
+                          "examples": [
+                            true
+                          ],
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "enabled"
+                      ],
+                      "type": "object"
+                    },
+                    "cicd": {
+                      "additionalProperties": false,
+                      "description": "Egress rule switch for the pipeline, registry and code quality components.",
+                      "properties": {
+                        "enabled": {
+                          "description": "Turns platform-managed egress rules on or off for the platform namespaces of the cicd stack.",
+                          "examples": [
+                            true
+                          ],
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "enabled"
+                      ],
+                      "type": "object"
+                    },
+                    "gitops": {
+                      "additionalProperties": false,
+                      "description": "Egress rule switch for the GitOps configuration components.",
+                      "properties": {
+                        "enabled": {
+                          "description": "Turns platform-managed egress rules on or off for the platform namespaces of the gitops stack.",
+                          "examples": [
+                            true
+                          ],
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "enabled"
+                      ],
+                      "type": "object"
+                    },
+                    "identity": {
+                      "additionalProperties": false,
+                      "description": "Egress rule switch for the single sign-on and access management components.",
+                      "properties": {
+                        "enabled": {
+                          "description": "Turns platform-managed egress rules on or off for the platform namespaces of the identity stack.",
+                          "examples": [
+                            true
+                          ],
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "enabled"
+                      ],
+                      "type": "object"
+                    },
+                    "networking": {
+                      "additionalProperties": false,
+                      "description": "Egress rule switch for the ingress, load balancing and DNS components.",
+                      "properties": {
+                        "enabled": {
+                          "description": "Turns platform-managed egress rules on or off for the platform namespaces of the networking stack.",
+                          "examples": [
+                            true
+                          ],
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "enabled"
+                      ],
+                      "type": "object"
+                    },
+                    "observability": {
+                      "additionalProperties": false,
+                      "description": "Egress rule switch for the logging, monitoring and alerting components.",
+                      "properties": {
+                        "enabled": {
+                          "description": "Turns platform-managed egress rules on or off for the platform namespaces of the observability stack.",
+                          "examples": [
+                            true
+                          ],
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "enabled"
+                      ],
+                      "type": "object"
+                    },
+                    "platform": {
+                      "additionalProperties": false,
+                      "description": "Egress rule switch for the core platform components.",
+                      "properties": {
+                        "enabled": {
+                          "description": "Turns platform-managed egress rules on or off for the platform namespaces of the platform stack.",
+                          "examples": [
+                            true
+                          ],
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "enabled"
+                      ],
+                      "type": "object"
+                    },
+                    "security": {
+                      "additionalProperties": false,
+                      "description": "Egress rule switch for the secret, certificate and policy components.",
+                      "properties": {
+                        "enabled": {
+                          "description": "Turns platform-managed egress rules on or off for the platform namespaces of the security stack.",
+                          "examples": [
+                            false
+                          ],
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "enabled"
+                      ],
+                      "type": "object"
+                    },
+                    "storage": {
+                      "additionalProperties": false,
+                      "description": "Egress rule switch for the storage components.",
+                      "properties": {
+                        "enabled": {
+                          "description": "Turns platform-managed egress rules on or off for the platform namespaces of the storage stack.",
+                          "examples": [
+                            true
+                          ],
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "enabled"
+                      ],
+                      "type": "object"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
+            },
+            "isolation": {
+              "additionalProperties": false,
+              "description": "Network isolation of platform namespaces. An isolated namespace accepts traffic only from its own workloads, from platform monitoring, and from the sources allowed for that namespace.",
+              "properties": {
+                "enabled": {
+                  "description": "Turns network isolation on or off for every platform namespace that supports it. An entry under stacks or namespaces overrides this value for the namespaces it covers. When unset, each namespace keeps the default of the platform release, which is off.",
+                  "examples": [
+                    true
+                  ],
+                  "type": "boolean"
+                },
+                "namespaces": {
+                  "additionalProperties": {
+                    "additionalProperties": false,
+                    "properties": {
+                      "enabled": {
+                        "description": "Turns network isolation on or off for this namespace. When unset, the namespace follows its stacks entry, or enabled when the stack has no entry.",
+                        "type": "boolean"
+                      },
+                      "fromHostNetwork": {
+                        "description": "Allows traffic from the cluster's host network into this namespace. Set true for a namespace that serves admission webhooks or aggregated APIs, which the Kubernetes API server calls from the host network. When unset, the namespace keeps its built-in setting.",
+                        "type": "boolean"
+                      },
+                      "fromRouter": {
+                        "description": "Allows traffic from the cluster's ingress routers into this namespace. Set true for a namespace that serves Routes. When unset, the namespace keeps its built-in setting.",
+                        "type": "boolean"
+                      },
+                      "ingress": {
+                        "additionalProperties": {
+                          "additionalProperties": false,
+                          "anyOf": [
+                            {
+                              "required": [
+                                "from"
+                              ]
+                            },
+                            {
+                              "properties": {
+                                "enabled": {
+                                  "enum": [
+                                    false
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "enabled"
+                              ]
+                            }
+                          ],
+                          "properties": {
+                            "enabled": {
+                              "description": "Turns this rule on or off. When unset, a new rule is on and a built-in rule of the same name keeps its setting. Set false, without from, to switch off a built-in rule.",
+                              "type": "boolean"
+                            },
+                            "from": {
+                              "description": "Sources allowed to connect, at least one. Traffic is allowed when it matches any entry. Required unless the rule sets enabled to false.",
+                              "items": {
+                                "additionalProperties": false,
+                                "description": "One traffic source: either an ipBlock, or a namespaceSelector, a podSelector, or both selectors together.",
+                                "properties": {
+                                  "ipBlock": {
+                                    "additionalProperties": false,
+                                    "description": "An IP address range outside the cluster's pod network.",
+                                    "properties": {
+                                      "cidr": {
+                                        "description": "Address range in CIDR notation, for example 10.20.0.0/16.",
+                                        "maxLength": 64,
+                                        "pattern": "^(([0-9]{1,3}\\.){3}[0-9]{1,3}/([0-9]|[12][0-9]|3[0-2])|[0-9A-Fa-f:]*:[0-9A-Fa-f:.]*/([0-9]|[1-9][0-9]|1[01][0-9]|12[0-8]))$",
+                                        "type": "string"
+                                      },
+                                      "except": {
+                                        "description": "Address ranges inside cidr that are not allowed, in CIDR notation. When unset, the whole cidr range is allowed.",
+                                        "items": {
+                                          "maxLength": 64,
+                                          "pattern": "^(([0-9]{1,3}\\.){3}[0-9]{1,3}/([0-9]|[12][0-9]|3[0-2])|[0-9A-Fa-f:]*:[0-9A-Fa-f:.]*/([0-9]|[1-9][0-9]|1[01][0-9]|12[0-8]))$",
+                                          "type": "string"
+                                        },
+                                        "maxItems": 8,
+                                        "type": "array"
+                                      }
+                                    },
+                                    "required": [
+                                      "cidr"
+                                    ],
+                                    "type": "object"
+                                  },
+                                  "namespaceSelector": {
+                                    "additionalProperties": false,
+                                    "description": "Selects source namespaces by label. An empty selector selects every namespace. Without podSelector, every pod in the selected namespaces is allowed.",
+                                    "properties": {
+                                      "matchExpressions": {
+                                        "description": "Label requirements a namespace must meet.",
+                                        "items": {
+                                          "additionalProperties": false,
+                                          "properties": {
+                                            "key": {
+                                              "description": "Label key the requirement applies to.",
+                                              "type": "string"
+                                            },
+                                            "operator": {
+                                              "description": "How the label is compared with values: In, NotIn, Exists or DoesNotExist.",
+                                              "enum": [
+                                                "In",
+                                                "NotIn",
+                                                "Exists",
+                                                "DoesNotExist"
+                                              ],
+                                              "type": "string"
+                                            },
+                                            "values": {
+                                              "description": "Label values for In and NotIn. When unset, the requirement carries no values, as Exists and DoesNotExist expect.",
+                                              "items": {
+                                                "type": "string"
+                                              },
+                                              "maxItems": 32,
+                                              "type": "array"
+                                            }
+                                          },
+                                          "required": [
+                                            "key",
+                                            "operator"
+                                          ],
+                                          "type": "object"
+                                        },
+                                        "maxItems": 16,
+                                        "type": "array"
+                                      },
+                                      "matchLabels": {
+                                        "additionalProperties": {
+                                          "type": "string"
+                                        },
+                                        "description": "Labels a namespace must carry, as key and value pairs. When unset, no label is required.",
+                                        "type": "object"
+                                      }
+                                    },
+                                    "type": "object"
+                                  },
+                                  "podSelector": {
+                                    "additionalProperties": false,
+                                    "description": "Selects source pods by label. With namespaceSelector, pods are matched in the selected namespaces; without it, in this namespace.",
+                                    "properties": {
+                                      "matchExpressions": {
+                                        "description": "Label requirements a pod must meet.",
+                                        "items": {
+                                          "additionalProperties": false,
+                                          "properties": {
+                                            "key": {
+                                              "description": "Label key the requirement applies to.",
+                                              "type": "string"
+                                            },
+                                            "operator": {
+                                              "description": "How the label is compared with values: In, NotIn, Exists or DoesNotExist.",
+                                              "enum": [
+                                                "In",
+                                                "NotIn",
+                                                "Exists",
+                                                "DoesNotExist"
+                                              ],
+                                              "type": "string"
+                                            },
+                                            "values": {
+                                              "description": "Label values for In and NotIn. When unset, the requirement carries no values, as Exists and DoesNotExist expect.",
+                                              "items": {
+                                                "type": "string"
+                                              },
+                                              "maxItems": 32,
+                                              "type": "array"
+                                            }
+                                          },
+                                          "required": [
+                                            "key",
+                                            "operator"
+                                          ],
+                                          "type": "object"
+                                        },
+                                        "maxItems": 16,
+                                        "type": "array"
+                                      },
+                                      "matchLabels": {
+                                        "additionalProperties": {
+                                          "type": "string"
+                                        },
+                                        "description": "Labels a pod must carry, as key and value pairs. When unset, no label is required.",
+                                        "type": "object"
+                                      }
+                                    },
+                                    "type": "object"
+                                  }
+                                },
+                                "type": "object"
+                              },
+                              "maxItems": 16,
+                              "minItems": 1,
+                              "type": "array"
+                            },
+                            "podSelector": {
+                              "additionalProperties": false,
+                              "description": "Selects the pods in this namespace that the rule applies to. An empty selector, the default, selects every pod in the namespace.",
+                              "properties": {
+                                "matchExpressions": {
+                                  "description": "Label requirements a pod must meet.",
+                                  "items": {
+                                    "additionalProperties": false,
+                                    "properties": {
+                                      "key": {
+                                        "description": "Label key the requirement applies to.",
+                                        "type": "string"
+                                      },
+                                      "operator": {
+                                        "description": "How the label is compared with values: In, NotIn, Exists or DoesNotExist.",
+                                        "enum": [
+                                          "In",
+                                          "NotIn",
+                                          "Exists",
+                                          "DoesNotExist"
+                                        ],
+                                        "type": "string"
+                                      },
+                                      "values": {
+                                        "description": "Label values for In and NotIn. When unset, the requirement carries no values, as Exists and DoesNotExist expect.",
+                                        "items": {
+                                          "type": "string"
+                                        },
+                                        "maxItems": 32,
+                                        "type": "array"
+                                      }
+                                    },
+                                    "required": [
+                                      "key",
+                                      "operator"
+                                    ],
+                                    "type": "object"
+                                  },
+                                  "maxItems": 16,
+                                  "type": "array"
+                                },
+                                "matchLabels": {
+                                  "additionalProperties": {
+                                    "type": "string"
+                                  },
+                                  "description": "Labels a pod must carry, as key and value pairs. When unset, no label is required.",
+                                  "type": "object"
+                                }
+                              },
+                              "type": "object"
+                            },
+                            "ports": {
+                              "description": "Ports the sources may connect to. When unset, every port is allowed.",
+                              "items": {
+                                "additionalProperties": false,
+                                "properties": {
+                                  "endPort": {
+                                    "description": "Last port of a range that starts at port. Requires a numeric port. When unset, only port is allowed.",
+                                    "maximum": 65535,
+                                    "minimum": 1,
+                                    "type": "integer"
+                                  },
+                                  "port": {
+                                    "anyOf": [
+                                      {
+                                        "type": "integer"
+                                      },
+                                      {
+                                        "type": "string"
+                                      }
+                                    ],
+                                    "description": "Port number, or the name of a container port. When unset, every port of the protocol is allowed."
+                                  },
+                                  "protocol": {
+                                    "description": "Protocol of the traffic: TCP, UDP or SCTP. When unset, TCP applies.",
+                                    "enum": [
+                                      "TCP",
+                                      "UDP",
+                                      "SCTP"
+                                    ],
+                                    "type": "string"
+                                  }
+                                },
+                                "type": "object"
+                              },
+                              "maxItems": 32,
+                              "type": "array"
+                            }
+                          },
+                          "type": "object"
+                        },
+                        "description": "Additional traffic allowed into this namespace, keyed by rule name. A rule name is a lowercase DNS label. A rule that uses the name of a built-in rule changes that rule; any other name adds a rule.",
+                        "maxProperties": 16,
+                        "type": "object"
+                      }
+                    },
+                    "type": "object"
+                  },
+                  "description": "Network isolation settings for individual platform namespaces, keyed by namespace name. Only namespaces that belong to the platform itself are configured here. A namespace entry overrides enabled and the matching stacks entry for that namespace. Namespace names that match no isolated platform namespace are reported in status.isolation.unmatched.namespaces.",
+                  "examples": [
+                    {
+                      "stakater-forecastle": {
+                        "enabled": true,
+                        "fromHostNetwork": false,
+                        "fromRouter": true,
+                        "ingress": {
+                          "from-corp-monitoring": {
+                            "enabled": true,
+                            "from": [
+                              {
+                                "ipBlock": {
+                                  "cidr": "10.20.0.0/16",
+                                  "except": [
+                                    "10.20.99.0/24"
+                                  ]
+                                }
+                              },
+                              {
+                                "namespaceSelector": {
+                                  "matchExpressions": [
+                                    {
+                                      "key": "environment",
+                                      "operator": "In",
+                                      "values": [
+                                        "production"
+                                      ]
+                                    }
+                                  ],
+                                  "matchLabels": {
+                                    "kubernetes.io/metadata.name": "corp-monitoring"
+                                  }
+                                },
+                                "podSelector": {
+                                  "matchExpressions": [
+                                    {
+                                      "key": "role",
+                                      "operator": "Exists",
+                                      "values": []
+                                    }
+                                  ],
+                                  "matchLabels": {
+                                    "app": "prober"
+                                  }
+                                }
+                              }
+                            ],
+                            "podSelector": {
+                              "matchExpressions": [
+                                {
+                                  "key": "app.kubernetes.io/component",
+                                  "operator": "NotIn",
+                                  "values": [
+                                    "test"
+                                  ]
+                                }
+                              ],
+                              "matchLabels": {
+                                "app.kubernetes.io/name": "forecastle"
+                              }
+                            },
+                            "ports": [
+                              {
+                                "endPort": 8089,
+                                "port": 8080,
+                                "protocol": "TCP"
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "maxProperties": 64,
+                  "type": "object"
+                },
+                "stacks": {
+                  "additionalProperties": false,
+                  "description": "Network isolation switches for groups of platform components, one per stack. A stack entry overrides enabled for every platform namespace of that stack. When a stack has no entry, its namespaces follow enabled.",
+                  "properties": {
+                    "backup": {
+                      "additionalProperties": false,
+                      "description": "Network isolation switch for the backup and restore components.",
+                      "properties": {
+                        "enabled": {
+                          "description": "Turns network isolation on or off for the platform namespaces of the backup stack.",
+                          "examples": [
+                            true
+                          ],
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "enabled"
+                      ],
+                      "type": "object"
+                    },
+                    "bootstrap": {
+                      "additionalProperties": false,
+                      "description": "Network isolation switch for the GitOps components that install the platform.",
+                      "properties": {
+                        "enabled": {
+                          "description": "Turns network isolation on or off for the platform namespaces of the bootstrap stack.",
+                          "examples": [
+                            true
+                          ],
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "enabled"
+                      ],
+                      "type": "object"
+                    },
+                    "cicd": {
+                      "additionalProperties": false,
+                      "description": "Network isolation switch for the pipeline, registry and code quality components.",
+                      "properties": {
+                        "enabled": {
+                          "description": "Turns network isolation on or off for the platform namespaces of the cicd stack.",
+                          "examples": [
+                            true
+                          ],
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "enabled"
+                      ],
+                      "type": "object"
+                    },
+                    "gitops": {
+                      "additionalProperties": false,
+                      "description": "Network isolation switch for the GitOps configuration components.",
+                      "properties": {
+                        "enabled": {
+                          "description": "Turns network isolation on or off for the platform namespaces of the gitops stack.",
+                          "examples": [
+                            true
+                          ],
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "enabled"
+                      ],
+                      "type": "object"
+                    },
+                    "identity": {
+                      "additionalProperties": false,
+                      "description": "Network isolation switch for the single sign-on and access management components.",
+                      "properties": {
+                        "enabled": {
+                          "description": "Turns network isolation on or off for the platform namespaces of the identity stack.",
+                          "examples": [
+                            true
+                          ],
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "enabled"
+                      ],
+                      "type": "object"
+                    },
+                    "networking": {
+                      "additionalProperties": false,
+                      "description": "Network isolation switch for the ingress, load balancing and DNS components.",
+                      "properties": {
+                        "enabled": {
+                          "description": "Turns network isolation on or off for the platform namespaces of the networking stack.",
+                          "examples": [
+                            true
+                          ],
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "enabled"
+                      ],
+                      "type": "object"
+                    },
+                    "observability": {
+                      "additionalProperties": false,
+                      "description": "Network isolation switch for the logging, monitoring and alerting components.",
+                      "properties": {
+                        "enabled": {
+                          "description": "Turns network isolation on or off for the platform namespaces of the observability stack.",
+                          "examples": [
+                            true
+                          ],
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "enabled"
+                      ],
+                      "type": "object"
+                    },
+                    "platform": {
+                      "additionalProperties": false,
+                      "description": "Network isolation switch for the core platform components.",
+                      "properties": {
+                        "enabled": {
+                          "description": "Turns network isolation on or off for the platform namespaces of the platform stack.",
+                          "examples": [
+                            true
+                          ],
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "enabled"
+                      ],
+                      "type": "object"
+                    },
+                    "security": {
+                      "additionalProperties": false,
+                      "description": "Network isolation switch for the secret, certificate and policy components.",
+                      "properties": {
+                        "enabled": {
+                          "description": "Turns network isolation on or off for the platform namespaces of the security stack.",
+                          "examples": [
+                            false
+                          ],
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "enabled"
+                      ],
+                      "type": "object"
+                    },
+                    "storage": {
+                      "additionalProperties": false,
+                      "description": "Network isolation switch for the storage components.",
+                      "properties": {
+                        "enabled": {
+                          "description": "Turns network isolation on or off for the platform namespaces of the storage stack.",
+                          "examples": [
+                            true
+                          ],
+                          "type": "boolean"
+                        }
+                      },
+                      "required": [
+                        "enabled"
+                      ],
+                      "type": "object"
+                    }
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    }
+  },
+  "required": [
+    "apiVersion",
+    "kind",
+    "metadata"
+  ],
+  "title": "NetworkingConfig",
+  "type": "object"
+}

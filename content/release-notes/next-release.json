@@ -1,0 +1,307 @@
+{
+  "schemaVersion": 1,
+  "id": "next-release",
+  "version": null,
+  "status": "draft",
+  "date": null,
+  "notes": "next-release.html",
+  "upgradePaths": [
+    {
+      "from": null,
+      "supported": true,
+      "notes": "From the previous platform release: kubestack-config 0.7.23 and kubestack-plus 0.0.71. Do the actions in breakingChanges[].before first."
+    }
+  ],
+  "components": [
+    {
+      "name": "kubestack-config",
+      "type": "crossplane-package",
+      "version": "0.8.1",
+      "change": "changed",
+      "summary": "Release defaults for every component in this release. Adds the optional supportIntegration parameter, off by default."
+    },
+    {
+      "name": "kubestack-plus",
+      "type": "crossplane-package",
+      "version": "0.1.1",
+      "change": "changed",
+      "summary": "Installs sco-package-platform-config. Adds the optional gitopsProject parameter."
+    },
+    {
+      "name": "sco-package-iam",
+      "type": "helm-chart",
+      "version": "0.0.16",
+      "change": "changed",
+      "summary": "Installs iam-user 0.1.8 and iam-group 0.0.18."
+    },
+    {
+      "name": "sco-package-secrets",
+      "type": "helm-chart",
+      "version": "0.0.16",
+      "change": "changed",
+      "summary": "Installs openbao package 0.5.7."
+    },
+    {
+      "name": "cloud-orchestrator-portal",
+      "type": "helm-chart",
+      "version": "0.0.44",
+      "change": "changed",
+      "summary": "Ships console 0.68.0."
+    },
+    {
+      "name": "networking-config",
+      "type": "crossplane-package",
+      "version": "0.0.1",
+      "change": "added",
+      "summary": "NetworkingConfig API (config.platform.stakater.com/v1alpha1)."
+    },
+    {
+      "name": "sco-package-platform-config",
+      "type": "helm-chart",
+      "version": "0.0.1",
+      "change": "added",
+      "summary": "Installs the platform configuration APIs, their ClusterRoles and the singleton name policy."
+    },
+    {
+      "name": "network-policy-base",
+      "type": "helm-chart",
+      "version": "0.0.1",
+      "change": "added",
+      "summary": "Library chart for network isolation and egress rules of platform namespaces."
+    },
+    {
+      "name": "forecastle",
+      "type": "helm-chart",
+      "version": "1.0.32",
+      "change": "changed",
+      "summary": "Supports network isolation and egress rules; off by default."
+    },
+    {
+      "name": "project",
+      "type": "crossplane-package",
+      "version": "0.6.4",
+      "change": "changed",
+      "summary": "Project API validates access[].users and access[].groups."
+    },
+    {
+      "name": "crossplane-package-kcp",
+      "type": "helm-chart",
+      "version": "0.1.16",
+      "change": "changed",
+      "summary": "Project catalogue on: console select lists for Project access[].role and network.mode."
+    },
+    {
+      "name": "iam-user",
+      "type": "crossplane-package",
+      "version": "0.1.8",
+      "change": "changed",
+      "summary": "User status.user.initialPassword marked as a secret for the console."
+    },
+    {
+      "name": "iam-group",
+      "type": "crossplane-package",
+      "version": "0.0.18",
+      "change": "changed",
+      "summary": "Group attributes hidden in the console; members described as usernames."
+    },
+    {
+      "name": "organization",
+      "type": "crossplane-package",
+      "version": "0.3.0",
+      "change": "changed",
+      "summary": "Organization status.admin.passwordBase64 marked as a secret for the console."
+    },
+    {
+      "name": "org-onboarding",
+      "type": "crossplane-package",
+      "version": "0.2.2",
+      "change": "changed",
+      "summary": "OrgOnboarding status.admin.passwordBase64 marked as a secret for the console."
+    },
+    {
+      "name": "openbao",
+      "type": "helm-chart",
+      "version": "0.0.74",
+      "change": "changed",
+      "summary": "Organisation Vault setup job no longer fails on upgrade when OIDC is already configured. Delivered to organisations by the openbao package 0.5.7 (sco-package-secrets 0.0.16)."
+    },
+    {
+      "name": "console",
+      "type": "container-image",
+      "version": "0.68.0",
+      "change": "changed",
+      "summary": "Masked secret values with reveal and copy; select lists limited to the values the platform offers."
+    }
+  ],
+  "breakingChanges": [
+    {
+      "id": "project-access-validation",
+      "title": "Project access accepts only email addresses and group names",
+      "affects": "Projects whose access[].users hold a value that is not an email address, or whose access[].groups hold a value that is not a group name (capitals, spaces, commas, display names). Also more than 50 access entries, or more than 100 users or groups in one entry.",
+      "impact": "Such a Project can be rejected when it is next changed. The invalid values never granted access.",
+      "before": [
+        "In each organisation, list the affected values with the check in the release notes (kubectl get projects -A -o json | jq ...).",
+        "Replace each users value with the email address the person signs in with.",
+        "Replace each groups value with the group's metadata.name."
+      ],
+      "after": [
+        "kubectl get projects -A shows READY True for every project.",
+        "Saving a project in the console succeeds without a validation error."
+      ],
+      "docs": "next-release.html#project-access-accepts-only-email-addresses-and-group-names"
+    }
+  ],
+  "interfaceChanges": [
+    {
+      "interface": "config.platform.stakater.com/v1alpha1 NetworkingConfig",
+      "type": "api",
+      "change": "added",
+      "breaking": false,
+      "summary": "Cluster-scoped, single object named cluster. Network isolation and egress rules for platform namespaces.",
+      "docs": "../platform-configuration/networking-config.html"
+    },
+    {
+      "interface": "ClusterRole platform-config-networking-admin, platform-config-networking-view",
+      "type": "rbac",
+      "change": "added",
+      "breaking": false,
+      "summary": "Manage or read NetworkingConfig. Not bound, not aggregated."
+    },
+    {
+      "interface": "ValidatingAdmissionPolicy platform-config-singleton-name",
+      "type": "admission",
+      "change": "added",
+      "breaking": false,
+      "summary": "Rejects config.platform.stakater.com objects not named cluster."
+    },
+    {
+      "interface": "forecastle networkPolicy.*",
+      "type": "configuration",
+      "change": "added",
+      "breaking": false,
+      "summary": "Network isolation and egress rule values. Set through NetworkingConfig."
+    },
+    {
+      "interface": "crossplane-package-kcp serviceCatalogs.project.enabled, projectCatalog.accessRoles, projectCatalog.networkModes",
+      "type": "configuration",
+      "change": "added",
+      "breaking": false,
+      "summary": "Console select lists for Project role and network mode. This release turns serviceCatalogs.project.enabled on; the chart default stays off."
+    },
+    {
+      "interface": "KubeStackConfig spec.parameters.supportIntegration",
+      "type": "configuration",
+      "change": "added",
+      "breaking": false,
+      "summary": "Optional support desk integration. Off by default; no change unless enabled."
+    },
+    {
+      "interface": "KubeStackPlus spec.parameters.gitopsProject",
+      "type": "configuration",
+      "change": "added",
+      "breaking": false,
+      "summary": "Argo CD project for the platform's Applications. Defaults to default, as before."
+    },
+    {
+      "interface": "tenant.cloud.stakater.com/v1 Project spec.parameters.access[].users",
+      "type": "api",
+      "change": "changed",
+      "breaking": true,
+      "summary": "Email addresses only (optional oidc: prefix). At most 100 items, 254 characters each."
+    },
+    {
+      "interface": "tenant.cloud.stakater.com/v1 Project spec.parameters.access[].groups",
+      "type": "api",
+      "change": "changed",
+      "breaking": true,
+      "summary": "Group names only: ^(oidc:)?[a-z0-9]([-a-z0-9.]*[a-z0-9])?$. At most 100 items, 253 characters each."
+    },
+    {
+      "interface": "tenant.cloud.stakater.com/v1 Project spec.parameters.access",
+      "type": "api",
+      "change": "changed",
+      "breaking": true,
+      "summary": "At most 50 entries."
+    },
+    {
+      "interface": "tenant.cloud.stakater.com/v1 Project spec.parameters.access[].role",
+      "type": "console",
+      "change": "changed",
+      "breaking": false,
+      "summary": "Select of project roles with descriptions. The API still accepts any role name."
+    },
+    {
+      "interface": "tenant.cloud.stakater.com/v1 Project spec.parameters.network.mode",
+      "type": "console",
+      "change": "changed",
+      "breaking": false,
+      "summary": "Select offers Isolated network (udn, virtual machines only) and Standard network (native); external only where the platform adds it. The API still accepts all three."
+    },
+    {
+      "interface": "iam.cloud.stakater.com/v1 User status.user.initialPassword",
+      "type": "console",
+      "change": "changed",
+      "breaking": false,
+      "summary": "Shown masked, with reveal and copy of the decoded value."
+    },
+    {
+      "interface": "infrastructure.stakater.com/v1alpha1 Organization, OrgOnboarding status.admin.passwordBase64",
+      "type": "console",
+      "change": "changed",
+      "breaking": false,
+      "summary": "Shown masked, with reveal and copy of the decoded value."
+    },
+    {
+      "interface": "iam.cloud.stakater.com/v1 Group spec.parameters.attributes",
+      "type": "console",
+      "change": "changed",
+      "breaking": false,
+      "summary": "No longer offered in the console. Stays in the API; no effect on access."
+    }
+  ],
+  "features": [
+    {
+      "title": "Platform configuration APIs",
+      "summary": "Typed, validated resources in config.platform.stakater.com/v1alpha1 for tuning the platform; the first is NetworkingConfig. Only values you set are applied. First supported component: Forecastle (namespace stakater-forecastle).",
+      "docs": "../platform-configuration/overview.html"
+    },
+    {
+      "title": "Project form in the console",
+      "summary": "Role and network mode are select lists with descriptions; users and groups explain and validate what to enter.",
+      "docs": "next-release.html#project-form-in-the-console"
+    },
+    {
+      "title": "Masked initial passwords",
+      "summary": "Initial passwords of users and of the organisation administrator are masked in the console, with reveal and copy. Users change the password at first sign-in.",
+      "docs": "next-release.html#masked-initial-passwords"
+    }
+  ],
+  "fixes": [
+    {
+      "component": "openbao",
+      "summary": "On upgrade, the organisation Vault setup job no longer fails and retries when OIDC is already configured. No action required."
+    },
+    {
+      "component": "iam-group",
+      "summary": "members is described as usernames (a user's email address on this platform)."
+    }
+  ],
+  "knownIssues": [
+    {
+      "summary": "A NetworkingConfig not named cluster is rejected on create; where the name policy is not installed it is accepted but never applied.",
+      "workaround": "Name it cluster."
+    },
+    {
+      "summary": "NetworkingConfig entries for namespaces no component supports in this release change nothing.",
+      "workaround": "Check status.isolation.unmatched.namespaces and status.egress.unmatched.namespaces."
+    },
+    {
+      "summary": "An override EnvironmentConfig for a component takes precedence over NetworkingConfig.",
+      "workaround": "Remove the network policy values from the override, or set them there."
+    },
+    {
+      "summary": "Editing a Project in the console whose network mode the platform no longer offers shows an empty select.",
+      "workaround": "Change the Project with kubectl."
+    }
+  ]
+}

@@ -16,7 +16,7 @@ Maria, an organisation administrator at ACME Corp, needs to provision a new team
 When you create a User claim, the platform provisions:
 
 - An **organisation user** in your organisation's IdP whose login name is the specified email address
-- An **auto-generated initial password** (base64 encoded, available in the resource status)
+- An **auto-generated initial password**, temporary: the user must change it at first sign-in. It is in the resource status, base64 encoded, and shown masked in the console
 
 ## In the Console
 
@@ -101,7 +101,9 @@ NAME       READY   SYNCED   AGE
 jane-doe   True    True     1m
 ```
 
-Retrieve the initial password from the status:
+Retrieve the initial password. In the console, open the user: **Initial password** is shown masked. **Reveal** shows the password, and **Copy** copies it and masks it again. Both give the decoded password: pass it on as it is.
+
+With `kubectl`, read it from the status and decode it:
 
 ```bash
 kubectl get user jane-doe \

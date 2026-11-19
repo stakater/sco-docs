@@ -58,7 +58,9 @@ If the value isn't valid for the view, the console falls back to type inference.
 
 `x-sco-value-type` describes **what a value is**, as opposed to `x-sco-ui-component`, which controls **how it is shown**. Native JSON Schema (`type`, `format`, `enum`) already expresses most value facts; this tag carries only what the schema vocabulary can't.
 
-Its one value, `enum`, marks a field whose options come from an **EnumContext** — a platform-managed catalogue keyed by the resource's kind and the field's path — rather than a static schema `enum`. Use it for values that are dynamic and environment-specific: for example a VM's `instanceType`, whose available sizes live in an `EnvironmentConfig` rather than in the schema. Without the tag, such a field has no `enum` and falls back to a free-text input.
+It takes two values, `enum` and `secret`.
+
+`enum` marks a field whose options come from an **EnumContext** — a platform-managed catalogue keyed by the resource's kind and the field's path — rather than a static schema `enum`. Use it for values that are dynamic and environment-specific: for example a VM's `instanceType`, whose available sizes live in an `EnvironmentConfig` rather than in the schema. Without the tag, such a field has no `enum` and falls back to a free-text input.
 
 The tag is also the signal for *which* EnumContexts a form depends on, so the console can load only those catalogues instead of fetching all of them up front.
 
@@ -66,7 +68,8 @@ By default the field renders as a `select`; set `x-sco-ui-component` to `select-
 
 | Situation | Result |
 |-----------|--------|
-| Schema `enum` present | The schema is authoritative. The EnumContext only enriches those options (labels, summaries, specs); no value outside the schema `enum` is ever shown. |
+| Schema `enum` present, no tag | The schema is authoritative. The EnumContext only enriches those options (labels, summaries, specs); no value outside the schema `enum` is ever shown. |
+| Schema `enum` + `x-sco-value-type: enum` + a matching EnumContext | Only the schema values that the EnumContext also lists are offered, with its labels and summaries. Use it to offer a subset of what the API accepts, for example only the network modes a platform supports. A context value outside the schema `enum` is never offered. |
 | No schema `enum` + `x-sco-value-type: enum` + a matching EnumContext | Options are sourced from the EnumContext. |
 | No tag, or no matching EnumContext | Free-text input (unchanged). |
 
@@ -75,6 +78,17 @@ By default the field renders as a `select`; set `x-sco-ui-component` to `select-
   "type": "string",
   "x-sco-value-type": "enum",
   "x-sco-ui-component": "select-detail"
+}
+```
+
+`secret` marks a value to keep out of sight, such as an initial password. The detail page shows it masked (`••••••••`), with a reveal toggle and a copy button; copying masks it again. With `x-sco-value-encoding: base64`, the revealed and the copied value are decoded, and the encoded form is never shown; a value that does not decode shows *Not readable*. The tag takes precedence over `x-sco-ui-component`, so a component hint cannot unmask the value.
+
+```json
+"initialPassword": {
+  "type": "string",
+  "x-sco-ui-label": "Initial password",
+  "x-sco-value-encoding": "base64",
+  "x-sco-value-type": "secret"
 }
 ```
 

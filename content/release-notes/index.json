@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "product": "Stakater Cloud Orchestrator",
+  "releases": [
+    {
+      "id": "next-release",
+      "version": null,
+      "status": "draft",
+      "date": null,
+      "notes": "next-release.html",
+      "data": "next-release.json"
+    }
+  ]
+}

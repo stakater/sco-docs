@@ -6,133 +6,121 @@ SCO uses a GitOps-native configuration model. Rather than a traditional admin co
 
 ## How Configuration Works
 
-When `ksp up` bootstraps the platform, it generates an initial set of `EnvironmentConfig` resources — one per platform component. These EnvironmentConfigs encode the default values for every configurable aspect of each component: resource limits, feature flags, version pins, networking settings, storage configuration, and integration parameters.
+`ksp up` installs the platform packages and applies your `KubeStackConfig` and `KubeStackPlus` claims. From the `KubeStackConfig` claim, the platform generates one **default EnvironmentConfig per platform component**. Each one holds that component's chart version and its Helm values, as set by the platform release you run. See [Versioning and Upgrades](versioning.md).
 
-Each platform component is packaged as an OCI artifact (Helm chart plus Crossplane configurations). Crossplane watches the `EnvironmentConfig` resources and, when values change, re-renders the ArgoCD `Application` for that component — injecting the updated values from the `EnvironmentConfig` as Helm values. ArgoCD then reconciles the component toward the new desired state automatically.
+Each platform component is packaged as a Helm chart in the Stakater distribution registry. Crossplane reads the EnvironmentConfigs and renders one ArgoCD `Application` per component, passing the version and values from the EnvironmentConfig. When they change, Crossplane re-renders the `Application`, and ArgoCD reconciles the component toward the new desired state automatically.
 
 ```text
 ksp up (initial install)
     ↓
 KubeStackConfig + KubeStackPlus claims applied
     ↓
-Crossplane generates EnvironmentConfigs (one per component)
+Platform generates a default EnvironmentConfig per component (version + values)
     ↓
-EnvironmentConfigs hold default values from ksp up inputs
+Your override EnvironmentConfigs are merged over the defaults
     ↓
-Crossplane renders ArgoCD Applications sourcing values from EnvironmentConfigs
+Crossplane renders one ArgoCD Application per component
     ↓
-ArgoCD deploys each component from its OCI artifact
+ArgoCD deploys each component from its chart
     ↓
-Platform running with defaults
+Platform running
 ```
+
+The default EnvironmentConfigs belong to the platform. A change made directly to one of them does not last: the platform generates it again. To change a setting, add an override.
 
 ---
 
 ## Customising Platform Configuration
 
-To change any default — for example, increasing the replica count for the KCP workspace service, or adjusting default resource quotas for new projects — platform operators create **override EnvironmentConfigs** in their GitOps repository.
+To change any default — for example, raising the resource limits of a component — platform operators create **override EnvironmentConfigs** in their GitOps repository.
 
-An override EnvironmentConfig targets a specific component and declares only the values that differ from the defaults. When applied to the cluster, Crossplane merges it with the component's default EnvironmentConfig and re-renders the ArgoCD `Application` with the updated Helm values. ArgoCD then reconciles the component.
-
-### Example: Adjusting default project quota
-
-```yaml
-apiVersion: apiextensions.crossplane.io/v1beta1
-kind: EnvironmentConfig
-metadata:
-  name: mto-quota-override
-  labels:
-    kcp/component: mto
-    platform/override: "true"
-data:
-  defaultQuota:
-    small:
-      requests.cpu: "4"
-      requests.memory: 8Gi
-      limits.cpu: "8"
-      limits.memory: 16Gi
-    medium:
-      requests.cpu: "8"
-      requests.memory: 16Gi
-      limits.cpu: "16"
-      limits.memory: 32Gi
-```
-
-Store this in your GitOps repository. When ArgoCD syncs it to the cluster, Crossplane picks up the change and updates the Multi-Tenant Operator's quota configuration.
+An override EnvironmentConfig targets one component and declares only the values that differ from the defaults. When it is applied to the cluster, Crossplane merges it over the component's default EnvironmentConfig and re-renders the ArgoCD `Application` with the updated Helm values. ArgoCD then reconciles the component.
 
 ### Example: Adjusting component resource limits
 
+This override raises the resource limits of the `crossplane` component on a `scobasic` installation:
+
 ```yaml
 apiVersion: apiextensions.crossplane.io/v1beta1
 kind: EnvironmentConfig
 metadata:
-  name: kcp-resources-override
+  name: <cluster-name>-crossplane-addon-env-override
   labels:
-    kcp/component: kcp
-    platform/override: "true"
+    kubestack.stakater.com/addon-name: crossplane
+    kubestack.stakater.com/config-kind: kubestack-plus-env
+    kubestack.stakater.com/config-scope: addon
+    kubestack.stakater.com/domain: <apps-domain>
+    kubestack.stakater.com/name: <cluster-name>
 data:
-  resources:
-    requests:
-      cpu: "2"
-      memory: 4Gi
-    limits:
-      cpu: "4"
-      memory: 8Gi
-  replicas: 3
+  SCOBASIC-OCP-VALUES: |
+    crossplane:
+      resourcesCrossplane:
+        limits:
+          cpu: "4"
+          memory: 8Gi
+        requests:
+          cpu: 500m
+          memory: 2Gi
 ```
 
----
+Store this in your GitOps repository. When ArgoCD syncs it to the cluster, Crossplane picks up the change and the component is redeployed with the new limits.
 
-## Component Configuration Reference
+### What an override must contain
 
-Each platform component has a corresponding EnvironmentConfig namespace. The labels identify which component a config applies to.
+| Part | Rule |
+|---|---|
+| `kubestack.stakater.com/config-scope: addon` label | Required. The platform only reads EnvironmentConfigs that carry it |
+| `kubestack.stakater.com/addon-name` label | Required. The component the override applies to |
+| `metadata.name` | Must sort after the default, which is named `<cluster-name>-<component>-addon-env`. Adding `-override` to that name does this |
+| `<VARIANT>-OCP-VALUES` | The Helm values to change, as a YAML string. The prefix is your variant in upper case: `SCOBASIC` or `HOSTING` |
+| `<VARIANT>-OCP-VERSION` | Optional. Runs the component at a chart version other than the release default. See [Control Component Versions Yourself](versioning.md#control-component-versions-yourself) |
 
-| Component label | Component |
-|-----------------|-----------|
-| `kcp/component: kcp` | KCP workspace service |
-| `kcp/component: mto` | Multi-Tenant Operator |
-| `kcp/component: keycloak` | Keycloak identity platform |
-| `kcp/component: openbao` | OpenBao secrets engine |
-| `kcp/component: crossplane` | Crossplane and providers |
-| `kcp/component: hypershift` | Hypershift operator |
-| `kcp/component: openshift-virt` | OpenShift Virtualization |
-| `kcp/component: platform-services` | `api-syncagent` and API publishing |
+The values in an override are merged over the defaults key by key, so state only the keys you change.
+
+!!! note "Values for the clusters the platform provisions"
+    On the `hosting` variant, components that are also installed on provisioned clusters read their values from a separate `HOSTING-OCP-SPOKE-VALUES` key. An override that sets only `HOSTING-OCP-VALUES` does not reach those clusters; repeat the values under the `SPOKE-VALUES` key when it should.
+
+### Cluster-wide settings
+
+The file you pass to `ksp up` with `--environment-config` becomes the EnvironmentConfig `cluster-defaults`, which holds settings shared by all components, such as the base domain and the storage class. After installation the platform keeps it up to date from your `KubeStackConfig` claim, so direct edits to it do not last either. Change the claim, or add an override for the `crossplane-environment-config` component as shown in [`scobasic` Installation](scobasic.md#organization-platform-config).
 
 ---
 
 ## Discovering Available Configuration Fields
 
-Each addon's EnvironmentConfig stores its Helm values and version under keys following the pattern `{VARIANT}-{PLATFORM}-VALUES` and `{VARIANT}-{PLATFORM}-VERSION` (e.g., `SCOBASIC-OCP-VALUES`). To discover what fields are available for a specific component:
+Each component's EnvironmentConfig stores its Helm values and version under keys following the pattern `{VARIANT}-{PLATFORM}-VALUES` and `{VARIANT}-{PLATFORM}-VERSION` (e.g., `SCOBASIC-OCP-VALUES`). To discover the component names and the fields available for a component:
 
 ```bash
-# List all addon EnvironmentConfigs
+# List every component EnvironmentConfig, defaults and overrides
 kubectl get environmentconfigs -l kubestack.stakater.com/config-scope=addon
 
-# Inspect a specific addon's EnvironmentConfig to see its current values
-kubectl get environmentconfig <addon-name> -o yaml
+# Inspect a component's default EnvironmentConfig to see its values
+kubectl get environmentconfig <cluster-name>-<component>-addon-env -o yaml
 
 # Example: view the cert-manager configuration
-kubectl get environmentconfig cert-manager -o yaml
+kubectl get environmentconfig <cluster-name>-cert-manager-addon-env -o yaml
 ```
 
-The `data` section of the EnvironmentConfig contains the Helm values that are passed to the addon's ArgoCD Application. These values correspond to the Helm chart's `values.yaml` for that addon.
+The component name is the value of the `kubestack.stakater.com/addon-name` label. The `VALUES` key in the `data` section contains the Helm values that are passed to the component's ArgoCD Application. These values correspond to the Helm chart's `values.yaml` for that component.
 
 ---
 
 ## Viewing Current Configuration
 
-To inspect the current EnvironmentConfig for a component:
+To inspect the current configuration of a component:
 
 ```bash
-# List all platform EnvironmentConfigs
-kubectl get environmentconfigs -l kcp/component
+# Everything that applies to one component: its default and any overrides
+kubectl get environmentconfigs -l kubestack.stakater.com/addon-name=<component>
 
-# View the default config for a component
-kubectl get environmentconfig kcp-defaults -o yaml
+# View any overrides on the cluster
+kubectl get environmentconfigs -l kubestack.stakater.com/config-scope=addon -o name | grep override
 
-# View any overrides
-kubectl get environmentconfigs -l platform/override=true
+# The merged values the component actually runs with
+kubectl get applications.argoproj.io <component> -n openshift-gitops -o jsonpath='{.spec.source.helm.values}'
 ```
+
+If your ArgoCD instance runs in a namespace other than `openshift-gitops`, use that namespace.
 
 ---
 
@@ -152,6 +140,7 @@ This workflow ensures all configuration changes are auditable, reversible (via G
 
 ## What's Next?
 
+- [Versioning and Upgrades](versioning.md) — How platform releases, upgrades and version overrides work
 - [Service Provider Guide](../service-provider-guide/getting-started.md) — Start building service offerings
 - [Crossplane Integration](../integrations/crossplane.md) — How Crossplane manages platform components
 - [Architecture](../architecture/architecture.md) — Understanding the platform's design

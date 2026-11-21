@@ -18,7 +18,7 @@
       
       
       <link rel="icon" href="../assets/images/favicon.svg">
-      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.8.1">
+      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.8.2">
     
     
       
@@ -3097,6 +3097,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
+      <a href="../how-to-guides/user/connect-openshift-cluster-to-virtual-machine.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Connect an OpenShift Cluster to a Virtual Machine
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../how-to-guides/user/provision-windows-virtual-machine.html" class="md-nav__link">
         
   
@@ -3818,6 +3846,17 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
+  <a href="#preparing-the-install-secrets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Preparing the install secrets
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#installing" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3895,6 +3934,17 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     <span class="md-ellipsis">
       
         Components are absent rather than unhealthy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#an-install-secret-is-missing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        An install secret is missing
       
     </span>
   </a>
@@ -4183,6 +4233,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     
   
     Modelling Child Resources
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../service-provider-guide/solutions/modeling-related-resources.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modelling Related Resources
   
 
     
@@ -6375,6 +6453,17 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
+  <a href="#preparing-the-install-secrets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Preparing the install secrets
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#installing" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -6452,6 +6541,17 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     <span class="md-ellipsis">
       
         Components are absent rather than unhealthy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#an-install-secret-is-missing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        An install secret is missing
       
     </span>
   </a>
@@ -6775,6 +6875,59 @@ the first time the secret store initialises.</p>
 <p>See <a href="openbao-unseal.html">Choosing the Platform Secret Store Unseal Method</a>. For a
 self-hosted or disconnected installation, the <code>static</code> method requires no cloud
 account.</p>
+<h2 id="preparing-the-install-secrets">Preparing the install secrets<a class="headerlink" href="#preparing-the-install-secrets" title="Permanent link">#</a></h2>
+<p><code>ksp up --extra-secrets extra-secrets.yaml</code> creates these Kubernetes Secrets
+before it installs anything. For <code>scobasic</code> the file holds two secrets:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">secrets</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">"ghcr-helm-repo"</span>
+<span class="w">    </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="s">"crossplane-system"</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">"Opaque"</span>
+<span class="w">    </span><span class="nt">labels</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">app.kubernetes.io/component</span><span class="p">:</span><span class="w"> </span><span class="s">"ghcr-helm-repo"</span>
+<span class="w">      </span><span class="nt">app.kubernetes.io/name</span><span class="p">:</span><span class="w"> </span><span class="s">"crossplane-system"</span>
+<span class="w">    </span><span class="nt">data</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">enableOCI</span><span class="p">:</span><span class="w"> </span><span class="s">"true"</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">"ghcr-helm-repo"</span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">"helm"</span>
+<span class="w">      </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="s">"&lt;gitopsChartsUrl</span><span class="nv"> </span><span class="s">from</span><span class="nv"> </span><span class="s">registry-secret.yaml&gt;"</span>
+<span class="w">      </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="s">"&lt;registry</span><span class="nv"> </span><span class="s">username&gt;"</span>
+<span class="w">      </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="s">"&lt;registry</span><span class="nv"> </span><span class="s">token&gt;"</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">"openbao-unseal-key"</span>
+<span class="w">    </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="s">"stakater-openbao"</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">"Opaque"</span>
+<span class="w">    </span><span class="nt">data</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">current</span><span class="p">:</span><span class="w"> </span><span class="s">"&lt;32-byte</span><span class="nv"> </span><span class="s">key,</span><span class="nv"> </span><span class="s">base64&gt;"</span>
+</code></pre></div>
+<p>Write every value as plain text. The installer encodes it for Kubernetes, so do
+not base64-encode the values yourself.</p>
+<table>
+<thead>
+<tr>
+<th>Secret</th>
+<th>Purpose</th>
+<th>Values</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ghcr-helm-repo</code></td>
+<td>Registry credentials the platform uses to pull the charts it installs after the initial installation</td>
+<td>The same username and token as in <code>registry-secret.yaml</code> (see <a href="openshift.html#step-3-prepare-registry-credentials">Prepare Registry Credentials</a>). Set <code>url</code> to the same value as <code>gitopsChartsUrl</code> in that file. Keep <code>enableOCI</code>, <code>name</code> and <code>type</code> exactly as shown</td>
+</tr>
+<tr>
+<td><code>openbao-unseal-key</code></td>
+<td>The key the platform secret store unseals with</td>
+<td>Needed only with the <code>static</code> unseal method. Generate it and back it up as described in <a href="openbao-unseal.html">Choosing the Platform Secret Store Unseal Method</a></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">Keep this file</p>
+<p>Store <code>extra-secrets.yaml</code> somewhere safe after the installation. If one of
+these secrets is lost later, you rebuild it from the same values. See
+<a href="#an-install-secret-is-missing">An install secret is missing</a>.</p>
+</div>
 <h2 id="installing">Installing<a class="headerlink" href="#installing" title="Permanent link">#</a></h2>
 <div class="highlight"><pre><span></span><code>ksp<span class="w"> </span>prerequisites<span class="w"> </span>--variant<span class="w"> </span>scobasic
 
@@ -6870,7 +7023,7 @@ else reports healthy. Confirm you can log in to the console before considering
 the installation complete.</p>
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">#</a></h2>
 <p>The <a href="openshift.html#troubleshooting">OpenShift installation troubleshooting</a>
-section applies here too. Two failure modes are specific to <code>scobasic</code>:</p>
+section applies here too. These failure modes are specific to <code>scobasic</code>:</p>
 <h3 id="loadbalancer-services-stay-pending">LoadBalancer Services stay pending<a class="headerlink" href="#loadbalancer-services-stay-pending" title="Permanent link">#</a></h3>
 <div class="highlight"><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>svc<span class="w"> </span>-A<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span>pending
 </code></pre></div>
@@ -6885,6 +7038,43 @@ silent.</p>
 <div class="highlight"><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>stakater-openbao
 </code></pre></div>
 <p>See <a href="openbao-unseal.html">the unseal guide</a> if it has not come up.</p>
+<h3 id="an-install-secret-is-missing">An install secret is missing<a class="headerlink" href="#an-install-secret-is-missing" title="Permanent link">#</a></h3>
+<p>The platform keeps a copy of the registry credentials from your install secrets
+in its secret store, and reads them back from there. If both copies are lost,
+for example after the secret store has been reset, Crossplane's Helm provider
+can no longer pull charts. The signs are:</p>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>externalsecrets.external-secrets.io<span class="w"> </span>ghcr-helm-repo<span class="w"> </span>-n<span class="w"> </span>crossplane-system<span class="w">   </span><span class="c1"># SecretSyncedError</span>
+oc<span class="w"> </span>get<span class="w"> </span>pushsecrets.external-secrets.io<span class="w"> </span>ghcr-helm-repo<span class="w"> </span>-n<span class="w"> </span>crossplane-system<span class="w">       </span><span class="c1"># Errored</span>
+oc<span class="w"> </span>describe<span class="w"> </span>pushsecrets.external-secrets.io<span class="w"> </span>ghcr-helm-repo<span class="w"> </span>-n<span class="w"> </span>crossplane-system<span class="w">  </span><span class="c1"># "could not get source secret"</span>
+</code></pre></div>
+<p>Re-create the secret. If you no longer have <code>extra-secrets.yaml</code>, copy the
+values from the Argo CD repository credential that <code>ksp up</code> created from the
+same registry credentials. The values are not printed:</p>
+<div class="highlight"><pre><span></span><code><span class="nv">S</span><span class="o">=</span><span class="k">$(</span>oc<span class="w"> </span>get<span class="w"> </span>secret<span class="w"> </span>-n<span class="w"> </span>openshift-gitops<span class="w"> </span>-l<span class="w"> </span>argocd.argoproj.io/secret-type<span class="o">=</span>repository<span class="w"> </span>-o<span class="w"> </span>name<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-1<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d/<span class="w"> </span>-f2<span class="k">)</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"copying from: </span><span class="nv">$S</span><span class="s2">"</span>
+oc<span class="w"> </span>create<span class="w"> </span>secret<span class="w"> </span>generic<span class="w"> </span>ghcr-helm-repo<span class="w"> </span>-n<span class="w"> </span>crossplane-system<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--from-literal<span class="o">=</span><span class="nv">enableOCI</span><span class="o">=</span><span class="nb">true</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--from-literal<span class="o">=</span><span class="nv">name</span><span class="o">=</span>ghcr-helm-repo<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--from-literal<span class="o">=</span><span class="nv">type</span><span class="o">=</span>helm<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--from-literal<span class="o">=</span><span class="nv">url</span><span class="o">=</span><span class="s2">"</span><span class="k">$(</span>oc<span class="w"> </span>get<span class="w"> </span>secret<span class="w"> </span><span class="s2">"</span><span class="nv">$S</span><span class="s2">"</span><span class="w"> </span>-n<span class="w"> </span>openshift-gitops<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.data.url}'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64<span class="w"> </span>-d<span class="k">)</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--from-literal<span class="o">=</span><span class="nv">username</span><span class="o">=</span><span class="s2">"</span><span class="k">$(</span>oc<span class="w"> </span>get<span class="w"> </span>secret<span class="w"> </span><span class="s2">"</span><span class="nv">$S</span><span class="s2">"</span><span class="w"> </span>-n<span class="w"> </span>openshift-gitops<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.data.username}'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64<span class="w"> </span>-d<span class="k">)</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--from-literal<span class="o">=</span><span class="nv">password</span><span class="o">=</span><span class="s2">"</span><span class="k">$(</span>oc<span class="w"> </span>get<span class="w"> </span>secret<span class="w"> </span><span class="s2">"</span><span class="nv">$S</span><span class="s2">"</span><span class="w"> </span>-n<span class="w"> </span>openshift-gitops<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.data.password}'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64<span class="w"> </span>-d<span class="k">)</span><span class="s2">"</span>
+oc<span class="w"> </span>label<span class="w"> </span>secret<span class="w"> </span>ghcr-helm-repo<span class="w"> </span>-n<span class="w"> </span>crossplane-system<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>app.kubernetes.io/component<span class="o">=</span>ghcr-helm-repo<span class="w"> </span>app.kubernetes.io/name<span class="o">=</span>crossplane-system
+</code></pre></div>
+<p>Check that <code>copying from:</code> names a single secret before you continue. If you
+still have the file, use its values instead. If <code>oc create</code> reports that the
+secret already exists, check it with <code>oc get secret ghcr-helm-repo -n crossplane-system -o yaml</code>;
+delete it only if its values are wrong, then run the commands again.</p>
+<p>After many failed attempts, the copy into the secret store can wait a long time
+before it retries. Trigger it, then trigger the read-back:</p>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>annotate<span class="w"> </span>pushsecrets.external-secrets.io<span class="w"> </span>ghcr-helm-repo<span class="w"> </span>-n<span class="w"> </span>crossplane-system<span class="w"> </span>force-sync<span class="o">=</span><span class="k">$(</span>date<span class="w"> </span>+%s<span class="k">)</span><span class="w"> </span>--overwrite
+sleep<span class="w"> </span><span class="m">20</span>
+oc<span class="w"> </span>get<span class="w"> </span>pushsecrets.external-secrets.io<span class="w"> </span>ghcr-helm-repo<span class="w"> </span>-n<span class="w"> </span>crossplane-system<span class="w">       </span><span class="c1"># Synced</span>
+oc<span class="w"> </span>annotate<span class="w"> </span>externalsecrets.external-secrets.io<span class="w"> </span>ghcr-helm-repo<span class="w"> </span>-n<span class="w"> </span>crossplane-system<span class="w"> </span>force-sync<span class="o">=</span><span class="k">$(</span>date<span class="w"> </span>+%s<span class="k">)</span><span class="w"> </span>--overwrite
+sleep<span class="w"> </span><span class="m">10</span>
+oc<span class="w"> </span>get<span class="w"> </span>externalsecrets.external-secrets.io<span class="w"> </span>ghcr-helm-repo<span class="w"> </span>-n<span class="w"> </span>crossplane-system<span class="w">   </span><span class="c1"># SecretSynced, READY True</span>
+</code></pre></div>
 <h2 id="whats-next">What's Next?<a class="headerlink" href="#whats-next" title="Permanent link">#</a></h2>
 <ul>
 <li><a href="configuration.html">Configuration</a> - Post-installation configuration</li>

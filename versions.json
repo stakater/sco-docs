@@ -12,7 +12,9 @@
   {
     "version": "renovate-0.1-node-24.x-lockfile",
     "title": "renovate-0.1-node-24.x-lockfile",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "renovate-0.1-dotenv-17.x-lockfile",
@@ -122,9 +124,7 @@
   {
     "version": "docs-scobasic-public-dns",
     "title": "docs-scobasic-public-dns",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "docs-scobasic-org-onboarding",

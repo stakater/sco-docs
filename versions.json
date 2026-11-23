@@ -87,7 +87,9 @@
   {
     "version": "docs-vm-backup-vs-snapshot",
     "title": "docs-vm-backup-vs-snapshot",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "docs-versioning-and-upgrades",
@@ -137,9 +139,7 @@
   {
     "version": "docs-sa8748-cluster-access-roles-v2",
     "title": "docs-sa8748-cluster-access-roles-v2",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "docs-release-notes-and-admin-config",

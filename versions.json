@@ -85,13 +85,6 @@
     "aliases": []
   },
   {
-    "version": "docs-vm-backup-vs-snapshot",
-    "title": "docs-vm-backup-vs-snapshot",
-    "aliases": [
-      "latest"
-    ]
-  },
-  {
     "version": "docs-versioning-and-upgrades",
     "title": "docs-versioning-and-upgrades",
     "aliases": []

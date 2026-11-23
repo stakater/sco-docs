@@ -52,9 +52,7 @@
   {
     "version": "renovate-main-docker-login-action-4.x",
     "title": "renovate-main-docker-login-action-4.x",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "renovate-main-actions-setup-node-7.x",
@@ -119,7 +117,9 @@
   {
     "version": "docs-scobasic-public-dns",
     "title": "docs-scobasic-public-dns",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "docs-scobasic-org-onboarding",

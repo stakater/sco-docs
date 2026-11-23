@@ -117,7 +117,9 @@
   {
     "version": "docs-scobasic-public-dns",
     "title": "docs-scobasic-public-dns",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "docs-scobasic-org-onboarding",
@@ -132,9 +134,7 @@
   {
     "version": "docs-sa8748-cluster-access-roles-v2",
     "title": "docs-sa8748-cluster-access-roles-v2",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "docs-release-notes-and-admin-config",

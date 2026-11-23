@@ -137,14 +137,14 @@
   {
     "version": "docs-sa8938-vm-ssh-port",
     "title": "docs-sa8938-vm-ssh-port",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "docs-sa8748-cluster-access-roles-v2",
     "title": "docs-sa8748-cluster-access-roles-v2",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "docs-sa8748-cluster-access-roles",

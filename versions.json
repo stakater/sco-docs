@@ -102,9 +102,7 @@
   {
     "version": "docs-screenshots-s03-postgres",
     "title": "docs-screenshots-s03-postgres",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "docs-screenshots-s02-s3-bucket",
@@ -134,7 +132,9 @@
   {
     "version": "docs-sa8748-cluster-access-roles-v2",
     "title": "docs-sa8748-cluster-access-roles-v2",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "docs-release-notes-and-admin-config",

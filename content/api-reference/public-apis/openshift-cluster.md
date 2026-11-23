@@ -1,6 +1,6 @@
 # OpenShift Cluster
 
-Provisions a managed OpenShift hosted cluster with a T-shirt sized default node pool, Keycloak OAuth integration, and group-based access control.
+Provisions a managed OpenShift hosted cluster with a T-shirt sized default node pool, single sign-on integration, and group-based access control.
 
 ## API Details
 
@@ -30,15 +30,30 @@ All parameters are nested under `spec.parameters`.
 | `defaultNodepool.size` | `string` | `medium` | T-shirt size for default node pool nodes. Allowed: `small`, `medium`, `large`, `xlarge`. Maps to a predefined CPU, memory, and root volume configuration at the platform level. |
 | `defaultNodepool.replicas` | `integer` | `3` | Number of nodes in the default node pool (1–10) |
 | `networking.mode` | `string` | `public` | Network access mode for the cluster API and console. Allowed: `public`, `private` |
-| `access.groups` | `array` | — | List of Keycloak group → ClusterRole bindings (see below) |
+| `access.groups` | `array` | — | Grants organisation groups a role on the cluster (see below) |
 | `bootstrap.enabled` | `boolean` | `false` | When `true`, the hosting cluster auto-installs core add-ons (Crossplane, ArgoCD, ksp-system). Enable for new clusters; leave disabled for clusters that were bootstrapped manually. |
 
 ### `access.groups[]`
 
 | Field | Type | Constraints | Description |
 |-------|------|-------------|-------------|
-| `name` | `string` | 1–253 characters, RFC 1123 subdomain | Keycloak group name exactly as it appears in the `groups` claim of the OIDC token. |
-| `role` | `string` | 1–253 characters | ClusterRole to bind. Typically, `customer-edit` or `customer-view` (managed by the RBAC Permissions Operator), or a built-in such as `view`, `edit`, or `admin`. |
+| `name` | `string` | 1–253 characters, RFC 1123 subdomain | Organisation group name, exactly as it appears in your single sign-on. Names reserved for platform access are rejected: `customer-admin`, and names starting with `stakater-` or ending in `-cluster-admin` or `-stakater-admin`. |
+| `role` | `string` | `view`, `edit`, `admin`, or `customer-admin` | Access level to grant the group. See [Access Roles](#access-roles). |
+
+#### Access Roles
+
+Every role applies to all projects on the cluster except the platform-managed ones (such as `default`, `kube-*` and `openshift-*`).
+
+| Role | Grants |
+|------|--------|
+| `view` | read-only access to resources |
+| `edit` | create and modify resources |
+| `admin` | full administration, including managing access within each project |
+| `customer-admin` | everything `admin` grants, plus selected cluster-wide permissions: browsing the full operator catalog, viewing nodes and storage classes, and managing cluster resource quotas. Nodes are read-only and privileged workloads are not allowed. |
+
+`cluster-admin` and any role not listed above are rejected.
+
+By default `customer-admin` is restricted as described in the table. It can browse the operator catalog but cannot create the operator group that an installation needs, so installing operators requires full cluster administration. Your platform administrator can enable full cluster administration for your organisation or for a single cluster. Members of a `customer-admin` group then also become cluster administrators, including in the platform-managed namespaces. The claim cannot change this setting.
 
 ## Status Fields
 
@@ -89,9 +104,9 @@ spec:
     access:
       groups:
         - name: platform-admins
-          role: customer-edit
+          role: customer-admin
         - name: developers
-          role: customer-view
+          role: edit
     bootstrap:
       enabled: true
 ```

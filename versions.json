@@ -147,11 +147,6 @@
     ]
   },
   {
-    "version": "docs-sa8748-cluster-access-roles",
-    "title": "docs-sa8748-cluster-access-roles",
-    "aliases": []
-  },
-  {
     "version": "docs-release-notes-and-admin-config",
     "title": "docs-release-notes-and-admin-config",
     "aliases": []

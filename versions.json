@@ -47,9 +47,7 @@
   {
     "version": "renovate-main-dotenv-17.x-lockfile",
     "title": "renovate-main-dotenv-17.x-lockfile",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "renovate-main-docker-login-action-4.x",
@@ -89,7 +87,9 @@
   {
     "version": "docs-vm-backup-vs-snapshot",
     "title": "docs-vm-backup-vs-snapshot",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "docs-versioning-and-upgrades",

@@ -6452,7 +6452,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </tbody>
 </table>
 <h3 id="access-grants">Access Grants<a class="headerlink" href="#access-grants" title="Permanent link">#</a></h3>
-<p>Each entry under <code>access.groups</code> grants an organisation group a role on the cluster. Members of that group receive the role when they sign in. Platform-managed namespaces are excluded.</p>
+<p>Each entry under <code>access.groups</code> grants an organisation group a role on the cluster. Every role applies to all projects on the cluster except the platform-managed ones (such as <code>default</code>, <code>kube-*</code> and <code>openshift-*</code>).</p>
 <table>
 <thead>
 <tr>
@@ -6476,37 +6476,33 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <thead>
 <tr>
 <th>Role</th>
-<th>Scope</th>
 <th>Grants</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><code>view</code></td>
-<td>your projects</td>
-<td>read-only access to resources in your projects on the cluster</td>
+<td>read-only access to resources</td>
 </tr>
 <tr>
 <td><code>edit</code></td>
-<td>your projects</td>
-<td>create and modify resources in your projects on the cluster</td>
+<td>create and modify resources</td>
 </tr>
 <tr>
 <td><code>admin</code></td>
-<td>your projects</td>
-<td>full administration of your projects on the cluster, including managing access within them</td>
+<td>full administration, including managing access within each project</td>
 </tr>
 <tr>
 <td><code>customer-admin</code></td>
-<td>the cluster</td>
-<td><code>admin</code> on every project you use on the cluster, plus selected cluster-wide permissions such as browsing and installing operators from the marketplace. Platform-managed namespaces and host-level (node) access stay off-limits.</td>
+<td>everything <code>admin</code> grants, plus selected cluster-wide permissions: browsing the full operator catalog, viewing nodes and storage classes, and managing cluster resource quotas. Nodes are read-only and privileged workloads are not allowed.</td>
 </tr>
 </tbody>
 </table>
-<p><code>cluster-admin</code> and any role not listed above are rejected. Members must sign out and back in after a grant is added for it to take effect.</p>
+<p><code>cluster-admin</code> and any role not listed above are rejected.</p>
+<p>Group membership is read when a member signs in to the cluster. Someone added to the group after their last sign-in must sign out and back in before the grant applies to them.</p>
 <div class="admonition note">
 <p class="admonition-title">Full cluster administration</p>
-<p>By default <code>customer-admin</code> is restricted as described in the table. Your platform administrator can enable full cluster administration for your organisation or for a single cluster. Members of a <code>customer-admin</code> group then also become cluster administrators, including in the platform-managed namespaces. The claim cannot change this setting.</p>
+<p>By default <code>customer-admin</code> is restricted as described in the table. It can browse the operator catalog but cannot create the operator group that an installation needs, so installing operators requires full cluster administration. Your platform administrator can enable full cluster administration for your organisation or for a single cluster. Members of a <code>customer-admin</code> group then also become cluster administrators, including in the platform-managed namespaces. The claim cannot change this setting.</p>
 </div>
 <h2 id="step-3-apply-the-claim">Step 3: Apply the Claim<a class="headerlink" href="#step-3-apply-the-claim" title="Permanent link">#</a></h2>
 <div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>cluster.yaml

@@ -6472,13 +6472,20 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <div class="highlight"><pre><span></span><code>NAME         READY   SYNCED   PRINTABLE-STATUS   AGE
 my-dev-vm    True    True     Running            3m
 </code></pre></div>
-<p>Retrieve the VM's connection details (for <code>public</code> VMs):</p>
+<p>Retrieve the VM's connection details (for <code>public</code> VMs) — the address <strong>and</strong> the
+SSH port, which the platform reports on the claim:</p>
 <div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>virtualmachine<span class="w"> </span>my-dev-vm<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.status.vm.serviceHostname}'</span>
+<span class="w">  </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.status.vm.serviceIP}{"\n"}{.status.vm.serviceHostname}{"\n"}{.status.vm.servicePort}{"\n"}'</span>
 </code></pre></div>
-<p>SSH into the VM:</p>
-<div class="highlight"><pre><span></span><code>ssh<span class="w"> </span>cloud-user@&lt;vm-hostname-or-ip&gt;
+<p>SSH into the VM on the port that command reported:</p>
+<div class="highlight"><pre><span></span><code>ssh<span class="w"> </span>-i<span class="w"> </span>~/.ssh/my-key<span class="w"> </span>-p<span class="w"> </span>&lt;servicePort&gt;<span class="w"> </span>cloud-user@&lt;vm-hostname-or-ip&gt;
 </code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Do not assume port <code>22</code>. New public VMs are exposed on <code>22</code>, but VMs created
+before that became the default are exposed on <code>22000</code>. <code>status.vm.servicePort</code>
+always reports the port the VM's LoadBalancer is really listening on.</p>
+</div>
 <h3 id="supported-flavours">Supported Flavours<a class="headerlink" href="#supported-flavours" title="Permanent link">#</a></h3>
 <table>
 <thead>

@@ -6368,7 +6368,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <ul>
 <li>A managed <strong>OpenShift hosted cluster</strong> with a dedicated control plane</li>
 <li>A default <strong>node pool</strong> sized via a T-shirt size (<code>small</code>, <code>medium</code>, <code>large</code>, <code>xlarge</code>)</li>
-<li><strong>Keycloak OAuth integration</strong> so users can sign in with their organisation identity</li>
+<li><strong>Single sign-on integration</strong> so users can sign in with their organisation identity</li>
 <li><strong>Group-to-role bindings</strong> for cluster access (optional)</li>
 <li><strong>Bootstrap credentials</strong>, console URL, and API endpoint exposed on the claim status</li>
 </ul>
@@ -6426,9 +6426,9 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <span class="w">    </span><span class="nt">access</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">groups</span><span class="p">:</span>
 <span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">platform-admins</span>
-<span class="w">          </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">customer-edit</span>
+<span class="w">          </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">customer-admin</span>
 <span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">developers</span>
-<span class="w">          </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">customer-view</span>
+<span class="w">          </span><span class="nt">role</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">edit</span>
 <span class="w">    </span><span class="nt">bootstrap</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 </code></pre></div>
@@ -6470,7 +6470,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <tr>
 <td><code>parameters.access.groups</code></td>
 <td>—</td>
-<td>List of Keycloak group → ClusterRole bindings (see below)</td>
+<td>Grants organisation groups a role on the cluster (see below)</td>
 </tr>
 <tr>
 <td><code>parameters.bootstrap.enabled</code></td>
@@ -6480,7 +6480,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </tbody>
 </table>
 <h3 id="access-grants">Access Grants<a class="headerlink" href="#access-grants" title="Permanent link">#</a></h3>
-<p>Each entry under <code>access.groups</code> binds a Keycloak group to a ClusterRole. Members of that group receive the role across customer-eligible namespaces on the cluster (platform namespaces are excluded centrally).</p>
+<p>Each entry under <code>access.groups</code> grants an organisation group a role on the cluster. Every role applies to all projects on the cluster except the platform-managed ones (such as <code>default</code>, <code>kube-*</code> and <code>openshift-*</code>).</p>
 <table>
 <thead>
 <tr>
@@ -6491,14 +6491,47 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <tbody>
 <tr>
 <td><code>name</code></td>
-<td>Keycloak group name exactly as it appears in the <code>groups</code> claim of the OIDC token. Must be a valid Kubernetes name (RFC 1123 subdomain).</td>
+<td>Organisation group name, exactly as it appears in your single sign-on. Must be a valid Kubernetes name (RFC 1123 subdomain). Names reserved for platform access are rejected: <code>customer-admin</code>, and names starting with <code>stakater-</code> or ending in <code>-cluster-admin</code> or <code>-stakater-admin</code>.</td>
 </tr>
 <tr>
 <td><code>role</code></td>
-<td>ClusterRole to bind. Typically, <code>customer-edit</code> or <code>customer-view</code> (managed by the RBAC Permissions Operator), or a built-in such as <code>view</code>, <code>edit</code>, or <code>admin</code>.</td>
+<td>Access level to grant: <code>view</code>, <code>edit</code>, <code>admin</code>, or <code>customer-admin</code>.</td>
 </tr>
 </tbody>
 </table>
+<p><strong>What each role grants:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Grants</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>view</code></td>
+<td>read-only access to resources</td>
+</tr>
+<tr>
+<td><code>edit</code></td>
+<td>create and modify resources</td>
+</tr>
+<tr>
+<td><code>admin</code></td>
+<td>full administration, including managing access within each project</td>
+</tr>
+<tr>
+<td><code>customer-admin</code></td>
+<td>everything <code>admin</code> grants, plus selected cluster-wide permissions: browsing the full operator catalog, viewing nodes and storage classes, and managing cluster resource quotas. Nodes are read-only and privileged workloads are not allowed.</td>
+</tr>
+</tbody>
+</table>
+<p><code>cluster-admin</code> and any role not listed above are rejected.</p>
+<p>Group membership is read when a member signs in to the cluster. Someone added to the group after their last sign-in must sign out and back in before the grant applies to them.</p>
+<div class="admonition note">
+<p class="admonition-title">Full cluster administration</p>
+<p>By default <code>customer-admin</code> is restricted as described in the table. It can browse the operator catalog but cannot create the operator group that an installation needs, so installing operators requires full cluster administration. Your platform administrator can enable full cluster administration for your organisation or for a single cluster. Members of a <code>customer-admin</code> group then also become cluster administrators, including in the platform-managed namespaces. The claim cannot change this setting.</p>
+</div>
 <h2 id="step-3-apply-the-claim">Step 3: Apply the Claim<a class="headerlink" href="#step-3-apply-the-claim" title="Permanent link">#</a></h2>
 <div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>cluster.yaml
 </code></pre></div>

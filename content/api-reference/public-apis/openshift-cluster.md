@@ -42,16 +42,18 @@ All parameters are nested under `spec.parameters`.
 
 #### Access Roles
 
-| Role | Scope | Grants |
-|------|-------|--------|
-| `view` | your projects | read-only access to resources in your projects on the cluster |
-| `edit` | your projects | create and modify resources in your projects on the cluster |
-| `admin` | your projects | full administration of your projects on the cluster, including managing access within them |
-| `customer-admin` | the cluster | `admin` on every project you use on the cluster, plus selected cluster-wide permissions such as browsing and installing operators from the marketplace. Platform-managed namespaces and host-level (node) access stay off-limits. |
+Every role applies to all projects on the cluster except the platform-managed ones (such as `default`, `kube-*` and `openshift-*`).
+
+| Role | Grants |
+|------|--------|
+| `view` | read-only access to resources |
+| `edit` | create and modify resources |
+| `admin` | full administration, including managing access within each project |
+| `customer-admin` | everything `admin` grants, plus selected cluster-wide permissions: browsing the full operator catalog, viewing nodes and storage classes, and managing cluster resource quotas. Nodes are read-only and privileged workloads are not allowed. |
 
 `cluster-admin` and any role not listed above are rejected.
 
-By default `customer-admin` is restricted as described in the table. Your platform administrator can enable full cluster administration for your organisation or for a single cluster. Members of a `customer-admin` group then also become cluster administrators, including in the platform-managed namespaces. The claim cannot change this setting.
+By default `customer-admin` is restricted as described in the table. It can browse the operator catalog but cannot create the operator group that an installation needs, so installing operators requires full cluster administration. Your platform administrator can enable full cluster administration for your organisation or for a single cluster. Members of a `customer-admin` group then also become cluster administrators, including in the platform-managed namespaces. The claim cannot change this setting.
 
 ## Status Fields
 

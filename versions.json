@@ -142,6 +142,11 @@
     ]
   },
   {
+    "version": "docs-sa8748-cluster-access-roles-v2",
+    "title": "docs-sa8748-cluster-access-roles-v2",
+    "aliases": []
+  },
+  {
     "version": "docs-sa8748-cluster-access-roles",
     "title": "docs-sa8748-cluster-access-roles",
     "aliases": []

@@ -52,7 +52,9 @@
   {
     "version": "renovate-main-docker-login-action-4.x",
     "title": "renovate-main-docker-login-action-4.x",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "renovate-main-actions-setup-node-7.x",
@@ -132,9 +134,7 @@
   {
     "version": "docs-sa8748-cluster-access-roles-v2",
     "title": "docs-sa8748-cluster-access-roles-v2",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "docs-release-notes-and-admin-config",

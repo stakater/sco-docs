@@ -23,7 +23,11 @@ When you create an OpenShiftCluster claim, the platform provisions:
 
 ## In the Console
 
-Clusters are under **Containers** in the sidebar. The create form opens in **Standard** mode, which asks for the same one field the minimal claim below does — everything else falls back to a platform default:
+Clusters are under **Containers** in the sidebar:
+
+![The OpenShift cluster list in the console]({{ screenshot: cluster-list }})
+
+The create form opens in **Standard** mode, which asks for the same one field the minimal claim below does — everything else falls back to a platform default:
 
 ![The Create OpenShift Cluster form in Standard mode]({{ screenshot: cluster-create-standard }})
 
@@ -138,7 +142,11 @@ For a more granular view, read `status.phase` directly. It moves through `Initia
 kubectl get openshiftcluster my-cluster -n my-tenant -o jsonpath="{.status.phase}"
 ```
 
-The cluster's detail page in the console shows the same phase, alongside the console URL and API endpoint that [Step 5](#step-5-access-the-cluster) reads out of the status.
+The cluster's detail page in the console shows the same phase, alongside the console URL and API endpoint that [Step 5](#step-5-access-the-cluster) reads out of the status:
+
+![A cluster detail page showing the phase and access grants]({{ screenshot: cluster-detail }})
+
+The console URL and API endpoint are in the **Status** block further down the page, shown in **Advanced** mode.
 
 ## Step 5: Access the Cluster
 
@@ -149,13 +157,14 @@ kubectl get openshiftcluster my-cluster -n my-tenant -o jsonpath="{.status.conso
 kubectl get openshiftcluster my-cluster -n my-tenant -o jsonpath="{.status.apiEndpoint}"
 ```
 
-Bootstrap credentials are available under `status.credentials` for initial access. After that, users should sign in through the configured Keycloak identity provider using the groups granted via `access.groups`.
+Users sign in through your organisation's identity provider with the roles granted via `access.groups`. A private cluster is reachable only over your organisation's mesh. [Connect to an OpenShift Cluster](connect-to-openshift-cluster.md) walks through enrolling a device, opening the console and logging in with the CLI.
 
 !!! tip
     Contact your platform administrator for the list of validated OpenShift versions and the CPU/memory mappings backing each T-shirt size in your environment.
 
 ## What's Next?
 
+- [Connect to an OpenShift Cluster](connect-to-openshift-cluster.md) - Join the mesh, open the console and sign in
 - [Create a Project](create-project.md) - Create projects for teams on the new cluster
 - [Create an IAM Group](create-iam-group.md) - Set up group-based access to the cluster
 - [Provision a Virtual Machine](provision-virtual-machine.md) - Deploy VMs alongside your cluster

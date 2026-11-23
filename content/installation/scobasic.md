@@ -30,6 +30,7 @@ In addition to the [general prerequisites](prerequisites.md):
 | A working RWO StorageClass | **you provide this** |
 | Working `LoadBalancer` Services | **you provide this** |
 | Wildcard DNS for `*.<apps-domain>` | platform routes are templated from it |
+| Wildcard DNS for `*.public.<base>` | **you create this after installing**. `<base>` is `<apps-domain>` without its leading `apps.`. The sign-in pages and the SCO console are served there. See [Certificates and DNS](#certificates-and-dns) |
 | Outbound access to the Stakater registry | charts and packages are pulled during installation |
 
 ### Storage
@@ -212,8 +213,22 @@ domain. It uses one certificate issuer that you provide.
 1. Set its name in the claim as `certificate.clusterIssuer`, with
    `certificate.type: byo`. The platform then requests and renews all of its
    certificates through that issuer.
-1. Set `dns.type: byo`. You keep ownership of DNS records. The wildcard and `api`
-   records already exist on an installed cluster.
+1. Set `dns.type: byo`. You keep ownership of DNS records. The `*.apps` wildcard
+   and `api` records already exist on an installed cluster, but you must add one
+   more: `*.public.<base>` (if `<apps-domain>` is `apps.example.com`, that is
+   `*.public.example.com`), pointing to the `LoadBalancer` address of the
+   platform's second router, `router-public-<cluster-name>`. The router is created during the installation, so
+   add the record once `ksp up` has run:
+
+    ```bash
+    oc get svc router-public-<cluster-name> -n openshift-ingress
+    ```
+
+    Until the record exists, the SCO console
+    (`https://cloud-orchestrator.public.<base>`) and the sign-in pages do not
+    load. `*.public` does not mean the router faces the internet; see
+    [Private Certificate Authority](private-ca.md) for the full list of names
+    and records.
 
 If your issuer is backed by a private CA that clients do not trust by default,
 also set `certificate.privateCA: true` and pass the root CA to `ksp up` with

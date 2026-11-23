@@ -27,7 +27,9 @@
   {
     "version": "renovate-main-node-24.x-lockfile",
     "title": "renovate-main-node-24.x-lockfile",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "renovate-main-node-24.x",
@@ -117,9 +119,7 @@
   {
     "version": "docs-scobasic-public-dns",
     "title": "docs-scobasic-public-dns",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "docs-scobasic-org-onboarding",

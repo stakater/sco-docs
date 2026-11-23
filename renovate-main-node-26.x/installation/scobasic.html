@@ -6689,6 +6689,10 @@ single most common reason a <code>scobasic</code> installation fails.</p>
 <td>platform routes are templated from it</td>
 </tr>
 <tr>
+<td>Wildcard DNS for <code>*.public.&lt;base&gt;</code></td>
+<td><strong>you create this after installing</strong>. <code>&lt;base&gt;</code> is <code>&lt;apps-domain&gt;</code> without its leading <code>apps.</code>. The sign-in pages and the SCO console are served there. See <a href="#certificates-and-dns">Certificates and DNS</a></td>
+</tr>
+<tr>
 <td>Outbound access to the Stakater registry</td>
 <td>charts and packages are pulled during installation</td>
 </tr>
@@ -6943,8 +6947,21 @@ domain. It uses one certificate issuer that you provide.</p>
 <li>Set its name in the claim as <code>certificate.clusterIssuer</code>, with
    <code>certificate.type: byo</code>. The platform then requests and renews all of its
    certificates through that issuer.</li>
-<li>Set <code>dns.type: byo</code>. You keep ownership of DNS records. The wildcard and <code>api</code>
-   records already exist on an installed cluster.</li>
+<li>
+<p>Set <code>dns.type: byo</code>. You keep ownership of DNS records. The <code>*.apps</code> wildcard
+   and <code>api</code> records already exist on an installed cluster, but you must add one
+   more: <code>*.public.&lt;base&gt;</code> (if <code>&lt;apps-domain&gt;</code> is <code>apps.example.com</code>, that is
+   <code>*.public.example.com</code>), pointing to the <code>LoadBalancer</code> address of the
+   platform's second router, <code>router-public-&lt;cluster-name&gt;</code>. The router is created during the installation, so
+   add the record once <code>ksp up</code> has run:</p>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>svc<span class="w"> </span>router-public-&lt;cluster-name&gt;<span class="w"> </span>-n<span class="w"> </span>openshift-ingress
+</code></pre></div>
+<p>Until the record exists, the SCO console
+(<code>https://cloud-orchestrator.public.&lt;base&gt;</code>) and the sign-in pages do not
+load. <code>*.public</code> does not mean the router faces the internet; see
+<a href="private-ca.html">Private Certificate Authority</a> for the full list of names
+and records.</p>
+</li>
 </ol>
 <p>If your issuer is backed by a private CA that clients do not trust by default,
 also set <code>certificate.privateCA: true</code> and pass the root CA to <code>ksp up</code> with

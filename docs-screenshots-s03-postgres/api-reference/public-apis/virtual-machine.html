@@ -3125,6 +3125,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
+      <a href="../../how-to-guides/user/back-up-virtual-machine.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Back Up and Snapshot a Virtual Machine
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../how-to-guides/user/provision-windows-virtual-machine.html" class="md-nav__link">
         
   
@@ -6590,6 +6618,11 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <td>LoadBalancer hostname (if <code>connection: public</code>)</td>
 </tr>
 <tr>
+<td><code>status.vm.servicePort</code></td>
+<td><code>integer</code></td>
+<td>SSH port the LoadBalancer listens on (if <code>connection: public</code>)</td>
+</tr>
+<tr>
 <td><code>status.vm.conditions</code></td>
 <td><code>array</code></td>
 <td>Conditions representing the VM state</td>
@@ -6606,6 +6639,12 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </tr>
 </tbody>
 </table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Always take the SSH port from <code>status.vm.servicePort</code> rather than assuming <code>22</code>.
+New public VMs are exposed on port <code>22</code>, but VMs created before that became the
+default are still exposed on port <code>22000</code>.</p>
+</div>
 <h2 id="supported-flavours">Supported Flavours<a class="headerlink" href="#supported-flavours" title="Permanent link">#</a></h2>
 <table>
 <thead>

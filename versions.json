@@ -127,6 +127,11 @@
     "aliases": []
   },
   {
+    "version": "docs-scobasic-existing-argocd",
+    "title": "docs-scobasic-existing-argocd",
+    "aliases": []
+  },
+  {
     "version": "docs-release-notes-and-admin-config",
     "title": "docs-release-notes-and-admin-config",
     "aliases": []

@@ -378,7 +378,7 @@ are already in use.
 
 ### Using an existing Argo CD
 
-By default `ksp up` installs the OpenShift GitOps operator and an Argo CD
+By default, `ksp up` installs the OpenShift GitOps operator and an Argo CD
 instance in `openshift-gitops`, and the platform delivers every component
 through that instance. If the cluster already runs OpenShift GitOps and you
 want the platform to use your Argo CD instead, make three changes.
@@ -408,18 +408,11 @@ Excluding `rh-openshift-gitops-operator` also excludes the platform's Argo CD
 instance, which depends on it. `gitopsNamespace` makes the platform create its
 Argo CD Applications and AppProjects in your instance's namespace.
 
-**3. Install with `--brownfield` and `--argocd-namespace`:**
+**3. Add two flags to the `ksp up` command above:**
 
 ```bash
-ksp up \
-  -c   kubestack-config-claim.yaml \
-  -f   kubestack-plus-claim.yaml \
-  --environment-config env-config.yaml \
-  --extra-secrets      extra-secrets.yaml \
-  --registry-secret    registry-secret.yaml \
   --brownfield \
-  --argocd-namespace   <your-argocd-namespace> \
-  --timeout 15m
+  --argocd-namespace <your-argocd-namespace>
 ```
 
 `--argocd-namespace` tells `ksp up` where to create the repository credential

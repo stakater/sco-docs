@@ -7093,7 +7093,7 @@ the command stops rather than installing over an existing partial stack — whic
 is the common case for <code>scobasic</code>, since the variant exists for clusters that
 are already in use.</p>
 <h3 id="using-an-existing-argo-cd">Using an existing Argo CD<a class="headerlink" href="#using-an-existing-argo-cd" title="Permanent link">#</a></h3>
-<p>By default <code>ksp up</code> installs the OpenShift GitOps operator and an Argo CD
+<p>By default, <code>ksp up</code> installs the OpenShift GitOps operator and an Argo CD
 instance in <code>openshift-gitops</code>, and the platform delivers every component
 through that instance. If the cluster already runs OpenShift GitOps and you
 want the platform to use your Argo CD instead, make three changes.</p>
@@ -7117,16 +7117,9 @@ from installing its own:</p>
 <p>Excluding <code>rh-openshift-gitops-operator</code> also excludes the platform's Argo CD
 instance, which depends on it. <code>gitopsNamespace</code> makes the platform create its
 Argo CD Applications and AppProjects in your instance's namespace.</p>
-<p><strong>3. Install with <code>--brownfield</code> and <code>--argocd-namespace</code>:</strong></p>
-<div class="highlight"><pre><span></span><code>ksp<span class="w"> </span>up<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-c<span class="w">   </span>kubestack-config-claim.yaml<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-f<span class="w">   </span>kubestack-plus-claim.yaml<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--environment-config<span class="w"> </span>env-config.yaml<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--extra-secrets<span class="w">      </span>extra-secrets.yaml<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--registry-secret<span class="w">    </span>registry-secret.yaml<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--brownfield<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--argocd-namespace<span class="w">   </span>&lt;your-argocd-namespace&gt;<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--timeout<span class="w"> </span>15m
+<p><strong>3. Add two flags to the <code>ksp up</code> command above:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="w">  </span>--brownfield<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--argocd-namespace<span class="w"> </span>&lt;your-argocd-namespace&gt;
 </code></pre></div>
 <p><code>--argocd-namespace</code> tells <code>ksp up</code> where to create the repository credential
 (<code>ksp-up-registry-auth</code>) your Argo CD needs to pull the platform's charts.</p>

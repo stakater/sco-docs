@@ -320,6 +320,56 @@ the command stops rather than installing over an existing partial stack — whic
 is the common case for `scobasic`, since the variant exists for clusters that
 are already in use.
 
+### Using an existing Argo CD
+
+By default, `ksp up` installs the OpenShift GitOps operator and an Argo CD
+instance in `openshift-gitops`, and the platform delivers every component
+through that instance. If the cluster already runs OpenShift GitOps and you
+want the platform to use your Argo CD instead, make three changes.
+
+**1. Make your instance cluster-scoped.** The platform installs operators,
+CRDs and other cluster-scoped resources through Argo CD, which a
+namespace-scoped instance cannot manage. Add your instance's namespace to the
+`ARGOCD_CLUSTER_CONFIG_NAMESPACES` environment variable on the OpenShift GitOps
+operator's Subscription (see the OpenShift GitOps documentation on
+cluster-scoped instances). Skip this if your instance is the default one in
+`openshift-gitops`, which is cluster-scoped already.
+
+**2. Point the KubeStackPlus claim at your instance**, and stop the platform
+from installing its own:
+
+```yaml
+spec:
+  parameters:
+    variant: scobasic
+    platform: ocp
+    gitopsNamespace: <your-argocd-namespace>
+    excludedAddons:
+      - rh-openshift-gitops-operator
+```
+
+Excluding `rh-openshift-gitops-operator` also excludes the platform's Argo CD
+instance, which depends on it. `gitopsNamespace` makes the platform create its
+Argo CD Applications and AppProjects in your instance's namespace.
+
+**3. Add two flags to the `ksp up` command above:**
+
+```bash
+  --brownfield \
+  --argocd-namespace <your-argocd-namespace>
+```
+
+`--argocd-namespace` tells `ksp up` where to create the repository credential
+(`ksp-up-registry-auth`) your Argo CD needs to pull the platform's charts.
+
+Current limitations:
+
+- `ksp up` recognises an existing Argo CD instance only in `openshift-gitops`.
+  If your instance is in another namespace, contact us before installing.
+- The multi-tenancy component's namespace webhook trusts only the platform's
+  own Argo CD by default. If your Argo CD is refused when it creates
+  namespaces, contact us.
+
 ## Verifying
 
 ```bash
@@ -424,20 +474,23 @@ values from the Argo CD repository credential that `ksp up` created from the
 same registry credentials. The values are not printed:
 
 ```bash
-S=$(oc get secret -n openshift-gitops -l argocd.argoproj.io/secret-type=repository -o name | head -1 | cut -d/ -f2)
+NS=openshift-gitops   # or your Argo CD namespace, see "Using an existing Argo CD"
+S=$(oc get secret -n "$NS" -l argocd.argoproj.io/secret-type=repository -o name | head -1 | cut -d/ -f2)
 echo "copying from: $S"
 oc create secret generic ghcr-helm-repo -n crossplane-system \
   --from-literal=enableOCI=true \
   --from-literal=name=ghcr-helm-repo \
   --from-literal=type=helm \
-  --from-literal=url="$(oc get secret "$S" -n openshift-gitops -o jsonpath='{.data.url}' | base64 -d)" \
-  --from-literal=username="$(oc get secret "$S" -n openshift-gitops -o jsonpath='{.data.username}' | base64 -d)" \
-  --from-literal=password="$(oc get secret "$S" -n openshift-gitops -o jsonpath='{.data.password}' | base64 -d)"
+  --from-literal=url="$(oc get secret "$S" -n "$NS" -o jsonpath='{.data.url}' | base64 -d)" \
+  --from-literal=username="$(oc get secret "$S" -n "$NS" -o jsonpath='{.data.username}' | base64 -d)" \
+  --from-literal=password="$(oc get secret "$S" -n "$NS" -o jsonpath='{.data.password}' | base64 -d)"
 oc label secret ghcr-helm-repo -n crossplane-system \
   app.kubernetes.io/component=ghcr-helm-repo app.kubernetes.io/name=crossplane-system
 ```
 
 Check that `copying from:` names a single secret before you continue. If you
+use your own Argo CD, its namespace may hold other repository credentials; set
+`S=ksp-up-registry-auth` instead, the credential `ksp up` created there. If you
 still have the file, use its values instead. If `oc create` reports that the
 secret already exists, check it with `oc get secret ghcr-helm-repo -n crossplane-system -o yaml`;
 delete it only if its values are wrong, then run the commands again.

@@ -20,6 +20,7 @@ All parameters are nested under `spec.parameters`.
 | Field | Type | Default | Description |
 |-------|------|---------|-------------|
 | `instances` | `integer` | `1` | Number of PostgreSQL instances (replicas) |
+| `plan` | `string` | — | Size of each instance (CPU and memory), one of the sizes your platform offers, for example `o1.small`. Empty keeps the default size. See [Sizes](../../how-to-guides/user/create-postgres.md#sizes). |
 | `storage.size` | `string` | `10Gi` | Disk size per PostgreSQL instance |
 | `exposeLoadBalancer` | `boolean` | `false` | When `true`, the platform creates an external endpoint for the database and reports it in `status.connection.externalHost`. Whether that endpoint is reachable from the internet depends on your cloud's network perimeter; on Stakater's production cloud it is not, because the perimeter does not admit port `5432` (see [Test from Your Workstation](../../how-to-guides/user/create-postgres.md#test-from-your-workstation)). When `false`, the database is reachable only from inside the project. |
 
@@ -32,6 +33,7 @@ All parameters are nested under `spec.parameters`.
 | `status.connection.host` | `string` | PostgreSQL read-write service hostname |
 | `status.connection.port` | `string` | PostgreSQL service port (typically `5432`) |
 | `status.connection.database` | `string` | Database name |
+| `status.plan.message` | `string` | Set when the chosen size cannot be applied, with the reason |
 | `status.connection.externalHost` | `string` | Externally-reachable hostname or IP of the database. Populated only when `parameters.exposeLoadBalancer` is `true`. |
 | `status.connection.credentialsRef.vault` | `string` | URL of the Vault holding the credentials, reachable over your organisation's [Mesh](./mesh.md) |
 | `status.connection.credentialsRef.mount` | `string` | Secret engine the credentials are under (`services`) |

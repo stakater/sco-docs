@@ -47,9 +47,44 @@ spec:
 | Parameter | Default | Description |
 |-----------|---------|-------------|
 | `parameters.instances` | `1` | Number of PostgreSQL instances (replicas). Use `3` for HA. |
+| `parameters.plan` | — | Size of each instance: its CPU and memory (see [Sizes](#sizes)). Empty keeps the default size. |
 | `parameters.storage.size` | `10Gi` | Disk size per instance |
 | `parameters.exposeLoadBalancer` | `false` | When `true`, the database is reachable from outside the project |
 | `parameters.meshAccess.groups` | — | Organisation groups whose members may reach the database over your organisation's [Mesh](create-mesh.md) on port 5432. Empty means no mesh access. Database credentials still control who can log in. |
+
+### Sizes
+
+A size sets the CPU and memory of each instance. The sizes carry the same names and shapes as the [virtual machine instance types](provision-virtual-machine.md#instance-types):
+
+| Size | CPU | Memory |
+|------|-----|--------|
+| `o1.small` | 2 | 4Gi |
+| `o1.medium` | 2 | 8Gi |
+| `o1.large` | 4 | 16Gi |
+
+The console lists the sizes your platform offers, with their prices, when you create or edit a database. Contact your administrator if the size you need is not listed.
+
+- The size applies to every instance: three instances of `o1.medium` use three times its CPU and memory.
+- Without a size, the database runs at a small default: each instance may use up to 2 CPU and 2Gi of memory.
+- Disk is set separately with `parameters.storage.size`.
+
+```yaml
+apiVersion: database.cloud.stakater.com/v1
+kind: Postgres
+metadata:
+  name: my-database
+spec:
+  parameters:
+    plan: o1.small
+```
+
+If you ask for a size the platform does not offer, a new database is not created and the claim says why:
+
+```bash
+kubectl get postgres my-database -o jsonpath='{.status.plan.message}'
+```
+
+A database that already runs keeps its current CPU and memory until you choose an offered size.
 
 ## Step 2: Apply the Claim
 
@@ -253,6 +288,21 @@ spec:
     instances: 3
     storage:
       size: 50Gi
+```
+
+### A larger size
+
+Set `plan` to move every instance to more CPU and memory:
+
+```yaml
+apiVersion: database.cloud.stakater.com/v1
+kind: Postgres
+metadata:
+  name: app-db
+spec:
+  parameters:
+    instances: 3
+    plan: o1.medium
 ```
 
 ## Step 6: Delete the Database

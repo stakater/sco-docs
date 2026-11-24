@@ -52,9 +52,7 @@
   {
     "version": "renovate-main-docker-login-action-4.x",
     "title": "renovate-main-docker-login-action-4.x",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "renovate-main-actions-setup-node-7.x",
@@ -99,7 +97,9 @@
   {
     "version": "docs-screenshots-s04-vault",
     "title": "docs-screenshots-s04-vault",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "docs-screenshots-s03-postgres",

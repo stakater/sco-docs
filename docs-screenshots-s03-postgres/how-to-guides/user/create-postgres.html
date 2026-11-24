@@ -3330,6 +3330,17 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#sizes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sizes
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3413,6 +3424,17 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     <span class="md-ellipsis">
       
         High availability with 3 instances
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-larger-size" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A larger size
       
     </span>
   </a>
@@ -6276,6 +6298,17 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#sizes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sizes
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -6359,6 +6392,17 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     <span class="md-ellipsis">
       
         High availability with 3 instances
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-larger-size" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A larger size
       
     </span>
   </a>
@@ -6456,6 +6500,11 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <td>Number of PostgreSQL instances (replicas). Use <code>3</code> for HA.</td>
 </tr>
 <tr>
+<td><code>parameters.plan</code></td>
+<td>—</td>
+<td>Size of each instance: its CPU and memory (see <a href="#sizes">Sizes</a>). Empty keeps the default size.</td>
+</tr>
+<tr>
 <td><code>parameters.storage.size</code></td>
 <td><code>10Gi</code></td>
 <td>Disk size per instance</td>
@@ -6472,6 +6521,52 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </tr>
 </tbody>
 </table>
+<h3 id="sizes">Sizes<a class="headerlink" href="#sizes" title="Permanent link">#</a></h3>
+<p>A size sets the CPU and memory of each instance. The sizes carry the same names and shapes as the <a href="provision-virtual-machine.html#instance-types">virtual machine instance types</a>:</p>
+<table>
+<thead>
+<tr>
+<th>Size</th>
+<th>CPU</th>
+<th>Memory</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>o1.small</code></td>
+<td>2</td>
+<td>4Gi</td>
+</tr>
+<tr>
+<td><code>o1.medium</code></td>
+<td>2</td>
+<td>8Gi</td>
+</tr>
+<tr>
+<td><code>o1.large</code></td>
+<td>4</td>
+<td>16Gi</td>
+</tr>
+</tbody>
+</table>
+<p>The console lists the sizes your platform offers, with their prices, when you create or edit a database. Contact your administrator if the size you need is not listed.</p>
+<ul>
+<li>The size applies to every instance: three instances of <code>o1.medium</code> use three times its CPU and memory.</li>
+<li>Without a size, the database runs at a small default: each instance may use up to 2 CPU and 2Gi of memory.</li>
+<li>Disk is set separately with <code>parameters.storage.size</code>.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">database.cloud.stakater.com/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Postgres</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-database</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">plan</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">o1.small</span>
+</code></pre></div>
+<p>If you ask for a size the platform does not offer, a new database is not created and the claim says why:</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>postgres<span class="w"> </span>my-database<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.status.plan.message}'</span>
+</code></pre></div>
+<p>A database that already runs keeps its current CPU and memory until you choose an offered size.</p>
 <h2 id="step-2-apply-the-claim">Step 2: Apply the Claim<a class="headerlink" href="#step-2-apply-the-claim" title="Permanent link">#</a></h2>
 <div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>db.yaml
 </code></pre></div>
@@ -6660,6 +6755,17 @@ psql<span class="w"> </span>-h<span class="w"> </span><span class="s2">"</span><
 <span class="w">    </span><span class="nt">instances</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
 <span class="w">    </span><span class="nt">storage</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">50Gi</span>
+</code></pre></div>
+<h3 id="a-larger-size">A larger size<a class="headerlink" href="#a-larger-size" title="Permanent link">#</a></h3>
+<p>Set <code>plan</code> to move every instance to more CPU and memory:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">database.cloud.stakater.com/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Postgres</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">app-db</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">instances</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class="w">    </span><span class="nt">plan</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">o1.medium</span>
 </code></pre></div>
 <h2 id="step-6-delete-the-database">Step 6: Delete the Database<a class="headerlink" href="#step-6-delete-the-database" title="Permanent link">#</a></h2>
 <div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>delete<span class="w"> </span>postgres<span class="w"> </span>my-database

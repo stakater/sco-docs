@@ -6402,6 +6402,12 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <td>Number of PostgreSQL instances (replicas)</td>
 </tr>
 <tr>
+<td><code>plan</code></td>
+<td><code>string</code></td>
+<td>—</td>
+<td>Size of each instance (CPU and memory), one of the sizes your platform offers, for example <code>o1.small</code>. Empty keeps the default size. See <a href="../../how-to-guides/user/create-postgres.html#sizes">Sizes</a>.</td>
+</tr>
+<tr>
 <td><code>storage.size</code></td>
 <td><code>string</code></td>
 <td><code>10Gi</code></td>
@@ -6440,6 +6446,11 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <td><code>status.connection.database</code></td>
 <td><code>string</code></td>
 <td>Database name</td>
+</tr>
+<tr>
+<td><code>status.plan.message</code></td>
+<td><code>string</code></td>
+<td>Set when the chosen size cannot be applied, with the reason</td>
 </tr>
 <tr>
 <td><code>status.connection.externalHost</code></td>

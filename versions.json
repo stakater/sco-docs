@@ -102,9 +102,7 @@
   {
     "version": "docs-screenshots-s03-postgres",
     "title": "docs-screenshots-s03-postgres",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "docs-screenshots-s02-s3-bucket",
@@ -129,7 +127,9 @@
   {
     "version": "docs-scobasic-existing-argocd",
     "title": "docs-scobasic-existing-argocd",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "docs-release-notes-and-admin-config",

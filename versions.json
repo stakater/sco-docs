@@ -97,14 +97,14 @@
   {
     "version": "docs-screenshots-s04-vault",
     "title": "docs-screenshots-s04-vault",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "docs-screenshots-s03-postgres",
     "title": "docs-screenshots-s03-postgres",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "docs-screenshots-s02-s3-bucket",

@@ -12,9 +12,7 @@
   {
     "version": "renovate-0.1-node-24.x-lockfile",
     "title": "renovate-0.1-node-24.x-lockfile",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "renovate-0.1-dotenv-17.x-lockfile",
@@ -129,7 +127,9 @@
   {
     "version": "docs-networking-mode-not-self-service",
     "title": "docs-networking-mode-not-self-service",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "docs-netbird-macos-enrolment",

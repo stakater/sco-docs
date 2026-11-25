@@ -3423,14 +3423,14 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="create-vault.html" class="md-nav__link">
+      <a href="access-vault.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    How to Create a Vault
+    How to Access Your Organisation's Vault
   
 
     
@@ -6643,7 +6643,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </table>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Store the access key and secret key in your organisation's Vault before you create an <code>external</code> backup. The Vault is created for your organisation when the Vault option (<code>bao.enabled</code>) is turned on in the organisation's settings. If your organisation has no Vault, ask your organisation administrator to enable it. Then sign in to the Vault as described in <a href="create-vault.html#step-4-log-in">How to Create a Vault</a> and write the keys at the path you give in <code>secretPath</code>, using the entry names <code>aws_access_key_id</code> and <code>aws_secret_access_key</code> (or your own names via <code>accessKeyProperty</code> and <code>secretKeyProperty</code>).</p>
+<p>Store the access key and secret key in your organisation's Vault before you create an <code>external</code> backup. The Vault is created for your organisation when the Vault option (<code>bao.enabled</code>) is turned on in the organisation's settings. If your organisation has no Vault, ask your organisation administrator to enable it. Then sign in to the Vault as described in <a href="access-vault.html#step-2-sign-in-with-oidc">How to Access Your Organisation's Vault</a> and write the keys at the path you give in <code>secretPath</code>, using the entry names <code>aws_access_key_id</code> and <code>aws_secret_access_key</code> (or your own names via <code>accessKeyProperty</code> and <code>secretKeyProperty</code>).</p>
 </div>
 <h3 id="step-3-restore-from-a-backup">Step 3: Restore from a Backup<a class="headerlink" href="#step-3-restore-from-a-backup" title="Permanent link">#</a></h3>
 <p>Create a file named <code>backup-restore.yaml</code>:</p>
@@ -6706,7 +6706,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <ul>
 <li><a href="provision-virtual-machine.html">Provision a Virtual Machine</a> - Create the virtual machine you want to protect</li>
 <li><a href="create-s3-bucket.html">Create an S3 Bucket</a> - Create a platform bucket to store backups</li>
-<li><a href="create-vault.html">Create a Vault</a> - Sign in to your organisation's Vault to store credentials for your own S3-compatible storage</li>
+<li><a href="access-vault.html">Access Your Organisation's Vault</a> - Sign in to your organisation's Vault to store credentials for your own S3-compatible storage</li>
 </ul>
 
 

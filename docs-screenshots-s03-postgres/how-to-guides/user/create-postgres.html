@@ -11,7 +11,7 @@
         <link rel="prev" href="create-s3-bucket.html">
       
       
-        <link rel="next" href="create-vault.html">
+        <link rel="next" href="access-vault.html">
       
       
         
@@ -3381,6 +3381,17 @@ This documentation is for a pull request deployment and is unreleased, it is onl
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#database-address" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Database address
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#mount-the-credentials-into-a-workload" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3484,14 +3495,14 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="create-vault.html" class="md-nav__link">
+      <a href="access-vault.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    How to Create a Vault
+    How to Access Your Organisation's Vault
   
 
     
@@ -6349,6 +6360,17 @@ This documentation is for a pull request deployment and is unreleased, it is onl
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#database-address" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Database address
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#mount-the-credentials-into-a-workload" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -6461,7 +6483,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <li>A <a href="create-project.html">Project</a> already created</li>
 <li>The <code>postgres.database.cloud.stakater.com</code> API available</li>
 <li><code>kubectl</code> configured with your project kubeconfig</li>
-<li>To read the credentials: access to your organisation's <a href="create-vault.html">Vault</a> from a device enrolled on the <a href="create-mesh.html">Mesh</a></li>
+<li>To read the credentials: access to your organisation's <a href="access-vault.html">Vault</a> from a device enrolled on the <a href="create-mesh.html">Mesh</a></li>
 </ul>
 <h2 id="what-gets-created">What Gets Created<a class="headerlink" href="#what-gets-created" title="Permanent link">#</a></h2>
 <p>When you create a Postgres claim, the platform provisions:</p>
@@ -6517,7 +6539,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <tr>
 <td><code>parameters.meshAccess.groups</code></td>
 <td>—</td>
-<td>Organisation groups whose members may reach the database over your organisation's <a href="create-mesh.html">Mesh</a> on port 5432. Empty means no mesh access. Database credentials still control who can log in.</td>
+<td>Organisation groups whose members may reach the database over your organisation's <a href="create-mesh.html">Mesh</a> on port 5432. Once <code>meshAccess</code> is set, project members with database access are included automatically, even with an empty list. Leave <code>meshAccess</code> out for no mesh access. Database credentials still control who can log in.</td>
 </tr>
 </tbody>
 </table>
@@ -6588,7 +6610,7 @@ my-database   True     True    2m
 <div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">"database"</span><span class="p">:</span><span class="s2">"my-database"</span><span class="p">,</span><span class="nt">"host"</span><span class="p">:</span><span class="s2">"my-database-rw"</span><span class="p">,</span><span class="nt">"port"</span><span class="p">:</span><span class="s2">"5432"</span><span class="p">}</span>
 </code></pre></div>
 <h2 id="step-4-read-the-credentials">Step 4: Read the Credentials<a class="headerlink" href="#step-4-read-the-credentials" title="Permanent link">#</a></h2>
-<p>The platform generates the database credentials and stores them in your organisation's <a href="create-vault.html">Vault</a>, in your project's folder. The claim status names the exact path:</p>
+<p>The platform generates the database credentials and stores them in your organisation's <a href="access-vault.html">Vault</a>, in your project's folder. The claim status names the exact path:</p>
 <div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>postgres<span class="w"> </span>my-database<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.status.credentials}'</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">"delivered"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="nt">"message"</span><span class="p">:</span><span class="s2">"Stored in your organization's OpenBao"</span><span class="p">,</span><span class="nt">"secretPath"</span><span class="p">:</span><span class="s2">"stakater/projects/acme-my-project/databases/my-database"</span><span class="p">,</span><span class="nt">"secretStore"</span><span class="p">:</span><span class="s2">"acme-bao"</span><span class="p">}</span>
@@ -6663,7 +6685,7 @@ bao<span class="w"> </span>kv<span class="w"> </span>get<span class="w"> </span>
 </tr>
 <tr>
 <td><code>host</code></td>
-<td>Read-write service hostname</td>
+<td>Read-write service name (<code>my-database-rw</code>). See <a href="#database-address">Database address</a> for the full name to connect to.</td>
 </tr>
 <tr>
 <td><code>port</code></td>
@@ -6679,6 +6701,11 @@ bao<span class="w"> </span>kv<span class="w"> </span>get<span class="w"> </span>
 </tr>
 </tbody>
 </table>
+<h3 id="database-address">Database address<a class="headerlink" href="#database-address" title="Permanent link">#</a></h3>
+<p><code>host</code> in the credentials and in <code>status.connection</code> is the short service name, <code>my-database-rw</code>. To connect from a virtual machine or cluster in the project, or over the mesh, use the full name, which adds the project's database namespace:</p>
+<div class="highlight"><pre><span></span><code>&lt;name&gt;-rw.&lt;organisation&gt;-&lt;project&gt;-databases.svc.cluster.local
+</code></pre></div>
+<p>For <code>my-database</code> in project <code>my-project</code> of organisation <code>acme</code>, that is <code>my-database-rw.acme-my-project-databases.svc.cluster.local</code>. <code>&lt;organisation&gt;-&lt;project&gt;</code> is the same project folder name that appears in the credentials path.</p>
 <h3 id="mount-the-credentials-into-a-workload">Mount the credentials into a workload<a class="headerlink" href="#mount-the-credentials-into-a-workload" title="Permanent link">#</a></h3>
 <p>Create a Secret next to your workload from the Vault values, then reference it with <code>envFrom</code>:</p>
 <div class="highlight"><pre><span></span><code>bao<span class="w"> </span>kv<span class="w"> </span>get<span class="w"> </span>-mount<span class="o">=</span>stakater<span class="w"> </span>-format<span class="o">=</span>json<span class="w"> </span>projects/acme-my-project/databases/my-database<span class="w"> </span><span class="se">\</span>
@@ -6743,7 +6770,10 @@ psql<span class="w"> </span>-h<span class="w"> </span><span class="s2">"</span><
 <span class="w">      </span><span class="nt">groups</span><span class="p">:</span>
 <span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">database-admins</span>
 </code></pre></div>
-<p>From an enrolled device, connect to the <code>host</code> published in the credentials with the same <code>psql</code> command as above. Mesh access opens only the network path; the database credentials still decide who can log in.</p>
+<p>From an enrolled device, connect to the database's full name (see <a href="#database-address">Database address</a>), not the short <code>host</code> from the credentials, with the same <code>psql</code> command as above:</p>
+<div class="highlight"><pre><span></span><code>psql<span class="w"> </span>-h<span class="w"> </span>my-database-rw.acme-my-project-databases.svc.cluster.local<span class="w"> </span>-p<span class="w"> </span><span class="m">5432</span><span class="w"> </span>-c<span class="w"> </span><span class="s2">"SELECT version();"</span>
+</code></pre></div>
+<p>Project members with database access can connect this way as soon as <code>meshAccess</code> is set; <code>groups</code> adds other organisation groups. Mesh access opens only the network path; the database credentials still decide who can log in.</p>
 <h2 id="step-5-scale-the-database-optional">Step 5: Scale the Database (Optional)<a class="headerlink" href="#step-5-scale-the-database-optional" title="Permanent link">#</a></h2>
 <h3 id="high-availability-with-3-instances">High availability with 3 instances<a class="headerlink" href="#high-availability-with-3-instances" title="Permanent link">#</a></h3>
 <div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">database.cloud.stakater.com/v1</span>

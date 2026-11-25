@@ -125,6 +125,11 @@
     "aliases": []
   },
   {
+    "version": "docs-org-claim-cloud-provider",
+    "title": "docs-org-claim-cloud-provider",
+    "aliases": []
+  },
+  {
     "version": "docs-networking-mode-not-self-service",
     "title": "docs-networking-mode-not-self-service",
     "aliases": [

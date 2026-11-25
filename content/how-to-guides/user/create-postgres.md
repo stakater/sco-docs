@@ -127,7 +127,7 @@ kubectl get postgres my-database -o jsonpath='{.status.connection}'
 
 ## Step 4: Read the Credentials
 
-The platform generates the database credentials and stores them in your organisation's [Vault](create-vault.md), in your project's folder. The claim status names the exact path:
+The platform generates the database credentials and stores them in your organisation's [Vault](access-vault.md), in your project's folder. The claim status names the exact path:
 
 ```bash
 kubectl get postgres my-database -o jsonpath='{.status.credentials}'

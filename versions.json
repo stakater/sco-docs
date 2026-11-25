@@ -97,7 +97,9 @@
   {
     "version": "docs-screenshots-s03-postgres",
     "title": "docs-screenshots-s03-postgres",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "docs-screenshots-s02-s3-bucket",
@@ -117,9 +119,7 @@
   {
     "version": "docs-scobasic-hosted-cluster-findings",
     "title": "docs-scobasic-hosted-cluster-findings",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "docs-release-notes-and-admin-config",

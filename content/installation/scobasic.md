@@ -751,7 +751,7 @@ address, there is nothing to configure.
 Where they cannot, resolve the single sign-on host name — for the hosted
 cluster's machines only — to the addresses of the nodes running the routers that
 serve it. [If you will create hosted clusters](#if-you-will-create-hosted-clusters)
-above gives the commands to find those addresses and what to check afterwards.
+above gives the commands to find those addresses and what to check afterward.
 The platform does not configure this for you, because what serves DNS to those
 machines is part of your environment rather than part of the cluster.
 
@@ -779,7 +779,7 @@ ss -tin dst <address>
 
 If the connection is established, `bytes_acked` is above zero, `rcv_ooopack` is
 above zero and the receive queue is empty, then your request arrived and was
-acknowledged but part of the reply never did. Small packets are getting through
+acknowledged, but part of the reply never did. Small packets are getting through
 and large ones are being discarded silently.
 
 This happens when the size limit on the mesh interface is larger than what the

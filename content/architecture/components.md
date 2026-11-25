@@ -173,12 +173,12 @@ See [Keycloak Integration](../integrations/keycloak.md).
 
 ### OpenBao
 
-OpenBao is the open-source secrets management platform (community fork of HashiCorp Vault). The platform runs a hub OpenBao instance for its own secrets and offers per-organisation OpenBao instances to cloud users via the [`Vault`](../api-reference/public-apis/vault.md) claim.
+OpenBao is the open-source secrets management platform (community fork of HashiCorp Vault). The platform runs a hub OpenBao instance for its own secrets and one OpenBao instance for each organisation, the organisation's [Vault](../api-reference/public-apis/vault.md).
 
 **Role in SCO:**
 
 - The **platform hub** issues dynamic credentials for platform services (database passwords, cloud provider keys) that expire automatically and are rotated without manual intervention, provides a PKI engine for TLS certificate issuance used by platform components and hosted clusters, and stores platform secrets in encrypted, auditable storage.
-- **Per-organisation Vaults** are provisioned via the `Vault` claim. Each is independent of the others and uses single sign-on against the organisation's identity provider — operators log in via SSO (`bao login -method=oidc`); there is no static root token to manage.
+- **Per-organisation Vaults** are created by the platform when an organisation is set up, one for each organisation. Cloud users cannot create further ones. The platform stores the credentials of the organisation's virtual machines, buckets and databases there. Each is independent of the others and uses single sign-on against the organisation's identity provider — operators log in via SSO (`bao login -method=oidc`); there is no static root token to manage.
 
 **Consumer access:** Per-organisation Vaults are reachable from inside the organisation's projects and from peers on the organisation's [Mesh](../api-reference/public-apis/mesh.md) via a [MeshRouter](../api-reference/public-apis/mesh-router.md). They are not exposed on the public internet.
 

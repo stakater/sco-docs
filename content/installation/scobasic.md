@@ -295,40 +295,41 @@ install one certificate as files instead and leave out `clusterIssuer`. See
 [Private Certificate Authority](private-ca.md), which also covers the names the
 certificate needs and the DNS records you create.
 
-!!! note "Default router and API server certificates"
-    In this mode the platform also points the default router and the API server
-    at the certificates it issues. To keep the certificates they serve today,
-    create this override before you set `certificate.type: byo` (replace
-    `<cluster-name>` with the cluster name in your claim):
-
-    ```yaml
-    apiVersion: apiextensions.crossplane.io/v1beta1
-    kind: EnvironmentConfig
-    metadata:
-      name: <cluster-name>-ocp-cluster-certificates-scobasic-addon-env-override
-      labels:
-        kubestack.stakater.com/config-scope: addon
-        kubestack.stakater.com/addon-name: ocp-cluster-certificates-scobasic
-        kubestack.stakater.com/name: <cluster-name>
-    data:
-      SCOBASIC-OCP-VALUES: |
-        ingess-apiserver-patch:
-          enabled: false
-    ```
-
-    The key is spelled `ingess` in the chart; keep it that way. The platform
-    still issues its own certificates, including `cluster-certificate` in
-    `openshift-ingress` for its second router, but leaves the default
-    IngressController and the API server alone. If you already keep a
-    certificate of your own in a Secret named `cluster-certificate` in
-    `openshift-ingress`, rename it first: the platform writes to that Secret.
-
 !!! tip "Already installed without these blocks?"
     If `oc get clusterissuer letsencrypt` reports a missing `aws-dns-creds` secret,
     the claim is still on the default mode. Create your `ClusterIssuer`, add the
     `certificate` and `dns` blocks to `kubestack-config-claim.yaml`, and re-apply
     it with `oc apply -f kubestack-config-claim.yaml`. You do not need to run
     `ksp up` again, and you do not need AWS credentials.
+
+### Keeping the default router and API server certificates
+
+In this mode the platform also points the default router and the API server
+at the certificates it issues. To keep the certificates they serve today,
+create this override before you set `certificate.type: byo` (replace
+`<cluster-name>` with the cluster name in your claim):
+
+```yaml
+apiVersion: apiextensions.crossplane.io/v1beta1
+kind: EnvironmentConfig
+metadata:
+  name: <cluster-name>-ocp-cluster-certificates-scobasic-addon-env-override
+  labels:
+    kubestack.stakater.com/config-scope: addon
+    kubestack.stakater.com/addon-name: ocp-cluster-certificates-scobasic
+    kubestack.stakater.com/name: <cluster-name>
+data:
+  SCOBASIC-OCP-VALUES: |
+    ingess-apiserver-patch:
+      enabled: false
+```
+
+The key is spelled `ingess` in the chart; keep it that way. The platform
+still issues its own certificates, including `cluster-certificate` in
+`openshift-ingress` for its second router, but leaves the default
+IngressController and the API server alone. If you already keep a
+certificate of your own in a Secret named `cluster-certificate` in
+`openshift-ingress`, rename it first: the platform writes to that Secret.
 
 ## Choosing how the secret store unseals
 

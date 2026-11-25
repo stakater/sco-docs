@@ -3297,6 +3297,17 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
+  <a href="#in-the-console" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        In the Console
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#step-1-define-a-postgres-claim" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3313,6 +3324,17 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     <span class="md-ellipsis">
       
         Optional Parameters
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sizes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sizes
       
     </span>
   </a>
@@ -3359,6 +3381,17 @@ This documentation is for a pull request deployment and is unreleased, it is onl
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#database-address" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Database address
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#mount-the-credentials-into-a-workload" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3402,6 +3435,17 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     <span class="md-ellipsis">
       
         High availability with 3 instances
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-larger-size" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A larger size
       
     </span>
   </a>
@@ -6232,6 +6276,17 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
+  <a href="#in-the-console" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        In the Console
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#step-1-define-a-postgres-claim" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -6248,6 +6303,17 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     <span class="md-ellipsis">
       
         Optional Parameters
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sizes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sizes
       
     </span>
   </a>
@@ -6292,6 +6358,17 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
     <nav class="md-nav" aria-label="Step 4: Read the Credentials">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#database-address" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Database address
+      
+    </span>
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#mount-the-credentials-into-a-workload" class="md-nav__link">
@@ -6343,6 +6420,17 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#a-larger-size" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A larger size
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -6388,7 +6476,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 
 
 <h1 id="how-to-create-a-postgres-database">How to Create a Postgres Database<a class="headerlink" href="#how-to-create-a-postgres-database" title="Permanent link">#</a></h1>
-<p>Learn how to provision a PostgreSQL database in your project.</p>
+<p>Learn how to provision a PostgreSQL database in your project. The examples below match the <code>my-database</code> shown in the console screenshots.</p>
 <p>Jordan, a backend engineer at ACME Corp, needs a managed PostgreSQL database for her application. She can provision one, scale it for high availability, and connect to it from a workload in minutes.</p>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">#</a></h2>
 <ul>
@@ -6404,12 +6492,17 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <li><strong>Credentials in your organisation's Vault</strong>, at the path published in the claim's status</li>
 <li>Optionally, an <strong>externally-reachable endpoint</strong> when <code>exposeLoadBalancer: true</code></li>
 </ul>
+<h2 id="in-the-console">In the Console<a class="headerlink" href="#in-the-console" title="Permanent link">#</a></h2>
+<p>Databases are under <strong>Database</strong> in the sidebar. The create form opens in <strong>Standard</strong> mode and asks for a project and a name, the same as the minimal claim below:</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/generated/postgres-create.png" data-desc-position="bottom"><img alt="The Create Postgres form in Standard mode" src="../../images/generated/postgres-create.png"></a></p>
+<p><strong>Advanced</strong> reveals the optional parameters: whether to expose the database outside the project, the number of instances, the organisation groups allowed to reach it over the mesh, and the storage size.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/generated/postgres-create-advanced.png" data-desc-position="bottom"><img alt="The lower part of the create form in Advanced mode, showing the expose option, instances, mesh access groups and storage" src="../../images/generated/postgres-create-advanced.png"></a></p>
 <h2 id="step-1-define-a-postgres-claim">Step 1: Define a Postgres Claim<a class="headerlink" href="#step-1-define-a-postgres-claim" title="Permanent link">#</a></h2>
 <p>Create a file named <code>db.yaml</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">database.cloud.stakater.com/v1</span>
 <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Postgres</span>
 <span class="nt">metadata</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-db</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-database</span>
 <span class="nt">spec</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">parameters</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span>
 </code></pre></div>
@@ -6429,6 +6522,11 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <td>Number of PostgreSQL instances (replicas). Use <code>3</code> for HA.</td>
 </tr>
 <tr>
+<td><code>parameters.plan</code></td>
+<td>—</td>
+<td>Size of each instance: its CPU and memory (see <a href="#sizes">Sizes</a>). Empty keeps the default size.</td>
+</tr>
+<tr>
 <td><code>parameters.storage.size</code></td>
 <td><code>10Gi</code></td>
 <td>Disk size per instance</td>
@@ -6438,31 +6536,137 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <td><code>false</code></td>
 <td>When <code>true</code>, the database is reachable from outside the project</td>
 </tr>
+<tr>
+<td><code>parameters.meshAccess.groups</code></td>
+<td>—</td>
+<td>Organisation groups whose members may reach the database over your organisation's <a href="create-mesh.html">Mesh</a> on port 5432. Once <code>meshAccess</code> is set, project members with database access are included automatically, even with an empty list. Leave <code>meshAccess</code> out for no mesh access. Database credentials still control who can log in.</td>
+</tr>
 </tbody>
 </table>
+<h3 id="sizes">Sizes<a class="headerlink" href="#sizes" title="Permanent link">#</a></h3>
+<p>A size sets the CPU and memory of each instance. The sizes carry the same names and shapes as the <a href="provision-virtual-machine.html#instance-types">virtual machine instance types</a>:</p>
+<table>
+<thead>
+<tr>
+<th>Size</th>
+<th>CPU</th>
+<th>Memory</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>o1.small</code></td>
+<td>2</td>
+<td>4Gi</td>
+</tr>
+<tr>
+<td><code>o1.medium</code></td>
+<td>2</td>
+<td>8Gi</td>
+</tr>
+<tr>
+<td><code>o1.large</code></td>
+<td>4</td>
+<td>16Gi</td>
+</tr>
+</tbody>
+</table>
+<p>The console lists the sizes your platform offers, with their prices, when you create or edit a database. Contact your administrator if the size you need is not listed.</p>
+<ul>
+<li>The size applies to every instance: three instances of <code>o1.medium</code> use three times its CPU and memory.</li>
+<li>Without a size, the database runs at a small default: each instance may use up to 2 CPU and 2Gi of memory.</li>
+<li>Disk is set separately with <code>parameters.storage.size</code>.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">database.cloud.stakater.com/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Postgres</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-database</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">plan</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">o1.small</span>
+</code></pre></div>
+<p>If you ask for a size the platform does not offer, a new database is not created and the claim says why:</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>postgres<span class="w"> </span>my-database<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.status.plan.message}'</span>
+</code></pre></div>
+<p>A database that already runs keeps its current CPU and memory until you choose an offered size.</p>
 <h2 id="step-2-apply-the-claim">Step 2: Apply the Claim<a class="headerlink" href="#step-2-apply-the-claim" title="Permanent link">#</a></h2>
 <div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>db.yaml
 </code></pre></div>
 <h2 id="step-3-verify-the-database">Step 3: Verify the Database<a class="headerlink" href="#step-3-verify-the-database" title="Permanent link">#</a></h2>
 <p>Check the claim status:</p>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>postgres<span class="w"> </span>my-db
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>postgres<span class="w"> </span>my-database
 </code></pre></div>
 <p>Wait for it to become ready:</p>
-<div class="highlight"><pre><span></span><code>NAME    SYNCED   READY   AGE
-my-db   True     True    2m
+<div class="highlight"><pre><span></span><code>NAME          SYNCED   READY   AGE
+my-database   True     True    2m
 </code></pre></div>
-<p>Inspect the endpoint metadata and the credentials location:</p>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>postgres<span class="w"> </span>my-db<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.status.connection}'</span>
+<p>The list in the console shows the same readiness:</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/generated/postgres-list.png" data-desc-position="bottom"><img alt="The Postgres list in the console" src="../../images/generated/postgres-list.png"></a></p>
+<p>Open the database to see its parameters, with the connection details and the Vault path holding the credentials further down the page:</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/generated/postgres-detail.png" data-desc-position="bottom"><img alt="A Postgres detail page, showing the parameters, mesh access and storage" src="../../images/generated/postgres-detail.png"></a></p>
+<p>Or inspect the same values with <code>kubectl</code>:</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>postgres<span class="w"> </span>my-database<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.status.connection}'</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">"host"</span><span class="p">:</span><span class="s2">"my-db-rw.projects.svc.cluster.local"</span><span class="p">,</span><span class="nt">"port"</span><span class="p">:</span><span class="s2">"5432"</span><span class="p">,</span><span class="nt">"database"</span><span class="p">:</span><span class="s2">"my-db"</span><span class="p">,</span><span class="nt">"credentialsRef"</span><span class="p">:{</span><span class="nt">"vault"</span><span class="p">:</span><span class="s2">"https://bao.acme.mesh.example.stakater.cloud"</span><span class="p">,</span><span class="nt">"mount"</span><span class="p">:</span><span class="s2">"services"</span><span class="p">,</span><span class="nt">"path"</span><span class="p">:</span><span class="s2">"my-project/postgres/my-db"</span><span class="p">}}</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">"database"</span><span class="p">:</span><span class="s2">"my-database"</span><span class="p">,</span><span class="nt">"host"</span><span class="p">:</span><span class="s2">"my-database-rw"</span><span class="p">,</span><span class="nt">"port"</span><span class="p">:</span><span class="s2">"5432"</span><span class="p">}</span>
 </code></pre></div>
 <h2 id="step-4-read-the-credentials">Step 4: Read the Credentials<a class="headerlink" href="#step-4-read-the-credentials" title="Permanent link">#</a></h2>
-<p>The platform stores the credentials in your organisation's Vault at <code>status.connection.credentialsRef</code>. Open the Vault URL in a browser (from a Mesh-enrolled device) and navigate to the <code>services</code> secret engine, or use the CLI:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">BAO_ADDR</span><span class="o">=</span><span class="k">$(</span>kubectl<span class="w"> </span>get<span class="w"> </span>postgres<span class="w"> </span>my-db<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.status.connection.credentialsRef.vault}'</span><span class="k">)</span>
-bao<span class="w"> </span>login<span class="w"> </span>-method<span class="o">=</span>oidc
-bao<span class="w"> </span>kv<span class="w"> </span>get<span class="w"> </span>-mount<span class="o">=</span>services<span class="w"> </span><span class="k">$(</span>kubectl<span class="w"> </span>get<span class="w"> </span>postgres<span class="w"> </span>my-db<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.status.connection.credentialsRef.path}'</span><span class="k">)</span>
+<p>The platform generates the database credentials and stores them in your organisation's <a href="access-vault.html">Vault</a>, in your project's folder. The claim status names the exact path:</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>postgres<span class="w"> </span>my-database<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.status.credentials}'</span>
 </code></pre></div>
-<p>Keys cover the common client conventions:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">"delivered"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="nt">"message"</span><span class="p">:</span><span class="s2">"Stored in your organization's OpenBao"</span><span class="p">,</span><span class="nt">"secretPath"</span><span class="p">:</span><span class="s2">"stakater/projects/acme-my-project/databases/my-database"</span><span class="p">,</span><span class="nt">"secretStore"</span><span class="p">:</span><span class="s2">"acme-bao"</span><span class="p">}</span>
+</code></pre></div>
+<p>Read the path from left to right:</p>
+<table>
+<thead>
+<tr>
+<th>Part</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>stakater</code></td>
+<td>The secrets engine (mount) that holds your organisation's secrets</td>
+</tr>
+<tr>
+<td><code>projects/acme-my-project</code></td>
+<td>Your project's folder, named <code>&lt;organisation&gt;-&lt;project&gt;</code></td>
+</tr>
+<tr>
+<td><code>databases/my-database</code></td>
+<td>The entry for this database</td>
+</tr>
+</tbody>
+</table>
+<p>Wait for <code>delivered</code> to be <code>true</code>, then read the entry. You need to sign in to the Vault with one of your project's roles first. Any role that can see the project folder works, including the read-only ones (see <a href="../../api-reference/public-apis/vault.html#project-access">Project access</a>).</p>
+<ol>
+<li>
+<p>Find the Vault address and your role:</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>project<span class="w"> </span>my-project<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.status.openbao}'</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">"available"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="nt">"address"</span><span class="p">:</span><span class="s2">"https://bao.acme.mesh.example.com"</span><span class="p">,</span><span class="nt">"secretPath"</span><span class="p">:</span><span class="s2">"stakater/projects/acme-my-project/"</span><span class="p">,</span><span class="nt">"roles"</span><span class="p">:[</span><span class="s2">"acme-my-project-rw"</span><span class="p">],</span><span class="nt">"message"</span><span class="p">:</span><span class="s2">"Log in to your organization's OpenBao with OIDC and one of the listed roles"</span><span class="p">}</span>
+</code></pre></div>
+</li>
+<li>
+<p>Read the credentials in the web UI or the CLI.</p>
+<p><strong>Web UI:</strong> open the address, choose method <strong>OIDC</strong>, enter your role in <strong>Role</strong>, and sign in. Then open <strong>Secrets engines</strong> → <code>stakater</code> → <code>projects</code> → <code>acme-my-project</code> → <code>databases</code> → <code>my-database</code> and reveal <code>password</code>.</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/generated/vault-oidc-sign-in.png" data-desc-position="bottom"><img alt="The Vault sign-in form with method OIDC and a project role entered in Role" src="../../images/generated/vault-oidc-sign-in.png"></a></p>
+<p>The entry lists the keys with their values hidden until you reveal them:</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/generated/vault-database-credentials.png" data-desc-position="bottom"><img alt="A database entry in the Vault, under the databases folder of the project, showing its six keys" src="../../images/generated/vault-database-credentials.png"></a></p>
+<p><strong>CLI:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">BAO_ADDR</span><span class="o">=</span>https://bao.acme.mesh.example.com
+bao<span class="w"> </span>login<span class="w"> </span>-method<span class="o">=</span>oidc<span class="w"> </span><span class="nv">role</span><span class="o">=</span>acme-my-project-rw
+bao<span class="w"> </span>kv<span class="w"> </span>get<span class="w"> </span>-mount<span class="o">=</span>stakater<span class="w"> </span>projects/acme-my-project/databases/my-database
+bao<span class="w"> </span>kv<span class="w"> </span>get<span class="w"> </span>-mount<span class="o">=</span>stakater<span class="w"> </span>-field<span class="o">=</span>password<span class="w"> </span>projects/acme-my-project/databases/my-database
+</code></pre></div>
+</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Signing in without a role succeeds but shows you nothing in your project's folder. A sign-in lasts one hour; sign in again with the role if the Vault stops showing the folder.</p>
+</div>
+<p>If <code>delivered</code> is <code>false</code>, the <code>message</code> field says why — most often, the organisation has no Vault.</p>
+<p>The entry holds these keys:</p>
 <table>
 <thead>
 <tr>
@@ -6472,8 +6676,8 @@ bao<span class="w"> </span>kv<span class="w"> </span>get<span class="w"> </span>
 </thead>
 <tbody>
 <tr>
-<td><code>username</code> / <code>user</code></td>
-<td>Application user (both keys carry the same value)</td>
+<td><code>username</code></td>
+<td>Application user</td>
 </tr>
 <tr>
 <td><code>password</code></td>
@@ -6481,7 +6685,7 @@ bao<span class="w"> </span>kv<span class="w"> </span>get<span class="w"> </span>
 </tr>
 <tr>
 <td><code>host</code></td>
-<td>Read-write service hostname</td>
+<td>Read-write service name (<code>my-database-rw</code>). See <a href="#database-address">Database address</a> for the full name to connect to.</td>
 </tr>
 <tr>
 <td><code>port</code></td>
@@ -6495,25 +6699,18 @@ bao<span class="w"> </span>kv<span class="w"> </span>get<span class="w"> </span>
 <td><code>uri</code></td>
 <td>PostgreSQL connection URI</td>
 </tr>
-<tr>
-<td><code>jdbc-uri</code></td>
-<td>JDBC URL</td>
-</tr>
-<tr>
-<td><code>fqdn-uri</code>, <code>fqdn-jdbc-uri</code></td>
-<td>URI / JDBC URL with the host's fully-qualified cluster DNS name</td>
-</tr>
-<tr>
-<td><code>pgpass</code></td>
-<td>A line for <code>~/.pgpass</code></td>
-</tr>
 </tbody>
 </table>
+<h3 id="database-address">Database address<a class="headerlink" href="#database-address" title="Permanent link">#</a></h3>
+<p><code>host</code> in the credentials and in <code>status.connection</code> is the short service name, <code>my-database-rw</code>. To connect from a virtual machine or cluster in the project, or over the mesh, use the full name, which adds the project's database namespace:</p>
+<div class="highlight"><pre><span></span><code>&lt;name&gt;-rw.&lt;organisation&gt;-&lt;project&gt;-databases.svc.cluster.local
+</code></pre></div>
+<p>For <code>my-database</code> in project <code>my-project</code> of organisation <code>acme</code>, that is <code>my-database-rw.acme-my-project-databases.svc.cluster.local</code>. <code>&lt;organisation&gt;-&lt;project&gt;</code> is the same project folder name that appears in the credentials path.</p>
 <h3 id="mount-the-credentials-into-a-workload">Mount the credentials into a workload<a class="headerlink" href="#mount-the-credentials-into-a-workload" title="Permanent link">#</a></h3>
 <p>Create a Secret next to your workload from the Vault values, then reference it with <code>envFrom</code>:</p>
-<div class="highlight"><pre><span></span><code>bao<span class="w"> </span>kv<span class="w"> </span>get<span class="w"> </span>-mount<span class="o">=</span>services<span class="w"> </span>-format<span class="o">=</span>json<span class="w"> </span>my-project/postgres/my-db<span class="w"> </span><span class="se">\</span>
+<div class="highlight"><pre><span></span><code>bao<span class="w"> </span>kv<span class="w"> </span>get<span class="w"> </span>-mount<span class="o">=</span>stakater<span class="w"> </span>-format<span class="o">=</span>json<span class="w"> </span>projects/acme-my-project/databases/my-database<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">'.data.data'</span><span class="w"> </span>&gt;<span class="w"> </span>creds.json
-kubectl<span class="w"> </span>create<span class="w"> </span>secret<span class="w"> </span>generic<span class="w"> </span>my-db<span class="w"> </span>--from-env-file<span class="o">=</span>&lt;<span class="o">(</span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">'to_entries[] | "\(.key)=\(.value)"'</span><span class="w"> </span>creds.json<span class="o">)</span>
+kubectl<span class="w"> </span>create<span class="w"> </span>secret<span class="w"> </span>generic<span class="w"> </span>my-database<span class="w"> </span>--from-env-file<span class="o">=</span>&lt;<span class="o">(</span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">'to_entries[] | "\(.key)=\(.value)"'</span><span class="w"> </span>creds.json<span class="o">)</span>
 rm<span class="w"> </span>creds.json
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">apps/v1</span>
@@ -6535,7 +6732,7 @@ rm<span class="w"> </span>creds.json
 <span class="w">          </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-app:latest</span>
 <span class="w">          </span><span class="nt">envFrom</span><span class="p">:</span>
 <span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">secretRef</span><span class="p">:</span>
-<span class="w">                </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-db</span>
+<span class="w">                </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-database</span>
 </code></pre></div>
 <p>The container will see <code>DATABASE_URL</code>-equivalent values through the standard keys (<code>host</code>, <code>port</code>, <code>username</code>, <code>password</code>, <code>dbname</code>, <code>uri</code>).</p>
 <h3 id="test-from-your-workstation">Test from your workstation<a class="headerlink" href="#test-from-your-workstation" title="Permanent link">#</a></h3>
@@ -6543,7 +6740,7 @@ rm<span class="w"> </span>creds.json
 <div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">database.cloud.stakater.com/v1</span>
 <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Postgres</span>
 <span class="nt">metadata</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-db</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-database</span>
 <span class="nt">spec</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">exposeLoadBalancer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
@@ -6554,18 +6751,29 @@ rm<span class="w"> </span>creds.json
 <!-- Source: ADR-0067 (gateway allowlist, confirmed for eu-1; eu-2 is more permissive, others unverified). Probe 2026-10-30: eu-1 VIP answers on 443, drops 5432. Not yet tested with a real Postgres claim. Tracked internally: SA-9189. --></p>
 </div>
 <p>From a network that can reach the endpoint, connect using the credentials from the Vault:</p>
-<div class="highlight"><pre><span></span><code><span class="nv">PG_HOST</span><span class="o">=</span><span class="k">$(</span>kubectl<span class="w"> </span>get<span class="w"> </span>postgres<span class="w"> </span>my-db<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.status.connection.externalHost}'</span><span class="k">)</span>
-<span class="nv">CREDS</span><span class="o">=</span><span class="k">$(</span>bao<span class="w"> </span>kv<span class="w"> </span>get<span class="w"> </span>-mount<span class="o">=</span>services<span class="w"> </span>-format<span class="o">=</span>json<span class="w"> </span>my-project/postgres/my-db<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">'.data.data'</span><span class="k">)</span>
+<div class="highlight"><pre><span></span><code><span class="nv">PG_HOST</span><span class="o">=</span><span class="k">$(</span>kubectl<span class="w"> </span>get<span class="w"> </span>postgres<span class="w"> </span>my-database<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.status.connection.externalHost}'</span><span class="k">)</span>
+<span class="nv">CREDS</span><span class="o">=</span><span class="k">$(</span>bao<span class="w"> </span>kv<span class="w"> </span>get<span class="w"> </span>-mount<span class="o">=</span>stakater<span class="w"> </span>-format<span class="o">=</span>json<span class="w"> </span>projects/acme-my-project/databases/my-database<span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">'.data.data'</span><span class="k">)</span>
 <span class="nb">export</span><span class="w"> </span><span class="nv">PGUSER</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="s2">"</span><span class="nv">$CREDS</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">'.username'</span><span class="k">)</span>
 <span class="nb">export</span><span class="w"> </span><span class="nv">PGPASSWORD</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="s2">"</span><span class="nv">$CREDS</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">'.password'</span><span class="k">)</span>
 <span class="nb">export</span><span class="w"> </span><span class="nv">PGDATABASE</span><span class="o">=</span><span class="k">$(</span><span class="nb">echo</span><span class="w"> </span><span class="s2">"</span><span class="nv">$CREDS</span><span class="s2">"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>jq<span class="w"> </span>-r<span class="w"> </span><span class="s1">'.dbname'</span><span class="k">)</span>
 
 psql<span class="w"> </span>-h<span class="w"> </span><span class="s2">"</span><span class="nv">$PG_HOST</span><span class="s2">"</span><span class="w"> </span>-p<span class="w"> </span><span class="m">5432</span><span class="w"> </span>-c<span class="w"> </span><span class="s2">"SELECT version();"</span>
 </code></pre></div>
-<p>If you left <code>exposeLoadBalancer</code> off, the database is only reachable from inside the project — a one-off connection from your laptop is still possible by port-forwarding:</p>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>port-forward<span class="w"> </span>svc/my-db-rw<span class="w"> </span><span class="m">5432</span>:5432<span class="w"> </span><span class="p">&amp;</span>
-psql<span class="w"> </span>-h<span class="w"> </span><span class="m">127</span>.0.0.1<span class="w"> </span>-p<span class="w"> </span><span class="m">5432</span><span class="w"> </span>-c<span class="w"> </span><span class="s2">"SELECT version();"</span>
+<p>If you left <code>exposeLoadBalancer</code> off, the database is reachable from inside the project and, when <code>meshAccess.groups</code> lists a group you belong to, from any device enrolled on your organisation's <a href="create-mesh.html">Mesh</a>:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">database.cloud.stakater.com/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Postgres</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-database</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">meshAccess</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">groups</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">database-admins</span>
 </code></pre></div>
+<p>From an enrolled device, connect to the database's full name (see <a href="#database-address">Database address</a>), not the short <code>host</code> from the credentials, with the same <code>psql</code> command as above:</p>
+<div class="highlight"><pre><span></span><code>psql<span class="w"> </span>-h<span class="w"> </span>my-database-rw.acme-my-project-databases.svc.cluster.local<span class="w"> </span>-p<span class="w"> </span><span class="m">5432</span><span class="w"> </span>-c<span class="w"> </span><span class="s2">"SELECT version();"</span>
+</code></pre></div>
+<p>Project members with database access can connect this way as soon as <code>meshAccess</code> is set; <code>groups</code> adds other organisation groups. Mesh access opens only the network path; the database credentials still decide who can log in.</p>
 <h2 id="step-5-scale-the-database-optional">Step 5: Scale the Database (Optional)<a class="headerlink" href="#step-5-scale-the-database-optional" title="Permanent link">#</a></h2>
 <h3 id="high-availability-with-3-instances">High availability with 3 instances<a class="headerlink" href="#high-availability-with-3-instances" title="Permanent link">#</a></h3>
 <div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">database.cloud.stakater.com/v1</span>
@@ -6578,11 +6786,23 @@ psql<span class="w"> </span>-h<span class="w"> </span><span class="m">127</span>
 <span class="w">    </span><span class="nt">storage</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">50Gi</span>
 </code></pre></div>
-<h2 id="step-6-delete-the-database">Step 6: Delete the Database<a class="headerlink" href="#step-6-delete-the-database" title="Permanent link">#</a></h2>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>delete<span class="w"> </span>postgres<span class="w"> </span>my-db
+<h3 id="a-larger-size">A larger size<a class="headerlink" href="#a-larger-size" title="Permanent link">#</a></h3>
+<p>Set <code>plan</code> to move every instance to more CPU and memory:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">database.cloud.stakater.com/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Postgres</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">app-db</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">instances</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3</span>
+<span class="w">    </span><span class="nt">plan</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">o1.medium</span>
 </code></pre></div>
-<p>The platform tears down the database and removes the credentials from your organisation's Vault. If you copied the credentials into Secrets next to your workloads, remember to delete those too:</p>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>delete<span class="w"> </span>secret<span class="w"> </span>my-db
+<h2 id="step-6-delete-the-database">Step 6: Delete the Database<a class="headerlink" href="#step-6-delete-the-database" title="Permanent link">#</a></h2>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>delete<span class="w"> </span>postgres<span class="w"> </span>my-database
+</code></pre></div>
+<p>The platform tears down the database. The credentials entry stays in your organisation's Vault; remove it with a read-write project role, and delete any Secrets you created from it next to your workloads:</p>
+<div class="highlight"><pre><span></span><code>bao<span class="w"> </span>kv<span class="w"> </span>metadata<span class="w"> </span>delete<span class="w"> </span>-mount<span class="o">=</span>stakater<span class="w"> </span>projects/acme-my-project/databases/my-database
+kubectl<span class="w"> </span>delete<span class="w"> </span>secret<span class="w"> </span>my-database
 </code></pre></div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>

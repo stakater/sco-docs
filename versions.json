@@ -1,10 +1,5 @@
 [
   {
-    "version": "sco-console-docs-discovery",
-    "title": "sco-console-docs-discovery",
-    "aliases": []
-  },
-  {
     "version": "renovate-0.1-stakater-vale-package-0.x",
     "title": "renovate-0.1-stakater-vale-package-0.x",
     "aliases": []

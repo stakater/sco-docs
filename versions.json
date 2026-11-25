@@ -127,14 +127,14 @@
   {
     "version": "docs-org-claim-cloud-provider",
     "title": "docs-org-claim-cloud-provider",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "docs-networking-mode-not-self-service",
     "title": "docs-networking-mode-not-self-service",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "docs-netbird-macos-enrolment",

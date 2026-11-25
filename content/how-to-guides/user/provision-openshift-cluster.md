@@ -109,7 +109,7 @@ Editing it on a running cluster starts a conversion that cannot complete on its 
 - Console and API sign-in stop working immediately, before anything else has moved.
 - Public DNS keeps pointing at the old addresses until the records are rebuilt by hand.
 - The first node replacement stalls indefinitely and has to be cleared manually.
-- Workloads using shared (NFS) storage lose their mounts silently and need restarting afterwards.
+- Workloads using shared (NFS) storage lose their mounts silently and need restarting afterward.
 - Any LoadBalancer service you expose on a public address can go dark for the length of the node replacement.
 
 A migration arranged with support covers all of that in one agreed window, including what you need to do on your side and roughly how long each part takes.

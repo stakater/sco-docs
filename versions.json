@@ -97,9 +97,7 @@
   {
     "version": "docs-screenshots-s03-postgres",
     "title": "docs-screenshots-s03-postgres",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "docs-screenshots-s02-s3-bucket",
@@ -144,7 +142,9 @@
   {
     "version": "docs-mesh-profile-per-region-sa9517",
     "title": "docs-mesh-profile-per-region-sa9517",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "docs-installation",

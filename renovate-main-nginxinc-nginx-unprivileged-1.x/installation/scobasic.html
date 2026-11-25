@@ -3097,6 +3097,62 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
+      <a href="../how-to-guides/user/connect-openshift-cluster-to-virtual-machine.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Connect an OpenShift Cluster to a Virtual Machine
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../how-to-guides/user/back-up-virtual-machine.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Back Up and Snapshot a Virtual Machine
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../how-to-guides/user/provision-windows-virtual-machine.html" class="md-nav__link">
         
   
@@ -3181,14 +3237,14 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../how-to-guides/user/create-vault.html" class="md-nav__link">
+      <a href="../how-to-guides/user/access-vault.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    How to Create a Vault
+    How to Access Your Organisation's Vault
   
 
     
@@ -3847,6 +3903,23 @@ This documentation is for a pull request deployment and is unreleased, it is onl
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Installing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-an-existing-argo-cd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using an existing Argo CD
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -6466,6 +6539,23 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Installing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-an-existing-argo-cd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using an existing Argo CD
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -6631,6 +6721,10 @@ single most common reason a <code>scobasic</code> installation fails.</p>
 <tr>
 <td>Wildcard DNS for <code>*.&lt;apps-domain&gt;</code></td>
 <td>platform routes are templated from it</td>
+</tr>
+<tr>
+<td>Wildcard DNS for <code>*.public.&lt;base&gt;</code></td>
+<td><strong>you create this after installing</strong>. <code>&lt;base&gt;</code> is <code>&lt;apps-domain&gt;</code> without its leading <code>apps.</code>. The sign-in pages and the SCO console are served there. See <a href="#certificates-and-dns">Certificates and DNS</a></td>
 </tr>
 <tr>
 <td>Outbound access to the Stakater registry</td>
@@ -6887,8 +6981,21 @@ domain. It uses one certificate issuer that you provide.</p>
 <li>Set its name in the claim as <code>certificate.clusterIssuer</code>, with
    <code>certificate.type: byo</code>. The platform then requests and renews all of its
    certificates through that issuer.</li>
-<li>Set <code>dns.type: byo</code>. You keep ownership of DNS records. The wildcard and <code>api</code>
-   records already exist on an installed cluster.</li>
+<li>
+<p>Set <code>dns.type: byo</code>. You keep ownership of DNS records. The <code>*.apps</code> wildcard
+   and <code>api</code> records already exist on an installed cluster, but you must add one
+   more: <code>*.public.&lt;base&gt;</code> (if <code>&lt;apps-domain&gt;</code> is <code>apps.example.com</code>, that is
+   <code>*.public.example.com</code>), pointing to the <code>LoadBalancer</code> address of the
+   platform's second router, <code>router-public-&lt;cluster-name&gt;</code>. The router is created during the installation, so
+   add the record once <code>ksp up</code> has run:</p>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>svc<span class="w"> </span>router-public-&lt;cluster-name&gt;<span class="w"> </span>-n<span class="w"> </span>openshift-ingress
+</code></pre></div>
+<p>Until the record exists, the SCO console
+(<code>https://cloud-orchestrator.public.&lt;base&gt;</code>) and the sign-in pages do not
+load. <code>*.public</code> does not mean the router faces the internet; see
+<a href="private-ca.html">Private Certificate Authority</a> for the full list of names
+and records.</p>
+</li>
 </ol>
 <p>If your issuer is backed by a private CA that clients do not trust by default,
 also set <code>certificate.privateCA: true</code> and pass the root CA to <code>ksp up</code> with
@@ -6985,6 +7092,45 @@ ksp<span class="w"> </span>up<span class="w"> </span><span class="se">\</span>
 the command stops rather than installing over an existing partial stack — which
 is the common case for <code>scobasic</code>, since the variant exists for clusters that
 are already in use.</p>
+<h3 id="using-an-existing-argo-cd">Using an existing Argo CD<a class="headerlink" href="#using-an-existing-argo-cd" title="Permanent link">#</a></h3>
+<p>By default, <code>ksp up</code> installs the OpenShift GitOps operator and an Argo CD
+instance in <code>openshift-gitops</code>, and the platform delivers every component
+through that instance. If the cluster already runs OpenShift GitOps and you
+want the platform to use your Argo CD instead, make three changes.</p>
+<p><strong>1. Make your instance cluster-scoped.</strong> The platform installs operators,
+CRDs and other cluster-scoped resources through Argo CD, which a
+namespace-scoped instance cannot manage. Add your instance's namespace to the
+<code>ARGOCD_CLUSTER_CONFIG_NAMESPACES</code> environment variable on the OpenShift GitOps
+operator's Subscription (see the OpenShift GitOps documentation on
+cluster-scoped instances). Skip this if your instance is the default one in
+<code>openshift-gitops</code>, which is cluster-scoped already.</p>
+<p><strong>2. Point the KubeStackPlus claim at your instance</strong>, and stop the platform
+from installing its own:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">variant</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">scobasic</span>
+<span class="w">    </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ocp</span>
+<span class="w">    </span><span class="nt">gitopsNamespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;your-argocd-namespace&gt;</span>
+<span class="w">    </span><span class="nt">excludedAddons</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rh-openshift-gitops-operator</span>
+</code></pre></div>
+<p>Excluding <code>rh-openshift-gitops-operator</code> also excludes the platform's Argo CD
+instance, which depends on it. <code>gitopsNamespace</code> makes the platform create its
+Argo CD Applications and AppProjects in your instance's namespace.</p>
+<p><strong>3. Add two flags to the <code>ksp up</code> command above:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="w">  </span>--brownfield<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--argocd-namespace<span class="w"> </span>&lt;your-argocd-namespace&gt;
+</code></pre></div>
+<p><code>--argocd-namespace</code> tells <code>ksp up</code> where to create the repository credential
+(<code>ksp-up-registry-auth</code>) your Argo CD needs to pull the platform's charts.</p>
+<p>Current limitations:</p>
+<ul>
+<li><code>ksp up</code> recognises an existing Argo CD instance only in <code>openshift-gitops</code>.
+  If your instance is in another namespace, contact us before installing.</li>
+<li>The multi-tenancy component's namespace webhook trusts only the platform's
+  own Argo CD by default. If your Argo CD is refused when it creates
+  namespaces, contact us.</li>
+</ul>
 <h2 id="verifying">Verifying<a class="headerlink" href="#verifying" title="Permanent link">#</a></h2>
 <div class="highlight"><pre><span></span><code>ksp<span class="w"> </span>status
 oc<span class="w"> </span>get<span class="w"> </span>kubestackconfig,kubestackplus<span class="w"> </span>-A
@@ -7092,19 +7238,22 @@ oc<span class="w"> </span>describe<span class="w"> </span>pushsecrets.external-s
 <p>Re-create the secret. If you no longer have <code>extra-secrets.yaml</code>, copy the
 values from the Argo CD repository credential that <code>ksp up</code> created from the
 same registry credentials. The values are not printed:</p>
-<div class="highlight"><pre><span></span><code><span class="nv">S</span><span class="o">=</span><span class="k">$(</span>oc<span class="w"> </span>get<span class="w"> </span>secret<span class="w"> </span>-n<span class="w"> </span>openshift-gitops<span class="w"> </span>-l<span class="w"> </span>argocd.argoproj.io/secret-type<span class="o">=</span>repository<span class="w"> </span>-o<span class="w"> </span>name<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-1<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d/<span class="w"> </span>-f2<span class="k">)</span>
+<div class="highlight"><pre><span></span><code><span class="nv">NS</span><span class="o">=</span>openshift-gitops<span class="w">   </span><span class="c1"># or your Argo CD namespace, see "Using an existing Argo CD"</span>
+<span class="nv">S</span><span class="o">=</span><span class="k">$(</span>oc<span class="w"> </span>get<span class="w"> </span>secret<span class="w"> </span>-n<span class="w"> </span><span class="s2">"</span><span class="nv">$NS</span><span class="s2">"</span><span class="w"> </span>-l<span class="w"> </span>argocd.argoproj.io/secret-type<span class="o">=</span>repository<span class="w"> </span>-o<span class="w"> </span>name<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-1<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d/<span class="w"> </span>-f2<span class="k">)</span>
 <span class="nb">echo</span><span class="w"> </span><span class="s2">"copying from: </span><span class="nv">$S</span><span class="s2">"</span>
 oc<span class="w"> </span>create<span class="w"> </span>secret<span class="w"> </span>generic<span class="w"> </span>ghcr-helm-repo<span class="w"> </span>-n<span class="w"> </span>crossplane-system<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--from-literal<span class="o">=</span><span class="nv">enableOCI</span><span class="o">=</span><span class="nb">true</span><span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--from-literal<span class="o">=</span><span class="nv">name</span><span class="o">=</span>ghcr-helm-repo<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--from-literal<span class="o">=</span><span class="nv">type</span><span class="o">=</span>helm<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--from-literal<span class="o">=</span><span class="nv">url</span><span class="o">=</span><span class="s2">"</span><span class="k">$(</span>oc<span class="w"> </span>get<span class="w"> </span>secret<span class="w"> </span><span class="s2">"</span><span class="nv">$S</span><span class="s2">"</span><span class="w"> </span>-n<span class="w"> </span>openshift-gitops<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.data.url}'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64<span class="w"> </span>-d<span class="k">)</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--from-literal<span class="o">=</span><span class="nv">username</span><span class="o">=</span><span class="s2">"</span><span class="k">$(</span>oc<span class="w"> </span>get<span class="w"> </span>secret<span class="w"> </span><span class="s2">"</span><span class="nv">$S</span><span class="s2">"</span><span class="w"> </span>-n<span class="w"> </span>openshift-gitops<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.data.username}'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64<span class="w"> </span>-d<span class="k">)</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--from-literal<span class="o">=</span><span class="nv">password</span><span class="o">=</span><span class="s2">"</span><span class="k">$(</span>oc<span class="w"> </span>get<span class="w"> </span>secret<span class="w"> </span><span class="s2">"</span><span class="nv">$S</span><span class="s2">"</span><span class="w"> </span>-n<span class="w"> </span>openshift-gitops<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.data.password}'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64<span class="w"> </span>-d<span class="k">)</span><span class="s2">"</span>
+<span class="w">  </span>--from-literal<span class="o">=</span><span class="nv">url</span><span class="o">=</span><span class="s2">"</span><span class="k">$(</span>oc<span class="w"> </span>get<span class="w"> </span>secret<span class="w"> </span><span class="s2">"</span><span class="nv">$S</span><span class="s2">"</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">"</span><span class="nv">$NS</span><span class="s2">"</span><span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.data.url}'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64<span class="w"> </span>-d<span class="k">)</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--from-literal<span class="o">=</span><span class="nv">username</span><span class="o">=</span><span class="s2">"</span><span class="k">$(</span>oc<span class="w"> </span>get<span class="w"> </span>secret<span class="w"> </span><span class="s2">"</span><span class="nv">$S</span><span class="s2">"</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">"</span><span class="nv">$NS</span><span class="s2">"</span><span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.data.username}'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64<span class="w"> </span>-d<span class="k">)</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--from-literal<span class="o">=</span><span class="nv">password</span><span class="o">=</span><span class="s2">"</span><span class="k">$(</span>oc<span class="w"> </span>get<span class="w"> </span>secret<span class="w"> </span><span class="s2">"</span><span class="nv">$S</span><span class="s2">"</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">"</span><span class="nv">$NS</span><span class="s2">"</span><span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.data.password}'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64<span class="w"> </span>-d<span class="k">)</span><span class="s2">"</span>
 oc<span class="w"> </span>label<span class="w"> </span>secret<span class="w"> </span>ghcr-helm-repo<span class="w"> </span>-n<span class="w"> </span>crossplane-system<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>app.kubernetes.io/component<span class="o">=</span>ghcr-helm-repo<span class="w"> </span>app.kubernetes.io/name<span class="o">=</span>crossplane-system
 </code></pre></div>
 <p>Check that <code>copying from:</code> names a single secret before you continue. If you
+use your own Argo CD, its namespace may hold other repository credentials; set
+<code>S=ksp-up-registry-auth</code> instead, the credential <code>ksp up</code> created there. If you
 still have the file, use its values instead. If <code>oc create</code> reports that the
 secret already exists, check it with <code>oc get secret ghcr-helm-repo -n crossplane-system -o yaml</code>;
 delete it only if its values are wrong, then run the commands again.</p>

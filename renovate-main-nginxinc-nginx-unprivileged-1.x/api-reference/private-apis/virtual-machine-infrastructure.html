@@ -3097,6 +3097,62 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
+      <a href="../../how-to-guides/user/connect-openshift-cluster-to-virtual-machine.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Connect an OpenShift Cluster to a Virtual Machine
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../how-to-guides/user/back-up-virtual-machine.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Back Up and Snapshot a Virtual Machine
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../how-to-guides/user/provision-windows-virtual-machine.html" class="md-nav__link">
         
   
@@ -3181,14 +3237,14 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../how-to-guides/user/create-vault.html" class="md-nav__link">
+      <a href="../../how-to-guides/user/access-vault.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    How to Create a Vault
+    How to Access Your Organisation's Vault
   
 
     
@@ -6808,7 +6864,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <tr>
 <td><code>service.port</code></td>
 <td><code>integer</code></td>
-<td><code>22000</code></td>
+<td><code>22</code></td>
 <td>External port for the Service</td>
 </tr>
 <tr>
@@ -6892,6 +6948,11 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <td>LoadBalancer hostname (if Service enabled)</td>
 </tr>
 <tr>
+<td><code>status.vm.servicePort</code></td>
+<td><code>integer</code></td>
+<td>Port the LoadBalancer actually listens on, read back off the live Service (if Service enabled)</td>
+</tr>
+<tr>
 <td><code>status.vm.conditions</code></td>
 <td><code>array</code></td>
 <td>VM conditions</td>
@@ -6971,7 +7032,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <span class="w">      </span><span class="nt">secureBoot</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
 <span class="w">    </span><span class="nt">service</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
-<span class="w">      </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">22000</span>
+<span class="w">      </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">22</span>
 <span class="w">      </span><span class="nt">targetPort</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">22</span>
 <span class="w">    </span><span class="nt">nodeSelector</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">node-role.kubernetes.io/worker</span><span class="p">:</span><span class="w"> </span><span class="s">""</span>

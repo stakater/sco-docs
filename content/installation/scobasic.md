@@ -779,7 +779,7 @@ ss -tin dst <address>
 
 If the connection is established, `bytes_acked` is above zero, `rcv_ooopack` is
 above zero and the receive queue is empty, then your request arrived and was
-acknowledged, but part of the reply never did. Small packets are getting through
+acknowledged, but part of the reply never did. Small packets are getting through,
 and large ones are being discarded silently.
 
 This happens when the size limit on the mesh interface is larger than what the

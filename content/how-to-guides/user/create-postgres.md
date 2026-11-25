@@ -18,6 +18,7 @@ When you create a Postgres claim, the platform provisions:
 - A **PostgreSQL database** sized to your requested number of instances and disk
 - **Credentials in your organisation's Vault**, at the path published in the claim's status
 - Optionally, an **externally-reachable endpoint** when `exposeLoadBalancer: true`
+- Optionally, **continuous backups** to a bucket you own when `backup.enabled: true`
 
 ## Step 1: Define a Postgres Claim
 
@@ -39,6 +40,7 @@ spec:
 | `parameters.instances` | `1` | Number of PostgreSQL instances (replicas). Use `3` for HA. |
 | `parameters.storage.size` | `10Gi` | Disk size per instance |
 | `parameters.exposeLoadBalancer` | `false` | When `true`, the database is reachable from outside the project |
+| `parameters.backup.enabled` | `false` | When `true`, the database is backed up to your own bucket. See [Step 6](#step-6-back-up-the-database-optional) |
 
 ## Step 2: Apply the Claim
 
@@ -184,7 +186,64 @@ spec:
       size: 50Gi
 ```
 
-## Step 6: Delete the Database
+## Step 6: Back Up the Database (Optional)
+
+The platform can back the database up to a bucket you own, on Amazon S3 or any S3-compatible service. Every change is archived as it happens, and a full backup is taken every day.
+
+### Store the bucket's access key in the Vault
+
+Create an access key that can list the bucket and read, write and delete objects in it. Store it in your project's folder of your organisation's Vault, signed in with your project role as in [Create a Vault](create-vault.md):
+
+```bash
+bao kv put -mount=stakater projects/acme-my-project/postgres/backup \
+  ACCESS_KEY_ID=<access-key-id> \
+  ACCESS_SECRET_KEY=<secret-access-key>
+```
+
+If the storage service uses a certificate from a private certificate authority, add the authority's PEM certificate as `ca.crt=@ca.pem` and set `privateCA: true` below.
+
+### Turn backups on
+
+```yaml
+apiVersion: database.cloud.stakater.com/v1
+kind: Postgres
+metadata:
+  name: my-db
+spec:
+  parameters:
+    backup:
+      enabled: true
+      bucket: acme-backups
+      path: postgres/my-db
+      credentials:
+        secretPath: postgres/backup
+```
+
+`secretPath` is relative to your project folder, so `postgres/backup` reads the entry you just wrote. For an S3-compatible service, also set `endpointURL` (for example `https://s3.example.com`) and, if needed, `region`.
+
+| Parameter | Default | Description |
+|-----------|---------|-------------|
+| `parameters.backup.bucket` | - | Existing bucket. The platform does not create or empty it |
+| `parameters.backup.path` | bucket root | Folder inside the bucket |
+| `parameters.backup.endpointURL` | Amazon S3 | `https://` address of an S3-compatible service |
+| `parameters.backup.region` | detected | Region of the bucket |
+| `parameters.backup.schedule` | `0 0 2 * * *` | Full backup schedule, six-field cron in UTC with seconds first |
+| `parameters.backup.retentionPolicy` | `7d` | How far back the database can be restored (`d`, `w` or `m`) |
+| `parameters.backup.credentials.secretPath` | - | Path of the access key in your project's Vault folder |
+| `parameters.backup.credentials.privateCA` | `false` | Verify the service against `ca.crt` in the access key |
+
+Apply the change. Turning backups on or off restarts the database once, so do it at a quiet time.
+
+```bash
+kubectl apply -f db.yaml
+```
+
+The first full backup is taken straight away, and the database then archives every change to the bucket. Backups older than `retentionPolicy` are deleted from the bucket.
+
+!!! note
+    The bucket and its backups are yours. Deleting the Postgres claim does not delete them.
+
+## Step 7: Delete the Database
 
 ```bash
 kubectl delete postgres my-db
@@ -197,7 +256,7 @@ kubectl delete secret my-db
 ```
 
 !!! warning
-    All data is deleted when the claim is removed. Back up any database you need to keep before deletion.
+    All data in the database is deleted when the claim is removed. Backups already in your bucket ([Step 6](#step-6-back-up-the-database-optional)) are kept.
 
 ## What's Next?
 

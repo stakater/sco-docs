@@ -50,7 +50,7 @@ spec:
 | `parameters.plan` | — | Size of each instance: its CPU and memory (see [Sizes](#sizes)). Empty keeps the default size. |
 | `parameters.storage.size` | `10Gi` | Disk size per instance |
 | `parameters.exposeLoadBalancer` | `false` | When `true`, the database is reachable from outside the project |
-| `parameters.meshAccess.groups` | — | Organisation groups whose members may reach the database over your organisation's [Mesh](create-mesh.md) on port 5432. Empty means no mesh access. Database credentials still control who can log in. |
+| `parameters.meshAccess.groups` | — | Organisation groups whose members may reach the database over your organisation's [Mesh](create-mesh.md) on port 5432. Once `meshAccess` is set, project members with database access are included automatically, even with an empty list. Leave `meshAccess` out for no mesh access. Database credentials still control who can log in. |
 
 ### Sizes
 
@@ -187,10 +187,20 @@ The entry holds these keys:
 |-----|-------------|
 | `username` | Application user |
 | `password` | Password for the application user |
-| `host` | Read-write service hostname |
+| `host` | Read-write service name (`my-database-rw`). See [Database address](#database-address) for the full name to connect to. |
 | `port` | Service port |
 | `dbname` | Database name |
 | `uri` | PostgreSQL connection URI |
+
+### Database address
+
+`host` in the credentials and in `status.connection` is the short service name, `my-database-rw`. To connect from a virtual machine or cluster in the project, or over the mesh, use the full name, which adds the project's database namespace:
+
+```text
+<name>-rw.<organisation>-<project>-databases.svc.cluster.local
+```
+
+For `my-database` in project `my-project` of organisation `acme`, that is `my-database-rw.acme-my-project-databases.svc.cluster.local`. `<organisation>-<project>` is the same project folder name that appears in the credentials path.
 
 ### Mount the credentials into a workload
 
@@ -272,7 +282,13 @@ spec:
         - database-admins
 ```
 
-From an enrolled device, connect to the `host` published in the credentials with the same `psql` command as above. Mesh access opens only the network path; the database credentials still decide who can log in.
+From an enrolled device, connect to the database's full name (see [Database address](#database-address)), not the short `host` from the credentials, with the same `psql` command as above:
+
+```bash
+psql -h my-database-rw.acme-my-project-databases.svc.cluster.local -p 5432 -c "SELECT version();"
+```
+
+Project members with database access can connect this way as soon as `meshAccess` is set; `groups` adds other organisation groups. Mesh access opens only the network path; the database credentials still decide who can log in.
 
 ## Step 5: Scale the Database (Optional)
 

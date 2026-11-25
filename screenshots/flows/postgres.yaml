@@ -40,8 +40,9 @@ steps:
   - { step: fill, selector: 'input[id="metadata.name"], input#name', value: "my-database" }
   - { step: screenshot, path: postgres-create.png, fullPage: false }
 
-  # Optional parameters -- instances, storage size and exposeLoadBalancer are the
-  # Advanced fields, framed on the end of the form. Standard was shot first because the
+  # Optional parameters -- exposeLoadBalancer, instances, mesh access groups, storage size
+  # and (where the platform offers sizes) plan are the Advanced fields, framed on the
+  # end of the form. Standard was shot first because the
   # mode persists in localStorage; settle before scrolling (see clusters.yaml).
   - use: cloud-orchestrator-console-set-complexity-mode
     with:

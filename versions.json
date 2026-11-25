@@ -47,9 +47,7 @@
   {
     "version": "renovate-main-docker-login-action-4.x",
     "title": "renovate-main-docker-login-action-4.x",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "renovate-main-actions-setup-node-7.x",
@@ -119,7 +117,9 @@
   {
     "version": "docs-org-claim-cloud-provider",
     "title": "docs-org-claim-cloud-provider",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "docs-netbird-macos-enrolment",

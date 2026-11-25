@@ -7637,7 +7637,7 @@ while it is hanging:</p>
 </code></pre></div>
 <p>If the connection is established, <code>bytes_acked</code> is above zero, <code>rcv_ooopack</code> is
 above zero and the receive queue is empty, then your request arrived and was
-acknowledged, but part of the reply never did. Small packets are getting through
+acknowledged, but part of the reply never did. Small packets are getting through,
 and large ones are being discarded silently.</p>
 <p>This happens when the size limit on the mesh interface is larger than what the
 path your traffic actually takes can carry. The connection opens, because the

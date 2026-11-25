@@ -32,9 +32,7 @@
   {
     "version": "renovate-main-nginxinc-nginx-unprivileged-1.x",
     "title": "renovate-main-nginxinc-nginx-unprivileged-1.x",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "renovate-main-dotenv-18.x",
@@ -104,7 +102,9 @@
   {
     "version": "docs-scobasic-troubleshooting",
     "title": "docs-scobasic-troubleshooting",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "docs-scobasic-hosted-cluster-findings",

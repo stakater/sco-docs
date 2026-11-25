@@ -107,7 +107,9 @@
   {
     "version": "docs-scobasic-hosted-cluster-findings",
     "title": "docs-scobasic-hosted-cluster-findings",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "docs-release-notes-and-admin-config",
@@ -132,9 +134,7 @@
   {
     "version": "docs-mesh-profile-per-region-sa9517",
     "title": "docs-mesh-profile-per-region-sa9517",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "docs-installation",

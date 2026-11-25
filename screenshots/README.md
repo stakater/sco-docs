@@ -63,6 +63,7 @@ the `viewport:` block of every flow so all captures come out the same size.
 | `mesh` | `create-mesh.md` | `mesh-list`, `mesh-create`, `mesh-detail` |
 | `clusters` | `provision-openshift-cluster.md`, `connect-to-openshift-cluster.md` | `cluster-list`, `cluster-create-standard`, `cluster-create-advanced`, `cluster-detail`, `cluster-detail-advanced` |
 | `postgres` | `create-postgres.md` | `postgres-create`, `postgres-create-advanced`, `postgres-list`, `postgres-detail` |
+| `vault` | `access-vault.md` | `vault-list`, `vault-detail` |
 | `windows-vm` | `provision-windows-virtual-machine.md` | `windows-vm-create`, `windows-vm-list`, `windows-vm-detail` |
 | none (taken by hand) | `create-postgres.md` | `vault-oidc-sign-in`, `vault-database-credentials` |
 
@@ -123,6 +124,8 @@ The flows create nothing, but they do need somewhere to point and something to s
 - the resource named in `DOCS_VM_NAME`, used for the detail, delete-panel and
   Advanced shots so all three agree
 - the database named in `DOCS_POSTGRES_NAME`, Ready, created through the console
+- the Vault named in `DOCS_VAULT_NAME`, Ready. It is the Vault the organization
+  provisions for itself, `<org>-default-bao`. Cloud users cannot create another, so no flow opens the create form.
 - the same for `DOCS_GROUP_NAME` and `DOCS_MESH_NAME`, both provisioned out of band and
   long-lived; no flow creates them. The group must have members, and those members must
   exist as users — which is also what puts rows in the Users list. The group is named

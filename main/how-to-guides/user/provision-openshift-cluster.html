@@ -3162,6 +3162,17 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 </li>
         
           <li class="md-nav__item">
+  <a href="#changing-the-networking-mode-later" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Changing the Networking Mode Later
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#access-grants" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -6276,6 +6287,17 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 </li>
         
           <li class="md-nav__item">
+  <a href="#changing-the-networking-mode-later" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Changing the Networking Mode Later
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#access-grants" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -6464,7 +6486,7 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 <tr>
 <td><code>parameters.networking.mode</code></td>
 <td><code>public</code></td>
-<td>Network access mode for the cluster API and console: <code>public</code> or <code>private</code></td>
+<td>Network access mode for the cluster API and console: <code>public</code> or <code>private</code>. <strong>Choose this at creation</strong> — see <a href="#changing-the-networking-mode-later">Changing the networking mode later</a>.</td>
 </tr>
 <tr>
 <td><code>parameters.access.groups</code></td>
@@ -6478,6 +6500,18 @@ This documentation is either for an old version, or for the unreleased 'main' ve
 </tr>
 </tbody>
 </table>
+<h3 id="changing-the-networking-mode-later">Changing the Networking Mode Later<a class="headerlink" href="#changing-the-networking-mode-later" title="Permanent link">#</a></h3>
+<p><code>networking.mode</code> is chosen when the cluster is created. Changing it on an <strong>existing</strong> cluster is a scheduled migration carried out by Stakater, not a self-service edit — <strong>contact support to arrange one</strong> rather than changing the field yourself.</p>
+<p>Editing it on a running cluster starts a conversion that cannot complete on its own. Every node in the cluster is replaced, and several steps in between need platform-level access that is not available from your project:</p>
+<ul>
+<li>Console and API sign-in stop working immediately, before anything else has moved.</li>
+<li>Public DNS keeps pointing at the old addresses until the records are rebuilt by hand.</li>
+<li>The first node replacement stalls indefinitely and has to be cleared manually.</li>
+<li>Workloads using shared (NFS) storage lose their mounts silently and need restarting afterward.</li>
+<li>Any LoadBalancer service you expose on a public address can go dark for the length of the node replacement.</li>
+</ul>
+<p>A migration arranged with support covers all of that in one agreed window, including what you need to do on your side and roughly how long each part takes.</p>
+<p>Creating a new cluster in the mode you want, and moving workloads across, is often quicker and less disruptive than converting one — worth discussing when you get in touch.</p>
 <h3 id="access-grants">Access Grants<a class="headerlink" href="#access-grants" title="Permanent link">#</a></h3>
 <p>Each entry under <code>access.groups</code> grants an organisation group a role on the cluster. Every role applies to all projects on the cluster except the platform-managed ones (such as <code>default</code>, <code>kube-*</code> and <code>openshift-*</code>).</p>
 <table>

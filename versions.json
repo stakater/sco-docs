@@ -102,14 +102,14 @@
   {
     "version": "docs-scobasic-troubleshooting",
     "title": "docs-scobasic-troubleshooting",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "docs-scobasic-hosted-cluster-findings",
     "title": "docs-scobasic-hosted-cluster-findings",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "docs-release-notes-and-admin-config",

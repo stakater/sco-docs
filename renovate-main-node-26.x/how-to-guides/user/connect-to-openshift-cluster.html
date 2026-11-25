@@ -3159,6 +3159,23 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Step 2: Join Your Organisation's Mesh">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#clusters-in-more-than-one-region-or-organisation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Clusters in More Than One Region or Organisation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -6239,6 +6256,23 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Step 2: Join Your Organisation's Mesh">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#clusters-in-more-than-one-region-or-organisation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Clusters in More Than One Region or Organisation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -6404,11 +6438,20 @@ kubectl<span class="w"> </span>get<span class="w"> </span>openshiftcluster<span 
 <div class="highlight"><pre><span></span><code>netbird<span class="w"> </span>status
 </code></pre></div>
 <p><code>Management</code> and <code>Signal</code> should both read <code>Connected</code>. <code>Networks: -</code> in that output is cosmetic and does not mean routes are missing. Allow a minute or two after enrolling before the cluster's addresses respond.</p>
+<p>Check that you are connected to the right mesh. <code>netbird status -d</code> prints <code>Management: Connected to &lt;URL&gt;</code>, and that URL must match the Management URL on the Mesh detail page. A device that has enrolled before keeps its saved management URL, and <code>netbird up --management-url=&lt;URL&gt;</code> does not replace it. To use another mesh, see <a href="#clusters-in-more-than-one-region-or-organisation">Clusters in More Than One Region or Organisation</a>.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>Group membership takes effect at sign-in. If you were added to a group under <code>access.groups</code>, or to <code>&lt;cluster&gt;-mesh-access</code>, after you enrolled, run <code>netbird down</code> and then <code>netbird up</code> again so your new membership is picked up.</p>
 </div>
 <p>See <a href="create-mesh.html">Create a Mesh</a> for the full enrolment walkthrough and <a href="../../cloud-user-guide/authentication/organisation-identity.html">One Identity Across Your Organisation</a> for multi-account caveats.</p>
+<h3 id="clusters-in-more-than-one-region-or-organisation">Clusters in More Than One Region or Organisation<a class="headerlink" href="#clusters-in-more-than-one-region-or-organisation" title="Permanent link">#</a></h3>
+<p>Use one NetBird profile for each mesh, so each keeps its own enrolment:</p>
+<div class="highlight"><pre><span></span><code>netbird<span class="w"> </span>down
+netbird<span class="w"> </span>profile<span class="w"> </span>add<span class="w"> </span>&lt;name&gt;
+netbird<span class="w"> </span>profile<span class="w"> </span><span class="k">select</span><span class="w"> </span>&lt;name&gt;
+netbird<span class="w"> </span>up<span class="w"> </span>--management-url<span class="o">=</span>&lt;management<span class="w"> </span>URL<span class="w"> </span>from<span class="w"> </span>the<span class="w"> </span>Mesh<span class="w"> </span>detail<span class="w"> </span>page&gt;
+</code></pre></div>
+<p>Switch with <code>netbird down</code>, <code>netbird profile select &lt;name&gt;</code> and <code>netbird up</code>. Connect to one mesh at a time: meshes in different regions route the same <code>172.30.0.0/16</code> addresses, so a second connection cannot reach its cluster.</p>
 <h2 id="step-3-open-the-cluster-console">Step 3: Open the Cluster Console<a class="headerlink" href="#step-3-open-the-cluster-console" title="Permanent link">#</a></h2>
 <p>Open the <strong>Console URL</strong> from Step 1 in your browser. The cluster console uses your organisation's single sign-on. If you are already signed in to the Stakater Cloud Orchestrator console in the same browser, it signs you in without a prompt; otherwise you are redirected to your organisation's sign-in page. Either way you land on the cluster's <strong>Projects</strong> page:</p>
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="images/hosted-cluster-console.png" data-desc-position="bottom"><img alt="The hosted cluster console after sign-in, showing the Projects page" src="images/hosted-cluster-console.png"></a></p>
@@ -6511,9 +6554,9 @@ oc<span class="w"> </span>get<span class="w"> </span>projects
 <td>Reconnect with <code>netbird up --mtu 1200</code>, see <a href="#if-pages-hang-or-load-only-partly">If Pages Hang or Load Only Partly</a></td>
 </tr>
 <tr>
-<td><code>netbird up</code> ignores a new management URL</td>
-<td>A stale profile survives <code>netbird down</code></td>
-<td>Stop the client, move <code>/var/lib/netbird/default.json</code> aside, start it and enrol again</td>
+<td>Console or API times out, and <code>netbird status -d</code> shows a different management URL from the Mesh detail page</td>
+<td>The device is still enrolled in another mesh (another region or organisation); a saved profile keeps its management URL</td>
+<td>Create and select a profile for this mesh, see <a href="#clusters-in-more-than-one-region-or-organisation">Clusters in more than one region or organisation</a></td>
 </tr>
 <tr>
 <td><code>oc login</code> times out against an IP</td>

@@ -132,11 +132,6 @@
     ]
   },
   {
-    "version": "docs-networking-mode-not-self-service",
-    "title": "docs-networking-mode-not-self-service",
-    "aliases": []
-  },
-  {
     "version": "docs-netbird-macos-enrolment",
     "title": "docs-netbird-macos-enrolment",
     "aliases": []

@@ -110,7 +110,9 @@ but it constrains two things you should know about before relying on them.
 plane database cannot be scheduled when the storage is node-local and is not
 present on every node. The volumes are never all bound, the platform waits for
 all of them rather than for a majority, and the hosted cluster's API server is
-never created. The cluster stops with no obvious cause. Set this on the claim:
+never created. The cluster stops with no obvious cause. Set this on the
+`KubeStackConfig` claim. It applies to every hosted cluster created on this
+cluster, not to one:
 
 ```yaml
 spec:
@@ -581,20 +583,20 @@ Check this table before promising a capability to a tenant.
 | API | On `scobasic` | What it needs |
 |---|---|---|
 | `Organization`, `Project`, `User`, `Group` | Works | Nothing extra |
-| `Mesh` | Works | Nothing extra |
-| `OpenShiftCluster` | Works | Virtualization, as described under Prerequisites |
-| `VirtualMachine` | Works | Virtualization, as described under Prerequisites |
-| `Postgres` | Works from a recent package | See below |
-| `S3Bucket` | Does not provision | An object storage provider |
+| `Mesh` | Works once the platform mesh is on | `meshPlatform.enabled: true` on the `KubeStackConfig` claim. It is off by default on `scobasic` |
+| `OpenShiftCluster` | Works | OpenShift Virtualization and the hosted control plane operator (multicluster engine) on the cluster. `scobasic` installs neither |
+| `VirtualMachine` | Works | OpenShift Virtualization on the cluster. `scobasic` does not install it |
+| `Postgres` | Works | See below |
+| `S3Bucket` | Does not provision | OpenShift Data Foundation object storage. `scobasic` does not install it |
 | `Vault`, `MeshRouter` | Not yet validated | — |
 
 ### `Postgres`
 
-The claim needs `sco-package-database` chart `0.0.6` or later, which carries
-`postgres-database` `0.0.13`. On earlier packages the claim is accepted and then
-silently provisions nothing: it produces an empty namespace with no database, no
-credentials and no connection details. Check what the cluster runs before filing a
-fault:
+Current `scobasic` installs ship a working package. Older ones (before
+`sco-package-database` `0.0.6`, which carries `postgres-database` `0.0.13`) accept the
+claim and then silently provision nothing: an empty namespace with no database, no
+credentials and no connection details. On an older install, check what the cluster
+runs before filing a fault:
 
 ```bash
 oc get configuration.pkg.crossplane.io package-postgres-database \
@@ -603,10 +605,9 @@ oc get configuration.pkg.crossplane.io package-postgres-database \
 
 Two things to expect even on a working package:
 
-- **The claim stays `Ready=False` while the database is healthy.** It reports
-  `Unready resources: <name>-access-map`. Read the database itself rather than the
-  claim's condition — if the pods are running and the `<name>-app` secret exists,
-  the database is usable.
+- **A claim with `meshAccess` set stays `Ready=False` until the project's mesh
+  access map exists.** It reports `Unready resources: <name>-access-map`. A claim
+  without `meshAccess` becomes `Ready` on its own.
 - **The managing operator cannot report instance status when the project network is
   isolated.** The cluster's status then reads as a status-extraction error even
   though the database is serving. Treat backup, failover and switchover as unproven
@@ -620,14 +621,17 @@ oc get pods -n <namespace>
 ```
 
 The claim publishes its connection details under `status.connection` once the
-database is up.
+database is up. The credentials are stored in the organization's Vault, and
+`status.credentials` says where.
 
 ### `S3Bucket`
 
-`scobasic` does not install an object storage provider, and the bucket claim targets
-a storage class that therefore does not exist. The claim may report success while no
-bucket was ever created. Either install an object storage provider on the cluster, or
-do not offer this API to tenants on a `scobasic` install.
+A bucket is requested from OpenShift Data Foundation object storage (the
+`ocs-storagecluster-ceph-rgw` class for private buckets, `openshift-storage.noobaa.io`
+for public ones). `scobasic` does not install OpenShift Data Foundation, so on a
+cluster without it those classes do not exist. The claim may report success while no
+bucket was ever created. Either run OpenShift Data Foundation with object storage on
+the cluster, or do not offer this API to tenants on a `scobasic` install.
 
 ## Troubleshooting
 
@@ -793,8 +797,12 @@ Then repeat the request. It should now succeed in about a second.
 that add their own wrapping — a relay, a corporate virtual private network, a
 tunnel between sites — leave less room, and the shortfall only shows up on large
 replies. If your environment differs from the one the cluster was built on, check
-this before investigating access rules or single sign-on. Nothing on the cluster
-needs to change, and the setting applies to the machine you are connecting from.
+this before investigating access rules or single sign-on.
+
+The platform's mesh router already limits packet size on its side (to 1200 bytes by
+default), which covers replies coming back through it. The setting above applies
+to the machine you are connecting from, and is still needed when the path between
+you and the mesh is the narrow part.
 
 ## What's Next?
 

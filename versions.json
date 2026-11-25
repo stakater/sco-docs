@@ -22,7 +22,9 @@
   {
     "version": "renovate-main-node-26.x",
     "title": "renovate-main-node-26.x",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "renovate-main-node-24.x-lockfile",
@@ -102,9 +104,7 @@
   {
     "version": "docs-screenshots-s03-postgres",
     "title": "docs-screenshots-s03-postgres",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "docs-screenshots-s02-s3-bucket",

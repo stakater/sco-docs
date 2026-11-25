@@ -178,7 +178,7 @@ kubectl apply -f backup.yaml
 | `parameters.destination.external.credentials.secretKeyProperty` | `aws_secret_access_key` | Entry at that path holding the secret access key |
 
 !!! note
-    Store the access key and secret key in your organisation's Vault before you create an `external` backup. The Vault is created for your organisation when the Vault option (`bao.enabled`) is turned on in the organisation's settings. If your organisation has no Vault, ask your organisation administrator to enable it. Then sign in to the Vault as described in [How to Create a Vault](create-vault.md#step-4-log-in) and write the keys at the path you give in `secretPath`, using the entry names `aws_access_key_id` and `aws_secret_access_key` (or your own names via `accessKeyProperty` and `secretKeyProperty`).
+    Store the access key and secret key in your organisation's Vault before you create an `external` backup. The Vault is created for your organisation when the Vault option (`bao.enabled`) is turned on in the organisation's settings. If your organisation has no Vault, ask your organisation administrator to enable it. Then sign in to the Vault as described in [How to Access Your Organisation's Vault](access-vault.md#step-2-sign-in-with-oidc) and write the keys at the path you give in `secretPath`, using the entry names `aws_access_key_id` and `aws_secret_access_key` (or your own names via `accessKeyProperty` and `secretKeyProperty`).
 
 ### Step 3: Restore from a Backup
 
@@ -217,4 +217,4 @@ Check progress with `kubectl get virtualmachinebackuprestore my-dev-vm-recover`.
 
 - [Provision a Virtual Machine](provision-virtual-machine.md) - Create the virtual machine you want to protect
 - [Create an S3 Bucket](create-s3-bucket.md) - Create a platform bucket to store backups
-- [Create a Vault](create-vault.md) - Sign in to your organisation's Vault to store credentials for your own S3-compatible storage
+- [Access Your Organisation's Vault](access-vault.md) - Sign in to your organisation's Vault to store credentials for your own S3-compatible storage

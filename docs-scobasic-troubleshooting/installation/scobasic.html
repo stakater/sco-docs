@@ -3871,6 +3871,23 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Certificates and DNS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#keeping-the-default-router-and-api-server-certificates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Keeping the default router and API server certificates
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -6572,6 +6589,23 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Certificates and DNS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#keeping-the-default-router-and-api-server-certificates" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Keeping the default router and API server certificates
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -7136,8 +7170,15 @@ also set <code>certificate.privateCA: true</code> and pass the root CA to <code>
 install one certificate as files instead and leave out <code>clusterIssuer</code>. See
 <a href="private-ca.html">Private Certificate Authority</a>, which also covers the names the
 certificate needs and the DNS records you create.</p>
-<div class="admonition note">
-<p class="admonition-title">Default router and API server certificates</p>
+<div class="admonition tip">
+<p class="admonition-title">Already installed without these blocks?</p>
+<p>If <code>oc get clusterissuer letsencrypt</code> reports a missing <code>aws-dns-creds</code> secret,
+the claim is still on the default mode. Create your <code>ClusterIssuer</code>, add the
+<code>certificate</code> and <code>dns</code> blocks to <code>kubestack-config-claim.yaml</code>, and re-apply
+it with <code>oc apply -f kubestack-config-claim.yaml</code>. You do not need to run
+<code>ksp up</code> again, and you do not need AWS credentials.</p>
+</div>
+<h3 id="keeping-the-default-router-and-api-server-certificates">Keeping the default router and API server certificates<a class="headerlink" href="#keeping-the-default-router-and-api-server-certificates" title="Permanent link">#</a></h3>
 <p>In this mode the platform also points the default router and the API server
 at the certificates it issues. To keep the certificates they serve today,
 create this override before you set <code>certificate.type: byo</code> (replace
@@ -7161,15 +7202,6 @@ still issues its own certificates, including <code>cluster-certificate</code> in
 IngressController and the API server alone. If you already keep a
 certificate of your own in a Secret named <code>cluster-certificate</code> in
 <code>openshift-ingress</code>, rename it first: the platform writes to that Secret.</p>
-</div>
-<div class="admonition tip">
-<p class="admonition-title">Already installed without these blocks?</p>
-<p>If <code>oc get clusterissuer letsencrypt</code> reports a missing <code>aws-dns-creds</code> secret,
-the claim is still on the default mode. Create your <code>ClusterIssuer</code>, add the
-<code>certificate</code> and <code>dns</code> blocks to <code>kubestack-config-claim.yaml</code>, and re-apply
-it with <code>oc apply -f kubestack-config-claim.yaml</code>. You do not need to run
-<code>ksp up</code> again, and you do not need AWS credentials.</p>
-</div>
 <h2 id="choosing-how-the-secret-store-unseals">Choosing how the secret store unseals<a class="headerlink" href="#choosing-how-the-secret-store-unseals" title="Permanent link">#</a></h2>
 <p>Decide this <strong>before</strong> the first installation — the choice is recorded permanently
 the first time the secret store initialises.</p>

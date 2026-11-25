@@ -105,13 +105,6 @@
     "aliases": []
   },
   {
-    "version": "docs-scobasic-hosted-cluster-findings",
-    "title": "docs-scobasic-hosted-cluster-findings",
-    "aliases": [
-      "latest"
-    ]
-  },
-  {
     "version": "docs-release-notes-and-admin-config",
     "title": "docs-release-notes-and-admin-config",
     "aliases": []

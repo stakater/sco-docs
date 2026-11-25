@@ -12,7 +12,9 @@
   {
     "version": "renovate-0.1-node-24.x-lockfile",
     "title": "renovate-0.1-node-24.x-lockfile",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "renovate-0.1-dotenv-17.x-lockfile",
@@ -142,9 +144,7 @@
   {
     "version": "docs-mesh-profile-per-region-sa9517",
     "title": "docs-mesh-profile-per-region-sa9517",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "docs-installation",

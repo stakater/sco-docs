@@ -1,15 +1,16 @@
-# how-to-guides/user/provision-openshift-cluster.md -> 2 images.
+# how-to-guides/user/provision-openshift-cluster.md and
+# how-to-guides/user/connect-to-openshift-cluster.md -> 5 images.
 #
-# Create-form only, and that is a cost decision rather than a design one: a list or
-# detail shot needs a real cluster to exist in the capture org, and a hosted OpenShift
-# cluster kept alive for two screenshots is not worth a control plane. The forms need
-# nothing seeded, so this flow runs against any org.
+# The list and detail shots need a real, long-lived cluster in the capture org
+# (DOCS_CLUSTER_NAME, phase Ready). That was traded away once because a hosted control
+# plane kept alive for two images was not worth it; the connect guide makes the detail
+# page the thing the reader navigates by, so the cluster is now a capture requirement.
 #
-# Read-only like the rest: the form is filled and shot, never submitted. Submitting it
-# is what would provision the cluster this flow declines to require.
+# The cluster's own console is not captured here. The seeded cluster is private, so its
+# console resolves only over the organisation mesh, which a CI runner is not on. The
+# connect guide embeds that one image as a static file instead (see README.md).
 #
-# `cluster-list` and `cluster-detail` are the images this leaves out. Add them here, and
-# their directives back to the guide, if a long-lived cluster ever exists to point at.
+# Read-only like the rest: the create form is filled and shot, never submitted.
 name: sco-docs-clusters
 
 requires:
@@ -18,7 +19,9 @@ requires:
     - CONSOLE_ORG
     - CONSOLE_USER
     - CONSOLE_PASSWORD
+    - DOCS_CLUSTER_SIDEBAR_GROUP
     - DOCS_CLUSTER_PLURAL
+    - DOCS_CLUSTER_NAME
   reachable: ["${CONSOLE_URL}"]
 
 viewport:
@@ -34,6 +37,16 @@ steps:
       org: "${CONSOLE_ORG}"
       username: "${CONSOLE_USER}"
       password: "${CONSOLE_PASSWORD}"
+
+  # Both guides open with the list: where a reader finds the cluster they were handed.
+  - use: cloud-orchestrator-console-open-resource-list
+    with:
+      portal: "${CONSOLE_URL}"
+      plural: "${DOCS_CLUSTER_PLURAL}"
+  - use: cloud-orchestrator-console-expand-sidebar-group
+    with:
+      group: "${DOCS_CLUSTER_SIDEBAR_GROUP}"
+  - { step: screenshot, path: cluster-list.png, fullPage: false }
 
   # The create form as it opens. Standard is the default in a fresh browser context and
   # nothing has toggled it yet, so this is a Standard shot without asserting it -- the
@@ -62,6 +75,37 @@ steps:
   - { step: scroll-to, selector: 'form button[type="submit"]', block: end }
   - { step: wait, ms: 500 }
   - { step: screenshot, path: cluster-create-advanced.png, fullPage: false }
+
+  # Back to Standard before the detail shot, so the detail page reads the way a new
+  # user sees it rather than inheriting the Advanced toggle from the form above.
+  - use: cloud-orchestrator-console-set-complexity-mode
+    with:
+      mode: Standard
+  - { step: wait, ms: 750 }
+
+  # Step 1 of the connect guide, and Step 4 of the provision guide: the phase and the
+  # access grants at a glance. Needs DOCS_CLUSTER_NAME at phase Ready.
+  - use: cloud-orchestrator-console-open-resource-detail
+    with:
+      portal: "${CONSOLE_URL}"
+      plural: "${DOCS_CLUSTER_PLURAL}"
+      name: "${DOCS_CLUSTER_NAME}"
+  - { step: screenshot, path: cluster-detail.png, fullPage: false }
+
+  # Connect guide: the detail page in Advanced, framed on the Status block, which is
+  # where the console URL and API endpoint render. Standard does not show that block at
+  # all, which is why the guide tells the reader to switch. Standard was shot first.
+  - use: cloud-orchestrator-console-set-complexity-mode
+    with:
+      mode: Advanced
+  - { step: wait, ms: 750 }
+  - { step: scroll-to, selector: 'text=Api Endpoint', block: center }
+  - { step: wait, ms: 500 }
+  - { step: screenshot, path: cluster-detail-advanced.png, fullPage: false }
+  - use: cloud-orchestrator-console-set-complexity-mode
+    with:
+      mode: Standard
+  - { step: wait, ms: 500 }
 
 after:
   - { step: screenshot, when: on-failure, path: _failure-clusters.png }

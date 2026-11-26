@@ -108,7 +108,7 @@ spec:
   providerConfigRef:
     name: kubernetes-provider
   kcpRootProviderConfigRef:
-    name: kcp-root-provider
+    name: cloud
   parameters:
     organizationName: acme-corp
     adminEmail: admin@acmecorp.example.com

@@ -12,7 +12,7 @@ Emma, a developer at ACME Corp, needs a Windows Server machine to test a legacy 
 - `kubectl` configured with your project kubeconfig
 - A Windows installation ISO that you are licensed to use, reachable over HTTP(S) — for example a Windows Server evaluation ISO
 - An RDP client (Windows App, `xfreerdp`, or the built-in Remote Desktop Connection)
-- A [Vault](create-vault.md) in your organisation, if you want the platform to generate and store the Administrator password (see [Step 3](#step-3-define-a-windowsvirtualmachine-claim))
+- Your organisation's [Vault](access-vault.md), if you want the platform to generate and store the Administrator password (see [Step 3](#step-3-define-a-windowsvirtualmachine-claim))
 
 ## What Gets Created
 
@@ -175,7 +175,7 @@ kubectl get windowsvirtualmachine my-windows-vm \
 
 ## Step 6: Get the Administrator Password
 
-With the default installation the platform generates the Administrator password and stores it in your organisation's [Vault](create-vault.md), in your project's folder. The claim status names the exact path:
+With the default installation the platform generates the Administrator password and stores it in your organisation's [Vault](access-vault.md), in your project's folder. The claim status names the exact path:
 
 ```bash
 kubectl get windowsvirtualmachine my-windows-vm -o jsonpath='{.status.adminCredentials}'
@@ -339,7 +339,7 @@ kubectl get windowsvirtualmachine my-windows-vm -o jsonpath='{.status.sysprep}'
 | `Answer file loaded from your organization's OpenBao` | The file arrived and Windows Setup will use it |
 | `Loading the answer file from your organization's OpenBao` | Still being copied; check again shortly |
 | `Not loaded: sysprep.secretPath must be a relative path such as win/standard` | The path is not valid; fix it as described above |
-| `Not loaded: your organization's OpenBao is not available…` | Your organisation has no Vault yet, or it is still starting. Create a [Vault](create-vault.md), or supply the file inline with `sysprep.autounattend` |
+| `Not loaded: your organization's OpenBao is not available…` | Your organisation's Vault is turned off, or it is still starting. Ask your platform administrator to enable it, or supply the file inline with `sysprep.autounattend` |
 | Any other `Not loaded: …` message | The Vault entry could not be read, most often because the `autounattend.xml` property is missing or the path is wrong |
 
 !!! note
@@ -536,7 +536,7 @@ The claim has no licence-key field. Evaluation media needs no key (it is time-li
 |---------|--------------|-----|
 | Claim `Running` for 20+ minutes, `status.vm.internalIP` empty | The VM sat at *"Press any key to boot from CD or DVD"* and never started Windows Setup | Open the VM console in the SCO console, restart the VM and press a key at the prompt — or use installation media with the prompt removed |
 | `InvalidInstanceType` condition | The size is not in your organisation's Windows catalogue | Pick one of the Windows sizes in [Step 1](#step-1-choose-a-size), or ask your administrator |
-| `status.adminCredentials.delivered` is `false` | Your organisation has no Vault | Create a [Vault](create-vault.md), or supply your own answer file |
+| `status.adminCredentials.delivered` is `false` | Your organisation's Vault is turned off | Ask your platform administrator to enable it, or supply your own answer file |
 | `status.sysprep.ready` is `false` | The answer file in your Vault did not load | Read `status.sysprep.message` and see [Keep the Answer File in Your Vault](#keep-the-answer-file-in-your-vault) |
 | Setup ignores your answer file or stops at a prompt | The XML is invalid, the edition index does not exist on your media, or the value was stored base64-encoded | Validate the XML, check `/IMAGE/INDEX`, and store the plain XML text |
 | `nc` to port 3389 times out, `internalIP` is set | Your laptop is not on the Mesh, or you are not in a group with RDP access to the project | Run `netbird status`; ask your organisation administrator to check your group membership |
@@ -582,6 +582,6 @@ spec:
 
 - [Provision a Linux Virtual Machine](provision-virtual-machine.md) - Provision a Linux VM and connect over SSH
 - [Create a Mesh](create-mesh.md) - Set up the private network used to reach the VM
-- [Create a Vault](create-vault.md) - Store the generated Administrator password and your own answer files
-- [Vault API reference](../../api-reference/public-apis/vault.md#project-access) - Project roles and the project folder
+- [Access Your Organisation's Vault](access-vault.md) - Read the generated Administrator password and store your own answer files
+- [Vault reference](../../api-reference/public-apis/vault.md#project-access) - Project roles and the project folder
 - [One Identity Across Your Organisation](../../cloud-user-guide/authentication/organisation-identity.md) - Mesh enrolment caveats

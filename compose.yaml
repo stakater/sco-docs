@@ -1,0 +1,23 @@
+# Local docs preview with live reload: `docker compose up` (or `podman compose up`),
+# then open http://localhost:8000.
+#
+# Edits under content/ reload in the browser. After a change to
+# theme_override/mkdocs.yml (for example the nav), restart the service, because
+# the root mkdocs.yml is generated once at start.
+services:
+  docs:
+    image: python:3.12-slim
+    working_dir: /docs
+    command: sh -c "./prepare_theme.sh && mkdocs serve --dev-addr 0.0.0.0:8000"
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/docs
+      - pip-cache:/root/.cache/pip
+    # Lets the container read the bind mount on SELinux hosts (Fedora, RHEL)
+    # without relabelling the repository.
+    security_opt:
+      - label=disable
+
+volumes:
+  pip-cache:

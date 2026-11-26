@@ -5,7 +5,7 @@
       
       
       
-        <link rel="canonical" href="https://docs.stakater.com/cloud-orchestrator/docs-screenshots-s05-project/how-to-guides/user/create-vault.html">
+        <link rel="canonical" href="https://docs.stakater.com/cloud-orchestrator/docs-screenshots-s05-project/how-to-guides/user/access-vault.html">
       
       
         <link rel="prev" href="create-postgres.html">
@@ -18,11 +18,11 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.svg">
-      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.8.1">
+      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.8.2">
     
     
       
-        <title>How to Create a Vault - Stakater Cloud Orchestrator</title>
+        <title>How to Access Your Organisation's Vault - Stakater Cloud Orchestrator</title>
       
     
     
@@ -95,7 +95,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#how-to-create-a-vault" class="md-skip">
+        <a href="#how-to-access-your-organisations-vault" class="md-skip">
           Skip to content
         </a>
       
@@ -3101,6 +3101,62 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
+      <a href="connect-openshift-cluster-to-virtual-machine.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Connect an OpenShift Cluster to a Virtual Machine
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="back-up-virtual-machine.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Back Up and Snapshot a Virtual Machine
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="provision-windows-virtual-machine.html" class="md-nav__link">
         
   
@@ -3201,7 +3257,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   <span class="md-ellipsis">
     
   
-    How to Create a Vault
+    How to Access Your Organisation's Vault
   
 
     
@@ -3212,14 +3268,14 @@ This documentation is for a pull request deployment and is unreleased, it is onl
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <a href="create-vault.html" class="md-nav__link md-nav__link--active">
+      <a href="access-vault.html" class="md-nav__link md-nav__link--active">
         
   
   
   <span class="md-ellipsis">
     
   
-    How to Create a Vault
+    How to Access Your Organisation's Vault
   
 
     
@@ -3258,10 +3314,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
-  <a href="#what-gets-created" class="md-nav__link">
+  <a href="#one-vault-per-organisation" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What Gets Created
+        One Vault per Organisation
       
     </span>
   </a>
@@ -3269,10 +3325,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-1-define-a-vault-claim" class="md-nav__link">
+  <a href="#step-1-find-the-address-and-your-role" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 1: Define a Vault Claim
+        Step 1: Find the Address and Your Role
       
     </span>
   </a>
@@ -3280,10 +3336,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-2-apply-the-claim" class="md-nav__link">
+  <a href="#step-2-sign-in-with-oidc" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 2: Apply the Claim
+        Step 2: Sign In with OIDC
       
     </span>
   </a>
@@ -3291,10 +3347,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-3-verify-the-vault" class="md-nav__link">
+  <a href="#step-3-read-a-secret" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 3: Verify the Vault
+        Step 3: Read a Secret
       
     </span>
   </a>
@@ -3302,21 +3358,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-4-log-in" class="md-nav__link">
+  <a href="#what-is-in-the-vault" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 4: Log In
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#step-5-optional-reach-it-over-the-mesh" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 5 (Optional): Reach It over the Mesh
+        What Is in the Vault
       
     </span>
   </a>
@@ -4016,6 +4061,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     
   
     Modelling Child Resources
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../service-provider-guide/solutions/modeling-related-resources.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modelling Related Resources
   
 
     
@@ -6064,10 +6137,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
-  <a href="#what-gets-created" class="md-nav__link">
+  <a href="#one-vault-per-organisation" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What Gets Created
+        One Vault per Organisation
       
     </span>
   </a>
@@ -6075,10 +6148,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-1-define-a-vault-claim" class="md-nav__link">
+  <a href="#step-1-find-the-address-and-your-role" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 1: Define a Vault Claim
+        Step 1: Find the Address and Your Role
       
     </span>
   </a>
@@ -6086,10 +6159,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-2-apply-the-claim" class="md-nav__link">
+  <a href="#step-2-sign-in-with-oidc" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 2: Apply the Claim
+        Step 2: Sign In with OIDC
       
     </span>
   </a>
@@ -6097,10 +6170,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-3-verify-the-vault" class="md-nav__link">
+  <a href="#step-3-read-a-secret" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 3: Verify the Vault
+        Step 3: Read a Secret
       
     </span>
   </a>
@@ -6108,21 +6181,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-4-log-in" class="md-nav__link">
+  <a href="#what-is-in-the-vault" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 4: Log In
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#step-5-optional-reach-it-over-the-mesh" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 5 (Optional): Reach It over the Mesh
+        What Is in the Vault
       
     </span>
   </a>
@@ -6157,77 +6219,91 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 
 
 
-<h1 id="how-to-create-a-vault">How to Create a Vault<a class="headerlink" href="#how-to-create-a-vault" title="Permanent link">#</a></h1>
-<p>Learn how to provision a private Vault (OpenBao) instance for your organisation and log in with single sign-on.</p>
-<p>Emma, a developer at ACME Corp, needs a secrets manager her team can reach from CI and from their laptops — without managing root tokens or exposing anything to the public internet.</p>
+<h1 id="how-to-access-your-organisations-vault">How to Access Your Organisation's Vault<a class="headerlink" href="#how-to-access-your-organisations-vault" title="Permanent link">#</a></h1>
+<p>Learn how to sign in to the Vault (OpenBao) of your organisation and read the secrets the platform keeps there for your virtual machines, buckets and databases.</p>
+<p>Emma, a developer at ACME Corp, has just created a database. The platform put its password in the organisation's Vault, and she needs to read it from her laptop without anyone handing her a token.</p>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">#</a></h2>
 <ul>
-<li>A <a href="create-project.html">Project</a> already created</li>
-<li>The <code>vault.secrets.cloud.stakater.com</code> API available</li>
+<li>A <a href="create-project.html">Project</a> you have access to</li>
 <li><code>kubectl</code> configured with your project kubeconfig</li>
 <li>The <a href="https://openbao.org/docs/install/">OpenBao CLI</a> (or Vault CLI) for command-line access</li>
+<li>If your organisation runs a <a href="create-mesh.html">Mesh</a>: a device enrolled on it</li>
 </ul>
-<h2 id="what-gets-created">What Gets Created<a class="headerlink" href="#what-gets-created" title="Permanent link">#</a></h2>
-<p>When you create a Vault claim, the platform provisions:</p>
+<h2 id="one-vault-per-organisation">One Vault per Organisation<a class="headerlink" href="#one-vault-per-organisation" title="Permanent link">#</a></h2>
+<p>When an organisation is set up, the platform creates one Vault for it, named <code>&lt;organisation&gt;-default-bao</code>. You do not create a Vault yourself, and an organisation does not get a second one: every project, virtual machine, bucket and database of the organisation keeps its secrets in this Vault.</p>
+<p>What you get:</p>
 <ul>
-<li>A <strong>highly-available Vault (OpenBao) instance</strong>, private to your organisation</li>
-<li><strong>Single sign-on</strong> against your organisation's identity provider — there is no static root token to manage</li>
-<li>A web UI and API endpoint, published in the claim's status</li>
+<li><strong>Single sign-on</strong> against your organisation's identity provider. There is no static root token to manage</li>
+<li><strong>A folder for each project</strong>, which only the people with access to that project can open</li>
+<li><strong>The credentials of your services</strong>, written there by the platform (see <a href="#what-is-in-the-vault">What Is in the Vault</a>)</li>
 <li>If your organisation runs a <a href="create-mesh.html">Mesh</a>: a stable DNS name (<code>bao.&lt;organisation&gt;.mesh.&lt;cluster-domain&gt;</code>) with a publicly-trusted TLS certificate, reachable only from Mesh peers</li>
 </ul>
-<h2 id="step-1-define-a-vault-claim">Step 1: Define a Vault Claim<a class="headerlink" href="#step-1-define-a-vault-claim" title="Permanent link">#</a></h2>
-<p>Create a file named <code>vault.yaml</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">secrets.cloud.stakater.com/v1</span>
-<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Vault</span>
-<span class="nt">metadata</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-vault</span>
-<span class="nt">spec</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span>
+<p>If your organisation has no Vault, your platform administrator has turned it off. Ask them to enable it (see <a href="../../service-provider-guide/organizations/creating-organizations.html">Creating Organizations</a>).</p>
+<h2 id="step-1-find-the-address-and-your-role">Step 1: Find the Address and Your Role<a class="headerlink" href="#step-1-find-the-address-and-your-role" title="Permanent link">#</a></h2>
+<p>The project status carries everything you need to sign in:</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>project<span class="w"> </span>my-project<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.status.openbao}'</span>
 </code></pre></div>
-<p><code>spec.parameters</code> can stay empty. To size storage explicitly:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">spec</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">storage</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">dataSize</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">50Gi</span>
-<span class="w">      </span><span class="nt">auditSize</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">20Gi</span>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">"available"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="nt">"address"</span><span class="p">:</span><span class="s2">"https://bao.acme.mesh.example.com"</span><span class="p">,</span><span class="nt">"secretPath"</span><span class="p">:</span><span class="s2">"stakater/projects/acme-my-project/"</span><span class="p">,</span><span class="nt">"roles"</span><span class="p">:[</span><span class="s2">"acme-my-project-rw-users"</span><span class="p">],</span><span class="nt">"message"</span><span class="p">:</span><span class="s2">"Log in to your organization's OpenBao with OIDC and one of the listed roles"</span><span class="p">}</span>
 </code></pre></div>
-<h2 id="step-2-apply-the-claim">Step 2: Apply the Claim<a class="headerlink" href="#step-2-apply-the-claim" title="Permanent link">#</a></h2>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>vault.yaml
-</code></pre></div>
-<h2 id="step-3-verify-the-vault">Step 3: Verify the Vault<a class="headerlink" href="#step-3-verify-the-vault" title="Permanent link">#</a></h2>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>vault<span class="w"> </span>my-vault
-</code></pre></div>
-<p>Wait for <code>READY: True</code>, then read the endpoint:</p>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>vault<span class="w"> </span>my-vault<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.status.endpoint.address}'</span>
-</code></pre></div>
-<h2 id="step-4-log-in">Step 4: Log In<a class="headerlink" href="#step-4-log-in" title="Permanent link">#</a></h2>
-<p>You sign in as your organisation user and choose a <strong>role</strong>; the role decides what you can reach. Signing in without one succeeds but grants nothing. Each project you have access to has its own roles. Look them up on the project:</p>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>project<span class="w"> </span>my-project<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.status.openbao.roles}'</span>
-</code></pre></div>
-<div class="highlight"><pre><span></span><code>["acme-my-project-rw-users"]
-</code></pre></div>
-<p>Open the endpoint URL in a browser, choose method <strong>OIDC</strong>, enter the role in <strong>Role</strong>, and sign in. Or use the CLI:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">BAO_ADDR</span><span class="o">=</span><span class="k">$(</span>kubectl<span class="w"> </span>get<span class="w"> </span>vault<span class="w"> </span>my-vault<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.status.endpoint.address}'</span><span class="k">)</span>
+<ul>
+<li><code>address</code> is the URL to open or to point the CLI at</li>
+<li><code>roles</code> lists the roles you can sign in with for this project</li>
+<li><code>secretPath</code> is the project folder</li>
+</ul>
+<p>In the console, the Vault is under <strong>Secrets</strong> in the sidebar:</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/generated/vault-list.png" data-desc-position="bottom"><img alt="The Vaults list in the console, showing the default Vault of the organisation" src="../../images/generated/vault-list.png"></a></p>
+<p>Its detail page shows the same address under <strong>Endpoint</strong>, below the status conditions:</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/generated/vault-detail.png" data-desc-position="bottom"><img alt="The lower part of a Vault detail page, showing the status conditions and the Endpoint block with the Mesh address" src="../../images/generated/vault-detail.png"></a></p>
+<p>If <strong>Address</strong> is empty, as it is here, the Vault is published on the Mesh only. Use the <strong>Mesh Address</strong> from a device enrolled on the Mesh. The name resolves from anywhere but is reachable only from enrolled Mesh peers, and the certificate is publicly trusted, so clients need no custom CA bundle and no <code>-tls-skip-verify</code>.</p>
+<h2 id="step-2-sign-in-with-oidc">Step 2: Sign In with OIDC<a class="headerlink" href="#step-2-sign-in-with-oidc" title="Permanent link">#</a></h2>
+<p>You sign in as your organisation user and choose a <strong>role</strong>; the role decides what you can reach. Signing in without one succeeds but grants nothing.</p>
+<p><strong>Web UI:</strong> open the address in a browser, choose method <strong>OIDC</strong>, enter the role in <strong>Role</strong>, and sign in.</p>
+<p><strong>CLI:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">BAO_ADDR</span><span class="o">=</span><span class="k">$(</span>kubectl<span class="w"> </span>get<span class="w"> </span>project<span class="w"> </span>my-project<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.status.openbao.address}'</span><span class="k">)</span>
 bao<span class="w"> </span>login<span class="w"> </span>-method<span class="o">=</span>oidc<span class="w"> </span><span class="nv">role</span><span class="o">=</span>acme-my-project-rw-users
 </code></pre></div>
-<p>This opens your browser, completes single sign-on, and writes a token to the local CLI. The role gives you your project's folder, <code>stakater/projects/&lt;organisation&gt;-&lt;project&gt;/</code>:</p>
+<p>This opens your browser, completes single sign-on, and writes a token to the local CLI. A sign-in lasts one hour; sign in again with the role when it expires.</p>
+<p>Which roles you get follows the project's <code>access</code> entries. See <a href="../../api-reference/public-apis/vault.html#project-access">Project access</a>.</p>
+<h2 id="step-3-read-a-secret">Step 3: Read a Secret<a class="headerlink" href="#step-3-read-a-secret" title="Permanent link">#</a></h2>
+<p>The role gives you your project's folder, <code>stakater/projects/&lt;organisation&gt;-&lt;project&gt;/</code>. In the web UI, browse <code>stakater</code> → <code>projects/</code> → your project. From the CLI:</p>
+<div class="highlight"><pre><span></span><code>bao<span class="w"> </span>kv<span class="w"> </span>get<span class="w"> </span>-mount<span class="o">=</span>stakater<span class="w"> </span>projects/acme-my-project/vms/my-windows-vm
+</code></pre></div>
+<p>With a role that can write, you can also keep secrets of your own in the folder:</p>
 <div class="highlight"><pre><span></span><code>bao<span class="w"> </span>kv<span class="w"> </span>put<span class="w"> </span>-mount<span class="o">=</span>stakater<span class="w"> </span>projects/acme-my-project/app/config<span class="w"> </span><span class="nv">user</span><span class="o">=</span>app<span class="w"> </span><span class="nv">password</span><span class="o">=</span>s3cret
 </code></pre></div>
-<p>Which roles you get follows the project's <code>access</code> entries — see <a href="../../api-reference/public-apis/vault.html#project-access">Project access</a>.</p>
-<h2 id="step-5-optional-reach-it-over-the-mesh">Step 5 (Optional): Reach It over the Mesh<a class="headerlink" href="#step-5-optional-reach-it-over-the-mesh" title="Permanent link">#</a></h2>
-<p>If your organisation runs a <a href="create-mesh.html">Mesh</a>, the Vault is also published to Mesh peers automatically. The Mesh endpoint appears in the claim status once it is live:</p>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>vault<span class="w"> </span>my-vault<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.status.endpoint.meshAddress}'</span>
-</code></pre></div>
-<div class="highlight"><pre><span></span><code>https://bao.&lt;organisation&gt;.mesh.&lt;cluster-domain&gt;
-</code></pre></div>
-<p>The name resolves from anywhere but is reachable only from enrolled Mesh peers, and the certificate is publicly trusted — clients need no custom CA bundle and no <code>-tls-skip-verify</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">BAO_ADDR</span><span class="o">=</span><span class="k">$(</span>kubectl<span class="w"> </span>get<span class="w"> </span>vault<span class="w"> </span>my-vault<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.status.endpoint.meshAddress}'</span><span class="k">)</span>
-bao<span class="w"> </span>login<span class="w"> </span>-method<span class="o">=</span>oidc<span class="w"> </span><span class="nv">role</span><span class="o">=</span>acme-my-project-rw-users
-</code></pre></div>
+<h2 id="what-is-in-the-vault">What Is in the Vault<a class="headerlink" href="#what-is-in-the-vault" title="Permanent link">#</a></h2>
+<p>Each service guide names the exact path in the status of its claim:</p>
+<table>
+<thead>
+<tr>
+<th>Service</th>
+<th>What the platform stores</th>
+<th>Where to find the path</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="provision-windows-virtual-machine.html#step-6-get-the-administrator-password">Windows virtual machine</a></td>
+<td>The generated Administrator password</td>
+<td><code>status.adminCredentials.secretPath</code></td>
+</tr>
+<tr>
+<td><a href="create-s3-bucket.html#step-4-read-the-credentials">S3 bucket</a></td>
+<td>Access key, secret key and endpoint</td>
+<td><code>status.bucket.credentialsRef</code></td>
+</tr>
+<tr>
+<td><a href="create-postgres.html#step-4-read-the-credentials">Postgres database</a></td>
+<td>Username, password and connection URIs</td>
+<td><code>status.connection.credentialsRef</code></td>
+</tr>
+</tbody>
+</table>
 <h2 id="related">Related<a class="headerlink" href="#related" title="Permanent link">#</a></h2>
 <ul>
-<li><a href="../../api-reference/public-apis/vault.html">Vault API reference</a></li>
+<li><a href="../../api-reference/public-apis/vault.html">Vault reference</a> - Roles, project folders and the organisation folder</li>
 <li><a href="create-mesh.html">Create a Mesh</a></li>
+<li><a href="../../cloud-user-guide/authentication/organisation-identity.html">One Identity Across Your Organisation</a></li>
 </ul>
 
 

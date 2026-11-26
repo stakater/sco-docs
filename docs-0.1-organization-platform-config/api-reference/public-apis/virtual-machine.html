@@ -18,7 +18,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.svg">
-      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.8.1">
+      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.8.2">
     
     
       
@@ -3041,6 +3041,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
+      <a href="../../how-to-guides/user/connect-to-openshift-cluster.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Connect to an OpenShift Cluster
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../how-to-guides/user/provision-virtual-machine.html" class="md-nav__link">
         
   
@@ -3049,6 +3077,62 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     
   
     How to Provision a Virtual Machine
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../how-to-guides/user/connect-openshift-cluster-to-virtual-machine.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Connect an OpenShift Cluster to a Virtual Machine
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../how-to-guides/user/back-up-virtual-machine.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Back Up and Snapshot a Virtual Machine
   
 
     
@@ -3153,14 +3237,14 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../how-to-guides/user/create-vault.html" class="md-nav__link">
+      <a href="../../how-to-guides/user/access-vault.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    How to Create a Vault
+    How to Access Your Organisation's Vault
   
 
     
@@ -3847,6 +3931,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     
   
     Modelling Child Resources
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../service-provider-guide/solutions/modeling-related-resources.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modelling Related Resources
   
 
     
@@ -5291,6 +5403,17 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#peers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Peers
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -5374,16 +5497,27 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#vm-reachable-from-an-openshift-cluster" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        VM Reachable from an OpenShift Cluster
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#how-to-guide" class="md-nav__link">
+  <a href="#how-to-guides" class="md-nav__link">
     <span class="md-ellipsis">
       
-        How-to Guide
+        How-to Guides
       
     </span>
   </a>
@@ -6125,6 +6259,17 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#peers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Peers
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -6208,16 +6353,27 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#vm-reachable-from-an-openshift-cluster" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        VM Reachable from an OpenShift Cluster
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#how-to-guide" class="md-nav__link">
+  <a href="#how-to-guides" class="md-nav__link">
     <span class="md-ellipsis">
       
-        How-to Guide
+        How-to Guides
       
     </span>
   </a>
@@ -6324,6 +6480,12 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <td>Advertise the VM on your organisation's Mesh, so enrolled devices can reach it on SSH (<code>22</code>), RDP (<code>3389</code>) and ICMP</td>
 </tr>
 <tr>
+<td><code>ports.mesh[].port</code></td>
+<td><code>integer</code></td>
+<td>—</td>
+<td>Extra TCP port that enrolled devices may reach over the Mesh, for example a database (1–65535, up to 16). Needs <code>meshRoute.enabled: true</code>. The SSH port is always available and need not be listed</td>
+</tr>
+<tr>
 <td><code>sshPublicKey.data</code></td>
 <td><code>string</code></td>
 <td>—</td>
@@ -6334,6 +6496,79 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <td><code>string</code></td>
 <td>—</td>
 <td>Cloud-init <code>userData</code> script injected on first boot</td>
+</tr>
+<tr>
+<td><code>peers</code></td>
+<td><code>array</code></td>
+<td>—</td>
+<td>Workloads in this project allowed to reach the VM, each on its own ports. Needs a project with <code>network.mode: native</code>. See <a href="#peers">Peers</a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="peers">Peers<a class="headerlink" href="#peers" title="Permanent link">#</a></h3>
+<p>Each entry in <code>spec.parameters.peers</code> lets one workload in the same project reach the VM. All other traffic to the VM stays blocked. <code>WindowsVirtualMachine</code> takes the same field. You can list up to 16 peers.</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>kind</code></td>
+<td><code>string</code></td>
+<td><code>OpenShiftCluster</code></td>
+<td>Kind of workload. <code>OpenShiftCluster</code> admits workloads running on one of this project's OpenShift clusters</td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td><code>string</code></td>
+<td>—</td>
+<td>Name of the workload, for example the OpenShift cluster's name. Required</td>
+</tr>
+<tr>
+<td><code>ports</code></td>
+<td><code>array</code></td>
+<td>—</td>
+<td>Ports on the VM the peer may reach. Required, 1 to 16 entries</td>
+</tr>
+<tr>
+<td><code>ports[].port</code></td>
+<td><code>integer</code></td>
+<td>—</td>
+<td>Port on the VM the peer may reach (1–65535)</td>
+</tr>
+<tr>
+<td><code>ports[].protocol</code></td>
+<td><code>string</code></td>
+<td><code>TCP</code></td>
+<td><code>TCP</code> or <code>UDP</code></td>
+</tr>
+</tbody>
+</table>
+<p>Each peer reports its state in <code>status.peering.peers</code>:</p>
+<table>
+<thead>
+<tr>
+<th>State</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Ready</code></td>
+<td>The peer can reach the VM on its ports</td>
+</tr>
+<tr>
+<td><code>Pending</code></td>
+<td>Being set up, or the named workload does not exist yet</td>
+</tr>
+<tr>
+<td><code>Rejected</code></td>
+<td>Not allowed: the workload is in another project, or the VM's project is not in <code>native</code> mode. <code>message</code> says which</td>
 </tr>
 </tbody>
 </table>
@@ -6383,12 +6618,33 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <td>LoadBalancer hostname (if <code>connection: public</code>)</td>
 </tr>
 <tr>
+<td><code>status.vm.servicePort</code></td>
+<td><code>integer</code></td>
+<td>SSH port the LoadBalancer listens on (if <code>connection: public</code>)</td>
+</tr>
+<tr>
 <td><code>status.vm.conditions</code></td>
 <td><code>array</code></td>
 <td>Conditions representing the VM state</td>
 </tr>
+<tr>
+<td><code>status.peering.address</code></td>
+<td><code>string</code></td>
+<td>Address peers use to reach the VM, on the ports granted to them. It stays the same when the VM restarts or moves</td>
+</tr>
+<tr>
+<td><code>status.peering.peers</code></td>
+<td><code>array</code></td>
+<td><code>kind</code>, <code>name</code>, <code>state</code> and <code>message</code> for each peer (see <a href="#peers">Peers</a>)</td>
+</tr>
 </tbody>
 </table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Always take the SSH port from <code>status.vm.servicePort</code> rather than assuming <code>22</code>.
+New public VMs are exposed on port <code>22</code>, but VMs created before that became the
+default are still exposed on port <code>22000</code>.</p>
+</div>
 <h2 id="supported-flavours">Supported Flavours<a class="headerlink" href="#supported-flavours" title="Permanent link">#</a></h2>
 <table>
 <thead>
@@ -6660,8 +6916,28 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <span class="w">          </span><span class="no">- git</span>
 <span class="w">          </span><span class="no">- curl</span>
 </code></pre></div>
-<h2 id="how-to-guide">How-to Guide<a class="headerlink" href="#how-to-guide" title="Permanent link">#</a></h2>
-<p><a href="../../how-to-guides/user/provision-virtual-machine.html">Provision a Virtual Machine</a></p>
+<h3 id="vm-reachable-from-an-openshift-cluster">VM Reachable from an OpenShift Cluster<a class="headerlink" href="#vm-reachable-from-an-openshift-cluster" title="Permanent link">#</a></h3>
+<p>The project must use <code>network.mode: native</code>. Workloads on the <code>app-cluster</code> OpenShift cluster can reach PostgreSQL on port 5432; nothing else can.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">compute.cloud.stakater.com/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">VirtualMachine</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">db-vm</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">flavour</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rhel9</span>
+<span class="w">    </span><span class="nt">instanceType</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">o1.medium</span>
+<span class="w">    </span><span class="nt">connection</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">private</span>
+<span class="w">    </span><span class="nt">peers</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">OpenShiftCluster</span>
+<span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">app-cluster</span>
+<span class="w">        </span><span class="nt">ports</span><span class="p">:</span>
+<span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5432</span>
+</code></pre></div>
+<h2 id="how-to-guides">How-to Guides<a class="headerlink" href="#how-to-guides" title="Permanent link">#</a></h2>
+<ul>
+<li><a href="../../how-to-guides/user/provision-virtual-machine.html">Provision a Virtual Machine</a></li>
+<li><a href="../../how-to-guides/user/connect-openshift-cluster-to-virtual-machine.html">Connect an OpenShift Cluster to a Virtual Machine</a></li>
+</ul>
 
 
 

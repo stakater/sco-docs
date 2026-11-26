@@ -18,7 +18,7 @@
       
       
       <link rel="icon" href="../assets/images/favicon.svg">
-      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.8.0">
+      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.8.2">
     
     
       
@@ -3260,6 +3260,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
+      <a href="../how-to-guides/user/connect-to-openshift-cluster.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Connect to an OpenShift Cluster
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../how-to-guides/user/provision-virtual-machine.html" class="md-nav__link">
         
   
@@ -3268,6 +3296,62 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     
   
     How to Provision a Virtual Machine
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../how-to-guides/user/connect-openshift-cluster-to-virtual-machine.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Connect an OpenShift Cluster to a Virtual Machine
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../how-to-guides/user/back-up-virtual-machine.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Back Up and Snapshot a Virtual Machine
   
 
     
@@ -3372,14 +3456,14 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../how-to-guides/user/create-vault.html" class="md-nav__link">
+      <a href="../how-to-guides/user/access-vault.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    How to Create a Vault
+    How to Access Your Organisation's Vault
   
 
     
@@ -3816,6 +3900,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
+      <a href="../installation/private-ca.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Private Certificate Authority
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../installation/openbao-unseal.html" class="md-nav__link">
         
   
@@ -4038,6 +4150,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     
   
     Modelling Child Resources
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../service-provider-guide/solutions/modeling-related-resources.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modelling Related Resources
   
 
     
@@ -6367,28 +6507,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <hr>
 <h3 id="vault">Vault<a class="headerlink" href="#vault" title="Permanent link">#</a></h3>
 <p><strong>API:</strong> <code>secrets.cloud.stakater.com/v1 Vault</code></p>
-<p>Per-tenant OpenBao instance with HA Raft storage and OIDC auth against your organisation's Keycloak realm.</p>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Required</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>storage.dataSize</code></td>
-<td>No</td>
-<td>PVC size for Raft data (default <code>15Gi</code>)</td>
-</tr>
-<tr>
-<td><code>storage.auditSize</code></td>
-<td>No</td>
-<td>PVC size for audit log (default <code>10Gi</code>)</td>
-</tr>
-</tbody>
-</table>
+<p>Your organisation's Vault. The platform creates one for each organisation, so there is nothing to order: sign in with OIDC to read the credentials of your virtual machines, S3 buckets and Postgres databases.</p>
 <p>Full reference: <a href="../api-reference/public-apis/vault.html">Vault API</a></p>
 <hr>
 <h3 id="mesh">Mesh<a class="headerlink" href="#mesh" title="Permanent link">#</a></h3>
@@ -7136,7 +7255,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
       <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["content.code.copy", "navigation.tracking", "toc.follow", "navigation.top"], "search": "../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.c21346df.min.js"></script>
+      <script src="../assets/javascripts/bundle.a5f9d56c.min.js"></script>
       
     
   

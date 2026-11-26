@@ -5,24 +5,24 @@
       
       
       
-        <link rel="canonical" href="https://docs.stakater.com/cloud-orchestrator/docs-screenshots-s02-s3-bucket/how-to-guides/user/create-vault.html">
+        <link rel="canonical" href="https://docs.stakater.com/cloud-orchestrator/docs-screenshots-s02-s3-bucket/how-to-guides/user/connect-to-openshift-cluster.html">
       
       
-        <link rel="prev" href="create-postgres.html">
+        <link rel="prev" href="provision-openshift-cluster.html">
       
       
-        <link rel="next" href="create-mesh.html">
+        <link rel="next" href="provision-virtual-machine.html">
       
       
         
       
       
       <link rel="icon" href="../../assets/images/favicon.svg">
-      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.8.0">
+      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.8.2">
     
     
       
-        <title>How to Create a Vault - Stakater Cloud Orchestrator</title>
+        <title>How to Connect to an OpenShift Cluster - Stakater Cloud Orchestrator</title>
       
     
     
@@ -95,7 +95,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#how-to-create-a-vault" class="md-skip">
+        <a href="#how-to-connect-to-an-openshift-cluster" class="md-skip">
           Skip to content
         </a>
       
@@ -3042,6 +3042,238 @@ This documentation is for a pull request deployment and is unreleased, it is onl
                 
   
   
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Connect to an OpenShift Cluster
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="connect-to-openshift-cluster.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Connect to an OpenShift Cluster
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prerequisites
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-private-means" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Private Means
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-access-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How Access Works
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-1-read-the-clusters-addresses" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Read the Cluster's Addresses
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-2-join-your-organisations-mesh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Join Your Organisation's Mesh
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 2: Join Your Organisation's Mesh">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#clusters-in-more-than-one-region-or-organisation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Clusters in More Than One Region or Organisation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-3-open-the-cluster-console" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Open the Cluster Console
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 3: Open the Cluster Console">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#if-the-console-does-not-resolve" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        If the Console Does Not Resolve
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#if-the-connection-fails-straight-away" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        If the Connection Fails Straight Away
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#if-pages-hang-or-load-only-partly" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        If Pages Hang or Load Only Partly
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-4-connect-with-the-cli" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: Connect with the CLI
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#whats-next" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What's Next?
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
   
   
     <li class="md-nav__item">
@@ -3053,6 +3285,62 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     
   
     How to Provision a Virtual Machine
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="connect-openshift-cluster-to-virtual-machine.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Connect an OpenShift Cluster to a Virtual Machine
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="back-up-virtual-machine.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Back Up and Snapshot a Virtual Machine
   
 
     
@@ -3154,44 +3442,17 @@ This documentation is for a pull request deployment and is unreleased, it is onl
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    How to Create a Vault
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="create-vault.html" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="access-vault.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    How to Create a Vault
+    How to Access Your Organisation's Vault
   
 
     
@@ -3200,116 +3461,6 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
 
       </a>
-      
-        
-
-  
-
-<nav class="md-nav md-nav--secondary" aria-label="On this page">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      On this page
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
-      
-        <li class="md-nav__item">
-  <a href="#prerequisites" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Prerequisites
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#what-gets-created" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        What Gets Created
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#step-1-define-a-vault-claim" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 1: Define a Vault Claim
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#step-2-apply-the-claim" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 2: Apply the Claim
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#step-3-verify-the-vault" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 3: Verify the Vault
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#step-4-log-in" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 4: Log In
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#step-5-optional-reach-it-over-the-mesh" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Step 5 (Optional): Reach It over the Mesh
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#related" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Related
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -3738,6 +3889,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
+      <a href="../../installation/private-ca.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Private Certificate Authority
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../installation/openbao-unseal.html" class="md-nav__link">
         
   
@@ -3960,6 +4139,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     
   
     Modelling Child Resources
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../service-provider-guide/solutions/modeling-related-resources.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modelling Related Resources
   
 
     
@@ -6008,10 +6215,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
-  <a href="#what-gets-created" class="md-nav__link">
+  <a href="#what-private-means" class="md-nav__link">
     <span class="md-ellipsis">
       
-        What Gets Created
+        What Private Means
       
     </span>
   </a>
@@ -6019,10 +6226,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-1-define-a-vault-claim" class="md-nav__link">
+  <a href="#how-access-works" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 1: Define a Vault Claim
+        How Access Works
       
     </span>
   </a>
@@ -6030,10 +6237,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-2-apply-the-claim" class="md-nav__link">
+  <a href="#step-1-read-the-clusters-addresses" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 2: Apply the Claim
+        Step 1: Read the Cluster's Addresses
       
     </span>
   </a>
@@ -6041,10 +6248,88 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-3-verify-the-vault" class="md-nav__link">
+  <a href="#step-2-join-your-organisations-mesh" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 3: Verify the Vault
+        Step 2: Join Your Organisation's Mesh
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 2: Join Your Organisation's Mesh">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#clusters-in-more-than-one-region-or-organisation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Clusters in More Than One Region or Organisation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-3-open-the-cluster-console" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Open the Cluster Console
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 3: Open the Cluster Console">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#if-the-console-does-not-resolve" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        If the Console Does Not Resolve
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#if-the-connection-fails-straight-away" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        If the Connection Fails Straight Away
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#if-pages-hang-or-load-only-partly" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        If Pages Hang or Load Only Partly
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-4-connect-with-the-cli" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: Connect with the CLI
       
     </span>
   </a>
@@ -6052,10 +6337,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-4-log-in" class="md-nav__link">
+  <a href="#troubleshooting" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 4: Log In
+        Troubleshooting
       
     </span>
   </a>
@@ -6063,21 +6348,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-5-optional-reach-it-over-the-mesh" class="md-nav__link">
+  <a href="#whats-next" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Step 5 (Optional): Reach It over the Mesh
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#related" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Related
+        What's Next?
       
     </span>
   </a>
@@ -6101,77 +6375,206 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 
 
 
-<h1 id="how-to-create-a-vault">How to Create a Vault<a class="headerlink" href="#how-to-create-a-vault" title="Permanent link">#</a></h1>
-<p>Learn how to provision a private Vault (OpenBao) instance for your organisation and log in with single sign-on.</p>
-<p>Emma, a developer at ACME Corp, needs a secrets manager her team can reach from CI and from their laptops — without managing root tokens or exposing anything to the public internet.</p>
+<h1 id="how-to-connect-to-an-openshift-cluster">How to Connect to an OpenShift Cluster<a class="headerlink" href="#how-to-connect-to-an-openshift-cluster" title="Permanent link">#</a></h1>
+<p>Learn how to reach a provisioned OpenShift cluster: join your organisation's mesh, open the cluster console, and sign in with your organisation identity.</p>
+<p>Sam, a senior platform engineer at ACME Corp, has just provisioned a private cluster for a product team with <a href="provision-openshift-cluster.html">an OpenShiftCluster claim</a>. Before handing it over, Sam needs to confirm the team can reach the console and the API from their laptops.</p>
 <h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">#</a></h2>
 <ul>
-<li>A <a href="create-project.html">Project</a> already created</li>
-<li>The <code>vault.secrets.cloud.stakater.com</code> API available</li>
-<li><code>kubectl</code> configured with your project kubeconfig</li>
-<li>The <a href="https://openbao.org/docs/install/">OpenBao CLI</a> (or Vault CLI) for command-line access</li>
+<li>An <a href="provision-openshift-cluster.html">OpenShift cluster</a> whose claim reports <code>READY=True</code></li>
+<li>The <a href="https://docs.netbird.io/how-to/installation">NetBird client</a> installed on your device. The CLI alone is enough; the GUI is optional</li>
+<li>Membership of a group listed under the cluster's <code>access.groups</code>. For a <strong>private</strong> cluster, that one membership gives you both the network path over the mesh and a role once you are signed in</li>
+<li>For a <strong>private</strong> cluster, a Mesh enabled for your organisation</li>
 </ul>
-<h2 id="what-gets-created">What Gets Created<a class="headerlink" href="#what-gets-created" title="Permanent link">#</a></h2>
-<p>When you create a Vault claim, the platform provisions:</p>
+<h2 id="what-private-means">What Private Means<a class="headerlink" href="#what-private-means" title="Permanent link">#</a></h2>
+<p>A cluster created with the networking mode <strong>Private</strong> has no public address at all. Its API, console, sign-in endpoint and every application route are reachable only from devices enrolled in your organisation's mesh. Traffic from inside the cluster to the internet still works, so package installs and image pulls are unaffected.</p>
+<p>A <strong>Public</strong> cluster is reachable from anywhere and needs none of the mesh steps below. Choose the mode when you create the cluster: it is the <strong>Mode</strong> field under <strong>Advanced</strong> in the create form.</p>
+<p>Converting an existing public cluster to private is an administrator-assisted change that needs a maintenance window, not a field to flip yourself. The cluster keeps its workloads and configuration, but every node is replaced, so all workloads restart, and load balancers created on the cluster can lose their public address. Ask your platform administrator to plan it with you.</p>
+<p>Publishing individual HTTP/HTTPS (80/443) applications to the internet from a private cluster needs your platform administrator; other ports cannot be published.</p>
+<h2 id="how-access-works">How Access Works<a class="headerlink" href="#how-access-works" title="Permanent link">#</a></h2>
+<p>Being in a group listed under <code>access.groups</code> gives you both the network path and a role. <code>&lt;cluster&gt;-mesh-access</code> is only for people who need network access without a role on the cluster. The two failure modes look nothing alike:</p>
+<table>
+<thead>
+<tr>
+<th>What is missing</th>
+<th>Symptom</th>
+<th>Who is affected</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A network path to the cluster's console, API and sign-in endpoints</td>
+<td>Pages time out and nothing ever loads</td>
+<td>Anyone not in a group under <code>access.groups</code> and not in <code>&lt;cluster&gt;-mesh-access</code>, or whose device is not enrolled in the mesh</td>
+</tr>
+<tr>
+<td>A role on the cluster</td>
+<td>You sign in successfully and land on an empty console that invites you to create a project</td>
+<td>Members of <code>&lt;cluster&gt;-mesh-access</code> only</td>
+</tr>
+</tbody>
+</table>
+<p>The highest role <code>access.groups</code> can grant is <code>customer-admin</code>. <code>cluster-admin</code> cannot be granted through the claim.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>There is no local <code>kubeadmin</code> login on a cluster provisioned by the platform. The console sends you straight to your organisation's sign-in page, so an identity in your organisation is the only way in.</p>
+</div>
+<h2 id="step-1-read-the-clusters-addresses">Step 1: Read the Cluster's Addresses<a class="headerlink" href="#step-1-read-the-clusters-addresses" title="Permanent link">#</a></h2>
+<p>Open the cluster in the console. Clusters are under <strong>Containers</strong> in the sidebar. A cluster that is still provisioning shows <strong>Unknown</strong> in the list until its control plane reports in:</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/generated/cluster-list.png" data-desc-position="bottom"><img alt="The OpenShift cluster list in the console" src="../../images/generated/cluster-list.png"></a></p>
+<p>The detail page shows the phase and the access grants. The addresses are further down, in the <strong>Status</strong> block, which only renders in <strong>Advanced</strong> mode. Switch the toggle at the top right and scroll to it:</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/generated/cluster-detail-advanced.png" data-desc-position="bottom"><img alt="A cluster detail page in Advanced mode, with the Status block showing the API endpoint and console URL" src="../../images/generated/cluster-detail-advanced.png"></a></p>
+<p>The same values are on the claim status:</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>openshiftcluster<span class="w"> </span>my-cluster<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s2">"{.status.consoleUrl}"</span>
+kubectl<span class="w"> </span>get<span class="w"> </span>openshiftcluster<span class="w"> </span>my-cluster<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s2">"{.status.apiEndpoint}"</span>
+</code></pre></div>
+<h2 id="step-2-join-your-organisations-mesh">Step 2: Join Your Organisation's Mesh<a class="headerlink" href="#step-2-join-your-organisations-mesh" title="Permanent link">#</a></h2>
+<p>If your organisation has the mesh enabled, its default Mesh is under <strong>Networking</strong> in the sidebar; otherwise ask your platform administrator to enable it. The Mesh detail page shows the <strong>Management URL</strong> you enrol against:</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/generated/mesh-detail.png" data-desc-position="bottom"><img alt="The organisation's default Mesh detail page, showing the management URL" src="../../images/generated/mesh-detail.png"></a></p>
+<p>The management URL is not a web page. Opening it in a browser shows "page not found"; it is only ever passed to the NetBird client. Enrol your device:</p>
+<div class="highlight"><pre><span></span><code>netbird<span class="w"> </span>up<span class="w"> </span>--management-url<span class="o">=</span>&lt;management<span class="w"> </span>URL<span class="w"> </span>from<span class="w"> </span>the<span class="w"> </span>Mesh<span class="w"> </span>detail<span class="w"> </span>page&gt;
+</code></pre></div>
+<p>A browser window opens for single sign-on. Leave the command running until the browser flow completes: the client owns the sign-in callback, and interrupting it makes a successful login look like a failure.</p>
+<p>Confirm the client is connected:</p>
+<div class="highlight"><pre><span></span><code>netbird<span class="w"> </span>status
+</code></pre></div>
+<p><code>Management</code> and <code>Signal</code> should both read <code>Connected</code>. <code>Networks: -</code> in that output is cosmetic and does not mean routes are missing. Allow a minute or two after enrolling before the cluster's addresses respond.</p>
+<p>Check that you are connected to the right mesh. <code>netbird status -d</code> prints <code>Management: Connected to &lt;URL&gt;</code>, and that URL must match the Management URL on the Mesh detail page. A device that has enrolled before keeps its saved management URL, and <code>netbird up --management-url=&lt;URL&gt;</code> does not replace it. To use another mesh, see <a href="#clusters-in-more-than-one-region-or-organisation">Clusters in More Than One Region or Organisation</a>.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Group membership takes effect at sign-in. If you were added to a group under <code>access.groups</code>, or to <code>&lt;cluster&gt;-mesh-access</code>, after you enrolled, run <code>netbird down</code> and then <code>netbird up</code> again so your new membership is picked up.</p>
+</div>
+<p>See <a href="create-mesh.html">Create a Mesh</a> for the full enrolment walkthrough and <a href="../../cloud-user-guide/authentication/organisation-identity.html">One Identity Across Your Organisation</a> for multi-account caveats.</p>
+<h3 id="clusters-in-more-than-one-region-or-organisation">Clusters in More Than One Region or Organisation<a class="headerlink" href="#clusters-in-more-than-one-region-or-organisation" title="Permanent link">#</a></h3>
+<p>Use one NetBird profile for each mesh, so each keeps its own enrolment:</p>
+<div class="highlight"><pre><span></span><code>netbird<span class="w"> </span>down
+netbird<span class="w"> </span>profile<span class="w"> </span>add<span class="w"> </span>&lt;name&gt;
+netbird<span class="w"> </span>profile<span class="w"> </span><span class="k">select</span><span class="w"> </span>&lt;name&gt;
+netbird<span class="w"> </span>up<span class="w"> </span>--management-url<span class="o">=</span>&lt;management<span class="w"> </span>URL<span class="w"> </span>from<span class="w"> </span>the<span class="w"> </span>Mesh<span class="w"> </span>detail<span class="w"> </span>page&gt;
+</code></pre></div>
+<p>Switch with <code>netbird down</code>, <code>netbird profile select &lt;name&gt;</code> and <code>netbird up</code>. Connect to one mesh at a time: meshes in different regions route the same <code>172.30.0.0/16</code> addresses, so a second connection cannot reach its cluster.</p>
+<h2 id="step-3-open-the-cluster-console">Step 3: Open the Cluster Console<a class="headerlink" href="#step-3-open-the-cluster-console" title="Permanent link">#</a></h2>
+<p>Open the <strong>Console URL</strong> from Step 1 in your browser. The cluster console uses your organisation's single sign-on. If you are already signed in to the Stakater Cloud Orchestrator console in the same browser, it signs you in without a prompt; otherwise you are redirected to your organisation's sign-in page. Either way you land on the cluster's <strong>Projects</strong> page:</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="images/hosted-cluster-console.png" data-desc-position="bottom"><img alt="The hosted cluster console after sign-in, showing the Projects page" src="images/hosted-cluster-console.png"></a></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A fresh cluster shows no projects and offers to create one. That is normal when you have a role but nothing has been deployed yet. If you expected to see existing projects and do not, your network path works but your group has no role that covers them: ask whoever owns the claim to check your group and its role under <code>access.groups</code>.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The first sign-in can show <code>Invalid parameter</code> or "state did not contain a valid CSRF token". It is harmless. Open the console URL again rather than refreshing the page, because a refresh replays the expired sign-in.</p>
+</div>
+<h3 id="if-the-console-does-not-resolve">If the Console Does Not Resolve<a class="headerlink" href="#if-the-console-does-not-resolve" title="Permanent link">#</a></h3>
+<p>A private cluster's hostnames deliberately resolve to internal addresses. Many corporate and ISP resolvers refuse internal addresses for public hostnames as a security measure, so the page fails with a DNS error even though the mesh is connected. Check whether a public resolver answers where yours does not:</p>
+<div class="highlight"><pre><span></span><code>nslookup<span class="w"> </span>console-openshift-console.apps.&lt;cluster&gt;.&lt;base-domain&gt;
+nslookup<span class="w"> </span>console-openshift-console.apps.&lt;cluster&gt;.&lt;base-domain&gt;<span class="w"> </span><span class="m">8</span>.8.8.8
+</code></pre></div>
+<p>If only the second one answers, route those domains to a public resolver. Two domains are involved: the cluster's own domain, and the sign-in endpoint, which lives on the platform's domain. On macOS:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>/etc/resolver
+<span class="nb">printf</span><span class="w"> </span><span class="s1">'nameserver 8.8.8.8\n'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>/etc/resolver/&lt;cluster&gt;.&lt;base-domain&gt;
+<span class="nb">printf</span><span class="w"> </span><span class="s1">'nameserver 8.8.8.8\n'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>/etc/resolver/&lt;platform<span class="w"> </span>sign-in<span class="w"> </span>domain&gt;
+sudo<span class="w"> </span>dscacheutil<span class="w"> </span>-flushcache<span class="p">;</span><span class="w"> </span>sudo<span class="w"> </span>killall<span class="w"> </span>-HUP<span class="w"> </span>mDNSResponder
+</code></pre></div>
+<p>The sign-in domain is the host part of the address your browser reports as unreachable after the redirect, for example <code>oauth-hypershift-&lt;cluster&gt;.&lt;platform-domain&gt;</code>. Remove the files to undo.</p>
+<p>On Linux with <code>systemd-resolved</code>, set the same per-domain forwarding on your network interface. <code>ip route show default</code> names it:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>resolvectl<span class="w"> </span>dns<span class="w"> </span>&lt;interface&gt;<span class="w"> </span><span class="m">8</span>.8.8.8
+sudo<span class="w"> </span>resolvectl<span class="w"> </span>domain<span class="w"> </span>&lt;interface&gt;<span class="w"> </span><span class="s1">'~&lt;cluster&gt;.&lt;base-domain&gt;'</span><span class="w"> </span><span class="s1">'~&lt;platform sign-in domain&gt;'</span>
+</code></pre></div>
+<p><code>sudo resolvectl revert &lt;interface&gt;</code> undoes it, and the setting is also lost when the interface reconnects.</p>
+<p>Windows has no per-domain resolver files. Set a public resolver as the DNS server of your network adapter instead.</p>
+<h3 id="if-the-connection-fails-straight-away">If the Connection Fails Straight Away<a class="headerlink" href="#if-the-connection-fails-straight-away" title="Permanent link">#</a></h3>
+<p>A cluster's addresses are in <code>172.30.0.0/16</code>. If a network on your own machine uses that range, your operating system sends the traffic there instead of into the mesh. Docker networks and some VPNs commonly do. <code>netbird status</code> still reads <code>Connected</code>, but the connection fails within a few seconds, often with <code>No route to host</code>. In <code>curl -v</code> output the failed connection comes from a local <code>172.30.x.x</code> address.</p>
+<p>Look up the cluster's address, then check which interface your machine uses to reach it:</p>
+<div class="highlight"><pre><span></span><code>nslookup<span class="w"> </span>console-openshift-console.apps.&lt;cluster&gt;.&lt;base-domain&gt;
+ip<span class="w"> </span>route<span class="w"> </span>get<span class="w"> </span>&lt;address&gt;<span class="w">          </span><span class="c1"># Linux</span>
+route<span class="w"> </span>-n<span class="w"> </span>get<span class="w"> </span>&lt;address&gt;<span class="w">          </span><span class="c1"># macOS</span>
+</code></pre></div>
+<p>The interface must be NetBird's: <code>wt0</code> on Linux, a <code>utun</code> interface on macOS. On Windows, <code>Find-NetRoute -RemoteIPAddress &lt;address&gt;</code> in PowerShell must name the NetBird adapter.</p>
+<p>If it names another interface, find what owns the range, for example with <code>ip -br addr | grep 172.30</code> and <code>docker network ls</code>. Remove that network or recreate it on another subnet. To stop Docker from assigning this range again, set a different default address pool in <code>/etc/docker/daemon.json</code> and restart Docker:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="nt">"default-address-pools"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="nt">"base"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10.200.0.0/16"</span><span class="p">,</span><span class="w"> </span><span class="nt">"size"</span><span class="p">:</span><span class="w"> </span><span class="mi">24</span><span class="p">}]}</span>
+</code></pre></div>
+<h3 id="if-pages-hang-or-load-only-partly">If Pages Hang or Load Only Partly<a class="headerlink" href="#if-pages-hang-or-load-only-partly" title="Permanent link">#</a></h3>
+<p>The mesh tunnel has a default MTU of 1280. When your connection to the cluster is relayed rather than direct, the path can carry less than that, and larger packets are dropped without an error. Small requests still get through, so the symptoms are misleading:</p>
 <ul>
-<li>A <strong>highly-available Vault (OpenBao) instance</strong>, private to your organisation</li>
-<li><strong>Single sign-on</strong> against your organisation's identity provider — there is no static root token to manage</li>
-<li>A web UI and API endpoint, published in the claim's status</li>
-<li>If your organisation runs a <a href="create-mesh.html">Mesh</a>: a stable DNS name (<code>bao.&lt;organisation&gt;.mesh.&lt;cluster-domain&gt;</code>) with a publicly-trusted TLS certificate, reachable only from Mesh peers</li>
+<li><code>netbird status</code> reads <code>Connected</code>, and <code>nslookup</code> and <code>curl</code> against the console succeed</li>
+<li>the browser stays on a blank page, hangs on the redirect to the sign-in page, or loads the console frame without its content</li>
+<li><code>oc</code> commands that return a lot of output stall</li>
 </ul>
-<h2 id="step-1-define-a-vault-claim">Step 1: Define a Vault Claim<a class="headerlink" href="#step-1-define-a-vault-claim" title="Permanent link">#</a></h2>
-<p>Create a file named <code>vault.yaml</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">secrets.cloud.stakater.com/v1</span>
-<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Vault</span>
-<span class="nt">metadata</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">my-vault</span>
-<span class="nt">spec</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">{}</span>
+<p>Check whether the connection is relayed and, on Linux, what the tunnel MTU is:</p>
+<div class="highlight"><pre><span></span><code>netbird<span class="w"> </span>status<span class="w"> </span>-d<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span><span class="s2">"Connection type"</span>
+ip<span class="w"> </span>link<span class="w"> </span>show<span class="w"> </span>wt0<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-o<span class="w"> </span><span class="s2">"mtu [0-9]*"</span>
 </code></pre></div>
-<p><code>spec.parameters</code> can stay empty. To size storage explicitly:</p>
-<div class="highlight"><pre><span></span><code><span class="nt">spec</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">storage</span><span class="p">:</span>
-<span class="w">      </span><span class="nt">dataSize</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">50Gi</span>
-<span class="w">      </span><span class="nt">auditSize</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">20Gi</span>
+<p>If the connection type is <code>Relayed</code>, reconnect with a smaller MTU:</p>
+<div class="highlight"><pre><span></span><code>netbird<span class="w"> </span>down
+netbird<span class="w"> </span>up<span class="w"> </span>--mtu<span class="w"> </span><span class="m">1200</span><span class="w"> </span>--management-url<span class="o">=</span>&lt;management<span class="w"> </span>URL&gt;
 </code></pre></div>
-<h2 id="step-2-apply-the-claim">Step 2: Apply the Claim<a class="headerlink" href="#step-2-apply-the-claim" title="Permanent link">#</a></h2>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>vault.yaml
+<p>You are usually not asked to sign in again. The setting is kept for later connections on that device.</p>
+<h2 id="step-4-connect-with-the-cli">Step 4: Connect with the CLI<a class="headerlink" href="#step-4-connect-with-the-cli" title="Permanent link">#</a></h2>
+<p>In the cluster console, open your user menu and choose <strong>Copy login command</strong> to get a token:</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="images/hosted-cluster-console-user-menu.png" data-desc-position="bottom"><img alt="The user menu in the cluster console, with Copy login command at the top" src="images/hosted-cluster-console-user-menu.png"></a></p>
+<p>Log in with the <strong>hostname</strong> from the API endpoint. The raw IP address times out, because TLS and routing are set up for the name:</p>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>login<span class="w"> </span>--token<span class="o">=</span>&lt;token&gt;<span class="w"> </span>--server<span class="o">=</span>https://api.&lt;cluster&gt;.&lt;base-domain&gt;:6443
 </code></pre></div>
-<h2 id="step-3-verify-the-vault">Step 3: Verify the Vault<a class="headerlink" href="#step-3-verify-the-vault" title="Permanent link">#</a></h2>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>vault<span class="w"> </span>my-vault
+<p>Verify:</p>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>whoami
+oc<span class="w"> </span>get<span class="w"> </span>projects
 </code></pre></div>
-<p>Wait for <code>READY: True</code>, then read the endpoint:</p>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>vault<span class="w"> </span>my-vault<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.status.endpoint.address}'</span>
-</code></pre></div>
-<h2 id="step-4-log-in">Step 4: Log In<a class="headerlink" href="#step-4-log-in" title="Permanent link">#</a></h2>
-<p>You sign in as your organisation user and choose a <strong>role</strong>; the role decides what you can reach. Signing in without one succeeds but grants nothing. Each project you have access to has its own roles. Look them up on the project:</p>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>project<span class="w"> </span>my-project<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.status.openbao.roles}'</span>
-</code></pre></div>
-<div class="highlight"><pre><span></span><code>["acme-my-project-rw-users"]
-</code></pre></div>
-<p>Open the endpoint URL in a browser, choose method <strong>OIDC</strong>, enter the role in <strong>Role</strong>, and sign in. Or use the CLI:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">BAO_ADDR</span><span class="o">=</span><span class="k">$(</span>kubectl<span class="w"> </span>get<span class="w"> </span>vault<span class="w"> </span>my-vault<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.status.endpoint.address}'</span><span class="k">)</span>
-bao<span class="w"> </span>login<span class="w"> </span>-method<span class="o">=</span>oidc<span class="w"> </span><span class="nv">role</span><span class="o">=</span>acme-my-project-rw-users
-</code></pre></div>
-<p>This opens your browser, completes single sign-on, and writes a token to the local CLI. The role gives you your project's folder, <code>stakater/projects/&lt;organisation&gt;-&lt;project&gt;/</code>:</p>
-<div class="highlight"><pre><span></span><code>bao<span class="w"> </span>kv<span class="w"> </span>put<span class="w"> </span>-mount<span class="o">=</span>stakater<span class="w"> </span>projects/acme-my-project/app/config<span class="w"> </span><span class="nv">user</span><span class="o">=</span>app<span class="w"> </span><span class="nv">password</span><span class="o">=</span>s3cret
-</code></pre></div>
-<p>Which roles you get follows the project's <code>access</code> entries — see <a href="../../api-reference/public-apis/vault.html#project-access">Project access</a>.</p>
-<h2 id="step-5-optional-reach-it-over-the-mesh">Step 5 (Optional): Reach It over the Mesh<a class="headerlink" href="#step-5-optional-reach-it-over-the-mesh" title="Permanent link">#</a></h2>
-<p>If your organisation runs a <a href="create-mesh.html">Mesh</a>, the Vault is also published to Mesh peers automatically. The Mesh endpoint appears in the claim status once it is live:</p>
-<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>vault<span class="w"> </span>my-vault<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.status.endpoint.meshAddress}'</span>
-</code></pre></div>
-<div class="highlight"><pre><span></span><code>https://bao.&lt;organisation&gt;.mesh.&lt;cluster-domain&gt;
-</code></pre></div>
-<p>The name resolves from anywhere but is reachable only from enrolled Mesh peers, and the certificate is publicly trusted — clients need no custom CA bundle and no <code>-tls-skip-verify</code>:</p>
-<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">BAO_ADDR</span><span class="o">=</span><span class="k">$(</span>kubectl<span class="w"> </span>get<span class="w"> </span>vault<span class="w"> </span>my-vault<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.status.endpoint.meshAddress}'</span><span class="k">)</span>
-bao<span class="w"> </span>login<span class="w"> </span>-method<span class="o">=</span>oidc<span class="w"> </span><span class="nv">role</span><span class="o">=</span>acme-my-project-rw-users
-</code></pre></div>
-<h2 id="related">Related<a class="headerlink" href="#related" title="Permanent link">#</a></h2>
+<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">#</a></h2>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Likely cause</th>
+<th>What to do</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Console or API times out</td>
+<td>Not enrolled in the mesh, or not in a group under <code>access.groups</code> or in <code>&lt;cluster&gt;-mesh-access</code></td>
+<td>Check <code>netbird status</code>; ask whoever owns the claim to add your group under <code>access.groups</code>; run <code>netbird down</code> and <code>netbird up</code> again</td>
+</tr>
+<tr>
+<td><code>Invalid parameter</code> or a CSRF token error on first sign-in</td>
+<td>The sign-in expired before it completed</td>
+<td>Open the console URL again; do not refresh</td>
+</tr>
+<tr>
+<td><code>DNS address could not be found</code> for the console or the sign-in page</td>
+<td>Your local resolver drops private-address answers</td>
+<td>Per-domain public resolver entries, see <a href="#if-the-console-does-not-resolve">If the Console Does Not Resolve</a></td>
+</tr>
+<tr>
+<td><code>No route to host</code> or an immediate connection failure while <code>netbird status</code> reads <code>Connected</code></td>
+<td>A local network (often Docker or a VPN) uses <code>172.30.0.0/16</code> and takes the traffic</td>
+<td>Check <code>ip route get &lt;address&gt;</code>; remove or re-address the local network, see <a href="#if-the-connection-fails-straight-away">If the Connection Fails Straight Away</a></td>
+</tr>
+<tr>
+<td>Blank page, a hang on the sign-in redirect, or a console frame with no content, while <code>curl</code> to the same address works</td>
+<td>MTU too large for a relayed mesh connection</td>
+<td>Reconnect with <code>netbird up --mtu 1200</code>, see <a href="#if-pages-hang-or-load-only-partly">If Pages Hang or Load Only Partly</a></td>
+</tr>
+<tr>
+<td>Console or API times out, and <code>netbird status -d</code> shows a different management URL from the Mesh detail page</td>
+<td>The device is still enrolled in another mesh (another region or organisation); a saved profile keeps its management URL</td>
+<td>Create and select a profile for this mesh, see <a href="#clusters-in-more-than-one-region-or-organisation">Clusters in more than one region or organisation</a></td>
+</tr>
+<tr>
+<td><code>oc login</code> times out against an IP</td>
+<td>Connecting by address instead of name</td>
+<td>Use <code>https://api.&lt;cluster&gt;.&lt;base-domain&gt;:6443</code></td>
+</tr>
+<tr>
+<td>Signed in, console is empty</td>
+<td>Network access only, through <code>&lt;cluster&gt;-mesh-access</code>, with no role</td>
+<td>Add your group under <code>access.groups</code> on the claim</td>
+</tr>
+</tbody>
+</table>
+<h2 id="whats-next">What's Next?<a class="headerlink" href="#whats-next" title="Permanent link">#</a></h2>
 <ul>
-<li><a href="../../api-reference/public-apis/vault.html">Vault API reference</a></li>
-<li><a href="create-mesh.html">Create a Mesh</a></li>
+<li><a href="provision-openshift-cluster.html">Provision an OpenShift Cluster</a> - Create another cluster or change its access groups</li>
+<li><a href="create-mesh.html">Create a Mesh</a> - Enrol more devices and manage mesh groups</li>
+<li><a href="expose-service-via-mesh.html">Expose an Internal Service via the Mesh</a> - Publish services running on the cluster to mesh peers</li>
 </ul>
 
 
@@ -6865,7 +7268,7 @@ bao<span class="w"> </span>login<span class="w"> </span>-method<span class="o">=
       <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.code.copy", "navigation.tracking", "toc.follow", "navigation.top"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.c21346df.min.js"></script>
+      <script src="../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
       
     
   

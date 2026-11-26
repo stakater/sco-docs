@@ -18,7 +18,7 @@
       
       
       <link rel="icon" href="../assets/images/favicon.svg">
-      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.8.0">
+      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.8.2">
     
     
       
@@ -3041,6 +3041,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
+      <a href="../how-to-guides/user/connect-to-openshift-cluster.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Connect to an OpenShift Cluster
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../how-to-guides/user/provision-virtual-machine.html" class="md-nav__link">
         
   
@@ -3049,6 +3077,62 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     
   
     How to Provision a Virtual Machine
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../how-to-guides/user/connect-openshift-cluster-to-virtual-machine.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Connect an OpenShift Cluster to a Virtual Machine
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../how-to-guides/user/back-up-virtual-machine.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Back Up and Snapshot a Virtual Machine
   
 
     
@@ -3153,14 +3237,14 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../how-to-guides/user/create-vault.html" class="md-nav__link">
+      <a href="../how-to-guides/user/access-vault.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    How to Create a Vault
+    How to Access Your Organisation's Vault
   
 
     
@@ -3597,6 +3681,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
+      <a href="../installation/private-ca.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Private Certificate Authority
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../installation/openbao-unseal.html" class="md-nav__link">
         
   
@@ -3819,6 +3931,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     
   
     Modelling Child Resources
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../service-provider-guide/solutions/modeling-related-resources.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modelling Related Resources
   
 
     
@@ -6484,10 +6624,17 @@ kubectl<span class="w"> </span>delete<span class="w"> </span>project<span class=
 <hr>
 <h2 id="virtual-machines">Virtual Machines<a class="headerlink" href="#virtual-machines" title="Permanent link">#</a></h2>
 <h3 id="vm-ready-but-ssh-connection-refused">VM Ready but SSH connection refused<a class="headerlink" href="#vm-ready-but-ssh-connection-refused" title="Permanent link">#</a></h3>
-<p><strong>Cause:</strong> Cloud-init still running, wrong IP, or firewall issue.</p>
-<p><strong>Fix:</strong> Wait 2–3 minutes after <code>Ready</code> for cloud-init to complete, then retry.</p>
+<p><strong>Cause:</strong> Wrong SSH port, cloud-init still running, wrong IP, or firewall issue.</p>
+<p><strong>Fix:</strong> First check the port. A <code>connection: public</code> VM is reached on the port in
+<code>status.vm.servicePort</code>, which is <strong>not always 22</strong> — VMs created before <code>22</code>
+became the default are exposed on <code>22000</code>, and connecting on <code>22</code> to one of those
+fails with nothing to explain why.</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>virtualmachine<span class="w"> </span>my-vm<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.status.vm.servicePort}{"\n"}'</span>
+ssh<span class="w"> </span>-i<span class="w"> </span>~/.ssh/my-key<span class="w"> </span>-p<span class="w"> </span>&lt;servicePort&gt;<span class="w"> </span>cloud-user@&lt;vm-ip&gt;
+</code></pre></div>
+<p>If the port is right, wait 2–3 minutes after <code>Ready</code> for cloud-init to complete,
+then retry:</p>
 <div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>virtualmachine<span class="w"> </span>my-vm<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.status}'</span>
-ssh<span class="w"> </span>-i<span class="w"> </span>~/.ssh/my-key<span class="w"> </span>user@&lt;vm-ip&gt;
 </code></pre></div>
 <p>A <code>connection: private</code> VM has no external address. To reach it from your laptop, set <code>meshRoute.enabled: true</code> on the VM and connect over your organisation's Mesh: the Mesh Route opens SSH (<code>22</code>), RDP (<code>3389</code>) and ICMP to enrolled devices. Use <code>connection: public</code> only when the VM must be reachable from the internet.</p>
 <div class="admonition warning">
@@ -7222,7 +7369,7 @@ kubectl<span class="w"> </span>describe<span class="w"> </span>openshiftcluster<
       <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["content.code.copy", "navigation.tracking", "toc.follow", "navigation.top"], "search": "../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.c21346df.min.js"></script>
+      <script src="../assets/javascripts/bundle.a5f9d56c.min.js"></script>
       
     
   

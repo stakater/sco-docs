@@ -18,7 +18,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.svg">
-      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.8.0">
+      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.8.2">
     
     
       
@@ -3041,6 +3041,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
+      <a href="../../how-to-guides/user/connect-to-openshift-cluster.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Connect to an OpenShift Cluster
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../how-to-guides/user/provision-virtual-machine.html" class="md-nav__link">
         
   
@@ -3049,6 +3077,62 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     
   
     How to Provision a Virtual Machine
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../how-to-guides/user/connect-openshift-cluster-to-virtual-machine.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Connect an OpenShift Cluster to a Virtual Machine
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../how-to-guides/user/back-up-virtual-machine.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Back Up and Snapshot a Virtual Machine
   
 
     
@@ -3153,14 +3237,14 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../../how-to-guides/user/create-vault.html" class="md-nav__link">
+      <a href="../../how-to-guides/user/access-vault.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    How to Create a Vault
+    How to Access Your Organisation's Vault
   
 
     
@@ -3597,6 +3681,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
+      <a href="../../installation/private-ca.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Private Certificate Authority
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../installation/openbao-unseal.html" class="md-nav__link">
         
   
@@ -3819,6 +3931,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     
   
     Modelling Child Resources
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../service-provider-guide/solutions/modeling-related-resources.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modelling Related Resources
   
 
     
@@ -5124,6 +5264,17 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
         
           <li class="md-nav__item">
+  <a href="#network-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Network Modes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#access" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -5167,6 +5318,17 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     <span class="md-ellipsis">
       
         Minimal
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#native-network" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Native Network
       
     </span>
   </a>
@@ -6076,6 +6238,17 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
         
           <li class="md-nav__item">
+  <a href="#network-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Network Modes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#access" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -6119,6 +6292,17 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     <span class="md-ellipsis">
       
         Minimal
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#native-network" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Native Network
       
     </span>
   </a>
@@ -6216,14 +6400,9 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <td>Project name used for resource naming</td>
 </tr>
 <tr>
-<td><code>network.name</code></td>
-<td><code>string</code></td>
-<td>Network identifier for the project's isolated network</td>
-</tr>
-<tr>
 <td><code>network.cidr</code></td>
 <td><code>string</code></td>
-<td>CIDR block for the network (e.g., <code>10.0.0.0/16</code>)</td>
+<td>CIDR block for the network (e.g., <code>10.0.0.0/16</code>). Required when <code>network.mode</code> is <code>udn</code>. Choose a range that does not overlap another project in your organisation</td>
 </tr>
 </tbody>
 </table>
@@ -6239,6 +6418,24 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </thead>
 <tbody>
 <tr>
+<td><code>network.mode</code></td>
+<td><code>string</code></td>
+<td><code>udn</code></td>
+<td>How the project is networked. See <a href="#network-modes">Network Modes</a></td>
+</tr>
+<tr>
+<td><code>network.name</code></td>
+<td><code>string</code></td>
+<td><code>default</code></td>
+<td>Name of the project's network. Only used in <code>udn</code> mode</td>
+</tr>
+<tr>
+<td><code>network.externalRef</code></td>
+<td><code>string</code></td>
+<td>—</td>
+<td>Name of the external network assigned to your organisation. Required when <code>network.mode</code> is <code>external</code></td>
+</tr>
+<tr>
 <td><code>tenantQuota</code></td>
 <td><code>string</code></td>
 <td><code>small</code></td>
@@ -6252,6 +6449,38 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </tr>
 </tbody>
 </table>
+<h3 id="network-modes">Network Modes<a class="headerlink" href="#network-modes" title="Permanent link">#</a></h3>
+<table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>What the project gets</th>
+<th>Use it when</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>udn</code> (default)</td>
+<td>Its own isolated network, addressed from <code>network.cidr</code></td>
+<td>Virtual machines and services only need to reach each other inside the project</td>
+</tr>
+<tr>
+<td><code>native</code></td>
+<td>The platform's shared cluster network, with every project resource closed to traffic from outside the project by default</td>
+<td>Virtual machines must be reachable from this project's OpenShift clusters, using <a href="virtual-machine.html#peers"><code>peers</code></a></td>
+</tr>
+<tr>
+<td><code>external</code></td>
+<td>An external network assigned to your organisation, named by <code>network.externalRef</code></td>
+<td>Your organisation has been assigned an external network</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A project cannot change to or from <code>udn</code> after it is created. To move virtual machines between the two, create a new project with the mode you need.</p>
+</div>
+<p>In both <code>udn</code> and <code>native</code> mode, people in your organisation can still reach the project's virtual machines over your organisation mesh.</p>
 <h3 id="access">Access<a class="headerlink" href="#access" title="Permanent link">#</a></h3>
 <p>Each entry in <code>spec.parameters.access</code> defines role bindings for the project:</p>
 <table>
@@ -6379,6 +6608,18 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">app-network</span>
 <span class="w">      </span><span class="nt">cidr</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.0.0.0/16</span>
 </code></pre></div>
+<h3 id="native-network">Native Network<a class="headerlink" href="#native-network" title="Permanent link">#</a></h3>
+<p>A project whose virtual machines can be reached from its OpenShift clusters. <code>network.cidr</code> is not needed.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tenant.cloud.stakater.com/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Project</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">app-platform</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">app-platform</span>
+<span class="w">    </span><span class="nt">network</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">native</span>
+</code></pre></div>
 <h3 id="full">Full<a class="headerlink" href="#full" title="Permanent link">#</a></h3>
 <div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tenant.cloud.stakater.com/v1</span>
 <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Project</span>
@@ -6403,7 +6644,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <span class="w">          </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">qa-team</span>
 </code></pre></div>
 <h2 id="how-to-guide">How-to Guide<a class="headerlink" href="#how-to-guide" title="Permanent link">#</a></h2>
-<p><a href="../../how-to-guides/user/create-project.html">Create a Project</a></p>
+<ul>
+<li><a href="../../how-to-guides/user/create-project.html">Create a Project</a></li>
+<li><a href="../../how-to-guides/user/connect-openshift-cluster-to-virtual-machine.html">Connect an OpenShift Cluster to a Virtual Machine</a></li>
+</ul>
 
 
 
@@ -7096,7 +7340,7 @@ This documentation is for a pull request deployment and is unreleased, it is onl
       <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.code.copy", "navigation.tracking", "toc.follow", "navigation.top"], "search": "../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.c21346df.min.js"></script>
+      <script src="../../assets/javascripts/bundle.a5f9d56c.min.js"></script>
       
     
   

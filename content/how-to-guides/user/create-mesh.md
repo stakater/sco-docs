@@ -19,7 +19,7 @@ When you create a Mesh claim, the platform provisions:
 
 - A private **mesh network** for your organisation — management, signalling, and relay infrastructure
 - A **web dashboard** for managing peers, groups, and access policies, behind your organisation's single sign-on
-- Automatic publishing of platform services (such as a [Vault](create-vault.md)) to Mesh peers, with publicly-trusted TLS
+- Automatic publishing of platform services (such as your organisation's [Vault](access-vault.md)) to Mesh peers, with publicly-trusted TLS
 
 ## In the Console
 
@@ -80,11 +80,11 @@ This opens a browser for single sign-on — leave the command running until the 
 
 ## Step 6: Reach Services over the Mesh
 
-- **Platform services** are published automatically. With a [Vault](create-vault.md) in your organisation, an enrolled laptop reaches it at `https://bao.<organisation>.mesh.<cluster-domain>` with a publicly-trusted certificate.
+- **Platform services** are published automatically. An enrolled laptop reaches your organisation's [Vault](access-vault.md) at `https://bao.<organisation>.mesh.<cluster-domain>` with a publicly-trusted certificate.
 - **Your own services** can be advertised to Mesh peers with a [MeshRouter](expose-service-via-mesh.md).
 
 ## Related
 
 - [Mesh API reference](../../api-reference/public-apis/mesh.md)
 - [Expose an internal service via the Mesh](expose-service-via-mesh.md)
-- [Create a Vault](create-vault.md)
+- [Access Your Organisation's Vault](access-vault.md)

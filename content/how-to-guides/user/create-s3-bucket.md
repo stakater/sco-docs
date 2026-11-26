@@ -18,6 +18,12 @@ When you create an S3Bucket claim, the platform provisions:
 - An **S3-compatible bucket** in the platform's object storage
 - **Credentials in your organisation's Vault**, at the path published in the claim's status
 
+## In the Console
+
+Buckets are under **Storage** in the sidebar. The create form is as short as the claim below: a project and a name are all it asks for.
+
+![The Create S3 Bucket form]({{ screenshot: s3-create }})
+
 ## Step 1: Define an S3Bucket Claim
 
 Create a file named `bucket.yaml`:
@@ -54,7 +60,15 @@ NAME        SYNCED   READY   AGE
 my-bucket   True     True    1m
 ```
 
-Inspect the endpoint, bucket name and credentials location:
+The list in the console shows the same readiness:
+
+![The S3 Buckets list in the console]({{ screenshot: s3-list }})
+
+Open the bucket to see its endpoint and generated bucket name, with the Vault path holding the credentials further down the page:
+
+![An S3 Bucket detail page, showing the endpoint and bucket name]({{ screenshot: s3-detail }})
+
+Or inspect the same values with `kubectl`:
 
 ```bash
 kubectl get s3bucket my-bucket -o jsonpath='{.status.bucket}'

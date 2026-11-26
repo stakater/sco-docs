@@ -62,6 +62,7 @@ the `viewport:` block of every flow so all captures come out the same size.
 | `iam` | `create-iam-user.md`, `create-iam-group.md` | `iam-users-list`, `iam-user-create`, `iam-group-create`, `iam-group-create-members`, `iam-group-detail` |
 | `mesh` | `create-mesh.md` | `mesh-list`, `mesh-create`, `mesh-detail` |
 | `clusters` | `provision-openshift-cluster.md`, `connect-to-openshift-cluster.md` | `cluster-list`, `cluster-create-standard`, `cluster-create-advanced`, `cluster-detail`, `cluster-detail-advanced` |
+| `s3` | `create-s3-bucket.md` | `s3-create`, `s3-list`, `s3-detail` |
 | `postgres` | `create-postgres.md` | `postgres-create`, `postgres-create-advanced`, `postgres-list`, `postgres-detail` |
 | `vault` | `access-vault.md` | `vault-list`, `vault-detail` |
 | `windows-vm` | `provision-windows-virtual-machine.md` | `windows-vm-create`, `windows-vm-list`, `windows-vm-detail` |
@@ -123,6 +124,8 @@ The flows create nothing, but they do need somewhere to point and something to s
   screenshot of "No <resources>"
 - the resource named in `DOCS_VM_NAME`, used for the detail, delete-panel and
   Advanced shots so all three agree
+- the bucket named in `DOCS_S3_NAME`, Ready, created through the console in the same
+  project as the other seeds
 - the database named in `DOCS_POSTGRES_NAME`, Ready, created through the console
 - the Vault named in `DOCS_VAULT_NAME`, Ready. It is the Vault the organization
   provisions for itself, `<org>-default-bao`. Cloud users cannot create another, so no flow opens the create form.

@@ -62,6 +62,7 @@ the `viewport:` block of every flow so all captures come out the same size.
 | `iam` | `create-iam-user.md`, `create-iam-group.md` | `iam-users-list`, `iam-user-create`, `iam-group-create`, `iam-group-create-members`, `iam-group-detail` |
 | `mesh` | `create-mesh.md` | `mesh-list`, `mesh-create`, `mesh-detail` |
 | `clusters` | `provision-openshift-cluster.md`, `connect-to-openshift-cluster.md` | `cluster-list`, `cluster-create-standard`, `cluster-create-advanced`, `cluster-detail`, `cluster-detail-advanced` |
+| `vm` | `provision-virtual-machine.md` | `vm-create-standard`, `vm-create-advanced`, `vm-list`, `vm-detail` |
 | `postgres` | `create-postgres.md` | `postgres-create`, `postgres-create-advanced`, `postgres-list`, `postgres-detail` |
 | `vault` | `access-vault.md` | `vault-list`, `vault-detail` |
 | `windows-vm` | `provision-windows-virtual-machine.md` | `windows-vm-create`, `windows-vm-list`, `windows-vm-detail` |

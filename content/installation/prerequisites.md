@@ -80,19 +80,36 @@ available from the customer distribution registry, so use a supported version:
 
 | `ksp` version | Customer install |
 |---|---|
-| v2.9.0 | Supported for the brownfield (`scobasic`) variant. Needed for a [private CA with certificate files](private-ca.md#option-2-certificate-files) |
-| **v2.8.1** (recommended), v2.8.4, v2.8.3, v2.8.2, v2.8.0, v2.7.1 | Supported for the brownfield (`scobasic`) variant |
+| **v2.9.5** (recommended), v2.9.0 – v2.9.4 | Supported for the brownfield (`scobasic`) variant. v2.9.0 or later is needed for a [private CA with certificate files](private-ca.md#option-2-certificate-files) |
+| v2.8.0 – v2.8.13, v2.7.1 | Supported for the brownfield (`scobasic`) variant, but not recommended for new installs. See [Older v2.8 releases](#older-v28-releases) |
 | v2.6.0, v2.7.0 | **Not supported** — the platform release they install is not in the distribution registry, and `ksp up` fails partway through |
 | v2.5.0 and earlier | Install an older platform release. Use the recommended version for new installs |
 
 A newer `ksp` is not automatically supported: check this table, or ask Stakater, before
 you upgrade the CLI.
 
+#### Older v2.8 releases
+
+These releases still install a supported platform release, but two problems
+are fixed only in later versions:
+
+- **v2.8.0 – v2.8.11** start Argo CD's application controller with a 4 GiB
+  memory limit. On a cluster that already runs many workloads, the controller
+  can run out of memory before the platform raises the limit. It then restarts
+  repeatedly, and nothing is synced.
+- **v2.8.8 – v2.8.13** install a platform release that ships Crossplane v2.4.1.
+  An upstream bug in that version
+  ([crossplane/crossplane#7838](https://github.com/crossplane/crossplane/issues/7838))
+  can stop some providers from starting after an upgrade, with a
+  `ServiceAccount ... metadata.ownerReferences: Invalid value` error.
+
+If an existing installation shows either symptom, contact Stakater.
+
 Set `KSP_VERSION` to the recommended version from the table, then download the archive
 for your platform, verify it, and put `ksp` on your `PATH`:
 
 ```bash
-KSP_VERSION=<recommended version from the table>   # for example v2.8.1
+KSP_VERSION=<recommended version from the table>   # for example v2.9.5
 BASE=https://kubestackspluscli.blob.core.windows.net/releases/$KSP_VERSION
 curl -fLO "$BASE/kubestackplus-cli_${KSP_VERSION#v}_checksums.txt"
 

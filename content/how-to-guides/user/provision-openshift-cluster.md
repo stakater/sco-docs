@@ -17,7 +17,7 @@ When you create an OpenShiftCluster claim, the platform provisions:
 
 - A managed **OpenShift hosted cluster** with a dedicated control plane
 - A default **node pool** sized via a T-shirt size (`small`, `medium`, `large`, `xlarge`)
-- **Keycloak OAuth integration** so users can sign in with their organisation identity
+- **Single sign-on integration** so users can sign in with their organisation identity
 - **Group-to-role bindings** for cluster access (optional)
 - **Bootstrap credentials**, console URL, and API endpoint exposed on the claim status
 
@@ -81,9 +81,9 @@ spec:
     access:
       groups:
         - name: platform-admins
-          role: customer-edit
+          role: customer-admin
         - name: developers
-          role: customer-view
+          role: edit
     bootstrap:
       enabled: true
 ```
@@ -96,18 +96,50 @@ spec:
 | `parameters.defaultNodepool.enabled` | `true` | Create a default node pool with the cluster. Set to `false` to manage node pools separately via `OpenShiftNodePool` claims. |
 | `parameters.defaultNodepool.size` | `medium` | T-shirt size for default node pool nodes: `small`, `medium`, `large`, or `xlarge`. Each size maps to a predefined CPU, memory, and root volume configuration at the platform level. |
 | `parameters.defaultNodepool.replicas` | `3` | Number of nodes in the default node pool (1–10) |
-| `parameters.networking.mode` | `public` | Network access mode for the cluster API and console: `public` or `private` |
-| `parameters.access.groups` | — | List of Keycloak group → ClusterRole bindings (see below) |
+| `parameters.networking.mode` | `public` | Network access mode for the cluster API and console: `public` or `private`. **Choose this at creation** — see [Changing the networking mode later](#changing-the-networking-mode-later). |
+| `parameters.access.groups` | — | Grants organisation groups a role on the cluster (see below) |
 | `parameters.bootstrap.enabled` | `false` | When `true`, the hosting cluster auto-installs core add-ons (Crossplane, ArgoCD, ksp-system). Enable for new clusters; leave disabled for clusters that were bootstrapped manually. |
+
+### Changing the Networking Mode Later
+
+`networking.mode` is chosen when the cluster is created. Changing it on an **existing** cluster is a scheduled migration carried out by Stakater, not a self-service edit — **contact support to arrange one** rather than changing the field yourself.
+
+Editing it on a running cluster starts a conversion that cannot complete on its own. Every node in the cluster is replaced, and several steps in between need platform-level access that is not available from your project:
+
+- Console and API sign-in stop working immediately, before anything else has moved.
+- Public DNS keeps pointing at the old addresses until the records are rebuilt by hand.
+- The first node replacement stalls indefinitely and has to be cleared manually.
+- Workloads using shared (NFS) storage lose their mounts silently and need restarting afterward.
+- Any LoadBalancer service you expose on a public address can go dark for the length of the node replacement.
+
+A migration arranged with support covers all of that in one agreed window, including what you need to do on your side and roughly how long each part takes.
+
+Creating a new cluster in the mode you want, and moving workloads across, is often quicker and less disruptive than converting one — worth discussing when you get in touch.
 
 ### Access Grants
 
-Each entry under `access.groups` binds a Keycloak group to a ClusterRole. Members of that group receive the role across customer-eligible namespaces on the cluster (platform namespaces are excluded centrally).
+Each entry under `access.groups` grants an organisation group a role on the cluster. Every role applies to all projects on the cluster except the platform-managed ones (such as `default`, `kube-*` and `openshift-*`).
 
 | Field | Description |
 |-------|-------------|
-| `name` | Keycloak group name exactly as it appears in the `groups` claim of the OIDC token. Must be a valid Kubernetes name (RFC 1123 subdomain). |
-| `role` | ClusterRole to bind. Typically, `customer-edit` or `customer-view` (managed by the RBAC Permissions Operator), or a built-in such as `view`, `edit`, or `admin`. |
+| `name` | Organisation group name, exactly as it appears in your single sign-on. Must be a valid Kubernetes name (RFC 1123 subdomain). Names reserved for platform access are rejected: `customer-admin`, and names starting with `stakater-` or ending in `-cluster-admin` or `-stakater-admin`. |
+| `role` | Access level to grant: `view`, `edit`, `admin`, or `customer-admin`. |
+
+**What each role grants:**
+
+| Role | Grants |
+|------|--------|
+| `view` | read-only access to resources |
+| `edit` | create and modify resources |
+| `admin` | full administration, including managing access within each project |
+| `customer-admin` | everything `admin` grants, plus selected cluster-wide permissions: browsing the full operator catalog, viewing nodes and storage classes, and managing cluster resource quotas. Nodes are read-only and privileged workloads are not allowed. |
+
+`cluster-admin` and any role not listed above are rejected.
+
+Group membership is read when a member signs in to the cluster. Someone added to the group after their last sign-in must sign out and back in before the grant applies to them.
+
+!!! note "Full cluster administration"
+    By default `customer-admin` is restricted as described in the table. It can browse the operator catalog but cannot create the operator group that an installation needs, so installing operators requires full cluster administration. Your platform administrator can enable full cluster administration for your organisation or for a single cluster. Members of a `customer-admin` group then also become cluster administrators, including in the platform-managed namespaces. The claim cannot change this setting.
 
 ## Step 3: Apply the Claim
 

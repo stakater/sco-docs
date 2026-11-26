@@ -74,10 +74,25 @@ netbird status
 
 `Management` and `Signal` should both read `Connected`. `Networks: -` in that output is cosmetic and does not mean routes are missing. Allow a minute or two after enrolling before the cluster's addresses respond.
 
+Check that you are connected to the right mesh. `netbird status -d` prints `Management: Connected to <URL>`, and that URL must match the Management URL on the Mesh detail page. A device that has enrolled before keeps its saved management URL, and `netbird up --management-url=<URL>` does not replace it. To use another mesh, see [Clusters in More Than One Region or Organisation](#clusters-in-more-than-one-region-or-organisation).
+
 !!! tip
     Group membership takes effect at sign-in. If you were added to a group under `access.groups`, or to `<cluster>-mesh-access`, after you enrolled, run `netbird down` and then `netbird up` again so your new membership is picked up.
 
 See [Create a Mesh](create-mesh.md) for the full enrolment walkthrough and [One Identity Across Your Organisation](../../cloud-user-guide/authentication/organisation-identity.md) for multi-account caveats.
+
+### Clusters in More Than One Region or Organisation
+
+Use one NetBird profile for each mesh, so each keeps its own enrolment:
+
+```bash
+netbird down
+netbird profile add <name>
+netbird profile select <name>
+netbird up --management-url=<management URL from the Mesh detail page>
+```
+
+Switch with `netbird down`, `netbird profile select <name>` and `netbird up`. Connect to one mesh at a time: meshes in different regions route the same `172.30.0.0/16` addresses, so a second connection cannot reach its cluster.
 
 ## Step 3: Open the Cluster Console
 
@@ -121,6 +136,26 @@ sudo resolvectl domain <interface> '~<cluster>.<base-domain>' '~<platform sign-i
 `sudo resolvectl revert <interface>` undoes it, and the setting is also lost when the interface reconnects.
 
 Windows has no per-domain resolver files. Set a public resolver as the DNS server of your network adapter instead.
+
+### If the Connection Fails Straight Away
+
+A cluster's addresses are in `172.30.0.0/16`. If a network on your own machine uses that range, your operating system sends the traffic there instead of into the mesh. Docker networks and some VPNs commonly do. `netbird status` still reads `Connected`, but the connection fails within a few seconds, often with `No route to host`. In `curl -v` output the failed connection comes from a local `172.30.x.x` address.
+
+Look up the cluster's address, then check which interface your machine uses to reach it:
+
+```bash
+nslookup console-openshift-console.apps.<cluster>.<base-domain>
+ip route get <address>          # Linux
+route -n get <address>          # macOS
+```
+
+The interface must be NetBird's: `wt0` on Linux, a `utun` interface on macOS. On Windows, `Find-NetRoute -RemoteIPAddress <address>` in PowerShell must name the NetBird adapter.
+
+If it names another interface, find what owns the range, for example with `ip -br addr | grep 172.30` and `docker network ls`. Remove that network or recreate it on another subnet. To stop Docker from assigning this range again, set a different default address pool in `/etc/docker/daemon.json` and restart Docker:
+
+```json
+{"default-address-pools": [{"base": "10.200.0.0/16", "size": 24}]}
+```
 
 ### If Pages Hang or Load Only Partly
 
@@ -172,8 +207,9 @@ oc get projects
 | Console or API times out | Not enrolled in the mesh, or not in a group under `access.groups` or in `<cluster>-mesh-access` | Check `netbird status`; ask whoever owns the claim to add your group under `access.groups`; run `netbird down` and `netbird up` again |
 | `Invalid parameter` or a CSRF token error on first sign-in | The sign-in expired before it completed | Open the console URL again; do not refresh |
 | `DNS address could not be found` for the console or the sign-in page | Your local resolver drops private-address answers | Per-domain public resolver entries, see [If the Console Does Not Resolve](#if-the-console-does-not-resolve) |
+| `No route to host` or an immediate connection failure while `netbird status` reads `Connected` | A local network (often Docker or a VPN) uses `172.30.0.0/16` and takes the traffic | Check `ip route get <address>`; remove or re-address the local network, see [If the Connection Fails Straight Away](#if-the-connection-fails-straight-away) |
 | Blank page, a hang on the sign-in redirect, or a console frame with no content, while `curl` to the same address works | MTU too large for a relayed mesh connection | Reconnect with `netbird up --mtu 1200`, see [If Pages Hang or Load Only Partly](#if-pages-hang-or-load-only-partly) |
-| `netbird up` ignores a new management URL | A stale profile survives `netbird down` | Stop the client, move `/var/lib/netbird/default.json` aside, start it and enrol again |
+| Console or API times out, and `netbird status -d` shows a different management URL from the Mesh detail page | The device is still enrolled in another mesh (another region or organisation); a saved profile keeps its management URL | Create and select a profile for this mesh, see [Clusters in more than one region or organisation](#clusters-in-more-than-one-region-or-organisation) |
 | `oc login` times out against an IP | Connecting by address instead of name | Use `https://api.<cluster>.<base-domain>:6443` |
 | Signed in, console is empty | Network access only, through `<cluster>-mesh-access`, with no role | Add your group under `access.groups` on the claim |
 

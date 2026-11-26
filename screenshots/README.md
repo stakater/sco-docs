@@ -62,9 +62,15 @@ the `viewport:` block of every flow so all captures come out the same size.
 | `iam` | `create-iam-user.md`, `create-iam-group.md` | `iam-users-list`, `iam-user-create`, `iam-group-create`, `iam-group-create-members`, `iam-group-detail` |
 | `mesh` | `create-mesh.md` | `mesh-list`, `mesh-create`, `mesh-detail` |
 | `clusters` | `provision-openshift-cluster.md`, `connect-to-openshift-cluster.md` | `cluster-list`, `cluster-create-standard`, `cluster-create-advanced`, `cluster-detail`, `cluster-detail-advanced` |
+| `postgres` | `create-postgres.md` | `postgres-create`, `postgres-create-advanced`, `postgres-list`, `postgres-detail` |
+| `vault` | `access-vault.md` | `vault-list`, `vault-detail` |
 | `windows-vm` | `provision-windows-virtual-machine.md` | `windows-vm-create`, `windows-vm-list`, `windows-vm-detail` |
+| none (taken by hand) | `create-postgres.md` | `vault-oidc-sign-in`, `vault-database-credentials` |
 
 `dashboard-org-stats`, `create-form-standard`, `sidebar-resources`, `project-create-filled`, `cluster-list`, `cluster-detail` and `mesh-detail` are each referenced by two pages.
+
+The two `vault-*` images show the Vault's own web UI, which no flow opens. A capture run
+does not refresh them; retake them by hand when that UI changes.
 
 The `iam`, `mesh` and `clusters` flows cover how-to guides rather than console pages, so
 they carry a console section into a `kubectl`-first guide. They are still read-only: a
@@ -118,6 +124,9 @@ The flows create nothing, but they do need somewhere to point and something to s
 - the project named in `DOCS_PROJECT_NAME`, Ready, for the project detail shot
 - the resource named in `DOCS_VM_NAME`, used for the detail, delete-panel and
   Advanced shots so all three agree
+- the database named in `DOCS_POSTGRES_NAME`, Ready, created through the console
+- the Vault named in `DOCS_VAULT_NAME`, Ready. It is the Vault the organization
+  provisions for itself, `<org>-default-bao`. Cloud users cannot create another, so no flow opens the create form.
 - the same for `DOCS_GROUP_NAME` and `DOCS_MESH_NAME`, both provisioned out of band and
   long-lived; no flow creates them. The group must have members, and those members must
   exist as users — which is also what puts rows in the Users list. The group is named

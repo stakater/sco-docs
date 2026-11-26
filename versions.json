@@ -17,9 +17,7 @@
   {
     "version": "renovate-main-node-26.x",
     "title": "renovate-main-node-26.x",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "renovate-main-node-24.x-lockfile",
@@ -89,7 +87,9 @@
   {
     "version": "docs-screenshots-s05-project",
     "title": "docs-screenshots-s05-project",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "docs-screenshots-s02-s3-bucket",

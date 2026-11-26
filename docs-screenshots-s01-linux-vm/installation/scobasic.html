@@ -11,14 +11,14 @@
         <link rel="prev" href="openshift.html">
       
       
-        <link rel="next" href="openbao-unseal.html">
+        <link rel="next" href="private-ca.html">
       
       
         
       
       
       <link rel="icon" href="../assets/images/favicon.svg">
-      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.8.1">
+      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.8.2">
     
     
       
@@ -3041,6 +3041,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
+      <a href="../how-to-guides/user/connect-to-openshift-cluster.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Connect to an OpenShift Cluster
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../how-to-guides/user/provision-virtual-machine.html" class="md-nav__link">
         
   
@@ -3049,6 +3077,62 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     
   
     How to Provision a Virtual Machine
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../how-to-guides/user/connect-openshift-cluster-to-virtual-machine.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Connect an OpenShift Cluster to a Virtual Machine
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../how-to-guides/user/back-up-virtual-machine.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Back Up and Snapshot a Virtual Machine
   
 
     
@@ -3153,14 +3237,14 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="../how-to-guides/user/create-vault.html" class="md-nav__link">
+      <a href="../how-to-guides/user/access-vault.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    How to Create a Vault
+    How to Access Your Organisation's Vault
   
 
     
@@ -3669,6 +3753,28 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
         
           <li class="md-nav__item">
+  <a href="#if-you-will-create-hosted-clusters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        If you will create hosted clusters
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#if-your-storage-is-node-local" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        If your storage is node-local
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#load-balancing" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3752,6 +3858,17 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
         
           <li class="md-nav__item">
+  <a href="#organization-platform-config" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Organization platform config
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#where-each-value-comes-from" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3790,6 +3907,17 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
+  <a href="#preparing-the-install-secrets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Preparing the install secrets
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#installing" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -3797,6 +3925,23 @@ This documentation is for a pull request deployment and is unreleased, it is onl
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Installing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-an-existing-argo-cd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using an existing Argo CD
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -3828,6 +3973,45 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     <span class="md-ellipsis">
       
         Verify single sign-on explicitly
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#service-apis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Service APIs
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Service APIs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#postgres" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Postgres
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#s3bucket" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        S3Bucket
       
     </span>
   </a>
@@ -3873,6 +4057,39 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#an-install-secret-is-missing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        An install secret is missing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-hosted-clusters-console-has-no-single-sign-on-button" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A hosted cluster's console has no single sign-on button
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#you-joined-the-private-network-but-nothing-loads" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        You joined the private network but nothing loads
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -3893,6 +4110,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="private-ca.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Private Certificate Authority
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -4127,6 +4372,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     
   
     Modelling Child Resources
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../service-provider-guide/solutions/modeling-related-resources.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modelling Related Resources
   
 
     
@@ -6198,6 +6471,28 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
         
           <li class="md-nav__item">
+  <a href="#if-you-will-create-hosted-clusters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        If you will create hosted clusters
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#if-your-storage-is-node-local" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        If your storage is node-local
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#load-balancing" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -6281,6 +6576,17 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
         
           <li class="md-nav__item">
+  <a href="#organization-platform-config" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Organization platform config
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#where-each-value-comes-from" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -6319,6 +6625,17 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
+  <a href="#preparing-the-install-secrets" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Preparing the install secrets
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#installing" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -6326,6 +6643,23 @@ This documentation is for a pull request deployment and is unreleased, it is onl
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Installing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-an-existing-argo-cd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using an existing Argo CD
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -6369,6 +6703,45 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
       
         <li class="md-nav__item">
+  <a href="#service-apis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Service APIs
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Service APIs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#postgres" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Postgres
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#s3bucket" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        S3Bucket
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#troubleshooting" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -6396,6 +6769,39 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     <span class="md-ellipsis">
       
         Components are absent rather than unhealthy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#an-install-secret-is-missing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        An install secret is missing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a-hosted-clusters-console-has-no-single-sign-on-button" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A hosted cluster's console has no single sign-on button
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#you-joined-the-private-network-but-nothing-loads" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        You joined the private network but nothing loads
       
     </span>
   </a>
@@ -6483,8 +6889,16 @@ single most common reason a <code>scobasic</code> installation fails.</p>
 <td>platform routes are templated from it</td>
 </tr>
 <tr>
+<td>Wildcard DNS for <code>*.public.&lt;base&gt;</code></td>
+<td><strong>you create this after installing</strong>. <code>&lt;base&gt;</code> is <code>&lt;apps-domain&gt;</code> without its leading <code>apps.</code>. The sign-in pages and the SCO console are served there. See <a href="#certificates-and-dns">Certificates and DNS</a></td>
+</tr>
+<tr>
 <td>Outbound access to the Stakater registry</td>
 <td>charts and packages are pulled during installation</td>
+</tr>
+<tr>
+<td>The single sign-on address reachable from inside the cluster</td>
+<td><strong>only if you will create hosted clusters</strong> — see below</td>
 </tr>
 </tbody>
 </table>
@@ -6496,6 +6910,76 @@ oc<span class="w"> </span>get<span class="w"> </span>pvc<span class="w"> </span>
 <p>Several components are held back until storage is confirmed healthy. A degraded
 storage backend does not produce loud errors — it produces <strong>absent</strong>
 components, which reads as "the installation did nothing".</p>
+<h3 id="if-you-will-create-hosted-clusters">If you will create hosted clusters<a class="headerlink" href="#if-you-will-create-hosted-clusters" title="Permanent link">#</a></h3>
+<p>A hosted cluster verifies single sign-on <strong>from inside its own network</strong>, not from
+the cluster hosting it. So the address you publish for single sign-on has to be
+reachable from the machines that make up the hosted cluster.</p>
+<p>On most networks it already is, and there is nothing to do here. Check in advance
+if any of these are true, because the failure is quiet and its error message
+points somewhere unhelpful:</p>
+<ul>
+<li>the address resolves to a load balancer in front of the cluster that does not
+    route traffic back into it</li>
+<li>the hosted cluster's machines sit on a different network from the address they
+    are given</li>
+<li>traffic leaving the cluster addressed to the cluster's own published address is
+    dropped rather than looped back</li>
+</ul>
+<p><strong>To check it, and to find the address to use if it is not reachable</strong>, look at
+where single sign-on is actually served from inside the cluster:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># 1. find the route serving your single sign-on host name</span>
+oc<span class="w"> </span>get<span class="w"> </span>route<span class="w"> </span>-A<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>&lt;sso-host-name&gt;
+
+<span class="c1"># 2. find which nodes run the routers that serve it, and their addresses</span>
+oc<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>openshift-ingress<span class="w"> </span>-o<span class="w"> </span>wide
+oc<span class="w"> </span>get<span class="w"> </span>nodes<span class="w"> </span>-o<span class="w"> </span>wide
+</code></pre></div>
+<p>The node addresses in step 2 are what the hosted cluster's machines can reach.
+If they cannot reach the published address, create a DNS record that resolves
+your single sign-on host name to <strong>all</strong> of those node addresses, visible to the
+hosted cluster's machines. Where that record lives depends on what serves DNS for
+them — a split view on an internal resolver and a private zone are both common.</p>
+<p>Two things to get right:</p>
+<ul>
+<li><strong>Use every node address that runs a router, not just one.</strong> If a router moves
+    to another node and the record names only the node it used to be on, single
+    sign-on breaks again with the same unhelpful message.</li>
+<li><strong>Do not change the published address itself.</strong> It has to keep matching what
+    the identity provider issues, or verification fails for a different reason.</li>
+</ul>
+<p>Verify it before creating a hosted cluster, by resolving the name against the
+resolver the hosted cluster's machines will use:</p>
+<div class="highlight"><pre><span></span><code>dig<span class="w"> </span>+short<span class="w"> </span>@&lt;their-resolver&gt;<span class="w"> </span>&lt;sso-host-name&gt;
+</code></pre></div>
+<p>If that returns the node addresses rather than the public one, you are done. If
+you skip this and it turns out to matter, the symptom is described under
+<a href="#a-hosted-clusters-console-has-no-single-sign-on-button">Troubleshooting</a>.</p>
+<h3 id="if-your-storage-is-node-local">If your storage is node-local<a class="headerlink" href="#if-your-storage-is-node-local" title="Permanent link">#</a></h3>
+<p>Storage backed by disks on individual nodes — rather than a shared array — works,
+but it constrains two things you should know about before relying on them.</p>
+<p><strong>Hosted cluster control planes must be single-replica.</strong> A three-replica control
+plane database cannot be scheduled when the storage is node-local and is not
+present on every node. The volumes are never all bound, the platform waits for
+all of them rather than for a majority, and the hosted cluster's API server is
+never created. The cluster stops with no obvious cause. Set this on the
+<code>KubeStackConfig</code> claim. It applies to every hosted cluster created on this
+cluster, not to one:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">openshiftCluster</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">internal</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">controllerAvailabilityPolicy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">SingleReplica</span>
+</code></pre></div>
+<p>Check your coverage before assuming you do not need it — storage present on two
+of three nodes is enough to stall the cluster and not enough to be obvious:</p>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>storageclass<span class="w"> </span>&lt;name&gt;<span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.provisioner}{"\n"}'</span>
+oc<span class="w"> </span>get<span class="w"> </span>pvc<span class="w"> </span>-A<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-v<span class="w"> </span>Bound<span class="w">        </span><span class="c1"># anything pending here is the symptom</span>
+</code></pre></div>
+<p><strong>Virtual machines cannot move between nodes while running.</strong> RWO volumes are
+bound to one node, so a running machine using them cannot be migrated — the
+request is refused because the volume is not shared. This is a property of the
+storage rather than a setting you can change. If moving running machines matters,
+use a storage class that supports shared access for those volumes.</p>
 <h3 id="load-balancing">Load balancing<a class="headerlink" href="#load-balancing" title="Permanent link">#</a></h3>
 <p>The platform needs <code>LoadBalancer</code> Services to be assignable. On a cloud
 provider this is usually already true. <strong>On bare metal it is not</strong> — install and
@@ -6572,7 +7056,7 @@ below are what differ for <code>scobasic</code>.</p>
 <span class="nt">spec</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
 <span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;cluster-name&gt;</span>
-<span class="w">    </span><span class="nt">variant</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">scobasic</span><span class="w">          </span><span class="c1"># &lt;- the variant</span>
+<span class="w">    </span><span class="nt">variant</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">scobasic</span><span class="w">          </span><span class="c1"># &lt;- the variant (also the default when omitted)</span>
 <span class="w">    </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ocp</span>
 <span class="w">    </span><span class="nt">domain</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;apps-domain&gt;</span>
 
@@ -6632,6 +7116,54 @@ address range:</p>
 <span class="w">    </span><span class="nt">bgp</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
 </code></pre></div>
+<h3 id="organization-platform-config">Organization platform config<a class="headerlink" href="#organization-platform-config" title="Permanent link">#</a></h3>
+<p>Every organization reads the EnvironmentConfig <code>organization-platform-config</code>.
+It is required: without it no organization can be created. It also turns the
+optional organization integrations on: an AWS Organizational Unit per
+organization, Azure AD SSO for organization admins, outbound email (SMTP) for the
+organization realms, and audit. For <code>scobasic</code> all of them are usually off:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">apiextensions.crossplane.io/v1beta1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">EnvironmentConfig</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">organization-platform-config</span>
+<span class="nt">data</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">aws</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">  </span><span class="nt">azuread</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">  </span><span class="nt">smtp</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">  </span><span class="nt">audit</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+</code></pre></div>
+<p>The platform creates it with every integration off; you do not apply it. To
+turn an integration on, put its settings in the override for the
+<code>crossplane-environment-config</code> addon (add them to that object if you already
+have one). Editing <code>organization-platform-config</code> directly does not last: the
+platform renders it again from these values.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">apiextensions.crossplane.io/v1beta1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">EnvironmentConfig</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;cluster-name&gt;-crossplane-environment-config-addon-env-override</span>
+<span class="w">  </span><span class="nt">labels</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">crossplane.io/composite</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;cluster-name&gt;</span>
+<span class="w">    </span><span class="nt">kubestack.stakater.com/addon-name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">crossplane-environment-config</span>
+<span class="w">    </span><span class="nt">kubestack.stakater.com/config-kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kubestack-plus-env</span>
+<span class="w">    </span><span class="nt">kubestack.stakater.com/config-scope</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">addon</span>
+<span class="w">    </span><span class="nt">kubestack.stakater.com/domain</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;apps-domain&gt;</span>
+<span class="w">    </span><span class="nt">kubestack.stakater.com/name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;cluster-name&gt;</span>
+<span class="nt">data</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">SCOBASIC-OCP-VALUES</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">    </span><span class="no">organizationPlatformConfig:</span>
+<span class="w">      </span><span class="no">data:</span>
+<span class="w">        </span><span class="no">smtp:</span>
+<span class="w">          </span><span class="no">enabled: true</span>
+<span class="w">          </span><span class="no"># ...the settings this integration needs</span>
+</code></pre></div>
+<p>With a platform version that does not create it yet, save the first file above
+as <code>organization-platform-config.yaml</code> and apply it yourself
+(<code>kubectl apply -f organization-platform-config.yaml</code>) before you create the first
+organization.</p>
 <h3 id="where-each-value-comes-from">Where each value comes from<a class="headerlink" href="#where-each-value-comes-from" title="Permanent link">#</a></h3>
 <table>
 <thead>
@@ -6659,7 +7191,7 @@ address range:</p>
 </tr>
 <tr>
 <td><code>&lt;cluster-issuer&gt;</code></td>
-<td>The name of the cert-manager <code>ClusterIssuer</code> you create — see <a href="#certificates-and-dns">Certificates and DNS</a></td>
+<td>The name of the cert-manager <code>ClusterIssuer</code> you create — see <a href="#certificates-and-dns">Certificates and DNS</a>. With a private CA and certificate files, leave <code>clusterIssuer</code> out — see <a href="private-ca.html">Private Certificate Authority</a></td>
 </tr>
 <tr>
 <td><code>&lt;your-storage-class&gt;</code></td>
@@ -6689,12 +7221,29 @@ domain. It uses one certificate issuer that you provide.</p>
 <li>Set its name in the claim as <code>certificate.clusterIssuer</code>, with
    <code>certificate.type: byo</code>. The platform then requests and renews all of its
    certificates through that issuer.</li>
-<li>Set <code>dns.type: byo</code>. You keep ownership of DNS records. The wildcard and <code>api</code>
-   records already exist on an installed cluster.</li>
+<li>
+<p>Set <code>dns.type: byo</code>. You keep ownership of DNS records. The <code>*.apps</code> wildcard
+   and <code>api</code> records already exist on an installed cluster, but you must add one
+   more: <code>*.public.&lt;base&gt;</code> (if <code>&lt;apps-domain&gt;</code> is <code>apps.example.com</code>, that is
+   <code>*.public.example.com</code>), pointing to the <code>LoadBalancer</code> address of the
+   platform's second router, <code>router-public-&lt;cluster-name&gt;</code>. The router is created during the installation, so
+   add the record once <code>ksp up</code> has run:</p>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>svc<span class="w"> </span>router-public-&lt;cluster-name&gt;<span class="w"> </span>-n<span class="w"> </span>openshift-ingress
+</code></pre></div>
+<p>Until the record exists, the SCO console
+(<code>https://cloud-orchestrator.public.&lt;base&gt;</code>) and the sign-in pages do not
+load. <code>*.public</code> does not mean the router faces the internet; see
+<a href="private-ca.html">Private Certificate Authority</a> for the full list of names
+and records.</p>
+</li>
 </ol>
 <p>If your issuer is backed by a private CA that clients do not trust by default,
 also set <code>certificate.privateCA: true</code> and pass the root CA to <code>ksp up</code> with
 <code>--trusted-ca</code>. Decide this before installing; it cannot be turned on later.</p>
+<p>If your private CA hands out certificates but cannot act as an issuer, you can
+install one certificate as files instead and leave out <code>clusterIssuer</code>. See
+<a href="private-ca.html">Private Certificate Authority</a>, which also covers the names the
+certificate needs and the DNS records you create.</p>
 <div class="admonition note">
 <p class="admonition-title">Default router and API server certificates</p>
 <p>In this mode the platform also points the default router and the API server
@@ -6715,6 +7264,59 @@ the first time the secret store initialises.</p>
 <p>See <a href="openbao-unseal.html">Choosing the Platform Secret Store Unseal Method</a>. For a
 self-hosted or disconnected installation, the <code>static</code> method requires no cloud
 account.</p>
+<h2 id="preparing-the-install-secrets">Preparing the install secrets<a class="headerlink" href="#preparing-the-install-secrets" title="Permanent link">#</a></h2>
+<p><code>ksp up --extra-secrets extra-secrets.yaml</code> creates these Kubernetes Secrets
+before it installs anything. For <code>scobasic</code> the file holds two secrets:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">secrets</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">"ghcr-helm-repo"</span>
+<span class="w">    </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="s">"crossplane-system"</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">"Opaque"</span>
+<span class="w">    </span><span class="nt">labels</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">app.kubernetes.io/component</span><span class="p">:</span><span class="w"> </span><span class="s">"ghcr-helm-repo"</span>
+<span class="w">      </span><span class="nt">app.kubernetes.io/name</span><span class="p">:</span><span class="w"> </span><span class="s">"crossplane-system"</span>
+<span class="w">    </span><span class="nt">data</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">enableOCI</span><span class="p">:</span><span class="w"> </span><span class="s">"true"</span>
+<span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">"ghcr-helm-repo"</span>
+<span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">"helm"</span>
+<span class="w">      </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="s">"&lt;gitopsChartsUrl</span><span class="nv"> </span><span class="s">from</span><span class="nv"> </span><span class="s">registry-secret.yaml&gt;"</span>
+<span class="w">      </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="s">"&lt;registry</span><span class="nv"> </span><span class="s">username&gt;"</span>
+<span class="w">      </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="s">"&lt;registry</span><span class="nv"> </span><span class="s">token&gt;"</span>
+
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">"openbao-unseal-key"</span>
+<span class="w">    </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="s">"stakater-openbao"</span>
+<span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="s">"Opaque"</span>
+<span class="w">    </span><span class="nt">data</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">current</span><span class="p">:</span><span class="w"> </span><span class="s">"&lt;32-byte</span><span class="nv"> </span><span class="s">key,</span><span class="nv"> </span><span class="s">base64&gt;"</span>
+</code></pre></div>
+<p>Write every value as plain text. The installer encodes it for Kubernetes, so do
+not base64-encode the values yourself.</p>
+<table>
+<thead>
+<tr>
+<th>Secret</th>
+<th>Purpose</th>
+<th>Values</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ghcr-helm-repo</code></td>
+<td>Registry credentials the platform uses to pull the charts it installs after the initial installation</td>
+<td>The same username and token as in <code>registry-secret.yaml</code> (see <a href="openshift.html#step-3-prepare-registry-credentials">Prepare Registry Credentials</a>). Set <code>url</code> to the same value as <code>gitopsChartsUrl</code> in that file. Keep <code>enableOCI</code>, <code>name</code> and <code>type</code> exactly as shown</td>
+</tr>
+<tr>
+<td><code>openbao-unseal-key</code></td>
+<td>The key the platform secret store unseals with</td>
+<td>Needed only with the <code>static</code> unseal method. Generate it and back it up as described in <a href="openbao-unseal.html">Choosing the Platform Secret Store Unseal Method</a></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">Keep this file</p>
+<p>Store <code>extra-secrets.yaml</code> somewhere safe after the installation. If one of
+these secrets is lost later, you rebuild it from the same values. See
+<a href="#an-install-secret-is-missing">An install secret is missing</a>.</p>
+</div>
 <h2 id="installing">Installing<a class="headerlink" href="#installing" title="Permanent link">#</a></h2>
 <div class="highlight"><pre><span></span><code>ksp<span class="w"> </span>prerequisites<span class="w"> </span>--variant<span class="w"> </span>scobasic
 
@@ -6730,6 +7332,45 @@ ksp<span class="w"> </span>up<span class="w"> </span><span class="se">\</span>
 the command stops rather than installing over an existing partial stack — which
 is the common case for <code>scobasic</code>, since the variant exists for clusters that
 are already in use.</p>
+<h3 id="using-an-existing-argo-cd">Using an existing Argo CD<a class="headerlink" href="#using-an-existing-argo-cd" title="Permanent link">#</a></h3>
+<p>By default, <code>ksp up</code> installs the OpenShift GitOps operator and an Argo CD
+instance in <code>openshift-gitops</code>, and the platform delivers every component
+through that instance. If the cluster already runs OpenShift GitOps and you
+want the platform to use your Argo CD instead, make three changes.</p>
+<p><strong>1. Make your instance cluster-scoped.</strong> The platform installs operators,
+CRDs and other cluster-scoped resources through Argo CD, which a
+namespace-scoped instance cannot manage. Add your instance's namespace to the
+<code>ARGOCD_CLUSTER_CONFIG_NAMESPACES</code> environment variable on the OpenShift GitOps
+operator's Subscription (see the OpenShift GitOps documentation on
+cluster-scoped instances). Skip this if your instance is the default one in
+<code>openshift-gitops</code>, which is cluster-scoped already.</p>
+<p><strong>2. Point the KubeStackPlus claim at your instance</strong>, and stop the platform
+from installing its own:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">parameters</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">variant</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">scobasic</span>
+<span class="w">    </span><span class="nt">platform</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ocp</span>
+<span class="w">    </span><span class="nt">gitopsNamespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;your-argocd-namespace&gt;</span>
+<span class="w">    </span><span class="nt">excludedAddons</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rh-openshift-gitops-operator</span>
+</code></pre></div>
+<p>Excluding <code>rh-openshift-gitops-operator</code> also excludes the platform's Argo CD
+instance, which depends on it. <code>gitopsNamespace</code> makes the platform create its
+Argo CD Applications and AppProjects in your instance's namespace.</p>
+<p><strong>3. Add two flags to the <code>ksp up</code> command above:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="w">  </span>--brownfield<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--argocd-namespace<span class="w"> </span>&lt;your-argocd-namespace&gt;
+</code></pre></div>
+<p><code>--argocd-namespace</code> tells <code>ksp up</code> where to create the repository credential
+(<code>ksp-up-registry-auth</code>) your Argo CD needs to pull the platform's charts.</p>
+<p>Current limitations:</p>
+<ul>
+<li><code>ksp up</code> recognises an existing Argo CD instance only in <code>openshift-gitops</code>.
+  If your instance is in another namespace, contact us before installing.</li>
+<li>The multi-tenancy component's namespace webhook trusts only the platform's
+  own Argo CD by default. If your Argo CD is refused when it creates
+  namespaces, contact us.</li>
+</ul>
 <h2 id="verifying">Verifying<a class="headerlink" href="#verifying" title="Permanent link">#</a></h2>
 <div class="highlight"><pre><span></span><code>ksp<span class="w"> </span>status
 oc<span class="w"> </span>get<span class="w"> </span>kubestackconfig,kubestackplus<span class="w"> </span>-A
@@ -6808,9 +7449,92 @@ oc<span class="w"> </span>get<span class="w"> </span>oauth<span class="w"> </spa
 <p>An empty result means OpenShift has no identity provider configured, whatever
 else reports healthy. Confirm you can log in to the console before considering
 the installation complete.</p>
+<h2 id="service-apis">Service APIs<a class="headerlink" href="#service-apis" title="Permanent link">#</a></h2>
+<p>A <code>scobasic</code> cluster serves the platform's service APIs, but a few of them depend
+on infrastructure this variant does not install, and one needs a recent package.
+Check this table before promising a capability to a tenant.</p>
+<table>
+<thead>
+<tr>
+<th>API</th>
+<th>On <code>scobasic</code></th>
+<th>What it needs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Organization</code>, <code>Project</code>, <code>User</code>, <code>Group</code></td>
+<td>Works</td>
+<td>Nothing extra</td>
+</tr>
+<tr>
+<td><code>Mesh</code></td>
+<td>Works once the platform mesh is on</td>
+<td><code>meshPlatform.enabled: true</code> on the <code>KubeStackConfig</code> claim. It is off by default on <code>scobasic</code></td>
+</tr>
+<tr>
+<td><code>OpenShiftCluster</code></td>
+<td>Works</td>
+<td>OpenShift Virtualization and the hosted control plane operator (multicluster engine) on the cluster. <code>scobasic</code> installs neither</td>
+</tr>
+<tr>
+<td><code>VirtualMachine</code></td>
+<td>Works</td>
+<td>OpenShift Virtualization on the cluster. <code>scobasic</code> does not install it</td>
+</tr>
+<tr>
+<td><code>Postgres</code></td>
+<td>Works</td>
+<td>See below</td>
+</tr>
+<tr>
+<td><code>S3Bucket</code></td>
+<td>Does not provision</td>
+<td>OpenShift Data Foundation object storage. <code>scobasic</code> does not install it</td>
+</tr>
+<tr>
+<td><code>Vault</code>, <code>MeshRouter</code></td>
+<td>Not yet validated</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<h3 id="postgres"><code>Postgres</code><a class="headerlink" href="#postgres" title="Permanent link">#</a></h3>
+<p>Current <code>scobasic</code> installs ship a working package. Older ones (before
+<code>sco-package-database</code> <code>0.0.6</code>, which carries <code>postgres-database</code> <code>0.0.13</code>) accept the
+claim and then silently provision nothing: an empty namespace with no database, no
+credentials and no connection details. On an older install, check what the cluster
+runs before filing a fault:</p>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>configuration.pkg.crossplane.io<span class="w"> </span>package-postgres-database<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.spec.package}'</span>
+</code></pre></div>
+<p>Two things to expect even on a working package:</p>
+<ul>
+<li><strong>A claim with <code>meshAccess</code> set stays <code>Ready=False</code> until the project's mesh
+  access map exists.</strong> It reports <code>Unready resources: &lt;name&gt;-access-map</code>. A claim
+  without <code>meshAccess</code> becomes <code>Ready</code> on its own.</li>
+<li><strong>The managing operator cannot report instance status when the project network is
+  isolated.</strong> The cluster's status then reads as a status-extraction error even
+  though the database is serving. Treat backup, failover and switchover as unproven
+  in that configuration until the status probe can reach the pods.</li>
+</ul>
+<p>Confirm the database directly:</p>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>clusters.postgresql.cnpg.io<span class="w"> </span>&lt;name&gt;<span class="w"> </span>-n<span class="w"> </span>&lt;namespace&gt;
+oc<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>&lt;namespace&gt;
+</code></pre></div>
+<p>The claim publishes its connection details under <code>status.connection</code> once the
+database is up. The credentials are stored in the organization's Vault, and
+<code>status.credentials</code> says where.</p>
+<h3 id="s3bucket"><code>S3Bucket</code><a class="headerlink" href="#s3bucket" title="Permanent link">#</a></h3>
+<p>A bucket is requested from OpenShift Data Foundation object storage (the
+<code>ocs-storagecluster-ceph-rgw</code> class for private buckets, <code>openshift-storage.noobaa.io</code>
+for public ones). <code>scobasic</code> does not install OpenShift Data Foundation, so on a
+cluster without it those classes do not exist. The claim may report success while no
+bucket was ever created. Either run OpenShift Data Foundation with object storage on
+the cluster, or do not offer this API to tenants on a <code>scobasic</code> install.</p>
 <h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">#</a></h2>
 <p>The <a href="openshift.html#troubleshooting">OpenShift installation troubleshooting</a>
-section applies here too. Two failure modes are specific to <code>scobasic</code>:</p>
+section applies here too. These failure modes are specific to <code>scobasic</code>:</p>
 <h3 id="loadbalancer-services-stay-pending">LoadBalancer Services stay pending<a class="headerlink" href="#loadbalancer-services-stay-pending" title="Permanent link">#</a></h3>
 <div class="highlight"><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>svc<span class="w"> </span>-A<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span>pending
 </code></pre></div>
@@ -6825,6 +7549,112 @@ silent.</p>
 <div class="highlight"><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>stakater-openbao
 </code></pre></div>
 <p>See <a href="openbao-unseal.html">the unseal guide</a> if it has not come up.</p>
+<h3 id="an-install-secret-is-missing">An install secret is missing<a class="headerlink" href="#an-install-secret-is-missing" title="Permanent link">#</a></h3>
+<p>The platform keeps a copy of the registry credentials from your install secrets
+in its secret store, and reads them back from there. If both copies are lost,
+for example after the secret store has been reset, Crossplane's Helm provider
+can no longer pull charts. The signs are:</p>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>externalsecrets.external-secrets.io<span class="w"> </span>ghcr-helm-repo<span class="w"> </span>-n<span class="w"> </span>crossplane-system<span class="w">   </span><span class="c1"># SecretSyncedError</span>
+oc<span class="w"> </span>get<span class="w"> </span>pushsecrets.external-secrets.io<span class="w"> </span>ghcr-helm-repo<span class="w"> </span>-n<span class="w"> </span>crossplane-system<span class="w">       </span><span class="c1"># Errored</span>
+oc<span class="w"> </span>describe<span class="w"> </span>pushsecrets.external-secrets.io<span class="w"> </span>ghcr-helm-repo<span class="w"> </span>-n<span class="w"> </span>crossplane-system<span class="w">  </span><span class="c1"># "could not get source secret"</span>
+</code></pre></div>
+<p>Re-create the secret. If you no longer have <code>extra-secrets.yaml</code>, copy the
+values from the Argo CD repository credential that <code>ksp up</code> created from the
+same registry credentials. The values are not printed:</p>
+<div class="highlight"><pre><span></span><code><span class="nv">NS</span><span class="o">=</span>openshift-gitops<span class="w">   </span><span class="c1"># or your Argo CD namespace, see "Using an existing Argo CD"</span>
+<span class="nv">S</span><span class="o">=</span><span class="k">$(</span>oc<span class="w"> </span>get<span class="w"> </span>secret<span class="w"> </span>-n<span class="w"> </span><span class="s2">"</span><span class="nv">$NS</span><span class="s2">"</span><span class="w"> </span>-l<span class="w"> </span>argocd.argoproj.io/secret-type<span class="o">=</span>repository<span class="w"> </span>-o<span class="w"> </span>name<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-1<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d/<span class="w"> </span>-f2<span class="k">)</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"copying from: </span><span class="nv">$S</span><span class="s2">"</span>
+oc<span class="w"> </span>create<span class="w"> </span>secret<span class="w"> </span>generic<span class="w"> </span>ghcr-helm-repo<span class="w"> </span>-n<span class="w"> </span>crossplane-system<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--from-literal<span class="o">=</span><span class="nv">enableOCI</span><span class="o">=</span><span class="nb">true</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--from-literal<span class="o">=</span><span class="nv">name</span><span class="o">=</span>ghcr-helm-repo<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--from-literal<span class="o">=</span><span class="nv">type</span><span class="o">=</span>helm<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--from-literal<span class="o">=</span><span class="nv">url</span><span class="o">=</span><span class="s2">"</span><span class="k">$(</span>oc<span class="w"> </span>get<span class="w"> </span>secret<span class="w"> </span><span class="s2">"</span><span class="nv">$S</span><span class="s2">"</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">"</span><span class="nv">$NS</span><span class="s2">"</span><span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.data.url}'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64<span class="w"> </span>-d<span class="k">)</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--from-literal<span class="o">=</span><span class="nv">username</span><span class="o">=</span><span class="s2">"</span><span class="k">$(</span>oc<span class="w"> </span>get<span class="w"> </span>secret<span class="w"> </span><span class="s2">"</span><span class="nv">$S</span><span class="s2">"</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">"</span><span class="nv">$NS</span><span class="s2">"</span><span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.data.username}'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64<span class="w"> </span>-d<span class="k">)</span><span class="s2">"</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--from-literal<span class="o">=</span><span class="nv">password</span><span class="o">=</span><span class="s2">"</span><span class="k">$(</span>oc<span class="w"> </span>get<span class="w"> </span>secret<span class="w"> </span><span class="s2">"</span><span class="nv">$S</span><span class="s2">"</span><span class="w"> </span>-n<span class="w"> </span><span class="s2">"</span><span class="nv">$NS</span><span class="s2">"</span><span class="w"> </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.data.password}'</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64<span class="w"> </span>-d<span class="k">)</span><span class="s2">"</span>
+oc<span class="w"> </span>label<span class="w"> </span>secret<span class="w"> </span>ghcr-helm-repo<span class="w"> </span>-n<span class="w"> </span>crossplane-system<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>app.kubernetes.io/component<span class="o">=</span>ghcr-helm-repo<span class="w"> </span>app.kubernetes.io/name<span class="o">=</span>crossplane-system
+</code></pre></div>
+<p>Check that <code>copying from:</code> names a single secret before you continue. If you
+use your own Argo CD, its namespace may hold other repository credentials; set
+<code>S=ksp-up-registry-auth</code> instead, the credential <code>ksp up</code> created there. If you
+still have the file, use its values instead. If <code>oc create</code> reports that the
+secret already exists, check it with <code>oc get secret ghcr-helm-repo -n crossplane-system -o yaml</code>;
+delete it only if its values are wrong, then run the commands again.</p>
+<p>After many failed attempts, the copy into the secret store can wait a long time
+before it retries. Trigger it, then trigger the read-back:</p>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>annotate<span class="w"> </span>pushsecrets.external-secrets.io<span class="w"> </span>ghcr-helm-repo<span class="w"> </span>-n<span class="w"> </span>crossplane-system<span class="w"> </span>force-sync<span class="o">=</span><span class="k">$(</span>date<span class="w"> </span>+%s<span class="k">)</span><span class="w"> </span>--overwrite
+sleep<span class="w"> </span><span class="m">20</span>
+oc<span class="w"> </span>get<span class="w"> </span>pushsecrets.external-secrets.io<span class="w"> </span>ghcr-helm-repo<span class="w"> </span>-n<span class="w"> </span>crossplane-system<span class="w">       </span><span class="c1"># Synced</span>
+oc<span class="w"> </span>annotate<span class="w"> </span>externalsecrets.external-secrets.io<span class="w"> </span>ghcr-helm-repo<span class="w"> </span>-n<span class="w"> </span>crossplane-system<span class="w"> </span>force-sync<span class="o">=</span><span class="k">$(</span>date<span class="w"> </span>+%s<span class="k">)</span><span class="w"> </span>--overwrite
+sleep<span class="w"> </span><span class="m">10</span>
+oc<span class="w"> </span>get<span class="w"> </span>externalsecrets.external-secrets.io<span class="w"> </span>ghcr-helm-repo<span class="w"> </span>-n<span class="w"> </span>crossplane-system<span class="w">   </span><span class="c1"># SecretSynced, READY True</span>
+</code></pre></div>
+<h3 id="a-hosted-clusters-console-has-no-single-sign-on-button">A hosted cluster's console has no single sign-on button<a class="headerlink" href="#a-hosted-clusters-console-has-no-single-sign-on-button" title="Permanent link">#</a></h3>
+<p>The hosted cluster is healthy and you can still reach it with the administrator
+credentials, but its console offers only the built-in username and password form.
+Check the cluster's own view first:</p>
+<div class="highlight"><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>hostedcluster<span class="w"> </span>&lt;name&gt;<span class="w"> </span>-n<span class="w"> </span>hypershift-&lt;name&gt;<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{range .status.conditions[?(@.type=="ValidIDPConfiguration")]}{.status} {.message}{"\n"}{end}'</span>
+</code></pre></div>
+<p>If that reports <code>False</code> with a message about a TLS handshake, <strong>the problem is
+not TLS</strong>. The platform verifies the identity provider from inside the hosted
+cluster's own network, and that message is what a blocked or misdirected
+connection looks like by the time it surfaces. Verification is deliberately
+fail-closed: rather than configure a provider it could not reach, the platform
+configures none at all. That is why the button is missing instead of the login
+failing.</p>
+<p>The usual cause is that the hosted cluster's machines cannot reach the identity
+provider at its published address, while everything else about the network works.
+Test it from inside the hosted cluster, not from your own machine, by starting a
+short-lived pod there and making the request from it:</p>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-s<span class="w"> </span>-o<span class="w"> </span>/dev/null<span class="w"> </span>-m<span class="w"> </span><span class="m">15</span><span class="w"> </span>-w<span class="w"> </span><span class="s1">'%{http_code}\n'</span><span class="w"> </span>https://&lt;issuer-host&gt;/
+</code></pre></div>
+<p>A timeout there, while the same request succeeds from elsewhere, means the
+machines are being sent to an address they cannot use — most often because the
+published address resolves to something in front of the cluster that cannot route
+back into it.</p>
+<p><strong>Most networks are not affected.</strong> If the machines can reach the published
+address, there is nothing to configure.</p>
+<p>Where they cannot, resolve the single sign-on host name — for the hosted
+cluster's machines only — to the addresses of the nodes running the routers that
+serve it. <a href="#if-you-will-create-hosted-clusters">If you will create hosted clusters</a>
+above gives the commands to find those addresses and what to check afterward.
+The platform does not configure this for you, because what serves DNS to those
+machines is part of your environment rather than part of the cluster.</p>
+<h3 id="you-joined-the-private-network-but-nothing-loads">You joined the private network but nothing loads<a class="headerlink" href="#you-joined-the-private-network-but-nothing-loads" title="Permanent link">#</a></h3>
+<p>The mesh client reports that it is connected, the peer list looks healthy, and
+the routes for the cluster are listed against the peer that serves them — yet the
+hosted cluster's console and API time out, both in the browser and from <code>curl</code>.</p>
+<p>Confirm the shape of the failure first:</p>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-sk<span class="w"> </span>-o<span class="w"> </span>/dev/null<span class="w"> </span>-m<span class="w"> </span><span class="m">20</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-w<span class="w"> </span><span class="s1">'status %{http_code}  connect %{time_connect}s  total %{time_total}s\n'</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>https://&lt;console-host&gt;/
+</code></pre></div>
+<p>A connection that reaches the server and then stalls, rather than one that is
+refused, points at packet size rather than at access. Look at the connection
+while it is hanging:</p>
+<div class="highlight"><pre><span></span><code>ss<span class="w"> </span>-tin<span class="w"> </span>dst<span class="w"> </span>&lt;address&gt;
+</code></pre></div>
+<p>If the connection is established, <code>bytes_acked</code> is above zero, <code>rcv_ooopack</code> is
+above zero and the receive queue is empty, then your request arrived and was
+acknowledged, but part of the reply never did. Small packets are getting through,
+and large ones are being discarded silently.</p>
+<p>This happens when the size limit on the mesh interface is larger than what the
+path your traffic actually takes can carry. The connection opens, because the
+handshake is small. It then stops during the security negotiation, because the
+server's certificate is the first large reply. Lower the limit and reconnect:</p>
+<div class="highlight"><pre><span></span><code>netbird<span class="w"> </span>up<span class="w"> </span>--mtu<span class="w"> </span><span class="m">1180</span>
+</code></pre></div>
+<p>Then repeat the request. It should now succeed in about a second.</p>
+<p><strong>Most networks are not affected.</strong> The default suits ordinary connections. Paths
+that add their own wrapping — a relay, a corporate virtual private network, a
+tunnel between sites — leave less room, and the shortfall only shows up on large
+replies. If your environment differs from the one the cluster was built on, check
+this before investigating access rules or single sign-on.</p>
+<p>The platform's mesh router already limits packet size on its side (to 1200 bytes by
+default), which covers replies coming back through it. The setting above applies
+to the machine you are connecting from, and is still needed when the path between
+you and the mesh is the narrow part.</p>
 <h2 id="whats-next">What's Next?<a class="headerlink" href="#whats-next" title="Permanent link">#</a></h2>
 <ul>
 <li><a href="configuration.html">Configuration</a> - Post-installation configuration</li>

@@ -8,17 +8,17 @@
         <link rel="canonical" href="https://docs.stakater.com/cloud-orchestrator/docs-screenshots-s01-linux-vm/how-to-guides/user/provision-virtual-machine.html">
       
       
-        <link rel="prev" href="provision-openshift-cluster.html">
+        <link rel="prev" href="connect-to-openshift-cluster.html">
       
       
-        <link rel="next" href="provision-windows-virtual-machine.html">
+        <link rel="next" href="connect-openshift-cluster-to-virtual-machine.html">
       
       
         
       
       
       <link rel="icon" href="../../assets/images/favicon.svg">
-      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.8.1">
+      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.8.2">
     
     
       
@@ -3042,6 +3042,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="connect-to-openshift-cluster.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Connect to an OpenShift Cluster
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -3282,6 +3310,62 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
+      <a href="connect-openshift-cluster-to-virtual-machine.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Connect an OpenShift Cluster to a Virtual Machine
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="back-up-virtual-machine.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How to Back Up and Snapshot a Virtual Machine
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="provision-windows-virtual-machine.html" class="md-nav__link">
         
   
@@ -3366,14 +3450,14 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
-      <a href="create-vault.html" class="md-nav__link">
+      <a href="access-vault.html" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    How to Create a Vault
+    How to Access Your Organisation's Vault
   
 
     
@@ -3810,6 +3894,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
+      <a href="../../installation/private-ca.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Private Certificate Authority
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../installation/openbao-unseal.html" class="md-nav__link">
         
   
@@ -4032,6 +4144,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     
   
     Modelling Child Resources
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../service-provider-guide/solutions/modeling-related-resources.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Modelling Related Resources
   
 
     
@@ -6391,13 +6531,20 @@ demo-virtual-machine   True    True     Running            3m
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/generated/vm-list.png" data-desc-position="bottom"><img alt="The Virtual Machines list in the console, with a running VM" src="../../images/generated/vm-list.png"></a></p>
 <p>The VM's detail page shows the VM status, resources and connection mode. A <code>public</code> VM shows its address here. A <code>private</code> VM is reached over your organisation's mesh, and only the address differs: enrol as described in <a href="create-mesh.html">Create a Mesh</a>, then SSH to the VM's mesh address.</p>
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/generated/vm-detail.png" data-desc-position="bottom"><img alt="A Virtual Machine detail page, showing the status, resources and connection mode" src="../../images/generated/vm-detail.png"></a></p>
-<p>Retrieve the VM's connection details (for <code>public</code> VMs):</p>
+<p>Retrieve the VM's connection details (for <code>public</code> VMs) — the address <strong>and</strong> the
+SSH port, which the platform reports on the claim:</p>
 <div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>virtualmachine<span class="w"> </span>demo-virtual-machine<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.status.vm.serviceHostname}'</span>
+<span class="w">  </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{.status.vm.serviceIP}{"\n"}{.status.vm.serviceHostname}{"\n"}{.status.vm.servicePort}{"\n"}'</span>
 </code></pre></div>
-<p>SSH into the VM:</p>
-<div class="highlight"><pre><span></span><code>ssh<span class="w"> </span>cloud-user@&lt;vm-hostname-or-ip&gt;
+<p>SSH into the VM on the port that command reported:</p>
+<div class="highlight"><pre><span></span><code>ssh<span class="w"> </span>-i<span class="w"> </span>~/.ssh/my-key<span class="w"> </span>-p<span class="w"> </span>&lt;servicePort&gt;<span class="w"> </span>cloud-user@&lt;vm-hostname-or-ip&gt;
 </code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Do not assume port <code>22</code>. New public VMs are exposed on <code>22</code>, but VMs created
+before that became the default are exposed on <code>22000</code>. <code>status.vm.servicePort</code>
+always reports the port the VM's LoadBalancer is really listening on.</p>
+</div>
 <h3 id="supported-flavours">Supported Flavours<a class="headerlink" href="#supported-flavours" title="Permanent link">#</a></h3>
 <table>
 <thead>

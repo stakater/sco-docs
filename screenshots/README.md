@@ -57,7 +57,7 @@ the `viewport:` block of every flow so all captures come out the same size.
 | Flow | Docs page | Images |
 |---|---|---|
 | `login` | `accessing-the-console.md`, `dashboard.md`, `overview.md` | `login-org-slug`, `dashboard-org-stats`, `sidebar-resources`, `user-menu` |
-| `projects` | `projects.md` | `project-list`, `project-create` |
+| `projects` | `projects.md`, `create-project.md`, `deploy-first-app.md` | `project-list`, `project-create`, `project-create-filled`, `project-detail` |
 | `resources` | `resources.md`, `overview.md` | `resource-list`, `resource-detail`, `create-form-standard`, `resource-detail-1`, `detail-advanced` |
 | `iam` | `create-iam-user.md`, `create-iam-group.md` | `iam-users-list`, `iam-user-create`, `iam-group-create`, `iam-group-create-members`, `iam-group-detail` |
 | `mesh` | `create-mesh.md` | `mesh-list`, `mesh-create`, `mesh-detail` |
@@ -67,7 +67,7 @@ the `viewport:` block of every flow so all captures come out the same size.
 | `windows-vm` | `provision-windows-virtual-machine.md` | `windows-vm-create`, `windows-vm-list`, `windows-vm-detail` |
 | none (taken by hand) | `create-postgres.md` | `vault-oidc-sign-in`, `vault-database-credentials` |
 
-`dashboard-org-stats`, `create-form-standard`, `cluster-list`, `cluster-detail` and `mesh-detail` are each referenced by two pages.
+`dashboard-org-stats`, `create-form-standard`, `sidebar-resources`, `project-create-filled`, `cluster-list`, `cluster-detail` and `mesh-detail` are each referenced by two pages.
 
 The two `vault-*` images show the Vault's own web UI, which no flow opens. A capture run
 does not refresh them; retake them by hand when that UI changes.
@@ -121,6 +121,7 @@ The flows create nothing, but they do need somewhere to point and something to s
   `DOCS_PROJECT_PLURAL`, `DOCS_USER_PLURAL`, `DOCS_MESH_PLURAL`) — an empty list renders
   an empty state and no table, which fails the capture rather than publishing a
   screenshot of "No <resources>"
+- the project named in `DOCS_PROJECT_NAME`, Ready, for the project detail shot
 - the resource named in `DOCS_VM_NAME`, used for the detail, delete-panel and
   Advanced shots so all three agree
 - the database named in `DOCS_POSTGRES_NAME`, Ready, created through the console

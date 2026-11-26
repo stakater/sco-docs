@@ -152,18 +152,24 @@ The VM's detail page shows the VM status, resources and connection mode. A `publ
 
 ![A Virtual Machine detail page, showing the status, resources and connection mode]({{ screenshot: vm-detail }})
 
-Retrieve the VM's connection details (for `public` VMs):
+Retrieve the VM's connection details (for `public` VMs) — the address **and** the
+SSH port, which the platform reports on the claim:
 
 ```bash
 kubectl get virtualmachine demo-virtual-machine \
-  -o jsonpath='{.status.vm.serviceHostname}'
+  -o jsonpath='{.status.vm.serviceIP}{"\n"}{.status.vm.serviceHostname}{"\n"}{.status.vm.servicePort}{"\n"}'
 ```
 
-SSH into the VM:
+SSH into the VM on the port that command reported:
 
 ```bash
-ssh cloud-user@<vm-hostname-or-ip>
+ssh -i ~/.ssh/my-key -p <servicePort> cloud-user@<vm-hostname-or-ip>
 ```
+
+!!! note
+    Do not assume port `22`. New public VMs are exposed on `22`, but VMs created
+    before that became the default are exposed on `22000`. `status.vm.servicePort`
+    always reports the port the VM's LoadBalancer is really listening on.
 
 ### Supported Flavours
 

@@ -72,12 +72,7 @@ Full reference: [IAM Group API](../api-reference/public-apis/iam-group.md)
 
 **API:** `secrets.cloud.stakater.com/v1 Vault`
 
-Per-tenant OpenBao instance with HA Raft storage and OIDC auth against your organisation's Keycloak realm.
-
-| Parameter | Required | Description |
-|-----------|----------|-------------|
-| `storage.dataSize` | No | PVC size for Raft data (default `15Gi`) |
-| `storage.auditSize` | No | PVC size for audit log (default `10Gi`) |
+Your organisation's Vault. The platform creates one for each organisation, so there is nothing to order: sign in with OIDC to read the credentials of your virtual machines, S3 buckets and Postgres databases.
 
 Full reference: [Vault API](../api-reference/public-apis/vault.md)
 

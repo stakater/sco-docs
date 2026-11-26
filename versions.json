@@ -77,9 +77,7 @@
   {
     "version": "docs-0.1-organization-platform-config",
     "title": "docs-0.1-organization-platform-config",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "docs-versioning-and-upgrades",
@@ -94,7 +92,9 @@
   {
     "version": "docs-screenshots-s02-s3-bucket",
     "title": "docs-screenshots-s02-s3-bucket",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "docs-screenshots-s01-linux-vm",

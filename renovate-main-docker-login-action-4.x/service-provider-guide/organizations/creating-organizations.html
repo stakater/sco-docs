@@ -6255,6 +6255,17 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 <li>The <code>organizations.infrastructure.stakater.com</code> API available on the hosting cluster</li>
 <li><code>kubectl</code> configured with platform administrator access to the hosting cluster</li>
 <li>An admin email address for the initial organization administrator</li>
+<li>
+<p>The <code>kcp-sco-orgs</code> namespace, which holds the Organization claims. Some
+  releases do not create it. Check with <code>kubectl get namespace kcp-sco-orgs</code>,
+  and if it is missing, create it once as a cluster administrator:</p>
+<div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>create<span class="w"> </span>namespace<span class="w"> </span>kcp-sco-orgs<span class="w"> </span>--dry-run<span class="o">=</span>server
+kubectl<span class="w"> </span>create<span class="w"> </span>namespace<span class="w"> </span>kcp-sco-orgs
+</code></pre></div>
+<p>If the dry run is refused with a message about <code>stakater.com/tenant</code>, run it
+as <code>kubeadmin</code> or a member of <code>system:cluster-admins</code>. Do not add the
+<code>stakater.com/tenant</code> label: this is not a tenant namespace.</p>
+</li>
 </ul>
 <hr>
 <h2 id="what-gets-created">What Gets Created<a class="headerlink" href="#what-gets-created" title="Permanent link">#</a></h2>
@@ -6373,6 +6384,16 @@ acme-corp   True     True                        2m
 <ul>
 <li>The administrator account has been created</li>
 <li>The organization's console URL is active</li>
+</ul>
+<p>If it stays <code>READY False</code> for more than about 15 minutes, read its conditions
+with <code>-o yaml</code>. Two common causes:</p>
+<ul>
+<li><code>spec.kcpRootProviderConfigRef.name</code> is missing or not <code>cloud</code>. The
+  organization's workspace objects are created in the <code>cloud</code> workspace, so
+  set it as in the example above and apply the claim again.</li>
+<li>A chart pull fails with <code>403</code>, for example for <code>authz-relay</code>. The platform
+  release refers to a chart outside the distribution registry; upgrade it, see
+  <a href="../../installation/scobasic.html#upgrading-the-platform">Upgrading the platform</a>.</li>
 </ul>
 <h2 id="step-3-hand-over-to-the-organization-administrator">Step 3: Hand Over to the Organization Administrator<a class="headerlink" href="#step-3-hand-over-to-the-organization-administrator" title="Permanent link">#</a></h2>
 <p>No credentials email is sent, so share the following with the new organization administrator over a secure channel:</p>

@@ -82,9 +82,7 @@
   {
     "version": "docs-troubleshoot-401-new-org",
     "title": "docs-troubleshoot-401-new-org",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "docs-screenshots-s05-project",
@@ -139,7 +137,9 @@
   {
     "version": "ci-screenshots-capture-retry",
     "title": "ci-screenshots-capture-retry",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "architecture",

@@ -385,17 +385,41 @@ install one certificate as files instead and leave out `clusterIssuer`. See
 [Private Certificate Authority](private-ca.md), which also covers the names the
 certificate needs and the DNS records you create.
 
-!!! note "Default router and API server certificates"
-    In this mode the platform also points the default router and the API server
-    at the certificates it issues. To keep the certificates they serve today,
-    contact Stakater before installing.
-
 !!! tip "Already installed without these blocks?"
     If `oc get clusterissuer letsencrypt` reports a missing `aws-dns-creds` secret,
     the claim is still on the default mode. Create your `ClusterIssuer`, add the
     `certificate` and `dns` blocks to `kubestack-config-claim.yaml`, and re-apply
     it with `oc apply -f kubestack-config-claim.yaml`. You do not need to run
     `ksp up` again, and you do not need AWS credentials.
+
+### Keeping the default router and API server certificates
+
+In this mode the platform also points the default router and the API server
+at the certificates it issues. To keep the certificates they serve today,
+create this override before you set `certificate.type: byo` (replace
+`<cluster-name>` with the cluster name in your claim):
+
+```yaml
+apiVersion: apiextensions.crossplane.io/v1beta1
+kind: EnvironmentConfig
+metadata:
+  name: <cluster-name>-ocp-cluster-certificates-scobasic-addon-env-override
+  labels:
+    kubestack.stakater.com/config-scope: addon
+    kubestack.stakater.com/addon-name: ocp-cluster-certificates-scobasic
+    kubestack.stakater.com/name: <cluster-name>
+data:
+  SCOBASIC-OCP-VALUES: |
+    ingess-apiserver-patch:
+      enabled: false
+```
+
+The key is spelled `ingess` in the chart; keep it that way. The platform
+still issues its own certificates, including `cluster-certificate` in
+`openshift-ingress` for its second router, but leaves the default
+IngressController and the API server alone. If you already keep a
+certificate of your own in a Secret named `cluster-certificate` in
+`openshift-ingress`, rename it first: the platform writes to that Secret.
 
 ## Choosing how the secret store unseals
 
@@ -445,7 +469,7 @@ not base64-encode the values yourself.
 !!! warning "Keep this file"
     Store `extra-secrets.yaml` somewhere safe after the installation. If one of
     these secrets is lost later, you rebuild it from the same values. See
-    [An install secret is missing](#an-install-secret-is-missing).
+    [An installation secret is missing](#an-installation-secret-is-missing).
 
 ## Installing
 
@@ -512,9 +536,9 @@ Current limitations:
 
 - `ksp up` recognises an existing Argo CD instance only in `openshift-gitops`.
   If your instance is in another namespace, contact us before installing.
-- The multi-tenancy component's namespace webhook trusts only the platform's
-  own Argo CD by default. If your Argo CD is refused when it creates
-  namespaces, contact us.
+- The multi-tenancy component's namespace webhook may refuse namespaces your
+  Argo CD creates. See
+  [Namespaces are refused without a tenant label](#namespaces-are-refused-without-a-tenant-label).
 
 ## Verifying
 
@@ -559,6 +583,23 @@ spec:
 Start with `excludedAddons: []` and let the installation tell you what your
 cluster cannot satisfy. Copying an exclusion list from elsewhere hides real
 problems.
+
+### Components that are unhealthy on every `scobasic` install
+
+These stay unhealthy on current releases. They are known issues on our side,
+not something wrong with your cluster, and nothing else depends on them. Leave
+them as they are; in particular, do not create the secrets they are missing.
+
+| Component | What you see | Why |
+|---|---|---|
+| `crossplane-observability`, `openbao-observability` | `OutOfSync` / `Missing`, sync error "one or more synchronization tasks are not valid" | They include a monitoring dashboard whose type `scobasic` does not install. Fixed in an upcoming release, after which their alerts and scrape configuration apply. |
+| `rh-openshift-gitops-instance` | `Degraded` on the ExternalSecrets `argocd-entra-oidc` and `keycloak-client-secret` | Sign-in through Stakater's own identity provider, which `scobasic` does not use. The Argo CD local admin login works. Fixed in an upcoming release. |
+| `rhbk-config` | `Degraded` on `<cluster-name>-cluster-sso-oidc`, `<cluster-name>-realm-creds` and their PushSecrets | The first is the same sign-in path as above and is fixed in an upcoming release; `realm-creds` is still open. |
+| `rh-group-sync-operator-config` | `Degraded` on the ExternalSecret `azure-group-sync` | Group sync from Microsoft Entra ID, which `scobasic` does not use. |
+| `crossplane-provider-aws-config` | `Degraded` on `stakater-aws-config-es` | Only when you provide no AWS credentials. |
+
+Because of these, `oc get kubestackplus` keeps reporting `READY False` with
+"Unready resources" naming them. Check that the names it lists are only these.
 
 ### Verify single sign-on explicitly
 
@@ -661,7 +702,98 @@ oc get pods -n stakater-openbao
 
 See [the unseal guide](openbao-unseal.md) if it has not come up.
 
-### An install secret is missing
+### Images or charts cannot be pulled
+
+Pods stay in `ImagePullBackOff`, Argo CD reports "not found" for a chart
+version, or pulls fail with `403` or `denied` although your registry token
+works. The release you installed refers to an image or chart that is not
+published to the distribution registry. Your token is fine; upgrade the
+platform to a release that carries the fix, see
+[Upgrading the platform](#upgrading-the-platform).
+
+### Crossplane providers report `metadata.ownerReferences: Invalid value`
+
+```bash
+oc get providers.pkg.crossplane.io
+```
+
+Several providers show `HEALTHY False` with
+`cannot apply provider package service account: ServiceAccount ... metadata.ownerReferences: Invalid value`.
+This is a bug in Crossplane v2.4.1, which `ksp-system` 0.0.49 to 0.0.52 ship.
+Upgrade to `ksp-system` 0.0.53 or later (Crossplane v2.4.3), see
+[Upgrading the platform](#upgrading-the-platform). The providers recover by
+themselves within about 20 minutes.
+
+### Namespaces are refused without a tenant label
+
+Argo CD (or another tool) fails to create a namespace with:
+
+```text
+admission webhook "vnamespace.kb.io" denied the request: '<user>' cannot 'create'
+namespace '<name>' without label 'stakater.com/tenant'
+```
+
+The multi-tenancy component's namespace webhook runs in its original mode,
+which refuses every namespace without a tenant label unless the caller is on
+its privileged lists. Its newer mode only manages namespaces that carry a
+tenant label: tenant members still cannot create other namespaces, and anyone
+else with the permission to create namespaces, such as your own Argo CD, can.
+
+Check that the override does not exist yet:
+
+```bash
+oc get environmentconfig <cluster-name>-multi-tenant-operator-addon-env-override
+```
+
+If it exists, contact us rather than replacing it. Otherwise, apply:
+
+```yaml
+apiVersion: apiextensions.crossplane.io/v1beta1
+kind: EnvironmentConfig
+metadata:
+  name: <cluster-name>-multi-tenant-operator-addon-env-override
+  labels:
+    kubestack.stakater.com/config-scope: addon
+    kubestack.stakater.com/addon-name: multi-tenant-operator
+    kubestack.stakater.com/name: <cluster-name>
+data:
+  SCOBASIC-OCP-VALUES: |
+    operators-installer:
+      operators:
+        - name: tenant-operator
+          config:
+            env:
+              - name: EXPERIMENTAL_NAMESPACE_WEBHOOK_V2
+                value: "true"
+```
+
+Within a few minutes the webhook restarts in the new mode. Check it, then sync
+the failing Application again:
+
+```bash
+oc get deploy tenant-operator-webhook -n multi-tenant-operator \
+  -o jsonpath='{.spec.template.spec.containers[0].env}'
+```
+
+`EXPERIMENTAL_NAMESPACE_WEBHOOK_V2` must show `true`. Do not add the
+`stakater.com/tenant` label to the namespaces instead: that turns them into
+tenant namespaces.
+
+### Unhealthy Applications: do not delete them to retry
+
+Deleting an Argo CD Application, or the `KubeStackConfig` or `KubeStackPlus`
+claim, to make the platform reinstall a component does not retry it. It starts
+deleting everything that component installed, including operators, and can
+leave Applications stuck half-deleted. To re-apply a claim, use
+`oc apply -f <claim-file>`, never `oc delete`. If an Application stays
+unhealthy, collect its status and contact us:
+
+```bash
+oc get applications.argoproj.io <name> -n openshift-gitops \
+  -o jsonpath='{range .status.resources[]}{.kind}/{.name} {.status} {.health.status} {.health.message}{"\n"}{end}'
+```
+
+### An installation secret is missing
 
 The platform keeps a copy of the registry credentials from your install secrets
 in its secret store, and reads them back from there. If both copies are lost,
@@ -818,6 +950,40 @@ The platform's mesh router already limits packet size on its side (to 1200 bytes
 default), which covers replies coming back through it. The setting above applies
 to the machine you are connecting from, and is still needed when the path between
 you and the mesh is the narrow part.
+
+## Upgrading the platform
+
+`ksp up` installs the platform but does not upgrade it: on an installed cluster
+it reports the cluster as complete and changes nothing. Upgrade the `ksp-system`
+release with Helm instead. You need Helm v3.14 or later, logged in to the
+registry with the same token you installed with.
+
+1. Check that you can read the version we gave you:
+
+    ```bash
+    helm show chart oci://ghcr.io/stakater/registry/charts/crossplane-package-ksp-system --version <version>
+    ```
+
+    If it answers `403` or `denied`, log in again with
+    `helm registry login ghcr.io -u <github-user> --password-stdin`.
+
+1. Upgrade:
+
+    ```bash
+    helm upgrade ksp-system oci://ghcr.io/stakater/registry/charts/crossplane-package-ksp-system \
+      --version <version> -n ksp-system --reset-then-reuse-values
+    ```
+
+    Use `--reset-then-reuse-values`, not `--reuse-values`: the latter keeps the
+    old package versions, so nothing changes.
+
+1. After a few minutes, check the platform packages moved and are healthy, and
+   let Argo CD settle:
+
+    ```bash
+    oc get configurations.pkg.crossplane.io | grep ksp-system
+    oc get applications.argoproj.io -A | grep -v -E 'Synced\s+Healthy'
+    ```
 
 ## What's Next?
 

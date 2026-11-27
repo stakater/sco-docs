@@ -469,7 +469,7 @@ not base64-encode the values yourself.
 !!! warning "Keep this file"
     Store `extra-secrets.yaml` somewhere safe after the installation. If one of
     these secrets is lost later, you rebuild it from the same values. See
-    [An install secret is missing](#an-install-secret-is-missing).
+    [An installation secret is missing](#an-installation-secret-is-missing).
 
 ## Installing
 
@@ -745,7 +745,7 @@ Check that the override does not exist yet:
 oc get environmentconfig <cluster-name>-multi-tenant-operator-addon-env-override
 ```
 
-If it exists, contact us rather than replacing it. Otherwise apply:
+If it exists, contact us rather than replacing it. Otherwise, apply:
 
 ```yaml
 apiVersion: apiextensions.crossplane.io/v1beta1
@@ -793,7 +793,7 @@ oc get applications.argoproj.io <name> -n openshift-gitops \
   -o jsonpath='{range .status.resources[]}{.kind}/{.name} {.status} {.health.status} {.health.message}{"\n"}{end}'
 ```
 
-### An install secret is missing
+### An installation secret is missing
 
 The platform keeps a copy of the registry credentials from your install secrets
 in its secret store, and reads them back from there. If both copies are lost,

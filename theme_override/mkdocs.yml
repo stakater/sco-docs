@@ -74,6 +74,7 @@ nav:
           - installation/openshift.md
           - installation/scobasic.md
           - installation/private-ca.md
+          - installation/branded-urls.md
           - installation/openbao-unseal.md
           - installation/configuration.md
       - Solutions and Marketplace:

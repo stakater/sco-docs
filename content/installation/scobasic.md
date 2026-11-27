@@ -755,17 +755,17 @@ above gives the commands to find those addresses and what to check afterward.
 The platform does not configure this for you, because what serves DNS to those
 machines is part of your environment rather than part of the cluster.
 
-### A new organisation's API returns 401
+### A new organization's API returns 401
 
-The organisation shows as ready, but requests to its API, such as the console
+The organization shows as ready, but requests to its API, such as the console
 fetching the API schema, fail with `401 Unauthorized`. A `401` means the sign-in
 token was rejected, not that the user lacks a role. A missing role returns
 `403 Forbidden`.
 
 The platform checks every token itself, from inside the cluster. For each
-organisation it fetches the identity provider's signing keys from the published
-sign-in address, `https://<sso-host-name>/realms/<organisation>`. If the cluster
-cannot reach that address, it can verify no token for that organisation, and
+organization it fetches the identity provider's signing keys from the published
+sign-in address, `https://<sso-host-name>/realms/<organization>`. If the cluster
+cannot reach that address, it can verify no token for that organization, and
 every request fails with `401`. The address works from your browser, so the
 failure is easy to miss.
 
@@ -774,7 +774,7 @@ short-lived pod and making the request from it:
 
 ```bash
 curl -s -o /dev/null -m 15 -w '%{http_code}\n' \
-  https://<sso-host-name>/realms/<organisation>/.well-known/openid-configuration
+  https://<sso-host-name>/realms/<organization>/.well-known/openid-configuration
 ```
 
 Anything other than `200` means the cluster cannot use that address. The usual

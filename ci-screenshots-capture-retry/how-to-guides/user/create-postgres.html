@@ -6650,9 +6650,9 @@ my-database   True     True    2m
 <li>
 <p>Read the credentials in the web UI or the CLI.</p>
 <p><strong>Web UI:</strong> open the address, choose method <strong>OIDC</strong>, enter your role in <strong>Role</strong>, and sign in. Then open <strong>Secrets engines</strong> → <code>stakater</code> → <code>projects</code> → <code>acme-my-project</code> → <code>databases</code> → <code>my-database</code> and reveal <code>password</code>.</p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/generated/vault-oidc-sign-in.png" data-desc-position="bottom"><img alt="The Vault sign-in form with method OIDC and a project role entered in Role" src="../../images/generated/vault-oidc-sign-in.png"></a></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="images/vault-oidc-sign-in.png" data-desc-position="bottom"><img alt="The Vault sign-in form with method OIDC and a project role entered in Role" src="images/vault-oidc-sign-in.png"></a></p>
 <p>The entry lists the keys with their values hidden until you reveal them:</p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../../images/generated/vault-database-credentials.png" data-desc-position="bottom"><img alt="A database entry in the Vault, under the databases folder of the project, showing its six keys" src="../../images/generated/vault-database-credentials.png"></a></p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="images/vault-database-credentials.png" data-desc-position="bottom"><img alt="A database entry in the Vault, under the databases folder of the project, showing its six keys" src="images/vault-database-credentials.png"></a></p>
 <p><strong>CLI:</strong></p>
 <div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">BAO_ADDR</span><span class="o">=</span>https://bao.acme.mesh.example.com
 bao<span class="w"> </span>login<span class="w"> </span>-method<span class="o">=</span>oidc<span class="w"> </span><span class="nv">role</span><span class="o">=</span>acme-my-project-rw

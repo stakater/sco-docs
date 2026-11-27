@@ -174,6 +174,8 @@ kubectl get openshiftcluster my-cluster -o jsonpath='{.status}'
 
 ### User created but cannot log in
 
+The user cannot sign in, or signs in but every request to the organisation's API returns `401 Unauthorized`.
+
 **Cause:** `enabled` or `emailVerified` not set to `true`.
 
 ```bash

@@ -65,12 +65,8 @@ the `viewport:` block of every flow so all captures come out the same size.
 | `postgres` | `create-postgres.md` | `postgres-create`, `postgres-create-advanced`, `postgres-list`, `postgres-detail` |
 | `vault` | `access-vault.md` | `vault-list`, `vault-detail` |
 | `windows-vm` | `provision-windows-virtual-machine.md` | `windows-vm-create`, `windows-vm-list`, `windows-vm-detail` |
-| none (taken by hand) | `create-postgres.md` | `vault-oidc-sign-in`, `vault-database-credentials` |
 
 `dashboard-org-stats`, `create-form-standard`, `cluster-list`, `cluster-detail` and `mesh-detail` are each referenced by two pages.
-
-The two `vault-*` images show the Vault's own web UI, which no flow opens. A capture run
-does not refresh them; retake them by hand when that UI changes.
 
 The `iam`, `mesh` and `clusters` flows cover how-to guides rather than console pages, so
 they carry a console section into a `kubectl`-first guide. They are still read-only: a
@@ -141,6 +137,14 @@ and its user menu, in `connect-to-openshift-cluster.md`. The cluster is private,
 console is reachable only over the organization mesh, and a CI runner is not on it.
 Those images are static files under `content/how-to-guides/user/images/`
 (`hosted-cluster-console.png`, `hosted-cluster-console-user-menu.png`).
+
+Two more static files there are taken by hand, for `create-postgres.md`:
+`vault-oidc-sign-in.png` and `vault-database-credentials.png`. They show the web UI of
+the Vault, which no flow opens. Retake them by hand when that UI changes.
+
+Keep hand-taken images out of `screenshots/captured/` and link them with a plain path,
+not a `{{ screenshot: ... }}` directive: a capture run empties `captured/` before it
+starts, so anything a flow does not write is deleted.
 
 Retake them from a device enrolled in the `CONSOLE_ORG` mesh with the flow in
 `screenshots/local/`, which `capture.sh` never runs. The container needs the host

@@ -755,6 +755,21 @@ above gives the commands to find those addresses and what to check afterward.
 The platform does not configure this for you, because what serves DNS to those
 machines is part of your environment rather than part of the cluster.
 
+### A new organization's API returns 401
+
+The organization shows as ready, but every request to its API fails with
+`401 Unauthorized`. That means the sign-in token was rejected, not that a role
+is missing, which would return `403 Forbidden`. The usual cause is that the
+cluster cannot reach the sign-in host name from inside, so it cannot fetch the
+keys it needs to verify tokens. See
+[Branded URLs: known pitfalls](branded-urls.md#known-pitfalls) for the cause, and
+[step 2](branded-urls.md#step-2-portal-login) of that page for the in-cluster
+check.
+
+If the check returns `200` and only one user gets the `401`, check that the
+user's email is verified. See
+[User created but cannot log in](../troubleshooting/common-issues.md#user-created-but-cannot-log-in).
+
 ### You joined the private network but nothing loads
 
 The mesh client reports that it is connected, the peer list looks healthy, and

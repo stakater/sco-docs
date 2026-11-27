@@ -22,7 +22,9 @@
   {
     "version": "renovate-main-node-24.x-lockfile",
     "title": "renovate-main-node-24.x-lockfile",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "renovate-main-node-24.x",
@@ -132,9 +134,7 @@
   {
     "version": "ci-screenshots-capture-retry",
     "title": "ci-screenshots-capture-retry",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "architecture",

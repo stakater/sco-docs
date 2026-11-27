@@ -176,6 +176,8 @@ kubectl get openshiftcluster my-cluster -o jsonpath='{.status}'
 
 The user cannot sign in, or signs in but every request to the organisation's API returns `401 Unauthorized`.
 
+If every user of the organisation gets the `401`, the cluster most likely cannot reach the sign-in host name. See [Branded URLs: known pitfalls](../installation/branded-urls.md#known-pitfalls).
+
 **Cause:** `enabled` or `emailVerified` not set to `true`.
 
 ```bash

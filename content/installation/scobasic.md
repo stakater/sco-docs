@@ -757,37 +757,17 @@ machines is part of your environment rather than part of the cluster.
 
 ### A new organization's API returns 401
 
-The organization shows as ready, but requests to its API, such as the console
-fetching the API schema, fail with `401 Unauthorized`. A `401` means the sign-in
-token was rejected, not that the user lacks a role. A missing role returns
-`403 Forbidden`.
+The organization shows as ready, but every request to its API fails with
+`401 Unauthorized`. That means the sign-in token was rejected, not that a role
+is missing, which would return `403 Forbidden`. The usual cause is that the
+cluster cannot reach the sign-in host name from inside, so it cannot fetch the
+keys it needs to verify tokens. See
+[Branded URLs: known pitfalls](branded-urls.md#known-pitfalls) for the cause, and
+[step 2](branded-urls.md#step-2-portal-login) of that page for the in-cluster
+check.
 
-The platform checks every token itself, from inside the cluster. For each
-organization it fetches the identity provider's signing keys from the published
-sign-in address, `https://<sso-host-name>/realms/<organization>`. If the cluster
-cannot reach that address, it can verify no token for that organization, and
-every request fails with `401`. The address works from your browser, so the
-failure is easy to miss.
-
-Test it from inside the cluster, not from your own machine, by starting a
-short-lived pod and making the request from it:
-
-```bash
-curl -s -o /dev/null -m 15 -w '%{http_code}\n' \
-  https://<sso-host-name>/realms/<organization>/.well-known/openid-configuration
-```
-
-Anything other than `200` means the cluster cannot use that address. The usual
-causes are a firewall, proxy or gateway in your network that blocks traffic from
-the cluster to the sign-in host name, or a DNS answer inside the cluster that
-points somewhere the cluster cannot route to. Allow the traffic, or resolve the
-name to an address the cluster can reach, as described in
-[If you will create hosted clusters](#if-you-will-create-hosted-clusters). Do
-not change the published address itself: it has to match the address in the
-tokens.
-
-If the request returns `200` and the `401` persists for one user only, check that
-the user's email is verified. See
+If the check returns `200` and only one user gets the `401`, check that the
+user's email is verified. See
 [User created but cannot log in](../troubleshooting/common-issues.md#user-created-but-cannot-log-in).
 
 ### You joined the private network but nothing loads

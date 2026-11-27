@@ -127,14 +127,14 @@
   {
     "version": "docs-branded-urls-sa9117",
     "title": "docs-branded-urls-sa9117",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "ci-screenshots-capture-retry",
     "title": "ci-screenshots-capture-retry",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "architecture",

@@ -95,13 +95,6 @@
     "aliases": []
   },
   {
-    "version": "docs-scobasic-troubleshooting",
-    "title": "docs-scobasic-troubleshooting",
-    "aliases": [
-      "latest"
-    ]
-  },
-  {
     "version": "docs-release-notes-and-admin-config",
     "title": "docs-release-notes-and-admin-config",
     "aliases": []

@@ -40,7 +40,7 @@ internal addresses today breaks.
    `auth.example.com`.
 1. **Public DNS records** for both, pointing at your public router's address. The
    platform creates them only when DNS is managed through AWS Route53: set
-   `branding.zoneId` to your hosted zone. Otherwise create two A records yourself.
+   `branding.zoneId` to your hosted zone. Otherwise, create two A records yourself.
 1. **Certificate.** There is no separate certificate to upload. The branded hostnames
    go onto the cluster's existing public router certificate (TLS Secret
    `cluster-certificate`). How depends on `KubeStackConfig.spec.parameters.certificate`:
@@ -86,9 +86,9 @@ spec:
   `100.64.0.0/10`, so administrators keep using the internal hostname.
 
 **Before you apply:** remove any override of your own that pins a fixed login-service
-`hostname`. Otherwise it keeps that fixed hostname and step 2 fails.
+`hostname`. Otherwise, it keeps that fixed hostname and step 2 fails.
 
-**Check afterwards:**
+**Check after the change:**
 
 1. Both hostnames resolve publicly, and the router certificate lists them.
 1. `https://auth.example.com/realms/<realm>/.well-known/openid-configuration` returns
@@ -126,7 +126,7 @@ logins will fail with 401 after the switch. Fix the network path or trust first.
 nothing breaks halfway. Portal users log in once more. The login service does not
 restart, and hosted-cluster logins do not change.
 
-**Check afterwards:**
+**Check after the change:**
 
 1. Log in to `https://portal.example.com`. The login page is on `auth.example.com`,
    and you land back on the portal with your projects loaded.
@@ -194,7 +194,7 @@ Go on only when every cluster returns **200**.
 - Each cluster's own OAuth hostname does not change: it is fixed when the cluster is
   created.
 
-**Check afterwards:**
+**Check after the change:**
 
 1. Each `HostedCluster` shows `ValidIDPConfiguration` and `Available` True.
 1. A real `oc login --web` to one public and one private cluster lands on
@@ -217,7 +217,7 @@ enrolled through single sign-on run `netbird up` once more, and mesh dashboard
 sessions end. Peers enrolled with a setup key keep working. The mesh components must
 resolve `auth.example.com` internally too, as in step 3.
 
-**Check afterwards:** a user who is logged in to the portal runs `netbird up`, gets no
+**Check after the change:** a user who is logged in to the portal runs `netbird up`, gets no
 password prompt, and connects.
 
 **Back out:** set `authHostMesh: false`. Not tested yet. Single sign-on users run

@@ -4161,6 +4161,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
+      <a href="branded-urls.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Branded URLs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="openbao-unseal.html" class="md-nav__link">
         
   
@@ -7644,31 +7672,16 @@ above gives the commands to find those addresses and what to check afterward.
 The platform does not configure this for you, because what serves DNS to those
 machines is part of your environment rather than part of the cluster.</p>
 <h3 id="a-new-organizations-api-returns-401">A new organization's API returns 401<a class="headerlink" href="#a-new-organizations-api-returns-401" title="Permanent link">#</a></h3>
-<p>The organization shows as ready, but requests to its API, such as the console
-fetching the API schema, fail with <code>401 Unauthorized</code>. A <code>401</code> means the sign-in
-token was rejected, not that the user lacks a role. A missing role returns
-<code>403 Forbidden</code>.</p>
-<p>The platform checks every token itself, from inside the cluster. For each
-organization it fetches the identity provider's signing keys from the published
-sign-in address, <code>https://&lt;sso-host-name&gt;/realms/&lt;organization&gt;</code>. If the cluster
-cannot reach that address, it can verify no token for that organization, and
-every request fails with <code>401</code>. The address works from your browser, so the
-failure is easy to miss.</p>
-<p>Test it from inside the cluster, not from your own machine, by starting a
-short-lived pod and making the request from it:</p>
-<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-s<span class="w"> </span>-o<span class="w"> </span>/dev/null<span class="w"> </span>-m<span class="w"> </span><span class="m">15</span><span class="w"> </span>-w<span class="w"> </span><span class="s1">'%{http_code}\n'</span><span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>https://&lt;sso-host-name&gt;/realms/&lt;organization&gt;/.well-known/openid-configuration
-</code></pre></div>
-<p>Anything other than <code>200</code> means the cluster cannot use that address. The usual
-causes are a firewall, proxy or gateway in your network that blocks traffic from
-the cluster to the sign-in host name, or a DNS answer inside the cluster that
-points somewhere the cluster cannot route to. Allow the traffic, or resolve the
-name to an address the cluster can reach, as described in
-<a href="#if-you-will-create-hosted-clusters">If you will create hosted clusters</a>. Do
-not change the published address itself: it has to match the address in the
-tokens.</p>
-<p>If the request returns <code>200</code> and the <code>401</code> persists for one user only, check that
-the user's email is verified. See
+<p>The organization shows as ready, but every request to its API fails with
+<code>401 Unauthorized</code>. That means the sign-in token was rejected, not that a role
+is missing, which would return <code>403 Forbidden</code>. The usual cause is that the
+cluster cannot reach the sign-in host name from inside, so it cannot fetch the
+keys it needs to verify tokens. See
+<a href="branded-urls.html#known-pitfalls">Branded URLs: known pitfalls</a> for the cause, and
+<a href="branded-urls.html#step-2-portal-login">step 2</a> of that page for the in-cluster
+check.</p>
+<p>If the check returns <code>200</code> and only one user gets the <code>401</code>, check that the
+user's email is verified. See
 <a href="../troubleshooting/common-issues.html#user-created-but-cannot-log-in">User created but cannot log in</a>.</p>
 <h3 id="you-joined-the-private-network-but-nothing-loads">You joined the private network but nothing loads<a class="headerlink" href="#you-joined-the-private-network-but-nothing-loads" title="Permanent link">#</a></h3>
 <p>The mesh client reports that it is connected, the peer list looks healthy, and

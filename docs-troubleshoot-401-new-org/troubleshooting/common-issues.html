@@ -3709,6 +3709,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
   
   
     <li class="md-nav__item">
+      <a href="../installation/branded-urls.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Branded URLs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../installation/openbao-unseal.html" class="md-nav__link">
         
   
@@ -6664,6 +6692,7 @@ kubectl<span class="w"> </span>describe<span class="w"> </span>openshiftcluster<
 <h2 id="iam-and-users">IAM and Users<a class="headerlink" href="#iam-and-users" title="Permanent link">#</a></h2>
 <h3 id="user-created-but-cannot-log-in">User created but cannot log in<a class="headerlink" href="#user-created-but-cannot-log-in" title="Permanent link">#</a></h3>
 <p>The user cannot sign in, or signs in but every request to the organisation's API returns <code>401 Unauthorized</code>.</p>
+<p>If every user of the organisation gets the <code>401</code>, the cluster most likely cannot reach the sign-in host name. See <a href="../installation/branded-urls.html#known-pitfalls">Branded URLs: known pitfalls</a>.</p>
 <p><strong>Cause:</strong> <code>enabled</code> or <code>emailVerified</code> not set to <code>true</code>.</p>
 <div class="highlight"><pre><span></span><code>kubectl<span class="w"> </span>get<span class="w"> </span>user<span class="w"> </span>alice<span class="w"> </span>-o<span class="w"> </span>yaml
 </code></pre></div>

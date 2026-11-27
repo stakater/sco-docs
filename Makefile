@@ -3,7 +3,7 @@
 # The capture script comes from the shared repo. The ref is pinned, so a change
 # there cannot change published screenshots without a commit here. makefiles/ is
 # downloaded, and gitignored.
-DOCS_SS_REF ?= v0.0.199
+DOCS_SS_REF ?= v0.0.226
 DOCS_SS_MK_URL ?= https://raw.githubusercontent.com/stakater/.github/$(DOCS_SS_REF)/.github/makefiles/docs-screenshots.mk
 DOCS_SS_MK := makefiles/docs-screenshots.mk
 

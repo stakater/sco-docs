@@ -4080,6 +4080,17 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
         
           <li class="md-nav__item">
+  <a href="#a-new-organizations-api-returns-401" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A new organization's API returns 401
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#you-joined-the-private-network-but-nothing-loads" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4130,6 +4141,34 @@ This documentation is for a pull request deployment and is unreleased, it is onl
     
   
     Private Certificate Authority
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="branded-urls.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Branded URLs
   
 
     
@@ -6798,6 +6837,17 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
         
           <li class="md-nav__item">
+  <a href="#a-new-organizations-api-returns-401" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A new organization's API returns 401
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#you-joined-the-private-network-but-nothing-loads" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -7621,6 +7671,18 @@ serve it. <a href="#if-you-will-create-hosted-clusters">If you will create hoste
 above gives the commands to find those addresses and what to check afterward.
 The platform does not configure this for you, because what serves DNS to those
 machines is part of your environment rather than part of the cluster.</p>
+<h3 id="a-new-organizations-api-returns-401">A new organization's API returns 401<a class="headerlink" href="#a-new-organizations-api-returns-401" title="Permanent link">#</a></h3>
+<p>The organization shows as ready, but every request to its API fails with
+<code>401 Unauthorized</code>. That means the sign-in token was rejected, not that a role
+is missing, which would return <code>403 Forbidden</code>. The usual cause is that the
+cluster cannot reach the sign-in host name from inside, so it cannot fetch the
+keys it needs to verify tokens. See
+<a href="branded-urls.html#known-pitfalls">Branded URLs: known pitfalls</a> for the cause, and
+<a href="branded-urls.html#step-2-portal-login">step 2</a> of that page for the in-cluster
+check.</p>
+<p>If the check returns <code>200</code> and only one user gets the <code>401</code>, check that the
+user's email is verified. See
+<a href="../troubleshooting/common-issues.html#user-created-but-cannot-log-in">User created but cannot log in</a>.</p>
 <h3 id="you-joined-the-private-network-but-nothing-loads">You joined the private network but nothing loads<a class="headerlink" href="#you-joined-the-private-network-but-nothing-loads" title="Permanent link">#</a></h3>
 <p>The mesh client reports that it is connected, the peer list looks healthy, and
 the routes for the cluster are listed against the peer that serves them — yet the

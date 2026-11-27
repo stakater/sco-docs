@@ -87,9 +87,7 @@
   {
     "version": "docs-screenshots-s02-s3-bucket",
     "title": "docs-screenshots-s02-s3-bucket",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "docs-screenshots-s01-linux-vm",
@@ -129,7 +127,9 @@
   {
     "version": "ci-screenshots-capture-retry",
     "title": "ci-screenshots-capture-retry",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "architecture",

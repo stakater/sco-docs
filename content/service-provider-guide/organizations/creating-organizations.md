@@ -9,6 +9,18 @@ Organizations are the top-level tenancy unit in SCO. Each organization gets a fu
 - The `organizations.infrastructure.stakater.com` API available on the hosting cluster
 - `kubectl` configured with platform administrator access to the hosting cluster
 - An admin email address for the initial organization administrator
+- The `kcp-sco-orgs` namespace, which holds the Organization claims. Some
+  releases do not create it. Check with `kubectl get namespace kcp-sco-orgs`,
+  and if it is missing, create it once as a cluster administrator:
+
+    ```bash
+    kubectl create namespace kcp-sco-orgs --dry-run=server
+    kubectl create namespace kcp-sco-orgs
+    ```
+
+    If the dry run is refused with a message about `stakater.com/tenant`, run it
+    as `kubeadmin` or a member of `system:cluster-admins`. Do not add the
+    `stakater.com/tenant` label: this is not a tenant namespace.
 
 ---
 
@@ -102,6 +114,16 @@ The organization is ready when `READY` is `True`. At this point:
 
 - The administrator account has been created
 - The organization's console URL is active
+
+If it stays `READY False` for more than about 15 minutes, read its conditions
+with `-o yaml`. Two common causes:
+
+- `spec.kcpRootProviderConfigRef.name` is missing or not `cloud`. The
+  organization's workspace objects are created in the `cloud` workspace, so
+  set it as in the example above and apply the claim again.
+- A chart pull fails with `403`, for example for `authz-relay`. The platform
+  release refers to a chart outside the distribution registry; upgrade it, see
+  [Upgrading the platform](../../installation/scobasic.md#upgrading-the-platform).
 
 ## Step 3: Hand Over to the Organization Administrator
 

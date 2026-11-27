@@ -127,6 +127,11 @@
     "aliases": []
   },
   {
+    "version": "ci-screenshots-capture-retry",
+    "title": "ci-screenshots-capture-retry",
+    "aliases": []
+  },
+  {
     "version": "architecture",
     "title": "architecture",
     "aliases": []

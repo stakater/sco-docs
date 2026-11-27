@@ -82,7 +82,9 @@
   {
     "version": "docs-troubleshoot-401-new-org",
     "title": "docs-troubleshoot-401-new-org",
-    "aliases": []
+    "aliases": [
+      "latest"
+    ]
   },
   {
     "version": "docs-screenshots-s05-project",
@@ -132,9 +134,7 @@
   {
     "version": "docs-branded-urls-sa9117",
     "title": "docs-branded-urls-sa9117",
-    "aliases": [
-      "latest"
-    ]
+    "aliases": []
   },
   {
     "version": "ci-screenshots-capture-retry",

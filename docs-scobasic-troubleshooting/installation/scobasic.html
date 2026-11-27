@@ -4130,10 +4130,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
         
           <li class="md-nav__item">
-  <a href="#an-install-secret-is-missing" class="md-nav__link">
+  <a href="#an-installation-secret-is-missing" class="md-nav__link">
     <span class="md-ellipsis">
       
-        An install secret is missing
+        An installation secret is missing
       
     </span>
   </a>
@@ -6970,10 +6970,10 @@ This documentation is for a pull request deployment and is unreleased, it is onl
 </li>
         
           <li class="md-nav__item">
-  <a href="#an-install-secret-is-missing" class="md-nav__link">
+  <a href="#an-installation-secret-is-missing" class="md-nav__link">
     <span class="md-ellipsis">
       
-        An install secret is missing
+        An installation secret is missing
       
     </span>
   </a>
@@ -7549,7 +7549,7 @@ not base64-encode the values yourself.</p>
 <p class="admonition-title">Keep this file</p>
 <p>Store <code>extra-secrets.yaml</code> somewhere safe after the installation. If one of
 these secrets is lost later, you rebuild it from the same values. See
-<a href="#an-install-secret-is-missing">An install secret is missing</a>.</p>
+<a href="#an-installation-secret-is-missing">An installation secret is missing</a>.</p>
 </div>
 <h2 id="installing">Installing<a class="headerlink" href="#installing" title="Permanent link">#</a></h2>
 <div class="highlight"><pre><span></span><code>ksp<span class="w"> </span>prerequisites<span class="w"> </span>--variant<span class="w"> </span>scobasic
@@ -7854,7 +7854,7 @@ else with the permission to create namespaces, such as your own Argo CD, can.</p
 <p>Check that the override does not exist yet:</p>
 <div class="highlight"><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>environmentconfig<span class="w"> </span>&lt;cluster-name&gt;-multi-tenant-operator-addon-env-override
 </code></pre></div>
-<p>If it exists, contact us rather than replacing it. Otherwise apply:</p>
+<p>If it exists, contact us rather than replacing it. Otherwise, apply:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">apiextensions.crossplane.io/v1beta1</span>
 <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">EnvironmentConfig</span>
 <span class="nt">metadata</span><span class="p">:</span>
@@ -7891,7 +7891,7 @@ unhealthy, collect its status and contact us:</p>
 <div class="highlight"><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>applications.argoproj.io<span class="w"> </span>&lt;name&gt;<span class="w"> </span>-n<span class="w"> </span>openshift-gitops<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">'{range .status.resources[]}{.kind}/{.name} {.status} {.health.status} {.health.message}{"\n"}{end}'</span>
 </code></pre></div>
-<h3 id="an-install-secret-is-missing">An install secret is missing<a class="headerlink" href="#an-install-secret-is-missing" title="Permanent link">#</a></h3>
+<h3 id="an-installation-secret-is-missing">An installation secret is missing<a class="headerlink" href="#an-installation-secret-is-missing" title="Permanent link">#</a></h3>
 <p>The platform keeps a copy of the registry credentials from your install secrets
 in its secret store, and reads them back from there. If both copies are lost,
 for example after the secret store has been reset, Crossplane's Helm provider

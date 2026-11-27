@@ -6309,7 +6309,7 @@ internal addresses today breaks.</p>
    <code>auth.example.com</code>.</li>
 <li><strong>Public DNS records</strong> for both, pointing at your public router's address. The
    platform creates them only when DNS is managed through AWS Route53: set
-   <code>branding.zoneId</code> to your hosted zone. Otherwise create two A records yourself.</li>
+   <code>branding.zoneId</code> to your hosted zone. Otherwise, create two A records yourself.</li>
 <li><strong>Certificate.</strong> There is no separate certificate to upload. The branded hostnames
    go onto the cluster's existing public router certificate (TLS Secret
    <code>cluster-certificate</code>). How depends on <code>KubeStackConfig.spec.parameters.certificate</code>:<ul>
@@ -6353,8 +6353,8 @@ internal addresses today breaks.</p>
   <code>100.64.0.0/10</code>, so administrators keep using the internal hostname.</li>
 </ul>
 <p><strong>Before you apply:</strong> remove any override of your own that pins a fixed login-service
-<code>hostname</code>. Otherwise it keeps that fixed hostname and step 2 fails.</p>
-<p><strong>Check afterwards:</strong></p>
+<code>hostname</code>. Otherwise, it keeps that fixed hostname and step 2 fails.</p>
+<p><strong>Check after the change:</strong></p>
 <ol>
 <li>Both hostnames resolve publicly, and the router certificate lists them.</li>
 <li><code>https://auth.example.com/realms/&lt;realm&gt;/.well-known/openid-configuration</code> returns
@@ -6382,7 +6382,7 @@ logins will fail with 401 after the switch. Fix the network path or trust first.
 <code>https://auth.example.com</code>. The platform trusts both issuers during the move, so
 nothing breaks halfway. Portal users log in once more. The login service does not
 restart, and hosted-cluster logins do not change.</p>
-<p><strong>Check afterwards:</strong></p>
+<p><strong>Check after the change:</strong></p>
 <ol>
 <li>Log in to <code>https://portal.example.com</code>. The login page is on <code>auth.example.com</code>,
    and you land back on the portal with your projects loaded.</li>
@@ -6442,7 +6442,7 @@ its hosted control plane namespace on the hosting cluster:</p>
 <li>Each cluster's own OAuth hostname does not change: it is fixed when the cluster is
   created.</li>
 </ul>
-<p><strong>Check afterwards:</strong></p>
+<p><strong>Check after the change:</strong></p>
 <ol>
 <li>Each <code>HostedCluster</code> shows <code>ValidIDPConfiguration</code> and <code>Available</code> True.</li>
 <li>A real <code>oc login --web</code> to one public and one private cluster lands on
@@ -6459,7 +6459,7 @@ hostname, so users log in on the same page as the portal. Tell your users first.
 enrolled through single sign-on run <code>netbird up</code> once more, and mesh dashboard
 sessions end. Peers enrolled with a setup key keep working. The mesh components must
 resolve <code>auth.example.com</code> internally too, as in step 3.</p>
-<p><strong>Check afterwards:</strong> a user who is logged in to the portal runs <code>netbird up</code>, gets no
+<p><strong>Check after the change:</strong> a user who is logged in to the portal runs <code>netbird up</code>, gets no
 password prompt, and connects.</p>
 <p><strong>Back out:</strong> set <code>authHostMesh: false</code>. Not tested yet. Single sign-on users run
 <code>netbird up</code> once more.</p>
